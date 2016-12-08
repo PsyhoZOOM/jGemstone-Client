@@ -16,6 +16,9 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Main extends Application {
+    public static final Logger LOGGER = LogManager.getLogger();
+    public static ResourceBundle bundle;
+    public static Boolean LoginSuccess = false;
     Scene scene;
     Parent rootMainWindow;
     Client client;
@@ -23,19 +26,18 @@ public class Main extends Application {
     messageS msg = new messageS();
     private Locale locale;
     private String locale_sr;
-    public static ResourceBundle bundle;
-    public static Boolean LoginSuccess = false;
     private String login;
-    public static final Logger LOGGER = LogManager.getLogger();
 
 
-    //// TODO: 9/14/16  1. Pregled zaduzenja + servisi koji su aktivni
-    //// TODO: 9/14/16  2. UPLATE
     //// TODO: 9/14/16  3. UGOVORI ZA KORISNIK
     //// TODO: 9/14/16  4. Stampanje ugovora
     //// TODO: 9/14/16  5. Dozvole operatera
     //// TODO: 9/14/16  6. Stampa racuna
 
+    public static void main(String[] args) {
+        launch(args);
+
+    }
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
@@ -53,7 +55,7 @@ public class Main extends Application {
         //setup network client
         //client.setup_client();
         //setup windows controllers
-        rootMainWindow = (Parent) main_scr.load();
+        rootMainWindow = main_scr.load();
 
         scene = new Scene(rootMainWindow);
         //scene.getStylesheets().add("/JGemstone/resources/css/Main.css");
@@ -63,7 +65,7 @@ public class Main extends Application {
         primaryStage.show();
         primaryStage.setMaximized(true);
 
-        mainCtrl = (MainWindowController) main_scr.getController();
+        mainCtrl = main_scr.getController();
 
 
 
@@ -89,12 +91,6 @@ public class Main extends Application {
         }
         return mess.getMessage();
 
-
-    }
-
-
-    public static void main(String[] args) {
-        launch(args);
 
     }
 
