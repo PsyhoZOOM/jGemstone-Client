@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="158.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JGemstone.interfaces.NovaFakturaController">
+   <children>
+      <BorderPane layoutX="157.0" layoutY="46.0" prefHeight="292.0" prefWidth="784.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER" HBox.Hgrow="ALWAYS">
+              <items>
+                  <JFXButton fx:id="bClose" text="Zatvori">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="TIMES_CIRCLE" />
+                     </graphic></JFXButton>
+                  <Pane HBox.hgrow="ALWAYS" />
+                  <JFXButton fx:id="bAddFaktura" onAction="#snimiFakturu" text="Dodaj">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="SAVE" />
+                     </graphic></JFXButton>
+              </items>
+            </ToolBar>
+         </top>
+         <center>
+            <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXTextField fx:id="NazivMesec" labelFloat="true" promptText="Naziv i mesec" />
+                  <JFXTextField fx:id="jedMere" labelFloat="true" promptText="Jed.Mere" />
+                  <JFXTextField fx:id="kolicina" labelFloat="true" promptText="Količina" />
+                  <JFXTextField fx:id="jedinacnaCena" labelFloat="true" promptText="Jedinačna cena" />
+                  <JFXTextField fx:id="stopaPDV" labelFloat="true" promptText="Stopa PDV" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
