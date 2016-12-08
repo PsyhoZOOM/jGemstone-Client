@@ -495,7 +495,7 @@ public class EditKorisnikController implements Initializable {
         jObj.put("textUgovora", ugovorEditController.htmlUgovor.getHtmlText());
         jObj.put("odDate", diOd.getValue().toString());
         jObj.put("doDate", tiDo.getValue().toString());
-        jObj.put("userName", user.getUsername());
+        jObj.put("userID", userID);
         jObj.put("brUgovora", tBrUg.getText());
         jObj.put("komentar", tUgKomentar.getText());
 
@@ -547,7 +547,7 @@ public class EditKorisnikController implements Initializable {
         //UGOVORI USER
         jObj = new JSONObject();
         jObj.put("action", "get_ugovori_user");
-        jObj.put("userName", user.getUsername());
+        jObj.put("userID", userID);
         jObj = client.send_object(jObj);
 
         ugovori_user_typesArrayList = new ArrayList();
@@ -614,7 +614,7 @@ public class EditKorisnikController implements Initializable {
         jObj.put("pib", tPIB.getText());
         jObj.put("maticniBrFirme",tMaticniBroj.getText());
         jObj.put("brTekuciRacun", tTekuciRacun.getText());
-        jObj.put("userId", user.getId());
+        jObj.put("userID", userID);
         jObj.put("brojFakture", tBrojFakture.getText());
 
         jObj = client.send_object(jObj);
