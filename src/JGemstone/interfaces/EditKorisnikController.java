@@ -398,7 +398,7 @@ public class EditKorisnikController implements Initializable {
         jObj = new JSONObject();
         jObj.put("action", "delete_service_user");
         jObj.put("id", id);
-        jObj.put("userName", user.getUsername());
+        jObj.put("userID", userID);
 
         client.send_object(jObj);
         show_services();
@@ -409,7 +409,7 @@ public class EditKorisnikController implements Initializable {
     public void UpdateUser(ActionEvent actionEvent) {
         jObj = new JSONObject();
         jObj.put("action", "update_user");
-        jObj.put("userName", user.getUsername());
+        jObj.put("userID", userID);
         jObj.put("fullName", tFullName.getText());
         jObj.put("datumRodjenja", tdDatumRodjenja.getValue().format(simpleDateFormatter));
         jObj.put("adresa", tAdresa.getText());
