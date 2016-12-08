@@ -472,10 +472,6 @@ public class EditKorisnikController implements Initializable {
 
 
 
-        LOGGER.info(String.format("BR: %s, NAZIV: %s, NAZIV_ID: %d, DatumOd: %s, DatumDo: %s",
-                tBrUg.getText(), cbNaziv.getSelectionModel().getSelectedItem().getNaziv(),
-                cbNaziv.getSelectionModel().getSelectedItem().getId(), diOd.getValue().toString(),
-                tiDo.getValue().toString()));
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse("2017-01-01",formater);
         tiDo.setValue(date);
