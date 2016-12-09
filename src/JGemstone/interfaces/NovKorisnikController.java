@@ -3,19 +3,23 @@ package JGemstone.interfaces;
 import JGemstone.classes.Client;
 import JGemstone.classes.Users;
 import JGemstone.classes.messageS;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXSnackbar;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 /**
@@ -26,7 +30,7 @@ public class NovKorisnikController implements Initializable {
     public GridPane gridPane;
     public TextField tUserName;
     public TextField tFullName;
-    public TextField tDatumRodjenja;
+    public JFXDatePicker tDatumRodjenja;
     public TextField tPostBr;
     public TextField tMesto;
     public TextField tBrLk;
@@ -37,12 +41,16 @@ public class NovKorisnikController implements Initializable {
     public TextField tMobilni;
     public TextArea tKomentar;
     public TextField tBroj;
+    public JFXSnackbar snackMessage;
+    public HBox hboxTop;
+    public Pane paneTop;
 
     private Stage stage;
     private Client client;
     public Users user;
     private messageS mess;
     private Alert alert;
+    public boolean user_saved;
 
 
 
@@ -51,6 +59,7 @@ public class NovKorisnikController implements Initializable {
 
     //JSON
     JSONObject jObj;
+    DateTimeFormatter dateTimeFormatterRodjen  = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
 
     @Override
@@ -72,19 +81,22 @@ public class NovKorisnikController implements Initializable {
                 }
             }
         });
+        snackMessage.registerSnackbarContainer(gridPane);
+
     }
 
     public void setClient(Client client) {
         this.client = client;
     }
 
-    public void bSaveUser(ActionEvent actionEvent) throws IOException {
+    public void bSaveUser(ActionEvent actionEvent)  {
+
         jObj = new JSONObject();
         jObj.put("action", "new_user");
 
         jObj.put("userName", tUserName.getText());
         jObj.put("fullName", tFullName.getText());
-        jObj.put("datumRodjenja", tDatumRodjenja.getText());
+        jObj.put("datumRodjenja", tDatumRodjenja.getValue().format(dateTimeFormatterRodjen));
         jObj.put("postBr", tPostBr.getText());
         jObj.put("mesto", tMesto.getText());
         jObj.put("brLk", tBrLk.getText());
@@ -100,26 +112,24 @@ public class NovKorisnikController implements Initializable {
 
         jObj = client.send_object(jObj);
 
-        if (jObj.get("message").equals("user_exist") || jObj.getString("message").equals("user_no_exist")) {
+        if (jObj.get("Message").equals("user_exist") || jObj.getString("Message").equals("user_no_exist")) {
 
             alert = new Alert(Alert.AlertType.WARNING, "Korisnik postoji", ButtonType.OK);
             alert.setTitle("Upozorenje");
             alert.setHeaderText("GREŠKA!");
             alert.initOwner(stage);
             alert.showAndWait();
-        }
-        if (jObj.get("message").equals("user_saved")) {
-            alert = new Alert(Alert.AlertType.INFORMATION, "Korisnik snimljen", ButtonType.OK);
-            alert.setTitle("Informacija");
-            alert.setHeaderText("Novi korisnik je snimljen!");
-            alert.initOwner(stage);
-            alert.showAndWait();
+            user_saved = false;
+            snackMessage.show("Korisnik postoji!", 10000);
+        }else if (jObj.get("Message").equals("user_saved")){
+            snackMessage.show("Korisnik snimljen", 10000);
+            user_saved = true;
+            Stage  stage = (Stage) bClose.getScene().getWindow();
+            stage.close();
+        }else{
+            snackMessage.show("Greska!", 10000);
         }
 
-        jObj = client.send_object(null);
-        user = new Users();
-        user.setId(jObj.getInt("id"));
-        user.setUsername(jObj.getString("userName"));
 
     }
 }

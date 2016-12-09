@@ -46,6 +46,8 @@ public class KorisniciController implements Initializable {
     public JFXTextField tUserSearch;
     public JFXButton bUplate;
     public JFXButton bFakture;
+    public MenuItem cmIzmeni;
+    public MenuItem cmIzbrisi;
 
 
     @FXML
@@ -77,7 +79,7 @@ public class KorisniciController implements Initializable {
         tUserSearch.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if(event.getCode().equals(KeyCode.ENTER)){
+                if (event.getCode().equals(KeyCode.ENTER)) {
                     show_table(tUserSearch.getText());
                 }
             }
@@ -99,7 +101,7 @@ public class KorisniciController implements Initializable {
         show_table(username);
     }
 
-    private void show_table(String username){
+    private void show_table(String username) {
         ObservableList<Users> data = FXCollections.observableArrayList(get_user_table_list(username));
         tUsers.setItems(data);
     }
@@ -114,38 +116,38 @@ public class KorisniciController implements Initializable {
         jObj = client.send_object(jObj);
         users = new ArrayList<>();
 
-        for (int i=0; i<jObj.length() ;i++){
+        for (int i = 0; i < jObj.length(); i++) {
             jUser = (JSONObject) jObj.get(String.valueOf(i));
             user = new Users();
             user.setId(jUser.getInt("id"));
             user.setBr(i);
-            if(jUser.has("ime"))
+            if (jUser.has("ime"))
                 user.setIme(jUser.getString("ime"));
-            if(jUser.has("username"))
+            if (jUser.has("username"))
                 user.setUsername(jUser.getString("username"));
-            if(jUser.has("mesto"))
+            if (jUser.has("mesto"))
                 user.setMesto(jUser.getString("mesto"));
-            if(jUser.has("adresa"))
+            if (jUser.has("adresa"))
                 user.setAdresa(jUser.getString("adresa"));
-            if(jUser.has("adresaRacuna"))
+            if (jUser.has("adresaRacuna"))
                 user.setAdresa_za_naplatu(jUser.getString("adresaRacuna"));
-            if(jUser.has("adresaKoriscenja"))
+            if (jUser.has("adresaKoriscenja"))
                 user.setAdresa_koriscenja(jUser.getString("adresaKoriscenja"));
-            if(jUser.has("brLk"))
+            if (jUser.has("brLk"))
                 user.setBr_lk(jUser.getString("brLk"));
-            if(jUser.has("datumRodjenja"))
+            if (jUser.has("datumRodjenja"))
                 user.setDatum_rodjenja(jUser.getString("datumRodjenja"));
-            if(jUser.has("telFixni"))
+            if (jUser.has("telFixni"))
                 user.setFiksni(jUser.getString("telFixni"));
-            if(jUser.has("telMobilni"))
+            if (jUser.has("telMobilni"))
                 user.setMobilni(jUser.getString("telMobilni"));
-            if(jUser.has("JMBG"))
+            if (jUser.has("JMBG"))
                 user.setJMBG(jUser.getString("JMBG"));
-            if(jUser.has("ostalo"))
+            if (jUser.has("ostalo"))
                 user.setOstalo(jUser.getString("ostalo"));
-            if(jUser.has("kometar"))
+            if (jUser.has("kometar"))
                 user.setKomentar(jUser.getString("komentar"));
-            if(jUser.has("postBr"))
+            if (jUser.has("postBr"))
                 user.setPostanski_broj(jUser.getString("postBr"));
             users.add(user);
 
@@ -180,7 +182,7 @@ public class KorisniciController implements Initializable {
                 //do stuff
             }
             return;
-        }else{
+        } else {
             ButtonType bYES = new ButtonType("Da", ButtonBar.ButtonData.YES);
             ButtonType bNO = new ButtonType("NE", ButtonBar.ButtonData.NO);
 
@@ -201,13 +203,12 @@ public class KorisniciController implements Initializable {
 
         jObj = new JSONObject();
         jObj.put("action", "delete_user");
-        jObj.put("userId",user.getId());
-        jObj.put("userName",user.getUsername());
+        jObj.put("userId", user.getId());
+        jObj.put("userName", user.getUsername());
 
         jObj = client.send_object(jObj);
         LOGGER.info(jObj.get("message"));
         show_table("");
-
 
 
     }
@@ -227,7 +228,7 @@ public class KorisniciController implements Initializable {
             return;
         }
         Users user = (Users) tUsers.getSelectionModel().getSelectedItem();
-        int userId   = ((Users) tUsers.getSelectionModel().getSelectedItem()).getId();
+        int userId = ((Users) tUsers.getSelectionModel().getSelectedItem()).getId();
         EditUser(userId);
 
     }
@@ -276,10 +277,13 @@ public class KorisniciController implements Initializable {
         });
 
         novKorisnik.getStage().showAndWait();
-       show_table("");
+        show_table("");
+        if (novKorisnikController.user_saved) {
+            tUsers.getSelectionModel().selectLast();
+            bEditUser(null);
+        }
 
     }
-
 
 
     public void showUplate(ActionEvent actionEvent) {
@@ -297,7 +301,7 @@ public class KorisniciController implements Initializable {
         Users user = (Users) tUsers.getSelectionModel().getSelectedItem();
 
         resoruceFXML = "/JGemstone/resources/fxml/KorisnikUplate.fxml";
-        final NewInterface uplateKorisnik = new NewInterface(800,600, resoruceFXML, "Uplate", resources);
+        final NewInterface uplateKorisnik = new NewInterface(800, 600, resoruceFXML, "Uplate", resources);
         KorisnikUplateController uplateKorisnikController = uplateKorisnik.getLoader().getController();
         uplateKorisnikController.setClient(client);
         uplateKorisnikController.resource = resources;
@@ -318,12 +322,11 @@ public class KorisniciController implements Initializable {
         uplateKorisnik.getStage().showAndWait();
 
 
-
     }
 
 
     public void showFakture(ActionEvent actionEvent) {
-        if(tUsers.getSelectionModel().getSelectedIndex() == -1){
+        if (tUsers.getSelectionModel().getSelectedIndex() == -1) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Nije izabran ni jedan korisnik za fakture", OK);
             alert.setTitle("Upozorenje");
             alert.setHeaderText("GREŠKA!");
@@ -334,9 +337,9 @@ public class KorisniciController implements Initializable {
         Users user = (Users) tUsers.getSelectionModel().getSelectedItem();
 
         resoruceFXML = "/JGemstone/resources/fxml/Fakture.fxml";
-        NewInterface faktureInterface  = new NewInterface(800, 600, resoruceFXML, "Fakture", resources);
+        NewInterface faktureInterface = new NewInterface(800, 600, resoruceFXML, "Fakture", resources);
         FaktureController faktureController = faktureInterface.getLoader().getController();
-        faktureController.client  = client;
+        faktureController.client = client;
         faktureController.userData = user;
         faktureController.resource = resources;
         faktureController.set_table();

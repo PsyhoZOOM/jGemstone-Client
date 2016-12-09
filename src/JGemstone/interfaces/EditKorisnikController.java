@@ -409,6 +409,7 @@ public class EditKorisnikController implements Initializable {
     public void UpdateUser(ActionEvent actionEvent) {
         jObj = new JSONObject();
         jObj.put("action", "update_user");
+        jObj.put("userName", tUserName.getText());
         jObj.put("userID", userID);
         jObj.put("fullName", tFullName.getText());
         jObj.put("datumRodjenja", tdDatumRodjenja.getValue().format(simpleDateFormatter));

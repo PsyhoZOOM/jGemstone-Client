@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -25,8 +26,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65"
-            fx:controller="JGemstone.interfaces.EditKorisnikController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JGemstone.interfaces.EditKorisnikController">
    <children>
       <ToolBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
@@ -197,70 +197,59 @@
                               <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
                           <rowConstraints>
-                              <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="20.0" valignment="BOTTOM"
-                                              vgrow="NEVER"/>
+                              <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" valignment="BOTTOM" vgrow="NEVER" />
                               <RowConstraints valignment="TOP" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                               <VBox GridPane.rowIndex="1">
+                               <VBox spacing="20.0" GridPane.rowIndex="1">
                                    <GridPane.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                    </GridPane.margin>
                                  <children>
-                                     <JFXListView fx:id="lAvServices">
-                                         <padding>
-                                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                                         </padding>
-                                     </JFXListView>
-                                     <ScrollPane VBox.vgrow="ALWAYS">
+                                     <JFXListView fx:id="lAvServices" VBox.vgrow="ALWAYS" />
+                                     <ScrollPane maxHeight="200.0" minHeight="200.0" prefHeight="200.0" VBox.vgrow="NEVER">
                                          <content>
-                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Opis Servisa"
-                                                   wrappingWidth="326.41455078125"/>
+                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Opis Servisa" wrappingWidth="326.41455078125" />
                                          </content>
                                          <padding>
-                                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                          </padding>
                                      </ScrollPane>
                                  </children>
                                </VBox>
-                               <VBox alignment="TOP_CENTER" spacing="10.0" stylesheets="@../css/Main.css"
-                                     GridPane.columnIndex="1" GridPane.rowIndex="1">
+                               <VBox alignment="TOP_CENTER" spacing="10.0" stylesheets="@../css/Main.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                    <children>
                                     <Button fx:id="bAddService" alignment="CENTER" mnemonicParsing="false" onAction="#addService" text="&gt;&gt;" />
                                     <Button fx:id="bRemoveService" mnemonicParsing="false" onAction="#removeService" text="&lt;&lt;" />
                                  </children>
                                  <padding>
-                                     <Insets bottom="5.0" left="5.0" right="5.0" top="30.0"/>
+                                     <Insets bottom="5.0" left="5.0" right="5.0" top="30.0" />
                                  </padding>
                               </VBox>
-                               <VBox GridPane.columnIndex="2" GridPane.rowIndex="1">
+                               <VBox spacing="20.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                    <GridPane.margin>
-                                       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                    </GridPane.margin>
                                    <children>
-                                       <JFXListView fx:id="lActiveServices" verticalGap="3.0">
-                                           <padding>
-                                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                                           </padding>
-                                       </JFXListView>
-                                       <ScrollPane VBox.vgrow="ALWAYS">
+                                       <JFXListView fx:id="lActiveServices" verticalGap="3.0" VBox.vgrow="ALWAYS" />
+                                       <ScrollPane maxHeight="200.0" minHeight="200.0" prefHeight="200.0" VBox.vgrow="NEVER">
                                            <content>
-                                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Opis Servisa"/>
+                                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Opis Servisa" />
                                            </content>
                                            <padding>
-                                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                            </padding>
                                        </ScrollPane>
                                    </children>
                                </VBox>
                                <Label text="DOSTUPNI SERVISI">
                                    <font>
-                                       <Font name="System Bold" size="13.0"/>
+                                       <Font name="System Bold" size="13.0" />
                                    </font>
                                </Label>
                                <Label text="AKTIVNI SERVISI" GridPane.columnIndex="2">
                                    <font>
-                                       <Font name="System Bold" size="13.0"/>
+                                       <Font name="System Bold" size="13.0" />
                                    </font>
                                </Label>
                            </children>
@@ -271,7 +260,18 @@
             </Tab>
             <Tab fx:id="Oprema" text="Oprema">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox fillWidth="false" layoutX="14.0" layoutY="14.0" prefHeight="540.0" prefWidth="836.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <JFXTextField labelFloat="true" promptText="Naziv" />
+                              <JFXTextField labelFloat="true" promptText="Model" />
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="20.0" />
+                           </padding>
+                        </VBox>
+                     </children></AnchorPane>
               </content>
             </Tab>
             <Tab text="Ugovori">
@@ -318,7 +318,7 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                           </TableView>
-                                          <Button fx:id="bPregledUgovora" mnemonicParsing="false" onAction="#pregledUgovora" text="Pregled" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                                          <Button fx:id="bPregledUgovora" mnemonicParsing="false" onAction="#pregledUgovora" text="Prikaži" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                                              <GridPane.margin>
                                                 <Insets right="5.0" />
                                              </GridPane.margin>
