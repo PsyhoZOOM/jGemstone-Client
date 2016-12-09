@@ -13,3 +13,5 @@ org.apache.pdfbox:2.0.0
 org.json:json:20160810
 
 org.xerial:sqlite-jdbc:3.8.11.2
+
+org.controlsfx:controlsfx-samples:8.40.12
