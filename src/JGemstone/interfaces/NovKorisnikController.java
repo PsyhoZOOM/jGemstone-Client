@@ -8,14 +8,17 @@ import com.jfoenix.controls.JFXSnackbar;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.controlsfx.control.Notifications;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -114,20 +117,32 @@ public class NovKorisnikController implements Initializable {
 
         if (jObj.get("Message").equals("user_exist") || jObj.getString("Message").equals("user_no_exist")) {
 
-            alert = new Alert(Alert.AlertType.WARNING, "Korisnik postoji", ButtonType.OK);
-            alert.setTitle("Upozorenje");
-            alert.setHeaderText("GREŠKA!");
-            alert.initOwner(stage);
-            alert.showAndWait();
             user_saved = false;
             snackMessage.show("Korisnik postoji!", 10000);
+            Notifications.create()
+                    .title("Greška")
+                    .text("Korisnik postoji!")
+                    .hideAfter(Duration.seconds(3.0))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .showError();
         }else if (jObj.get("Message").equals("user_saved")){
-            snackMessage.show("Korisnik snimljen", 10000);
+            Notifications.create()
+                    .title("Informacija")
+                    .text("Korisnik je snimljen")
+                    .hideAfter(Duration.seconds(3.0))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .showInformation();
+
             user_saved = true;
             Stage  stage = (Stage) bClose.getScene().getWindow();
             stage.close();
         }else{
-            snackMessage.show("Greska!", 10000);
+            Notifications.create()
+                    .title("Greška")
+                    .text("Nepoznata greška")
+                    .hideAfter(Duration.seconds(3.0))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .showError();
         }
 
 
