@@ -5,11 +5,15 @@ import JGemstone.classes.Users;
 import JGemstone.classes.messageS;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXSnackbar;
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -39,7 +43,7 @@ public class NovKorisnikController implements Initializable {
     public TextField tBrLk;
     public TextField tJMBG;
     public TextField tAdresaRacuna;
-    public TextField tAdresa;
+    public JFXTextField tAdresa;
     public TextField tFiksni;
     public TextField tMobilni;
     public TextArea tKomentar;
@@ -47,23 +51,18 @@ public class NovKorisnikController implements Initializable {
     public JFXSnackbar snackMessage;
     public HBox hboxTop;
     public Pane paneTop;
-
-    private Stage stage;
-    private Client client;
+    public JFXTextField tAdresaKoriscenja;
     public Users user;
-    private messageS mess;
-    private Alert alert;
     public boolean user_saved;
-
-
-
-
+    public String userName;
     Logger LOGGER = LogManager.getLogger("NEW_USER");
-
     //JSON
     JSONObject jObj;
     DateTimeFormatter dateTimeFormatterRodjen  = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
+    private Stage stage;
+    private Client client;
+    private messageS mess;
+    private Alert alert;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -106,10 +105,12 @@ public class NovKorisnikController implements Initializable {
         jObj.put("JMBG", tJMBG.getText());
         jObj.put("adresaRacuna", tAdresaRacuna.getText());
         jObj.put("adresa", tAdresa.getText());
+        jObj.put("adresaKoriscenja", tAdresaKoriscenja.getText());
         jObj.put("komentar", tKomentar.getText());
         jObj.put("telFiksni", tFiksni.getText());
         jObj.put("telMobilni", tMobilni.getText());
         jObj.put("jbroj",tBroj.getText());
+        jObj.put("komentar", tKomentar.getText());
 
 
 
@@ -134,13 +135,14 @@ public class NovKorisnikController implements Initializable {
                     .showInformation();
 
             user_saved = true;
+            userName = tUserName.getText();
             Stage  stage = (Stage) bClose.getScene().getWindow();
             stage.close();
         }else{
             Notifications.create()
                     .title("Greška")
-                    .text("Nepoznata greška")
-                    .hideAfter(Duration.seconds(3.0))
+                    .text("Error: " + jObj.getString("Message"))
+                    .hideAfter(Duration.seconds(6.0))
                     .position(Pos.BOTTOM_RIGHT)
                     .showError();
         }

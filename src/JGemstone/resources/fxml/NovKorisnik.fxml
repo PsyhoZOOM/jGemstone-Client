@@ -2,22 +2,15 @@
 
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXSnackbar?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<GridPane fx:id="gridPane" hgap="10.0" maxHeight="707.0" maxWidth="501.0" minHeight="650.0" minWidth="500.0" prefHeight="707.0" prefWidth="501.0" vgap="5.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JGemstone.interfaces.NovKorisnikController">
+<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="gridPane" hgap="10.0" vgap="5.0"
+          xmlns="http://javafx.com/javafx/8.0.65" fx:controller="JGemstone.interfaces.NovKorisnikController">
   <columnConstraints>
       <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="20.0" prefWidth="20.0" />
     <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
@@ -27,20 +20,21 @@
   <rowConstraints>
       <RowConstraints fillHeight="false" valignment="CENTER" vgrow="NEVER" />
       <RowConstraints prefHeight="40.0" valignment="BOTTOM" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-      <RowConstraints valignment="CENTER" />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0"/>
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0"/>
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0"/>
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0"/>
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" valignment="CENTER"/>
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" valignment="CENTER"/>
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0"/>
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0"/>
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0"/>
       <RowConstraints prefHeight="40.0" valignment="BOTTOM" />
-      <RowConstraints />
-      <RowConstraints />
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0"/>
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0"/>
       <RowConstraints prefHeight="40.0" valignment="BOTTOM" />
-      <RowConstraints />
-      <RowConstraints />
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0"/>
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0"/>
       <RowConstraints prefHeight="40.0" />
       <RowConstraints />
       <RowConstraints />
@@ -60,21 +54,22 @@
       </ToolBar>
       <Label text="Korisničko ime:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <Label text="Ime i prezime:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Label text="Adresa računa:" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-      <Label text="JMBG:" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-      <Label text="Broj lične karte:" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+       <Label text="Adresa računa:" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
+       <Label text="JMBG:" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+       <Label text="Broj lične karte:" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
       <Label text="Dratum rođenja:" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <Label text="Mesto:" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <Label text="Poštanski broj:" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <Label text="Fiksni:" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+       <Label text="Poštanski broj:" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+       <Label text="Fiksni:" GridPane.columnIndex="1" GridPane.rowIndex="15"/>
       <TextField fx:id="tUserName" prefHeight="26.0" prefWidth="173.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <TextField fx:id="tFullName" GridPane.columnIndex="2" GridPane.rowIndex="4" />
       <TextField fx:id="tMesto" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-      <TextField fx:id="tPostBr" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-      <TextField fx:id="tBrLk" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-      <TextField fx:id="tJMBG" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-      <TextField fx:id="tAdresa" GridPane.columnIndex="2" GridPane.rowIndex="11" />
-      <TextField fx:id="tAdresaRacuna" GridPane.columnIndex="2" GridPane.rowIndex="12" />
+       <TextField fx:id="tPostBr" GridPane.columnIndex="2" GridPane.rowIndex="8"/>
+       <TextField fx:id="tBrLk" GridPane.columnIndex="2" GridPane.rowIndex="9"/>
+       <TextField fx:id="tJMBG" GridPane.columnIndex="2" GridPane.rowIndex="10"/>
+       <JFXTextField fx:id="tAdresaKoriscenja" labelFloat="true" promptText="Adresa usluge" GridPane.columnIndex="2"
+                     GridPane.rowIndex="12"/>
+       <TextField fx:id="tAdresaRacuna" GridPane.columnIndex="2" GridPane.rowIndex="13"/>
       <ImageView fitHeight="83.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <image>
             <Image url="@../images/Unknown-person.gif" />
@@ -86,27 +81,30 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label text="ADRESE:" underline="true" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.rowIndex="10">
+       <Label text="ADRESE:" underline="true" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT"
+              GridPane.rowIndex="11">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label text="Brojevi telefona:" underline="true" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.rowIndex="13">
+       <Label text="Brojevi telefona:" underline="true" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT"
+              GridPane.rowIndex="14">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label text="Adresa:" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-      <Label text="Mobilni:" GridPane.columnIndex="1" GridPane.rowIndex="15" />
-      <TextField fx:id="tFiksni" GridPane.columnIndex="2" GridPane.rowIndex="14" />
-      <TextField fx:id="tMobilni" GridPane.columnIndex="2" GridPane.rowIndex="15" />
-      <Label text="OSTALO:" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.rowIndex="16">
+       <Label text="Adresa usluge:" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
+       <Label text="Mobilni:" GridPane.columnIndex="1" GridPane.rowIndex="16"/>
+       <TextField fx:id="tFiksni" GridPane.columnIndex="2" GridPane.rowIndex="15"/>
+       <TextField fx:id="tMobilni" GridPane.columnIndex="2" GridPane.rowIndex="16"/>
+       <Label text="OSTALO:" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.rowIndex="17">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label text="Komentar:" GridPane.columnIndex="1" GridPane.rowIndex="17" />
-      <TextArea fx:id="tKomentar" prefWidth="200.0" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="17" GridPane.rowSpan="2" />
+       <Label text="Komentar:" GridPane.columnIndex="1" GridPane.rowIndex="18"/>
+       <TextArea fx:id="tKomentar" prefWidth="200.0" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="18"
+                 GridPane.rowSpan="2"/>
       <Label text="Broj:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <TextField fx:id="tBroj" GridPane.columnIndex="2" GridPane.rowIndex="2" />
       <JFXDatePicker fx:id="tDatumRodjenja" editable="false" promptText="Datum rođenja" GridPane.columnIndex="2" GridPane.rowIndex="5" />
@@ -115,6 +113,8 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </JFXSnackbar>
+       <JFXTextField fx:id="tAdresa" labelFloat="true" promptText="Adresa" GridPane.columnIndex="2"
+                     GridPane.rowIndex="7"/>
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

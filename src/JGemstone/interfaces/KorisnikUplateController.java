@@ -70,13 +70,10 @@ public class KorisnikUplateController implements Initializable {
     public Label lZaduzenje;
     public Button bPrint;
     public GridPane gridPane;
-
+    public ResourceBundle resource;
     Client client;
     String UserName;
-
     private String resourceFXML;
-    public ResourceBundle resource;
-
     private ArrayList<Uplate> uplate;
     private Uplate uplata;
     private Double ukupno;
@@ -238,14 +235,13 @@ public class KorisnikUplateController implements Initializable {
     }
 
 
-
-    private ArrayList<Uplate> get_uplate_table_list_sve(String username) {
+    private ArrayList<Uplate> get_uplate_table_list_sve(int userID) {
         jObj = new JSONObject();
         uplate = new ArrayList<>();
         zDug = zUplaceno = 0.00;
 
         jObj.put("action", "get_uplate_zaduzenja_user_sve");
-        jObj.put("userName", username);
+        jObj.put("userID", userID);
         jObj = client.send_object(jObj);
 
         for (int i = 0; i < jObj.length(); i++) {
@@ -384,7 +380,7 @@ public class KorisnikUplateController implements Initializable {
         content.setLeading(14.5f);
         content.newLineAtOffset(100, 800);
 
-        ArrayList<Uplate> aa = get_uplate_table_list_sve(UserName);
+        ArrayList<Uplate> aa = get_uplate_table_list_sve(cuId.getId());
         String linija;
         LOGGER.info("size of aa :"+aa.size());
 

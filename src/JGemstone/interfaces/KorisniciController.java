@@ -21,8 +21,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.controlsfx.control.Notifications;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -48,30 +50,24 @@ public class KorisniciController implements Initializable {
     public JFXButton bFakture;
     public MenuItem cmIzmeni;
     public MenuItem cmIzbrisi;
-
-
-    @FXML
-    JFXButton bNovKorisnik;
     public Button bUserSearch;
-
     public ArrayList<Users> users;
     public Users user;
     public Client client = new Client();
-    private int getSelectedId;
-    private ResourceBundle resources;
+    @FXML
+    JFXButton bNovKorisnik;
     String resoruceFXML;
     Parent root;
     Scene scene;
     Stage stage;
     FXMLLoader loader;
-    private messageS mess;
-
     Logger LOGGER = LogManager.getLogger("USERS");
-
     //JSON
     JSONObject jObj;
     JSONObject jUser;
-
+    private int getSelectedId;
+    private ResourceBundle resources;
+    private messageS mess;
 
     @Override
     public void initialize(URL location, final ResourceBundle resources) {
@@ -263,7 +259,7 @@ public class KorisniciController implements Initializable {
 
     public void newUser(ActionEvent actionEvent) {
         resoruceFXML = "/JGemstone/resources/fxml/NovKorisnik.fxml";
-        NewInterface novKorisnik = new NewInterface(500, 650, resoruceFXML, "Nov Korisnik", resources);
+        NewInterface novKorisnik = new NewInterface(489, 1011, resoruceFXML, "Nov Korisnik", resources);
         NovKorisnikController novKorisnikController = novKorisnik.getLoader().getController();
 
 
@@ -277,10 +273,28 @@ public class KorisniciController implements Initializable {
         });
 
         novKorisnik.getStage().showAndWait();
-        show_table("");
         if (novKorisnikController.user_saved) {
             tUsers.getSelectionModel().selectLast();
-            bEditUser(null);
+            show_table("");
+            jObj = new JSONObject();
+            jObj.put("action", "get_user_id");
+            jObj.put("userName", novKorisnikController.userName);
+
+            jObj = client.send_object(jObj);
+            if (jObj.has("Message")) {
+                Notifications.create()
+                        .title("GREŠKA")
+                        .text("Greška pri kreiranju korisnika")
+                        .hideAfter(Duration.seconds(3.00))
+                        .show();
+            }
+            EditUser(jObj.getInt("userId"));
+        } else {
+            Notifications.create()
+                    .title("GREŠKA")
+                    .text("Korisnik nije snimljen")
+                    .hideAfter(Duration.seconds(3.00))
+                    .showError();
         }
 
     }

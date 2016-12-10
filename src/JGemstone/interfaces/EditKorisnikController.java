@@ -78,46 +78,32 @@ public class EditKorisnikController implements Initializable {
     public Tab tabFakture;
     public JFXListView<Services> lAvServices;
     public JFXListView<Services> lActiveServices;
-
-    private messageS mess;
-    private Stage stage;
-
-    private Services service;
-    private StringConverter<LocalDate> dateConverter;
-
-    private Alert alert;
-
+    public int userID;
     Logger LOGGER = LogManager.getLogger("EDIT_USERS");
-
     DateTimeFormatter simpleDateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
     //JSON
     JSONObject jObj;
     JSONObject jObjAvService;
     JSONObject jObjAcService;
-
-
-    private ObservableList itemsAv = FXCollections.observableArrayList();
-    private ObservableList itemsAc = FXCollections.observableArrayList();
-
     //UGOVORI
     ObservableList<ugovori_types> ugovori_typesObservableList;
     ObservableList<ugovori_types> ugovori_user_typesObeservableList;
-
+    private messageS mess;
+    private Stage stage;
+    private Services service;
+    private StringConverter<LocalDate> dateConverter;
+    private Alert alert;
+    private ObservableList itemsAv = FXCollections.observableArrayList();
+    private ObservableList itemsAc = FXCollections.observableArrayList();
     private ArrayList<ugovori_types> ugovori_typesArrayList;
     private ArrayList<ugovori_types> ugovori_user_typesArrayList;
-
     private JSONObject ugovoriObj;
     private JSONObject uugovoriObjUser;
     private ugovori_types ugovori;
-
     //UGOVOR EDIT
     private String resourceFXML;
-
-
     private ResourceBundle resource;
     private URL location;
-    public int userID;
 
     public EditKorisnikController() {
     }
@@ -479,7 +465,7 @@ public class EditKorisnikController implements Initializable {
         LOGGER.info("DATE:" + tiDo.getValue().toString());
 
         resourceFXML = "/JGemstone/resources/fxml/UgovoriEdit.fxml";
-        NewInterface ugovorEditInterface = new NewInterface(0,0, resourceFXML, "Ugovor "+ugovoriTypes.getNaziv(), resource);
+        NewInterface ugovorEditInterface = new NewInterface(800, 600, resourceFXML, "Ugovor " + ugovoriTypes.getNaziv(), resource);
         UgovoriEditController ugovorEditController = ugovorEditInterface.getLoader().getController();
         ugovorEditController.client = client;
         ugovorEditController.htmlUgovor.setHtmlText(ugovoriTypes.getTextUgovora());
@@ -575,7 +561,7 @@ public class EditKorisnikController implements Initializable {
         }
 
         resourceFXML = "/JGemstone/resources/fxml/UgovoriPreview.fxml";
-        NewInterface ugovoriPreviewInterface = new NewInterface(0,0, resourceFXML, "Izmena i štampa ugovora", resource);
+        NewInterface ugovoriPreviewInterface = new NewInterface(800, 600, resourceFXML, "Izmena i štampa ugovora", resource);
         UgovoriPreviewController ugovoriPreviewController =  ugovoriPreviewInterface.getLoader().getController();
 
         jObj= new JSONObject();
