@@ -1,6 +1,7 @@
 package JGemstone.interfaces;
 
 import JGemstone.classes.Client;
+import JGemstone.classes.checkAlive;
 import JGemstone.classes.tiProperty;
 import com.jfoenix.controls.*;
 import com.jfoenix.effects.JFXDepthManager;
@@ -51,28 +52,23 @@ public class MainWindowController implements Initializable {
     public JFXSnackbar snackBar;
     public AnchorPane anchorMainWindow;
     public Label lStatusConnection;
-    private HamburgerSlideCloseTransition hambSlideMenuLeft;
-
-
+    public Client client;
+    public Logger LOGGER = LogManager.getLogger();
     @FXML
     TreeView<tiProperty> treeViewLeft;
-
-    public Client client;
     Thread th;
 
     ResourceBundle resource;
+    int depth = 0;
+    Thread clientThread;
+    private HamburgerSlideCloseTransition hambSlideMenuLeft;
     private FXMLLoader fxmloader;
     private AnchorPane bpone;
     private KorisniciController korctrl;
     private GrupeController GroupControll;
     private ServisiController servisiController;
     private UgovoriController ugovoriController;
-    public Logger LOGGER = LogManager.getLogger();
-
     private JFXDepthManager managger;
-    int depth=0;
-
-    Thread clientThread;
     public MainWindowController() {
 
 
@@ -134,6 +130,10 @@ public class MainWindowController implements Initializable {
     private void connect_to_server() {
         client = new Client();
         client.main_run();
+        checkAlive checkPing = new checkAlive(client);
+        lStatusConnection = checkPing.lStatusConnection;
+        Thread ping_Check = new Thread(checkPing);
+        ping_Check.start();
 
     }
 

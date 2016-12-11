@@ -322,7 +322,8 @@ public class KorisniciController implements Initializable {
 
 
         uplateKorisnikController.setUserName(user.getUsername());
-        uplateKorisnikController.set_table_uplate(user.getUsername());
+        uplateKorisnikController.setUserID(user.getId());
+        uplateKorisnikController.set_table_uplate(user.getId());
 
         uplateKorisnikController.bClose.setOnAction(new EventHandler<ActionEvent>() {
             @Override

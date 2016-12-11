@@ -73,6 +73,7 @@ public class KorisnikUplateController implements Initializable {
     public ResourceBundle resource;
     Client client;
     String UserName;
+    private int userID;
     private String resourceFXML;
     private ArrayList<Uplate> uplate;
     private Uplate uplata;
@@ -107,12 +108,16 @@ public class KorisnikUplateController implements Initializable {
         UserName = userName;
     }
 
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resource = resources;
     }
 
-    public void set_table_uplate(String userName) {
+    public void set_table_uplate(int userID) {
         //table && columns dugovanja
         tblKorUplate.setEditable(true);
         cBR.setCellValueFactory(new PropertyValueFactory<Uplate, Integer>("br"));
@@ -169,13 +174,13 @@ public class KorisnikUplateController implements Initializable {
         });
 
         //table &  columns uplate
-        show_table_uplate(userName);
+        show_table_uplate(userID);
     }
 
-    public void show_table_uplate(String username) {
-        ObservableList<Uplate> data = FXCollections.observableArrayList(get_uplate_zaduzenja_table_list(username));
-        ObservableList<Uplate> data_u = FXCollections.observableArrayList(get_uplate_table_list(username));
-        ObservableList<Uplate> data_z = FXCollections.observableArrayList(get_uplate_table_list_sve(username));
+    public void show_table_uplate(int userID) {
+        ObservableList<Uplate> data = FXCollections.observableArrayList(get_uplate_zaduzenja_table_list(userID));
+        ObservableList<Uplate> data_u = FXCollections.observableArrayList(get_uplate_table_list(userID));
+        ObservableList<Uplate> data_z = FXCollections.observableArrayList(get_uplate_table_list_sve(userID));
         tblKorUplate.setItems(data);
         tblUplate.setItems(data_u);
         czTbl.setItems(data_z);
@@ -262,12 +267,12 @@ public class KorisnikUplateController implements Initializable {
         return uplate;
     }
 
-    private ArrayList<Uplate> get_uplate_zaduzenja_table_list(String username) {
+    private ArrayList<Uplate> get_uplate_zaduzenja_table_list(int userID) {
         jObj = new JSONObject();
         uplate = new ArrayList<>();
 
         jObj.put("action", "get_uplate_zaduzenja_user");
-        jObj.put("userName", username);
+        jObj.put("userID", userID);
         jObj = client.send_object(jObj);
 
         for (int i = 0; i < jObj.length(); i++) {
@@ -290,12 +295,12 @@ public class KorisnikUplateController implements Initializable {
         return uplate;
     }
 
-    private ArrayList<Uplate> get_uplate_table_list(String username) {
+    private ArrayList<Uplate> get_uplate_table_list(int userID) {
         jObj = new JSONObject();
         uplate = new ArrayList<>();
 
         jObj.put("action", "get_uplate_user");
-        jObj.put("userName", username);
+        jObj.put("userID", userID);
         jObj = client.send_object(jObj);
 
         for (int i = 0; i < jObj.length(); i++) {
@@ -335,7 +340,7 @@ public class KorisnikUplateController implements Initializable {
 
             LOGGER.info(jObj.getString("message"));
 
-            show_table_uplate(this.getUserName());
+            show_table_uplate(userID);
 
 
         }
@@ -351,7 +356,7 @@ public class KorisnikUplateController implements Initializable {
         jObj.put("id", colUplate.getId());
         jObj = client.send_object(jObj);
         LOGGER.info(jObj.getString("message"));
-        show_table_uplate(this.getUserName());
+        show_table_uplate(userID);
     }
 
     public void printAction(ActionEvent actionEvent) throws PrinterException, IOException {
@@ -380,7 +385,7 @@ public class KorisnikUplateController implements Initializable {
         content.setLeading(14.5f);
         content.newLineAtOffset(100, 800);
 
-        ArrayList<Uplate> aa = get_uplate_table_list_sve(cuId.getId());
+        ArrayList<Uplate> aa = get_uplate_table_list_sve(userID);
         String linija;
         LOGGER.info("size of aa :"+aa.size());
 

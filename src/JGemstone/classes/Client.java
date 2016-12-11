@@ -17,28 +17,23 @@ import java.nio.charset.StandardCharsets;
  */
 public class Client {
     public int portNumber;
-    Socket socket;
-    SocketFactory ssf = SSLSocketFactory.getDefault();
     public InetAddress inetAddress;
     public String RemoteHost;
-
+    Socket socket;
+    SocketFactory ssf = SSLSocketFactory.getDefault();
     InputStreamReader Isr;
     OutputStreamWriter Osw;
 
     BufferedReader Bfr;
     BufferedWriter Bfw;
-
+    messageS checkLive = new messageS();
+    messageS mess = new messageS();
+    Logger LOGGER = LogManager.getLogger("CLIENT");
+    //JSON
+    JSONObject jObj = new JSONObject();
     private db_connection db_conn = new db_connection();
     private Settings local_settings;
     private Boolean isConnected;
-
-    messageS checkLive = new messageS();
-    messageS mess = new messageS();
-
-    Logger LOGGER = LogManager.getLogger("CLIENT");
-
-    //JSON
-    JSONObject jObj = new JSONObject();
 
     public JSONObject send_object(JSONObject rObj) {
         try {
@@ -65,18 +60,20 @@ public class Client {
                 Isr = new InputStreamReader(socket.getInputStream());
                 Bfr = new BufferedReader(Isr);
             } catch (IOException e) {
-                LOGGER.error(e.getMessage());
-                isConnected =false;
+                LOGGER.error("ERROR AT InputStreamReader: " + e.getMessage());
+                isConnected = false;
             }
         }
 
         try {
 
-                jObj = new JSONObject(Bfr.readLine());
-            } catch (IOException e1) {
+            jObj = new JSONObject(Bfr.readLine());
+        } catch (IOException e1) {
+            LOGGER.info(e1.getMessage());
             e1.printStackTrace();
+        } catch (NullPointerException e2) {
+            LOGGER.info(e2.getMessage());
         }
-
 
         return jObj;
     }
@@ -94,7 +91,7 @@ public class Client {
         }
     }
 
-    public void main_run()  {
+    public void main_run() {
         db_conn.init_database();
         local_settings = db_conn.local_settings;
         db_conn.close_db();
@@ -144,7 +141,7 @@ public class Client {
         jObj = get_object();
         if (jObj.has("Message")) {
             LOGGER.info(jObj.getString("Message"));
-        }else{
+        } else {
             LOGGER.info("ERROR IN CONNECTION (no return Message)");
         }
 
