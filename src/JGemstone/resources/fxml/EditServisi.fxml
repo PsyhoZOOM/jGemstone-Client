@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
 <VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="418.0" prefWidth="608.0" spacing="10.0"
       xmlns="http://javafx.com/javafx/8.0.65" fx:controller="JGemstone.interfaces.EditServicesController">
    <children>
@@ -47,9 +57,10 @@
                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                               AnchorPane.topAnchor="0.0">
                             <children>
-                                <JFXCheckBox fx:id="cbInternet" graphicTextGap="1.0"
-                                             text="Aktiviraj internet opcije korisniku" VBox.vgrow="ALWAYS"/>
                                 <JFXComboBox fx:id="cmbInternet" promptText="Internet Grupa" VBox.vgrow="ALWAYS"/>
+                                <JFXCheckBox fx:id="cbInternet" graphicTextGap="1.0"
+                                             text="Aktiviraj internet opciju korisniku" VBox.vgrow="ALWAYS"/>
+                                <JFXButton fx:id="bActivateInternet" onAction="#activateInternet" text="Potvrdi"/>
                             </children>
                             <padding>
                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>

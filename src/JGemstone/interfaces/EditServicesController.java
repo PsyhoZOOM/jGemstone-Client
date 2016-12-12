@@ -4,10 +4,7 @@ import JGemstone.Main;
 import JGemstone.classes.Client;
 import JGemstone.classes.Services;
 import JGemstone.classes.messageS;
-import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -38,6 +35,7 @@ public class EditServicesController implements Initializable {
     public JFXComboBox cmbDTV;
     public JFXCheckBox cbVOIP;
     public JFXComboBox cmbVOIP;
+    public JFXButton bActivateInternet;
     Logger LOGGER = Main.LOGGER;
     //JSON
     JSONObject jObj;
@@ -85,6 +83,14 @@ public class EditServicesController implements Initializable {
         tNaziv.setText(jObj.getString("naziv"));
         tCena.setText(jObj.getString("cena"));
         tOpis.setText(jObj.getString("opis"));
+
+    }
+
+    public void activateInternet(ActionEvent actionEvent) {
+        jObj = new JSONObject();
+        jObj.put("action", "activate_internet");
+
+        //jObj = client.send_object(jObj);
 
     }
 }
