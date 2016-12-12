@@ -4,10 +4,13 @@ import JGemstone.Main;
 import JGemstone.classes.Client;
 import JGemstone.classes.Services;
 import JGemstone.classes.messageS;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
@@ -21,19 +24,25 @@ import java.util.ResourceBundle;
 public class EditServicesController implements Initializable {
     public Button bClose;
     public Button bSnimi;
-    public TextField tNaziv;
-    public TextField tCena;
-    public TextField tOpis;
+    public JFXTextField tNaziv;
+    public JFXTextField tCena;
+    public JFXTextArea tOpis;
 
     public Client client;
     public int serviceID;
-    private messageS mes;
-    private Services services;
+    public JFXCheckBox cbInternet;
+    public JFXComboBox cmbInternet;
+    public JFXCheckBox cbIPTV;
+    public JFXComboBox cmbIPTV;
+    public JFXCheckBox cbDTV;
+    public JFXComboBox cmbDTV;
+    public JFXCheckBox cbVOIP;
+    public JFXComboBox cmbVOIP;
     Logger LOGGER = Main.LOGGER;
-
     //JSON
     JSONObject jObj;
-
+    private messageS mes;
+    private Services services;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

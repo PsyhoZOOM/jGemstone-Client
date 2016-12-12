@@ -69,6 +69,8 @@ public class MainWindowController implements Initializable {
     private ServisiController servisiController;
     private UgovoriController ugovoriController;
     private JFXDepthManager managger;
+    private checkAlive checkPing;
+    private Thread ping_Check;
     public MainWindowController() {
 
 
@@ -105,7 +107,8 @@ public class MainWindowController implements Initializable {
         mExit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                clientThread.interrupt();
+                checkPing.Running = false;
+
                 Platform.exit();
             }
 
@@ -130,9 +133,9 @@ public class MainWindowController implements Initializable {
     private void connect_to_server() {
         client = new Client();
         client.main_run();
-        checkAlive checkPing = new checkAlive(client);
+        checkPing = new checkAlive(client);
         lStatusConnection = checkPing.lStatusConnection;
-        Thread ping_Check = new Thread(checkPing);
+        ping_Check = new Thread(checkPing);
         ping_Check.start();
 
     }

@@ -8,8 +8,9 @@ import org.apache.log4j.Logger;
  */
 public class runningCheckThread implements  Runnable {
 
-    private Client client;
+    public boolean Running;
     boolean connected = false;
+    private Client client;
     private Logger LOGGER = LogManager.getLogger("CLIENT_THREAD");
 
     public runningCheckThread(Client client) {
@@ -26,7 +27,7 @@ public class runningCheckThread implements  Runnable {
     @Override
     public void run() {
         client.main_run();
-        while (true){
+        while (Running) {
 
             if(client.socket.isClosed()){
                 LOGGER.info("connecting");
@@ -42,6 +43,7 @@ public class runningCheckThread implements  Runnable {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
+                Running = false;
                 e.printStackTrace();
             }
         }

@@ -12,6 +12,7 @@ import java.sql.Time;
  */
 public class checkAlive implements Runnable {
     public Label lStatusConnection;
+    public Boolean Running = true;
     Time latency;
     Boolean connected = false;
     JSONObject jPingOBj;
@@ -38,7 +39,7 @@ public class checkAlive implements Runnable {
     @Override
     public void run() {
 
-        while (true) {
+        while (Running) {
             check_connection();
             LOGGER.info("CONNECTION STATE: " + connected);
 
