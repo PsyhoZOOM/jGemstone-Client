@@ -73,7 +73,6 @@ public class MainWindowController implements Initializable {
     private Thread ping_Check;
     public MainWindowController() {
 
-
     }
 
     @Override
@@ -108,11 +107,11 @@ public class MainWindowController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 checkPing.Running = false;
-
                 Platform.exit();
             }
 
         });
+
     }
 
     public void mOpenSetup(ActionEvent actionEvent) throws IOException {

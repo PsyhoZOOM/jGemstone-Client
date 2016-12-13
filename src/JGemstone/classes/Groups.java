@@ -9,7 +9,7 @@ public class Groups implements Serializable{
     int id;
     int br;
     String GroupName;
-    String Cena;
+    Double Cena;
     int Prepaid;
     String Opis;
 
@@ -38,7 +38,7 @@ public class Groups implements Serializable{
         this.br = br;
     }
 
-    public String getNaziv() {
+    public String getGroupName() {
         return GroupName;
     }
 
@@ -46,11 +46,11 @@ public class Groups implements Serializable{
         this.GroupName = GroupName;
     }
 
-    public String getCena() {
+    public Double getCena() {
         return Cena;
     }
 
-    public void setCena(String cena) {
+    public void setCena(Double cena) {
         Cena = cena;
     }
 
@@ -60,5 +60,9 @@ public class Groups implements Serializable{
 
     public void setPrepaid(int prepaid) {
         Prepaid = prepaid;
+    }
+
+    public String toString() {
+        return this.getGroupName();
     }
 }

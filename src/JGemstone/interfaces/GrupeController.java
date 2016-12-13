@@ -41,14 +41,11 @@ public class GrupeController implements Initializable {
     public TableColumn cOpis;
     public MenuItem bIzmena;
     public MenuItem bmDeleteGroup;
-    private Groups group;
-
     public Logger LOGGER = LogManager.getLogger("GROUPS");
-
-
-    private ResourceBundle resources;
     String resoruceFXML;
     Stage stage;
+    private Groups group;
+    private ResourceBundle resources;
     private messageS mess;
     private ArrayList<Groups> groups;
 
@@ -65,8 +62,8 @@ public class GrupeController implements Initializable {
         ObservableList<Groups> data = FXCollections.observableArrayList(get_groups_table_list(groupName));
         tableGroup.setEditable(true);
         cID.setCellValueFactory(new PropertyValueFactory<Groups, Integer>("id"));
-        cNaziv.setCellValueFactory(new PropertyValueFactory<Groups, String>("Naziv"));
-        cCena.setCellValueFactory(new PropertyValueFactory<Groups, String>("Cena"));
+        cNaziv.setCellValueFactory(new PropertyValueFactory<Groups, String>("GroupName"));
+        cCena.setCellValueFactory(new PropertyValueFactory<Groups, Double>("Cena"));
         cOpis.setCellValueFactory(new PropertyValueFactory<Groups, String>("Opis"));
         tableGroup.setItems(data);
     }
@@ -85,7 +82,7 @@ public class GrupeController implements Initializable {
             group = new Groups();
             group.setId(jGroup.getInt("id"));
             group.setGroupName(jGroup.getString("groupname"));
-            group.setCena(jGroup.getString("cena"));
+            group.setCena(jGroup.getDouble("cena"));
             group.setBr(i);
             group.setPrepaid(jGroup.getInt("prepaid"));
             group.setOpis(jGroup.getString("opis"));
@@ -162,9 +159,9 @@ public class GrupeController implements Initializable {
             ButtonType bYES = new ButtonType("Da", ButtonBar.ButtonData.YES);
             ButtonType bNO = new ButtonType("NE", ButtonBar.ButtonData.NO);
 
-            alert = new Alert(Alert.AlertType.CONFIRMATION, "Da li ste sigurni da zelite da izbrišete grupu "+group.getNaziv(), bYES, bNO);
+            alert = new Alert(Alert.AlertType.CONFIRMATION, "Da li ste sigurni da zelite da izbrišete grupu " + group.getGroupName(), bYES, bNO);
             alert.setTitle("Upozorenje");
-            alert.setHeaderText(String.format("Brisanje grupe %s!", group.getNaziv()));
+            alert.setHeaderText(String.format("Brisanje grupe %s!", group.getGroupName()));
             alert.initOwner(stage);
             alert.showAndWait();
             System.out.println(alert.getButtonTypes());

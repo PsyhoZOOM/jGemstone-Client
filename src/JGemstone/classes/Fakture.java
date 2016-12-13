@@ -138,35 +138,39 @@ public class Fakture implements Serializable {
         this.dateCreated = dateCreated;
     }
 
-    public void setVrednostBezPDV(double vrednostBezPDV) {
-        this.vrednostBezPDV = vrednostBezPDV;
-    }
-
     public double getVrednostBezPDV() {
         return vrednostBezPDV;
     }
 
-    public void setOsnovicaZaPDV(double osnovicaZaPDV) {
-        this.osnovicaZaPDV = osnovicaZaPDV;
+    public void setVrednostBezPDV(double vrednostBezPDV) {
+        this.vrednostBezPDV = vrednostBezPDV;
     }
 
     public double getOsnovicaZaPDV() {
         return osnovicaZaPDV;
     }
 
-    public void setIznosPDV(double iznosPDV) {
-        this.iznosPDV = iznosPDV;
+    public void setOsnovicaZaPDV(double osnovicaZaPDV) {
+        this.osnovicaZaPDV = osnovicaZaPDV;
     }
 
     public double getIznosPDV() {
         return iznosPDV;
     }
 
-    public void setVrednostSaPDV(double vrednostSaPDV) {
-        this.vrednostSaPDV = vrednostSaPDV;
+    public void setIznosPDV(double iznosPDV) {
+        this.iznosPDV = iznosPDV;
     }
 
     public double getVrednostSaPDV() {
         return vrednostSaPDV;
+    }
+
+    public void setVrednostSaPDV(double vrednostSaPDV) {
+        this.vrednostSaPDV = vrednostSaPDV;
+    }
+
+    public String toString() {
+        return getGodina();
     }
 }

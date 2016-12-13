@@ -37,20 +37,16 @@ public class ServisiController implements Initializable {
 
     public Client client;
     public TextField tTraziService;
-
+    Logger LOGGER = LogManager.getLogger();
+    //JSON
+    JSONObject jObj;
+    JSONObject jService;
     private ResourceBundle resources;
     private String resoruceFXML;
     private Stage stage;
     private messageS mess;
     private ArrayList<Services> services;
     private Services service;
-
-
-    Logger LOGGER = LogManager.getLogger();
-    //JSON
-    JSONObject jObj;
-    JSONObject jService;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -128,8 +124,7 @@ public class ServisiController implements Initializable {
         EditServicesController editServicesController = editServiceInterface.getLoader().getController();
         editServicesController.client = client;
         editServicesController.serviceID = service.getId();
-        editServicesController.show_services();
-
+        editServicesController.show_data();
         editServiceInterface.getStage().showAndWait();
         set_table("");
 
