@@ -173,4 +173,5 @@ public class Fakture implements Serializable {
     public String toString() {
         return getGodina();
     }
+
 }

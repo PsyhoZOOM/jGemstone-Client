@@ -6,7 +6,6 @@ import JGemstone.classes.NewInterface;
 import JGemstone.classes.Users;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXToolbar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +18,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -52,17 +50,21 @@ public class FaktureController implements Initializable {
     public JFXToolbar jfxToolbar;
     public MenuItem miDeleteFakture;
     public TableColumn cIznosPDV;
-    private URL location;
+    public Label lOsnovicaZaPDV;
+    public Label lPDV;
+    public Label lvrednostSaPDVZbir;
+    public Label lUkupnoOsnovicaZaPDV;
+    public Label lIznosPDVZbir;
     public Client client;
-    private String resourceFXML;
     public Users userData;
-    private Fakture selectedFacture;
     public ResourceBundle resource;
+    DecimalFormat decFormat = new DecimalFormat("#,###.00");
+    Stage stage;
+    private URL location;
+    private String resourceFXML;
+    private Fakture selectedFacture;
     private JSONObject jObj;
     private Logger LOGGER = LogManager.getLogger("FAKTURE");
-
-    Stage stage;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -91,12 +93,10 @@ public class FaktureController implements Initializable {
 
 
         set_table();
-        set_cmbBoxes();
 
     }
 
     public void set_table() {
-        DecimalFormat decFormat = new DecimalFormat("#,###.00");
 
         cId.setCellValueFactory(new PropertyValueFactory<Fakture, Integer>("id"));
         colBr.setCellValueFactory(new PropertyValueFactory<Fakture, Integer>("brFakture"));
@@ -187,49 +187,13 @@ public class FaktureController implements Initializable {
 
     }
 
-    public void set_cmbBoxes(){
-
-        cmbBrFakture.setCellFactory(new Callback<ListView<Fakture>, ListCell<Fakture>>() {
-            @Override
-            public ListCell<Fakture> call(ListView<Fakture> param) {
-                return new ListCell<Fakture>(){
-                    @Override
-                    protected void updateItem(Fakture faktura, boolean empty){
-                        super.updateItem(faktura, empty);
-                        if(!empty){
-                            setText("0");
-                        }else{
-                            setText(String.valueOf(faktura.getBrFakture()));
-                        }
-                    }
-                };
-            }
-        });
-        cmbGodina.setCellFactory(new Callback<ListView<Fakture>, ListCell<Fakture>>() {
-
-            @Override
-            public ListCell<Fakture> call(ListView<Fakture> param) {
-                return new JFXListCell<Fakture>(){
-                    public void updateItem(Fakture faktura, boolean empty){
-                        super.updateItem(faktura, empty);
-                        if(empty){
-                            setText("2016");
-                        }else{
-                            //setText(String.valueOf(faktura.getGodina()).toString());
-                        }
-                    }
-                };
-            }
-        });
-
-
-    }
-
     private ArrayList<Fakture> get_fakture() {
         Fakture fakture;
         jObj = new JSONObject();
         jObj.put("action", "get_fakture");
         jObj.put("userId", userData.getId());
+        jObj.put("brFakture", 1);
+        jObj.put("godina", "2016");
         jObj = client.send_object(jObj);
 
 
@@ -266,8 +230,38 @@ public class FaktureController implements Initializable {
         cmbGodina.setItems(fakture);
         tblFakture.setItems(fakture);
         set_table();
-        set_cmbBoxes();
-        cmbGodina.getSelectionModel().selectFirst();
+        calculate_fakture();
+    }
+
+    private void calculate_fakture() {
+        int table_size = tblFakture.getItems().size();
+        double osnovica_za_pdv = 0;
+        double pdv = 0;
+        double vrednost_sa_pdv = 0;
+        double ukupno_osnovica_za_pdv;
+        double iznos_pdv = 0;
+        double ukupno_vrednost_sa_pdv;
+        double OsnovicaZaPdvSaPdvZbir = 0;
+
+        Fakture fak;
+
+        for (int i = 0; i < table_size; i++) {
+            fak = (Fakture) tblFakture.getItems().get(i);
+            osnovica_za_pdv += fak.getOsnovicaZaPDV();
+            pdv = fak.getStopaPDV();
+            iznos_pdv += fak.getIznosPDV();
+            vrednost_sa_pdv += fak.getVrednostSaPDV();
+
+        }
+
+
+        lOsnovicaZaPDV.setText(decFormat.format(osnovica_za_pdv));
+        lPDV.setText(decFormat.format(pdv));
+        lIznosPDVZbir.setText(decFormat.format(iznos_pdv));
+        lvrednostSaPDVZbir.setText(decFormat.format(vrednost_sa_pdv));
+
+
+
     }
 
     private void makeHeaderWrappable(TableColumn col){
