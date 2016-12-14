@@ -69,7 +69,6 @@ public class FaktureController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-
         makeHeaderWrappable(cId);
         makeHeaderWrappable(colBr);
         makeHeaderWrappable(colVrstaNaziv);
@@ -81,7 +80,6 @@ public class FaktureController implements Initializable {
         makeHeaderWrappable(cStopaPDV);
         makeHeaderWrappable(cVrednostSaPDV);
 
-
         bClose.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -89,9 +87,6 @@ public class FaktureController implements Initializable {
                 stage.close();
             }
         });
-
-
-
         set_table();
 
     }
@@ -184,7 +179,6 @@ public class FaktureController implements Initializable {
         });
 
 
-
     }
 
     private ArrayList<Fakture> get_fakture() {
@@ -226,11 +220,12 @@ public class FaktureController implements Initializable {
 
     public void prikaziFakture(ActionEvent actionEvent) {
         ObservableList<Fakture> fakture = FXCollections.observableArrayList(get_fakture());
-        cmbBrFakture.setItems(fakture);
         cmbGodina.setItems(fakture);
+        cmbBrFakture.setItems(fakture);
         tblFakture.setItems(fakture);
         set_table();
         calculate_fakture();
+
     }
 
     private void calculate_fakture() {

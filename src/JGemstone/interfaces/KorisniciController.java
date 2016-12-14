@@ -357,7 +357,6 @@ public class KorisniciController implements Initializable {
         faktureController.client = client;
         faktureController.userData = user;
         faktureController.resource = resources;
-        faktureController.set_table();
         faktureInterface.getStage().showAndWait();
     }
 }

@@ -69,11 +69,6 @@ public class EditServicesController implements Initializable {
                 };
             }
         });
-
-
-
-
-
     }
 
     public void closeServices(ActionEvent actionEvent) {
@@ -94,7 +89,6 @@ public class EditServicesController implements Initializable {
 
         LOGGER.info(jObj.get("message"));
         closeServices(null);
-
 
     }
 
