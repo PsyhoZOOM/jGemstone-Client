@@ -25,14 +25,15 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 /**
  * Created by zoom on 11/22/16.
  */
 public class FaktureController implements Initializable {
-    public JFXComboBox<Fakture> cmbBrFakture;
-    public JFXComboBox<Fakture> cmbGodina;
+    public JFXComboBox cmbBrFakture;
+    public JFXComboBox cmbGodina;
     public JFXButton bPrikaziFakture;
     public TableView tblFakture;
     public TableColumn cId;
@@ -87,6 +88,7 @@ public class FaktureController implements Initializable {
                 stage.close();
             }
         });
+
         set_table();
 
     }
@@ -186,8 +188,8 @@ public class FaktureController implements Initializable {
         jObj = new JSONObject();
         jObj.put("action", "get_fakture");
         jObj.put("userId", userData.getId());
-        jObj.put("brFakture", 1);
-        jObj.put("godina", "2016");
+        jObj.put("brFakture", cmbBrFakture.getValue());
+        jObj.put("godina", cmbGodina.getValue());
         jObj = client.send_object(jObj);
 
 
@@ -220,12 +222,36 @@ public class FaktureController implements Initializable {
 
     public void prikaziFakture(ActionEvent actionEvent) {
         ObservableList<Fakture> fakture = FXCollections.observableArrayList(get_fakture());
-        cmbGodina.setItems(fakture);
-        cmbBrFakture.setItems(fakture);
         tblFakture.setItems(fakture);
         set_table();
+        set_cmbBoxes();
         calculate_fakture();
 
+    }
+
+    private void set_cmbBoxes() {
+        jObj = new JSONObject();
+        jObj.put("action", "get_fakture");
+        jObj.put("userId", userData.getId());
+        jObj = client.send_object(jObj);
+
+        JSONObject jfakture;
+
+        ArrayList<Fakture> faktureArray = new ArrayList<>();
+        cmbBrFakture.getItems().removeAll();
+        cmbGodina.getItems().removeAll();
+
+        for (int i = 0; i < jObj.length(); i++) {
+            jfakture = (JSONObject) jObj.get(String.valueOf(i));
+            if (!cmbBrFakture.getItems().contains(jfakture.getInt("brFakture"))) {
+                cmbBrFakture.getItems().add(jfakture.getInt("brFakture"));
+            }
+            if (!cmbGodina.getItems().contains(jfakture.getString("godina"))) {
+                cmbGodina.getItems().add(jfakture.getString("godina"));
+            }
+        }
+        cmbBrFakture.getItems().sorted(Comparator.naturalOrder());
+        cmbGodina.getItems().sorted(Comparator.naturalOrder());
     }
 
     private void calculate_fakture() {
