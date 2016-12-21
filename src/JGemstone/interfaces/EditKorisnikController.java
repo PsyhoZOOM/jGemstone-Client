@@ -460,9 +460,6 @@ public class EditKorisnikController implements Initializable {
 
 
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate date = LocalDate.parse("2017-01-01",formater);
-        tiDo.setValue(date);
-        LOGGER.info("DATE:" + tiDo.getValue().toString());
 
         resourceFXML = "/JGemstone/resources/fxml/UgovoriEdit.fxml";
         NewInterface ugovorEditInterface = new NewInterface(800, 600, resourceFXML, "Ugovor " + ugovoriTypes.getNaziv(), resource);
@@ -477,7 +474,7 @@ public class EditKorisnikController implements Initializable {
         jObj.put("nazivUgovora", ugovoriTypes.getNaziv());
         jObj.put("textUgovora", ugovorEditController.htmlUgovor.getHtmlText());
         jObj.put("odDate", diOd.getValue().toString());
-        jObj.put("doDate", tiDo.getValue().toString());
+        jObj.put("doDate", LocalDate.parse(tiDo.getValue().toString(), formater));
         jObj.put("userID", userID);
         jObj.put("brUgovora", tBrUg.getText());
         jObj.put("komentar", tUgKomentar.getText());
