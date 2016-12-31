@@ -93,6 +93,7 @@ public class EditKorisnikController implements Initializable {
         try {
             anchorKorisnikUgovori.getChildren().clear();
             anchorKorisnikUgovori.getChildren().add(fxmlLoader.load());
+            anchorKorisnikUgovori.autosize();
         } catch (IOException e) {
             e.printStackTrace();
         }

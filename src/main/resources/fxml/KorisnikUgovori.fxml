@@ -4,53 +4,63 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308"
+<VBox xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308"
       maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0"
       spacing="5.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.141"
       fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUgovoriController">
     <children>
-        <Label text="NOV UGOVOR" underline="true">
-            <font>
-                <Font name="System Bold" size="13.0"/>
-            </font>
-        </Label>
-        <Label text="Broj ugovora:"/>
-        <TextField fx:id="tBrUgovora" maxWidth="-Infinity" minWidth="200.0" prefWidth="200.0"/>
-        <Label text="Template:"/>
-        <ComboBox fx:id="cmbTamplate"/>
-        <Label text="Trajanje:"/>
-        <Label text="Od:"/>
-        <DatePicker fx:id="dtpTrajanjeOd" editable="false"/>
-        <Label text="Do:"/>
-        <DatePicker fx:id="dtpTrajanjeDo" editable="false"/>
-        <Label text="Opis:"/>
-        <TextArea fx:id="tOPis"/>
-        <ButtonBar prefWidth="200.0" VBox.vgrow="NEVER">
-            <buttons>
-                <Button fx:id="bDodaj" mnemonicParsing="false" onAction="#addNewUgovorShow" text="Dodaj"/>
-            </buttons>
-        </ButtonBar>
-        <Label text="UGOVORI" underline="true">
-            <font>
-                <Font name="System Bold" size="13.0"/>
-            </font>
-        </Label>
-        <TableView fx:id="tblUgovori" VBox.vgrow="ALWAYS">
-            <columns>
-                <TableColumn fx:id="cBr" text="BR"/>
-                <TableColumn fx:id="cNaziv" minWidth="100.0" prefWidth="100.0" text="NAZIV"/>
-                <TableColumn fx:id="cTrajanje" prefWidth="75.0" text="TRAJANJE">
+        <VBox VBox.vgrow="NEVER">
+            <children>
+                <Label text="NOV UGOVOR" underline="true">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
+                </Label>
+                <Label text="Broj ugovora:"/>
+                <TextField fx:id="tBrUgovora" maxWidth="-Infinity" minWidth="200.0" prefWidth="200.0"/>
+                <Label text="Template:"/>
+                <ComboBox fx:id="cmbTamplate"/>
+                <Label text="Trajanje:"/>
+                <Label text="Od:"/>
+                <DatePicker fx:id="dtpTrajanjeOd" editable="false"/>
+                <Label text="Do:"/>
+                <DatePicker fx:id="dtpTrajanjeDo" editable="false"/>
+                <Label text="Opis:"/>
+                <TextArea fx:id="tOPis"/>
+                <ButtonBar prefWidth="200.0">
+                    <buttons>
+                        <Button fx:id="bDodaj" mnemonicParsing="false" onAction="#addNewUgovorShow" text="Dodaj"/>
+                    </buttons>
+                </ButtonBar>
+                <Label text="UGOVORI" underline="true">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+        <VBox VBox.vgrow="ALWAYS">
+            <children>
+                <TableView fx:id="tblUgovori" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                           VBox.vgrow="ALWAYS">
                     <columns>
-                        <TableColumn fx:id="cOd" prefWidth="75.0" text="OD"/>
-                        <TableColumn fx:id="cDo" prefWidth="75.0" text="DO"/>
+                        <TableColumn fx:id="cBr" text="BR"/>
+                        <TableColumn fx:id="cNaziv" minWidth="100.0" prefWidth="100.0" text="NAZIV"/>
+                        <TableColumn fx:id="cTrajanje" prefWidth="75.0" text="TRAJANJE">
+                            <columns>
+                                <TableColumn fx:id="cOd" prefWidth="75.0" text="OD"/>
+                                <TableColumn fx:id="cDo" prefWidth="75.0" text="DO"/>
+                            </columns>
+                        </TableColumn>
+                        <TableColumn fx:id="cOpis" prefWidth="75.0" text="OPIS"/>
                     </columns>
-                </TableColumn>
-                <TableColumn fx:id="cOpis" prefWidth="75.0" text="OPIS"/>
-            </columns>
-            <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-            </columnResizePolicy>
-        </TableView>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </children>
+        </VBox>
         <HBox alignment="CENTER_RIGHT" spacing="5.0" VBox.vgrow="NEVER">
             <children>
                 <Button fx:id="stampaUgovora" mnemonicParsing="false" onAction="#stampajUgovor" text="Štampa"/>
