@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.UserData;
 import net.yuvideo.jgemstone.client.classes.Users;
 import org.json.JSONObject;
 
@@ -99,7 +100,8 @@ public class EditKorisnikController implements Initializable {
         korisnikUgovoriController = fxmlLoader.getController();
         korisnikUgovoriController.client = client;
         korisnikUgovoriController.userID = userID;
-        korisnikUgovoriController.user = userEdit;
+        UserData userData = new UserData(client, userID);
+        korisnikUgovoriController.user = userData;
         korisnikUgovoriController.set_data();
 
 

@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -12,6 +13,7 @@ import javafx.util.Callback;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Artikli;
 import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.Operaters;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -53,6 +55,7 @@ public class MagacinMainController implements Initializable {
     public TableColumn<Artikli, Integer> cKolicina;
     public TableColumn<Artikli, String> cOpis;
     public Client client;
+    public Menu zaduziOpera;
     SpinnerValueFactory.IntegerSpinnerValueFactory integerSpinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 1);
     private URL location;
     private ResourceBundle resources;
@@ -145,6 +148,32 @@ public class MagacinMainController implements Initializable {
             cmbJMere.getSelectionModel().select(2);
         }
 
+
+        zaduziOpera.getItems().clear();
+        for (Operaters oper : getOpers()) {
+            MenuItem mitem = new MenuItem();
+            mitem.setText(String.format("%s %s %d", oper.getIme(), oper.getUsername(), oper.getId()));
+            mitem.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    zaduziOperaSaItemom(tblArtikli.getSelectionModel().getSelectedItem().getId(), oper.getId());
+
+                }
+            });
+            zaduziOpera.getItems().add(mitem);
+        }
+
+
+    }
+
+    private void zaduziOperaSaItemom(int itemID, int operID) {
+        System.out.println(String.format("zaduzujem opera %s sa itemom %s", operID, itemID));
+    }
+
+    private ArrayList<Operaters> getOpers() {
+        Operaters opers = new Operaters();
+        opers.initData(client);
+        return opers.getOperaters();
 
     }
 

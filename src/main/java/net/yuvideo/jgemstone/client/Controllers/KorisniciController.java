@@ -178,7 +178,7 @@ public class KorisniciController implements Initializable {
     public void mIzbrisiKorisnika(ActionEvent actionEvent) {
         Alert alert;
         if (tUsers.getSelectionModel().getSelectedIndex() == -1) {
-            //Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete " + "no user selected" + " ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            //Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete " + "no UserData selected" + " ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert = new Alert(Alert.AlertType.WARNING, "Nije izabran ni jedan korisnik", ButtonType.OK);
             alert.setTitle("Upozorenje");
             alert.setHeaderText("GREŠKA!");
@@ -217,7 +217,7 @@ public class KorisniciController implements Initializable {
 
     public void bEditUser(ActionEvent actionEvent) {
         if (tUsers.getSelectionModel().getSelectedIndex() == -1) {
-            //Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete " + "no user selected" + " ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            //Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete " + "no UserData selected" + " ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             Alert alert = new Alert(Alert.AlertType.WARNING, "Nije izabran ni jedan korisnik za izmenu", OK);
             alert.setTitle("Upozorenje");
             alert.setHeaderText("GREŠKA!");

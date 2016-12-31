@@ -8,7 +8,7 @@ import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.Users;
+import net.yuvideo.jgemstone.client.classes.UserData;
 import net.yuvideo.jgemstone.client.classes.ugovori_types;
 import org.json.JSONObject;
 
@@ -38,7 +38,7 @@ public class KorisnikUgovorEditController implements Initializable {
     private DateTimeFormatter dateTimeFormatterSQL = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private JSONObject jObj = new JSONObject();
-    public Users user;
+    public UserData user;
     public boolean replaceCode;
 
     @Override
@@ -54,6 +54,7 @@ public class KorisnikUgovorEditController implements Initializable {
         if (replaceCode) {
             replace_codes();
         }
+        user.updateData();
         lBrUgovora.setText(String.valueOf(ugovor.getBr()));
         lNazivUgovora.setText(ugovor.getNaziv());
         lOd.setText(ugovor.getPocetakUgovora());
@@ -72,8 +73,8 @@ public class KorisnikUgovorEditController implements Initializable {
                 .replace("{%tel_fix}", user.getFiksni())
                 .replace("{%tel_mob}", user.getMobilni())
                 .replace("{%fax}", user.getFax())
-                .replace("{%adresa_za_prijem_racuna}", String.format("%s %s %s", user.getAdresaRacuna(), user.getMestoRacuna(), user.getjAdresaBroj()))
-                .replace("{%adresa_koriscenja_usluge}", String.format("%s %s", user.getAdresaUsluge(), user.getMestoUsluge()))
+                .replace("{%adresa_za_prijem_racuna}", String.format("%s %s", user.getAdresaRacuna(), user.getMestoRacuna()))
+                .replace("{%adresa_koriscenja_usluge}", String.format("%s %s %s", user.getAdresaUsluge(), user.getjAdresaBroj(), user.getMestoUsluge()))
                 .replace("{%period_ugovora}", String.valueOf(ugovor.getTrajanje()))
                 .replace("{%datum}", LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
                 .replace("{%PIB}", user.getPIB())

@@ -118,7 +118,7 @@ public class UgovoriEditController implements Initializable {
         File pdfFile;
         FileChooser pdfFileChose = new FileChooser();
         pdfFileChose.setTitle("Izaberite PDF Fajl");
-        pdfFileChose.setInitialDirectory(new File(System.getProperty("user.home")));
+        pdfFileChose.setInitialDirectory(new File(System.getProperty("UserData.home")));
         pdfFileChose.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PDF", "*.pdf", "*.PDF"));
         pdfFile = pdfFileChose.showOpenDialog(this.stage);
 

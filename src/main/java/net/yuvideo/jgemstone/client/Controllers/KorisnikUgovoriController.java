@@ -42,7 +42,7 @@ public class KorisnikUgovoriController implements Initializable {
     private ResourceBundle resources;
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private JSONObject jObj;
-    public Users user;
+    public UserData user;
     int ugovorNo = 0;
 
     @Override
@@ -99,7 +99,7 @@ public class KorisnikUgovoriController implements Initializable {
         jsonObject = client.send_object(jsonObject);
         this.ugovorNo = jsonObject.getInt("NO_UGOVORA");
         jsonObject.put("action", "get_user_data");
-        jsonObject.put("userId", user.getId());
+        jsonObject.put("userId", userID);
         jsonObject = client.send_object(jsonObject);
 
         user.setJbroj(jsonObject.getString("jBroj"));
@@ -203,6 +203,7 @@ public class KorisnikUgovoriController implements Initializable {
         korisnikUgovorEditController.ugovor = ugovor;
         korisnikUgovorEditController.client = client;
         korisnikUgovorEditController.replaceCode = true;
+        UserData user = new UserData(client, userID);
         korisnikUgovorEditController.user = user;
         korisnikUgovorEditController.setData();
 
@@ -230,6 +231,8 @@ public class KorisnikUgovoriController implements Initializable {
         korisnikUgovorEditController.editUgovor = true;
         korisnikUgovorEditController.client = client;
         korisnikUgovorEditController.replaceCode = false;
+        UserData user = new UserData(client, userID);
+        korisnikUgovorEditController.user = user;
         korisnikUgovorEditController.setData();
         ugovoriEditInterface.getStage().showAndWait();
         set_data();

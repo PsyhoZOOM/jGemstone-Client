@@ -196,7 +196,11 @@ public class KorisnikPodaciController implements Initializable {
 
         jObj = new JSONObject();
         jObj.put("action", "getAdrese");
-        jObj.put("brojMesta", brojMesta);
+        if (brojMesta != null) {
+            jObj.put("brojMesta", brojMesta);
+        } else {
+            jObj.put("brojMesta", "00");
+        }
 
         jObj = client.send_object(jObj);
 

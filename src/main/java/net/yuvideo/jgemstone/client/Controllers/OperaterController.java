@@ -38,6 +38,7 @@ public class OperaterController implements Initializable {
     public TextField tUsername;
     public CheckBox chkNov;
     public Button bClose;
+    public ComboBox cmbTypeOperater;
     URL location;
     ResourceBundle resource;
     private Operaters operaters;
@@ -70,6 +71,12 @@ public class OperaterController implements Initializable {
         });
 
 
+        cmbTypeOperater.getItems().add(0, "Terenac");
+        cmbTypeOperater.getItems().add(1, "Operater");
+        cmbTypeOperater.getItems().add(2, "Administrator");
+
+
+
     }
 
     private void set_data() {
@@ -79,6 +86,7 @@ public class OperaterController implements Initializable {
         tTel.setText(operEdit.getTelefon());
         chkAktivan.setSelected(operEdit.isAktivan());
         tKomentar.setText(operEdit.getKomentar());
+        cmbTypeOperater.getSelectionModel().select(operEdit.getTypeNo());
     }
 
     public void snimiOper(ActionEvent actionEvent) {
@@ -99,6 +107,8 @@ public class OperaterController implements Initializable {
         jObj.put("komentar", tKomentar.getText());
         jObj.put("aktivan", chkAktivan.isSelected());
         jObj.put("ime", tImeIPrezime.getText());
+        jObj.put("typeNo", cmbTypeOperater.getSelectionModel().getSelectedIndex());
+        jObj.put("type", cmbTypeOperater.getEditor().getText());
 
         jObj = client.send_object(jObj);
 
@@ -134,6 +144,8 @@ public class OperaterController implements Initializable {
         jObj.put("komentar", tKomentar.getText());
         jObj.put("aktivan", chkAktivan.isSelected());
         jObj.put("ime", tImeIPrezime.getText());
+        jObj.put("type", cmbTypeOperater.getEditor().getText());
+        jObj.put("typeNo", cmbTypeOperater.getSelectionModel().getSelectedIndex());
 
         jObj = client.send_object(jObj);
 
@@ -167,6 +179,8 @@ public class OperaterController implements Initializable {
             operaters.setAdresa(operaterObj.getString("adresa"));
             operaters.setKomentar(operaterObj.getString("komentar"));
             operaters.setTelefon(operaterObj.getString("telefon"));
+            operaters.setTypeNo(operaterObj.getInt("typeNo"));
+            operaters.setType(operaterObj.getString("type"));
             operatersArr.add(operaters);
 
         }

@@ -108,7 +108,7 @@ public class MestaController implements Initializable {
         alert.initOwner(bMestoDelete.getScene().getWindow());
         alert.showAndWait();
 
-        //If user select no then return from this method
+        //If UserData select no then return from this method
         //else continue to delete
         if (alert.getResult() == bNo) {
             return;

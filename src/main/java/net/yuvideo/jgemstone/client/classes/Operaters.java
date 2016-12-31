@@ -1,6 +1,9 @@
 package net.yuvideo.jgemstone.client.classes;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by zoom on 1/30/17.
@@ -14,7 +17,38 @@ public class Operaters implements Serializable {
     String komentar;
     Boolean aktivan;
     String ime;
+    String type;
+    int typeNo;
+    ArrayList<Operaters> operaters = new ArrayList<>();
 
+
+    public ArrayList<Operaters> getOperaters() {
+        return operaters;
+    }
+
+    public void setOperaters(ArrayList<Operaters> operaters) {
+        this.operaters = operaters;
+    }
+
+    public Boolean getAktivan() {
+        return aktivan;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getTypeNo() {
+        return typeNo;
+    }
+
+    public void setTypeNo(int typeNo) {
+        this.typeNo = typeNo;
+    }
 
     public int getId() {
 
@@ -79,5 +113,29 @@ public class Operaters implements Serializable {
 
     public void setIme(String ime) {
         this.ime = ime;
+    }
+
+
+    public void initData(Client client) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("action", "getOperaters");
+        jsonObject = client.send_object(jsonObject);
+
+        for (int i = 0; i < jsonObject.length(); i++) {
+            Operaters opers = new Operaters();
+            JSONObject jsonObject2 = jsonObject.getJSONObject(String.valueOf(i));
+            opers.setId(jsonObject2.getInt("id"));
+            opers.setIme(jsonObject2.getString("ime"));
+            opers.setUsername(jsonObject2.getString("username"));
+            opers.setAktivan(jsonObject2.getBoolean("aktivan"));
+            opers.setAdresa(jsonObject2.getString("adresa"));
+            opers.setKomentar(jsonObject2.getString("komentar"));
+            opers.setTelefon(jsonObject2.getString("telefon"));
+            opers.setType(jsonObject2.getString("type"));
+            opers.setTypeNo(jsonObject2.getInt("typeNo"));
+            operaters.add(opers);
+        }
+
+
     }
 }
