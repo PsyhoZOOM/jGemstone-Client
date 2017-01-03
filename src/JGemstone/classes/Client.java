@@ -1,6 +1,5 @@
 package JGemstone.classes;
 
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
@@ -42,12 +41,14 @@ public class Client {
             Bfw.flush();
             rObj = new JSONObject();
             rObj = get_object();
+            isConnected = true;
 
 
         } catch (IOException e) {
             //System.out.println(e.getMessage());
-            LOGGER.log(Level.ERROR, e.getMessage());
-            System.exit(0);
+            LOGGER.error("CANT SEND OBJECT" + e.getMessage());
+            isConnected = false;
+
         }
         return rObj;
     }
@@ -59,6 +60,7 @@ public class Client {
 
                 Isr = new InputStreamReader(socket.getInputStream());
                 Bfr = new BufferedReader(Isr);
+                isConnected = true;
             } catch (IOException e) {
                 LOGGER.error("ERROR AT InputStreamReader: " + e.getMessage());
                 isConnected = false;
@@ -66,13 +68,14 @@ public class Client {
         }
 
         try {
-
             jObj = new JSONObject(Bfr.readLine());
+            isConnected = true;
         } catch (IOException e1) {
-            LOGGER.info(e1.getMessage());
-            e1.printStackTrace();
+            LOGGER.info("E1_MESSAGE" + e1.getMessage());
+            isConnected = false;
         } catch (NullPointerException e2) {
-            LOGGER.info(e2.getMessage());
+            LOGGER.info("E2_MESSAGE" + e2.getMessage());
+            isConnected = false;
         }
 
         return jObj;
@@ -108,25 +111,25 @@ public class Client {
         try {
             socket = new Socket(InetAddress.getByName(RemoteHost), portNumber);
             login_to_server();
+            isConnected = true;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("CANT CONNECT TO HOST " + e.getMessage());
+            isConnected = false;
         }
 
     }
 
     private void login_to_server() {
 
-
         if (Osw == null) {
             try {
                 //for json
                 Osw = new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8);
                 Bfw = new BufferedWriter(Osw);
-
-
             } catch (IOException e) {
                 e.printStackTrace();
+
             }
         }
         try {
@@ -134,17 +137,22 @@ public class Client {
             Bfw.write(jObj.toString());
             Bfw.newLine();
             Bfw.flush();
-
         } catch (IOException e) {
+            LOGGER.info("NOOO");
             e.printStackTrace();
+
         }
         jObj = get_object();
         if (jObj.has("Message")) {
-            LOGGER.info(jObj.getString("Message"));
+            LOGGER.info("MESSAGE: " + jObj.getString("Message"));
         } else {
             LOGGER.info("ERROR IN CONNECTION (no return Message)");
         }
 
+    }
+
+    public Boolean get_connection_state() {
+        return isConnected;
     }
 
 }

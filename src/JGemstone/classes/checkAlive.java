@@ -5,16 +5,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
-import java.sql.Time;
-
 /**
  * Created by zoom on 12/11/16.
  */
 public class checkAlive implements Runnable {
-    public Label lStatusConnection;
     public Boolean Running = true;
-    Time latency;
-    Boolean connected = false;
+    public Label istatusConn;
     JSONObject jPingOBj;
     JSONObject jPongResponse;
     Logger LOGGER = LogManager.getLogger("CHECK_PING");
@@ -29,9 +25,15 @@ public class checkAlive implements Runnable {
         jPingOBj = new JSONObject();
         jPingOBj.put("action", "PING");
         jPongResponse = client.send_object(jPingOBj);
-        //lStatusConnection.setText("Povezan sa serverom");
-//lStatusConnection.setText("Diskonektovan! Rekonektujem se..");
-        connected = jPongResponse.getString("Message").equals("PONG");
+        LOGGER.info(jPongResponse);
+        if (jPongResponse.has("Message")) {
+            istatusConn.setText("Connected");
+        } else {
+            istatusConn.setText("Disconnected");
+            istatusConn.setText("Connecting");
+            client.close();
+            client.main_run();
+        }
 
     }
 
@@ -39,14 +41,14 @@ public class checkAlive implements Runnable {
     @Override
     public void run() {
 
-        while (Running) {
-            check_connection();
-            LOGGER.info("CONNECTION STATE: " + connected);
+        while (true) {
 
             try {
+                if (client.get_connection_state() == null) client.main_run();
+                check_connection();
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                LOGGER.info("ERROR CONNECTION: " + e.getMessage());
             }
         }
 

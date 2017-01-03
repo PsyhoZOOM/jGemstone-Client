@@ -51,6 +51,7 @@ public class Main extends Application {
         bundle = ResourceBundle.getBundle("JGemstone.locale.lang", locale, new EncodingControl("UTF8"));
 
         final FXMLLoader main_scr = new FXMLLoader((getClass().getResource("/JGemstone/resources/fxml/MainWindow.fxml")), bundle);
+        FXMLLoader login__scr = new FXMLLoader((getClass().getResource("/JGemstone/resources/fxml/LoginWin.fxml")), bundle);
 
         //setup network client
         //client.setup_client();

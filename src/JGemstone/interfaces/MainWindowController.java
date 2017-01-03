@@ -114,6 +114,7 @@ public class MainWindowController implements Initializable {
 
     }
 
+
     public void mOpenSetup(ActionEvent actionEvent) throws IOException {
 
         Stage stage = new Stage();
@@ -130,22 +131,23 @@ public class MainWindowController implements Initializable {
     }
 
     private void connect_to_server() {
+        /*
         client = new Client();
         client.main_run();
         checkPing = new checkAlive(client);
-        lStatusConnection = checkPing.lStatusConnection;
+        checkPing.istatusConn = lStatusConnection;
+        ping_Check = new Thread(checkPing);
+        ping_Check.start();
+        */
+
+        client = new Client();
+        checkPing = new checkAlive(client);
+        checkPing.istatusConn = lStatusConnection;
+        LOGGER.info("CONNECTION STATE: " + client.get_connection_state());
         ping_Check = new Thread(checkPing);
         ping_Check.start();
 
     }
-
-    public void connect_to(ActionEvent actionEvent) {
-        connect_to_server();
-
-    }
-
-
-
 
 
     public void showKorisnici(ActionEvent actionEvent) {
