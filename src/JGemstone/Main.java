@@ -3,6 +3,7 @@ package JGemstone;
 import JGemstone.classes.Client;
 import JGemstone.classes.EncodingControl;
 import JGemstone.classes.messageS;
+import JGemstone.interfaces.LoginWinController;
 import JGemstone.interfaces.MainWindowController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,16 +21,18 @@ public class Main extends Application {
     public static ResourceBundle bundle;
     public static Boolean LoginSuccess = false;
     Scene scene;
+    Scene mainScene;
     Parent rootMainWindow;
+    Parent rootMain;
     Client client;
     MainWindowController mainCtrl;
+    LoginWinController loginCtrl;
     messageS msg = new messageS();
     private Locale locale;
     private String locale_sr;
     private String login;
 
 
-    //// TODO: 9/14/16  3. UGOVORI ZA KORISNIK
     //// TODO: 9/14/16  4. Stampanje ugovora
     //// TODO: 9/14/16  5. Dozvole operatera
     //// TODO: 9/14/16  6. Stampa racuna
@@ -45,28 +48,37 @@ public class Main extends Application {
 
         locale_sr = "sr";
         locale = new Locale(locale_sr);
- //       System.setProperty("javafx.userAgentStylesheetUrl", STYLESHEET_CASPIAN);
+        System.setProperty("javafx.userAgentStylesheetUrl", STYLESHEET_CASPIAN);
 
 
         bundle = ResourceBundle.getBundle("JGemstone.locale.lang", locale, new EncodingControl("UTF8"));
 
-        final FXMLLoader main_scr = new FXMLLoader((getClass().getResource("/JGemstone/resources/fxml/MainWindow.fxml")), bundle);
-        FXMLLoader login__scr = new FXMLLoader((getClass().getResource("/JGemstone/resources/fxml/LoginWin.fxml")), bundle);
+
+        FXMLLoader main_scr = new FXMLLoader((getClass().getResource("/JGemstone/resources/fxml/MainWindow.fxml")), bundle);
 
         //setup network client
         //client.setup_client();
         //setup windows controllers
         rootMainWindow = main_scr.load();
+        mainCtrl = main_scr.getController();
 
-        scene = new Scene(rootMainWindow);
+        mainCtrl.client = client;
+
+
+        mainScene = new Scene(rootMainWindow);
         //scene.getStylesheets().add("/JGemstone/resources/css/Main.css");
         primaryStage.setTitle("jGemstone");
-
-        primaryStage.setScene(scene);
+        primaryStage.setScene(mainScene);
         primaryStage.show();
         primaryStage.setMaximized(true);
+        mainCtrl.show_login_win();
 
-        mainCtrl = main_scr.getController();
+
+
+
+
+
+
 
 
 

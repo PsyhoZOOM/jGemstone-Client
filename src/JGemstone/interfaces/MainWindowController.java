@@ -1,15 +1,11 @@
 package JGemstone.interfaces;
 
 import JGemstone.classes.Client;
-import JGemstone.classes.checkAlive;
-import JGemstone.classes.tiProperty;
 import com.jfoenix.controls.*;
-import com.jfoenix.effects.JFXDepthManager;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -17,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -54,13 +49,8 @@ public class MainWindowController implements Initializable {
     public Label lStatusConnection;
     public Client client;
     public Logger LOGGER = LogManager.getLogger();
-    @FXML
-    TreeView<tiProperty> treeViewLeft;
-    Thread th;
 
     ResourceBundle resource;
-    int depth = 0;
-    Thread clientThread;
     private HamburgerSlideCloseTransition hambSlideMenuLeft;
     private FXMLLoader fxmloader;
     private AnchorPane bpone;
@@ -68,9 +58,6 @@ public class MainWindowController implements Initializable {
     private GrupeController GroupControll;
     private ServisiController servisiController;
     private UgovoriController ugovoriController;
-    private JFXDepthManager managger;
-    private checkAlive checkPing;
-    private Thread ping_Check;
     public MainWindowController() {
 
     }
@@ -94,7 +81,9 @@ public class MainWindowController implements Initializable {
         });
 
         exitApp();
-        connect_to_server();
+        if (client == null) {
+            LOGGER.info("CLIENT IS: " + client);
+        }
 
 
     }
@@ -106,11 +95,30 @@ public class MainWindowController implements Initializable {
         mExit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                checkPing.Running = false;
                 Platform.exit();
             }
 
         });
+
+    }
+
+    public void show_login_win() {
+        Stage stage = new Stage();
+        try {
+            Parent root;
+            fxmloader = new FXMLLoader(getClass().getResource("/JGemstone/resources/fxml/LoginWin.fxml"), resource);
+            root = fxmloader.load();
+            LoginWinController loginWinController = fxmloader.getController();
+            client = loginWinController.client;
+            stage.setScene(new Scene(root));
+            stage.setTitle("LOGIN");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(lAction.getScene().getWindow());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.showAndWait();
+        LOGGER.info("CLIENT = " + client);
 
     }
 
@@ -127,27 +135,9 @@ public class MainWindowController implements Initializable {
                 lAction.getScene().getWindow()
                 // ((Node)actionEvent.getSource()).getScene().getWindow()
         );
-        stage.show();
+        stage.showAndWait();
     }
 
-    private void connect_to_server() {
-        /*
-        client = new Client();
-        client.main_run();
-        checkPing = new checkAlive(client);
-        checkPing.istatusConn = lStatusConnection;
-        ping_Check = new Thread(checkPing);
-        ping_Check.start();
-        */
-
-        client = new Client();
-        checkPing = new checkAlive(client);
-        checkPing.istatusConn = lStatusConnection;
-        LOGGER.info("CONNECTION STATE: " + client.get_connection_state());
-        ping_Check = new Thread(checkPing);
-        ping_Check.start();
-
-    }
 
 
     public void showKorisnici(ActionEvent actionEvent) {
