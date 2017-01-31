@@ -18,8 +18,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.controlsfx.control.Notifications;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -311,7 +313,7 @@ public class FaktureController implements Initializable {
         }else{
         }
         resourceFXML = "/JGemstone/resources/fxml/NovaFaktura.fxml";
-        NewInterface novaFakturaInterface = new NewInterface(0,0, resourceFXML, "Nova Faktura", resource);
+        NewInterface novaFakturaInterface = new NewInterface(resourceFXML, "Nova Faktura", resource);
         NovaFakturaController novaFakturaController = novaFakturaInterface.getLoader().getController();
         novaFakturaController.client = this.client;
         novaFakturaController.brFakture = cmbBrFakture.getJFXEditor().getText();
@@ -326,6 +328,15 @@ public class FaktureController implements Initializable {
 
 
     public void deleteFakturu(ActionEvent actionEvent) {
+        if (tblFakture.getSelectionModel().getSelectedIndex() == -1) {
+            Notifications.create()
+                    .position(Pos.BOTTOM_RIGHT)
+                    .text("Nije izabrana faktura za brisanje")
+                    .hideAfter(Duration.seconds(6))
+                    .title("Upozorenje")
+                    .showWarning();
+            return;
+        }
         selectedFacture = (Fakture) tblFakture.getSelectionModel().getSelectedItem();
         jObj = new JSONObject();
         jObj.put("action", "delete_fakturu");

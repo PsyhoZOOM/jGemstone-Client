@@ -120,7 +120,7 @@ public class ServisiController implements Initializable {
         service = (Services) tServicesTable.getSelectionModel().getSelectedItem();
         resoruceFXML = "/JGemstone/resources/fxml/EditServisi.fxml";
 
-        final NewInterface editServiceInterface = new NewInterface(320, 250, resoruceFXML, "Izmena Servisa", resources);
+        final NewInterface editServiceInterface = new NewInterface(resoruceFXML, "Izmena Servisa", resources);
         EditServicesController editServicesController = editServiceInterface.getLoader().getController();
         editServicesController.client = client;
         editServicesController.serviceID = service.getId();
@@ -134,7 +134,7 @@ public class ServisiController implements Initializable {
 
     public void novService(ActionEvent actionEvent) {
         resoruceFXML = "/JGemstone/resources/fxml/NovServis.fxml";
-         NewInterface newServiceInterface = new NewInterface(320, 250, resoruceFXML, "Nov Servis", resources);
+        NewInterface newServiceInterface = new NewInterface(resoruceFXML, "Nov Servis", resources);
          NovServicesController novServicesController = newServiceInterface.getLoader().getController();
         novServicesController.client = client;
         novServicesController.bClose.setOnAction(new EventHandler<ActionEvent>() {

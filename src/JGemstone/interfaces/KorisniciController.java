@@ -20,11 +20,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import javafx.util.Duration;
+import javafx.util.Callback;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.controlsfx.control.Notifications;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -39,12 +37,11 @@ import static javafx.scene.control.ButtonType.OK;
 public class KorisniciController implements Initializable {
 
     public TableView tUsers;
-    public TableColumn cId;
-    public TableColumn cUserName;
+    public TableColumn cJBroj;
     public TableColumn cFullName;
     public TableColumn cAddress;
     public TableColumn cPlace;
-    public TableColumn cBr;
+    public TableColumn cAdressUsluge;
     public JFXTextField tUserSearch;
     public JFXButton bUplate;
     public JFXButton bFakture;
@@ -80,26 +77,35 @@ public class KorisniciController implements Initializable {
                 }
             }
         });
-
-    }
-
-    public void set_table_users(String username) {
-
-        tUsers.setEditable(true);
-
-        cBr.setCellValueFactory(new PropertyValueFactory<Users, Integer>("br"));
-        cId.setCellValueFactory(new PropertyValueFactory<Users, Integer>("id"));
-        cFullName.setCellValueFactory(new PropertyValueFactory<Users, Integer>("ime"));
-        cUserName.setCellValueFactory(new PropertyValueFactory<Users, String>("username"));
+        cFullName.setCellValueFactory(new PropertyValueFactory<Users, String>("ime"));
         cAddress.setCellValueFactory(new PropertyValueFactory<Users, String>("adresa"));
         cPlace.setCellValueFactory(new PropertyValueFactory<Users, String>("mesto"));
+        cAdressUsluge.setCellValueFactory(new PropertyValueFactory<Users, String>("adresa_usluge"));
+        cJBroj.setCellValueFactory(new PropertyValueFactory<Users, Integer>("id"));
+        tUsers.setRowFactory(tv -> {
+            TableRow<Users> row = new TableRow<Users>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    Users rowData = row.getItem();
+                    bEditUser(null);
+                }
+            });
+            return row;
+        });
 
-        show_table(username);
+
     }
+
 
     private void show_table(String username) {
         ObservableList<Users> data = FXCollections.observableArrayList(get_user_table_list(username));
         tUsers.setItems(data);
+        tUsers.setColumnResizePolicy(new Callback<TableView.ResizeFeatures, Boolean>() {
+            @Override
+            public Boolean call(TableView.ResizeFeatures param) {
+                return true;
+            }
+        });
     }
 
 
@@ -110,41 +116,28 @@ public class KorisniciController implements Initializable {
         jObj.put("username", search_user);
 
         jObj = client.send_object(jObj);
-        users = new ArrayList<>();
+        users = new ArrayList();
 
         for (int i = 0; i < jObj.length(); i++) {
             jUser = (JSONObject) jObj.get(String.valueOf(i));
             user = new Users();
             user.setId(jUser.getInt("id"));
-            user.setBr(i);
-            if (jUser.has("ime"))
-                user.setIme(jUser.getString("ime"));
-            if (jUser.has("username"))
-                user.setUsername(jUser.getString("username"));
-            if (jUser.has("mesto"))
-                user.setMesto(jUser.getString("mesto"));
-            if (jUser.has("adresa"))
-                user.setAdresa(jUser.getString("adresa"));
-            if (jUser.has("adresaRacuna"))
-                user.setAdresa_za_naplatu(jUser.getString("adresaRacuna"));
-            if (jUser.has("adresaKoriscenja"))
-                user.setAdresa_koriscenja(jUser.getString("adresaKoriscenja"));
-            if (jUser.has("brLk"))
-                user.setBr_lk(jUser.getString("brLk"));
-            if (jUser.has("datumRodjenja"))
-                user.setDatum_rodjenja(jUser.getString("datumRodjenja"));
-            if (jUser.has("telFixni"))
-                user.setFiksni(jUser.getString("telFixni"));
-            if (jUser.has("telMobilni"))
-                user.setMobilni(jUser.getString("telMobilni"));
-            if (jUser.has("JMBG"))
-                user.setJMBG(jUser.getString("JMBG"));
-            if (jUser.has("ostalo"))
-                user.setOstalo(jUser.getString("ostalo"));
-            if (jUser.has("kometar"))
-                user.setKomentar(jUser.getString("komentar"));
-            if (jUser.has("postBr"))
-                user.setPostanski_broj(jUser.getString("postBr"));
+            user.setjBroj(jUser.getString("jBroj"));
+            user.setjMesto(jUser.getString("jMesto"));
+            user.setjAdresa(jUser.getString("jAdresa"));
+            user.setjAdresaBroj(jUser.getString("jAdresaBroj"));
+            user.setIme(jUser.getString("fullName"));
+            user.setMesto(jUser.getString("mesto"));
+            user.setAdresa(jUser.getString("adresa"));
+            user.setAdresa_usluge(jUser.getString("adresaUsluge"));
+            user.setMesto_usluge(jUser.getString("mestoUsluge"));
+            user.setBr_lk(jUser.getString("brLk"));
+            user.setDatum_rodjenja(jUser.getString("datumRodjenja"));
+            user.setFiksni(jUser.getString("telFixni"));
+            user.setMobilni(jUser.getString("telMobilni"));
+            user.setJMBG(jUser.getString("JMBG"));
+            user.setKomentar(jUser.getString("komentar"));
+            user.setPostanski_broj(jUser.getString("postBr"));
             users.add(user);
 
         }
@@ -232,70 +225,29 @@ public class KorisniciController implements Initializable {
 
     public void EditUser(int UserID) {
         resoruceFXML = "/JGemstone/resources/fxml/EditKorisnik.fxml";
-        NewInterface editKorisnikInterface = new NewInterface(800, 600, resoruceFXML, "Izmena korisnik", resources);
+        NewInterface editKorisnikInterface = new NewInterface(resoruceFXML, "Izmena korisnik", resources);
         EditKorisnikController editUserController = editKorisnikInterface.getLoader().getController();
+
         editUserController.client = client;
         editUserController.userID = UserID;
-        editUserController.show_usr();
+        //editUserController.show_usr();
+        editUserController.loadKorisnikData();
 
-        editKorisnikInterface.getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                show_table("");
-            }
-        });
-        editUserController.bClose.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-                show_table(tUserSearch.getText());
-                editKorisnikInterface.getStage().close();
-            }
-        });
         editKorisnikInterface.getStage().showAndWait();
-        show_table(tUserSearch.getText());
     }
 
 
     public void newUser(ActionEvent actionEvent) {
         resoruceFXML = "/JGemstone/resources/fxml/NovKorisnik.fxml";
-        NewInterface novKorisnik = new NewInterface(489, 1011, resoruceFXML, "Nov Korisnik", resources);
+        NewInterface novKorisnik = new NewInterface(resoruceFXML, "Nov Korisnik", resources);
         NovKorisnikController novKorisnikController = novKorisnik.getLoader().getController();
 
-
         novKorisnikController.setClient(client);
-        novKorisnik.getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                tUserSearch.setText(novKorisnikController.user.getUsername());
-                bUserSearchAction(null);
-            }
-        });
 
         novKorisnik.getStage().showAndWait();
-        if (novKorisnikController.user_saved) {
-            tUsers.getSelectionModel().selectLast();
-            show_table("");
-            jObj = new JSONObject();
-            jObj.put("action", "get_user_id");
-            jObj.put("userName", novKorisnikController.userName);
 
-            jObj = client.send_object(jObj);
-            if (jObj.has("Message")) {
-                Notifications.create()
-                        .title("GREŠKA")
-                        .text("Greška pri kreiranju korisnika")
-                        .hideAfter(Duration.seconds(3.00))
-                        .show();
-            }
-            EditUser(jObj.getInt("userId"));
-        } else {
-            Notifications.create()
-                    .title("GREŠKA")
-                    .text("Korisnik nije snimljen")
-                    .hideAfter(Duration.seconds(3.00))
-                    .showError();
-        }
+        tUserSearch.setText(String.valueOf(novKorisnikController.user.getId()));
+        bUserSearchAction(null);
 
     }
 
@@ -315,27 +267,11 @@ public class KorisniciController implements Initializable {
         Users user = (Users) tUsers.getSelectionModel().getSelectedItem();
 
         resoruceFXML = "/JGemstone/resources/fxml/KorisnikUplate.fxml";
-        final NewInterface uplateKorisnik = new NewInterface(800, 600, resoruceFXML, "Uplate", resources);
+        final NewInterface uplateKorisnik = new NewInterface(resoruceFXML, "Uplate", resources);
         KorisnikUplateController uplateKorisnikController = uplateKorisnik.getLoader().getController();
-        uplateKorisnikController.setClient(client);
+        uplateKorisnikController.client = client;
         uplateKorisnikController.resource = resources;
-
-
-        uplateKorisnikController.setUserName(user.getUsername());
-        uplateKorisnikController.setUserID(user.getId());
-        uplateKorisnikController.set_table_uplate(user.getId());
-
-        uplateKorisnikController.bClose.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                uplateKorisnik.getStage().close();
-                show_table(tUserSearch.getText());
-
-            }
-
-        });
         uplateKorisnik.getStage().showAndWait();
-
 
     }
 
@@ -352,7 +288,7 @@ public class KorisniciController implements Initializable {
         Users user = (Users) tUsers.getSelectionModel().getSelectedItem();
 
         resoruceFXML = "/JGemstone/resources/fxml/Fakture.fxml";
-        NewInterface faktureInterface = new NewInterface(800, 600, resoruceFXML, "Fakture", resources);
+        NewInterface faktureInterface = new NewInterface(resoruceFXML, "Fakture", resources);
         FaktureController faktureController = faktureInterface.getLoader().getController();
         faktureController.client = client;
         faktureController.userData = user;

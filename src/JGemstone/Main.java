@@ -2,7 +2,6 @@ package JGemstone;
 
 import JGemstone.classes.Client;
 import JGemstone.classes.EncodingControl;
-import JGemstone.classes.messageS;
 import JGemstone.interfaces.LoginWinController;
 import JGemstone.interfaces.MainWindowController;
 import javafx.application.Application;
@@ -13,24 +12,22 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Main extends Application {
     public static final Logger LOGGER = LogManager.getLogger();
     public static ResourceBundle bundle;
-    public static Boolean LoginSuccess = false;
-    Scene scene;
-    Scene mainScene;
-    Parent rootMainWindow;
-    Parent rootMain;
     Client client;
     MainWindowController mainCtrl;
     LoginWinController loginCtrl;
-    messageS msg = new messageS();
+    Parent rootMainWindow;
+    Stage mainStage = new Stage();
+    FXMLLoader fxmlLoader;
     private Locale locale;
     private String locale_sr;
-    private String login;
+    private boolean appExit = false;
 
 
     //// TODO: 9/14/16  4. Stampanje ugovora
@@ -48,37 +45,27 @@ public class Main extends Application {
 
         locale_sr = "sr";
         locale = new Locale(locale_sr);
-        System.setProperty("javafx.userAgentStylesheetUrl", STYLESHEET_CASPIAN);
+        //System.setProperty("javafx.userAgentStylesheetUrl", STYLESHEET_CASPIAN);
 
 
         bundle = ResourceBundle.getBundle("JGemstone.locale.lang", locale, new EncodingControl("UTF8"));
 
 
-        FXMLLoader main_scr = new FXMLLoader((getClass().getResource("/JGemstone/resources/fxml/MainWindow.fxml")), bundle);
+        //FXMLLoader main_scr = new FXMLLoader((getClass().getResource("/JGemstone/resources/fxml/MainWindow.fxml")), bundle);
+        //FXMLLoader login_scr = new FXMLLoader((getClass().getResource("/JGemstone/resources/fxml/LoginWin.fxml")), bundle);
 
-        //setup network client
-        //client.setup_client();
-        //setup windows controllers
-        rootMainWindow = main_scr.load();
-        mainCtrl = main_scr.getController();
-
-        mainCtrl.client = client;
+        primaryStage.setTitle("JGemstone");
 
 
-        mainScene = new Scene(rootMainWindow);
+        while (!appExit) {
+            show_login_screen();
+            if (client.get_connection_state() && client != null) {
+                show_main_win();
+            }
+        }
+
+
         //scene.getStylesheets().add("/JGemstone/resources/css/Main.css");
-        primaryStage.setTitle("jGemstone");
-        primaryStage.setScene(mainScene);
-        primaryStage.show();
-        primaryStage.setMaximized(true);
-        mainCtrl.show_login_win();
-
-
-
-
-
-
-
 
 
 
@@ -96,14 +83,41 @@ public class Main extends Application {
 */
     }
 
-    private String object_worker(Object obj) {
-        messageS mess = null;
-        if (obj.getClass().equals(messageS.class)) {
-            mess = (messageS) obj;
 
+    private void show_login_screen() {
+        fxmlLoader = new FXMLLoader(getClass().getResource("/JGemstone/resources/fxml/LoginWin.fxml"), bundle);
+        try {
+            rootMainWindow = fxmlLoader.load();
+            loginCtrl = fxmlLoader.getController();
+            Scene scene = new Scene(rootMainWindow);
+            mainStage.setScene(scene);
+            mainStage.setResizable(false);
+            mainStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return mess.getMessage();
 
+        client = loginCtrl.client;
+        appExit = loginCtrl.appExit;
+
+
+    }
+
+    private void show_main_win() {
+        fxmlLoader = new FXMLLoader(getClass().getResource("/JGemstone/resources/fxml/MainWindow.fxml"), bundle);
+        try {
+            rootMainWindow = fxmlLoader.load();
+            mainCtrl = fxmlLoader.getController();
+            mainCtrl.client = client;
+            client.status_conn = mainCtrl.lStatusConnection;
+            Scene scene = new Scene(rootMainWindow);
+            mainStage.setScene(scene);
+            mainStage.setResizable(true);
+            mainStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        appExit = true;
 
     }
 

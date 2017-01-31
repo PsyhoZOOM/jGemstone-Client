@@ -1,9 +1,6 @@
 package JGemstone.classes;
 
 import java.io.Serializable;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by zoom on 9/7/16.
@@ -21,6 +18,63 @@ public class Uplate implements Serializable {
     String operater;
     String serviceName;
     Double zaUplatu;
+    Double punaCena;
+    Double popustPerc;
+
+    String title;
+
+
+    boolean payed;
+    int serviceID;
+    int userID;
+
+    public Uplate(String title) {
+        this.datumZaduzenja = title;
+    }
+
+    public Uplate() {
+
+    }
+
+    public boolean isPayed() {
+        return payed;
+    }
+
+    public void setPayed(boolean payed) {
+        this.payed = payed;
+    }
+
+    public int getServiceID() {
+        return serviceID;
+    }
+
+    public void setServiceID(int serviceID) {
+        this.serviceID = serviceID;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public Double getPopustPerc() {
+        return popustPerc;
+    }
+
+    public void setPopustPerc(Double popustPerc) {
+        this.popustPerc = popustPerc;
+    }
+
+    public Double getPunaCena() {
+        return punaCena;
+    }
+
+    public void setPunaCena(Double punaCena) {
+        this.punaCena = punaCena;
+    }
 
     public Double getZaUplatu() {
         return zaUplatu;
@@ -103,11 +157,11 @@ public class Uplate implements Serializable {
     }
 
     public Double getUplaceno() {
-        return  uplaceno;
+        return uplaceno;
     }
 
     public void setUplaceno(Double uplaceno) {
-        this.uplaceno =  uplaceno;
+        this.uplaceno = uplaceno;
 
     }
 
@@ -119,4 +173,10 @@ public class Uplate implements Serializable {
         this.operater = operater;
     }
 
+    @Override
+    public String toString() {
+        return this.datumZaduzenja;
+    }
 }
+
+

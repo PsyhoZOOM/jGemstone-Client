@@ -20,13 +20,13 @@ public class NewInterface  {
     private FXMLLoader loader;
     private int width;
     private int height;
-
-
     private String title;
+    private boolean decorated = true;
+
     private String resourceFXML;
     private ResourceBundle resources;
 
-    public NewInterface(int width, int height, String resourceFXML, String title, ResourceBundle resources) {
+    public NewInterface(String resourceFXML, String title, ResourceBundle resources) {
         this.width = width;
         this.height=height;
         this.resourceFXML = resourceFXML;
@@ -87,6 +87,10 @@ public class NewInterface  {
         this.resourceFXML = resourceFXML;
     }
 
+    public void setDecorated() {
+        this.decorated = true;
+    }
+
 
     public void set_interface() {
         loader = new FXMLLoader(getClass().getResource(resourceFXML), resources);
@@ -96,12 +100,12 @@ public class NewInterface  {
             scene = new Scene(root);
             stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initStyle(StageStyle.UTILITY);
-            stage.setResizable(false);
-            stage.setMaxHeight(height);
-            stage.setMaxWidth(width);
-            stage.setMinHeight(height);
-            stage.setMinWidth(width);
+            if (decorated) {
+                stage.initStyle(StageStyle.DECORATED);
+            } else {
+                stage.initStyle(StageStyle.UNDECORATED);
+            }
+            stage.setResizable(true);
 
 
             stage.setScene(scene);

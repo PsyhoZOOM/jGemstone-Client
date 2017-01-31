@@ -96,7 +96,7 @@ public class GrupeController implements Initializable {
 
     public void newGroup(ActionEvent actionEvent) {
         resoruceFXML = "/JGemstone/resources/fxml/NovaGrupa.fxml";
-        NewInterface newGroupInterface = new NewInterface(380, 370, resoruceFXML, "Nova Grupa", resources);
+        NewInterface newGroupInterface = new NewInterface(resoruceFXML, "Nova Grupa", resources);
         NovaGrupaController newGroupController = newGroupInterface.getLoader().getController();
         newGroupController.client = client;
         newGroupInterface.getStage().showAndWait();
@@ -124,7 +124,7 @@ public class GrupeController implements Initializable {
 
 
         resoruceFXML = "/JGemstone/resources/fxml/EditGrupa.fxml";
-        NewInterface newGroupEditInterface = new NewInterface(0, 0, resoruceFXML, "Izmena Grupa", resources);
+        NewInterface newGroupEditInterface = new NewInterface(resoruceFXML, "Izmena Grupa", resources);
         EditGroupController editGroupController = newGroupEditInterface.getLoader().getController();
         editGroupController.client = client;
 

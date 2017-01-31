@@ -1,12 +1,14 @@
 package JGemstone.classes;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by zoom on 8/23/16.
  */
-public class Users  implements Serializable {
+public class Users extends RecursiveTreeObject<Users> implements Serializable {
     int br;
     int id;
     String username;
@@ -17,31 +19,65 @@ public class Users  implements Serializable {
     String br_lk;
     String JMBG;
     String adresa;
-    String adresa_za_naplatu;
-    String adresa_koriscenja;
+    String adresa_usluge;
+    String mesto_usluge;
     String fiksni;
     String mobilni;
     String ostalo;
     String komentar;
     List services;
-    int jBroj;
+    String jMesto;
+    String jAdresa;
+    String jAdresaBroj;
+    String jBroj;
 
-    public int getjBroj() {
+
+    public String getMesto_usluge() {
+        return mesto_usluge;
+    }
+
+    public void setMesto_usluge(String mesto_usluge) {
+        this.mesto_usluge = mesto_usluge;
+    }
+
+    public String getjBroj() {
         return jBroj;
     }
 
-    public void setjBroj(int jBroj) {
+    public void setjBroj(String jBroj) {
         this.jBroj = jBroj;
     }
 
-
-
-    public String getAdresa_koriscenja() {
-        return adresa_koriscenja;
+    public String getAdresa_usluge() {
+        return adresa_usluge;
     }
 
-    public void setAdresa_koriscenja(String adresa_koriscenja) {
-        this.adresa_koriscenja = adresa_koriscenja;
+    public void setAdresa_usluge(String adresa_usluge) {
+        this.adresa_usluge = adresa_usluge;
+    }
+
+    public String getjMesto() {
+        return jMesto;
+    }
+
+    public void setjMesto(String jMesto) {
+        this.jMesto = jMesto;
+    }
+
+    public String getjAdresa() {
+        return jAdresa;
+    }
+
+    public void setjAdresa(String jAdresa) {
+        this.jAdresa = jAdresa;
+    }
+
+    public String getjAdresaBroj() {
+        return jAdresaBroj;
+    }
+
+    public void setjAdresaBroj(String jAdresaBroj) {
+        this.jAdresaBroj = jAdresaBroj;
     }
 
     public String getKomentar() {
@@ -116,13 +152,6 @@ public class Users  implements Serializable {
         this.adresa = adresa;
     }
 
-    public String getAdresa_za_naplatu() {
-        return adresa_za_naplatu;
-    }
-
-    public void setAdresa_za_naplatu(String adresa_za_naplatu) {
-        this.adresa_za_naplatu = adresa_za_naplatu;
-    }
 
     public String getFiksni() {
         return fiksni;

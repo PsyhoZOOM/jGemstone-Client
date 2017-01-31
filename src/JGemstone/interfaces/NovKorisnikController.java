@@ -1,28 +1,13 @@
 package JGemstone.interfaces;
 
-import JGemstone.classes.Client;
-import JGemstone.classes.Users;
-import JGemstone.classes.messageS;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXSnackbar;
-import com.jfoenix.controls.JFXTextField;
+import JGemstone.classes.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.controlsfx.control.Notifications;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -34,27 +19,19 @@ import java.util.ResourceBundle;
  */
 public class NovKorisnikController implements Initializable {
     public Button bClose;
-    public GridPane gridPane;
-    public TextField tUserName;
     public TextField tFullName;
-    public JFXDatePicker tDatumRodjenja;
+    public DatePicker tDatumRodjenja;
     public TextField tPostBr;
-    public TextField tMesto;
     public TextField tBrLk;
     public TextField tJMBG;
-    public TextField tAdresaRacuna;
-    public JFXTextField tAdresa;
     public TextField tFiksni;
     public TextField tMobilni;
     public TextArea tKomentar;
-    public TextField tBroj;
-    public JFXSnackbar snackMessage;
-    public HBox hboxTop;
-    public Pane paneTop;
-    public JFXTextField tAdresaKoriscenja;
+    public Spinner spnAdresaBroj;
+    public ComboBox<Mesta> cmbMesto;
+    public ComboBox<Adrese> cmbAdresa;
     public Users user;
     public boolean user_saved;
-    public String userName;
     Logger LOGGER = LogManager.getLogger("NEW_USER");
     //JSON
     JSONObject jObj;
@@ -74,16 +51,7 @@ public class NovKorisnikController implements Initializable {
                 stage.close();
             }
         });
-        gridPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode().toString().equals("ESCAPE")) {
-                    stage = (Stage) gridPane.getScene().getWindow();
-                    stage.close();
-                }
-            }
-        });
-        snackMessage.registerSnackbarContainer(gridPane);
+
 
     }
 
@@ -96,55 +64,36 @@ public class NovKorisnikController implements Initializable {
         jObj = new JSONObject();
         jObj.put("action", "new_user");
 
-        jObj.put("userName", tUserName.getText());
         jObj.put("fullName", tFullName.getText());
         jObj.put("datumRodjenja", tDatumRodjenja.getValue().format(dateTimeFormatterRodjen));
         jObj.put("postBr", tPostBr.getText());
-        jObj.put("mesto", tMesto.getText());
+        jObj.put("mesto", cmbMesto.getEditor().getText());
         jObj.put("brLk", tBrLk.getText());
         jObj.put("JMBG", tJMBG.getText());
-        jObj.put("adresaRacuna", tAdresaRacuna.getText());
-        jObj.put("adresa", tAdresa.getText());
-        jObj.put("adresaKoriscenja", tAdresaKoriscenja.getText());
+        jObj.put("adresa", cmbAdresa.getEditor().getText());
+        jObj.put("brojAdrese", spnAdresaBroj.getEditor().getText());
         jObj.put("komentar", tKomentar.getText());
         jObj.put("telFiksni", tFiksni.getText());
         jObj.put("telMobilni", tMobilni.getText());
-        jObj.put("jbroj",tBroj.getText());
-        jObj.put("komentar", tKomentar.getText());
 
 
 
         jObj = client.send_object(jObj);
 
-        if (jObj.get("Message").equals("user_exist") || jObj.getString("Message").equals("user_no_exist")) {
+        if (jObj.get("Message").equals("ERROR")) {
 
             user_saved = false;
-            snackMessage.show("Korisnik postoji!", 10000);
-            Notifications.create()
-                    .title("Greška")
-                    .text("Korisnik postoji!")
-                    .hideAfter(Duration.seconds(3.0))
-                    .position(Pos.BOTTOM_RIGHT)
-                    .showError();
+
+            NotifyUser.NotifyUser("Gresška", "Korisnik nije kreiran \n" + jObj.getString("ERROR_MESSAGE"), 3);
         }else if (jObj.get("Message").equals("user_saved")){
-            Notifications.create()
-                    .title("Informacija")
-                    .text("Korisnik je snimljen")
-                    .hideAfter(Duration.seconds(3.0))
-                    .position(Pos.BOTTOM_RIGHT)
-                    .showInformation();
+
+            NotifyUser.NotifyUser("Informacija", "Korisnik je snimljen", 1);
 
             user_saved = true;
-            userName = tUserName.getText();
+            user = new Users();
+            user.setId(jObj.getInt("userID"));
             Stage  stage = (Stage) bClose.getScene().getWindow();
             stage.close();
-        }else{
-            Notifications.create()
-                    .title("Greška")
-                    .text("Error: " + jObj.getString("Message"))
-                    .hideAfter(Duration.seconds(6.0))
-                    .position(Pos.BOTTOM_RIGHT)
-                    .showError();
         }
 
 
