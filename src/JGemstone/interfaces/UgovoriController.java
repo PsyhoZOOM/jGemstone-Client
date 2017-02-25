@@ -64,7 +64,6 @@ public class UgovoriController implements Initializable {
             jObjUgovori = (JSONObject) jObj.get(toString().valueOf(i));
             ugovori = new ugovori_types();
             ugovori.setId(jObjUgovori.getInt("idUgovora"));
-            ugovori.setBr(i + 1);
             ugovori.setNaziv(jObjUgovori.getString("nazivUgovora"));
             if (jObj.has("textUgovora"))
                 ugovori.setTextUgovora(jObj.getString("textUgovora"));

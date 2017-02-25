@@ -7,113 +7,38 @@ import java.io.Serializable;
  */
 public class Uplate implements Serializable {
     int id;
-    int br;
-    String username;
-    String grupa;
+    int id_ServiceUser;
+    int id_service;
+    String nazivPaket;
     String datumZaduzenja;
-    String datumUplate;
-    String za_mesec;
-    String godina;
-    Double uplaceno;
-    String operater;
-    String serviceName;
-    Double zaUplatu;
-    Double punaCena;
-    Double popustPerc;
-
-    String title;
-
-
-    boolean payed;
-    int serviceID;
     int userID;
+    Double popust;
+    String paketType;
+    Double cena;
+    Double uplaceno;
+    Double zaUplatu;
+    String datumUplate;
+    String operater;
+    double dug;
+    String zaMesec;
 
-    public Uplate(String title) {
-        this.datumZaduzenja = title;
+    String mestoUplate;
+
+
+    public String getZaMesec() {
+        return zaMesec;
     }
 
-    public Uplate() {
-
+    public void setZaMesec(String zaMesec) {
+        this.zaMesec = zaMesec;
     }
 
-    public boolean isPayed() {
-        return payed;
+    public double getDug() {
+        return dug;
     }
 
-    public void setPayed(boolean payed) {
-        this.payed = payed;
-    }
-
-    public int getServiceID() {
-        return serviceID;
-    }
-
-    public void setServiceID(int serviceID) {
-        this.serviceID = serviceID;
-    }
-
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
-    public Double getPopustPerc() {
-        return popustPerc;
-    }
-
-    public void setPopustPerc(Double popustPerc) {
-        this.popustPerc = popustPerc;
-    }
-
-    public Double getPunaCena() {
-        return punaCena;
-    }
-
-    public void setPunaCena(Double punaCena) {
-        this.punaCena = punaCena;
-    }
-
-    public Double getZaUplatu() {
-        return zaUplatu;
-    }
-
-    public void setZaUplatu(Double zaUplatu) {
-        this.zaUplatu = zaUplatu;
-    }
-
-    public String getServiceName() {
-        return serviceName;
-    }
-
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
-    }
-
-    public String getDatumUplate() {
-        return datumUplate;
-    }
-
-    public void setDatumUplate(String datumUplate) {
-        this.datumUplate = datumUplate;
-    }
-
-    public String getGodina() {
-        return godina;
-    }
-
-    public void setGodina(String godina) {
-        this.godina = godina;
-    }
-
-    public int getBr() {
-        return br;
-    }
-
-    public void setBr(int br) {
-        this.br = br;
+    public void setDug(double dug) {
+        this.dug = dug;
     }
 
     public int getId() {
@@ -124,36 +49,68 @@ public class Uplate implements Serializable {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public int getId_ServiceUser() {
+        return id_ServiceUser;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId_ServiceUser(int id_ServiceUser) {
+        this.id_ServiceUser = id_ServiceUser;
     }
 
-    public String getGrupa() {
-        return grupa;
+    public int getId_service() {
+        return id_service;
     }
 
-    public void setGrupa(String grupa) {
-        this.grupa = grupa;
+    public void setId_service(int id_service) {
+        this.id_service = id_service;
+    }
+
+    public String getNazivPaket() {
+        return nazivPaket;
+    }
+
+    public void setNazivPaket(String nazivPaket) {
+        this.nazivPaket = nazivPaket;
     }
 
     public String getDatumZaduzenja() {
         return datumZaduzenja;
     }
 
-    public void setDatumZaduzenja(String datumZaduzenja) {
-        this.datumZaduzenja = datumZaduzenja;
+    public void setDatumZaduzenja(String datumAZaduzenja) {
+        this.datumZaduzenja = datumAZaduzenja;
     }
 
-    public String getZa_mesec() {
-        return za_mesec;
+    public int getUserID() {
+        return userID;
     }
 
-    public void setZa_mesec(String za_mesec) {
-        this.za_mesec = za_mesec;
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public Double getPopust() {
+        return popust;
+    }
+
+    public void setPopust(Double popust) {
+        this.popust = popust;
+    }
+
+    public String getPaketType() {
+        return paketType;
+    }
+
+    public void setPaketType(String paketType) {
+        this.paketType = paketType;
+    }
+
+    public Double getCena() {
+        return cena;
+    }
+
+    public void setCena(Double cena) {
+        this.cena = cena;
     }
 
     public Double getUplaceno() {
@@ -162,20 +119,40 @@ public class Uplate implements Serializable {
 
     public void setUplaceno(Double uplaceno) {
         this.uplaceno = uplaceno;
+    }
 
+    public String getDatumUplate() {
+        return datumUplate;
+    }
+
+    public void setDatumUplate(String datumUplate) {
+        this.datumUplate = datumUplate;
+    }
+
+    public Double getZaUplatu() {
+        return zaUplatu;
+    }
+
+    public void setZaUplatu(Double zaUplatu) {
+        this.zaUplatu = zaUplatu;
     }
 
     public String getOperater() {
         return operater;
     }
 
-    public void setOperater(String operater) {
+    public void setOperater(String operater)
+
+    {
         this.operater = operater;
     }
 
-    @Override
-    public String toString() {
-        return this.datumZaduzenja;
+    public String getMestoUplate() {
+        return mestoUplate;
+    }
+
+    public void setMestoUplate(String mestoUplate) {
+        this.mestoUplate = mestoUplate;
     }
 }
 

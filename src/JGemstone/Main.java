@@ -43,13 +43,15 @@ public class Main extends Application {
     public void start(final Stage primaryStage) throws Exception {
 
 
-        locale_sr = "sr";
+        locale_sr = "RS";
         locale = new Locale(locale_sr);
         //System.setProperty("javafx.userAgentStylesheetUrl", STYLESHEET_CASPIAN);
 
 
-        bundle = ResourceBundle.getBundle("JGemstone.locale.lang", locale, new EncodingControl("UTF8"));
+        bundle = ResourceBundle.getBundle("JGemstone.locale.lang", new Locale("sr", "RS"), new EncodingControl("Cp1250"));
 
+
+        Locale.setDefault(new Locale("sr", "RS"));
 
         //FXMLLoader main_scr = new FXMLLoader((getClass().getResource("/JGemstone/resources/fxml/MainWindow.fxml")), bundle);
         //FXMLLoader login_scr = new FXMLLoader((getClass().getResource("/JGemstone/resources/fxml/LoginWin.fxml")), bundle);
@@ -92,6 +94,7 @@ public class Main extends Application {
             Scene scene = new Scene(rootMainWindow);
             mainStage.setScene(scene);
             mainStage.setResizable(false);
+            mainStage.setTitle("YUVidoe LOGIN");
             mainStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
@@ -113,6 +116,7 @@ public class Main extends Application {
             Scene scene = new Scene(rootMainWindow);
             mainStage.setScene(scene);
             mainStage.setResizable(true);
+            mainStage.setTitle("YUVIDEO");
             mainStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();

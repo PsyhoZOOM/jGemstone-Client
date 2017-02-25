@@ -64,7 +64,7 @@ public class Adrese implements Serializable {
 
     @Override
     public String toString() {
-        return this.nazivAdrese;
+        return this.nazivAdrese + ", " + this.brojAdrese;
     }
 
 }

@@ -7,8 +7,7 @@ import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -32,7 +31,6 @@ import java.util.ResourceBundle;
 public class EditKorisnikController implements Initializable {
 
 
-    public Button bClose;
     public TextField tFullName;
     public TextField tPostBr;
     public TextField tTelMob;
@@ -100,12 +98,12 @@ public class EditKorisnikController implements Initializable {
 
     //TABS
     public AnchorPane anchroKorsinikPodaci;
-
-
+    public AnchorPane anchorKorisnikUsluge;
+    public AnchorPane anchorKorisnikUgovori;
+    public Tab tabKorisnikUsluge;
 
 
     Logger LOGGER = LogManager.getLogger("EDIT_USERS");
-    DateTimeFormatter simpleDateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     //JSON
     JSONObject jObj;
     JSONObject jObjAvService;
@@ -115,6 +113,9 @@ public class EditKorisnikController implements Initializable {
     ObservableList<ugovori_types> ugovori_user_typesObeservableList;
     ToggleGroup toogleOpremaGroup = new ToggleGroup();
     DateTimeFormatter dateTimeFormater = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    KorisnikPodaciController KorisnikPodaciController;
+    KorisnikUslugeController korisnikUslugeController;
+    KorisnikUgovoriController korisnikUgovoriController;
     private messageS mess;
     private Stage stage;
     private Services service;
@@ -136,22 +137,13 @@ public class EditKorisnikController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.resource = resources;
         this.location = location;
-        bClose.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                stage = (Stage) bClose.getScene().getWindow();
-                stage.close();
-            }
-        });
-
-
 
 
     }
 
 
     public void loadKorisnikData() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/JGemstone/resources/fxml/EditKorisnikPodaci.fxml"), resource);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/JGemstone/resources/fxml/KorisnikPodaci.fxml"), resource);
 
         try {
             anchroKorsinikPodaci.getChildren().clear();
@@ -161,14 +153,55 @@ public class EditKorisnikController implements Initializable {
             e.printStackTrace();
         }
 
-        EditKorisnikPodaciController editKorisnikPodaciController = fxmlLoader.getController();
-        editKorisnikPodaciController.client = client;
-        editKorisnikPodaciController.userEditID = userID;
-        editKorisnikPodaciController.setData();
+        KorisnikPodaciController = fxmlLoader.getController();
+        KorisnikPodaciController.client = client;
+        KorisnikPodaciController.userEditID = userID;
+        KorisnikPodaciController.setData();
+
+    }
+
+    public void loadKorisnikServices() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/JGemstone/resources/fxml/KorisnikUsluge.fxml"), resource);
+
+
+        try {
+            anchorKorisnikUsluge.getChildren().clear();
+            anchorKorisnikUsluge.getChildren().add(fxmlLoader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        korisnikUslugeController = fxmlLoader.getController();
+        korisnikUslugeController.client = client;
+        korisnikUslugeController.userID = userID;
+        korisnikUslugeController.setData();
+
+
+    }
+
+    public void loadKorisnikUgovori() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/JGemstone/resources/fxml/KorisnikUgovori.fxml"), resource);
+
+        try {
+            anchorKorisnikUgovori.getChildren().clear();
+            anchorKorisnikUgovori.getChildren().add(fxmlLoader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        korisnikUgovoriController = fxmlLoader.getController();
+        korisnikUgovoriController.client = client;
+        korisnikUgovoriController.userID = userID;
+        korisnikUgovoriController.set_data();
+
 
     }
 
 
+    public void refreshUgovori(Event event) {
+
+        korisnikUslugeController.refreshUgovori();
+    }
 }
 
 

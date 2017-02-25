@@ -1,9 +1,6 @@
 package JGemstone.interfaces;
 
-import JGemstone.classes.Adrese;
-import JGemstone.classes.Client;
-import JGemstone.classes.Mesta;
-import JGemstone.classes.Users;
+import JGemstone.classes.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -25,7 +22,7 @@ import java.util.ResourceBundle;
 /**
  * Created by zoom on 1/29/17.
  */
-public class EditKorisnikPodaciController implements Initializable {
+public class KorisnikPodaciController implements Initializable {
     public TextField tFullName;
     public DatePicker tdDatumRodjenja;
     public TextField tBrLk;
@@ -44,6 +41,7 @@ public class EditKorisnikPodaciController implements Initializable {
     public TextField tAdresaRacunBroj;
     public Client client;
     public int userEditID;
+    public Button bSnimi;
     private ResourceBundle resource;
     private URL location;
     private JSONObject jObj;
@@ -94,7 +92,12 @@ public class EditKorisnikPodaciController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Mesta> observable, Mesta oldValue, Mesta newValue) {
                 ObservableList adrese = FXCollections.observableArrayList(getAdrese((cmbMestoRacun.getValue().getId())));
-                cmbAdresaRacun.setItems(adrese);
+
+                if (!adrese.isEmpty()) {
+                    cmbAdresaRacun.setItems(adrese);
+                } else {
+                    cmbAdresaRacun.getItems().clear();
+                }
             }
         });
 
@@ -111,15 +114,24 @@ public class EditKorisnikPodaciController implements Initializable {
         cmbAdresaRacun.valueProperty().addListener(new ChangeListener<Adrese>() {
             @Override
             public void changed(ObservableValue<? extends Adrese> observable, Adrese oldValue, Adrese newValue) {
-                lUserID.setText(cmbMestoRacun.getValue().getBrojMesta() + cmbAdresaRacun.getValue().getBrojAdrese() + userData.getId());
+                if (!cmbAdresaRacun.getItems().isEmpty()) {
+                    lUserID.setText(cmbMestoRacun.getValue().getBrojMesta() + cmbAdresaRacun.getValue().getBrojAdrese() + userData.getjBroj());
+                } else {
+                    lUserID.setText(String.valueOf(userData.getjBroj()));
+                }
             }
         });
     }
 
 
     public void setData() {
+        //label userID sa brojem mesta i adrese
+        if (!cmbAdresaRacun.getItems().isEmpty())
+            lUserID.setText(cmbMestoRacun.getValue().getBrojMesta() + cmbAdresaRacun.getValue().getBrojAdrese() + userData.getjBroj());
+
         ObservableList mesta = FXCollections.observableArrayList(getMesta());
         cmbMestoRacun.setItems(mesta);
+
 
         Users user = getUserData(userEditID);
         setUserDataFields(user);
@@ -269,8 +281,13 @@ public class EditKorisnikPodaciController implements Initializable {
 
         jObj.put("action", "update_user");
 
+        if (cmbMestoRacun.getValue().getBrojMesta() == null || cmbAdresaRacun.getValue().getBrojAdrese() == null) {
+            AlertUser.warrning("Greska", "Mesto racuna ili adrese ne mogu biti prazni");
+            return;
+        }
 
-        jObj.put("userID", userData.getId());
+
+        jObj.put("userID", userEditID);
         jObj.put("fullName", tFullName.getText().trim());
         jObj.put("datumRodjenja", tdDatumRodjenja.getValue().format(dateBirthFormat).toString().trim());
         jObj.put("adresa", tAdresa.getText().trim());
@@ -288,9 +305,19 @@ public class EditKorisnikPodaciController implements Initializable {
         jObj.put("jBroj", lUserID.getText().trim());
         jObj.put("komentar", taKomentar.getText().trim());
 
+
         jObj = client.send_object(jObj);
 
-        LOGGER.info(jObj.getString("message"));
+        LOGGER.info(jObj.getString("Message"));
+
+        if (jObj.has("Error")) {
+            NotifyUser.NotifyUser("Greška", jObj.getString("Error"), 3);
+        } else {
+            AlertUser.info("Informacija", "Korisnik izmene snimljene!");
+        }
+
+
+
 
 
     }
@@ -298,5 +325,6 @@ public class EditKorisnikPodaciController implements Initializable {
 
     public void bSaveUser(ActionEvent actionEvent) {
         updateUserData();
+
     }
 }

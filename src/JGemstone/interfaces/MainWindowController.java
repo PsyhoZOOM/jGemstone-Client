@@ -33,6 +33,7 @@ public class MainWindowController implements Initializable {
     public Client client;
     public Logger LOGGER = LogManager.getLogger();
     public BorderPane MainBorderPane;
+    public MenuItem mesta;
 
     ResourceBundle resource;
     private FXMLLoader fxmloader;
@@ -42,7 +43,6 @@ public class MainWindowController implements Initializable {
     private KorisniciController korctrl;
     private GrupeController GroupControll;
     private ServisiController servisiController;
-    private UgovoriController ugovoriController;
     private MestaController mestaController;
     private OpremaController opremaController;
     public MainWindowController() {
@@ -135,48 +135,21 @@ public class MainWindowController implements Initializable {
 
     }
 
-    public void showUgovori(ActionEvent actionEvent) {
-        fxmloader = new FXMLLoader(getClass().getResource("/JGemstone/resources/fxml/Ugovori.fxml"), resource);
-
-        ugovoriController = fxmloader.getController();
-
-        ugovoriController.client = client;
-        ugovoriController.set_datas();
-
-        try {
-            MainBorderPane.setCenter(fxmloader.load());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void showMesta(ActionEvent actionEvent) {
-        fxmloader = new FXMLLoader(getClass().getResource("/JGemstone/resources/fxml/Mesta.fxml"), resource);
-
-        mestaController = fxmloader.getController();
+        NewInterface mestaInterface = new NewInterface("/JGemstone/resources/fxml/Mesta.fxml", "Mesta", resource);
+        MestaController mestaController = mestaInterface.getLoader().getController();
         mestaController.client = client;
-
         mestaController.osveziMesto(null);
-
-        try {
-            MainBorderPane.setCenter(fxmloader.load());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        mestaInterface.getStage().showAndWait();
     }
 
     public void showOprema(ActionEvent actionEvent) {
-        fxmloader = new FXMLLoader(getClass().getResource("/JGemstone/resources/fxml/Oprema.fxml"), resource);
-
-        opremaController = fxmloader.getController();
+        NewInterface opremaInterface = new NewInterface("/JGemstone/resources/fxml/Oprema.fxml", "Oprema", resource);
+        OpremaController opremaController = opremaInterface.getLoader().getController();
         opremaController.client = client;
         opremaController.refresh_table();
-
-        try {
-            MainBorderPane.setCenter(fxmloader.load());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        opremaInterface.getStage().showAndWait();
     }
 
     public void showOperaterList(ActionEvent actionEvent) {
@@ -185,6 +158,46 @@ public class MainWindowController implements Initializable {
         operaterController.client = client;
         operaterController.show_data();
         operatersEdit.getStage().showAndWait();
+
+    }
+
+    public void showInternetPaket(ActionEvent actionEvent) {
+        NewInterface internetPaketInterface = new NewInterface("/JGemstone/resources/fxml/InternetPaket.fxml", "Internet Paketi", resource);
+        InternetPaketController internetPaketController = internetPaketInterface.getLoader().getController();
+        internetPaketController.client = this.client;
+        internetPaketController.showData();
+        internetPaketInterface.getStage().showAndWait();
+    }
+
+    public void showDTVPaket(ActionEvent actionEvent) {
+        NewInterface digitalniTVPaketInterface = new NewInterface("/JGemstone/resources/fxml/DigitalnaTVPaket.fxml", "Digitalni TV Paketi", resource);
+        DigitalniTVPaketController digitalniTVPaketController = digitalniTVPaketInterface.getLoader().getController();
+        digitalniTVPaketController.client = client;
+        digitalniTVPaketController.showData();
+        digitalniTVPaketInterface.getStage().showAndWait();
+
+
+    }
+
+    public void showUgovoriTemplate(ActionEvent actionEvent) {
+    }
+
+    public void showUgovori(ActionEvent actionEvent) {
+        NewInterface ugovoriInterface = new NewInterface("/JGemstone/resources/fxml/Ugovori.fxml", "Ugovori", resource);
+        UgovoriController ugovoriController = ugovoriInterface.getLoader().getController();
+        ugovoriController.client = client;
+        ugovoriController.set_datas();
+        ugovoriInterface.getStage().showAndWait();
+
+
+    }
+
+    public void showBoxPaket(ActionEvent actionEvent) {
+        NewInterface boxPaketInterface = new NewInterface("/JGemstone/resources/fxml/BoxPaket.fxml", "BOX Paket", resource);
+        BoxPaketController boxPaketController = boxPaketInterface.getLoader().getController();
+        boxPaketController.client = client;
+        boxPaketController.set_data();
+        boxPaketInterface.getStage().showAndWait();
 
     }
 }

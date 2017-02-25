@@ -35,6 +35,7 @@ public class NewInterface  {
         set_interface();
     }
 
+
     public int getWidth() {
         return width;
     }

@@ -36,7 +36,7 @@ import static javafx.scene.control.ButtonType.OK;
  */
 public class KorisniciController implements Initializable {
 
-    public TableView tUsers;
+    public TableView<Users> tUsers;
     public TableColumn cJBroj;
     public TableColumn cFullName;
     public TableColumn cAddress;
@@ -217,7 +217,7 @@ public class KorisniciController implements Initializable {
             return;
         }
         Users user = (Users) tUsers.getSelectionModel().getSelectedItem();
-        int userId = ((Users) tUsers.getSelectionModel().getSelectedItem()).getId();
+        int userId = user.getId();
         EditUser(userId);
 
     }
@@ -230,8 +230,9 @@ public class KorisniciController implements Initializable {
 
         editUserController.client = client;
         editUserController.userID = UserID;
-        //editUserController.show_usr();
         editUserController.loadKorisnikData();
+        editUserController.loadKorisnikServices();
+        editUserController.loadKorisnikUgovori();
 
         editKorisnikInterface.getStage().showAndWait();
     }
@@ -246,8 +247,13 @@ public class KorisniciController implements Initializable {
 
         novKorisnik.getStage().showAndWait();
 
-        tUserSearch.setText(String.valueOf(novKorisnikController.user.getId()));
-        bUserSearchAction(null);
+        if (novKorisnikController.user != null)
+            tUserSearch.setText(String.valueOf(novKorisnikController.user.getId()));
+        if (novKorisnikController.user_saved) {
+            EditUser(novKorisnikController.user.getId());
+            show_table(null);
+            tUsers.getSelectionModel().select(novKorisnikController.user);
+        }
 
     }
 
@@ -270,7 +276,8 @@ public class KorisniciController implements Initializable {
         final NewInterface uplateKorisnik = new NewInterface(resoruceFXML, "Uplate", resources);
         KorisnikUplateController uplateKorisnikController = uplateKorisnik.getLoader().getController();
         uplateKorisnikController.client = client;
-        uplateKorisnikController.resource = resources;
+        uplateKorisnikController.user = user;
+        uplateKorisnikController.show_data();
         uplateKorisnik.getStage().showAndWait();
 
     }

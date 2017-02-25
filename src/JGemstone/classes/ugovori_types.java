@@ -7,14 +7,15 @@ import java.io.Serializable;
  */
 public class ugovori_types implements Serializable {
     private int id;
-    private int br;
+    private String br;
     private String Naziv;
     private String Vrsta;
     private String textUgovora;
     private String Komentar;
     private String pocetakUgovora;
     private String krajUgovora;
-
+    private int userID;
+    private int serviceID;
 
     public int getId() {
         return id;
@@ -24,11 +25,11 @@ public class ugovori_types implements Serializable {
         this.id = id;
     }
 
-    public int getBr() {
+    public String getBr() {
         return br;
     }
 
-    public void setBr(int br) {
+    public void setBr(String br) {
         this.br = br;
     }
 
@@ -86,6 +87,19 @@ public class ugovori_types implements Serializable {
         this.krajUgovora = krajUgovora;
     }
 
+    public int getUserID() {
+        return userID;
+    }
 
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
 
+    public int getServiceID() {
+        return serviceID;
+    }
+
+    public void setServiceID(int serviceID) {
+        this.serviceID = serviceID;
+    }
 }

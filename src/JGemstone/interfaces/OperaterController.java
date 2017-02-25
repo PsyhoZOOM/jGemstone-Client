@@ -62,6 +62,9 @@ public class OperaterController implements Initializable {
         tblOperaters.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if (tblOperaters.getSelectionModel().getSelectedIndex() == -1)
+                    return;
+
                 operEdit = (Operaters) tblOperaters.getSelectionModel().getSelectedItem();
                 tPass.setText("");
                 tPassC.setText("");
@@ -184,7 +187,7 @@ public class OperaterController implements Initializable {
     public void deleteOperater(int operID) {
         jObj = new JSONObject();
         jObj.put("action", "deleteOper");
-        jObj.put("operaterID", operID);
+        jObj.put("operID", operID);
 
         jObj = client.send_object(jObj);
 
@@ -202,6 +205,8 @@ public class OperaterController implements Initializable {
         NewInterface operaterDozvoleInterface = new NewInterface("/JGemstone/resources/fxml/OperaterDozvole.fxml", "Dozvole  Operatera", resource);
         OperaterDozvoleController operaterDozvoleController = operaterDozvoleInterface.getLoader().getController();
         operaterDozvoleController.client = this.client;
+        operaterDozvoleController.operaterID = operEdit.getId();
+        operaterDozvoleController.show_data();
         operaterDozvoleInterface.getStage().showAndWait();
 
     }

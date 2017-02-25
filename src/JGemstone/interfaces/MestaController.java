@@ -1,6 +1,7 @@
 package JGemstone.interfaces;
 
 import JGemstone.classes.Adrese;
+import JGemstone.classes.AlertUser;
 import JGemstone.classes.Client;
 import JGemstone.classes.Mesta;
 import com.jfoenix.controls.JFXButton;
@@ -23,6 +24,7 @@ import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -211,7 +213,6 @@ public class MestaController implements Initializable {
 
         jObj = client.send_object(jObj);
 
-        LOGGER.info(jObj.get("Message"));
         osveziAdresu(null);
 
     }
@@ -227,6 +228,11 @@ public class MestaController implements Initializable {
                     .showWarning();
             return;
         }
+
+
+        Optional<ButtonType> areYouSure = AlertUser.yesNo("BRISANJE ADERSE", "Da li ste sigurni da želite da izbrišete adresu?");
+        if (AlertUser.NE == areYouSure.get())
+            return;
 
         Adrese addrese = (Adrese) tblAdrese.getSelectionModel().getSelectedItem();
 

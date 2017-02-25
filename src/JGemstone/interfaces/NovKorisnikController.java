@@ -27,7 +27,6 @@ public class NovKorisnikController implements Initializable {
     public TextField tFiksni;
     public TextField tMobilni;
     public TextArea tKomentar;
-    public Spinner spnAdresaBroj;
     public ComboBox<Mesta> cmbMesto;
     public ComboBox<Adrese> cmbAdresa;
     public Users user;
@@ -71,7 +70,6 @@ public class NovKorisnikController implements Initializable {
         jObj.put("brLk", tBrLk.getText());
         jObj.put("JMBG", tJMBG.getText());
         jObj.put("adresa", cmbAdresa.getEditor().getText());
-        jObj.put("brojAdrese", spnAdresaBroj.getEditor().getText());
         jObj.put("komentar", tKomentar.getText());
         jObj.put("telFiksni", tFiksni.getText());
         jObj.put("telMobilni", tMobilni.getText());
@@ -84,10 +82,10 @@ public class NovKorisnikController implements Initializable {
 
             user_saved = false;
 
-            NotifyUser.NotifyUser("Gresška", "Korisnik nije kreiran \n" + jObj.getString("ERROR_MESSAGE"), 3);
+            AlertUser.error("Greska", "Korisnik nije napravljne \n" + jObj.getString("ERROR_MESSAGE"));
         }else if (jObj.get("Message").equals("user_saved")){
 
-            NotifyUser.NotifyUser("Informacija", "Korisnik je snimljen", 1);
+            AlertUser.info("Informacija", "Korisnik je snimljen");
 
             user_saved = true;
             user = new Users();

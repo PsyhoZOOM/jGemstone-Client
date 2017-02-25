@@ -39,27 +39,27 @@
                        <RowConstraints valignment="CENTER"/>
                        <RowConstraints valignment="CENTER"/>
                        <RowConstraints valignment="CENTER"/>
-                       <RowConstraints valignment="CENTER"/>
+                       <RowConstraints/>
                        <RowConstraints/>
                        <RowConstraints/>
                    </rowConstraints>
                    <children>
                        <TextField fx:id="tFullName" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                        <DatePicker fx:id="tDatumRodjenja" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                       <TextField fx:id="tPostBr" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-                       <TextField fx:id="tBrLk" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
-                       <TextField fx:id="tJMBG" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+                       <TextField fx:id="tPostBr" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                       <TextField fx:id="tBrLk" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                       <TextField fx:id="tJMBG" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
                        <TextField fx:id="tFiksni" GridPane.columnIndex="4" GridPane.rowIndex="2"/>
                        <TextField fx:id="tMobilni" GridPane.columnIndex="4" GridPane.rowIndex="3"/>
                        <TextArea fx:id="tKomentar" prefHeight="140.0" prefWidth="206.0" wrapText="true"
                                  GridPane.columnIndex="4" GridPane.columnSpan="2147483647" GridPane.rowIndex="5"
                                  GridPane.rowSpan="2147483647"/>
                        <Label text="Ime i prezime:" GridPane.rowIndex="2"/>
-                       <Label text="JMBG:" GridPane.rowIndex="9"/>
-                       <Label text="Broj lične karte:" GridPane.rowIndex="8"/>
+                       <Label text="JMBG:" GridPane.rowIndex="8"/>
+                       <Label text="Broj lične karte:" GridPane.rowIndex="7"/>
                        <Label text="Dratum rođenja:" GridPane.rowIndex="3"/>
                        <Label text="Mesto:" GridPane.rowIndex="4"/>
-                       <Label text="Poštanski broj:" GridPane.rowIndex="7"/>
+                       <Label text="Poštanski broj:" GridPane.rowIndex="6"/>
                        <Label text="Fiksni:" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
                        <Label text="KORISNIČKI PODACI:" underline="true" GridPane.columnSpan="2147483647"
                               GridPane.halignment="LEFT" GridPane.rowIndex="1">
@@ -88,11 +88,9 @@
                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                            </padding>
                        </Separator>
-                       <Label text="Broj adrese:" GridPane.rowIndex="6"/>
-                       <Spinner fx:id="spnAdresaBroj" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                       <ComboBox fx:id="cmbMesto" editable="true" prefWidth="150.0" promptText="Mesto"
+                       <ComboBox fx:id="cmbMesto" editable="true" prefHeight="26.0" prefWidth="200.0" promptText="Mesto"
                                  GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                       <ComboBox fx:id="cmbAdresa" editable="true" prefWidth="150.0" promptText="Adresa"
+                       <ComboBox fx:id="cmbAdresa" editable="true" prefWidth="200.0" promptText="Adresa"
                                  GridPane.columnIndex="1" GridPane.rowIndex="5"/>
                    </children>
                    <padding>
