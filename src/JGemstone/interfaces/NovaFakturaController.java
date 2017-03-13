@@ -31,17 +31,13 @@ public class NovaFakturaController implements Initializable {
 
     public Users user;
     public String brFakture;
-
+    public String godina;
     ResourceBundle resource;
     URL location;
     Client client;
-
     private Stage stage;
     private JSONObject jObj;
-
-
     private Logger LOGGER = LogManager.getLogger("NEW_FACTURE");
-    public String godina;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -59,7 +55,7 @@ public class NovaFakturaController implements Initializable {
 
 
     @FXML
-    private void snimiFakturu(){
+    private void snimiFakturu() {
         //Proveri polja za brojeve i prazna polja
 
         jObj = new JSONObject();
@@ -73,13 +69,11 @@ public class NovaFakturaController implements Initializable {
         jObj.put("userId", user.getId());
         jObj.put("brFakture", brFakture);
 
-        jObj  = client.send_object(jObj);
+        jObj = client.send_object(jObj);
 
         LOGGER.info(jObj.getString("Message"));
-         stage = (Stage) bAddFaktura.getScene().getWindow();
-                stage.close();
-
-
+        stage = (Stage) bAddFaktura.getScene().getWindow();
+        stage.close();
 
 
     }

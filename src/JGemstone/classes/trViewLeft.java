@@ -15,14 +15,12 @@ import java.util.ResourceBundle;
  * Created by zoom on 8/11/16.
  */
 public class trViewLeft {
+    public AnchorPane apCenter;
     private TreeView<tiProperty> treeViewLeft;
     private TreeItem tiRootKorisnici;
     private TreeItem tiListKorisnici;
     private TreeItem tiLogovi;
     private ResourceBundle resources;
-
-
-    public AnchorPane apCenter;
 
     public trViewLeft(TreeView<tiProperty> treeViewLeft) {
         this.treeViewLeft = treeViewLeft;

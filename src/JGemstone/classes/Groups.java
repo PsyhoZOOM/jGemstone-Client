@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by zoom on 9/1/16.
  */
-public class Groups implements Serializable{
+public class Groups implements Serializable {
     int id;
     int br;
     String GroupName;

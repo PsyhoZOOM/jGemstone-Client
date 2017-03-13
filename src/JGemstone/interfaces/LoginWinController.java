@@ -74,6 +74,5 @@ public class LoginWinController implements Initializable {
         stage.showAndWait();
 
 
-
     }
 }

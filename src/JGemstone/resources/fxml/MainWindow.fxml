@@ -6,91 +6,92 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorMainWindow" minHeight="768.0" minWidth="1025.0"
             stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="JGemstone.interfaces.MainWindowController">
-   <children>
-       <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-           <menus>
-               <Menu mnemonicParsing="false" text="Program">
-                   <items>
-                       <MenuItem fx:id="mExit" mnemonicParsing="false" text="Izlaz"/>
-                   </items>
-               </Menu>
-               <Menu fx:id="mPaketi" mnemonicParsing="false" text="Paketi">
-                   <items>
-                       <Menu fx:id="mBOX" mnemonicParsing="false" text="Box Paketi">
-                           <items>
-                               <MenuItem fx:id="miBOXPaket" mnemonicParsing="false" onAction="#showBoxPaket"
-                                         text="Pregled/Izmene"/>
-                           </items>
-                       </Menu>
-                       <Menu fx:id="mPInternet" mnemonicParsing="false" text="Internet">
-                           <items>
-                               <MenuItem mnemonicParsing="false" onAction="#showInternetPaket" text="Paketi"/>
-                               <MenuItem mnemonicParsing="false" text="Grupe"/>
-                           </items>
-                       </Menu>
-                       <Menu fx:id="mPDTV" mnemonicParsing="false" text="Digitalna TV">
-                           <items>
-                               <MenuItem mnemonicParsing="false" onAction="#showDTVPaket" text="Paketi"/>
-                           </items>
-                       </Menu>
-                   </items>
-               </Menu>
-               <Menu mnemonicParsing="false" text="Korisnici">
-                   <items>
-                       <MenuItem mnemonicParsing="false" onAction="#showKorisnici" text="Pretraga korisnika"/>
-                       <MenuItem fx:id="mesta" mnemonicParsing="false" onAction="#showMesta" text="Mesta i Ulice"/>
-                       <MenuItem fx:id="oprema" mnemonicParsing="false" onAction="#showOprema" text="Oprema"/>
-                   </items>
-               </Menu>
-               <Menu mnemonicParsing="false" text="Ugovori">
-                   <items>
-                       <MenuItem mnemonicParsing="false" onAction="#showUgovoriTemplate" text="Template"/>
-                       <MenuItem mnemonicParsing="false" onAction="#showUgovori" text="Pregled ugovora"/>
-                   </items>
-               </Menu>
-               <Menu mnemonicParsing="false" text="Operateri">
-                   <items>
-                       <MenuItem fx:id="operaterList" mnemonicParsing="false" onAction="#showOperaterList"
-                                 text="Izmene"/>
-                       <MenuItem mnemonicParsing="false" text="Dozvole"/>
-                   </items>
-               </Menu>
-               <Menu mnemonicParsing="false" text="Opcije">
-                   <items>
-                       <MenuItem fx:id="mSetup" mnemonicParsing="false" onAction="#mOpenSetup" text="Podešavanja"/>
-                   </items>
-               </Menu>
-               <Menu mnemonicParsing="false" text="Help">
-                   <items>
-                       <MenuItem mnemonicParsing="false" text="About"/>
-                   </items>
-               </Menu>
-           </menus>
-       </MenuBar>
-       <BorderPane fx:id="MainBorderPane" layoutY="29.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
-         <top>
-             <ToolBar BorderPane.alignment="CENTER">
-                 <items>
-                     <Button fx:id="bShowKorisniciSearch" minHeight="50.0" minWidth="100.0" mnemonicParsing="false"
-                             onAction="#showKorisnici" prefHeight="50.0" prefWidth="100.0" text="Pretraga Korisnika"
-                             textAlignment="CENTER" wrapText="true"/>
-                 </items>
-             </ToolBar>
-         </top>
-         <bottom>
-             <ToolBar BorderPane.alignment="CENTER">
-                 <items>
-                     <HBox>
-                     <children>
-                        <Label text="%STATUS" />
-                        <ImageView fx:id="iStatusServer" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="lStatusConnection" text="%NOT_CONNECTED" />
-                     </children>
-                  </HBox>
-                 </items>
-             </ToolBar>
-         </bottom>
-       </BorderPane>
-   </children>
+    <children>
+        <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="Program">
+                    <items>
+                        <MenuItem fx:id="mExit" mnemonicParsing="false" text="Izlaz"/>
+                    </items>
+                </Menu>
+                <Menu fx:id="mPaketi" mnemonicParsing="false" text="Paketi">
+                    <items>
+                        <Menu fx:id="mBOX" mnemonicParsing="false" text="Box Paketi">
+                            <items>
+                                <MenuItem fx:id="miBOXPaket" mnemonicParsing="false" onAction="#showBoxPaket"
+                                          text="Pregled/Izmene"/>
+                            </items>
+                        </Menu>
+                        <Menu fx:id="mPInternet" mnemonicParsing="false" text="Internet">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#showInternetPaket" text="Paketi"/>
+                                <MenuItem mnemonicParsing="false" text="Grupe"/>
+                            </items>
+                        </Menu>
+                        <Menu fx:id="mPDTV" mnemonicParsing="false" text="Digitalna TV">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#showDTVPaket" text="Paketi"/>
+                            </items>
+                        </Menu>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Korisnici">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#showKorisnici" text="Pretraga korisnika"/>
+                        <MenuItem fx:id="mesta" mnemonicParsing="false" onAction="#showMesta" text="Mesta i Ulice"/>
+                        <MenuItem fx:id="oprema" mnemonicParsing="false" onAction="#showOprema" text="Oprema"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Ugovori">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#showUgovoriTemplate" text="Template"/>
+                        <MenuItem mnemonicParsing="false" onAction="#showUgovori" text="Pregled ugovora"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Operateri">
+                    <items>
+                        <MenuItem fx:id="operaterList" mnemonicParsing="false" onAction="#showOperaterList"
+                                  text="Izmene"/>
+                        <MenuItem mnemonicParsing="false" text="Dozvole"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Opcije">
+                    <items>
+                        <MenuItem fx:id="mSetup" mnemonicParsing="false" onAction="#mOpenSetup" text="Podešavanja"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <BorderPane fx:id="MainBorderPane" layoutY="29.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+            <top>
+                <ToolBar BorderPane.alignment="CENTER">
+                    <items>
+                        <Button fx:id="bShowKorisniciSearch" minHeight="50.0" minWidth="100.0" mnemonicParsing="false"
+                                onAction="#showKorisnici" prefHeight="50.0" prefWidth="100.0" text="Pretraga Korisnika"
+                                textAlignment="CENTER" wrapText="true"/>
+                    </items>
+                </ToolBar>
+            </top>
+            <bottom>
+                <ToolBar BorderPane.alignment="CENTER">
+                    <items>
+                        <HBox>
+                            <children>
+                                <Label text="%STATUS"/>
+                                <ImageView fx:id="iStatusServer" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                           preserveRatio="true"/>
+                                <Label fx:id="lStatusConnection" text="%NOT_CONNECTED"/>
+                            </children>
+                        </HBox>
+                    </items>
+                </ToolBar>
+            </bottom>
+        </BorderPane>
+    </children>
 </AnchorPane>

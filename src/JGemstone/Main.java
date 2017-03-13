@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,19 +40,26 @@ public class Main extends Application {
 
     }
 
+    public void init() throws Exception {
+        super.init();
+
+        Font.loadFont(Main.class.getResource("/JGemstone/resources/font/roboto/Roboto-Black.ttf").toExternalForm(), 12);
+    }
+
     @Override
     public void start(final Stage primaryStage) throws Exception {
 
 
-        locale_sr = "RS";
-        locale = new Locale(locale_sr);
+        //locale_sr = "RS";
+        //locale = new Locale(locale_sr);
         //System.setProperty("javafx.userAgentStylesheetUrl", STYLESHEET_CASPIAN);
 
 
-        bundle = ResourceBundle.getBundle("JGemstone.locale.lang", new Locale("sr", "RS"), new EncodingControl("Cp1250"));
+        bundle = ResourceBundle.getBundle("JGemstone.locale.lang", new Locale("sr", "RS"), new EncodingControl("utf-8"));
 
 
         Locale.setDefault(new Locale("sr", "RS"));
+
 
         //FXMLLoader main_scr = new FXMLLoader((getClass().getResource("/JGemstone/resources/fxml/MainWindow.fxml")), bundle);
         //FXMLLoader login_scr = new FXMLLoader((getClass().getResource("/JGemstone/resources/fxml/LoginWin.fxml")), bundle);
@@ -60,6 +68,7 @@ public class Main extends Application {
 
 
         while (!appExit) {
+            LOGGER.info(Locale.getDefault());
             show_login_screen();
             if (client.get_connection_state() && client != null) {
                 show_main_win();
@@ -68,7 +77,6 @@ public class Main extends Application {
 
 
         //scene.getStylesheets().add("/JGemstone/resources/css/Main.css");
-
 
 
 

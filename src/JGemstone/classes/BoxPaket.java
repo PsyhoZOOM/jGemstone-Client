@@ -21,6 +21,7 @@ public class BoxPaket implements Serializable {
     int produzenje;
     double cena;
     int obracune;
+    String paketType;
 
     private int DTV;
     private String DTV_naziv;
@@ -31,6 +32,14 @@ public class BoxPaket implements Serializable {
     private int FIKSNA;
     private String FIKSNA_naziv;
 
+
+    public String getPaketType() {
+        return paketType;
+    }
+
+    public void setPaketType(String paketType) {
+        this.paketType = paketType;
+    }
 
     public int getDTV() {
         return DTV;

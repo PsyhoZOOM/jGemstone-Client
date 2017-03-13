@@ -129,13 +129,12 @@ public class ServisiController implements Initializable {
         set_table("");
 
 
-
     }
 
     public void novService(ActionEvent actionEvent) {
         resoruceFXML = "/JGemstone/resources/fxml/NovServis.fxml";
         NewInterface newServiceInterface = new NewInterface(resoruceFXML, "Nov Servis", resources);
-         NovServicesController novServicesController = newServiceInterface.getLoader().getController();
+        NovServicesController novServicesController = newServiceInterface.getLoader().getController();
         novServicesController.client = client;
         novServicesController.bClose.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -183,10 +182,9 @@ public class ServisiController implements Initializable {
         jObj.put("action", "delete_service");
         jObj.put("serviceId", service.getId());
 
-        jObj=client.send_object(jObj);
+        jObj = client.send_object(jObj);
         LOGGER.info(jObj.get("message"));
         set_table("");
-
 
 
     }

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by zoom on 8/8/16.
  */
-public class messageS implements Serializable{
+public class messageS implements Serializable {
     private String message;
     private String username;
     private String password;

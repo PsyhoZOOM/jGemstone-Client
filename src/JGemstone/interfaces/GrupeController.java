@@ -21,14 +21,12 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-
-
 /**
  * Created by zoom on 8/29/16.
  */
 public class GrupeController implements Initializable {
     public Client client;
-    
+
 
     public Button bNovaGrupa;
 
@@ -73,11 +71,11 @@ public class GrupeController implements Initializable {
         jObj.put("action", "get_groups");
         jObj.put("groupName", groupName);
 
-        jObj= client.send_object(jObj);
+        jObj = client.send_object(jObj);
 
         groups = new ArrayList<Groups>();
         jGroup = new JSONObject();
-        for(int i=0; i<jObj.length();i++) {
+        for (int i = 0; i < jObj.length(); i++) {
             jGroup = (JSONObject) jObj.get(String.valueOf(i));
             group = new Groups();
             group.setId(jGroup.getInt("id"));
@@ -93,7 +91,6 @@ public class GrupeController implements Initializable {
     }
 
 
-
     public void newGroup(ActionEvent actionEvent) {
         resoruceFXML = "/JGemstone/resources/fxml/NovaGrupa.fxml";
         NewInterface newGroupInterface = new NewInterface(resoruceFXML, "Nova Grupa", resources);
@@ -101,7 +98,6 @@ public class GrupeController implements Initializable {
         newGroupController.client = client;
         newGroupInterface.getStage().showAndWait();
         setTableGroup("");
-
 
 
     }
@@ -155,7 +151,7 @@ public class GrupeController implements Initializable {
                 //do stuff
             }
             return;
-        }else{
+        } else {
             ButtonType bYES = new ButtonType("Da", ButtonBar.ButtonData.YES);
             ButtonType bNO = new ButtonType("NE", ButtonBar.ButtonData.NO);
 
@@ -169,8 +165,6 @@ public class GrupeController implements Initializable {
                 return;
             }
         }
-
-
 
 
         jObj = new JSONObject();

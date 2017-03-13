@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import org.json.JSONObject;
 
@@ -27,15 +27,16 @@ public class KorisnikUslugeController implements Initializable {
 
 
     //list services
-    public TableView<ServicesUser> tblServices;
-    public TableColumn cServicesNaziv;
-    public TableColumn cServicesDatum;
-    public TableColumn cServicesVrsta;
-    public TableColumn cServicesBrojUgovora;
-    public TableColumn cSservicesOperater;
-    public TableColumn cServicePopust;
-    public TableColumn cServiceCena;
-    public TableColumn cServiceIdentification;
+    public TreeTableView<ServicesUser> tblServices;
+    public TreeTableColumn cServicesNaziv;
+    public TreeTableColumn cServicesDatum;
+    public TreeTableColumn cServicesBrojUgovora;
+    public TreeTableColumn cSservicesOperater;
+    public TreeTableColumn cServicePopust;
+    public TreeTableColumn cServiceCena;
+    public TreeTableColumn cServiceIdentification;
+    public TreeTableColumn cServiceObracun;
+    public TreeTableColumn cServiceAktivan;
 
 
     //intenret service
@@ -59,8 +60,6 @@ public class KorisnikUslugeController implements Initializable {
     public Button bAddServiceDTV;
     public ComboBox<ugovori_types> cmbUgovorDTV;
     public AnchorPane anchorPane;
-    public TableColumn cServiceAktivan;
-    public TableColumn cServiceObracun;
     public Button bActivateService;
     public Button bDeleteService;
 
@@ -90,6 +89,37 @@ public class KorisnikUslugeController implements Initializable {
         this.location = location;
         this.resources = resources;
 
+        tblServices.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<ServicesUser>>() {
+            @Override
+            public void changed(ObservableValue<? extends TreeItem<ServicesUser>> observable, TreeItem<ServicesUser> oldValue, TreeItem<ServicesUser> newValue) {
+                if (tblServices.getSelectionModel().getSelectedIndex() == -1) {
+                    return;
+                }
+                ServicesUser srvusr = tblServices.getSelectionModel().getSelectedItem().getValue();
+
+                System.out.println(
+                        "IS BOX: " + srvusr.getBox() + "\n" + "NAZIV PAKETA: " + srvusr.getNazivPaketa() + "\n" +
+                                "ID SERVICE: " + srvusr.getId_Service() + "\n" +
+                                "PAKET TYPE: " + srvusr.getPaketType() + "\n" +
+                                "IS LINKED: " + srvusr.getLinkedService() + "\n" +
+                                "BOX_ID: " + srvusr.getBox_id() + "\n" +
+                                "NEW_SERVICE: " + srvusr.getNewService() + "\n"
+                );
+
+                if (srvusr.getLinkedService()) {
+                    bActivateService.setDisable(true);
+                    bDeleteService.setDisable(true);
+                } else {
+                    bActivateService.setDisable(false);
+                    bDeleteService.setDisable(false);
+                }
+                if (srvusr.getAktivan() || srvusr.getLinkedService()) {
+                    bActivateService.setDisable(true);
+                } else {
+                    bActivateService.setDisable(false);
+                }
+            }
+        });
 
         cmbPaketInternet.setCellFactory(lv -> new ListCell<InternetPaketi>() {
             public void updateItem(InternetPaketi paket, boolean bool) {
@@ -135,18 +165,51 @@ public class KorisnikUslugeController implements Initializable {
             }
         });
 
-        cServicesBrojUgovora.setCellValueFactory(new PropertyValueFactory<ServicesUser, Integer>("brUgovora"));
-        cServicesDatum.setCellValueFactory(new PropertyValueFactory<ServicesUser, String>("datum"));
-        cServicesNaziv.setCellValueFactory(new PropertyValueFactory<ServicesUser, String>("nazivPaketa"));
-        cServicesVrsta.setCellValueFactory(new PropertyValueFactory<ServicesUser, String>("vrsta"));
-        cServicePopust.setCellValueFactory(new PropertyValueFactory<ServicesUser, Double>("popust"));
-        cServiceCena.setCellValueFactory(new PropertyValueFactory<ServicesUser, Double>("cena"));
-        cSservicesOperater.setCellValueFactory(new PropertyValueFactory<ServicesUser, String>("operater"));
-        cServiceAktivan.setCellValueFactory(new PropertyValueFactory<ServicesUser, String>("aktivan"));
-        cServiceObracun.setCellValueFactory(new PropertyValueFactory<ServicesUser, String>("obracun"));
-        cServiceIdentification.setCellValueFactory(new PropertyValueFactory<ServicesUser, String>("idUniqueName"));
+        cmbPaketBOX.valueProperty().addListener(new ChangeListener<BoxPaket>() {
+            @Override
+            public void changed(ObservableValue<? extends BoxPaket> observable, BoxPaket oldValue, BoxPaket newValue) {
+                //get out if combo is null
+                if (newValue == null)
+                    return;
+                //disable-enable box input if value (not)exist
+                if (newValue.getDTV_naziv() == null) {
+                    tKarticaBox.setDisable(true);
+                } else {
+                    tKarticaBox.setDisable(false);
+                }
+                if (newValue.getFIKSNA_naziv() == null) {
+                    tFiksnaTelBox.setDisable(true);
+                } else {
+                    tFiksnaTelBox.setDisable(false);
+                }
+                if (newValue.getNET_naziv() == null && newValue.getIPTV_naziv() == null) {
+                    tUserNameBox.setDisable(true);
+                    tPasswordBox.setDisable(true);
+                } else {
+                    tUserNameBox.setDisable(false);
+                    tPasswordBox.setDisable(false);
+                }
+                if (newValue.getIPTV_naziv() == null) {
+                    tMACIPTVBox.setDisable(true);
+                } else {
+                    tMACIPTVBox.setDisable(false);
+                }
+            }
+        });
 
-        cServiceCena.setCellFactory(lv -> new TableCell<ServicesUser, Double>() {
+
+        cServicesBrojUgovora.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, String>("brUgovora"));
+        cServicesDatum.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, String>("datum"));
+        cServicesNaziv.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, String>("nazivPaketa"));
+        cServicePopust.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, String>("popust"));
+        cServiceCena.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, Double>("cena"));
+        cSservicesOperater.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, String>("operater"));
+        cServiceAktivan.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, String>("aktivan"));
+        cServiceObracun.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, String>("obracun"));
+        cServiceIdentification.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, String>("idUniqueName"));
+
+
+        cServiceCena.setCellFactory(lv -> new TreeTableCell<ServicesUser, Double>() {
             protected void updateItem(Double cena, boolean bool) {
                 super.updateItem(cena, bool);
                 if (bool) {
@@ -157,7 +220,7 @@ public class KorisnikUslugeController implements Initializable {
             }
         });
 
-        cServicePopust.setCellFactory(lv -> new TableCell<ServicesUser, Double>() {
+        cServicePopust.setCellFactory(lv -> new TreeTableCell<ServicesUser, Double>() {
             protected void updateItem(Double popust, boolean bool) {
                 super.updateItem(popust, bool);
                 if (bool) {
@@ -168,7 +231,7 @@ public class KorisnikUslugeController implements Initializable {
             }
         });
 
-        cServicesDatum.setCellFactory(cd -> new TableCell<ServicesUser, String>() {
+        cServicesDatum.setCellFactory(cd -> new TreeTableCell<ServicesUser, String>() {
             protected void updateItem(String date, boolean bool) {
                 super.updateItem(date, bool);
                 if (bool) {
@@ -178,23 +241,7 @@ public class KorisnikUslugeController implements Initializable {
                 }
             }
         });
-
-        cServiceAktivan.setCellFactory(cak -> new TableCell<ServicesUser, Boolean>() {
-            protected void updateItem(Boolean aktivan, boolean bool) {
-                super.updateItem(aktivan, bool);
-                if (bool) {
-                    setText(null);
-                } else {
-                    if (aktivan) {
-                        setText("Da");
-                    } else {
-                        setText("Ne");
-                    }
-                }
-            }
-        });
-
-        cServiceObracun.setCellFactory(cObr -> new TableCell<ServicesUser, Boolean>() {
+        cServiceAktivan.setCellFactory(cak -> new TreeTableCell<ServicesUser, Boolean>() {
             protected void updateItem(Boolean aktivan, boolean bool) {
                 super.updateItem(aktivan, bool);
                 if (bool) {
@@ -210,16 +257,16 @@ public class KorisnikUslugeController implements Initializable {
         });
 
 
-        tblServices.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ServicesUser>() {
-            @Override
-            public void changed(ObservableValue<? extends ServicesUser> observable, ServicesUser oldValue, ServicesUser newValue) {
-                if (tblServices.getSelectionModel().getSelectedIndex() != -1) {
-                    if (tblServices.getSelectionModel().getSelectedItem().getAktivan()) {
-                        bActivateService.setText("Deaktiviraj");
-                        bActivateService.setDisable(true);
+        cServiceObracun.setCellFactory(cObr -> new TreeTableCell<ServicesUser, Boolean>() {
+            protected void updateItem(Boolean aktivan, boolean bool) {
+                super.updateItem(aktivan, bool);
+                if (bool) {
+                    setText(null);
+                } else {
+                    if (aktivan) {
+                        setText("Da");
                     } else {
-                        bActivateService.setText("Aktiviraj");
-                        bActivateService.setDisable(false);
+                        setText("Ne");
                     }
                 }
             }
@@ -229,6 +276,13 @@ public class KorisnikUslugeController implements Initializable {
     }
 
     public void setData() {
+        //default fields
+        tPopustBox.setText("0.00");
+        tPopustDTV.setText("0.00");
+        tPopustInternet.setText("0.00");
+        tProduzenjeBox.setText("2");
+
+
         ObservableList dataInternetPaket = FXCollections.observableArrayList(get_internet_paketi());
         cmbPaketInternet.getItems().clear();
         cmbPaketInternet.setItems(dataInternetPaket);
@@ -242,12 +296,103 @@ public class KorisnikUslugeController implements Initializable {
         refreshUgovori();
 
         ObservableList serviceList = FXCollections.observableArrayList(get_services_user());
-        tblServices.setItems(serviceList);
+        // set table datatblServices.setItems(serviceList);
+        setTableServicesData(serviceList);
 
         ObservableList paketBox = FXCollections.observableArrayList(get_box_pakete());
         cmbPaketBOX.setItems(paketBox);
 
 
+    }
+
+    private void setTableServicesData(ObservableList<ServicesUser> serviceList) {
+        //main root node
+        TreeItem rootNode = new TreeItem("SERVISI PAKETI");
+        //creeate root node for each BOX service and add child nodes
+        for (ServicesUser service : serviceList) {
+            //ako je box dodati tree node childs na novom root itemu
+            if (service.getBox() == true) {
+                TreeItem<ServicesUser> rootService = new TreeItem(service);
+
+                ArrayList<ServicesUser> arrSrvUser = get_linked_services_user(service.getId());
+                for (ServicesUser srvUser : arrSrvUser) {
+                    rootService.getChildren().add(new TreeItem<ServicesUser>(srvUser));
+                }
+                rootNode.getChildren().add(rootService);
+
+            } else {
+                rootNode.getChildren().add(new TreeItem<ServicesUser>(service));
+            }
+
+
+        }
+
+        rootNode.setExpanded(true);
+        tblServices.setShowRoot(false);
+        tblServices.setRoot(rootNode);
+
+
+    }
+
+
+    private ArrayList<ServicesUser> get_linked_services_user(int BOX_ID) {
+        jObj = new JSONObject();
+        jObj.put("action", "get_user_linked_services");
+        jObj.put("box_ID", BOX_ID);
+        jObj.put("userID", userID);
+
+        jObj = client.send_object(jObj);
+
+        ArrayList<ServicesUser> servicesUsersArr = new ArrayList<>();
+        JSONObject serviceObj;
+        ServicesUser service;
+
+        for (int i = 0; i < jObj.length(); i++) {
+            service = new ServicesUser();
+            serviceObj = (JSONObject) jObj.get(String.valueOf(i));
+            service.setId(serviceObj.getInt("id"));
+            service.setUserID(serviceObj.getInt("userID"));
+            service.setId_Service(serviceObj.getInt("id_service"));
+            service.setBox_id(serviceObj.getInt("box_ID"));
+            service.setProduzenje(serviceObj.getInt("produzenje"));
+            service.setCena(serviceObj.getDouble("cena"));
+            service.setPopust(serviceObj.getDouble("popust"));
+            service.setNazivPaketa(serviceObj.getString("nazivPaketa"));
+            service.setLinkedService(serviceObj.getBoolean("linkedService"));
+            service.setAktivan(serviceObj.getBoolean("aktivan"));
+            service.setPaketType(serviceObj.getString("paketType"));
+            service.setNewService(serviceObj.getBoolean("newService"));
+
+            if (serviceObj.has("groupName"))
+                service.setGroupName(serviceObj.getString("groupName"));
+
+            if (serviceObj.has("userName")) {
+                service.setUserName(serviceObj.getString("userName"));
+                service.setIdUniqueName(serviceObj.getString("userName"));
+            }
+
+            if (serviceObj.has("idDTVCard")) {
+                service.setIdDTVCard(serviceObj.getString("idDTVCard"));
+                service.setIdUniqueName(serviceObj.getString("idDTVCard"));
+            }
+
+
+            if (serviceObj.has("MAC_IPTV")) {
+                service.setMAC_IPTV(serviceObj.getString("MAC_IPTV"));
+                service.setIdUniqueName(serviceObj.getString("MAC_IPTV"));
+            }
+
+            if (serviceObj.has("FIKSNA_TEL")) {
+                service.setFIKSNA_TEL(serviceObj.getString("FIKSNA_TEL"));
+                service.setIdUniqueName(serviceObj.getString("FIKNS_TEL"));
+            }
+
+
+            servicesUsersArr.add(service);
+        }
+
+
+        return servicesUsersArr;
     }
 
     private ArrayList<ServicesUser> get_services_user() {
@@ -270,17 +415,28 @@ public class KorisnikUslugeController implements Initializable {
             service.setPopust(serviceObj.getDouble("popust"));
             service.setOperater(serviceObj.getString("operName"));
             service.setDatum(serviceObj.getString("date_added"));
-            service.setVrsta(serviceObj.getString("vrsta"));
             service.setAktivan(serviceObj.getBoolean("aktivan"));
             service.setObracun(serviceObj.getBoolean("obracun"));
-            service.setIdUniqueName(serviceObj.getString("idUniqueName"));
             service.setProduzenje(serviceObj.getInt("produzenje"));
             service.setId_Service(serviceObj.getInt("id_service"));
+            service.setNewService(serviceObj.getBoolean("newService"));
+
+            if (serviceObj.has("box_ID"))
+                service.setBox_id(serviceObj.getInt("box_ID"));
+
             service.setNazivPaketa(serviceObj.getString("nazivPaketa"));
+
+            if (serviceObj.has("idUniqueName"))
+                service.setIdUniqueName(serviceObj.getString("idUniqueName"));
+
+            service.setPaketType(serviceObj.getString("paketType"));
             service.setCena(serviceObj.getDouble("cena"));
+            service.setBox(serviceObj.getBoolean("box"));
+            service.setLinkedService(serviceObj.getBoolean("linkedService"));
 
             servicesArr.add(service);
         }
+
         return servicesArr;
     }
 
@@ -331,9 +487,11 @@ public class KorisnikUslugeController implements Initializable {
             box.setId(boxObj.getInt("id"));
             box.setNaziv(boxObj.getString("naziv"));
             box.setCena(boxObj.getDouble("cena"));
+            box.setPaketType(boxObj.getString("paketType"));
             if (boxObj.has("DTV_id")) {
                 box.setDTV(boxObj.getInt("DTV_id"));
                 box.setDTV_naziv(boxObj.getString("DTV_naziv"));
+                box.setDTVPaketID(boxObj.getInt("DTV_PAKET_ID"));
             }
             if (boxObj.has("NET_id")) {
                 box.setNET(boxObj.getInt("NET_id"));
@@ -385,7 +543,7 @@ public class KorisnikUslugeController implements Initializable {
         }
 
         jObj = new JSONObject();
-        jObj.put("action", "add_service_to_user");
+        jObj.put("action", "add_service_to_user_NET");
 
         jObj.put("id", cmbPaketInternet.getValue().getId());
         jObj.put("nazivPaketa", cmbPaketInternet.getValue().getNaziv());
@@ -395,9 +553,10 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("cena", Double.valueOf(cmbPaketInternet.getValue().getCena()));
         jObj.put("obracun", chkRacunInternet.isSelected());
         jObj.put("brojUgovora", cmbUgovorInternet.getValue().getBr());
-        jObj.put("idUniqueName", tUserNameInternet.getText());
-        jObj.put("password", new md5_digiest(tLozinkaCInternet.getText()).get_hash());
+        jObj.put("userName", tUserNameInternet.getText());
+        jObj.put("passWord", tLoznikaInternet.getText());
         jObj.put("produzenje", cmbPaketInternet.getValue().getPrekoracenje());
+        jObj.put("groupName", cmbPaketInternet.getValue().getNaziv());
 
 
         jObj = client.send_object(jObj);
@@ -453,7 +612,7 @@ public class KorisnikUslugeController implements Initializable {
 
 
         jObj = new JSONObject();
-        jObj.put("action", "add_service_to_user");
+        jObj.put("action", "add_service_to_user_DTV");
 
         jObj.put("id", cmbPaketDTV.getValue().getId());
         jObj.put("nazivPaketa", cmbPaketDTV.getValue().getNaziv());
@@ -498,13 +657,30 @@ public class KorisnikUslugeController implements Initializable {
         }
 
         jObj = new JSONObject();
-        jObj.put("action", "add_service_to_user");
+        jObj.put("action", "add_BOX_Service");
 
         jObj.put("id", cmbPaketBOX.getValue().getId());
         jObj.put("nazivPaketa", cmbPaketBOX.getValue().getNaziv());
+        if (cmbPaketBOX.getValue().getDTV_naziv() != null) {
+            jObj.put("nazivPaketaDTV", cmbPaketBOX.getValue().getDTV_naziv());
+            jObj.put("DTV_service_ID", cmbPaketBOX.getValue().getDTV());
+        }
+        if (cmbPaketBOX.getValue().getNET_naziv() != null) {
+            jObj.put("nazivPaketaNET", cmbPaketBOX.getValue().getNET_naziv());
+            jObj.put("NET_service_ID", cmbPaketBOX.getValue().getNET());
+        }
+        if (cmbPaketBOX.getValue().getFIKSNA_naziv() != null) {
+            jObj.put("nazivPaketaFIKSNA", cmbPaketBOX.getValue().getFIKSNA_naziv());
+            jObj.put("FIKSNA_service_ID", cmbPaketBOX.getValue().getFIKSNA());
+        }
+        if (cmbPaketBOX.getValue().getIPTV_naziv() != null) {
+            jObj.put("nazivPaketaIPTV", cmbPaketBOX.getValue().getIPTV_naziv());
+            jObj.put("IPTV_service_ID", cmbPaketBOX.getValue().getIPTV());
+        }
+
+
         jObj.put("userID", userID);
         jObj.put("servicePopust", Double.valueOf(tPopustBox.getText()));
-        jObj.put("paketType", "BOX");
         jObj.put("cena", Double.valueOf(cmbPaketBOX.getValue().getCena()));
         jObj.put("idPaket", cmbPaketBOX.getValue().getId());
         jObj.put("brojUgovora", cmbUgovorBox.getValue().getBr());
@@ -517,6 +693,12 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("popust", Double.valueOf(tPopustBox.getText()));
         jObj.put("cena", Double.valueOf(cmbPaketBOX.getValue().getCena()));
         jObj.put("opis", tOpisBox.getText());
+        jObj.put("userName", tUserNameBox.getText());
+        jObj.put("passWord", tPasswordBox.getText());
+        jObj.put("groupName", cmbPaketBOX.getValue().getNET_naziv());
+        jObj.put("MAC_IPTV", tMACIPTVBox.getText());
+        jObj.put("DTVKartica", Integer.valueOf(tKarticaBox.getText()));
+        jObj.put("DTVPaket", cmbPaketBOX.getValue().getDTVPaketID());
 
 
         jObj = client.send_object(jObj);
@@ -546,18 +728,19 @@ public class KorisnikUslugeController implements Initializable {
             return;
         }
 
-        boolean aktivan;
-        aktivan = tblServices.getSelectionModel().getSelectedItem().getAktivan();
+        ServicesUser servicesUser = tblServices.getSelectionModel().getSelectedItem().getValue();
+        boolean aktivan = false;
+        servicesUser.getAktivan();
+
         if (!aktivan) {
             aktivan = true;
         } else {
             bActivateService.setDisable(true);
         }
-        ServicesUser servicesUser = tblServices.getSelectionModel().getSelectedItem();
 
 
         //izracunavanje cene usluge do kraja meseca od trenutnog datuma
-        //cena / dana u meseceu = cena po danu
+        //cena / dana u mesecu = cena po danu
         //cena po danu * preostalo dana do kraja meseca
 
         double cena = servicesUser.getCena();
@@ -571,32 +754,56 @@ public class KorisnikUslugeController implements Initializable {
 
 
         jObj = new JSONObject();
-        jObj.put("action", "activate_service");
-        jObj.put("id", tblServices.getSelectionModel().getSelectedItem().getId());
-        jObj.put("aktivan", aktivan);
-        jObj.put("idUniqueName", tblServices.getSelectionModel().getSelectedItem().getIdUniqueName());
-        jObj.put("paketType", tblServices.getSelectionModel().getSelectedItem().getVrsta());
-        jObj.put("produzenje", servicesUser.getProduzenje());
-        jObj.put("userID", userID);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        jObj.put("endDate", sdf.format(firstDateInMonth.getTime()));
+        //ako je servis nov dodacemo cenu samo do kraja meseca
+        //ako nije dodacemo punu cenu
 
-        jObj.put("id_ServiceUser", servicesUser.getId());
-        jObj.put("idService", servicesUser.getId_Service());
-        jObj.put("nazivPaketa", servicesUser.getNazivPaketa());
-        jObj.put("popust", servicesUser.getPopust());
-        jObj.put("cena", servicesUser.getCena());
-        jObj.put("dug", cena);
-
-        jObj = client.send_object(jObj);
-
-        String aktivate = jObj.getString("activate");
-
-        if (jObj.getString("Message").equals("ERROR")) {
-            AlertUser.error("GRESKA", jObj.getString("Error"));
-        } else {
-            AlertUser.info("Usluga ", "Usluga " + jObj.getString("activate"));
+        if (servicesUser.getPaketType().equals("BOX")) {
+            jObj.put("action", "activate_service");
+            jObj.put("actionService", "activate_BOX_service");
+            jObj.put("id", servicesUser.getId());
+            jObj.put("boxID", servicesUser.getBox_id());
+            jObj.put("userID", userID);
+            jObj.put("newService", servicesUser.getNewService());
+            jObj.put("cena", servicesUser.getCena());
+            jObj.put("popust", servicesUser.getPopust());
+            jObj.put("produzenje", servicesUser.getProduzenje());
+            jObj.put("paketType", servicesUser.getPaketType());
+            jObj.put("nazivPaketa", servicesUser.getNazivPaketa());
+            jObj = client.send_object(jObj);
         }
+
+        if (servicesUser.getPaketType().equals("DTV")) {
+            jObj.put("action", "activate_service");
+            jObj.put("actionService", "activate_DTV_service");
+            jObj.put("id", servicesUser.getId());
+            jObj.put("serviceID", servicesUser.getId_ServiceUser());
+            jObj.put("idKartica", servicesUser.getIdUniqueName());
+            jObj.put("userID", userID);
+            jObj.put("newService", servicesUser.getNewService());
+            jObj.put("cena", servicesUser.getCena());
+            jObj.put("popust", servicesUser.getPopust());
+            jObj.put("produzenje", servicesUser.getProduzenje());
+            jObj.put("paketType", servicesUser.getPaketType());
+            jObj.put("nazivPaketa", servicesUser.getNazivPaketa());
+            jObj = client.send_object(jObj);
+        }
+
+        if (servicesUser.getPaketType().equals("NET")) {
+            jObj.put("action", "activate_service");
+            jObj.put("actionService", "activate_NET_service");
+            jObj.put("id", servicesUser.getId());
+            jObj.put("serviceID", servicesUser.getId_ServiceUser());
+            jObj.put("userID", userID);
+            jObj.put("newService", servicesUser.getNewService());
+            jObj.put("cena", servicesUser.getCena());
+            jObj.put("popust", servicesUser.getPopust());
+            jObj.put("produzenje", servicesUser.getProduzenje());
+            jObj.put("userName", servicesUser.getIdUniqueName());
+            jObj.put("paketType", servicesUser.getPaketType());
+            jObj.put("nazivPaketa", servicesUser.getNazivPaketa());
+            jObj = client.send_object(jObj);
+        }
+
 
         setData();
 
@@ -606,11 +813,11 @@ public class KorisnikUslugeController implements Initializable {
         jObj = new JSONObject();
         jObj.put("action", "delete_service_user");
         jObj.put("userID", userID);
-        jObj.put("serviceId", tblServices.getSelectionModel().getSelectedItem().getId());
-        jObj.put("paketType", tblServices.getSelectionModel().getSelectedItem().getVrsta());
-        jObj.put("idUniqueName", tblServices.getSelectionModel().getSelectedItem().getIdUniqueName());
+        jObj.put("serviceId", tblServices.getSelectionModel().getSelectedItem().getValue().getId());
+        jObj.put("paketType", tblServices.getSelectionModel().getSelectedItem().getValue().getVrsta());
+        jObj.put("idUniqueName", tblServices.getSelectionModel().getSelectedItem().getValue().getIdUniqueName());
 
-        Optional<ButtonType> btype = AlertUser.yesNo("BRISANJE KORISNIKA", "Da li ste sigurni da želite da izbrišite uslugu" + tblServices.getSelectionModel().getSelectedItem().getNaziv());
+        Optional<ButtonType> btype = AlertUser.yesNo("BRISANJE KORISNIKA", "Da li ste sigurni da želite da izbrišite uslugu" + tblServices.getSelectionModel().getSelectedItem().getValue().getNaziv());
         if (btype.isPresent() && btype.get() == AlertUser.NE) {
             return;
         }

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by zoom on 8/16/16.
  */
-public class Settings  implements Serializable{
+public class Settings implements Serializable {
     String REMOTE_HOST;
     int REMOTE_PORT;
     String LocalUser;
@@ -18,7 +18,6 @@ public class Settings  implements Serializable{
     public void setLocalPassword(String localPassword) {
         LocalPassword = localPassword;
     }
-
 
 
     public String getREMOTE_HOST() {

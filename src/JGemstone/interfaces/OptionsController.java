@@ -44,7 +44,6 @@ public class OptionsController implements Initializable {
         tLocalUsername.setText(db_conn.local_settings.getLocalUser());
 
 
-
     }
 
     public void bSnimi_options(ActionEvent actionEvent) {
@@ -55,7 +54,7 @@ public class OptionsController implements Initializable {
 
         if (!tPort.getText().isEmpty()) db_conn.local_settings.setREMOTE_PORT(Integer.parseInt(tPort.getText()));
         if (!tHostnameIp.getText().isEmpty()) db_conn.local_settings.setREMOTE_HOST(tHostnameIp.getText());
-        if(!tLocalUsername.getText().isEmpty()) db_conn.local_settings.setLocalUser(tLocalUsername.getText());
+        if (!tLocalUsername.getText().isEmpty()) db_conn.local_settings.setLocalUser(tLocalUsername.getText());
         if (!tLocalPassword.getText().isEmpty()) db_conn.local_settings.setLocalPassword(pass);
         try {
             db_conn.set_settings();

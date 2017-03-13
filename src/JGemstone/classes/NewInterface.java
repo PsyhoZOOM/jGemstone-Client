@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 /**
  * Created by zoom on 8/29/16.
  */
-public class NewInterface  {
+public class NewInterface {
     private Parent root;
     private Scene scene;
     private Stage stage;
@@ -28,7 +28,7 @@ public class NewInterface  {
 
     public NewInterface(String resourceFXML, String title, ResourceBundle resources) {
         this.width = width;
-        this.height=height;
+        this.height = height;
         this.resourceFXML = resourceFXML;
         this.title = title;
         this.resources = resources;

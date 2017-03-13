@@ -3,10 +3,10 @@ package JGemstone.classes;
 /**
  * Created by zoom on 8/3/16.
  */
-public class tiProperty  {
-     String value;
+public class tiProperty {
+    String value;
     int id;
-    String  naziv;
+    String naziv;
 
 
     public tiProperty(String value, int id, String naziv) {
@@ -23,25 +23,23 @@ public class tiProperty  {
         this.id = id;
     }
 
-
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
     public String getNaziv() {
         return naziv;
-    }
-
-    public String getValue() {
-        return value;
     }
 
     public void setNaziv(String naziv) {
         this.naziv = naziv;
     }
 
-    public String toString(){
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String toString() {
         return this.value;
     }
 }

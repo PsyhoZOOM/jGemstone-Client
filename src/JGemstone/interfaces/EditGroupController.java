@@ -28,14 +28,11 @@ public class EditGroupController implements Initializable {
 
     public Button bClose;
     public Button bSave;
-
+    public Logger LOGGER;
     private messageS mess;
     private JSONObject jObj = new JSONObject();
     private Groups group;
-
     private int groupId;
-
-    public Logger LOGGER;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -50,19 +47,19 @@ public class EditGroupController implements Initializable {
     }
 
 
-    public void show_group(int groupId){
-        this.groupId  = groupId;
+    public void show_group(int groupId) {
+        this.groupId = groupId;
         jObj.put("action", "get_group_data");
-        jObj.put("groupId", groupId );
+        jObj.put("groupId", groupId);
 
         jObj = client.send_object(jObj);
 
         tNaziv.setText(jObj.get("groupName").toString());
         tCena.setText(jObj.get("cena").toString());
 
-        if(jObj.getInt("prepaid")== 1){
+        if (jObj.getInt("prepaid") == 1) {
             cPrepaid.setSelected(true);
-        }else{
+        } else {
             cPrepaid.setSelected(false);
         }
     }
@@ -70,9 +67,9 @@ public class EditGroupController implements Initializable {
 
     public void saveGroup(ActionEvent actionEvent) {
         int prepaid;
-        if(cPrepaid.isSelected()){
+        if (cPrepaid.isSelected()) {
             prepaid = 1;
-        }else prepaid = 0;
+        } else prepaid = 0;
         jObj = new JSONObject();
         jObj.put("action", "save_group_data");
         jObj.put("groupId", groupId);
@@ -85,7 +82,7 @@ public class EditGroupController implements Initializable {
 
     }
 
-    public void deleteGroup(ActionEvent actionEvent){
+    public void deleteGroup(ActionEvent actionEvent) {
         jObj = new JSONObject();
         jObj.put("action", "delete_group");
         jObj.put("groupID", groupId);

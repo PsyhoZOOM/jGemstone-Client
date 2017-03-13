@@ -81,6 +81,7 @@ public class KorisnikUplateController implements Initializable {
         cPopust.setCellValueFactory(new PropertyValueFactory<Uplate, Double>("popust"));
         cZaUplatu.setCellValueFactory(new PropertyValueFactory<Uplate, Double>("dug"));
         cZaMesec.setCellValueFactory(new PropertyValueFactory<Uplate, String>("zaMesec"));
+        cUplaceno.setCellValueFactory(new PropertyValueFactory<Uplate, Double>("uplaceno"));
 
         cCena.setCellFactory(tc -> new TableCell<Uplate, Double>() {
             protected void updateItem(Double uplata, boolean bool) {
@@ -404,7 +405,13 @@ public class KorisnikUplateController implements Initializable {
         jObj.put("action", "uplata_servisa");
         jObj.put("userID", user.getId());
         jObj.put("id", uplata.getId());
-        jObj.put("uplaceno", Double.valueOf(cmbZaUplatu.getEditor().getText()));
+        try {
+            Number numb = df.parse(cmbZaUplatu.getEditor().getText());
+            double uplaceno = numb.doubleValue();
+            jObj.put("uplaceno", uplaceno);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         jObj.put("dug", uplata.getDug());
         jObj.put("paketType", uplata.getPaketType());
         jObj.put("userServiceID", uplata.getId_ServiceUser());

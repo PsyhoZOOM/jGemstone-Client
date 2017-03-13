@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 /**
  * Created by zoom on 12/3/16.
  */
-public class runningCheckThread implements  Runnable {
+public class runningCheckThread implements Runnable {
 
     public boolean Running;
     boolean connected = false;
@@ -17,11 +17,9 @@ public class runningCheckThread implements  Runnable {
         this.client = client;
     }
 
-    public Client get_client(){
+    public Client get_client() {
         return this.client;
     }
-
-
 
 
     @Override
@@ -29,12 +27,12 @@ public class runningCheckThread implements  Runnable {
         client.main_run();
         while (Running) {
 
-            if(client.socket.isClosed()){
+            if (client.socket.isClosed()) {
                 LOGGER.info("connecting");
                 connected = false;
                 client.close();
                 client.main_run();
-            }else{
+            } else {
                 LOGGER.info("COnnected");
                 connected = true;
 

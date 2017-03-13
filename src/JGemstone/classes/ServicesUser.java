@@ -21,6 +21,113 @@ public class ServicesUser implements Serializable {
     int id_ServiceUser;
     int id_Service;
     String nazivPaketa;
+    Boolean box;
+    int userID;
+    String userName;
+    String idDTVCard;
+    String MAC_IPTV;
+    String FIKSNA_TEL;
+    String groupName;
+    String paketType;
+    Boolean linkedService;
+    int box_id;
+    Boolean newService;
+
+    public Boolean getNewService() {
+        return newService;
+    }
+
+    public void setNewService(Boolean newService) {
+        this.newService = newService;
+    }
+
+    public int getBox_id() {
+        return box_id;
+    }
+
+    public void setBox_id(int box_id) {
+        this.box_id = box_id;
+    }
+
+    public Boolean getLinkedService() {
+        return linkedService;
+    }
+
+    public void setLinkedService(Boolean linkedService) {
+        this.linkedService = linkedService;
+    }
+
+    public String getPaketType() {
+        return paketType;
+    }
+
+    public void setPaketType(String paketType) {
+        this.paketType = paketType;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getIdDTVCard() {
+        return idDTVCard;
+    }
+
+    public void setIdDTVCard(String idDTVCard) {
+        this.idDTVCard = idDTVCard;
+    }
+
+    public String getMAC_IPTV() {
+        return MAC_IPTV;
+    }
+
+    public void setMAC_IPTV(String MAC_IPTV) {
+        this.MAC_IPTV = MAC_IPTV;
+    }
+
+    public String getFIKSNA_TEL() {
+        return FIKSNA_TEL;
+    }
+
+    public void setFIKSNA_TEL(String FIKSNA_TEL) {
+        this.FIKSNA_TEL = FIKSNA_TEL;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public boolean isAktivan() {
+        return aktivan;
+    }
+
+    public boolean isObracun() {
+        return obracun;
+    }
+
+    public Boolean getBox() {
+        return box;
+    }
+
+    public void setBox(Boolean box) {
+        this.box = box;
+    }
 
     public String getNazivPaketa() {
         return nazivPaketa;

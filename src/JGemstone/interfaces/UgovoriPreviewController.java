@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 /**
  * Created by zoom on 11/17/16.
  */
-public class UgovoriPreviewController  implements Initializable{
+public class UgovoriPreviewController implements Initializable {
     public HTMLEditor htmlEditUgovor;
 
     @Override

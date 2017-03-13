@@ -9,18 +9,14 @@ import java.sql.*;
  * Created by zoom on 8/16/16.
  */
 public class db_connection {
+    public String query;
+    public Settings local_settings;
+    Logger LOGGER = LogManager.getLogger("DB_CONNECTION");
     private Connection conn;
     private ResultSet rs;
     private Statement stmt;
-
-
     private String JDBC_DRIVER = "org.sqlite.JDBC";
     private String DB_URL = "jdbc:sqlite:JGemstone.db";
-    Logger LOGGER = LogManager.getLogger("DB_CONNECTION");
-
-    public String query;
-
-    public Settings local_settings;
 
     public void init_database() {
         try {

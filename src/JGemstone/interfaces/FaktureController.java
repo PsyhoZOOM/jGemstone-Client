@@ -103,80 +103,80 @@ public class FaktureController implements Initializable {
         cJedMere.setCellValueFactory(new PropertyValueFactory<Fakture, String>("jedMere"));
         cKolicina.setCellValueFactory(new PropertyValueFactory<Fakture, Integer>("kolicina"));
         cCenaBezPdv.setCellValueFactory(new PropertyValueFactory<Fakture, Double>("jedCena"));
-        cCenaBezPdv.setCellFactory(tc -> new TableCell<Fakture, Double>(){
+        cCenaBezPdv.setCellFactory(tc -> new TableCell<Fakture, Double>() {
             @Override
-            protected void updateItem(Double value, boolean empty){
-                super.updateItem(value,empty);
-                if(empty){
+            protected void updateItem(Double value, boolean empty) {
+                super.updateItem(value, empty);
+                if (empty) {
                     setText(null);
-                }else{
+                } else {
                     setText(decFormat.format(value.doubleValue()));
                 }
             }
         });
 
         cVrednostBezPdv.setCellValueFactory(new PropertyValueFactory<Fakture, Double>("vrednostBezPDV"));
-        cVrednostBezPdv.setCellFactory(tc -> new TableCell<Fakture, Double>(){
+        cVrednostBezPdv.setCellFactory(tc -> new TableCell<Fakture, Double>() {
             @Override
-            protected  void updateItem(Double value, boolean empty){
+            protected void updateItem(Double value, boolean empty) {
                 super.updateItem(value, empty);
-                if(empty){
+                if (empty) {
                     setText(null);
-                }else{
+                } else {
                     setText(decFormat.format(value.doubleValue()));
                 }
             }
         });
 
         cOsnovicaZaPdv.setCellValueFactory(new PropertyValueFactory<Fakture, Double>("osnovicaZaPDV"));
-        cOsnovicaZaPdv.setCellFactory(tc -> new TableCell<Fakture, Double>(){
+        cOsnovicaZaPdv.setCellFactory(tc -> new TableCell<Fakture, Double>() {
             @Override
-            protected void updateItem(Double value, boolean empty){
+            protected void updateItem(Double value, boolean empty) {
                 super.updateItem(value, empty);
-                if(empty){
+                if (empty) {
                     setText(null);
-                }else{
+                } else {
                     setText(decFormat.format(value.doubleValue()));
                 }
             }
         });
 
         cStopaPDV.setCellValueFactory(new PropertyValueFactory<Fakture, Integer>("stopaPDV"));
-        cStopaPDV.setCellFactory(tc -> new TableCell<Fakture,Integer>(){
+        cStopaPDV.setCellFactory(tc -> new TableCell<Fakture, Integer>() {
             @Override
-            protected void updateItem(Integer value, boolean empty){
+            protected void updateItem(Integer value, boolean empty) {
                 super.updateItem(value, empty);
-                if(empty){
+                if (empty) {
                     setText(null);
-                }else{
+                } else {
                     setText(decFormat.format(value));
                 }
             }
         });
 
         cIznosPDV.setCellValueFactory(new PropertyValueFactory<Fakture, Double>("iznosPDV"));
-        cIznosPDV.setCellFactory(tc -> new TableCell<Fakture, Double>(){
+        cIznosPDV.setCellFactory(tc -> new TableCell<Fakture, Double>() {
             @Override
-            protected void updateItem(Double Value, boolean empty){
+            protected void updateItem(Double Value, boolean empty) {
                 super.updateItem(Value, empty);
                 {
-                    if(empty){
+                    if (empty) {
                         setText(null);
-                    }else{
+                    } else {
                         setText(decFormat.format(Value.doubleValue()));
                     }
                 }
             }
         });
 
-        cVrednostSaPDV.setCellValueFactory(new PropertyValueFactory<Fakture, Double >("vrednostSaPDV"));
-        cVrednostSaPDV.setCellFactory(tc -> new TableCell<Fakture,Double>(){
+        cVrednostSaPDV.setCellValueFactory(new PropertyValueFactory<Fakture, Double>("vrednostSaPDV"));
+        cVrednostSaPDV.setCellFactory(tc -> new TableCell<Fakture, Double>() {
             @Override
-            protected  void updateItem(Double Value, boolean empty){
+            protected void updateItem(Double Value, boolean empty) {
                 super.updateItem(Value, empty);
-                if(empty){
+                if (empty) {
                     setText(null);
-                }else{
+                } else {
                     setText(decFormat.format(Value.doubleValue()));
                 }
             }
@@ -199,7 +199,7 @@ public class FaktureController implements Initializable {
 
         ArrayList<Fakture> faktureArray = new ArrayList<>();
 
-        for(int i=0; i<jObj.length();i++) {
+        for (int i = 0; i < jObj.length(); i++) {
             jfakture = (JSONObject) jObj.get(String.valueOf(i));
             fakture = new Fakture();
             fakture.setId(jfakture.getInt("id"));
@@ -284,10 +284,9 @@ public class FaktureController implements Initializable {
         lvrednostSaPDVZbir.setText(decFormat.format(vrednost_sa_pdv));
 
 
-
     }
 
-    private void makeHeaderWrappable(TableColumn col){
+    private void makeHeaderWrappable(TableColumn col) {
         Label label = new Label(col.getText());
         label.setStyle("-fx-padding: 8px");
         label.setWrapText(true);
@@ -303,14 +302,14 @@ public class FaktureController implements Initializable {
 
     public void dodajFakturu(ActionEvent actionEvent) {
 
-        if(cmbBrFakture.getJFXEditor().getText().isEmpty() || cmbGodina.getJFXEditor().getText().isEmpty() ){
+        if (cmbBrFakture.getJFXEditor().getText().isEmpty() || cmbGodina.getJFXEditor().getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Nedostaje broj fakture ili godina");
             alert.setTitle("Upozornje");
             alert.setHeaderText("Greška");
             alert.initOwner(stage);
             alert.showAndWait();
             return;
-        }else{
+        } else {
         }
         resourceFXML = "/JGemstone/resources/fxml/NovaFaktura.fxml";
         NewInterface novaFakturaInterface = new NewInterface(resourceFXML, "Nova Faktura", resource);
@@ -318,10 +317,9 @@ public class FaktureController implements Initializable {
         novaFakturaController.client = this.client;
         novaFakturaController.brFakture = cmbBrFakture.getJFXEditor().getText();
         novaFakturaController.user = userData;
-        novaFakturaController.godina =  cmbGodina.getJFXEditor().getText();
+        novaFakturaController.godina = cmbGodina.getJFXEditor().getText();
         novaFakturaInterface.getStage().showAndWait();
         prikaziFakture(null);
-
 
 
     }
@@ -340,13 +338,11 @@ public class FaktureController implements Initializable {
         selectedFacture = (Fakture) tblFakture.getSelectionModel().getSelectedItem();
         jObj = new JSONObject();
         jObj.put("action", "delete_fakturu");
-        jObj.put("idFactura", selectedFacture.getId() );
+        jObj.put("idFactura", selectedFacture.getId());
         jObj = client.send_object(jObj);
         LOGGER.info(jObj.getString("Message"));
         prikaziFakture(null);
     }
-
-
 
 
 }

@@ -26,13 +26,11 @@ public class NovServicesController implements Initializable {
     public TextField tOpis;
 
     public Client client;
-
-    private Services service;
-    private messageS mes;
-
     Logger LOGGER = LogManager.getLogger("NEW_SERVICES");
     //JSON
     JSONObject jObj;
+    private Services service;
+    private messageS mes;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,15 +49,15 @@ public class NovServicesController implements Initializable {
         service.setCena(Double.valueOf(tCena.getText()));
         service.setOpis(tOpis.getText());
 
-        mes=new messageS();
+        mes = new messageS();
         mes.setAction("new_service");
         mes.setServices(service);
 
         jObj = new JSONObject();
         jObj.put("action", "new_service");
-        jObj.put("naziv",tNaziv.getText());
-        jObj.put("cena",Double.valueOf(tCena.getText()));
-        jObj.put("opis",tOpis.getText());
+        jObj.put("naziv", tNaziv.getText());
+        jObj.put("cena", Double.valueOf(tCena.getText()));
+        jObj.put("opis", tOpis.getText());
 
         jObj = client.send_object(jObj);
 

@@ -30,10 +30,10 @@ public class NovaGrupaController implements Initializable {
     Client client;
     String GroupName;
     Groups group;
-    private messageS mess;
-    private Logger LOGGER = LogManager.getLogger("GRUPA_SAVE");
     //JSON
     JSONObject jObj;
+    private messageS mess;
+    private Logger LOGGER = LogManager.getLogger("GRUPA_SAVE");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -16,7 +16,7 @@ public class md5_digiest {
     }
 
 
-    public String get_hash()  {
+    public String get_hash() {
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("MD5");

@@ -57,7 +57,7 @@ public class ugovori_types implements Serializable {
         this.textUgovora = textUgovora;
     }
 
-    public String toString(){
+    public String toString() {
         return Naziv;
     }
 

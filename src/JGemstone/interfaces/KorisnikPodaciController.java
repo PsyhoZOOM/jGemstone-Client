@@ -121,10 +121,30 @@ public class KorisnikPodaciController implements Initializable {
                 }
             }
         });
+
+        tTelFix.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue.matches("[0-9]*")) {
+                    tTelFix.setText(newValue);
+                }
+            }
+        });
+        tTelMob.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue.matches("[0-9]*")) {
+                    tTelMob.setText(newValue);
+                }
+            }
+        });
     }
 
 
     public void setData() {
+        //default data fileds
+
+
         //label userID sa brojem mesta i adrese
         if (!cmbAdresaRacun.getItems().isEmpty())
             lUserID.setText(cmbMestoRacun.getValue().getBrojMesta() + cmbAdresaRacun.getValue().getBrojAdrese() + userData.getjBroj());
@@ -315,9 +335,6 @@ public class KorisnikPodaciController implements Initializable {
         } else {
             AlertUser.info("Informacija", "Korisnik izmene snimljene!");
         }
-
-
-
 
 
     }

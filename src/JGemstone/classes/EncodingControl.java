@@ -16,21 +16,17 @@ import java.util.ResourceBundle;
 /**
  * Created by zoom on 8/2/16.
  */
-public class EncodingControl extends ResourceBundle.Control
-{
+public class EncodingControl extends ResourceBundle.Control {
     private String encoding;
 
-    public EncodingControl(String encoding)
-    {
+    public EncodingControl(String encoding) {
         this.encoding = encoding;
     }
 
     @Override
     public ResourceBundle newBundle(String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
-            throws IllegalAccessException, InstantiationException, IOException
-    {
-        if (!format.equals("java.properties"))
-        {
+            throws IllegalAccessException, InstantiationException, IOException {
+        if (!format.equals("java.properties")) {
             return super.newBundle(baseName, locale, format, loader, reload);
         }
         String bundleName = toBundleName(baseName, locale);

@@ -45,6 +45,7 @@ public class MainWindowController implements Initializable {
     private ServisiController servisiController;
     private MestaController mestaController;
     private OpremaController opremaController;
+
     public MainWindowController() {
 
     }
@@ -72,7 +73,6 @@ public class MainWindowController implements Initializable {
     }
 
 
-
     public void mOpenSetup(ActionEvent actionEvent) throws IOException {
 
         Stage stage = new Stage();
@@ -88,7 +88,6 @@ public class MainWindowController implements Initializable {
     }
 
 
-
     public void showKorisnici(ActionEvent actionEvent) {
         fxmloader = new FXMLLoader(getClass().getResource("/JGemstone/resources/fxml/Korisnici.fxml"), resource);
         try {
@@ -99,7 +98,6 @@ public class MainWindowController implements Initializable {
 
         korctrl = fxmloader.getController();
         korctrl.client = client;
-
 
 
     }

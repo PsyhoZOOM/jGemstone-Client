@@ -34,7 +34,7 @@ public class NovKorisnikController implements Initializable {
     Logger LOGGER = LogManager.getLogger("NEW_USER");
     //JSON
     JSONObject jObj;
-    DateTimeFormatter dateTimeFormatterRodjen  = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    DateTimeFormatter dateTimeFormatterRodjen = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private Stage stage;
     private Client client;
     private messageS mess;
@@ -58,7 +58,7 @@ public class NovKorisnikController implements Initializable {
         this.client = client;
     }
 
-    public void bSaveUser(ActionEvent actionEvent)  {
+    public void bSaveUser(ActionEvent actionEvent) {
 
         jObj = new JSONObject();
         jObj.put("action", "new_user");
@@ -75,7 +75,6 @@ public class NovKorisnikController implements Initializable {
         jObj.put("telMobilni", tMobilni.getText());
 
 
-
         jObj = client.send_object(jObj);
 
         if (jObj.get("Message").equals("ERROR")) {
@@ -83,14 +82,14 @@ public class NovKorisnikController implements Initializable {
             user_saved = false;
 
             AlertUser.error("Greska", "Korisnik nije napravljne \n" + jObj.getString("ERROR_MESSAGE"));
-        }else if (jObj.get("Message").equals("user_saved")){
+        } else if (jObj.get("Message").equals("user_saved")) {
 
             AlertUser.info("Informacija", "Korisnik je snimljen");
 
             user_saved = true;
             user = new Users();
             user.setId(jObj.getInt("userID"));
-            Stage  stage = (Stage) bClose.getScene().getWindow();
+            Stage stage = (Stage) bClose.getScene().getWindow();
             stage.close();
         }
 

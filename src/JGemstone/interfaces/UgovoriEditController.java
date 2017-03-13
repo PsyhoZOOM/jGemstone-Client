@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 /**
  * Created by zoom on 11/16/16.
  */
-public class UgovoriEditController implements Initializable{
+public class UgovoriEditController implements Initializable {
     public Client client;
     public ResourceBundle resource;
     public HTMLEditor htmlUgovor;
@@ -52,7 +52,6 @@ public class UgovoriEditController implements Initializable{
 
             }
         });
-
 
 
     }

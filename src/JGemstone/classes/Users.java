@@ -185,7 +185,7 @@ public class Users extends RecursiveTreeObject<Users> implements Serializable {
         this.datum_rodjenja = datum_rodjenja;
     }
 
-    public String getUsername()  {
+    public String getUsername() {
         return username;
     }
 
