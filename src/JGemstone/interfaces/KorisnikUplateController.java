@@ -10,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -42,26 +41,30 @@ public class KorisnikUplateController implements Initializable {
     public TableColumn cMestoUplate;
     public TableColumn cOperater;
     public Button bDeleteUplata;
-    public DatePicker dtpDatumUplate;
-    public Spinner spnUplaceno;
     public Label lUkupnoUplaceno;
     public Label lUkupanDug;
     public Label lZaUplatu;
-    public ComboBox<UplateMesta> cmbMestoUplate;
     public DatePicker dtpDatumOd;
     public DatePicker dtpDatumDo;
     public DatePicker dtpDatumZaNaplatu;
-    public TextField tNazivUsluge;
-    public Spinner cmbCena;
+    public TextField tCena;
     public Button bZaduzi;
-    public Button bUplati;
     public TableColumn cZaMesec;
     public Button bUplatiServis;
     public Client client;
     public Users user;
+    public Label lStatusDatumIsteka;
+    public Label lStatusZaduzenOd;
+    public Label lStatusUplatioOper;
+    public Label lStatusDatumUplate;
+    public TableColumn cUplateUplaceno;
+    public Label lDugZaduzenja;
+    public TextField tNazivUsluge;
+    public Button bZaduziCustomService;
     DecimalFormat df = new DecimalFormat("#,##0.00");
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     DateTimeFormatter formatterBack = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    DateTimeFormatter formatMonthYear = DateTimeFormatter.ofPattern("yyyy-MM");
     private ResourceBundle resource;
     private URL url;
     private Logger LOGGER = LogManager.getLogger("USER_PAYMENTS");
@@ -82,6 +85,16 @@ public class KorisnikUplateController implements Initializable {
         cZaUplatu.setCellValueFactory(new PropertyValueFactory<Uplate, Double>("dug"));
         cZaMesec.setCellValueFactory(new PropertyValueFactory<Uplate, String>("zaMesec"));
         cUplaceno.setCellValueFactory(new PropertyValueFactory<Uplate, Double>("uplaceno"));
+        cUplaceno.setCellFactory(tc -> new TableCell<Uplate, Double>() {
+            protected void updateItem(Double uplaceno, boolean bool) {
+                super.updateItem(uplaceno, bool);
+                if (bool) {
+                    setText(null);
+                } else {
+                    setText(df.format(uplaceno));
+                }
+            }
+        });
 
         cCena.setCellFactory(tc -> new TableCell<Uplate, Double>() {
             protected void updateItem(Double uplata, boolean bool) {
@@ -123,13 +136,42 @@ public class KorisnikUplateController implements Initializable {
                 if (tblZaduzenja.getSelectionModel().getSelectedIndex() == -1) {
                     return;
                 }
-                cmbZaUplatu.getEditor().setText(df.format(newValue.getDug()));
+
+                Double uplaceno = 0.00;
+                Double dug = 0.00;
+                uplaceno = tblZaduzenja.getSelectionModel().getSelectedItem().getUplaceno();
+
+                //BUTTON DISABLE UPLATE
+                cmbZaUplatu.getEditor().setText(df.format(newValue.getDug() - uplaceno));
                 if (newValue.getDug() == 0) {
                     bUplatiServis.setDisable(true);
                 } else {
                     cmbZaUplatu.setDisable(false);
                     bUplatiServis.setDisable(false);
                 }
+
+                //STATUS UPLATE
+                Uplate uplate = tblZaduzenja.getSelectionModel().getSelectedItem();
+                if (uplate.getDatumUplate().equals("1000-01-01 00:00:00.0")) {
+                    lStatusDatumUplate.setText("--");
+                } else {
+                    lStatusDatumUplate.setText(uplate.getDatumUplate());
+                }
+                lStatusUplatioOper.setText(uplate.getOperater());
+                lStatusZaduzenOd.setText(uplate.getZaduzenOd());
+                lStatusDatumIsteka.setText(get_datum_isteka_servicsa(uplate.getId_ServiceUser()));
+
+                //disable uplate if cena i zaduzenje je isto
+                uplaceno = uplate.getUplaceno();
+                dug = uplate.getDug();
+                if (uplaceno.equals(dug)) {
+                    bUplatiServis.setDisable(true);
+                    cmbZaUplatu.setDisable(true);
+                } else {
+                    bUplatiServis.setDisable(false);
+                    cmbZaUplatu.setDisable(false);
+                }
+
             }
         });
 
@@ -138,66 +180,9 @@ public class KorisnikUplateController implements Initializable {
         cmbZaUplatu.setEditable(true);
 
 
-        dtpDatumUplate.setConverter(new StringConverter<LocalDate>() {
-            @Override
-            public String toString(LocalDate object) {
-                if (object == null) {
-                    return "";
-                } else {
-                    return formatter.format(object);
-                }
-            }
-
-            @Override
-            public LocalDate fromString(String string) {
-                if (string == null || string.trim().isEmpty()) {
-                    return null;
-                } else {
-                    return LocalDate.parse(string, formatter);
-                }
-            }
-        });
-        dtpDatumUplate.setValue(LocalDate.now());
-
-
-        spnUplaceno.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE));
-        spnUplaceno.getValueFactory().setConverter(new StringConverter<Double>() {
-
-            @Override
-            public String toString(Double object) {
-                if (object == null) {
-                    return "0.00";
-                }
-
-                return df.format(object);
-            }
-
-            @Override
-            public Double fromString(String string) {
-                try {
-
-
-                    if (string == null) {
-                        return 0.00;
-                    }
-
-                    string.trim();
-
-                    if (string.length() < 1) {
-                        return null;
-                    }
-
-                    return df.parse(string).doubleValue();
-                } catch (ParseException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        });
-
-
         cDatumUplate.setCellValueFactory(new PropertyValueFactory<Uplate, String>("datumUplate"));
-        cUplaceno.setCellValueFactory(new PropertyValueFactory<Uplate, Double>("uplaceno"));
-        cUplaceno.setCellFactory(tc -> new TableCell<Uplate, Double>() {
+        cUplateUplaceno.setCellValueFactory(new PropertyValueFactory<Uplate, Double>("uplaceno"));
+        cUplateUplaceno.setCellFactory(tc -> new TableCell<Uplate, Double>() {
             protected void updateItem(Double uplaceno, boolean bool) {
                 super.updateItem(uplaceno, bool);
                 if (bool) {
@@ -209,6 +194,25 @@ public class KorisnikUplateController implements Initializable {
         });
         cMestoUplate.setCellValueFactory(new PropertyValueFactory<Uplate, String>("mestoUplate"));
         cOperater.setCellValueFactory(new PropertyValueFactory<Uplate, String>("operater"));
+
+        dtpDatumZaNaplatu.setValue(LocalDate.now());
+
+
+    }
+
+    private String get_datum_isteka_servicsa(int id) {
+        jObj = new JSONObject();
+        jObj.put("action", "get_datum_isteka_servisa");
+        jObj.put("serviceID", id);
+
+        jObj = client.send_object(jObj);
+
+
+        if (jObj.has("datumIsteka")) {
+            return jObj.getString("datumIsteka");
+        } else {
+            return "--";
+        }
 
 
     }
@@ -223,11 +227,10 @@ public class KorisnikUplateController implements Initializable {
         ObservableList dataZaduzenja = FXCollections.observableArrayList(get_Zaduzenja());
         tblZaduzenja.setItems(dataZaduzenja);
 
-        ObservableList mestaUplate = FXCollections.observableArrayList(getMestaUplate());
-        cmbMestoUplate.setItems(mestaUplate);
 
         ObservableList dataUplate = FXCollections.observableArrayList(getUserUplate());
         tblUplate.setItems(dataUplate);
+
 
 
         Double ukupno = 0.00;
@@ -237,33 +240,7 @@ public class KorisnikUplateController implements Initializable {
 
     }
 
-    private ArrayList<UplateMesta> getMestaUplate() {
-        ArrayList<UplateMesta> mestaUplate = new ArrayList();
 
-
-        UplateMesta uplate = new UplateMesta();
-        uplate.setMestoUplate("Keš");
-        uplate.setMesto(0);
-        mestaUplate.add(uplate);
-
-        uplate = new UplateMesta();
-        uplate.setMestoUplate("Faktura");
-        uplate.setMesto(1);
-        mestaUplate.add(uplate);
-
-        uplate = new UplateMesta();
-        uplate.setMestoUplate("Pošta");
-        uplate.setMesto(2);
-        mestaUplate.add(uplate);
-
-        uplate = new UplateMesta();
-        uplate.setMestoUplate("Čekovi");
-        uplate.setMesto(3);
-        mestaUplate.add(uplate);
-
-        return mestaUplate;
-
-    }
 
 
     ArrayList<Uplate> get_Zaduzenja() {
@@ -271,6 +248,7 @@ public class KorisnikUplateController implements Initializable {
         jObj = new JSONObject();
         jObj.put("action", "get_zaduzenja_user");
         jObj.put("userID", user.getId());
+        Double dug = 0.00;
 
         jObj = client.send_object(jObj);
 
@@ -297,54 +275,25 @@ public class KorisnikUplateController implements Initializable {
             uplata.setPopust(uplataObj.getDouble("popust"));
             uplata.setPaketType(uplataObj.getString("paketType"));
             uplata.setCena(uplataObj.getDouble("cena"));
-            uplata.setUplaceno(uplataObj.getDouble("uplaceno"));
             uplata.setDatumUplate(uplataObj.getString("datumUplate"));
             uplata.setDug(uplataObj.getDouble("dug"));
             zaUplatu += uplataObj.getDouble("dug");
+            dug = dug + uplataObj.getDouble("dug");
+            uplata.setUplaceno(uplataObj.getDouble("uplaceno"));
+            dug = dug - uplataObj.getDouble("uplaceno");
             uplata.setOperater(uplataObj.getString("operater"));
             uplata.setZaMesec(uplataObj.getString("zaMesec"));
+            uplata.setZaduzenOd(uplataObj.getString("zaduzenOd"));
             uplate.add(uplata);
 
         }
         lZaUplatu.setText(df.format(zaUplatu));
+        lDugZaduzenja.setText(df.format(dug));
         return uplate;
     }
 
 
-    public void ShowZaduzenja(ActionEvent actionEvent) {
 
-    }
-
-
-    public void uplatiUplatu(ActionEvent actionEvent) {
-        if (dtpDatumUplate.getValue() == null || spnUplaceno.getValue() == null || cmbMestoUplate.getValue() == null) {
-            AlertUser.error("GREŠKA", "Polja datum uplate, uplaćeno i mesto uplate ne mogu biti prazna");
-            return;
-        }
-        Uplate uplata = new Uplate();
-        LocalDate localdate = dtpDatumUplate.getValue();
-
-        uplata.setCena((Double) spnUplaceno.getValue());
-        uplata.setDatumUplate(dtpDatumUplate.getValue().format(formatterBack));
-        uplata.setMestoUplate(String.valueOf(cmbMestoUplate.getValue()));
-
-        jObj = new JSONObject();
-        jObj.put("action", "new_uplata");
-        jObj.put("userID", user.getId());
-        jObj.put("datumUplate", dtpDatumUplate.getValue().format(formatterBack));
-        jObj.put("uplaceno", Double.valueOf(spnUplaceno.getEditor().getText()));
-        jObj.put("mesto", cmbMestoUplate.getValue().getMestoUplate());
-        jObj = client.send_object(jObj);
-
-        if (jObj.has("Error")) {
-            AlertUser.error("GRESKA", jObj.getString("Error"));
-        } else {
-            AlertUser.info("UPLATA", "UPLATA JE IZVRŠENA");
-        }
-
-        show_data();
-
-    }
 
     private ArrayList<Uplate> getUserUplate() {
         ukupno_uplaceno = 0.00;
@@ -405,13 +354,24 @@ public class KorisnikUplateController implements Initializable {
         jObj.put("action", "uplata_servisa");
         jObj.put("userID", user.getId());
         jObj.put("id", uplata.getId());
+        Number numbUplacenoNov = null;
         try {
-            Number numb = df.parse(cmbZaUplatu.getEditor().getText());
-            double uplaceno = numb.doubleValue();
-            jObj.put("uplaceno", uplaceno);
+            numbUplacenoNov = df.parse(cmbZaUplatu.getEditor().getText());
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        Number numbZauplatu = uplata.getDug();
+        Number numbUplaceno = uplata.getUplaceno();
+
+        Double ukupnoUplaceno = numbUplaceno.doubleValue() + numbUplacenoNov.doubleValue();
+
+        LOGGER.info("ukupnouplaceno: " + ukupnoUplaceno + " uplaceno: " + numbUplaceno + " zaUplatu: " + numbZauplatu + " uplacenoNov: " + numbUplacenoNov);
+
+        if (ukupnoUplaceno > numbZauplatu.doubleValue()) {
+            AlertUser.error("SUMA NIJE JEDNAKA ZA DUGOM", "Uplata ne može biti veca od zaduženja");
+            return;
+        }
+        jObj.put("uplaceno", ukupnoUplaceno);
         jObj.put("dug", uplata.getDug());
         jObj.put("paketType", uplata.getPaketType());
         jObj.put("userServiceID", uplata.getId_ServiceUser());
@@ -428,6 +388,52 @@ public class KorisnikUplateController implements Initializable {
         show_data();
 
 
+    }
+
+
+    public void zaduziCustomService(ActionEvent actionEvent) {
+
+        if (tNazivUsluge.getText().isEmpty() || dtpDatumZaNaplatu.getEditor().getText().isEmpty()) {
+            AlertUser.warrning("POLJA SU PRAZNA", "Datum i naziv ne smeju biti prazni");
+            return;
+        }
+
+
+        jObj = new JSONObject();
+
+        LocalDate datumZaMesec = dtpDatumZaNaplatu.getValue();
+
+
+        jObj.put("action", "zaduzi_servis_manual");
+        jObj.put("nazivPaketa", tNazivUsluge.getText());
+        jObj.put("userID", user.getId());
+        jObj.put("cena", Double.valueOf(tCena.getText()));
+        jObj.put("uplaceno", false);
+        jObj.put("zaMesec", formatMonthYear.format(datumZaMesec));
+
+
+        jObj = client.send_object(jObj);
+        if (jObj.has("Error")) {
+            AlertUser.error("GRESKA", jObj.getString("Error"));
+        } else {
+            AlertUser.info("KORISNIK ZADUZEN", "Korisnik zaduzenje izvrseno");
+        }
+
+
+        show_data();
+    }
+
+
+    public void ShowZaduzenja(ActionEvent actionEvent) {
+    }
+
+    public void zaduziUsluguUnapred(ActionEvent actionEvent) {
+        NewInterface uslugaZaduzivanjeInterface = new NewInterface("/JGemstone/resources/fxml/UslugaZaduzivanje.fxml", "Zaduzivanje usluge", resource);
+        UslugeZaduzivenjeController uslugeZaduzivenjeController = uslugaZaduzivanjeInterface.getLoader().getController();
+        uslugeZaduzivenjeController.client = client;
+        uslugeZaduzivenjeController.user = user;
+        uslugeZaduzivenjeController.show_data();
+        uslugaZaduzivanjeInterface.getStage().showAndWait();
     }
 }
 

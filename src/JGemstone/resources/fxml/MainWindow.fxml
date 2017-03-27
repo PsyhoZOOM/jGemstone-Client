@@ -72,9 +72,17 @@
             <top>
                 <ToolBar BorderPane.alignment="CENTER">
                     <items>
-                        <Button fx:id="bShowKorisniciSearch" minHeight="50.0" minWidth="100.0" mnemonicParsing="false"
-                                onAction="#showKorisnici" prefHeight="50.0" prefWidth="100.0" text="Pretraga Korisnika"
-                                textAlignment="CENTER" wrapText="true"/>
+                        <HBox spacing="5.0">
+                            <children>
+                                <Button fx:id="bShowKorisniciSearch" minHeight="50.0" minWidth="100.0"
+                                        mnemonicParsing="false" onAction="#showKorisnici" prefHeight="50.0"
+                                        prefWidth="100.0" text="Pretraga Korisnika" textAlignment="CENTER"
+                                        wrapText="true"/>
+                                <Button fx:id="bUplateMain" maxHeight="50.0" maxWidth="100.0" minHeight="50.0"
+                                        minWidth="100.0" mnemonicParsing="false" onAction="#showUplateMain"
+                                        prefHeight="50.0" prefWidth="100.0" text="Uplate"/>
+                            </children>
+                        </HBox>
                     </items>
                 </ToolBar>
             </top>

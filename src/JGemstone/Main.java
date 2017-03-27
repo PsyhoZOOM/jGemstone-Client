@@ -14,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -43,7 +44,7 @@ public class Main extends Application {
     public void init() throws Exception {
         super.init();
 
-        Font.loadFont(Main.class.getResource("/JGemstone/resources/font/roboto/Roboto-Black.ttf").toExternalForm(), 12);
+        Font.loadFont(Main.class.getResource("/JGemstone/resources/font/roboto/Roboto-Black.ttf").toExternalForm(), 9);
     }
 
     @Override
@@ -59,7 +60,9 @@ public class Main extends Application {
 
 
         Locale.setDefault(new Locale("sr", "RS"));
-
+        System.setProperty("file.encoding", "UTF-8");
+        Charset.defaultCharset();
+        LOGGER.info(Charset.defaultCharset());
 
         //FXMLLoader main_scr = new FXMLLoader((getClass().getResource("/JGemstone/resources/fxml/MainWindow.fxml")), bundle);
         //FXMLLoader login_scr = new FXMLLoader((getClass().getResource("/JGemstone/resources/fxml/LoginWin.fxml")), bundle);
@@ -68,7 +71,6 @@ public class Main extends Application {
 
 
         while (!appExit) {
-            LOGGER.info(Locale.getDefault());
             show_login_screen();
             if (client.get_connection_state() && client != null) {
                 show_main_win();
@@ -102,7 +104,7 @@ public class Main extends Application {
             Scene scene = new Scene(rootMainWindow);
             mainStage.setScene(scene);
             mainStage.setResizable(false);
-            mainStage.setTitle("YUVidoe LOGIN");
+            mainStage.setTitle("YUVideo LOGIN");
             mainStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();

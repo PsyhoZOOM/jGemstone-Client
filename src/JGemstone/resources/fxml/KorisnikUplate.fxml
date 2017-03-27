@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" minHeight="600.0" minWidth="800.0" prefHeight="732.0" prefWidth="1179.0"
-            xmlns="http://javafx.com/javafx/8.0.112" fx:controller="JGemstone.interfaces.KorisnikUplateController">
+            xmlns="http://javafx.com/javafx/8.0.65" fx:controller="JGemstone.interfaces.KorisnikUplateController">
     <children>
         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
               AnchorPane.topAnchor="0.0">
@@ -23,107 +23,6 @@
                 </HBox>
                 <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                     <tabs>
-                        <Tab text="Uplate">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                    <children>
-                                        <GridPane hgap="5.0" layoutX="52.0" layoutY="110.0" vgap="5.0"
-                                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                            <columnConstraints>
-                                                <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
-                                                <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="200.0"
-                                                                   minWidth="200.0" prefWidth="200.0"/>
-                                                <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="50.0"
-                                                                   minWidth="50.0" prefWidth="50.0"/>
-                                                <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
-                                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0"
-                                                                   prefWidth="100.0"/>
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                                <RowConstraints vgrow="NEVER"/>
-                                                <RowConstraints valignment="BOTTOM" vgrow="NEVER"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP"
-                                                                vgrow="NEVER"/>
-                                            </rowConstraints>
-                                            <children>
-                                                <TableView fx:id="tblUplate" prefHeight="200.0" prefWidth="200.0"
-                                                           GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
-                                                    <columns>
-                                                        <TableColumn fx:id="cDatumUplate" prefWidth="75.0"
-                                                                     text="Datum Uplate"/>
-                                                        <TableColumn fx:id="cUplaceno" prefWidth="75.0"
-                                                                     text="Uplaćeno"/>
-                                                        <TableColumn fx:id="cMestoUplate" prefWidth="75.0"
-                                                                     text="Vrsta uplate"/>
-                                                        <TableColumn fx:id="cOperater" prefWidth="75.0"
-                                                                     text="Operater"/>
-                                                    </columns>
-                                                    <columnResizePolicy>
-                                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                                                    </columnResizePolicy>
-                                                </TableView>
-                                                <Separator valignment="BOTTOM" GridPane.columnSpan="2147483647"
-                                                           GridPane.rowIndex="5" GridPane.valignment="BOTTOM"/>
-                                                <Button fx:id="bDeleteUplata" mnemonicParsing="false"
-                                                        onAction="#deleteUplata" text="Izbriši uplatu"
-                                                        GridPane.columnIndex="4" GridPane.halignment="RIGHT"
-                                                        GridPane.rowIndex="7"/>
-                                                <Label text="Datum uplate:" GridPane.rowIndex="1"/>
-                                                <Label text="Uplaćeno:" GridPane.rowIndex="2"/>
-                                                <DatePicker fx:id="dtpDatumUplate" GridPane.columnIndex="1"
-                                                            GridPane.rowIndex="1"/>
-                                                <Spinner fx:id="spnUplaceno" editable="true" minWidth="200.0"
-                                                         prefHeight="26.0" prefWidth="200.0" GridPane.columnIndex="1"
-                                                         GridPane.rowIndex="2"/>
-                                                <Button fx:id="bUplati" mnemonicParsing="false" onAction="#uplatiUplatu"
-                                                        text="Uplati" GridPane.columnIndex="1"
-                                                        GridPane.halignment="RIGHT" GridPane.rowIndex="4"/>
-                                                <Label text="NOVA UPLATA" underline="true" GridPane.columnSpan="2"
-                                                       GridPane.halignment="LEFT">
-                                                    <font>
-                                                        <Font name="System Bold" size="13.0"/>
-                                                    </font>
-                                                </Label>
-                                                <Separator orientation="VERTICAL" valignment="TOP"
-                                                           GridPane.columnIndex="2" GridPane.hgrow="NEVER"
-                                                           GridPane.rowSpan="5" GridPane.valignment="TOP"
-                                                           GridPane.vgrow="NEVER"/>
-                                                <Label text="UPLATE" underline="true" GridPane.columnIndex="3"
-                                                       GridPane.halignment="LEFT">
-                                                    <font>
-                                                        <Font name="System Bold" size="13.0"/>
-                                                    </font>
-                                                </Label>
-                                                <Label text="Ukupno uplaćeno:" GridPane.columnIndex="3"
-                                                       GridPane.rowIndex="2"/>
-                                                <Label text="Ukupan dug:" GridPane.columnIndex="3"
-                                                       GridPane.rowIndex="1"/>
-                                                <Label text="Za uplatu:" GridPane.columnIndex="3"
-                                                       GridPane.rowIndex="3"/>
-                                                <Label fx:id="lUkupnoUplaceno" text="0.00" GridPane.columnIndex="4"
-                                                       GridPane.rowIndex="2"/>
-                                                <Label fx:id="lUkupanDug" text="0.00" GridPane.columnIndex="4"
-                                                       GridPane.rowIndex="1"/>
-                                                <Label fx:id="lZaUplatu" text="0.00" GridPane.columnIndex="4"
-                                                       GridPane.rowIndex="3"/>
-                                                <Label text="Mesto uplate:" GridPane.rowIndex="3"/>
-                                                <ComboBox fx:id="cmbMestoUplate" prefWidth="200.0"
-                                                          GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                                            </children>
-                                            <padding>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                                            </padding>
-                                        </GridPane>
-                                    </children>
-                                </AnchorPane>
-                            </content>
-                        </Tab>
                         <Tab text="Zaduženja">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -141,17 +40,24 @@
                                                                    prefWidth="200.0"/>
                                                 <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="NEVER"
                                                                    maxWidth="50.0" minWidth="50.0" prefWidth="50.0"/>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                                <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0"
+                                                                   prefWidth="100.0"/>
+                                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="200.0"
+                                                                   prefWidth="200.0"/>
+                                                <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="50.0"
+                                                                   minWidth="50.0" prefWidth="50.0"/>
                                             </columnConstraints>
                                             <rowConstraints>
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                                                <RowConstraints vgrow="NEVER"/>
                                                 <RowConstraints vgrow="NEVER"/>
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS"/>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"
+                                                                vgrow="NEVER"/>
                                                 <RowConstraints valignment="CENTER" vgrow="NEVER"/>
                                             </rowConstraints>
                                             <padding>
@@ -220,16 +126,25 @@
                                                 <Label text="Cena:" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
                                                 <DatePicker fx:id="dtpDatumZaNaplatu" GridPane.columnIndex="4"
                                                             GridPane.rowIndex="1"/>
-                                                <TextField fx:id="tNazivUsluge" GridPane.columnIndex="4"
-                                                           GridPane.rowIndex="2"/>
-                                                <Spinner fx:id="cmbCena" minWidth="150.0" prefWidth="150.0"
-                                                         GridPane.columnIndex="4" GridPane.rowIndex="3"/>
-                                                <Button fx:id="bZaduzi" mnemonicParsing="false" text="Zaduži"
-                                                        GridPane.columnIndex="4" GridPane.halignment="RIGHT"
-                                                        GridPane.rowIndex="4"/>
+                                                <HBox alignment="CENTER" fillHeight="false" spacing="5.0"
+                                                      GridPane.columnIndex="3" GridPane.columnSpan="2"
+                                                      GridPane.halignment="CENTER" GridPane.rowIndex="4"
+                                                      GridPane.valignment="CENTER">
+                                                    <children>
+                                                        <Button fx:id="bZaduzi" alignment="CENTER"
+                                                                contentDisplay="CENTER" mnemonicParsing="false"
+                                                                onAction="#zaduziUsluguUnapred" text="Uplate unapred"/>
+                                                        <Button fx:id="bZaduziCustomService" alignment="CENTER"
+                                                                contentDisplay="CENTER" mnemonicParsing="false"
+                                                                onAction="#zaduziCustomService" text="Zaduži Uslugu"/>
+                                                    </children>
+                                                    <padding>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                    </padding>
+                                                </HBox>
                                                 <HBox alignment="CENTER_RIGHT" spacing="5.0"
                                                       GridPane.columnSpan="2147483647" GridPane.halignment="CENTER"
-                                                      GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                                                      GridPane.rowIndex="9" GridPane.valignment="CENTER">
                                                     <children>
                                                         <Label text="Za uplatu:"/>
                                                         <Spinner fx:id="cmbZaUplatu"/>
@@ -239,7 +154,121 @@
                                                 </HBox>
                                                 <Separator orientation="VERTICAL" GridPane.columnIndex="5"
                                                            GridPane.rowSpan="5"/>
+                                                <Label text="STATUS" underline="true" GridPane.columnIndex="6"
+                                                       GridPane.halignment="LEFT">
+                                                    <font>
+                                                        <Font name="System Bold" size="13.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label text="Datum isteka:" GridPane.columnIndex="6"
+                                                       GridPane.rowIndex="1"/>
+                                                <Label fx:id="lStatusDatumIsteka" text="--" GridPane.columnIndex="7"
+                                                       GridPane.rowIndex="1"/>
+                                                <Label text="Zaduzen od:" GridPane.columnIndex="6"
+                                                       GridPane.rowIndex="2"/>
+                                                <Label fx:id="lStatusZaduzenOd" text="--" GridPane.columnIndex="7"
+                                                       GridPane.rowIndex="2"/>
+                                                <Label text="Uplatio:" GridPane.columnIndex="6" GridPane.rowIndex="3"/>
+                                                <Label fx:id="lStatusUplatioOper" text="--" GridPane.columnIndex="7"
+                                                       GridPane.rowIndex="3"/>
+                                                <Label text="Datum uplate:" GridPane.columnIndex="6"
+                                                       GridPane.rowIndex="4"/>
+                                                <Label fx:id="lStatusDatumUplate" text="--" GridPane.columnIndex="7"
+                                                       GridPane.rowIndex="4"/>
+                                                <Separator orientation="VERTICAL" prefHeight="200.0"
+                                                           GridPane.columnIndex="8" GridPane.rowSpan="5"/>
+                                                <HBox alignment="CENTER_RIGHT" spacing="5.0" GridPane.columnIndex="7"
+                                                      GridPane.rowIndex="8">
+                                                    <children>
+                                                        <Label text="Dug:"/>
+                                                        <Label fx:id="lDugZaduzenja" text="0,00"/>
+                                                    </children>
+                                                </HBox>
+                                                <TextField fx:id="tNazivUsluge" GridPane.columnIndex="4"
+                                                           GridPane.rowIndex="2"/>
+                                                <TextField fx:id="tCena" GridPane.columnIndex="4"
+                                                           GridPane.rowIndex="3"/>
                                             </children>
+                                        </GridPane>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Uplate">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <GridPane hgap="5.0" layoutX="52.0" layoutY="110.0" vgap="5.0"
+                                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
+                                                <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="200.0"
+                                                                   minWidth="200.0" prefWidth="200.0"/>
+                                                <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="200.0"
+                                                                   minWidth="200.0" prefWidth="200.0"/>
+                                                <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="50.0"
+                                                                   minWidth="50.0" prefWidth="50.0"/>
+                                                <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
+                                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0"
+                                                                   prefWidth="100.0"/>
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                                                <RowConstraints vgrow="NEVER"/>
+                                                <RowConstraints valignment="BOTTOM" vgrow="NEVER"/>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP"
+                                                                vgrow="NEVER"/>
+                                            </rowConstraints>
+                                            <children>
+                                                <TableView fx:id="tblUplate" prefHeight="200.0" prefWidth="200.0"
+                                                           GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
+                                                    <columns>
+                                                        <TableColumn fx:id="cDatumUplate" prefWidth="75.0"
+                                                                     text="Datum Uplate"/>
+                                                        <TableColumn fx:id="cUplateUplaceno" prefWidth="75.0"
+                                                                     text="Uplaćeno"/>
+                                                        <TableColumn fx:id="cMestoUplate" prefWidth="75.0"
+                                                                     text="Vrsta uplate"/>
+                                                        <TableColumn fx:id="cOperater" prefWidth="75.0"
+                                                                     text="Operater"/>
+                                                    </columns>
+                                                    <columnResizePolicy>
+                                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                                    </columnResizePolicy>
+                                                </TableView>
+                                                <Separator valignment="BOTTOM" GridPane.columnSpan="2147483647"
+                                                           GridPane.rowIndex="5" GridPane.valignment="BOTTOM"/>
+                                                <Separator orientation="VERTICAL" valignment="TOP"
+                                                           GridPane.columnIndex="3" GridPane.hgrow="NEVER"
+                                                           GridPane.rowSpan="5" GridPane.valignment="TOP"
+                                                           GridPane.vgrow="NEVER"/>
+                                                <Label text="UPLATE" underline="true" GridPane.columnIndex="1"
+                                                       GridPane.halignment="LEFT">
+                                                    <font>
+                                                        <Font name="System Bold" size="13.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label text="Ukupno uplaćeno:" GridPane.columnIndex="1"
+                                                       GridPane.rowIndex="2"/>
+                                                <Label text="Ukupan dug:" GridPane.columnIndex="1"
+                                                       GridPane.rowIndex="1"/>
+                                                <Label text="Za uplatu:" GridPane.columnIndex="1"
+                                                       GridPane.rowIndex="3"/>
+                                                <Label fx:id="lUkupnoUplaceno" text="0.00" GridPane.columnIndex="2"
+                                                       GridPane.rowIndex="2"/>
+                                                <Label fx:id="lUkupanDug" text="0.00" GridPane.columnIndex="2"
+                                                       GridPane.rowIndex="1"/>
+                                                <Label fx:id="lZaUplatu" text="0.00" GridPane.columnIndex="2"
+                                                       GridPane.rowIndex="3"/>
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                            </padding>
                                         </GridPane>
                                     </children>
                                 </AnchorPane>

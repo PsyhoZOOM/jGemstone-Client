@@ -10,7 +10,6 @@ import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Created by zoom on 8/8/16.
@@ -125,7 +124,9 @@ public class Client {
         jObj.put("password", local_settings.getLocalPassword());
 
         try {
+
             socket = new Socket(InetAddress.getByName(RemoteHost), portNumber);
+            //socket = ssf.createSocket(InetAddress.getByName(RemoteHost), portNumber);
             login_to_server();
 
         } catch (IOException e) {
@@ -147,7 +148,8 @@ public class Client {
         if (Osw == null) {
             try {
                 //for json
-                Osw = new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8);
+                //Osw = new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8);
+                Osw = new OutputStreamWriter(socket.getOutputStream());
                 Bfw = new BufferedWriter(Osw);
             } catch (IOException e) {
                 e.printStackTrace();

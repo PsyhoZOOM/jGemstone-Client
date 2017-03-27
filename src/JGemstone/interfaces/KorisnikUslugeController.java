@@ -813,9 +813,9 @@ public class KorisnikUslugeController implements Initializable {
         jObj = new JSONObject();
         jObj.put("action", "delete_service_user");
         jObj.put("userID", userID);
-        jObj.put("serviceId", tblServices.getSelectionModel().getSelectedItem().getValue().getId());
-        jObj.put("paketType", tblServices.getSelectionModel().getSelectedItem().getValue().getVrsta());
-        jObj.put("idUniqueName", tblServices.getSelectionModel().getSelectedItem().getValue().getIdUniqueName());
+        ServicesUser srvUser = tblServices.getSelectionModel().getSelectedItem().getValue();
+        jObj.put("serviceId", srvUser.getId());
+        jObj.put("paketType", srvUser.getPaketType());
 
         Optional<ButtonType> btype = AlertUser.yesNo("BRISANJE KORISNIKA", "Da li ste sigurni da želite da izbrišite uslugu" + tblServices.getSelectionModel().getSelectedItem().getValue().getNaziv());
         if (btype.isPresent() && btype.get() == AlertUser.NE) {
@@ -827,7 +827,7 @@ public class KorisnikUslugeController implements Initializable {
         if (jObj.has("Error")) {
             AlertUser.error("GRESKA", jObj.getString("Error"));
         } else {
-            AlertUser.info("SERVIS", "Usluuga izbrisana");
+            AlertUser.info("SERVIS", "Usluga izbrisana");
             ;
         }
 

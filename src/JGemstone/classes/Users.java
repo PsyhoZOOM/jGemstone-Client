@@ -1,14 +1,12 @@
 package JGemstone.classes;
 
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by zoom on 8/23/16.
  */
-public class Users extends RecursiveTreeObject<Users> implements Serializable {
+public class Users implements Serializable {
     int br;
     int id;
     String username;
@@ -199,5 +197,10 @@ public class Users extends RecursiveTreeObject<Users> implements Serializable {
 
     public void setIme(String ime) {
         this.ime = ime;
+    }
+
+    @Override
+    public String toString() {
+        return jMesto + "" + jAdresa + ", " + ime;
     }
 }

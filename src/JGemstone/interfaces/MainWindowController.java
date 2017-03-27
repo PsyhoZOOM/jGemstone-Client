@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
@@ -34,6 +35,7 @@ public class MainWindowController implements Initializable {
     public Logger LOGGER = LogManager.getLogger();
     public BorderPane MainBorderPane;
     public MenuItem mesta;
+    public Button bUplateMain;
 
     ResourceBundle resource;
     private FXMLLoader fxmloader;
@@ -196,6 +198,15 @@ public class MainWindowController implements Initializable {
         boxPaketController.client = client;
         boxPaketController.set_data();
         boxPaketInterface.getStage().showAndWait();
+
+    }
+
+    public void showUplateMain(ActionEvent actionEvent) {
+        NewInterface uplateMainInterface = new NewInterface("/JGemstone/resources/fxml/UplateMain.fxml", "UPLATE", resource);
+        UplateMain uplateMainController = uplateMainInterface.getLoader().getController();
+        uplateMainController.client = this.client;
+        uplateMainController.showData();
+        uplateMainInterface.getStage().showAndWait();
 
     }
 }

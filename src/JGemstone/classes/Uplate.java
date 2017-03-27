@@ -23,7 +23,24 @@ public class Uplate implements Serializable {
     String zaMesec;
 
     String mestoUplate;
+    String zaduzenOd;
+    String napomena;
 
+    public String getNapomena() {
+        return napomena;
+    }
+
+    public void setNapomena(String napomena) {
+        this.napomena = napomena;
+    }
+
+    public String getZaduzenOd() {
+        return zaduzenOd;
+    }
+
+    public void setZaduzenOd(String zaduzenOd) {
+        this.zaduzenOd = zaduzenOd;
+    }
 
     public String getZaMesec() {
         return zaMesec;
@@ -154,6 +171,7 @@ public class Uplate implements Serializable {
     public void setMestoUplate(String mestoUplate) {
         this.mestoUplate = mestoUplate;
     }
+
 }
 
 
