@@ -39,6 +39,7 @@ public class KorisnikUgovoriController implements Initializable {
     public Button bIzmeni;
     public Client client;
     public int userID;
+    public Button stampaUgovora;
     private URL location;
     private ResourceBundle resources;
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-YYYY");
@@ -194,5 +195,17 @@ public class KorisnikUgovoriController implements Initializable {
         korisnikUgovorEditController.setData();
         ugovoriEditInterface.getStage().showAndWait();
         set_data();
+    }
+
+    public void stampajUgovor(ActionEvent actionEvent) {
+        ugovori_types ugovor = (ugovori_types) tblUgovori.getSelectionModel().getSelectedItem();
+        NewInterface ugovorStampaInterface = new NewInterface("/JGemstone/resources/fxml/UgovorStampa.fxml", "Stampa Ugovora", resources);
+        UgovorStampaController ugovorStampaController = ugovorStampaInterface.getLoader().getController();
+        ugovorStampaController.client = client;
+        ugovorStampaController.ugovor = ugovor;
+        ugovorStampaController.show_data();
+        ugovorStampaInterface.getStage().showAndWait();
+
+
     }
 }

@@ -101,11 +101,7 @@ public class NewInterface {
             scene = new Scene(root);
             stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            if (decorated) {
-                stage.initStyle(StageStyle.DECORATED);
-            } else {
-                stage.initStyle(StageStyle.UNDECORATED);
-            }
+            stage.initStyle(StageStyle.DECORATED);
             stage.setResizable(true);
 
 

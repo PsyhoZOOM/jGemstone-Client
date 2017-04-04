@@ -61,8 +61,7 @@ public class Client {
 
         if (Isr == null) {
             try {
-
-                Isr = new InputStreamReader(socket.getInputStream());
+                Isr = new InputStreamReader(socket.getInputStream(), "UTF-8");
                 Bfr = new BufferedReader(Isr);
             } catch (IOException e) {
                 LOGGER.error("ERROR AT InputStreamReader: " + e.getMessage());
@@ -149,7 +148,7 @@ public class Client {
             try {
                 //for json
                 //Osw = new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8);
-                Osw = new OutputStreamWriter(socket.getOutputStream());
+                Osw = new OutputStreamWriter(socket.getOutputStream(), "UTF-8");
                 Bfw = new BufferedWriter(Osw);
             } catch (IOException e) {
                 e.printStackTrace();

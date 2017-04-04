@@ -69,6 +69,7 @@ public class UgovoriEditController implements Initializable {
             Ugovor.setTextUgovora(jObj.getString("textUgovora"));
 
             htmlUgovor.setHtmlText(Ugovor.getTextUgovora());
+            htmlUgovor.setStyle("-fx-line-height: 1");
             tNazivUgovora.setText(Ugovor.getNaziv());
 
 

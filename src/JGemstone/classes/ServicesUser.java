@@ -32,6 +32,16 @@ public class ServicesUser implements Serializable {
     Boolean linkedService;
     int box_id;
     Boolean newService;
+    int DTVPaketID;
+
+
+    public int getDTVPaketID() {
+        return DTVPaketID;
+    }
+
+    public void setDTVPaketID(int DTVPaketID) {
+        this.DTVPaketID = DTVPaketID;
+    }
 
     public Boolean getNewService() {
         return newService;
