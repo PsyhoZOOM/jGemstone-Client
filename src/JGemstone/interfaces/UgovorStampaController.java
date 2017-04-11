@@ -18,10 +18,8 @@ import java.util.ResourceBundle;
 public class UgovorStampaController implements Initializable {
     public WebView browser;
     public Client client;
-    public
-
-    JSONObject jObj;
     public ugovori_types ugovor;
+    JSONObject jObj;
     URL location;
     ResourceBundle resources;
     int ugovorID;
@@ -55,10 +53,26 @@ public class UgovorStampaController implements Initializable {
         PrinterJob printerJob = PrinterJob.createPrinterJob(printer);
         printerJob.getJobSettings().setPageLayout(pageLayout);
         if (printerJob != null) {
-            System.out.println(printerJob.getJobSettings().getPageLayout());
-            browser.getEngine().print(printerJob);
-            printerJob.endJob();
+            if (printerJob.showPrintDialog(browser.getScene().getWindow())) {
+                browser.getEngine().print(printerJob);
+                printerJob.endJob();
+            }
         }
+    }
 
+    public void scaleDown(ActionEvent actionEvent) {
+        browser.setScaleX(browser.getScaleX() / 2);
+        browser.setScaleY(browser.getScaleY() / 2);
+    }
+
+    public void scaleUp(ActionEvent actionEvent) {
+        browser.setScaleX(browser.getScaleX() * 2);
+        browser.setScaleY(browser.getScaleY() * 2);
+
+    }
+
+    public void scaleFull(ActionEvent actionEvent) {
+        browser.setScaleX(1);
+        browser.setScaleY(1);
     }
 }

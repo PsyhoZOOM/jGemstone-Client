@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="JGemstone.interfaces.KorisniciController">
     <children>
         <VBox alignment="CENTER" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -13,20 +13,15 @@
             <children>
                 <HBox accessibleRole="TOOL_BAR" alignment="BOTTOM_CENTER" spacing="10.0" VBox.vgrow="NEVER">
                     <children>
-                        <JFXButton fx:id="bNovKorisnik" alignment="BOTTOM_CENTER" onAction="#newUser"
-                                   style="-fx-background-color: white;" text="Nov"/>
-                        <JFXButton fx:id="bIzmeni" onAction="#bEditUser" style="-fx-background-color: white;"
-                                   text="Izmeni"/>
-                        <JFXButton fx:id="bUplate" mnemonicParsing="false" onAction="#showUplate"
-                                   style="-fx-background-color: white;" text="Uplate"/>
-                        <JFXButton fx:id="bFakture" mnemonicParsing="false" onAction="#showFakture"
-                                   style="-fx-background-color: white;" text="Fakture"/>
+                        <JFXButton fx:id="bNovKorisnik" alignment="BOTTOM_CENTER" onAction="#newUser" text="Nov"/>
+                        <JFXButton fx:id="bIzmeni" onAction="#bEditUser" text="Izmeni"/>
+                        <JFXButton fx:id="bUplate" mnemonicParsing="false" onAction="#showUplate" text="Uplate"/>
+                        <JFXButton fx:id="bFakture" mnemonicParsing="false" onAction="#showFakture" text="Fakture"/>
                         <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="20.0"
                               prefWidth="200.0" HBox.hgrow="ALWAYS"/>
                         <JFXTextField fx:id="tUserSearch" labelFloat="true" promptText="Ime, Korisnik, Broj"
                                       HBox.hgrow="SOMETIMES"/>
-                        <JFXButton fx:id="bUserSearch" onAction="#bUserSearchAction"
-                                   style="-fx-background-color: white;" text="Traži">
+                        <JFXButton fx:id="bUserSearch" onAction="#bUserSearchAction" text="Traži">
                         </JFXButton>
                     </children>
                     <VBox.margin>

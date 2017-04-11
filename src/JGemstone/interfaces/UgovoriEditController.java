@@ -8,11 +8,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.web.HTMLEditor;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -27,6 +31,8 @@ public class UgovoriEditController implements Initializable {
     public Button bSnimi;
     public Button bClose;
     public TextField tNazivUgovora;
+    public Button bPDFFile;
+    public Button bIzgled;
     int type;
     ugovori_types Ugovor;
     JSONObject jObj;
@@ -114,5 +120,22 @@ public class UgovoriEditController implements Initializable {
 
     }
 
+
+    public void openPDFFile(ActionEvent actionEvent) {
+        File pdfFile;
+        FileChooser pdfFileChose = new FileChooser();
+        pdfFileChose.setTitle("Izaberite PDF Fajl");
+        pdfFileChose.setInitialDirectory(new File(System.getProperty("user.home")));
+        pdfFileChose.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PDF", "*.pdf", "*.PDF"));
+        pdfFile = pdfFileChose.showOpenDialog(this.stage);
+        PDDocument pdDocument = null;
+        try {
+            pdDocument = PDDocument.load(pdfFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
 }

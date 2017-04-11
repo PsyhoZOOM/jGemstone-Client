@@ -6,7 +6,8 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" minHeight="600.0" minWidth="800.0" prefHeight="732.0" prefWidth="1179.0"
-            xmlns="http://javafx.com/javafx/8.0.65" fx:controller="JGemstone.interfaces.KorisnikUplateController">
+            stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
+            fx:controller="JGemstone.interfaces.KorisnikUplateController">
     <children>
         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
               AnchorPane.topAnchor="0.0">

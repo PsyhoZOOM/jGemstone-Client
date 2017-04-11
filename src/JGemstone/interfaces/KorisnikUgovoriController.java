@@ -198,11 +198,10 @@ public class KorisnikUgovoriController implements Initializable {
     }
 
     public void stampajUgovor(ActionEvent actionEvent) {
-        ugovori_types ugovor = (ugovori_types) tblUgovori.getSelectionModel().getSelectedItem();
         NewInterface ugovorStampaInterface = new NewInterface("/JGemstone/resources/fxml/UgovorStampa.fxml", "Stampa Ugovora", resources);
         UgovorStampaController ugovorStampaController = ugovorStampaInterface.getLoader().getController();
         ugovorStampaController.client = client;
-        ugovorStampaController.ugovor = ugovor;
+        ugovorStampaController.ugovor = (ugovori_types) tblUgovori.getSelectionModel().getSelectedItem();
         ugovorStampaController.show_data();
         ugovorStampaInterface.getStage().showAndWait();
 

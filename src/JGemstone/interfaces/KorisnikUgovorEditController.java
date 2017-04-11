@@ -51,7 +51,6 @@ public class KorisnikUgovorEditController implements Initializable {
         lDo.setText(ugovor.getKrajUgovora());
         lOpis.setText(ugovor.getKomentar());
         htmlUgovor.setHtmlText(ugovor.getTextUgovora());
-
     }
 
     public void saveUgovor(ActionEvent actionEvent) {
@@ -76,7 +75,6 @@ public class KorisnikUgovorEditController implements Initializable {
         } else {
             AlertUser.info("INFO", "PROMENE UGOVORA SU USPESNO ISVRSENE");
         }
-
     }
 
     private void saveNewUgovor() {
@@ -93,12 +91,10 @@ public class KorisnikUgovorEditController implements Initializable {
 
         jObj = client.send_object(jObj);
 
-
         if (jObj.has("Error")) {
             AlertUser.error("GREKSA", jObj.getString("Error"));
         } else {
             AlertUser.info("INFO", "UGOVOR JE SNIMLJEN");
-
         }
     }
 

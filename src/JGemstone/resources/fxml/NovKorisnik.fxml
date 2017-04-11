@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="JGemstone.interfaces.NovKorisnikController">
     <children>
         <VBox spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -68,8 +68,7 @@
                             </font>
                         </Label>
                         <Label text="Brojevi telefona:" underline="true" GridPane.columnIndex="3"
-                               GridPane.columnSpan="2"
-                               GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                               GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                             <font>
                                 <Font name="System Bold" size="13.0"/>
                             </font>
@@ -90,8 +89,7 @@
                             </padding>
                         </Separator>
                         <ComboBox fx:id="cmbMesto" editable="true" prefHeight="26.0" prefWidth="200.0"
-                                  promptText="Mesto"
-                                  GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                                  promptText="Mesto" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
                         <ComboBox fx:id="cmbAdresa" editable="true" prefWidth="200.0" promptText="Adresa"
                                   GridPane.columnIndex="1" GridPane.rowIndex="5"/>
                     </children>

@@ -209,6 +209,14 @@ public class MainWindowController implements Initializable {
         uplateMainInterface.getStage().showAndWait();
 
     }
+
+    public void showInternetMain(ActionEvent actionEvent) {
+        NewInterface internetMainInterface = new NewInterface("/JGemstone/resources/fxml/InternetMain.fxml", "INTERNTE", resource);
+        InternetMainController internetMainController = internetMainInterface.getLoader().getController();
+        internetMainController.client = client;
+        internetMainController.stage = internetMainInterface.getStage();
+        internetMainInterface.getStage().showAndWait();
+    }
 }
 
 
