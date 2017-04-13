@@ -36,28 +36,43 @@ public class Client {
     private Boolean isConnected = false;
     private Boolean manualLogin = false;
 
+
     public JSONObject send_object(JSONObject rObj) {
+
         try {
+
+            if (Osw == null) {
+                try {
+                    //for json
+                    //Osw = new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8);
+                    Osw = new OutputStreamWriter(socket.getOutputStream(), "UTF-8");
+                    Bfw = new BufferedWriter(Osw);
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
+            }
+
+//unencripted
             Bfw.write(rObj.toString());
             Bfw.newLine();
             Bfw.flush();
             rObj = new JSONObject();
             rObj = get_object();
             status_conn.setText("Konektovan");
-
-
         } catch (IOException e) {
             //System.out.println(e.getMessage());
             LOGGER.error("CANT SEND OBJECT" + e.getMessage());
             isConnected = false;
             status_conn.setText("Diskonektovan");
-
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return rObj;
     }
 
     private JSONObject get_object() {
+
 
         if (Isr == null) {
             try {
@@ -70,13 +85,19 @@ public class Client {
         }
 
         try {
+
+
+//unencripted
             jObj = new JSONObject(Bfr.readLine());
+
         } catch (IOException e1) {
             LOGGER.info("E1_MESSAGE" + e1.getMessage());
             isConnected = false;
         } catch (NullPointerException e2) {
             LOGGER.info("E2_MESSAGE" + e2.getMessage());
             isConnected = false;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return jObj;
@@ -116,7 +137,6 @@ public class Client {
         }
         RemoteHost = local_settings.getREMOTE_HOST();
         portNumber = local_settings.getREMOTE_PORT();
-        mess.setAction("login");
 
         jObj.put("action", "login");
         jObj.put("username", local_settings.getLocalUser());
@@ -126,7 +146,7 @@ public class Client {
 
             socket = new Socket(InetAddress.getByName(RemoteHost), portNumber);
             //socket = ssf.createSocket(InetAddress.getByName(RemoteHost), portNumber);
-            login_to_server();
+            login_to_server(jObj);
 
         } catch (IOException e) {
             LOGGER.error("CANT CONNECT TO HOST " + e.getMessage());
@@ -142,30 +162,10 @@ public class Client {
 
     }
 
-    private void login_to_server() {
-
-        if (Osw == null) {
-            try {
-                //for json
-                //Osw = new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8);
-                Osw = new OutputStreamWriter(socket.getOutputStream(), "UTF-8");
-                Bfw = new BufferedWriter(Osw);
-            } catch (IOException e) {
-                e.printStackTrace();
-
-            }
-        }
-        try {
-            //new json
-            Bfw.write(jObj.toString());
-            Bfw.newLine();
-            Bfw.flush();
-        } catch (IOException e) {
-            LOGGER.info("NOOO");
-            e.printStackTrace();
-
-        }
-        jObj = get_object();
+    private void login_to_server(JSONObject jObjLogin) {
+        jObj = new JSONObject();
+        System.out.println(jObjLogin);
+        jObj = send_object(jObjLogin);
         if (jObj.has("Message")) {
             LOGGER.info("MESSAGE: " + jObj.getString("Message"));
             if (jObj.getString("Message").equals("LOGIN_OK")) {
@@ -184,5 +184,6 @@ public class Client {
     public Boolean get_connection_state() {
         return isConnected;
     }
+
 
 }
