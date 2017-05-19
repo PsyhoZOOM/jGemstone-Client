@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+            minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65"
+            fx:controller="JGemstone.interfaces.OpremaController">
+    <children>
+        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <JFXTextField fx:id="tNaziv" labelFloat="true" maxWidth="200.0" promptText="Naziv">
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </JFXTextField>
+                <JFXTextField fx:id="tModel" labelFloat="true" maxWidth="200.0" promptText="Model"/>
+                <JFXButton fx:id="bSnimi" onAction="#snimiData" text="Snimi"/>
+                <TableView fx:id="tblOprema" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                           VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colNaziv" prefWidth="75.0" text="Naziv"/>
+                        <TableColumn fx:id="colModel" prefWidth="75.0" text="Model"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+                <JFXButton fx:id="bIzbrisi" onAction="#deleteData" text="Izbrisi"/>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

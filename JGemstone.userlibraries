@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="com.jfoenix:jfoenix:1.0.0">
+    <archive path="/home/zoom/Documents/Developing/JavaFX/JGemstone/lib/jfoenix-1.0.0.jar" />
+  </library>
+  <library name="org.apache.logging.log4j:log4j-1.2-api:2.6.2">
+    <archive path="/home/zoom/Documents/Developing/JavaFX/JGemstone/lib/log4j-1.2-api-2.6.2.jar" />
+    <archive path="/home/zoom/Documents/Developing/JavaFX/JGemstone/lib/log4j-api-2.6.2.jar" />
+    <archive path="/home/zoom/Documents/Developing/JavaFX/JGemstone/lib/log4j-core-2.6.2.jar" />
+  </library>
+  <library name="org.apache.pdfbox:pdfbox:2.0.0">
+    <archive path="/home/zoom/.m2/repository/org/apache/pdfbox/pdfbox/2.0.0/pdfbox-2.0.0.jar" />
+    <archive path="/home/zoom/.m2/repository/org/apache/pdfbox/fontbox/2.0.0/fontbox-2.0.0.jar" />
+    <archive path="/home/zoom/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar" />
+    <archive path="/home/zoom/.m2/repository/org/apache/pdfbox/pdfbox/2.0.0/pdfbox-2.0.0.jar" />
+    <archive path="/home/zoom/.m2/repository/org/apache/pdfbox/fontbox/2.0.0/fontbox-2.0.0.jar" />
+    <archive path="/home/zoom/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar" />
+  </library>
+  <library name="org.json:json:20160810">
+    <archive path="/home/zoom/Documents/Developing/JavaFX/JGemstone/lib/json-20160810.jar" />
+  </library>
+  <library name="org.xerial:sqlite-jdbc:3.8.11.2">
+    <archive path="/home/zoom/Documents/Developing/JavaFX/JGemstone/lib/sqlite-jdbc-3.8.11.2.jar" />
+  </library>
+  <library name="JSON" />
+</eclipse-userlibraries>
+

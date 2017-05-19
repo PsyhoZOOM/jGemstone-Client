@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102-ea"
+            fx:controller="JGemstone.interfaces.DigitalniTVPaketController">
+    <children>
+        <VBox layoutX="162.0" layoutY="69.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ToolBar prefHeight="40.0" prefWidth="200.0">
+                    <items>
+                        <Button fx:id="bClose" mnemonicParsing="false" onAction="#close" text="Zatvori"/>
+                    </items>
+                </ToolBar>
+                <TableView fx:id="tblDTV" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="cNaziv" prefWidth="75.0" text="Naziv"/>
+                        <TableColumn fx:id="cPaket" prefWidth="75.0" text="ID PAKET"/>
+                        <TableColumn fx:id="cCena" prefWidth="75.0" text="Cena"/>
+                        <TableColumn fx:id="cPrekoracenje" prefWidth="75.0" text="Prekoračenje"/>
+                        <TableColumn fx:id="cOpis" prefWidth="75.0" text="Opis"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+                <HBox alignment="CENTER_RIGHT" spacing="5.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Button fx:id="bNov" mnemonicParsing="false" onAction="#nov" text="Nov"/>
+                        <Button fx:id="bEdit" mnemonicParsing="false" onAction="#edit" text="Promeni"/>
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

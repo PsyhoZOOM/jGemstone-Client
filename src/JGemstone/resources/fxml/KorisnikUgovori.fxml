@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.112"
+            fx:controller="JGemstone.interfaces.KorisnikUgovoriController">
+    <children>
+        <GridPane hgap="5.0" layoutX="142.0" layoutY="148.0" prefWidth="0.0" vgap="5.0" AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
+                <ColumnConstraints fillWidth="false" hgrow="NEVER"/>
+                <ColumnConstraints hgrow="SOMETIMES"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="NEVER"/>
+                <RowConstraints vgrow="NEVER"/>
+                <RowConstraints vgrow="NEVER"/>
+                <RowConstraints vgrow="NEVER"/>
+                <RowConstraints vgrow="NEVER"/>
+                <RowConstraints vgrow="NEVER"/>
+                <RowConstraints vgrow="NEVER"/>
+                <RowConstraints vgrow="NEVER"/>
+                <RowConstraints vgrow="NEVER"/>
+            </rowConstraints>
+            <children>
+                <Label text="Broj ugovora:" GridPane.rowIndex="1"/>
+                <Label text="Template:" GridPane.rowIndex="2"/>
+                <Label text="Trajanje:" GridPane.rowIndex="3"/>
+                <Label text="Opis:" GridPane.rowIndex="4"/>
+                <TextField fx:id="tBrUgovora" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <ComboBox fx:id="cmbTamplate" GridPane.columnIndex="1" GridPane.columnSpan="2147483647"
+                          GridPane.hgrow="ALWAYS" GridPane.rowIndex="2"/>
+                <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3"
+                      GridPane.valignment="CENTER">
+                    <children>
+                        <Label text="Od:"/>
+                        <DatePicker fx:id="dtpTrajanjeOd"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                    <children>
+                        <Label text="Do:"/>
+                        <DatePicker fx:id="dtpTrajanjeDo"/>
+                    </children>
+                </HBox>
+                <TextArea fx:id="tOPis" prefHeight="100.0" prefWidth="549.0" GridPane.columnIndex="1"
+                          GridPane.columnSpan="2147483647" GridPane.rowIndex="4"/>
+                <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                    <buttons>
+                        <Button fx:id="bDodaj" mnemonicParsing="false" onAction="#addNewUgovorShow" text="Dodaj"/>
+                    </buttons>
+                </ButtonBar>
+                <Label text="UGOVORI" underline="true" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT"
+                       GridPane.rowIndex="6">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
+                </Label>
+                <TableView fx:id="tblUgovori" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
+                    <columns>
+                        <TableColumn fx:id="cBr" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="BR"/>
+                        <TableColumn fx:id="cNaziv" minWidth="100.0" prefWidth="100.0" text="NAZIV"/>
+                        <TableColumn fx:id="cTrajanje" prefWidth="75.0" text="TRAJANJE">
+                            <columns>
+                                <TableColumn fx:id="cOd" prefWidth="75.0" text="OD"/>
+                                <TableColumn fx:id="cDo" prefWidth="75.0" text="DO"/>
+                            </columns>
+                        </TableColumn>
+                        <TableColumn fx:id="cOpis" prefWidth="75.0" text="OPIS"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+                <Label text="NOV UGOVOR" underline="true" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
+                </Label>
+                <HBox alignment="CENTER_RIGHT" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                    <children>
+                        <Button fx:id="stampaUgovora" mnemonicParsing="false" onAction="#stampajUgovor" text="Štampa"/>
+                        <Button fx:id="bObrisi" mnemonicParsing="false" text="Obriši"/>
+                        <Button fx:id="bIzmeni" mnemonicParsing="false" onAction="#izmeniUgovor" text="Izmeni"/>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+        </GridPane>
+    </children>
+</AnchorPane>
