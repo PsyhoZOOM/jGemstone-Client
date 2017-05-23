@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" minHeight="600.0" minWidth="800.0" prefHeight="732.0" prefWidth="1179.0"
-            stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
+            stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.112"
             fx:controller="JGemstone.interfaces.KorisnikUplateController">
     <children>
         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -190,7 +190,7 @@
                                                       spacing="5.0" GridPane.columnIndex="1" GridPane.columnSpan="4"
                                                       GridPane.halignment="LEFT" GridPane.rowIndex="9">
                                                     <children>
-                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="PALEVIOLETRED"
+                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED"
                                                                    height="20.0" stroke="BLACK" strokeType="INSIDE"
                                                                    width="20.0"/>
                                                         <Label text="Nema uplate"/>
@@ -198,6 +198,10 @@
                                                                    height="20.0" stroke="BLACK" strokeType="INSIDE"
                                                                    width="20.0"/>
                                                         <Label text="Delimična uplata"/>
+                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="GREEN"
+                                                                   height="20.0" stroke="BLACK" strokeType="INSIDE"
+                                                                   width="20.0"/>
+                                                        <Label text="Uplaćeno"/>
                                                     </children>
                                                 </HBox>
                                                 <Label text="Rate" GridPane.columnIndex="1" GridPane.rowIndex="4"/>

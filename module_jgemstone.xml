@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_jgemstone" default="compile.module.jgemstone">
+    <dirname property="module.jgemstone.basedir" file="${ant.file.module_jgemstone}"/>
+
+    <property name="module.jdk.home.jgemstone" value="${project.jdk.home}"/>
+    <property name="module.jdk.bin.jgemstone" value="${project.jdk.bin}"/>
+    <property name="module.jdk.classpath.jgemstone" value="${project.jdk.classpath}"/>
+
+    <property name="compiler.args.jgemstone" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+
+    <property name="jgemstone.output.dir" value="${module.jgemstone.basedir}/out/production/JGemstone"/>
+    <property name="jgemstone.testoutput.dir" value="${module.jgemstone.basedir}/out/test/JGemstone"/>
+
+    <path id="jgemstone.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="jgemstone.module.production.classpath">
+        <path refid="${module.jdk.classpath.jgemstone}"/>
+        <path refid="library.org.json:json:20160810.classpath"/>
+        <path refid="library.org.xerial:sqlite-jdbc:3.8.11.2.classpath"/>
+        <path refid="library.org.apache.logging.log4j:log4j-1.2-api:2.6.2.classpath"/>
+        <path refid="library.org.apache.pdfbox:pdfbox:2.0.0.classpath"/>
+        <path refid="library.com.jfoenix:jfoenix:1.0.0.classpath"/>
+    </path>
+
+    <path id="jgemstone.runtime.production.module.classpath">
+        <pathelement location="${jgemstone.output.dir}"/>
+    </path>
+
+    <path id="jgemstone.module.classpath">
+        <path refid="${module.jdk.classpath.jgemstone}"/>
+        <pathelement location="${jgemstone.output.dir}"/>
+        <path refid="library.org.json:json:20160810.classpath"/>
+        <path refid="library.org.xerial:sqlite-jdbc:3.8.11.2.classpath"/>
+        <path refid="library.org.apache.logging.log4j:log4j-1.2-api:2.6.2.classpath"/>
+        <path refid="library.org.apache.pdfbox:pdfbox:2.0.0.classpath"/>
+        <path refid="library.com.jfoenix:jfoenix:1.0.0.classpath"/>
+    </path>
+
+    <path id="jgemstone.runtime.module.classpath">
+        <pathelement location="${jgemstone.testoutput.dir}"/>
+        <pathelement location="${jgemstone.output.dir}"/>
+        <path refid="library.org.json:json:20160810.classpath"/>
+        <path refid="library.org.xerial:sqlite-jdbc:3.8.11.2.classpath"/>
+        <path refid="library.org.apache.logging.log4j:log4j-1.2-api:2.6.2.classpath"/>
+        <path refid="library.org.apache.pdfbox:pdfbox:2.0.0.classpath"/>
+        <path refid="library.com.jfoenix:jfoenix:1.0.0.classpath"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.jgemstone">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.jgemstone">
+        <patternset refid="excluded.from.module.jgemstone"/>
+    </patternset>
+
+    <path id="jgemstone.module.sourcepath">
+        <dirset dir="${module.jgemstone.basedir}">
+            <include name="src"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.jgemstone" depends="compile.module.jgemstone.production,compile.module.jgemstone.tests"
+            description="Compile module JGemstone"/>
+
+    <target name="compile.module.jgemstone.production" depends="register.custom.compilers"
+            description="Compile module JGemstone; production classes">
+        <mkdir dir="${jgemstone.output.dir}"/>
+        <javac2 destdir="${jgemstone.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+                memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.jgemstone}/javac">
+            <compilerarg line="${compiler.args.jgemstone}"/>
+            <bootclasspath refid="jgemstone.module.bootclasspath"/>
+            <classpath refid="jgemstone.module.production.classpath"/>
+            <src refid="jgemstone.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.jgemstone"/>
+        </javac2>
+
+        <copy todir="${jgemstone.output.dir}">
+            <fileset dir="${module.jgemstone.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.jgemstone.tests"
+            depends="register.custom.compilers,compile.module.jgemstone.production"
+            description="compile module JGemstone; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.jgemstone" description="cleanup module">
+        <delete dir="${jgemstone.output.dir}"/>
+        <delete dir="${jgemstone.testoutput.dir}"/>
+    </target>
+</project>

@@ -2,6 +2,8 @@
 -fx-base: rgb(50, 50, 50);
 -fx-background: rgb(50, 50, 50);
 -fx-control-inner-background:  rgb(50, 50, 50);
+-fx-font-size: 10px;
+-fx-font: 10px OpenSans;
 }
 
 .tab {
@@ -14,23 +16,17 @@
 
 .tool-bar:horizontal {
 -fx-background-color:
-linear-gradient(to bottom, derive(-fx-base,+50%), derive(-fx-base,-40%), derive(-fx-base,-20%));
+linear-gradient(to bottom, derive(-fx-base,+40%), derive(-fx-base,-20%), derive(-fx-base, -50%));
 }
 
 .button {
--fx-background-color: transparent;
+//-fx-background-color: transparent;
+
 }
 
-.jfx-button {
--fx-background-color: transparent;
-}
-
-.jfx-button:hover{
--fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color,
--fx-color, -fx-hover-base;
-}
 .button:hover {
 -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+
 -fx-color: -fx-hover-base;
 }
 
@@ -39,6 +35,22 @@ linear-gradient(to bottom, derive(-fx-base,+50%), derive(-fx-base,-40%), derive(
 -fx-table-cell-border-color:derive(-fx-base,+10%);
 -fx-table-header-border-color:derive(-fx-base,+20%);
 }
+
+/* Row hovered */
+.table-view:row-selection .table-row-cell:filled:hover {
+    -fx-background-color: green;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-text-fill: -fx-text-inner-color;
+}
+
+/* Selected row hovered */
+.table-view:focused .table-row-cell:filled:focused:selected:hover {
+    -fx-background: -fx-accent;
+    -fx-background-color: yellow;
+    -fx-background-insets: 0, 1, 2;
+    -fx-text-fill: -fx-selection-bar-text;
+}
+
 
 .split-pane:horizontal > * > .split-pane-divider {
 -fx-border-color: transparent -fx-base transparent -fx-base;
@@ -54,3 +66,11 @@ linear-gradient(to bottom, derive(-fx-base,+50%), derive(-fx-base,-40%), derive(
 -fx-text-fill: orange;
 }
 
+.text-input {
+-fx-background-color: gray;
+
+}
+
+.align-center {
+    -fx-alignment: center-center
+}

@@ -103,9 +103,11 @@ public class KorisnikUplateController implements Initializable {
                     }
                     setText(df.format(uplaceno));
                     if (uplate.getUplaceno() == 0) {
-                        currentRow.setStyle("-fx-background-color: palevioletred");
+                        currentRow.setStyle("-fx-background-color: red");
                     } else if (uplate.getUplaceno() > 0 && uplate.getUplaceno() < uplate.getDug()) {
                         currentRow.setStyle("-fx-background-color: darkorange");
+                    } else if (uplate.getUplaceno() == uplate.getDug()) {
+                        currentRow.setStyle("-fx-background-color: darkgreen");
                     }
                 }
 
