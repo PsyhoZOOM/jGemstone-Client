@@ -1150,8 +1150,8 @@ public class KorisnikUslugeController implements Initializable {
 
         jObj = client.send_object(jObj);
 
-        if (jObj.has("Error")) {
-            AlertUser.error("GRESKA", jObj.getString("Error"));
+        if (jObj.has("Error") || jObj.has("ERROR")) {
+            AlertUser.error("GRESKA", jObj.getString("ERROR"));
         } else {
             AlertUser.info("Servics je dodan", String.format("Servis %s je dodan.",
                     cmbIPTVPaket.getValue().getName()));

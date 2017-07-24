@@ -30,7 +30,71 @@ public class Users implements Serializable {
     String jbroj;
     double dug;
     boolean firma;
-    public String nazivFirme;
+    String nazivFirme;
+    String kontaktOsoba;
+    String kodBanke;
+    String PIB;
+    String maticniBroj;
+    String tekuciRacuna;
+    String fax;
+    String adresaFirme;
+
+
+    public String getKontaktOsoba() {
+        return kontaktOsoba;
+    }
+
+    public void setKontaktOsoba(String kontaktOsoba) {
+        this.kontaktOsoba = kontaktOsoba;
+    }
+
+    public String getKodBanke() {
+        return kodBanke;
+    }
+
+    public void setKodBanke(String kodBanke) {
+        this.kodBanke = kodBanke;
+    }
+
+    public String getPIB() {
+        return PIB;
+    }
+
+    public void setPIB(String PIB) {
+        this.PIB = PIB;
+    }
+
+    public String getMaticniBroj() {
+        return maticniBroj;
+    }
+
+    public void setMaticniBroj(String maticniBroj) {
+        this.maticniBroj = maticniBroj;
+    }
+
+    public String getTekuciRacuna() {
+        return tekuciRacuna;
+    }
+
+    public void setTekuciRacuna(String tekuciRacuna) {
+        this.tekuciRacuna = tekuciRacuna;
+    }
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    public String getAdresaFirme() {
+        return adresaFirme;
+    }
+
+    public void setAdresaFirme(String adresaFirme) {
+        this.adresaFirme = adresaFirme;
+    }
 
     public String getNazivFirme() {
         return nazivFirme;

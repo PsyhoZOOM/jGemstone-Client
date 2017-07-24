@@ -148,6 +148,16 @@ public class KorisniciController implements Initializable {
             user.setDug(jUser.getDouble("dug"));
             if (!jUser.getString("jBroj").isEmpty())
                 user.setBr(Integer.valueOf(jUser.getString("jBroj")));
+            if (user.isFirma()) {
+                user.setNazivFirme(jUser.getString("nazivFirme"));
+                user.setKontaktOsoba(jUser.getString("kontaktOsoba"));
+                user.setKodBanke(jUser.getString("kodBanke"));
+                user.setPIB(jUser.getString("PIB"));
+                user.setMaticniBroj(jUser.getString("maticniBroj"));
+                user.setTekuciRacuna(jUser.getString("tekuciRacun"));
+                user.setFax(jUser.getString("fax"));
+                user.setAdresaFirme(jUser.getString("adresaFirme"));
+            }
 
             users.add(user);
         }

@@ -41,6 +41,7 @@ linear-gradient(to bottom, derive(-fx-base,+40%), derive(-fx-base,-20%), derive(
     -fx-background-color: green;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-text-fill: -fx-text-inner-color;
+
 }
 
 /* Selected row hovered */

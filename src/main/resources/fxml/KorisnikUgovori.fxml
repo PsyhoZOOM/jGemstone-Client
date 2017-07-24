@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -8,8 +7,9 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUgovoriController">
     <children>
-        <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-              spacing="5.0">
+        <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="5.0"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
             <children>
                 <Label text="NOV UGOVOR" underline="true">
                     <font>
@@ -17,7 +17,7 @@
                     </font>
                 </Label>
                 <Label text="Broj ugovora:"/>
-                <TextField fx:id="tBrUgovora" maxWidth="100.0" prefHeight="22.0" prefWidth="374.0"/>
+                <TextField fx:id="tBrUgovora" maxWidth="-Infinity" minWidth="200.0" prefWidth="200.0"/>
                 <Label text="Template:"/>
                 <ComboBox fx:id="cmbTamplate"/>
                 <Label text="Trajanje:"/>
@@ -41,7 +41,7 @@
                 <TableView fx:id="tblUgovori" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
                            minWidth="600.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                     <columns>
-                        <TableColumn fx:id="cBr" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="BR"/>
+                        <TableColumn fx:id="cBr" text="BR"/>
                         <TableColumn fx:id="cNaziv" minWidth="100.0" prefWidth="100.0" text="NAZIV"/>
                         <TableColumn fx:id="cTrajanje" prefWidth="75.0" text="TRAJANJE">
                             <columns>

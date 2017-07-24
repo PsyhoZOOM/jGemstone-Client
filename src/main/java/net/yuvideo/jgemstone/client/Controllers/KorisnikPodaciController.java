@@ -299,6 +299,7 @@ public class KorisnikPodaciController implements Initializable {
             AlertUser.warrning("Greska", "Mesto racuna ili adrese ne mogu biti prazni");
             return;
         }
+        String userJBRoj = String.format("%05d", userEditID);
 
 
         jObj.put("userID", userEditID);
@@ -317,7 +318,7 @@ public class KorisnikPodaciController implements Initializable {
         jObj.put("jAdresa", String.valueOf(cmbAdresaUsluge.getValue().getId()));
         jObj.put("jMesto", String.valueOf(cmbMestoUsluge.getValue().getId()));
         jObj.put("komentar", taKomentar.getText().trim());
-        jObj.put("jBroj", cmbMestoUsluge.getValue().getBrojMesta() + cmbAdresaUsluge.getValue().getBrojAdrese() + userData.getId());
+        jObj.put("jBroj", cmbMestoUsluge.getValue().getBrojMesta() + cmbAdresaUsluge.getValue().getBrojAdrese() + userJBRoj);
 
 
         jObj = client.send_object(jObj);

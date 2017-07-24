@@ -100,6 +100,7 @@ public class EditKorisnikController implements Initializable {
         korisnikUgovoriController = fxmlLoader.getController();
         korisnikUgovoriController.client = client;
         korisnikUgovoriController.userID = userID;
+        korisnikUgovoriController.user = userEdit;
         korisnikUgovoriController.set_data();
 
 

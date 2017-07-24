@@ -26,7 +26,15 @@ public class Uplate implements Serializable, Cloneable {
     String zaduzenOd;
     String napomena;
     String identification;
+    boolean haveFIX;
 
+    public boolean isHaveFIX() {
+        return haveFIX;
+    }
+
+    public void setHaveFIX(boolean haveFIX) {
+        this.haveFIX = haveFIX;
+    }
 
     public Uplate CopyUplate() throws CloneNotSupportedException {
 

@@ -7,10 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
-import net.yuvideo.jgemstone.client.classes.AlertUser;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.NewInterface;
-import net.yuvideo.jgemstone.client.classes.ugovori_types;
+import net.yuvideo.jgemstone.client.classes.*;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -45,6 +42,8 @@ public class KorisnikUgovoriController implements Initializable {
     private ResourceBundle resources;
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-YYYY");
     private JSONObject jObj;
+    public Users user;
+    int ugovorNo = 0;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -91,10 +90,21 @@ public class KorisnikUgovoriController implements Initializable {
         cDo.setCellValueFactory(new PropertyValueFactory<ugovori_types, String>("krajUgovora"));
         cOpis.setCellValueFactory(new PropertyValueFactory<ugovori_types, String>("Komentar"));
 
+    }
+
+    private void setUgovorNo() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("action", "getNextFreeUgovorID");
+        jsonObject.put("userID", userID);
+        jsonObject = client.send_object(jsonObject);
+        this.ugovorNo = jsonObject.getInt("NO_UGOVORA");
+        String formatedNoUgovora = String.format("%s-%d", user.getJbroj(), ugovorNo);
+        tBrUgovora.setText(formatedNoUgovora);
 
     }
 
     public void set_data() {
+        setUgovorNo();
         ObservableList dataUgovoryTypes = FXCollections.observableArrayList(get_ugovori_types());
         cmbTamplate.setItems(dataUgovoryTypes);
 

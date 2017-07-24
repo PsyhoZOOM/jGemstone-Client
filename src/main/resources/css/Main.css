@@ -62,9 +62,17 @@
 
 .table-row-cell:selected {
     -fx-text-background-color: black;
+    -fx-border-color: black;
+    -fx-table-cell-border-color:black;
 }
 
 .tree-table-row-cell:selected {
     -fx-text-background-color:black;
     -fx-background-color: grey;
+    -fx-border-color: black;
+    -fx-table-cell-border-color:black;
+}
+.table-row-cell{
+-fx-border-color: black;
+-fx-table-cell-border-color:black;
 }
