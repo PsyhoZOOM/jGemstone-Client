@@ -72,11 +72,9 @@ public class ClientMain extends Application {
         primaryStage.setTitle("JGemstone");
 
 
-        while (!appExit) {
             show_login_screen();
             if (client.get_connection_state() && client != null) {
                 show_main_win();
-            }
         }
 
 
