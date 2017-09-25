@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@../css/Main.css"
+            xmlns="http://javafx.com/javafx/8.0.65" fx:controller="net.yuvideo.jgemstone.client.Controllers.FiksnaTelefonijaZoneCene">
+    <children>
+        <VBox layoutX="229.0" layoutY="62.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox spacing="5.0">
+                    <children>
+                        <Button fx:id="bNov" mnemonicParsing="false" onAction="#nov" text="Nov" HBox.hgrow="ALWAYS">
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                            </padding>
+                        </Button>
+                        <Button fx:id="bIzmeni" mnemonicParsing="false" onAction="#izmeni" text="Izmeni"/>
+                        <Button fx:id="bObrisi" mnemonicParsing="false" onAction="#obrisi" text="Obriši"/>
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                </HBox>
+                <TableView fx:id="tblZoneCene" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="cVrstaUsluge" prefWidth="75.0" text="Vrsta usluge"/>
+                        <TableColumn fx:id="cProviderCena" prefWidth="75.0" text="Provider Cena"/>
+                        <TableColumn fx:id="cProviderPDV" prefWidth="75.0" text="Provider PDV"/>
+                        <TableColumn fx:id="cProviderCenaPDV" prefWidth="75.0" text="Provider Cena+PDV"/>
+                        <TableColumn fx:id="cTelekomCena" prefWidth="75.0" text="Telekom Cena"/>
+                        <TableColumn fx:id="cRazlika" prefWidth="75.0" text="Razlika"/>
+                        <TableColumn fx:id="cCena" prefWidth="75.0" text="Cena"/>
+                        <TableColumn fx:id="cPDV" prefWidth="75.0" text="PDV"/>
+                        <TableColumn fx:id="cCenaPDV" prefWidth="75.0" text="Cena+PDV"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

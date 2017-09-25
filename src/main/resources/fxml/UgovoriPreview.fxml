@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.HTMLEditor?>
+<GridPane xmlns:fx="http://javafx.com/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+          minWidth="-Infinity"
+          prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.65"
+          fx:controller="net.yuvideo.jgemstone.client.Controllers.UgovoriPreviewController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <children>
+        <ToolBar prefHeight="40.0" prefWidth="200.0" GridPane.hgrow="ALWAYS">
+            <items>
+                <Button fx:id="bClose" mnemonicParsing="false" onAction="#closeUgovor" text="Zatvori"/>
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Button fx:id="bPrintUgovor" mnemonicParsing="false" onAction="#printUgovor" text="Štampa"/>
+                <Button fx:id="bSnimiUgovor" mnemonicParsing="false" onAction="#snimiUgovor" text="Snimi"/>
+            </items>
+        </ToolBar>
+        <HTMLEditor fx:id="htmlEditUgovor"
+                    htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;"
+                    prefHeight="200.0" prefWidth="506.0" GridPane.rowIndex="1"/>
+    </children>
+</GridPane>

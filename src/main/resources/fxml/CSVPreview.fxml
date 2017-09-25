@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.CSVPreview">
+   <children>
+      <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER" spacing="5.0">
+               <children>
+                  <ComboBox prefWidth="150.0" />
+                  <TextField />
+                  <Button mnemonicParsing="false" text="Traži" />
+                  <Button fx:id="bOsvezi" mnemonicParsing="false" onAction="#refreshTable" text="Osveži" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <TableView fx:id="tblCSV" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="cBrojTel" prefWidth="75.0" text="Broj" />
+                <TableColumn fx:id="cPozivOd" prefWidth="75.0" text="Poziv od broja" />
+                  <TableColumn fx:id="cPozivKa" prefWidth="75.0" text="Poziv ka broju" />
+                  <TableColumn fx:id="cZemlja" prefWidth="75.0" text="Zemlja" />
+                  <TableColumn fx:id="cOpis" prefWidth="75.0" text="Opis" />
+                  <TableColumn fx:id="cVreme" prefWidth="75.0" text="Vreme" />
+                  <TableColumn fx:id="cNaplacenoMinSec" prefWidth="75.0" text="Naplaceno vreme Min:Sek" />
+                  <TableColumn fx:id="cNaplacenoSek" prefWidth="75.0" text="Naplaceno Vreme Sekunde" />
+                  <TableColumn fx:id="cNaplacenoRSD" prefWidth="75.0" text="Naplaceno RSD" />
+                  <TableColumn fx:id="cImeServisa" prefWidth="75.0" text="Ime Servisa" />
+                  <TableColumn fx:id="cNaplacenaKolicina" prefWidth="75.0" text="Naplacena kolicina" />
+                  <TableColumn fx:id="cServiceUnit" prefWidth="75.0" text="Jedinica Servisa" />
+                  <TableColumn fx:id="cCustomerID" prefWidth="75.0" text="Customer ID" />
+                  <TableColumn fx:id="cFileName" prefWidth="75.0" text="Ime Fajla" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

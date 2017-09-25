@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.HTMLEditor?>
+<VBox xmlns:fx="http://javafx.com/1" prefHeight="600.0" prefWidth="800.0" spacing="5.0"
+      xmlns="http://javafx.com/javafx/8.0.65" fx:controller="net.yuvideo.jgemstone.client.Controllers.UgovoriEditController">
+    <children>
+        <ToolBar prefHeight="40.0" prefWidth="200.0" VBox.vgrow="NEVER">
+            <items>
+                <Button fx:id="bClose" mnemonicParsing="false" text="Zatvori"/>
+            </items>
+        </ToolBar>
+        <HBox alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+            <children>
+                <Label text="Naziv ugovora:"/>
+                <TextField fx:id="tNazivUgovora"/>
+                <Button fx:id="bPDFFile" mnemonicParsing="false" onAction="#openPDFFile" text="Izaberi PDF Fajl"/>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+        </HBox>
+        <HTMLEditor fx:id="htmlUgovor"
+                    htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;"
+                    VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+        </HTMLEditor>
+        <HBox alignment="CENTER_RIGHT" spacing="5.0" VBox.vgrow="NEVER">
+            <children>
+                <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#snimiUgovor" text="Snimi"/>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+        </HBox>
+    </children>
+</VBox>

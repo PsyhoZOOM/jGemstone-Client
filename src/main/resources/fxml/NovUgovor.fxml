@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="175.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/8.0.65"
+            fx:controller="net.yuvideo.jgemstone.client.Controllers.Nov">
+    <children>
+        <VBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="14.0" spacing="10.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ToolBar prefHeight="40.0">
+                    <items>
+                        <JFXButton text="Zatvori"/>
+                        <Pane HBox.hgrow="ALWAYS"></Pane>
+                        <JFXButton text="Snimi"/>
+                    </items>
+                    <VBox.margin>
+                        <Insets bottom="10.0"/>
+                    </VBox.margin>
+                </ToolBar>
+                <JFXTextField labelFloat="true" maxWidth="150.0" minWidth="150.0" prefWidth="150.0"
+                              promptText="Broj Fakture"/>
+                <JFXTextField labelFloat="true" maxWidth="150.0" minWidth="150.0" prefWidth="150.0"
+                              promptText="Godina"/>
+                <HBox spacing="5.0">
+                    <children>
+                        <JFXTextField labelFloat="true" minWidth="150.0" prefWidth="150.0" promptText="Naziv i mesec"/>
+                        <JFXTextField labelFloat="true" maxWidth="80.0" minWidth="80.0" prefWidth="80.0"
+                                      promptText="Jed.Mere"/>
+                        <JFXTextField labelFloat="true" maxWidth="80.0" minWidth="80.0" prefWidth="80.0"
+                                      promptText="Količina"/>
+                        <JFXTextField labelFloat="true" maxWidth="150.0" minWidth="120.0" prefWidth="120.0"
+                                      promptText="Jedinačna cena"/>
+                        <JFXTextField labelFloat="true" maxWidth="110.0" minWidth="110.0" prefWidth="110.0"
+                                      promptText="Stopa PDV %"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

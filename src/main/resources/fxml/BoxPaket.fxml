@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Main.css"
+            xmlns="http://javafx.com/javafx/8.0.112" fx:controller="net.yuvideo.jgemstone.client.Controllers.BoxPaketController">
+    <children>
+        <GridPane hgap="5.0" layoutX="234.0" layoutY="121.0" vgap="5.0" AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS"/>
+            </rowConstraints>
+            <children>
+                <Label text="Naziv paketa:"/>
+                <TextField fx:id="tNazivPaketa" GridPane.columnIndex="1"/>
+                <Label text="Digitalna TV:" GridPane.rowIndex="1"/>
+                <ComboBox fx:id="cmbDTVNaziv" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Label text="Internet:" GridPane.rowIndex="2"/>
+                <Label text="Fiksna Tel.:" GridPane.rowIndex="4"/>
+                <Label text="IPTV:" GridPane.rowIndex="3"/>
+                <ComboBox fx:id="cmbInternetNaziv" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <ComboBox fx:id="cmbNazivIPTV" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <ComboBox fx:id="cmbNazivFiksnaTel" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                <Label text="Cena:" GridPane.rowIndex="5"/>
+                <TextField fx:id="tCenaBox" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                <TableView fx:id="tblBox" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
+                    <columns>
+                        <TableColumn fx:id="cNaziv" prefWidth="75.0" text="Naziv"/>
+                        <TableColumn fx:id="cDTV" prefWidth="75.0" text="Dgitalna TV Paket"/>
+                        <TableColumn fx:id="cNET" prefWidth="75.0" text="Internet Paket"/>
+                        <TableColumn fx:id="cIPTV" prefWidth="75.0" text="IPTV Paket"/>
+                        <TableColumn fx:id="cFiksna" prefWidth="75.0" text="Fiksna Tel. Paket"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+                <Separator prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="7"/>
+                <Button fx:id="bSnimiBox" mnemonicParsing="false" onAction="#saveBox" text="Snimi"
+                        GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6"/>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+        </GridPane>
+    </children>
+</AnchorPane>

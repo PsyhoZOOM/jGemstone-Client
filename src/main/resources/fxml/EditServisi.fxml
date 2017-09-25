@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/1" prefHeight="418.0" prefWidth="608.0" spacing="10.0"
+      xmlns="http://javafx.com/javafx/8.0.65" fx:controller="net.yuvideo.jgemstone.client.Controllers.EditServicesController">
+    <children>
+        <HBox alignment="CENTER" VBox.vgrow="NEVER">
+            <children>
+                <Button fx:id="bClose" mnemonicParsing="false" onAction="#closeServices" text="Zatvori"/>
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#snimiServices" text="Snimi"/>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+        </HBox>
+        <JFXTabPane prefWidth="493.0">
+            <tabs>
+                <Tab closable="false" text="Izmena Servisa">
+                    <content>
+                        <AnchorPane>
+                            <children>
+                                <VBox fillWidth="false" spacing="20.0" AnchorPane.bottomAnchor="0.0"
+                                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                      AnchorPane.topAnchor="0.0">
+                                    <children>
+                                        <JFXTextField fx:id="tNaziv" labelFloat="true" promptText="Naziv servisa"/>
+                                        <JFXTextField fx:id="tCena" labelFloat="true" promptText="Cena servisa"/>
+                                        <JFXTextArea fx:id="tOpis" labelFloat="true" promptText="Opisa servisa"
+                                                     VBox.vgrow="SOMETIMES"/>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                                    </padding>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Internet">
+                    <content>
+                        <AnchorPane>
+                            <children>
+                                <VBox layoutX="147.0" layoutY="27.0" prefHeight="324.0" prefWidth="493.0" spacing="20.0"
+                                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                      AnchorPane.rightAnchor="0.0"
+                                      AnchorPane.topAnchor="0.0">
+                                    <children>
+                                        <JFXComboBox fx:id="cmbInternet" promptText="Internet Grupa"
+                                                     VBox.vgrow="ALWAYS"/>
+                                        <JFXCheckBox fx:id="cbInternet" graphicTextGap="1.0" text="Aktiviraj internet "
+                                                     VBox.vgrow="ALWAYS"/>
+                                        <JFXButton fx:id="bActivateInternet" onAction="#activateInternet"
+                                                   text="Potvrdi"/>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                                    </padding>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="IPTV">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <VBox prefHeight="324.0" prefWidth="493.0" spacing="20.0" AnchorPane.bottomAnchor="0.0"
+                                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                      AnchorPane.topAnchor="0.0">
+                                    <children>
+                                        <JFXCheckBox fx:id="cbIPTV" text="Aktiviraj IPTV opciju korisniku"/>
+                                        <JFXComboBox fx:id="cmbIPTV" promptText="IPTV Grupa"/>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                                    </padding>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="DTV">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <VBox prefHeight="324.0" prefWidth="493.0" spacing="20.0" AnchorPane.bottomAnchor="0.0"
+                                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                      AnchorPane.topAnchor="0.0">
+                                    <children>
+                                        <JFXCheckBox fx:id="cbDTV" text="Aktiviriaj Digitalnu televiziju korisniku"/>
+                                        <JFXComboBox fx:id="cmbDTV" promptText="DTV Grupa"/>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                                    </padding>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Fiksna Telefonija">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <children>
+                                        <JFXCheckBox fx:id="cbVOIP" text="Aktiviraj Fiksnu Telefoniju"/>
+                                        <JFXComboBox fx:id="cmbVOIP" promptText="F.Tel. Grupa"/>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                                    </padding>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </JFXTabPane>
+    </children>
+</VBox>

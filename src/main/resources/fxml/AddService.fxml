@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/1" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65"
+            fx:controller="net.yuvideo.jgemstone.client.Controllers.AddServiceController">
+    <children>
+        <HBox prefWidth="600.0">
+            <children>
+                <ToolBar HBox.hgrow="ALWAYS">
+                    <items>
+                        <Button fx:id="bZatvori" mnemonicParsing="false" text="Zatvori"/>
+                        <Pane HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#bSnimiAddService" text="Snimi"/>
+                    </items>
+                </ToolBar>
+            </children>
+        </HBox>
+        <GridPane hgap="10.0" layoutX="185.0" layoutY="53.0" vgap="10.0" AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0"/>
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <Label text="Naziv servisa:"/>
+                <Label text="Popust %:" GridPane.rowIndex="1"/>
+                <Label text="Popust din.: " GridPane.rowIndex="2"/>
+                <Label text="Iznos bez popusta:" GridPane.rowIndex="3"/>
+                <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <children>
+                        <Label fx:id="lCenaBezPopusta" text="0.00"/>
+                        <Label text="din."/>
+                    </children>
+                </HBox>
+                <Label fx:id="lServiceName" text="Greška ne postoji servis" GridPane.columnIndex="1"/>
+                <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <children>
+                        <Spinner fx:id="cmbPopust" editable="true" onKeyReleased="#cmbPopustFinished"
+                                 onScrollFinished="#cmbPopustFinished" prefHeight="26.0" prefWidth="83.0"/>
+                        <Label text="\%"/>
+                    </children>
+                </HBox>
+                <Label text="Iznos:" GridPane.rowIndex="4"/>
+                <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <children>
+                        <Label fx:id="lCenaSaPopustom" text="0.00"/>
+                        <Label text="din."/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <children>
+                        <Label fx:id="lPopustDin" text="0.00"/>
+                        <Label text="din."/>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+        </GridPane>
+    </children>
+</AnchorPane>

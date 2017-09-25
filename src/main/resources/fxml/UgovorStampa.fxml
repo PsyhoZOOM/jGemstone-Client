@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.WebView?>
+<AnchorPane xmlns:fx="http://javafx.com/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Main.css"
+            xmlns="http://javafx.com/javafx/8.0.65" fx:controller="net.yuvideo.jgemstone.client.Controllers.UgovorStampaController">
+    <children>
+        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <ScrollPane hbarPolicy="ALWAYS" pannable="true" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+                    <content>
+                        <WebView fx:id="browser" maxHeight="842.0" maxWidth="595.0" minHeight="842.0" minWidth="595.0"
+                                 prefHeight="842.0" prefWidth="595.0"/>
+                    </content>
+                </ScrollPane>
+                <HBox spacing="5.0">
+                    <children>
+                        <Button fx:id="bPrint" mnemonicParsing="false" onAction="#printContent" text="Štampa"/>
+                        <Button fx:id="bScaleDown" mnemonicParsing="false" onAction="#scaleDown" text="-"/>
+                        <Button fx:id="BscaleUp" mnemonicParsing="false" onAction="#scaleUp" text="+"/>
+                        <Button fx:id="bScaleFull" mnemonicParsing="false" onAction="#scaleFull" text="[A4]"/>
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

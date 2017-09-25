@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.111"
+            fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisniciController">
+    <children>
+        <VBox alignment="CENTER" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox accessibleRole="TOOL_BAR" alignment="CENTER" spacing="10.0" VBox.vgrow="NEVER">
+                    <children>
+                        <JFXButton fx:id="bNovKorisnik" alignment="BOTTOM_CENTER" onAction="#newUser" text="Nov"/>
+                        <JFXButton fx:id="bIzmeni" onAction="#bEditUser" text="Izmeni"/>
+                        <JFXButton fx:id="bUplate" mnemonicParsing="false" onAction="#showUplate" text="Uplate"/>
+                        <JFXButton fx:id="bFakture" mnemonicParsing="false" onAction="#showFakture" text="Fakture"/>
+                        <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="20.0"
+                              prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+                        <JFXTextField fx:id="tUserSearch" labelFloat="true" promptText="Ime, Korisnik, Broj"
+                                      HBox.hgrow="SOMETIMES"/>
+                        <JFXButton fx:id="bUserSearch" onAction="#bUserSearchAction" text="Traži">
+                        </JFXButton>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </VBox.margin>
+                </HBox>
+                <TableView fx:id="tUsers" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="cJBroj" text="User ID"/>
+                        <TableColumn fx:id="cFullName" text="Ime i Prezime"/>
+                        <TableColumn fx:id="cAddress" prefWidth="200.0" text="Adresa"/>
+                        <TableColumn fx:id="cAdressUsluge" text="Adresa Usluge"/>
+                        <TableColumn fx:id="cPlace" text="Mesto"/>
+                    </columns>
+                    <ContextMenu>
+                        <items>
+                            <MenuItem mnemonicParsing="false" onAction="#mIzmenKorisnika" text="Izmeni"/>
+                            <MenuItem mnemonicParsing="false" onAction="#mIzbrisiKorisnika" text="Izbriši"/>
+                        </items>
+                    </ContextMenu>
+                    <contextMenu>
+                        <ContextMenu>
+                            <items>
+                                <MenuItem fx:id="cmIzmeni" mnemonicParsing="false" onAction="#mIzmenKorisnika"
+                                          text="Izmeni">
+                                    <graphic>
+                                        <FontAwesomeIconView glyphName="EDIT"/>
+                                    </graphic>
+                                </MenuItem>
+                                <MenuItem fx:id="cmIzbrisi" mnemonicParsing="false" onAction="#mIzbrisiKorisnika"
+                                          text="Obrisi">
+                                    <graphic>
+                                        <FontAwesomeIconView glyphName="ERASER"/>
+                                    </graphic>
+                                </MenuItem>
+                            </items>
+                        </ContextMenu>
+                    </contextMenu>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </VBox.margin>
+                </TableView>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
