@@ -19,8 +19,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.Notifications;
 import org.json.JSONObject;
 
@@ -29,6 +27,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 /**
  * Created by zoom on 11/22/16.
@@ -67,7 +66,7 @@ public class FaktureController implements Initializable {
     private String resourceFXML;
     private Fakture selectedFacture;
     private JSONObject jObj;
-    private Logger LOGGER = LogManager.getLogger("FAKTURE");
+    private Logger LOGGER = Logger.getLogger("FAKTURE");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

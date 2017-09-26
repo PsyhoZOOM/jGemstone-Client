@@ -9,12 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 /**
  * Created by zoom on 2/2/17.
@@ -33,7 +32,7 @@ public class DigitalniTVPaketEditController implements Initializable {
     URL location;
     boolean edit = false;
     JSONObject jObj;
-    Logger LOGGER = LogManager.getLogger("DTV_EDIT");
+    Logger LOGGER = Logger.getLogger("DTV_EDIT");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

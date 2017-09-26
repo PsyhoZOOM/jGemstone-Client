@@ -20,8 +20,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -55,7 +53,6 @@ public class KorisniciController implements Initializable {
     Scene scene;
     Stage stage;
     FXMLLoader loader;
-    Logger LOGGER = LogManager.getLogger("USERS");
 
     //JSON
     JSONObject jObj;
@@ -191,7 +188,6 @@ public class KorisniciController implements Initializable {
         jObj.put("userId", user.getId());
 
         jObj = client.send_object(jObj);
-        LOGGER.info(jObj.get("message"));
         show_table("");
 
     }

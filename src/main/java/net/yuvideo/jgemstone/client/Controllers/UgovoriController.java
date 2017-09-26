@@ -10,8 +10,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.HTMLEditor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -38,7 +36,6 @@ public class UgovoriController implements Initializable {
     private ResourceBundle resources;
     private URL location;
     private JSONObject jObj;
-    private Logger LOGGER = LogManager.getLogger("UGOVORI");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -85,13 +82,11 @@ public class UgovoriController implements Initializable {
         }
         ugovori_types ug;
         ug = tblUgovori.getSelectionModel().getSelectedItem();
-        LOGGER.info(ug.getNaziv());
 
         jObj = new JSONObject();
         jObj.put("action", "delete_ugovor");
         jObj.put("ugovorId", ug.getId());
         jObj = client.send_object(jObj);
-        LOGGER.info(jObj.get("Message"));
 
         set_datas();
 

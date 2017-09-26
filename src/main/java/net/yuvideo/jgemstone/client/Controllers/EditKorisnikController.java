@@ -7,13 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 /**
  * Created by zoom on 8/29/16.
@@ -31,7 +30,7 @@ public class EditKorisnikController implements Initializable {
     public AnchorPane anchorKorisnikOprema;
     public Tab tabKorisnikUsluge;
     public Client client;
-    Logger LOGGER = LogManager.getLogger("EDIT_USERS");
+    Logger LOGGER = Logger.getLogger("EDIT_USERS");
     JSONObject jObj;
     KorisnikPodaciController KorisnikPodaciController;
     KorisnikUslugeController korisnikUslugeController;

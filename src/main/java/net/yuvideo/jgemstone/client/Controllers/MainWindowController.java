@@ -17,8 +17,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -41,7 +39,6 @@ public class MainWindowController implements Initializable {
     public AnchorPane anchorMainWindow;
     public Label lStatusConnection;
     public Client client;
-    public Logger LOGGER = LogManager.getLogger();
     public BorderPane MainBorderPane;
     public MenuItem mesta;
     public Button bUplateMain;

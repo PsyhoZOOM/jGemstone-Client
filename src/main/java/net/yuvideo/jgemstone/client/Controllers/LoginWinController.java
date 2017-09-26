@@ -13,8 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,7 +32,6 @@ public class LoginWinController implements Initializable {
     ResourceBundle resource;
     URL location;
     OptionsController optionsController;
-    private Logger LOGGER = LogManager.getLogger("LOGIN_WIN_CONTROLLER");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -54,7 +51,6 @@ public class LoginWinController implements Initializable {
         if (client.get_connection_state()) {
             tUserName.getScene().getWindow().hide();
         }
-        LOGGER.info("CLIENT STATE: " + client.get_connection_state());
     }
 
     public void openOptions(ActionEvent actionEvent) {

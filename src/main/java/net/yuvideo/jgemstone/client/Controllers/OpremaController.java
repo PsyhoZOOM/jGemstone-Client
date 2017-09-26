@@ -13,8 +13,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.Notifications;
 import org.json.JSONObject;
 
@@ -38,7 +36,6 @@ public class OpremaController implements Initializable {
     public JFXButton bIzbrisi;
     public Button bClose;
     public Client client;
-    private Logger LOGGER = LogManager.getLogger("OPREMA");
     private ResourceBundle resource;
     private URL location;
     private JSONObject jObj;
@@ -70,7 +67,6 @@ public class OpremaController implements Initializable {
 
         jObj = client.send_object(jObj);
 
-        LOGGER.info(jObj.getString("Message"));
         refresh_table();
     }
 
@@ -91,7 +87,6 @@ public class OpremaController implements Initializable {
 
         jObj = client.send_object(jObj);
 
-        LOGGER.info(jObj.getString("Message"));
         refresh_table();
 
     }
@@ -115,7 +110,6 @@ public class OpremaController implements Initializable {
 
         jObj = client.send_object(jObj);
         if (jObj.has("Message")) {
-            LOGGER.info(jObj.getString("Message"));
             return null;
         }
 

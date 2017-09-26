@@ -7,8 +7,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -37,7 +35,6 @@ public class NovaFakturaController implements Initializable {
     Client client;
     private Stage stage;
     private JSONObject jObj;
-    private Logger LOGGER = LogManager.getLogger("NEW_FACTURE");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -71,7 +68,6 @@ public class NovaFakturaController implements Initializable {
 
         jObj = client.send_object(jObj);
 
-        LOGGER.info(jObj.getString("Message"));
         stage = (Stage) bAddFaktura.getScene().getWindow();
         stage.close();
 

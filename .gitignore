@@ -1,6 +1,5 @@
-/nbproject/private/
-/build/
-/dist/
-/nbproject/
 /.JGemstone.db
-/lib/
+/target/
+/.gitignore
+/nb-configuration.xml
+/nbactions.xml

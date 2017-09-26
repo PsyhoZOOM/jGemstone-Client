@@ -8,8 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -53,7 +51,6 @@ public class KorisnikPodaciController implements Initializable {
     private URL location;
     private JSONObject jObj;
 
-    private Logger LOGGER = LogManager.getLogger("EDIT_KORISNIK_PODACI");
 
     private Users userData;
     private DateTimeFormatter dateBirthFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -331,7 +328,6 @@ public class KorisnikPodaciController implements Initializable {
 
         jObj = client.send_object(jObj);
 
-        LOGGER.info(jObj.getString("Message"));
 
         if (jObj.has("Error")) {
             NotifyUser.NotifyUser("Greška", jObj.getString("Error"), 3);

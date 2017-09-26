@@ -9,8 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -35,7 +33,6 @@ public class InternetPaketEditController implements Initializable {
     public InternetPaketi paket;
     private ResourceBundle resource;
     private URL location;
-    private Logger LOGGER = LogManager.getLogger("INTERNET_PAKET_EDIT");
     private JSONObject jObj;
 
     @Override

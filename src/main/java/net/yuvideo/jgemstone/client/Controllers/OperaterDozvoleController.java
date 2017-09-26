@@ -3,8 +3,6 @@ package net.yuvideo.jgemstone.client.Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -27,7 +25,6 @@ public class OperaterDozvoleController implements Initializable {
     public int operaterID;
     ResourceBundle resource;
     URL location;
-    Logger LOGGER = LogManager.getLogger("OPER_PERMISSIONS");
     JSONObject jObj;
 
     @Override
@@ -47,7 +44,6 @@ public class OperaterDozvoleController implements Initializable {
 
         jObj = client.send_object(jObj);
 
-        LOGGER.info(jObj.getString("Message"));
     }
 
     public void newUser(ActionEvent actionEvent) {
@@ -59,7 +55,6 @@ public class OperaterDozvoleController implements Initializable {
 
         jObj = client.send_object(jObj);
 
-        LOGGER.info(jObj.getString("Message"));
     }
 
     public void editUser(ActionEvent actionEvent) {
@@ -71,7 +66,6 @@ public class OperaterDozvoleController implements Initializable {
 
         jObj = client.send_object(jObj);
 
-        LOGGER.info(jObj.getString("Message"));
     }
 
     public void uplateUser(ActionEvent actionEvent) {
@@ -83,7 +77,6 @@ public class OperaterDozvoleController implements Initializable {
 
         jObj = client.send_object(jObj);
 
-        LOGGER.info(jObj.getString("Message"));
     }
 
     public void editOper(ActionEvent actionEvent) {
@@ -95,7 +88,6 @@ public class OperaterDozvoleController implements Initializable {
 
         jObj = client.send_object(jObj);
 
-        LOGGER.info(jObj.getString("Message"));
     }
 
 

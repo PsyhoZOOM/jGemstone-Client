@@ -13,14 +13,13 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 /**
  * Created by zoom on 1/20/17.
@@ -37,7 +36,7 @@ public class AddServiceController implements Initializable {
     public Label lPopustDin;
     public int userID;
     JSONObject jObj;
-    private Logger LOGGER = LogManager.getLogger("ADD_SERVICE");
+    private Logger LOGGER = Logger.getLogger("ADD_SERVICE");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -15,14 +15,13 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.Notifications;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 /**
  * Created by zoom on 9/2/16.
@@ -45,7 +44,7 @@ public class EditServicesController implements Initializable {
     public JFXCheckBox cbVOIP;
     public JFXComboBox cmbVOIP;
     public JFXButton bActivateInternet;
-    Logger LOGGER = LogManager.getLogger("EDIT_SERVICE");
+    Logger LOGGER = Logger.getLogger("EDIT_SERVICE");
     //JSON
     JSONObject jObj;
     private messageS mes;
@@ -87,7 +86,6 @@ public class EditServicesController implements Initializable {
 
         jObj = client.send_object(jObj);
 
-        LOGGER.info(jObj.get("message"));
         closeServices(null);
 
     }

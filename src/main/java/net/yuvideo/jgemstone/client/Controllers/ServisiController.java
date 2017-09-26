@@ -8,9 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -37,7 +34,6 @@ public class ServisiController implements Initializable {
 
     public Client client;
     public TextField tTraziService;
-    Logger LOGGER = LogManager.getLogger();
     //JSON
     JSONObject jObj;
     JSONObject jService;
@@ -78,7 +74,6 @@ public class ServisiController implements Initializable {
         jObj.put("serviceName", serviceName);
 
         jObj = client.send_object(jObj);
-        LOGGER.log(Level.INFO, "RECIVED Services: " + jObj);
 
         services = new ArrayList<>();
 
@@ -170,7 +165,6 @@ public class ServisiController implements Initializable {
             alert.setHeaderText("Brisanje Servisa!");
             alert.initOwner(stage);
             alert.showAndWait();
-            System.out.println(alert.getButtonTypes());
             if (alert.getResult() == bNO) {
                 return;
             }
@@ -183,7 +177,6 @@ public class ServisiController implements Initializable {
         jObj.put("serviceId", service.getId());
 
         jObj = client.send_object(jObj);
-        LOGGER.info(jObj.get("message"));
         set_table("");
 
 

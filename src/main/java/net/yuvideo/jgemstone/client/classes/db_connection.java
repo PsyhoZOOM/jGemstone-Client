@@ -1,10 +1,9 @@
 package net.yuvideo.jgemstone.client.classes;
 
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.util.logging.Logger;
 
 /**
  * Created by zoom on 8/16/16.
@@ -12,7 +11,7 @@ import java.sql.*;
 public class db_connection {
     public String query;
     public Settings local_settings;
-    Logger LOGGER = LogManager.getLogger("DB_CONNECTION");
+    Logger LOGGER = Logger.getLogger("DB_CONNECTION");
     private Connection conn;
     private ResultSet rs;
     private Statement stmt;

@@ -8,8 +8,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -33,7 +31,6 @@ public class NovaGrupaController implements Initializable {
     //JSON
     JSONObject jObj;
     private messageS mess;
-    private Logger LOGGER = LogManager.getLogger("GRUPA_SAVE");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -64,7 +61,6 @@ public class NovaGrupaController implements Initializable {
         jObj.put("opis", tOpis.getText());
 
         jObj = client.send_object(jObj);
-        LOGGER.info(jObj.get("message"));
 
     }
 }

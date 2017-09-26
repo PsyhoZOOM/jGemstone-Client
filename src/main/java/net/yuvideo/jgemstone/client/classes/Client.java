@@ -1,8 +1,6 @@
 package net.yuvideo.jgemstone.client.classes;
 
 import javafx.scene.control.Label;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import javax.net.SocketFactory;
@@ -11,6 +9,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.security.*;
 import java.security.cert.CertificateException;
+import java.util.logging.Logger;
 
 /**
  * Created by zoom on 8/8/16.
@@ -31,7 +30,7 @@ public class Client {
 	BufferedWriter Bfw;
 	messageS checkLive = new messageS();
 	messageS mess = new messageS();
-	Logger LOGGER = LogManager.getLogger("CLIENT");
+	Logger LOGGER = Logger.getLogger("CLIENT");
 	//JSON
 	JSONObject jObj = new JSONObject();
 	private db_connection db_conn = new db_connection();
@@ -63,8 +62,7 @@ public class Client {
 			rObj = get_object();
 			status_conn.setText("Konektovan");
 		} catch (IOException e) {
-			//System.out.println(e.getMessage());
-			LOGGER.error("CANT SEND OBJECT" + e.getMessage());
+			e.printStackTrace();
 			isConnected = false;
 			status_conn.setText("Diskonektovan");
 		} catch (Exception e) {
@@ -80,7 +78,7 @@ public class Client {
 				Isr = new InputStreamReader(socket.getInputStream(), "UTF-8");
 				Bfr = new BufferedReader(Isr);
 			} catch (IOException e) {
-				LOGGER.error("ERROR AT InputStreamReader: " + e.getMessage());
+				e.printStackTrace();
 				isConnected = false;
 			}
 		}
@@ -166,7 +164,7 @@ public class Client {
 			login_to_server(jObj);
 
 		} catch (IOException e) {
-			LOGGER.error("CANT CONNECT TO HOST " + e.getMessage());
+			e.printStackTrace();
 			isConnected = false;
 			status_login = e.getMessage().toString();
 			try {

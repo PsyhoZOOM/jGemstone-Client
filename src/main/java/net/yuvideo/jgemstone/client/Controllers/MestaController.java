@@ -14,8 +14,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.Notifications;
 import org.json.JSONObject;
 
@@ -49,17 +47,11 @@ public class MestaController implements Initializable {
     public TableColumn colAdresaBroj;
     public JFXButton bAdresaDelete;
     public JFXButton bAdresaRefresh;
-
-    private Logger LOGGER = LogManager.getLogger("MESTA");
-
     private JSONObject jObj;
-
     private Mesta mesta;
     private Adrese adrese;
-
     private ArrayList<Mesta> arrMesta;
     private ArrayList<Adrese> arrAdrese;
-
     private Alert alert;
 
 
@@ -91,7 +83,6 @@ public class MestaController implements Initializable {
         jObj.put("brojMesta", tMestoBroj.getText());
 
         jObj = client.send_object(jObj);
-        LOGGER.info(jObj.getString("Message"));
         osveziMesto(null);
     }
 
@@ -131,7 +122,6 @@ public class MestaController implements Initializable {
         jObj.put("idMesta", mesta.getId());
         jObj = client.send_object(jObj);
 
-        LOGGER.info(jObj.getString("Message"));
         if (jObj.getString("Message").equals("MESTO_DELETED")) {
             osveziMesto(null);
         }
@@ -241,7 +231,6 @@ public class MestaController implements Initializable {
         jObj.put("id", addrese.getId());
 
         jObj = client.send_object(jObj);
-        LOGGER.info(jObj.getString("Message"));
         if (jObj.has("Message")) {
             if (jObj.getString("Message").equals("ADRESS_DELETED")) {
                 osveziAdresu(null);

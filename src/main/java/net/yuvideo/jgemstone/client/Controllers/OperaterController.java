@@ -10,8 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -50,7 +48,6 @@ public class OperaterController implements Initializable {
     private Operaters operaters;
     private Operaters operEdit;
     private JSONObject jObj;
-    private Logger LOGGER = LogManager.getLogger("OPERATER");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -110,7 +107,6 @@ public class OperaterController implements Initializable {
 
         jObj = client.send_object(jObj);
 
-        LOGGER.info(jObj.getString("Message"));
 
         show_data();
 
@@ -146,7 +142,6 @@ public class OperaterController implements Initializable {
 
         jObj = client.send_object(jObj);
 
-        LOGGER.info(jObj.getString("Message"));
 
         show_data();
 
@@ -196,7 +191,6 @@ public class OperaterController implements Initializable {
 
         jObj = client.send_object(jObj);
 
-        LOGGER.info(jObj.getString("Message"));
 
         show_data();
     }

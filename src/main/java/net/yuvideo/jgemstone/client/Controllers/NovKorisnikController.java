@@ -6,8 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -38,7 +36,6 @@ public class NovKorisnikController implements Initializable {
     public ComboBox<Adrese> cmbAdresa;
     public Users user;
     public boolean user_saved;
-    Logger LOGGER = LogManager.getLogger("NEW_USER");
     //JSON
     JSONObject jObj;
     DateTimeFormatter dateTimeFormatterRodjen = DateTimeFormatter.ofPattern("dd-MM-yyyy");

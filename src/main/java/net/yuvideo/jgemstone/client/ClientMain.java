@@ -12,16 +12,15 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 import javafx.scene.text.Font;
 import net.yuvideo.jgemstone.client.Controllers.LoginWinController;
 import net.yuvideo.jgemstone.client.Controllers.MainWindowController;
 import net.yuvideo.jgemstone.client.classes.EncodingControl;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 
 public class ClientMain extends Application {
-    public static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = Logger.getLogger("CLIENT_MAIN");
     public static ResourceBundle bundle;
     Client client;
     MainWindowController mainCtrl;
@@ -66,7 +65,6 @@ public class ClientMain extends Application {
         Locale.setDefault(new Locale("sr_latin", "RS"));
         System.setProperty("file.encoding", "UTF-8");
         Charset.defaultCharset();
-        LOGGER.info(Charset.defaultCharset());
 
 
         primaryStage.setTitle("JGemstone");

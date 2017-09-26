@@ -5,8 +5,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -26,7 +24,6 @@ public class NovServicesController implements Initializable {
     public TextField tOpis;
 
     public Client client;
-    Logger LOGGER = LogManager.getLogger("NEW_SERVICES");
     //JSON
     JSONObject jObj;
     private Services service;
@@ -60,8 +57,6 @@ public class NovServicesController implements Initializable {
         jObj.put("opis", tOpis.getText());
 
         jObj = client.send_object(jObj);
-
-        LOGGER.info(jObj.get("message"));
 
         closeServices(null);
 

@@ -8,8 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -34,7 +32,6 @@ public class UgovoriEditController implements Initializable {
     int type;
     ugovori_types Ugovor;
     JSONObject jObj;
-    Logger LOGGER = LogManager.getLogger("UGOVORI_EDIT");
     private Stage stage;
 
     @Override
@@ -100,7 +97,6 @@ public class UgovoriEditController implements Initializable {
         jObj.put("textUgovora", htmlUgovor.getHtmlText());
 
         jObj = client.send_object(jObj);
-        LOGGER.info(jObj.getString("Message"));
 
     }
 
@@ -113,7 +109,6 @@ public class UgovoriEditController implements Initializable {
 
 
         jObj = client.send_object(jObj);
-        LOGGER.info(jObj.getString("Message"));
 
 
     }

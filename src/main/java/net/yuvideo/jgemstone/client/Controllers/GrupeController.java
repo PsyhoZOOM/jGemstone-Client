@@ -11,14 +11,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 
 /**
@@ -39,7 +37,7 @@ public class GrupeController implements Initializable {
     public TableColumn cOpis;
     public MenuItem bIzmena;
     public MenuItem bmDeleteGroup;
-    public Logger LOGGER = LogManager.getLogger("GROUPS");
+    public Logger LOGGER = Logger.getLogger("GROUPS");
     String resoruceFXML;
     Stage stage;
     private Groups group;
@@ -171,7 +169,6 @@ public class GrupeController implements Initializable {
         jObj.put("action", "delete_group");
         jObj.put("groupID", group.getId());
         jObj = client.send_object(jObj);
-        LOGGER.log(Level.INFO, jObj.get("message").toString());
 
         setTableGroup("");
     }

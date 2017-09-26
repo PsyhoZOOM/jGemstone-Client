@@ -11,8 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -74,7 +72,6 @@ public class KorisnikUplateController implements Initializable {
     DateTimeFormatter formatMonthYear = DateTimeFormatter.ofPattern("yyyy-MM");
     private ResourceBundle resource;
     private URL url;
-    private Logger LOGGER = LogManager.getLogger("USER_PAYMENTS");
     private JSONObject jObj;
     private Double zaUplatu = 0.00;
     private Double ukupno_uplaceno = 0.00;
@@ -442,7 +439,6 @@ public class KorisnikUplateController implements Initializable {
 
         Double ukupnoUplaceno = numbUplaceno.doubleValue() + numbUplacenoNov.doubleValue();
 
-        LOGGER.info("ukupnouplaceno: " + ukupnoUplaceno + " uplaceno: " + numbUplaceno + " zaUplatu: " + numbZauplatu + " uplacenoNov: " + numbUplacenoNov);
 
         if (ukupnoUplaceno > numbZauplatu) {
             AlertUser.error("SUMA NIJE JEDNAKA SA DUGOM", "Uplata ne može biti veca od zaduženja");
