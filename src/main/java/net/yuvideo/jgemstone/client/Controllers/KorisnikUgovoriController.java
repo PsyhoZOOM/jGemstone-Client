@@ -163,7 +163,7 @@ public class KorisnikUgovoriController implements Initializable {
         ugovor.setUserID(userID);
 
 
-        NewInterface ugovoriEditInterface = new NewInterface("src/main/resources/KorisnikUgovorEdit.fxml", "Nov Ugovor", resources);
+        NewInterface ugovoriEditInterface = new NewInterface("fxml/KorisnikUgovorEdit.fxml", "Nov Ugovor", resources);
         KorisnikUgovorEditController korisnikUgovorEditController = ugovoriEditInterface.getLoader().getController();
         korisnikUgovorEditController.ugovor = ugovor;
         korisnikUgovorEditController.client = client;
@@ -187,7 +187,7 @@ public class KorisnikUgovoriController implements Initializable {
 
     public void izmeniUgovor(ActionEvent actionEvent) {
         ugovori_types ugovor = (ugovori_types) tblUgovori.getSelectionModel().getSelectedItem();
-        NewInterface ugovoriEditInterface = new NewInterface("src/main/resources/KorisnikUgovorEdit.fxml", "Izmena Ugovora", resources);
+        NewInterface ugovoriEditInterface = new NewInterface("fxml/KorisnikUgovorEdit.fxml", "Izmena Ugovora", resources);
         KorisnikUgovorEditController korisnikUgovorEditController = ugovoriEditInterface.getLoader().getController();
         korisnikUgovorEditController.ugovor = ugovor;
         korisnikUgovorEditController.editUgovor = true;
@@ -198,7 +198,7 @@ public class KorisnikUgovoriController implements Initializable {
     }
 
     public void stampajUgovor(ActionEvent actionEvent) {
-        NewInterface ugovorStampaInterface = new NewInterface("src/main/resources/UgovorStampa.fxml", "Stampa Ugovora", resources);
+        NewInterface ugovorStampaInterface = new NewInterface("fxml/UgovorStampa.fxml", "Stampa Ugovora", resources);
         UgovorStampaController ugovorStampaController = ugovorStampaInterface.getLoader().getController();
         ugovorStampaController.client = client;
         ugovorStampaController.ugovor = (ugovori_types) tblUgovori.getSelectionModel().getSelectedItem();
