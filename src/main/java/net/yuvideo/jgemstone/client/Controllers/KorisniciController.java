@@ -229,7 +229,7 @@ public class KorisniciController implements Initializable {
 
 
     public void newUser(ActionEvent actionEvent) {
-        NewInterface novKorisnik = new NewInterface("fxml/NovKorsinik.fxml", "Nov Korisnik", resources);
+        NewInterface novKorisnik = new NewInterface("fxml/NovKorisnik.fxml", "Nov Korisnik", resources);
         NovKorisnikController novKorisnikController = novKorisnik.getLoader().getController();
 
         novKorisnikController.setClient(client);

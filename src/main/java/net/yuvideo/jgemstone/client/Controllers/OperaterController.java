@@ -201,7 +201,7 @@ public class OperaterController implements Initializable {
     }
 
     public void showDozvoleOper(ActionEvent actionEvent) {
-        NewInterface operaterDozvoleInterface = new NewInterface("src/main/resources/OperaterDozvole.fxml", "Dozvole  Operatera", resource);
+        NewInterface operaterDozvoleInterface = new NewInterface("fxml/OperaterDozvole.fxml", "Dozvole  Operatera", resource);
         OperaterDozvoleController operaterDozvoleController = operaterDozvoleInterface.getLoader().getController();
         operaterDozvoleController.client = this.client;
         operaterDozvoleController.operaterID = operEdit.getId();

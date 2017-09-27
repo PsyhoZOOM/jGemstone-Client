@@ -51,10 +51,6 @@ public class MainWindowController implements Initializable {
 
     //CONTROLLERS
     private KorisniciController korctrl;
-    private GrupeController GroupControll;
-    private ServisiController servisiController;
-    private MestaController mestaController;
-    private OpremaController opremaController;
 
     public MainWindowController() {
 
@@ -111,38 +107,6 @@ public class MainWindowController implements Initializable {
 
 
     }
-
-    public void showGrupe(ActionEvent actionEvent) {
-        fxmloader = new FXMLLoader(ClassLoader.getSystemResource("fxml/Grupe.fxml"), resource);
-
-        GroupControll = fxmloader.getController();
-
-        GroupControll.client = client;
-        GroupControll.setTableGroup("");
-
-        try {
-            MainBorderPane.setCenter(fxmloader.load());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void showServisi(ActionEvent actionEvent) {
-        fxmloader = new FXMLLoader(ClassLoader.getSystemResource("fxml/Servisi.fxml"), resource);
-
-        servisiController = fxmloader.getController();
-        servisiController.client = client;
-        servisiController.set_table_services("");
-
-        try {
-            MainBorderPane.setCenter(fxmloader.load());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
 
     public void showMesta(ActionEvent actionEvent) {
         NewInterface mestaInterface = new NewInterface("fxml/Mesta.fxml", "Mesta", resource);

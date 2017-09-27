@@ -12,12 +12,17 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import net.yuvideo.jgemstone.client.classes.Adrese;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.Mesta;
 import net.yuvideo.jgemstone.client.classes.Users;
 import net.yuvideo.jgemstone.client.classes.messageS;
+import net.yuvideo.jgemstone.client.classes.SmartCardReader;
 
 /**
  * Created by zoom on 8/8/16.
@@ -34,6 +39,9 @@ public class NovKorisnikController implements Initializable {
     public TextArea tKomentar;
     public ComboBox<Mesta> cmbMesto;
     public ComboBox<Adrese> cmbAdresa;
+    public Button bReadCardReader;
+    @FXML
+    public ImageView imgUserPhoto;
     public Users user;
     public boolean user_saved;
     //JSON
@@ -69,6 +77,25 @@ public class NovKorisnikController implements Initializable {
                 return date;
             }
         });
+	
+	bReadCardReader.setOnAction(new EventHandler<ActionEvent>() {
+		@Override
+		public void handle(ActionEvent event) {
+			SmartCardReader sr = new SmartCardReader();
+			sr.rn();
+			Users user =   sr.getUserData();
+			tFullName.setText(user.getIme());
+			tJMBG.setText(user.getJMBG());
+			tBrLk.setText(user.getBr_lk());
+			tDatumRodjenja.getEditor().setText(user.getDatum_rodjenja());
+			cmbMesto.getEditor().setText(user.getMesto());
+			cmbAdresa.getEditor().setText(user.getAdresa());
+			Image img = SwingFXUtils.toFXImage(sr.toBufferedImage(), null);
+			imgUserPhoto.setImage(img);
+	
+
+		}
+	});
 
     }
 

@@ -2,7 +2,6 @@ package net.yuvideo.jgemstone.client.classes;
 
 import javafx.scene.control.Label;
 import org.json.JSONObject;
-
 import javax.net.SocketFactory;
 import javax.net.ssl.*;
 import java.io.*;
@@ -44,17 +43,13 @@ public class Client {
 
 			if (Osw == null) {
 				try {
-					//for json
-					//Osw = new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8);
 					Osw = new OutputStreamWriter(socket.getOutputStream(), "UTF-8");
 					Bfw = new BufferedWriter(Osw);
 				} catch (IOException e) {
 					e.printStackTrace();
-
 				}
 			}
 
-//unencripted
 			Bfw.write(rObj.toString());
 			Bfw.newLine();
 			Bfw.flush();
@@ -72,7 +67,6 @@ public class Client {
 	}
 
 	private JSONObject get_object() {
-
 		if (Isr == null) {
 			try {
 				Isr = new InputStreamReader(socket.getInputStream(), "UTF-8");
@@ -84,10 +78,7 @@ public class Client {
 		}
 
 		try {
-
-//unencripted
 			jObj = new JSONObject(Bfr.readLine());
-
 		} catch (IOException e1) {
 			LOGGER.info("E1_MESSAGE" + e1.getMessage());
 			isConnected = false;
@@ -120,7 +111,6 @@ public class Client {
 		local_settings.setLocalPassword(md5.get_hash());
 		db_conn.close_db();
 		manualLogin = true;
-
 	}
 
 	public void main_run() {
@@ -140,14 +130,11 @@ public class Client {
 
 		try {
 			//Crypted
-
 			KeyStore clientKeys = KeyStore.getInstance("JKS");
-//            clientKeys.load(new FileInputStream("src/main/resources/ssl/plainclient.jks"), "jgemstone".toCharArray());
 			clientKeys.load(ClassLoader.getSystemResourceAsStream("ssl/plainclient.jks"), "jgemstone".toCharArray());
 			KeyManagerFactory clientKeyManager = KeyManagerFactory.getInstance("SunX509");
 			clientKeyManager.init(clientKeys, "jgemstone".toCharArray());
 			KeyStore serverPub = KeyStore.getInstance("JKS");
-//            serverPub.load(new FileInputStream("src/main/resources/ssl/serverpub.jks"), "jgemstone".toCharArray());
 			serverPub.load(ClassLoader.getSystemResourceAsStream("ssl/serverpub.jks"), "jgemstone".toCharArray());
 
 			TrustManagerFactory trustManager = TrustManagerFactory.getInstance("SunX509");
@@ -158,9 +145,6 @@ public class Client {
 			socket.startHandshake();
 
 //OLD NON CRYPT
-			//socket = new Socket(InetAddress.getByName(RemoteHost), portNumber);
-			//socket = ssf.createSocket(InetAddress.getByName(RemoteHost), portNumber);
-			// end of NON CRYPT
 			login_to_server(jObj);
 
 		} catch (IOException e) {
@@ -204,7 +188,6 @@ public class Client {
 		} else {
 			LOGGER.info("ERROR IN CONNECTION (no return Message)");
 		}
-
 	}
 
 	public Boolean get_connection_state() {

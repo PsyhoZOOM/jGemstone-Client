@@ -63,7 +63,7 @@ public class IPTVPaketiController implements Initializable {
     }
 
     public void izmeniIPTVPaket(ActionEvent actionEvent) {
-        String resourceFXML = "src/main/resources/IPTVPaketEdit.fxml";
+        String resourceFXML = "fxml/IPTVPaketEdit.fxml";
         NewInterface iptvPaketEditInterface = new NewInterface(resourceFXML, "Izmena IPTV Paketa", resources);
         IPTVPaketiEditController iptvPaketEditController = iptvPaketEditInterface.getLoader().getController();
 
@@ -79,7 +79,7 @@ public class IPTVPaketiController implements Initializable {
     }
 
     public void novIPTVPaket(ActionEvent actionEvent) {
-        String resourceFXML = "src/main/resources/IPTVPaketEdit.fxml";
+        String resourceFXML = "fxml/IPTVPaketEdit.fxml";
         NewInterface iptvPaketNewInterface = new NewInterface(resourceFXML, "Nov IPTV Paket", resources);
         IPTVPaketiEditController iptvPaketiNewControoler = iptvPaketNewInterface.getLoader().getController();
         iptvPaketiNewControoler.client = this.client;

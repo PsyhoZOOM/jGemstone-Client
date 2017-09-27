@@ -25,7 +25,6 @@ import java.util.ResourceBundle;
  */
 public class DigitalniTVPaketController implements Initializable {
     public Client client;
-    public Button bClose;
     public TableView tblDTV;
     public TableColumn cNaziv;
     public TableColumn cPaket;
@@ -103,13 +102,9 @@ public class DigitalniTVPaketController implements Initializable {
 
     }
 
-    public void close(ActionEvent actionEvent) {
-        Stage stage = (Stage) bClose.getScene().getWindow();
-        stage.close();
-    }
 
     public void nov(ActionEvent actionEvent) {
-        NewInterface novDtvInterface = new NewInterface("src/main/resources/DigitalnaTVPaketEdit.fxml", "Nov Digitalni TV Paket", resources);
+        NewInterface novDtvInterface = new NewInterface("fxml/DigitalnaTVPaketEdit.fxml", "Nov Digitalni TV Paket", resources);
         DigitalniTVPaketEditController novDtvController = novDtvInterface.getLoader().getController();
         novDtvController.client = client;
         novDtvInterface.getStage().showAndWait();
@@ -118,7 +113,7 @@ public class DigitalniTVPaketController implements Initializable {
     }
 
     public void edit(ActionEvent actionEvent) {
-        NewInterface editDtvInterface = new NewInterface("src/main/resources/DigitalnaTVPaketEdit.fxml", "Izmena Digitalnog TV Paketa", resources);
+        NewInterface editDtvInterface = new NewInterface("fxml/DigitalnaTVPaketEdit.fxml", "Izmena Digitalnog TV Paketa", resources);
         DigitalniTVPaketEditController editDtvController = editDtvInterface.getLoader().getController();
         editDtvController.client = client;
         editDtvController.edit = true;

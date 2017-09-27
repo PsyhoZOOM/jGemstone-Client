@@ -428,6 +428,7 @@ public class KorisnikUplateController implements Initializable {
         jObj.put("action", "uplata_servisa");
         jObj.put("userID", user.getId());
         jObj.put("id", uplata.getId());
+	jObj.put("id_ServiceUser", uplata.getId_ServiceUser());
         Double numbUplacenoNov = null;
         Double numbZauplatu = uplata.getDug();
         Double numbUplaceno = uplata.getUplaceno();
@@ -519,7 +520,7 @@ public class KorisnikUplateController implements Initializable {
             userServiceObj = (JSONObject) jObj.get(String.valueOf(i));
             userService = new ServicesUser();
             userService.setId(userServiceObj.getInt("id"));
-            userService.setBrUgovora(userServiceObj.getInt("brojUgovora"));
+            userService.setBrUgovora(userServiceObj.getString("brojUgovora"));
             userService.setCena(userServiceObj.getDouble("cena"));
             userService.setPopust(userServiceObj.getDouble("popust"));
             userService.setOperater(userServiceObj.getString("operName"));

@@ -10,7 +10,7 @@ public class ServicesUser implements Serializable {
     String naziv;
     String datum;
     String vrsta;
-    int brUgovora;
+    String brUgovora;
     String operater;
     Double cena;
     Double popust;
@@ -230,11 +230,11 @@ public class ServicesUser implements Serializable {
         this.vrsta = vrsta;
     }
 
-    public int getBrUgovora() {
+    public String getBrUgovora() {
         return brUgovora;
     }
 
-    public void setBrUgovora(int brUgovora) {
+    public void setBrUgovora(String brUgovora) {
         this.brUgovora = brUgovora;
     }
 

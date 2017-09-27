@@ -1,62 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity"
-            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65"
-            fx:controller="net.yuvideo.jgemstone.client.Controllers.OperaterDozvoleController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.OperaterDozvoleController">
     <children>
-        <ScrollPane layoutX="141.0" layoutY="87.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ScrollPane layoutX="141.0" layoutY="87.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
                 <AnchorPane prefHeight="342.0" prefWidth="526.0">
                     <children>
-                        <GridPane hgap="5.0" prefHeight="343.0" prefWidth="527.0" vgap="5.0"
-                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                  AnchorPane.topAnchor="0.0">
+                        <GridPane hgap="5.0" prefHeight="343.0" prefWidth="527.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columnConstraints>
-                                <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
-                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0"
-                                                   prefWidth="100.0"/>
-                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0"
-                                                   prefWidth="100.0"/>
+                                <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
+                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints vgrow="NEVER"/>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                                <RowConstraints vgrow="NEVER" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                             </rowConstraints>
                             <children>
-                                <Label text="Korisnici dozvole" underline="true" GridPane.columnSpan="2147483647"
-                                       GridPane.halignment="LEFT">
+                                <Label text="Korisnici dozvole" underline="true" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT">
                                     <font>
-                                        <Font name="System Bold" size="13.0"/>
+                                        <Font name="System Bold" size="13.0" />
                                     </font>
                                 </Label>
-                                <CheckBox fx:id="cUserSearch" mnemonicParsing="false" onAction="#searchUser"
-                                          text="Pretraga korisnika" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                <CheckBox fx:id="cNewUser" mnemonicParsing="false" onAction="#newUser"
-                                          text="Nov korisnik" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                <CheckBox fx:id="cEditUser" mnemonicParsing="false" onAction="#editUser"
-                                          text="Izmena korisnika" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                                <CheckBox fx:id="cUplateUser" mnemonicParsing="false" onAction="#uplateUser"
-                                          text="Uplate korisnika" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                                <CheckBox fx:id="cUserSearch" mnemonicParsing="false" onAction="#searchUser" text="Pretraga korisnika" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <CheckBox fx:id="cNewUser" mnemonicParsing="false" onAction="#newUser" text="Nov korisnik" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <CheckBox fx:id="cEditUser" mnemonicParsing="false" onAction="#editUser" text="Izmena korisnika" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <CheckBox fx:id="cUplateUser" mnemonicParsing="false" onAction="#uplateUser" text="Uplate korisnika" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                 <Label text="Operater dozvole" underline="true" GridPane.columnIndex="2">
                                     <font>
-                                        <Font name="System Bold" size="13.0"/>
+                                        <Font name="System Bold" size="13.0" />
                                     </font>
                                 </Label>
-                                <CheckBox fx:id="cEditOper" mnemonicParsing="false" onAction="#editOper"
-                                          text="Izmene operatera" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                                <CheckBox fx:id="cEditOper" mnemonicParsing="false" onAction="#editOper" text="Izmene operatera" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                             </children>
                             <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </padding>
                         </GridPane>
                     </children>

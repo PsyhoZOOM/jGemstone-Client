@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane fx:id="anchorMainWindow" minHeight="768.0" minWidth="1025.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.MainWindowController">
+<AnchorPane fx:id="anchorMainWindow" minHeight="768.0" minWidth="1025.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.MainWindowController">
     <children>
         <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
@@ -30,7 +30,6 @@
                         <Menu fx:id="mPInternet" mnemonicParsing="false" text="Internet">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#showInternetPaket" text="Paketi" />
-                                <MenuItem mnemonicParsing="false" text="Grupe" />
                             </items>
                         </Menu>
                         <Menu fx:id="mPDTV" mnemonicParsing="false" text="Digitalna TV">
@@ -59,14 +58,12 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Ugovori">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showUgovoriTemplate" text="Template" />
-                        <MenuItem mnemonicParsing="false" onAction="#showUgovori" text="Pregled ugovora" />
+                        <MenuItem mnemonicParsing="false" onAction="#showUgovori" text="Ugovori/Template" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Operateri">
                     <items>
                         <MenuItem fx:id="operaterList" mnemonicParsing="false" onAction="#showOperaterList" text="Izmene" />
-                        <MenuItem mnemonicParsing="false" text="Dozvole" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Opcije">

@@ -67,7 +67,7 @@ public class InternetPaketController implements Initializable {
     }
 
     public void pNovAction(ActionEvent actionEvent) {
-        NewInterface internetPaketEditInterface = new NewInterface("src/main/resources/InternetPaketEdit.fxml", "Nov Internet Paket", resource);
+        NewInterface internetPaketEditInterface = new NewInterface("fxml/InternetPaketEdit.fxml", "Nov Internet Paket", resource);
         InternetPaketEditController internetPaketEditController = internetPaketEditInterface.getLoader().getController();
         internetPaketEditController.client = this.client;
         internetPaketEditController.edit = false;
@@ -83,7 +83,7 @@ public class InternetPaketController implements Initializable {
         }
         InternetPaketi paket = (InternetPaketi) tblInternetPaket.getSelectionModel().getSelectedItem();
 
-        NewInterface internetPaketEditInterface = new NewInterface("src/main/resources/InternetPaketEdit.fxml", "Izmena Internet Paketa", resource);
+        NewInterface internetPaketEditInterface = new NewInterface("fxml/InternetPaketEdit.fxml", "Izmena Internet Paketa", resource);
         InternetPaketEditController internetPaketEditController = internetPaketEditInterface.getLoader().getController();
         internetPaketEditController.client = this.client;
         internetPaketEditController.edit = true;

@@ -567,7 +567,7 @@ public class KorisnikUslugeController implements Initializable {
             service = new ServicesUser();
             serviceObj = (JSONObject) jObj.get(String.valueOf(i));
             service.setId(serviceObj.getInt("id"));
-            service.setBrUgovora(serviceObj.getInt("brojUgovora"));
+            service.setBrUgovora(serviceObj.getString("brojUgovora"));
             service.setCena(serviceObj.getDouble("cena"));
             service.setPopust(serviceObj.getDouble("popust"));
             service.setOperater(serviceObj.getString("operName"));

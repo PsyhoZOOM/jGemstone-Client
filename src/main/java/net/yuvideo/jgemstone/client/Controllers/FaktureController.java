@@ -310,7 +310,7 @@ public class FaktureController implements Initializable {
             return;
         } else {
         }
-        resourceFXML = "src/main/resources/NovaFaktura.fxml";
+        resourceFXML = "fxml/NovaFaktura.fxml";
         NewInterface novaFakturaInterface = new NewInterface(resourceFXML, "Nova Faktura", resource);
         NovaFakturaController novaFakturaController = novaFakturaInterface.getLoader().getController();
         novaFakturaController.client = this.client;
