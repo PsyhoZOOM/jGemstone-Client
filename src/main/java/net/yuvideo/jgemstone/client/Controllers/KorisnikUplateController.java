@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import net.yuvideo.jgemstone.client.classes.*;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -21,11 +22,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ResourceBundle;
-import net.yuvideo.jgemstone.client.classes.AlertUser;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.ServicesUser;
-import net.yuvideo.jgemstone.client.classes.Uplate;
-import net.yuvideo.jgemstone.client.classes.Users;
 
 /**
  * Created by zoom on 9/7/16.
@@ -428,7 +424,7 @@ public class KorisnikUplateController implements Initializable {
         jObj.put("action", "uplata_servisa");
         jObj.put("userID", user.getId());
         jObj.put("id", uplata.getId());
-	jObj.put("id_ServiceUser", uplata.getId_ServiceUser());
+	    jObj.put("id_ServiceUser", uplata.getId_ServiceUser());
         Double numbUplacenoNov = null;
         Double numbZauplatu = uplata.getDug();
         Double numbUplaceno = uplata.getUplaceno();
