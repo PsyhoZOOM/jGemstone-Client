@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
+import net.yuvideo.jgemstone.client.classes.*;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -19,16 +20,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import net.yuvideo.jgemstone.client.classes.AlertUser;
-import net.yuvideo.jgemstone.client.classes.BoxPaket;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.FiksnaPaketi;
-import net.yuvideo.jgemstone.client.classes.IPTVPaketi;
-import net.yuvideo.jgemstone.client.classes.InternetPaketi;
-import net.yuvideo.jgemstone.client.classes.ServicesUser;
-import net.yuvideo.jgemstone.client.classes.Users;
-import net.yuvideo.jgemstone.client.classes.digitalniTVPaket;
-import net.yuvideo.jgemstone.client.classes.ugovori_types;
 
 /**
  * Created by zoom on 2/2/17.
@@ -532,11 +523,11 @@ public class KorisnikUslugeController implements Initializable {
             }
 
 
-            if (serviceObj.has("MAC_IPTV")) {
-                service.setMAC_IPTV(serviceObj.getString("MAC_IPTV"));
-                service.setIdUniqueName(serviceObj.getString("MAC_IPTV"));
-                service.setSTB_MAC(serviceObj.getString("MAC_IPTV"));
-                service.setIdUniqueName(serviceObj.getString("MAC_IPTV"));
+            if (serviceObj.has("IPTV_MAC")) {
+                service.setIPTV_MAC(serviceObj.getString("IPTV_MAC"));
+                service.setIdUniqueName(serviceObj.getString("IPTV_MAC"));
+                service.setSTB_MAC(serviceObj.getString("IPTV_MAC"));
+                service.setIdUniqueName(serviceObj.getString("IPTV_MAC"));
             }
 
             if (serviceObj.has("FIKSNA_TEL")) {
@@ -593,7 +584,7 @@ public class KorisnikUslugeController implements Initializable {
 
             if (serviceObj.has("IPTV_MAC")) {
                 service.setSTB_MAC(serviceObj.getString("IPTV_MAC"));
-                service.setIPTV_EXT_ID(serviceObj.getString("external_id"));
+ //               service.setIPTV_EXT_ID(serviceObj.getString("external_id"));
             }
 
             service.setPaketType(serviceObj.getString("paketType"));
@@ -883,7 +874,7 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("FIX_TEL", tFiksnaTelBox.getText());
 
         if (!tMACIPTVBox.getText().isEmpty()) {
-            jObj.put("MAC_IPTV", tMACIPTVBox.getText().trim());
+            jObj.put("IPTV_MAC", tMACIPTVBox.getText().trim());
             jObj.put("STB_MAC", tMACIPTVBox.getText().trim());
         }
         if (jObj.has("STB_MAC")) {
@@ -1086,7 +1077,7 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("status", 1);
         jObj.put("cena", cmbIPTVPaket.getValue().getCena());
         jObj.put("popust", tPopustIPTV.getText());
-        jObj.put("prekoracenje", cmbIPTVPaket.getValue().getPrekoracenje());
+        jObj.put("produzenje", cmbIPTVPaket.getValue().getPrekoracenje());
         jObj.put("brojUgovora", cmbUgovorIPTV.getValue().getBr());
         jObj.put("STB_MAC", tStbMACIPTV.getText().trim());
         if (cmbObracunIPTV.isSelected()) {

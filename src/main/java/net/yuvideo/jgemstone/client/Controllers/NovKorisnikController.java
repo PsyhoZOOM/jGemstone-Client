@@ -1,28 +1,21 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import net.yuvideo.jgemstone.client.classes.*;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import net.yuvideo.jgemstone.client.classes.Adrese;
-import net.yuvideo.jgemstone.client.classes.AlertUser;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.Mesta;
-import net.yuvideo.jgemstone.client.classes.Users;
-import net.yuvideo.jgemstone.client.classes.messageS;
-import net.yuvideo.jgemstone.client.classes.SmartCardReader;
 
 /**
  * Created by zoom on 8/8/16.
@@ -40,7 +33,6 @@ public class NovKorisnikController implements Initializable {
     public ComboBox<Mesta> cmbMesto;
     public ComboBox<Adrese> cmbAdresa;
     public Button bReadCardReader;
-    @FXML
     public ImageView imgUserPhoto;
     public Users user;
     public boolean user_saved;
@@ -77,22 +69,25 @@ public class NovKorisnikController implements Initializable {
                 return date;
             }
         });
-	
-	bReadCardReader.setOnAction(new EventHandler<ActionEvent>() {
+
+
+    	bReadCardReader.setOnAction(new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
+            Image img1 = new Image(ClassLoader.getSystemResource("images/YuVideoLogo.png").toString());
+            imgUserPhoto.setImage(img1);
 			SmartCardReader sr = new SmartCardReader();
 			sr.rn();
 			Users user =   sr.getUserData();
-			tFullName.setText(user.getIme());
-			tJMBG.setText(user.getJMBG());
+			tFullName.setText(CyrToLatin.CirilicaToLatinica(user.getIme()));
+            tJMBG.setText(user.getJMBG());
 			tBrLk.setText(user.getBr_lk());
-			tDatumRodjenja.getEditor().setText(user.getDatum_rodjenja());
+			tDatumRodjenja.setValue(LocalDate.parse(user.getDatum_rodjenja(), DateTimeFormatter.ofPattern("dd.MM.yyyy")));
 			cmbMesto.getEditor().setText(user.getMesto());
 			cmbAdresa.getEditor().setText(user.getAdresa());
 			Image img = SwingFXUtils.toFXImage(sr.toBufferedImage(), null);
-			imgUserPhoto.setImage(img);
-	
+            imgUserPhoto.setImage(img);
+
 
 		}
 	});

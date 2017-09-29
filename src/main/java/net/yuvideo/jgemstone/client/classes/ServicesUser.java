@@ -25,7 +25,7 @@ public class ServicesUser implements Serializable {
     int userID;
     String userName;
     String idDTVCard;
-    String MAC_IPTV;
+    String IPTV_MAC;
     String FIKSNA_TEL;
     String groupName;
     String paketType;
@@ -109,12 +109,12 @@ public class ServicesUser implements Serializable {
         this.idDTVCard = idDTVCard;
     }
 
-    public String getMAC_IPTV() {
-        return MAC_IPTV;
+    public String getIPTV_MAC() {
+        return IPTV_MAC;
     }
 
-    public void setMAC_IPTV(String MAC_IPTV) {
-        this.MAC_IPTV = MAC_IPTV;
+    public void setIPTV_MAC(String IPTV_MAC) {
+        this.IPTV_MAC = IPTV_MAC;
     }
 
     public String getFIKSNA_TEL() {
