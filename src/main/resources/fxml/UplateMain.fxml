@@ -42,7 +42,7 @@
                 <TextField fx:id="tUplaceno" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <ComboBox fx:id="cmbMestoUplate" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <TextField fx:id="tNapomena" minWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <Button fx:id="bUplati" mnemonicParsing="false" onAction="#uplati" onKeyReleased="#uplati" text="Uplati"
+                <Button fx:id="bUplati" mnemonicParsing="false" onAction="#uplati"  text="Uplati"
                         GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="5"/>
                 <TableView fx:id="tblUplate" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
                     <columns>

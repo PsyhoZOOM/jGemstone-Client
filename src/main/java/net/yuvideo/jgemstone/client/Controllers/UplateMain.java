@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import net.yuvideo.jgemstone.client.classes.*;
 import org.controlsfx.control.textfield.TextFields;
 import org.json.JSONObject;
 
@@ -21,11 +22,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ResourceBundle;
-import net.yuvideo.jgemstone.client.classes.AlertUser;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.Uplate;
-import net.yuvideo.jgemstone.client.classes.UplateMesta;
-import net.yuvideo.jgemstone.client.classes.Users;
 
 
 /**
@@ -115,24 +111,17 @@ public class UplateMain implements Initializable {
             }
         });
 
-        bUplati.addEventFilter(KeyEvent.KEY_RELEASED, this::onSceneKeyrelesedFilter);
+        cmbUserSearch.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if(cmbUserSearch.getEditor().isFocused()  || cmbUserSearch.isFocused() && cmbUserSearch.getEditor().getText().isEmpty()){
+                cmbUserSearch.getEditor().selectAll();
+            }
+        });
+
+
 
 
     }
 
-    private void onSceneKeyrelesedFilter(KeyEvent event) {
-        switch (event.getCode()) {
-            case ENTER:
-                if (cmbUserSearch.getValue() == null)
-                    return;
-                if (tUplaceno.getText().isEmpty())
-                    return;
-                if (cmbMestoUplate.getValue() == null)
-                    return;
-                uplati(null);
-                break;
-        }
-    }
 
     private void showUplateKorisnika(Users user) {
 
