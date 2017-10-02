@@ -79,7 +79,7 @@ public class UplateMain implements Initializable {
         });
 
 
-        tUplaceno.setText("0");
+        tUplaceno.setText("0.00");
         tUplaceno.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 Double.parseDouble(tUplaceno.getText());

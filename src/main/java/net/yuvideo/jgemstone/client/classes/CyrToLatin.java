@@ -7,7 +7,6 @@ public class CyrToLatin {
     public static String CirilicaToLatinica(String string) {
         //  Љ  Њ  Е  Р  Т  З  У  И  О  П  Ш  Ђ  Ж  А  С  Д  Ф  Г  Х  Ј  К  Л  Ч  Ћ  Ж  Џ  Ц  В  Б  Н  М
         //  LJ NJ E  R  T  Y  U  I  O  P  Š  Đ  Ž  A  S  D  F  G  H  J  K  L  Č  Ć  Ž  DŽ C  V  B  N  M
-        System.out.println(string);
 
         string = string.replace("Љ", "Lj");
         string = string.replace("Њ", "Nj");
