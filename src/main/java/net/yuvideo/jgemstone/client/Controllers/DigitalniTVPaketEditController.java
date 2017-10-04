@@ -25,7 +25,6 @@ public class DigitalniTVPaketEditController implements Initializable {
     public TextField tCena;
     public TextArea tOpis;
     public Button bSnimi;
-    public TextField tPrekoracenje;
     public Client client;
     public digitalniTVPaket dtvPaket;
     ResourceBundle resources;
@@ -61,7 +60,6 @@ public class DigitalniTVPaketEditController implements Initializable {
         jObj.put("cena", Double.valueOf(tCena.getText()));
         jObj.put("opis", tOpis.getText());
         jObj.put("idPaket", Integer.valueOf(tPaketID.getText()));
-        jObj.put("prekoracenje", Integer.valueOf(tPrekoracenje.getText()));
 
         jObj = client.send_object(jObj);
 
@@ -85,7 +83,6 @@ public class DigitalniTVPaketEditController implements Initializable {
         jObj.put("cena", Double.valueOf(tCena.getText()));
         jObj.put("opis", tOpis.getText());
         jObj.put("idPaket", Integer.valueOf(tPaketID.getText()));
-        jObj.put("prekoracenje", Integer.valueOf(tPrekoracenje.getText()));
 
 
         jObj = client.send_object(jObj);
@@ -106,7 +103,6 @@ public class DigitalniTVPaketEditController implements Initializable {
         tCena.setText(String.valueOf(dtvPaket.getCena()));
         tOpis.setText(dtvPaket.getOpis());
         tPaketID.setText(String.valueOf(dtvPaket.getPaketID()));
-        tPrekoracenje.setText(String.valueOf(dtvPaket.getProduzenje()));
 
 
     }

@@ -1,8 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.NewInterface;
-import net.yuvideo.jgemstone.client.classes.digitalniTVPaket;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,7 +9,9 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.NewInterface;
+import net.yuvideo.jgemstone.client.classes.digitalniTVPaket;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -29,7 +28,6 @@ public class DigitalniTVPaketController implements Initializable {
     public TableColumn cNaziv;
     public TableColumn cPaket;
     public TableColumn cCena;
-    public TableColumn cPrekoracenje;
     public TableColumn cOpis;
     public Button bNov;
     public Button bEdit;
@@ -49,7 +47,6 @@ public class DigitalniTVPaketController implements Initializable {
         cCena.setCellValueFactory(new PropertyValueFactory<digitalniTVPaket, Double>("cena"));
         cPaket.setCellValueFactory(new PropertyValueFactory<digitalniTVPaket, Integer>("paketID"));
         cOpis.setCellValueFactory(new PropertyValueFactory<digitalniTVPaket, String>("opis"));
-        cPrekoracenje.setCellValueFactory(new PropertyValueFactory<digitalniTVPaket, Integer>("produzenje"));
 
         cCena.setCellFactory(tc -> new TableCell<digitalniTVPaket, Double>() {
             @Override
@@ -92,7 +89,6 @@ public class DigitalniTVPaketController implements Initializable {
             dtvPak.setCena(dtvPakObj.getDouble("cena"));
             dtvPak.setPaketID(dtvPakObj.getInt("idPaket"));
             dtvPak.setOpis(dtvPakObj.getString("opis"));
-            dtvPak.setProduzenje(dtvPakObj.getInt("prekoracenje"));
 
             dtvPakArr.add(dtvPak);
         }

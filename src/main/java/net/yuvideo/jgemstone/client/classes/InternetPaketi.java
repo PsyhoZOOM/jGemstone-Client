@@ -12,7 +12,6 @@ public class InternetPaketi implements Serializable {
     Double cena;
     String opis;
     String idleTimeout;
-    int prekoracenje;
     boolean obracun = true;
 
     public String getIdleTimeout() {
@@ -62,14 +61,6 @@ public class InternetPaketi implements Serializable {
 
     public void setOpis(String opis) {
         this.opis = opis;
-    }
-
-    public int getPrekoracenje() {
-        return prekoracenje;
-    }
-
-    public void setPrekoracenje(int prekoracenje) {
-        this.prekoracenje = prekoracenje;
     }
 
     public boolean isObracun() {

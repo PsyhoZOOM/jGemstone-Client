@@ -17,7 +17,6 @@
                         <TableColumn fx:id="cNaziv" prefWidth="75.0" text="Naziv" />
                         <TableColumn fx:id="cPaket" prefWidth="75.0" text="ID PAKET" />
                         <TableColumn fx:id="cCena" prefWidth="75.0" text="Cena" />
-                        <TableColumn fx:id="cPrekoracenje" prefWidth="75.0" text="Prekoračenje" />
                         <TableColumn fx:id="cOpis" prefWidth="75.0" text="Opis" />
                     </columns>
                     <columnResizePolicy>

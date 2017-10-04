@@ -108,7 +108,6 @@ public class IPTVPaketiController implements Initializable {
             paketi.setExternal_id(pakobj.getString("external_id"));
             paketi.setCena(pakobj.getDouble("cena"));
             paketi.setDescription(pakobj.getString("opis"));
-            paketi.setPrekoracenje(pakobj.getInt("prekoracenje"));
             paketi.setIptv_id(pakobj.getInt("IPTV_id"));
             iptvPaketiArrayList.add(paketi);
 

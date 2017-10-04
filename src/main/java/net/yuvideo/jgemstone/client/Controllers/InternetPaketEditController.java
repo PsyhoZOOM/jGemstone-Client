@@ -21,7 +21,6 @@ public class InternetPaketEditController implements Initializable {
     public TextField tNaziv;
     public TextField tBrzina;
     public TextField tCena;
-    public TextField tTimeOver;
     public TextArea tOpis;
     public Button bSnimi;
     public Button bClose;
@@ -57,7 +56,6 @@ public class InternetPaketEditController implements Initializable {
         jObj.put("naziv", tNaziv.getText());
         jObj.put("brzina", tBrzina.getText());
         jObj.put("cena", Double.valueOf(tCena.getText()));
-        jObj.put("prekoracenje", Integer.valueOf(tTimeOver.getText()));
         jObj.put("opis", tOpis.getText());
         jObj.put("idleTimeout", tIdleTimout.getText());
 
@@ -80,7 +78,6 @@ public class InternetPaketEditController implements Initializable {
         jObj.put("naziv", paket.getNaziv());
         jObj.put("brzina", tBrzina.getText());
         jObj.put("cena", Double.valueOf(tCena.getText()));
-        jObj.put("prekoracenje", Integer.valueOf(tTimeOver.getText()));
         jObj.put("idleTimeout", tIdleTimout.getText());
         jObj.put("opis", tOpis.getText());
         jObj = client.send_object(jObj);
@@ -104,7 +101,6 @@ public class InternetPaketEditController implements Initializable {
         tNaziv.setText(paket.getNaziv());
         tBrzina.setText(paket.getBrzina());
         tCena.setText(String.valueOf(paket.getCena()));
-        tTimeOver.setText(String.valueOf(paket.getPrekoracenje()));
         tIdleTimout.setText(paket.getIdleTimeout());
         tOpis.setText(paket.getOpis());
 

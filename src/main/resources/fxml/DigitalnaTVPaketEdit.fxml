@@ -41,7 +41,6 @@
                   <TextField fx:id="tNaziv" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="tPaketID" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="tCena" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="tPrekoracenje" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <TextArea fx:id="tOpis" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
                   <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#snimi" text="Snimi" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
               </children>

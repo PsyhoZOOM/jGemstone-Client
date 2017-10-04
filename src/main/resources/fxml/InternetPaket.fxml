@@ -20,7 +20,6 @@
                         <TableColumn fx:id="cNaziv" prefWidth="75.0" text="Naziv"/>
                         <TableColumn fx:id="cBrzina" prefWidth="75.0" text="Brzina"/>
                         <TableColumn fx:id="cCena" prefWidth="75.0" text="Cena"/>
-                        <TableColumn fx:id="cPrekoracenje" prefWidth="75.0" text="Prekoracenje"/>
                         <TableColumn fx:id="cIdleTimeout" prefWidth="75.0" text="Idle-Timeout"/>
                         <TableColumn fx:id="cOpis" prefWidth="75.0" text="Opis"/>
                     </columns>

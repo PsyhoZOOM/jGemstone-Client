@@ -34,7 +34,6 @@ public class IPTVPaketiEditController implements Initializable {
     public IPTVPaketi paket;
     public int paketEditID;
     public boolean edit;
-    public TextField tPrekoracenjeIPTV;
     Stage stage;
     private URL location;
     private ResourceBundle resources;
@@ -84,11 +83,6 @@ public class IPTVPaketiEditController implements Initializable {
             pakets.setName(iptvPaketiObj.getString("name"));
             pakets.setExternal_id(iptvPaketiObj.getString("external_id"));
             pakets.setIptv_id(iptvPaketiObj.getInt("id"));
-            if (edit) {
-                if (iptvPaketiObj.getInt("id") == paket.getIptv_id()) {
-                    pakets.setPrekoracenje(paket.getPrekoracenje());
-                }
-            }
             if (edit)
                 iptvPaketiArrayList.add(paket);
             iptvPaketiArrayList.add(pakets);
@@ -98,7 +92,6 @@ public class IPTVPaketiEditController implements Initializable {
         cmbIPTVPakets.setItems(items);
         if (edit) {
             cmbIPTVPakets.setValue(paket);
-            tPrekoracenjeIPTV.setText(String.valueOf(paket.getPrekoracenje()));
             tCena.setText(String.valueOf(paket.getCena()));
             tNaziv.setText(paket.getName());
         }
@@ -113,7 +106,6 @@ public class IPTVPaketiEditController implements Initializable {
                 cmbIPTVPakets.setValue(pak);
             }
         }
-        tPrekoracenjeIPTV.setText(String.valueOf(paket.getPrekoracenje()));
         this.tOpis.setText(paket.getDescription());
 
 
@@ -140,7 +132,6 @@ public class IPTVPaketiEditController implements Initializable {
         jsonObject.put("name", cmbIPTVPakets.getValue().getName());
         jsonObject.put("cena", tCena.getText());
         jsonObject.put("opis", tOpis.getText());
-        jsonObject.put("prekoracenje", tPrekoracenjeIPTV.getText());
 
         jsonObject = client.send_object(jsonObject);
 
@@ -165,7 +156,6 @@ public class IPTVPaketiEditController implements Initializable {
         }
         jsonObject.put("nazivPaketa", cmbIPTVPakets.getValue().getName());
         jsonObject.put("opis", tOpis.getText());
-        jsonObject.put("prekoracenje", Integer.parseInt(tPrekoracenjeIPTV.getText()));
 
         jsonObject = client.send_object(jsonObject);
         if (jsonObject.has("Error")) {

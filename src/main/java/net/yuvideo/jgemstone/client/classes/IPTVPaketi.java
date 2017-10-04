@@ -13,7 +13,6 @@ public class IPTVPaketi implements Serializable {
     String user_default;
     String description;
     Double cena;
-    int prekoracenje;
 
     public int getId() {
         return id;
@@ -71,11 +70,5 @@ public class IPTVPaketi implements Serializable {
         this.iptv_id = iptv_id;
     }
 
-    public int getPrekoracenje() {
-        return prekoracenje;
-    }
 
-    public void setPrekoracenje(int prekoracenje) {
-        this.prekoracenje = prekoracenje;
-    }
 }

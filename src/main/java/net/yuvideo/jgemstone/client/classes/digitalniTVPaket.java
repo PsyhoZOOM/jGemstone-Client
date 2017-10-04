@@ -41,9 +41,6 @@ public class digitalniTVPaket {
         return produzenje;
     }
 
-    public void setProduzenje(int produzenje) {
-        this.produzenje = produzenje;
-    }
 
     public String getOpis() {
         return opis;

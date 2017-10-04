@@ -1,5 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
 import net.yuvideo.jgemstone.client.classes.ugovori_types;
@@ -154,6 +155,15 @@ public class KorisnikUgovoriController implements Initializable {
     }
 
     public void addNewUgovorShow(ActionEvent actionEvent) {
+
+        jObj = new JSONObject();
+        jObj.put("action", "check_brUgovora_busy");
+        jObj.put("brojUgovora", tBrUgovora.getText());
+        jObj = client.send_object(jObj);
+        if(jObj.has("ERROR")){
+            AlertUser.error("GRESKA", jObj.getString("ERROR"));
+            return;
+        }
 
         ugovori_types ugovor = (ugovori_types) cmbTamplate.getValue();
         ugovor.setPocetakUgovora(dtpTrajanjeOd.getValue().format(dateTimeFormatter));

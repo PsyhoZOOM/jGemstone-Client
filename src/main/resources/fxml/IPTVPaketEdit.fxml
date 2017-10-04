@@ -37,7 +37,6 @@
                 <TextField fx:id="tNaziv" minWidth="300.0" GridPane.columnIndex="1" />
                 <ComboBox fx:id="cmbIPTVPakets" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <TextField fx:id="tCena" minWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <TextField fx:id="tPrekoracenjeIPTV" minWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <TextArea fx:id="tOpis" minWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#snimiPaket" text="Snimi" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
                 <Label text="Prekoračenje:" GridPane.rowIndex="4" />

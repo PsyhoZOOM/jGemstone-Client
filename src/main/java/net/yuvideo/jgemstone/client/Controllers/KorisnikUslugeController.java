@@ -101,6 +101,9 @@ public class KorisnikUslugeController implements Initializable {
     public TextField tStbMACIPTV;
     public Button bIzmeniServis;
     public Users userEdit;
+    public TextField tDTVPrekoracenje;
+    public TextField tInternetPrekoracenje;
+    public TextField tIPTVPrekoracenje;
     Calendar firstDateInMonth = Calendar.getInstance();
     private ResourceBundle resources;
     private URL location;
@@ -689,7 +692,6 @@ public class KorisnikUslugeController implements Initializable {
             iPaketi.setBrzina(iPaketiObj.getString("brzina"));
             iPaketi.setCena(iPaketiObj.getDouble("cena"));
             iPaketi.setOpis(iPaketiObj.getString("opis"));
-            iPaketi.setPrekoracenje(iPaketiObj.getInt("prekoracenje"));
             iPaketi.setIdleTimeout(iPaketiObj.getString("idleTimeout"));
             iPaketiArr.add(iPaketi);
         }
@@ -717,7 +719,7 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("brojUgovora", cmbUgovorInternet.getValue().getBr());
         jObj.put("userName", tUserNameInternet.getText());
         jObj.put("passWord", tLoznikaInternet.getText());
-        jObj.put("produzenje", cmbPaketInternet.getValue().getPrekoracenje());
+        jObj.put("produzenje", Integer.valueOf(tInternetPrekoracenje.getText()));
         jObj.put("groupName", cmbPaketInternet.getValue().getNaziv());
 
 
@@ -758,7 +760,6 @@ public class KorisnikUslugeController implements Initializable {
             dtvPaketi.setCena(dtvPaketiObj.getDouble("cena"));
             dtvPaketi.setPaketID(dtvPaketiObj.getInt("idPaket"));
             dtvPaketi.setOpis(dtvPaketiObj.getString("opis"));
-            dtvPaketi.setProduzenje(dtvPaketiObj.getInt("prekoracenje"));
             dtvPaketiArr.add(dtvPaketi);
         }
 
@@ -786,7 +787,7 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("brojUgovora", cmbUgovorDTV.getValue().getBr());
         jObj.put("idUniqueName", tKarticaDTV.getText());
         jObj.put("packetID", cmbPaketDTV.getValue().getPaketID());
-        jObj.put("produzenje", cmbPaketDTV.getValue().getProduzenje());
+        jObj.put("produzenje", Integer.valueOf(tDTVPrekoracenje.getText()));
         jObj.put("opis", tOpisDTV.getText());
         firstDateInMonth.set(Calendar.DAY_OF_MONTH, 1);
         firstDateInMonth.add(Calendar.MONTH, cmbPaketDTV.getValue().getProduzenje());
@@ -1056,7 +1057,6 @@ public class KorisnikUslugeController implements Initializable {
             iptvPaketi.setName(iptvJSON.getString("name"));
             iptvPaketi.setDescription(iptvJSON.getString("opis"));
             iptvPaketi.setCena(iptvJSON.getDouble("cena"));
-            iptvPaketi.setPrekoracenje(iptvJSON.getInt("prekoracenje"));
             iptvPaketiArrayList.add(iptvPaketi);
         }
         return iptvPaketiArrayList;
@@ -1077,7 +1077,7 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("status", 1);
         jObj.put("cena", cmbIPTVPaket.getValue().getCena());
         jObj.put("popust", tPopustIPTV.getText());
-        jObj.put("produzenje", cmbIPTVPaket.getValue().getPrekoracenje());
+        jObj.put("produzenje", Integer.valueOf(tIPTVPrekoracenje.getText()));
         jObj.put("brojUgovora", cmbUgovorIPTV.getValue().getBr());
         jObj.put("STB_MAC", tStbMACIPTV.getText().trim());
         if (cmbObracunIPTV.isSelected()) {

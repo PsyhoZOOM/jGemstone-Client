@@ -45,7 +45,6 @@
                         <TextField fx:id="tNaziv" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="tBrzina" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="tCena" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="tTimeOver" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label text="INTERNET PAKET:" underline="true" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT">
                             <font>
                                 <Font name="System Bold" size="13.0" />

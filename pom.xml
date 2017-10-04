@@ -4,7 +4,7 @@
 
     <groupId>net.yuvideo</groupId>
     <artifactId>jGemstone-Client</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>SNAPSHOT-0.1${v}</version>
     <packaging>jar</packaging>
 
     <name>jGemston-Client</name>
@@ -16,10 +16,12 @@
 
     <organization>
         <!-- Used as the 'Vendor' for JNLP generation -->
-        <name>Your Organisation</name>
+        <name>YUVideo</name>
     </organization>
 
     <build>
+            <finalName>${artifactId}</finalName>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

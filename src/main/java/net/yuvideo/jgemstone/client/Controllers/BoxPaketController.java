@@ -7,13 +7,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
+import net.yuvideo.jgemstone.client.classes.*;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import net.yuvideo.jgemstone.client.classes.*;
 
 /**
  * Created by zoom on 2/23/17.
@@ -137,7 +136,6 @@ public class BoxPaketController implements Initializable {
             digitalniTVPaket.setCena(digitalniObj.getDouble("cena"));
             digitalniTVPaket.setPaketID(digitalniObj.getInt("id"));
             digitalniTVPaket.setOpis(digitalniObj.getString("opis"));
-            digitalniTVPaket.setProduzenje(digitalniObj.getInt("prekoracenje"));
             digitalniTVPaketArrayList.add(digitalniTVPaket);
 
         }
@@ -161,7 +159,6 @@ public class BoxPaketController implements Initializable {
             internetPaketi.setId(internetObj.getInt("id"));
             internetPaketi.setNaziv(internetObj.getString("naziv"));
             internetPaketi.setBrzina(internetObj.getString("brzina"));
-            internetPaketi.setPrekoracenje(internetObj.getInt("prekoracenje"));
             internetPaketi.setIdleTimeout(internetObj.getString("idleTimeout"));
             internetPaketisArray.add(internetPaketi);
         }
@@ -225,7 +222,6 @@ public class BoxPaketController implements Initializable {
             iptvPaketi.setExternal_id(iptvJsonObject.getString("external_id"));
             iptvPaketi.setCena(iptvJsonObject.getDouble("cena"));
             iptvPaketi.setDescription(iptvJsonObject.getString("opis"));
-            iptvPaketi.setPrekoracenje(iptvJsonObject.getInt("prekoracenje"));
             iptvPaketiArrayList.add(iptvPaketi);
         }
 

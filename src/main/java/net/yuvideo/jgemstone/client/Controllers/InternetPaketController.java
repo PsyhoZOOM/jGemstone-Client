@@ -29,7 +29,6 @@ public class InternetPaketController implements Initializable {
     public TableColumn cNaziv;
     public TableColumn cBrzina;
     public TableColumn cCena;
-    public TableColumn cPrekoracenje;
     public TableColumn cOpis;
     public Button bClose;
     public TableColumn cIdleTimeout;
@@ -47,7 +46,6 @@ public class InternetPaketController implements Initializable {
         cNaziv.setCellValueFactory(new PropertyValueFactory<InternetPaketi, String>("naziv"));
         cBrzina.setCellValueFactory(new PropertyValueFactory<InternetPaketi, String>("brzina"));
         cCena.setCellValueFactory(new PropertyValueFactory<InternetPaketi, Double>("cena"));
-        cPrekoracenje.setCellValueFactory(new PropertyValueFactory<InternetPaketi, Integer>("prekoracenje"));
         cOpis.setCellValueFactory(new PropertyValueFactory<InternetPaketi, String>("opis"));
         cIdleTimeout.setCellValueFactory(new PropertyValueFactory<InternetPaketi, String>("idleTimeout"));
 
@@ -122,7 +120,6 @@ public class InternetPaketController implements Initializable {
             paket.setNaziv(paketObj.getString("naziv"));
             paket.setCena(paketObj.getDouble("cena"));
             paket.setBrzina(paketObj.getString("brzina"));
-            paket.setPrekoracenje(paketObj.getInt("prekoracenje"));
             paket.setOpis(paketObj.getString("opis"));
             paket.setIdleTimeout(paketObj.getString("idleTimeout"));
             paketiArr.add(paket);
