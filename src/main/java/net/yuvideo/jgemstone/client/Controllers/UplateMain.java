@@ -100,12 +100,12 @@ public class UplateMain implements Initializable {
             if(event.getCode() == KeyCode.ENTER){
                 String id = cmbUserSearch.getEditor().getText();
                 for (Users user : cmbUserSearch.getItems()){
-                    if (id.equals(user.getjMesto() + user.getjAdresa() + user.getId() + ", " + user.getIme())) {
+                    if (id.equals(user.getJbroj() + ", " + user.getIme())) {
                         cmbUserSearch.getSelectionModel().select(user);
                         cmbUserSearch.getEditor().commitValue();
                         userEDIT=user;
                         showUplateKorisnika(user);
-                        lStatus.setText("STATUS " + user.getIme() + ", " + user.getjMesto() + user.getjAdresa() + user.getId());
+                        lStatus.setText("STATUS " + user.getIme() + ", " + user.getJbroj());
                     }
                 }
             }
@@ -200,6 +200,8 @@ public class UplateMain implements Initializable {
             users.setPostanski_broj(usersObj.getString("postBr"));
             users.setjMesto(usersObj.getString("jMesto"));
             users.setjAdresa(usersObj.getString("jAdresa"));
+            users.setjAdresaBroj(usersObj.getString("jAdresaBroj"));
+            users.setJbroj(usersObj.getString("jBroj"));
             usersData.add(users);
 
         }

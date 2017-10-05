@@ -201,6 +201,6 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return jMesto + "" + jAdresa + "" + id + ", " + ime;
+        return this.jbroj +  ", " + this.ime;
     }
 }

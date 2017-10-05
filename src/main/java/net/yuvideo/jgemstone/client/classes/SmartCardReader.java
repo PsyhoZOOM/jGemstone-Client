@@ -5,19 +5,19 @@
  */
 package net.yuvideo.jgemstone.client.classes;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
+import net.devbase.jfreesteel.EidCard;
+import net.devbase.jfreesteel.EidInfo;
+
+import javax.smartcardio.Card;
+import javax.smartcardio.CardException;
+import javax.smartcardio.CardTerminal;
+import javax.smartcardio.TerminalFactory;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.smartcardio.Card;
-import javax.smartcardio.CardException;
-import javax.smartcardio.CardTerminal;
-import javax.smartcardio.TerminalFactory;
-import net.devbase.jfreesteel.EidCard;
-import net.devbase.jfreesteel.EidInfo;
 
 /**
  *
@@ -27,6 +27,7 @@ public class SmartCardReader {
 
 	private Users user;
 	public Image userImage;
+	List<CardTerminal> terminals = null;
 
 	private CardTerminal pickTerminal(List<CardTerminal> terminals) {
 		if (terminals.size() > 1) {
@@ -56,7 +57,6 @@ public class SmartCardReader {
 		System.setProperty("sun.security.smartcardio.library", "libpcsclite.so.1");
 		try {
 
-			List<CardTerminal> terminals = null;
 			TerminalFactory factory = TerminalFactory.getDefault();
 			terminals = factory.terminals().list();
 
