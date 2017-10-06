@@ -1,11 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.NewInterface;
-import net.yuvideo.jgemstone.client.classes.Users;
-import net.yuvideo.jgemstone.client.classes.messageS;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +14,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.NewInterface;
+import net.yuvideo.jgemstone.client.classes.Users;
+import net.yuvideo.jgemstone.client.classes.messageS;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -39,15 +37,15 @@ public class KorisniciController implements Initializable {
     public TableColumn cAddress;
     public TableColumn cPlace;
     public TableColumn cAdressUsluge;
-    public JFXTextField tUserSearch;
-    public JFXButton bUplate;
-    public JFXButton bFakture;
+    public TextField tUserSearch;
+    public Button bUplate;
+    public Button bFakture;
     public MenuItem cmIzmeni;
     public MenuItem cmIzbrisi;
     public Button bUserSearch;
     public Client client;
     @FXML
-    JFXButton bNovKorisnik;
+    Button bNovKorisnik;
     FXMLLoader resoruceFXML;
     Parent root;
     Scene scene;
