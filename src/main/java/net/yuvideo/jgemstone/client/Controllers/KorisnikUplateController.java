@@ -356,6 +356,7 @@ public class KorisnikUplateController implements Initializable {
             uplata.setOperater(uplataObj.getString("operater"));
             uplata.setZaMesec(uplataObj.getString("zaMesec"));
             uplata.setZaduzenOd(uplataObj.getString("zaduzenOd"));
+            uplata.setSkipProduzenje(uplataObj.getBoolean("skipProduzenje"));
             uplate.add(uplata);
 
         }
@@ -425,6 +426,7 @@ public class KorisnikUplateController implements Initializable {
         jObj.put("userID", user.getId());
         jObj.put("id", uplata.getId());
 	    jObj.put("id_ServiceUser", uplata.getId_ServiceUser());
+        jObj.put("skipProduzenje", uplata.isSkipProduzenje());
         Double numbUplacenoNov = null;
         Double numbZauplatu = uplata.getDug();
         Double numbUplaceno = uplata.getUplaceno();
