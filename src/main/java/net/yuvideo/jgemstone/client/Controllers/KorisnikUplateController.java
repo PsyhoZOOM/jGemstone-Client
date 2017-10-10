@@ -356,6 +356,7 @@ public class KorisnikUplateController implements Initializable {
             uplata.setOperater(uplataObj.getString("operater"));
             uplata.setZaMesec(uplataObj.getString("zaMesec"));
             uplata.setZaduzenOd(uplataObj.getString("zaduzenOd"));
+            uplata.setSkipProduzenje(uplataObj.getBoolean("skipProduzenje"));
             uplate.add(uplata);
 
         }
@@ -501,8 +502,6 @@ public class KorisnikUplateController implements Initializable {
     }
 
 
-    public void ShowZaduzenja(ActionEvent actionEvent) {
-    }
 
     public ArrayList<ServicesUser> get_user_services() {
         jObj = new JSONObject();

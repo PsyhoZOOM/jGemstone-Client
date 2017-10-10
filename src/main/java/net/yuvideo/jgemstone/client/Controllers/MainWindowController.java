@@ -17,6 +17,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.NewInterface;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -27,9 +30,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
-import net.yuvideo.jgemstone.client.classes.AlertUser;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.NewInterface;
 
 public class MainWindowController implements Initializable {
     public static boolean appExit = false;
@@ -202,10 +202,6 @@ public class MainWindowController implements Initializable {
     }
 
     public void mOpenStalkerAPITest(ActionEvent actionEvent) {
-        NewInterface APIStalkerInterface = new NewInterface("fxml/StalkerAPITest.fxml", "STALKER API TEST", resource);
-        StalkerAPITest stalkerAPITest = APIStalkerInterface.getLoader().getController();
-        stalkerAPITest.client = client;
-        APIStalkerInterface.getStage().showAndWait();
     }
 
     public void showIPTVPaketi(ActionEvent actionEvent) {
