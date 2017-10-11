@@ -47,10 +47,11 @@ public class MainWindowController implements Initializable {
 
     ResourceBundle resource;
     private FXMLLoader fxmloader;
-
+    Thread threadCheckAlive;
 
     //CONTROLLERS
     private KorisniciController korctrl;
+    private boolean disconnect = false;
 
     public MainWindowController() {
 
@@ -61,7 +62,31 @@ public class MainWindowController implements Initializable {
         this.resource = resources;
         //EXIT From Application
 
+        lStatusConnection.setText("Konektovan");
         exitApp();
+
+        checkPing();
+
+
+    }
+
+    private void checkPing() {
+
+
+        new Thread(() -> {
+            while (true) {
+                Platform.runLater(() -> {
+                    lStatusConnection.setText((client.checkLatency()));
+                });
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
     }
 
     private void exitApp() {
@@ -72,10 +97,15 @@ public class MainWindowController implements Initializable {
             public void handle(ActionEvent event) {
                 appExit = true;
                 anchorMainWindow.getScene().getWindow().hide();
+                disconnect = true;
+                threadCheckAlive.interrupt();
                 Platform.exit();
+                System.exit(0);
             }
 
         });
+
+
     }
 
 

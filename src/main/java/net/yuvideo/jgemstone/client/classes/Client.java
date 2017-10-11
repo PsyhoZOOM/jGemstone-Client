@@ -1,13 +1,15 @@
 package net.yuvideo.jgemstone.client.classes;
 
-import javafx.scene.control.Label;
 import org.json.JSONObject;
+
 import javax.net.SocketFactory;
 import javax.net.ssl.*;
 import java.io.*;
 import java.net.InetAddress;
 import java.security.*;
 import java.security.cert.CertificateException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.logging.Logger;
 
 /**
@@ -18,8 +20,9 @@ public class Client {
 	public int portNumber;
 	public InetAddress inetAddress;
 	public String RemoteHost;
-	public String status_login;
-	public Label status_conn = new Label();
+    public boolean alive = false;
+    private String userName;
+    public String status_login;
 	//Socket socket;
 	SSLSocket socket;
 	SocketFactory ssf = SSLSocketFactory.getDefault();
@@ -29,15 +32,19 @@ public class Client {
 	BufferedWriter Bfw;
 	messageS checkLive = new messageS();
 	messageS mess = new messageS();
-	Logger LOGGER = Logger.getLogger("CLIENT");
+    private String password;
+    Logger LOGGER = Logger.getLogger("CLIENT");
 	//JSON
 	JSONObject jObj = new JSONObject();
 	private db_connection db_conn = new db_connection();
 	private Settings local_settings;
 	private Boolean isConnected = false;
 	private Boolean manualLogin = false;
+    private boolean runOnce = true;
+    private long result;
 
-	public JSONObject send_object(JSONObject rObj) {
+
+    public JSONObject send_object(JSONObject rObj) {
 
 		try {
 
@@ -55,13 +62,13 @@ public class Client {
 			Bfw.flush();
 			rObj = new JSONObject();
 			rObj = get_object();
-			status_conn.setText("Konektovan");
 		} catch (IOException e) {
 			e.printStackTrace();
-			isConnected = false;
-			status_conn.setText("Diskonektovan");
+            status_login = e.getMessage();
+            isConnected = false;
 		} catch (Exception e) {
-			e.printStackTrace();
+            status_login = e.getMessage();
+            e.printStackTrace();
 		}
 		return rObj;
 	}
@@ -80,7 +87,8 @@ public class Client {
 		try {
 			jObj = new JSONObject(Bfr.readLine());
 		} catch (IOException e1) {
-			LOGGER.info("E1_MESSAGE" + e1.getMessage());
+            status_login = e1.getMessage();
+            LOGGER.info("E1_MESSAGE" + e1.getMessage());
 			isConnected = false;
 		} catch (NullPointerException e2) {
 			LOGGER.info("E2_MESSAGE" + e2.getMessage());
@@ -109,24 +117,27 @@ public class Client {
 		local_settings = db_conn.local_settings;
 		local_settings.setLocalUser(username);
 		local_settings.setLocalPassword(md5.get_hash());
-		db_conn.close_db();
+        this.userName = local_settings.getLocalUser();
+        this.password = local_settings.getLocalPassword();
+        db_conn.close_db();
 		manualLogin = true;
 	}
 
 	public void main_run() {
 		if (!manualLogin) {
-			db_conn.init_database();
-			local_settings = db_conn.local_settings;
-			db_conn.close_db();
-		} else {
-
+//			db_conn.init_database();
+//			local_settings = db_conn.local_settings;
+            userName = local_settings.getLocalUser();
+            password = local_settings.getLocalPassword();
+            db_conn.close_db();
 		}
+
 		RemoteHost = local_settings.getREMOTE_HOST();
 		portNumber = local_settings.getREMOTE_PORT();
 
 		jObj.put("action", "login");
-		jObj.put("username", local_settings.getLocalUser());
-		jObj.put("password", local_settings.getLocalPassword());
+        jObj.put("username", userName);
+        jObj.put("password", password);
 
 		try {
 			//Crypted
@@ -181,7 +192,9 @@ public class Client {
 			if (jObj.getString("Message").equals("LOGIN_OK")) {
 				status_login = "Uspesno logovanje";
 				isConnected = true;
-			} else if (jObj.getString("Message").equals("LOGIN_FAILED")) {
+                if (runOnce) checkAlive();
+                runOnce = false;
+            } else if (jObj.getString("Message").equals("LOGIN_FAILED")) {
 				status_login = "Pogrešno korisničko ime ili lozinka";
 				isConnected = false;
 			}
@@ -190,8 +203,46 @@ public class Client {
 		}
 	}
 
-	public Boolean get_connection_state() {
-		return isConnected;
+    private void checkAlive() {
+        new Thread(() -> {
+            JSONObject pingCheck = new JSONObject();
+
+            while (true) {
+                pingCheck.put("action", "checkPing");
+                long localPING = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+                pingCheck = send_object(pingCheck);
+                if (pingCheck.has("PONG") && isConnected) {
+                    long remotePONG = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+
+                    result = remotePONG - localPING;
+                    System.out.println(String.format("Konektovan lat: %dms", result));
+                } else {
+                    System.out.println("Diskonektovan");
+                    result = -1;
+                }
+                try {
+                    if (isConnected) {
+                        Thread.sleep(1000);
+                    } else {
+                        Thread.sleep(10000);
+                    }
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }).start();
+    }
+
+    public String checkLatency() {
+        if (result == -1) {
+            return status_login;
+        } else return String.format("%dms", result);
+    }
+
+    public Boolean get_connection_state() {
+        return isConnected;
 	}
 
 }

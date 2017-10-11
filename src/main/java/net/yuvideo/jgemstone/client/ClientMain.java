@@ -2,11 +2,14 @@ package net.yuvideo.jgemstone.client;
 
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import net.yuvideo.jgemstone.client.Controllers.LoginWinController;
 import net.yuvideo.jgemstone.client.Controllers.MainWindowController;
 import net.yuvideo.jgemstone.client.classes.Client;
@@ -59,6 +62,14 @@ public class ClientMain extends Application {
 
         primaryStage.setTitle("JGemstone");
 
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
+
 
             show_login_screen();
             if (client != null && client.get_connection_state()) {
@@ -90,7 +101,6 @@ public class ClientMain extends Application {
             rootMainWindow = fxmlLoader.load();
             mainCtrl = fxmlLoader.getController();
             mainCtrl.client = client;
-            client.status_conn = mainCtrl.lStatusConnection;
             Scene scene = new Scene(rootMainWindow);
             mainStage.setScene(scene);
             mainStage.setResizable(true);
