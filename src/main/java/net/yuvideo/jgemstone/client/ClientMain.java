@@ -11,7 +11,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import net.yuvideo.jgemstone.client.Controllers.LoginWinController;
-import net.yuvideo.jgemstone.client.Controllers.MainWindowController;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.EncodingControl;
 
@@ -26,12 +25,11 @@ public class ClientMain extends Application {
     public static final Logger LOGGER = Logger.getLogger("CLIENT_MAIN");
     public static ResourceBundle bundle;
     Client client;
-    MainWindowController mainCtrl;
     LoginWinController loginCtrl;
     Parent rootMainWindow;
-    Stage mainStage = new Stage();
     FXMLLoader fxmlLoader;
-    private boolean appExit = false;
+    Stage stage;
+    Scene scene;
 
 
     public static void main(String[] args) {
@@ -42,8 +40,7 @@ public class ClientMain extends Application {
     public void init() throws Exception {
         super.init();
 
-        Font.loadFont(getClass().getResourceAsStream("font.roboto/Roboto-Black.ttf"), 9);
-	
+
     }
 
     @Override
@@ -56,9 +53,11 @@ public class ClientMain extends Application {
 	    System.out.println(ResourceBundle.getBundle("lang", new Locale("sr", "RS")).toString());
         bundle = ResourceBundle.getBundle("lang", new Locale("sr", "RS"), new EncodingControl("utf-8"));
 
+        Font.loadFont(getClass().getResourceAsStream("font.roboto/Roboto-Black.ttf"), 9);
         Locale.setDefault(new Locale("sr_latin", "RS"));
         System.setProperty("file.encoding", "UTF-8");
         Charset.defaultCharset();
+        this.stage = primaryStage;
 
         primaryStage.setTitle("JGemstone");
 
@@ -72,9 +71,6 @@ public class ClientMain extends Application {
 
 
             show_login_screen();
-            if (client != null && client.get_connection_state()) {
-                show_main_win();
-        }
     }
 
     private void show_login_screen() {
@@ -82,36 +78,19 @@ public class ClientMain extends Application {
         try {
             rootMainWindow = fxmlLoader.load();
             loginCtrl = fxmlLoader.getController();
-            Scene scene = new Scene(rootMainWindow);
-            mainStage.setScene(scene);
-            mainStage.setResizable(false);
-            mainStage.setTitle("YUVideo LOGIN");
-            mainStage.showAndWait();
+            loginCtrl.stage = this.stage;
+            scene = new Scene(rootMainWindow);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setTitle("YUVideo LOGIN");
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        client = loginCtrl.client;
-        appExit = loginCtrl.appExit;
     }
 
-    private void show_main_win() {
-        fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("fxml/MainWindow.fxml"), bundle);
-        try {
-            rootMainWindow = fxmlLoader.load();
-            mainCtrl = fxmlLoader.getController();
-            mainCtrl.client = client;
-            Scene scene = new Scene(rootMainWindow);
-            mainStage.setScene(scene);
-            mainStage.setResizable(true);
-            mainStage.setTitle("YUVIDEO");
-            mainStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        appExit = true;
 
-    }
 }
 
 

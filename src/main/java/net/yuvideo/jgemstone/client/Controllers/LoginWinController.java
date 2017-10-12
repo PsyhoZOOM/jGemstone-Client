@@ -1,6 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import net.yuvideo.jgemstone.client.classes.Client;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -13,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.Client;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,10 +28,11 @@ public class LoginWinController implements Initializable {
     public Label lMessage;
     public JFXButton bLogin;
     public Client client;
-    public boolean appExit;
     ResourceBundle resource;
     URL location;
-    OptionsController optionsController;
+    public Stage stage;
+    FXMLLoader fxmlLoader;
+    Parent rootMainWindow;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -49,26 +50,41 @@ public class LoginWinController implements Initializable {
         client.main_run();
         lMessage.setText(client.status_login);
         if (client.get_connection_state()) {
-            tUserName.getScene().getWindow().hide();
+            //           tUserName.getScene().getWindow().hide();
+            fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("fxml/MainWindow.fxml"), resource);
+            try {
+                rootMainWindow = fxmlLoader.load();
+                MainWindowController mainCtrl = fxmlLoader.getController();
+                mainCtrl.client = client;
+                Scene scene;
+                scene = new Scene(rootMainWindow);
+                stage.setScene(scene);
+                stage.setResizable(true);
+                stage.setTitle("YUVIDEO");
+                stage.setMaximized(true);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void openOptions(ActionEvent actionEvent) {
-        Stage stage = new Stage();
-        Parent root = null;
+        FXMLLoader fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("fxml/Options.fxml"), resource);
+
+        Scene scene = null;
         try {
-            root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/Options.fxml"), resource);
+            scene = new Scene((Parent) fxmlLoader.load());
         } catch (IOException e) {
             e.printStackTrace();
         }
+        OptionsController optionsController = fxmlLoader.<OptionsController>getController();
+        Stage stageOptions = new Stage();
 
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.setTitle("Podesavanja");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(bLogin.getScene().getWindow());
-        stage.showAndWait();
+        stageOptions.setScene(scene);
+        stageOptions.setTitle("Podesavanja");
+        stageOptions.initOwner(bLogin.getScene().getWindow());
+        stageOptions.initModality(Modality.APPLICATION_MODAL);
+        stageOptions.showAndWait();
 
 
     }

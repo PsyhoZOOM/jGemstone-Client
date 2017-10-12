@@ -30,6 +30,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainWindowController implements Initializable {
     public static boolean appExit = false;
@@ -45,9 +47,13 @@ public class MainWindowController implements Initializable {
     public MenuItem mImportCSV;
     public MenuItem IPTVPaketi;
 
+
     ResourceBundle resource;
     private FXMLLoader fxmloader;
     Thread threadCheckAlive;
+
+    private Timer checkPingTimer = new Timer(true);
+
 
     //CONTROLLERS
     private KorisniciController korctrl;
@@ -65,28 +71,21 @@ public class MainWindowController implements Initializable {
         lStatusConnection.setText("Konektovan");
         exitApp();
 
-        checkPing();
+
+        checkPingTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                checkPing();
+            }
+        }, 1000);
+
+
 
 
     }
 
     private void checkPing() {
-
-
-        new Thread(() -> {
-            while (true) {
-                Platform.runLater(() -> {
-                    lStatusConnection.setText((client.checkLatency()));
-                });
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
-
+        Platform.runLater(() -> lStatusConnection.setText((client.checkLatency())));
     }
 
     private void exitApp() {
@@ -241,6 +240,7 @@ public class MainWindowController implements Initializable {
         iptvPaketiController.showPaketiTable();
         IPTVPaketInterface.getStage().showAndWait();
     }
+
     public void importCSV(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("Mesečni obračun CSV fajl", "*.csv");
@@ -252,10 +252,10 @@ public class MainWindowController implements Initializable {
 
         JSONObject jfileObj = new JSONObject();
         jfileObj.put("action", "add_CSV_FIX_Telefonija");
-	if(lf == null)
-		return;
+        if (lf == null)
+            return;
 
-        for(File file: lf)
+        for (File file : lf)
             try {
                 String content = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
                 jfileObj.put(file.getAbsoluteFile().getName(), content);
@@ -267,9 +267,9 @@ public class MainWindowController implements Initializable {
 
         JSONObject jObj = client.send_object(jfileObj);
 
-        if(jObj.has("ERROR")){
+        if (jObj.has("ERROR")) {
             AlertUser.error("GESKA", jObj.getString("ERROR"));
-        }else{
+        } else {
             AlertUser.info("Import CSV fajla", "Importovanje CSV fajla je uspesno zavrseno!");
         }
 
