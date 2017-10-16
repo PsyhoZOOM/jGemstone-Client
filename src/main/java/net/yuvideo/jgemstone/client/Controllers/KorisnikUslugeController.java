@@ -31,6 +31,7 @@ public class KorisnikUslugeController implements Initializable {
     public TreeTableView<ServicesUser> tblServices;
     public TreeTableColumn cServicesNaziv;
     public TreeTableColumn cServicesDatum;
+    public TreeTableColumn cDatumIsteka;
     public TreeTableColumn cServicesBrojUgovora;
     public TreeTableColumn cSservicesOperater;
     public TreeTableColumn cServicePopust;
@@ -286,6 +287,7 @@ public class KorisnikUslugeController implements Initializable {
         cServiceAktivan.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, String>("aktivan"));
         cServiceObracun.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, String>("obracun"));
         cServiceIdentification.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, String>("idUniqueName"));
+        cDatumIsteka.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, String>("endDate"));
 
 
         cServiceCena.setCellFactory(lv -> new TreeTableCell<ServicesUser, Double>() {
@@ -410,9 +412,6 @@ public class KorisnikUslugeController implements Initializable {
         });
 
 
-
-
-
     }
 
     public void setData() {
@@ -508,9 +507,9 @@ public class KorisnikUslugeController implements Initializable {
             service.setPopust(serviceObj.getDouble("popust"));
             service.setNazivPaketa(serviceObj.getString("nazivPaketa"));
             service.setLinkedService(serviceObj.getBoolean("linkedService"));
-            service.setAktivan(serviceObj.getBoolean("aktivan"));
             service.setPaketType(serviceObj.getString("paketType"));
             service.setNewService(serviceObj.getBoolean("newService"));
+            service.setEndDate(serviceObj.getString("endDate"));
 
             if (serviceObj.has("groupName"))
                 service.setGroupName(serviceObj.getString("groupName"));
@@ -571,6 +570,10 @@ public class KorisnikUslugeController implements Initializable {
             service.setProduzenje(serviceObj.getInt("produzenje"));
             service.setId_Service(serviceObj.getInt("id_service"));
             service.setNewService(serviceObj.getBoolean("newService"));
+            service.setLinkedService(serviceObj.getBoolean("linkedService"));
+
+            if (serviceObj.has("endDate"))
+                service.setEndDate(serviceObj.getString("endDate"));
 
             if (serviceObj.has("box_ID"))
                 service.setBox_id(serviceObj.getInt("box_ID"));
@@ -580,14 +583,14 @@ public class KorisnikUslugeController implements Initializable {
             if (serviceObj.has("idUniqueName"))
                 service.setIdUniqueName(serviceObj.getString("idUniqueName"));
 
-            if(serviceObj.has("brojTel")) {
+            if (serviceObj.has("brojTel")) {
                 service.setFIKSNA_TEL(serviceObj.getString("brojTel"));
                 service.setIdUniqueName(serviceObj.getString("brojTel"));
             }
 
             if (serviceObj.has("IPTV_MAC")) {
                 service.setSTB_MAC(serviceObj.getString("IPTV_MAC"));
- //               service.setIPTV_EXT_ID(serviceObj.getString("external_id"));
+                //               service.setIPTV_EXT_ID(serviceObj.getString("external_id"));
             }
 
             service.setPaketType(serviceObj.getString("paketType"));
@@ -872,7 +875,7 @@ public class KorisnikUslugeController implements Initializable {
         }
 
         if (!tFiksnaTelBox.getText().isEmpty())
-        jObj.put("FIX_TEL", tFiksnaTelBox.getText());
+            jObj.put("FIX_TEL", tFiksnaTelBox.getText());
 
         if (!tMACIPTVBox.getText().isEmpty()) {
             jObj.put("IPTV_MAC", tMACIPTVBox.getText().trim());
@@ -886,7 +889,6 @@ public class KorisnikUslugeController implements Initializable {
             jObj.put("password", tPasswordBox.getText());
             jObj.put("IPTV_Service_ID", cmbPaketBOX.getValue().getIPTV());
         }
-
 
 
         jObj = client.send_object(jObj);
@@ -1005,14 +1007,13 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("action", "addFixUslugu");
         jObj = client.send_object(jObj);
 
-        if(jObj.getString("Message").equals("SERVICE_ADDED")){
+        if (jObj.getString("Message").equals("SERVICE_ADDED")) {
             AlertUser.info("Servis je dodan", String.format("Servis %s je dodan",
                     cmbFixPaket.getValue().getNaziv()));
             setData();
-        }else{
+        } else {
             AlertUser.error("Greska", jObj.getString("Message"));
         }
-
 
 
     }

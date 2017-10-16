@@ -192,8 +192,9 @@ public class Client {
 			if (jObj.getString("Message").equals("LOGIN_OK")) {
 				status_login = "Uspesno logovanje";
 				isConnected = true;
-                if (runOnce) checkAlive();
-                runOnce = false;
+				//check ping
+				//if (runOnce) checkAlive();
+				runOnce = false;
             } else if (jObj.getString("Message").equals("LOGIN_FAILED")) {
 				status_login = "Pogrešno korisničko ime ili lozinka";
 				isConnected = false;

@@ -31,7 +31,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainWindowController implements Initializable {
     public static boolean appExit = false;
@@ -71,7 +70,7 @@ public class MainWindowController implements Initializable {
         lStatusConnection.setText("Konektovan");
         exitApp();
 
-
+        /*
         checkPingTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -79,8 +78,7 @@ public class MainWindowController implements Initializable {
             }
         }, 1000);
 
-
-
+        */
 
     }
 

@@ -26,15 +26,9 @@ public class Uplate implements Serializable {
     String zaduzenOd;
     String napomena;
 
-    boolean skipProduzenje;
+    private boolean skipProduzenje;
 
-    public boolean isSkipProduzenje() {
-        return skipProduzenje;
-    }
 
-    public void setSkipProduzenje(boolean skipProduzenje) {
-        this.skipProduzenje = skipProduzenje;
-    }
 
     public String getNapomena() {
         return napomena;
@@ -182,6 +176,13 @@ public class Uplate implements Serializable {
         this.mestoUplate = mestoUplate;
     }
 
+    public boolean isSkipProduzenje() {
+        return skipProduzenje;
+    }
+
+    public void setSkipProduzenje(boolean skipProduzenje) {
+        this.skipProduzenje = skipProduzenje;
+    }
 }
 
 

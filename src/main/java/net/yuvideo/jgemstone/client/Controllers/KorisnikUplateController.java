@@ -426,8 +426,8 @@ public class KorisnikUplateController implements Initializable {
         jObj.put("userID", user.getId());
         jObj.put("id", uplata.getId());
 	    jObj.put("id_ServiceUser", uplata.getId_ServiceUser());
-        jObj.put("skipProduzenje", uplata.isSkipProduzenje());
         jObj.put("paketType", uplata.getPaketType());
+        jObj.put("skipProduzenje", uplata.isSkipProduzenje());
         Double numbUplacenoNov = null;
         Double numbZauplatu = uplata.getDug();
         Double numbUplaceno = uplata.getUplaceno();

@@ -36,6 +36,15 @@ public class ServicesUser implements Serializable {
     String STB_MAC;
     String IPTV_EXT_ID;
     private String nazivIPTV;
+    private String endDate;
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
 
     public String getIPTV_EXT_ID() {
         return IPTV_EXT_ID;
