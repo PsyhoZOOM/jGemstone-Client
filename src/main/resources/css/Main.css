@@ -58,3 +58,8 @@
 .scroll-bar > .decrement-button:pressed > .decrement-arrow {
     -fx-background-color: -fx-mark-highlight-color, rgb(255, 255, 255);
 }
+
+
+.table-row-cell:selected {
+    -fx-text-background-color: black;
+}

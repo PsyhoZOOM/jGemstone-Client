@@ -28,6 +28,16 @@ public class Users implements Serializable {
     String jAdresa;
     String jAdresaBroj;
     String jbroj;
+    double dug;
+
+
+    public double getDug() {
+        return dug;
+    }
+
+    public void setDug(double dug) {
+        this.dug = dug;
+    }
 
     public String getJbroj() {
         return jbroj;

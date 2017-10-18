@@ -29,7 +29,6 @@ public class Uplate implements Serializable {
     private boolean skipProduzenje;
 
 
-
     public String getNapomena() {
         return napomena;
     }

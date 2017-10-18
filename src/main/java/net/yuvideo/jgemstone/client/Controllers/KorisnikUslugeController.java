@@ -105,6 +105,7 @@ public class KorisnikUslugeController implements Initializable {
     public TextField tDTVPrekoracenje;
     public TextField tInternetPrekoracenje;
     public TextField tIPTVPrekoracenje;
+    public PasswordField tPasswordIPTVCheck;
     Calendar firstDateInMonth = Calendar.getInstance();
     private ResourceBundle resources;
     private URL location;
@@ -1064,6 +1065,11 @@ public class KorisnikUslugeController implements Initializable {
     }
 
     public void addServiceIPTV(ActionEvent actionEvent) {
+        if (!tPasswordIPTV.getText().equals(tPasswordIPTVCheck.getText())) {
+            AlertUser.error("GRESKA", "Passwordi nisu identični");
+            return;
+        }
+
         JSONObject jObj = new JSONObject();
         jObj.put("action", "save_IPTV_USER");
         jObj.put("id", cmbIPTVPaket.getValue().getId());

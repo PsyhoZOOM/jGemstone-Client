@@ -62,6 +62,8 @@ public class KorisnikUplateController implements Initializable {
     public TextField tCenaCustom;
     public TextField tRate;
     public CheckBox chkSveUplate;
+    public TableColumn cZaduzenOd;
+    public TableColumn cUplatio;
     DecimalFormat df = new DecimalFormat("#,##0.00");
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     DateTimeFormatter formatterBack = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -89,6 +91,9 @@ public class KorisnikUplateController implements Initializable {
         cZaUplatu.setCellValueFactory(new PropertyValueFactory<Uplate, Double>("dug"));
         cZaMesec.setCellValueFactory(new PropertyValueFactory<Uplate, String>("zaMesec"));
         cUplaceno.setCellValueFactory(new PropertyValueFactory<Uplate, Double>("uplaceno"));
+        cZaduzenOd.setCellValueFactory(new PropertyValueFactory<Uplate, String>("zaduzenOd"));
+        cUplatio.setCellValueFactory(new PropertyValueFactory<Uplate, String>("operater"));
+
         cUplaceno.setCellFactory(tc -> new TableCell<Uplate, Double>() {
             protected void updateItem(Double uplaceno, boolean bool) {
                 super.updateItem(uplaceno, bool);

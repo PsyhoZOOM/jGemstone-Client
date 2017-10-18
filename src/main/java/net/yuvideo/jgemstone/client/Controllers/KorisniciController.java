@@ -44,6 +44,8 @@ public class KorisniciController implements Initializable {
     public MenuItem cmIzbrisi;
     public Button bUserSearch;
     public Client client;
+    public TableColumn cDug;
+    public MenuItem cmUplate;
     @FXML
     Button bNovKorisnik;
     FXMLLoader resoruceFXML;
@@ -74,6 +76,7 @@ public class KorisniciController implements Initializable {
         cAddress.setCellValueFactory(new PropertyValueFactory<Users, String>("adresa"));
         cPlace.setCellValueFactory(new PropertyValueFactory<Users, String>("mesto"));
         cAdressUsluge.setCellValueFactory(new PropertyValueFactory<Users, String>("adresa_usluge"));
+        cDug.setCellValueFactory(new PropertyValueFactory<Users, Double>("dug"));
         tUsers.setRowFactory(tv -> {
             TableRow<Users> row = new TableRow<Users>();
             row.setOnMouseClicked(event -> {
@@ -84,6 +87,7 @@ public class KorisniciController implements Initializable {
             });
             return row;
         });
+
 
     }
 
@@ -123,6 +127,7 @@ public class KorisniciController implements Initializable {
             user.setKomentar(jUser.getString("komentar"));
             user.setPostanski_broj(jUser.getString("postBr"));
             user.setJbroj(jUser.getString("jBroj"));
+            user.setDug(jUser.getDouble("dug"));
             if(!jUser.getString("jBroj").isEmpty())
             user.setBr(Integer.valueOf(jUser.getString("jBroj")));
             users.add(user);
@@ -291,5 +296,9 @@ public class KorisniciController implements Initializable {
         faktureController.userData = user;
         faktureController.resource = resources;
         faktureInterface.getStage().showAndWait();
+    }
+
+    public void mUplate(ActionEvent event) {
+        showUplate(null);
     }
 }
