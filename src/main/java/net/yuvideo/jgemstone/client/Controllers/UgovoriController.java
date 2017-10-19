@@ -1,6 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import net.yuvideo.jgemstone.client.Controllers.UgovoriEditController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,15 +9,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.HTMLEditor;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.NewInterface;
+import net.yuvideo.jgemstone.client.classes.NotifyUser;
+import net.yuvideo.jgemstone.client.classes.ugovori_types;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.NewInterface;
-import net.yuvideo.jgemstone.client.classes.NotifyUser;
-import net.yuvideo.jgemstone.client.classes.ugovori_types;
 
 /**
  * Created by zoom on 11/7/16.
@@ -117,7 +116,7 @@ public class UgovoriController implements Initializable {
         }
 
 
-        NewInterface ugovoriEditInterface = new NewInterface("src/main/resources/UgovoriEdit.fxml", EditorType, resources);
+        NewInterface ugovoriEditInterface = new NewInterface("fxml/UgovoriEdit.fxml", EditorType, resources);
         UgovoriEditController ugovoriEditController = ugovoriEditInterface.getLoader().getController();
         ugovoriEditController.client = this.client;
         ugovoriEditController.Ugovor = tblUgovori.getSelectionModel().getSelectedItem();
