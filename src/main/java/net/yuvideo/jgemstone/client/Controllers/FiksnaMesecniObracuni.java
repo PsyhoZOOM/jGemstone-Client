@@ -1,7 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import net.yuvideo.jgemstone.client.classes.AlertUser;
-import net.yuvideo.jgemstone.client.classes.Client;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -9,11 +7,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.util.StringConverter;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
+import net.yuvideo.jgemstone.client.classes.Client;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ResourceBundle;
 
 /**
@@ -58,6 +59,8 @@ public class FiksnaMesecniObracuni implements Initializable {
                 check_if_obracun_postoji(dtpObracunZaMesec.getValue().format(dtf));
             }
         });
+
+        dtpObracunZaMesec.setValue(LocalDate.now().minusMonths(1).with(TemporalAdjusters.firstDayOfMonth()));
 
 
     }
