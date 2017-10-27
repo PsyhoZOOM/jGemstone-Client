@@ -1,7 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import net.yuvideo.jgemstone.client.classes.CSVData;
-import net.yuvideo.jgemstone.client.classes.Client;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,13 +8,14 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import net.yuvideo.jgemstone.client.classes.CSVData;
+import net.yuvideo.jgemstone.client.classes.Client;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.SimpleFormatter;
 
 /**
  * Created by zoom on 7/26/17.
@@ -37,11 +36,10 @@ public class CSVPreview implements Initializable {
     public TableColumn cServiceUnit;
     public TableColumn cCustomerID;
     public TableColumn cFileName;
+    public Client client;
     private URL location;
     private ResourceBundle resources;
     private JSONObject jObj;
-    public Client client;
-
     private DecimalFormat df = new DecimalFormat("#,##0.00");
 
     @Override
@@ -65,20 +63,20 @@ public class CSVPreview implements Initializable {
         cCustomerID.setCellValueFactory(new PropertyValueFactory<CSVData, String>("customerID"));
         cFileName.setCellValueFactory(new PropertyValueFactory<CSVData, String>("fileName"));
 
-        cNaplacenoRSD.setCellFactory(tc -> new TableCell<CSVData, Double>(){
+        cNaplacenoRSD.setCellFactory(tc -> new TableCell<CSVData, Double>() {
             @Override
             protected void updateItem(Double item, boolean empty) {
                 super.updateItem(item, empty);
-                if(empty){
+                if (empty) {
                     setText(null);
-                }else{
+                } else {
                     setText(df.format(item));
                 }
             }
         });
     }
 
-    public  void setData(){
+    public void setData() {
         jObj = new JSONObject();
         jObj.put("action", "get_CSV_Data");
 
@@ -88,7 +86,7 @@ public class CSVPreview implements Initializable {
         CSVData csvData;
 
         //for(int i =0; i <= jObj.length();i++){
-        for( String key : jObj.keySet()){
+        for (String key : jObj.keySet()) {
             JSONObject csvDataJSON = (JSONObject) jObj.get(key);
             csvData = new CSVData();
             csvData.setId(csvDataJSON.getInt("id"));
@@ -112,7 +110,6 @@ public class CSVPreview implements Initializable {
 
         ObservableList data = FXCollections.observableArrayList(csvDataArrayList);
         tblCSV.setItems(data);
-
 
 
     }

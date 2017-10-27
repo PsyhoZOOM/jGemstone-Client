@@ -1,8 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.NotifyUser;
-import net.yuvideo.jgemstone.client.classes.Paketi;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -12,6 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.NotifyUser;
+import net.yuvideo.jgemstone.client.classes.Paketi;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -86,7 +86,6 @@ public class FiksnaTelefonijaPaket implements Initializable {
                 };
             }
         });
-
 
 
         tblPaketi.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Paketi>() {

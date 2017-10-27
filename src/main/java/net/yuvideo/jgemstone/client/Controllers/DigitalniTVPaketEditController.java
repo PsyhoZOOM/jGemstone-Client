@@ -1,14 +1,14 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import net.yuvideo.jgemstone.client.classes.AlertUser;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.digitalniTVPaket;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.digitalniTVPaket;
 import org.json.JSONObject;
 
 import java.net.URL;

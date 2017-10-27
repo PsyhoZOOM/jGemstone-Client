@@ -5,13 +5,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.Services;
+import net.yuvideo.jgemstone.client.classes.messageS;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.Services;
-import net.yuvideo.jgemstone.client.classes.messageS;
 
 /**
  * Created by zoom on 9/2/16.

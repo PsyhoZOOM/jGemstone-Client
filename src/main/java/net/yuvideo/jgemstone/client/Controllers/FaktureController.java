@@ -1,9 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.Fakture;
-import net.yuvideo.jgemstone.client.classes.NewInterface;
-import net.yuvideo.jgemstone.client.classes.Users;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXToolbar;
@@ -19,6 +15,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.Fakture;
+import net.yuvideo.jgemstone.client.classes.NewInterface;
+import net.yuvideo.jgemstone.client.classes.Users;
 import org.controlsfx.control.Notifications;
 import org.json.JSONObject;
 

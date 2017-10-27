@@ -1,8 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.IPTVPaketi;
-import net.yuvideo.jgemstone.client.classes.NewInterface;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -13,6 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.IPTVPaketi;
+import net.yuvideo.jgemstone.client.classes.NewInterface;
 import org.json.JSONObject;
 
 import java.net.URL;

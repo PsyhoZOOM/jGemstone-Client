@@ -50,7 +50,7 @@ public class ClientMain extends Application {
         //locale = new Locale(locale_sr)
         //System.setProperty("javafx.userAgentStylesheetUrl", STYLESHEET_CASPIAN);
 
-	    System.out.println(ResourceBundle.getBundle("lang", new Locale("sr", "RS")).toString());
+        System.out.println(ResourceBundle.getBundle("lang", new Locale("sr", "RS")).toString());
         bundle = ResourceBundle.getBundle("lang", new Locale("sr", "RS"), new EncodingControl("utf-8"));
 
         Font.loadFont(getClass().getResourceAsStream("font.roboto/Roboto-Black.ttf"), 9);
@@ -70,7 +70,7 @@ public class ClientMain extends Application {
         });
 
 
-            show_login_screen();
+        show_login_screen();
     }
 
     private void show_login_screen() {

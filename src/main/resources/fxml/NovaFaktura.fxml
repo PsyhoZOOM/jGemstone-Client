@@ -4,43 +4,40 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-
-<AnchorPane  stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
-	<children>
-      <VBox spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-				<ToolBar VBox.vgrow="ALWAYS">
-					<items>
-						<JFXButton fx:id="bClose" text="Zatvori">
-							<graphic>
-								<FontAwesomeIconView glyphName="TIMES_CIRCLE" />
-							</graphic>
-						</JFXButton>
-						<Pane stylesheets="@../css/Main.css" HBox.hgrow="ALWAYS" />
-						<JFXButton fx:id="bAddFaktura" onAction="#snimiFakturu" text="Dodaj">
-							<graphic>
-								<FontAwesomeIconView glyphName="SAVE" />
-							</graphic>
-						</JFXButton>
-					</items>
-				</ToolBar>
-      				<HBox alignment="CENTER" spacing="5.0" VBox.vgrow="ALWAYS">
-      					<children>
-      						<JFXTextField fx:id="NazivMesec" labelFloat="true" promptText="Naziv i mesec" />
-      						<JFXTextField fx:id="jedMere" labelFloat="true" promptText="Jed.Mere" />
-      						<JFXTextField fx:id="kolicina" labelFloat="true" promptText="Količina" />
-      						<JFXTextField fx:id="jedinacnaCena" labelFloat="true" promptText="Jedinačna cena" />
-      						<JFXTextField fx:id="stopaPDV" labelFloat="true" promptText="Stopa PDV" />
-      					</children>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-      				</HBox>
-         </children>
-      </VBox>
-	</children>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65">
+    <children>
+        <VBox spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <ToolBar VBox.vgrow="ALWAYS">
+                    <items>
+                        <JFXButton fx:id="bClose" text="Zatvori">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="TIMES_CIRCLE"/>
+                            </graphic>
+                        </JFXButton>
+                        <Pane stylesheets="@../css/Main.css" HBox.hgrow="ALWAYS"/>
+                        <JFXButton fx:id="bAddFaktura" text="Dodaj">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="SAVE"/>
+                            </graphic>
+                        </JFXButton>
+                    </items>
+                </ToolBar>
+                <HBox alignment="CENTER" spacing="5.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <JFXTextField fx:id="NazivMesec" labelFloat="true" promptText="Naziv i mesec"/>
+                        <JFXTextField fx:id="jedMere" labelFloat="true" promptText="Jed.Mere"/>
+                        <JFXTextField fx:id="kolicina" labelFloat="true" promptText="Količina"/>
+                        <JFXTextField fx:id="jedinacnaCena" labelFloat="true" promptText="Jedinačna cena"/>
+                        <JFXTextField fx:id="stopaPDV" labelFloat="true" promptText="Stopa PDV"/>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

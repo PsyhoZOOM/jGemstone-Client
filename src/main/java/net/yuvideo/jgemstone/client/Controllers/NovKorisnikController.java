@@ -71,26 +71,26 @@ public class NovKorisnikController implements Initializable {
         });
 
 
-    	bReadCardReader.setOnAction(new EventHandler<ActionEvent>() {
-		@Override
-		public void handle(ActionEvent event) {
-            Image img1 = new Image(ClassLoader.getSystemResource("images/YuVideoLogo.png").toString());
-            imgUserPhoto.setImage(img1);
-			SmartCardReader sr = new SmartCardReader();
-			sr.rn();
-			Users user =   sr.getUserData();
-			tFullName.setText(CyrToLatin.CirilicaToLatinica(user.getIme()));
-            tJMBG.setText(user.getJMBG());
-			tBrLk.setText(user.getBr_lk());
-			tDatumRodjenja.setValue(LocalDate.parse(user.getDatum_rodjenja(), DateTimeFormatter.ofPattern("dd.MM.yyyy")));
-			cmbMesto.getEditor().setText(user.getMesto());
-			cmbAdresa.getEditor().setText(user.getAdresa());
-			Image img = SwingFXUtils.toFXImage(sr.toBufferedImage(), null);
-            imgUserPhoto.setImage(img);
+        bReadCardReader.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Image img1 = new Image(ClassLoader.getSystemResource("images/YuVideoLogo.png").toString());
+                imgUserPhoto.setImage(img1);
+                SmartCardReader sr = new SmartCardReader();
+                sr.rn();
+                Users user = sr.getUserData();
+                tFullName.setText(CyrToLatin.CirilicaToLatinica(user.getIme()));
+                tJMBG.setText(user.getJMBG());
+                tBrLk.setText(user.getBr_lk());
+                tDatumRodjenja.setValue(LocalDate.parse(user.getDatum_rodjenja(), DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+                cmbMesto.getEditor().setText(user.getMesto());
+                cmbAdresa.getEditor().setText(user.getAdresa());
+                Image img = SwingFXUtils.toFXImage(sr.toBufferedImage(), null);
+                imgUserPhoto.setImage(img);
 
 
-		}
-	});
+            }
+        });
 
     }
 

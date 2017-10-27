@@ -8,13 +8,13 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.Groups;
+import net.yuvideo.jgemstone.client.classes.messageS;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.Groups;
-import net.yuvideo.jgemstone.client.classes.messageS;
 
 /**
  * Created by zoom on 9/1/16.

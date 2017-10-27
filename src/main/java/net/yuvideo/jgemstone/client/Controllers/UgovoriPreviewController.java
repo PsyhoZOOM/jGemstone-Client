@@ -1,4 +1,4 @@
-package JGemstone.interfaces;
+package net.yuvideo.jgemstone.client.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;

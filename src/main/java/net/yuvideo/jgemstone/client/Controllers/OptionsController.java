@@ -20,6 +20,7 @@ import java.util.ResourceBundle;
  */
 public class OptionsController implements Initializable {
     public CheckBox cSavePass;
+    public Stage stage;
     @FXML
     private TextField tHostnameIp;
     @FXML
@@ -32,9 +33,7 @@ public class OptionsController implements Initializable {
     private Button bCancel;
     @FXML
     private Button bSnimi;
-
     private db_connection db_conn;
-    public Stage stage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

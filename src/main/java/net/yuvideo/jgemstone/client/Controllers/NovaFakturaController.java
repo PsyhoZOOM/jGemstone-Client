@@ -7,12 +7,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.Users;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.Users;
 
 /**
  * Created by zoom on 11/28/16.

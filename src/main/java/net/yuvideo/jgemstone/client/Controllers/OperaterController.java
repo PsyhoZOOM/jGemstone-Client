@@ -1,4 +1,3 @@
-
 package net.yuvideo.jgemstone.client.Controllers;
 
 import javafx.beans.value.ChangeListener;
@@ -10,16 +9,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.*;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.NewInterface;
-import net.yuvideo.jgemstone.client.classes.NotifyUser;
-import net.yuvideo.jgemstone.client.classes.Operaters;
-import net.yuvideo.jgemstone.client.classes.md5_digiest;
 
 /**
  * Created by zoom on 1/30/17.

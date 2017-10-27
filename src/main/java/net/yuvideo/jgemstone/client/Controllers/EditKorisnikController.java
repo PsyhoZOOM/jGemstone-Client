@@ -1,12 +1,12 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.Users;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.Users;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -30,6 +30,7 @@ public class EditKorisnikController implements Initializable {
     public AnchorPane anchorKorisnikOprema;
     public Tab tabKorisnikUsluge;
     public Client client;
+    public Users userEdit;
     Logger LOGGER = Logger.getLogger("EDIT_USERS");
     JSONObject jObj;
     KorisnikPodaciController KorisnikPodaciController;
@@ -38,7 +39,6 @@ public class EditKorisnikController implements Initializable {
     KorisnikFirmaController korisnikFirmaController;
     private ResourceBundle resource;
     private URL location;
-    public Users userEdit;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

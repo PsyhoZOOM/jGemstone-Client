@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
+import net.yuvideo.jgemstone.client.classes.*;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -15,13 +16,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import net.yuvideo.jgemstone.client.classes.Adrese;
-import net.yuvideo.jgemstone.client.classes.AlertUser;
-
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.Mesta;
-import net.yuvideo.jgemstone.client.classes.NotifyUser;
-import net.yuvideo.jgemstone.client.classes.Users;
 
 
 /**

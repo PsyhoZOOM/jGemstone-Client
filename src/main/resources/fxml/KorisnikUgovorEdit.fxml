@@ -6,7 +6,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.HTMLEditor?>
 <AnchorPane xmlns:fx="http://javafx.com/1" prefHeight="534.0" prefWidth="801.0"
-            xmlns="http://javafx.com/javafx/8.0.65" fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUgovorEditController">
+            xmlns="http://javafx.com/javafx/8.0.65"
+            fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUgovorEditController">
     <children>
         <GridPane hgap="5.0" layoutX="200.0" layoutY="181.0" vgap="5.0" AnchorPane.bottomAnchor="0.0"
                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

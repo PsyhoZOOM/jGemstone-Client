@@ -128,8 +128,8 @@ public class KorisniciController implements Initializable {
             user.setPostanski_broj(jUser.getString("postBr"));
             user.setJbroj(jUser.getString("jBroj"));
             user.setDug(jUser.getDouble("dug"));
-            if(!jUser.getString("jBroj").isEmpty())
-            user.setBr(Integer.valueOf(jUser.getString("jBroj")));
+            if (!jUser.getString("jBroj").isEmpty())
+                user.setBr(Integer.valueOf(jUser.getString("jBroj")));
             users.add(user);
         }
 
@@ -143,9 +143,9 @@ public class KorisniciController implements Initializable {
         jsonObject.put("idMesta", Integer.valueOf(jAdresa));
 
         jsonObject = client.send_object(jsonObject);
-        if(jsonObject.has("nazivAdrese")){
+        if (jsonObject.has("nazivAdrese")) {
             return jsonObject.get("nazivAdrese").toString();
-        }else{
+        } else {
             return "";
         }
 

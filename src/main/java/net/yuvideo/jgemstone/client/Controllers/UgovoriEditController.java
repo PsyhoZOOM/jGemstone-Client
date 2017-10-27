@@ -8,13 +8,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.ugovori_types;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.ugovori_types;
 
 
 /**

@@ -4,13 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.print.*;
 import javafx.scene.web.WebView;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.Users;
+import net.yuvideo.jgemstone.client.classes.ugovori_types;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.Users;
-import net.yuvideo.jgemstone.client.classes.ugovori_types;
 
 /**
  * Created by zoom on 4/4/17.

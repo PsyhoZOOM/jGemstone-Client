@@ -1,6 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import net.yuvideo.jgemstone.client.classes.Adrese;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ChangeListener;
@@ -14,6 +13,10 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
+import net.yuvideo.jgemstone.client.classes.Adrese;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.Mesta;
 import org.controlsfx.control.Notifications;
 import org.json.JSONObject;
 
@@ -21,9 +24,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import net.yuvideo.jgemstone.client.classes.AlertUser;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.Mesta;
 
 /**
  * Created by zoom on 1/10/17.

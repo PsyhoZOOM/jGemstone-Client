@@ -28,9 +28,9 @@ public class LoginWinController implements Initializable {
     public Label lMessage;
     public JFXButton bLogin;
     public Client client;
+    public Stage stage;
     ResourceBundle resource;
     URL location;
-    public Stage stage;
     FXMLLoader fxmlLoader;
     Parent rootMainWindow;
 

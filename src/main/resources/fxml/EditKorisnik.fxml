@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.EditKorisnikController">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/Main.css"
+            xmlns="http://javafx.com/javafx/8.0.65"
+            fx:controller="net.yuvideo.jgemstone.client.Controllers.EditKorisnikController">
     <children>
-        <TabPane id="tabpane" fx:id="tabKorisnikEdit" layoutX="112.0" layoutY="107.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <TabPane id="tabpane" fx:id="tabKorisnikEdit" layoutX="112.0" layoutY="107.0" AnchorPane.bottomAnchor="0.0"
+                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <tabs>
                 <Tab fx:id="tabKorisnickiPodaci" closable="false" text="Korisnički podaci">
                     <content>
-                        <AnchorPane fx:id="anchroKorsinikPodaci" />
+                        <AnchorPane fx:id="anchroKorsinikPodaci"/>
                     </content>
                 </Tab>
                 <Tab fx:id="tabKorisnikUgovori" closable="false" text="Ugovori">
                     <content>
-                        <AnchorPane fx:id="anchorKorisnikUgovori" />
+                        <AnchorPane fx:id="anchorKorisnikUgovori"/>
                     </content>
                 </Tab>
                 <Tab fx:id="tabKorisnikUsluge" closable="false" onSelectionChanged="#refreshUgovori" text="Servisi">
                     <content>
                         <AnchorPane fx:id="anchorKorisnikUsluge">
                             <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                             </padding>
                         </AnchorPane>
                     </content>

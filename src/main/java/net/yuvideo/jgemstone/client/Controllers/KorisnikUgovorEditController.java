@@ -1,14 +1,14 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import net.yuvideo.jgemstone.client.classes.AlertUser;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.ugovori_types;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.ugovori_types;
 import org.json.JSONObject;
 
 import java.net.URL;

@@ -54,6 +54,7 @@ public class UplateMain implements Initializable {
     private ResourceBundle resources;
     private JSONObject jObj;
     private Users userEDIT;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.location = location;
@@ -97,13 +98,13 @@ public class UplateMain implements Initializable {
         });
 
         cmbUserSearch.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if(event.getCode() == KeyCode.ENTER){
+            if (event.getCode() == KeyCode.ENTER) {
                 String id = cmbUserSearch.getEditor().getText();
-                for (Users user : cmbUserSearch.getItems()){
+                for (Users user : cmbUserSearch.getItems()) {
                     if (id.equals(user.getJbroj() + ", " + user.getIme())) {
                         cmbUserSearch.getSelectionModel().select(user);
                         cmbUserSearch.getEditor().commitValue();
-                        userEDIT=user;
+                        userEDIT = user;
                         showUplateKorisnika(user);
                         lStatus.setText("STATUS " + user.getIme() + ", " + user.getJbroj());
                     }
@@ -112,12 +113,10 @@ public class UplateMain implements Initializable {
         });
 
         cmbUserSearch.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if(cmbUserSearch.getEditor().isFocused()  || cmbUserSearch.isFocused() && cmbUserSearch.getEditor().getText().isEmpty()){
+            if (cmbUserSearch.getEditor().isFocused() || cmbUserSearch.isFocused() && cmbUserSearch.getEditor().getText().isEmpty()) {
                 cmbUserSearch.getEditor().selectAll();
             }
         });
-
-
 
 
     }

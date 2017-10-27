@@ -13,14 +13,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.Oprema;
 import org.controlsfx.control.Notifications;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.Oprema;
 
 
 /**

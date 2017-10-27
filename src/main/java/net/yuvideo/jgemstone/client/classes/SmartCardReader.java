@@ -20,88 +20,86 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author zoom
  */
 public class SmartCardReader {
 
-	private Users user;
-	public Image userImage;
-	List<CardTerminal> terminals = null;
+    public Image userImage;
+    List<CardTerminal> terminals = null;
+    private Users user;
 
-	private CardTerminal pickTerminal(List<CardTerminal> terminals) {
-		if (terminals.size() > 1) {
-			System.out.println("Dostupne kartice");
-			int c = 1;
-			for (CardTerminal terminal : terminals) {
-				System.out.format("$d) %s\n", c++, terminal);
-			}
+    private CardTerminal pickTerminal(List<CardTerminal> terminals) {
+        if (terminals.size() > 1) {
+            System.out.println("Dostupne kartice");
+            int c = 1;
+            for (CardTerminal terminal : terminals) {
+                System.out.format("$d) %s\n", c++, terminal);
+            }
 
-			Scanner in = new Scanner(System.in);
-			while (true) {
-				System.out.println("Select number:");
-				System.out.flush();
+            Scanner in = new Scanner(System.in);
+            while (true) {
+                System.out.println("Select number:");
+                System.out.flush();
 
-				c = in.nextInt();
-				if (c > 0 && c <= terminals.size()) {
-					in.close();
-					return terminals.get(c - 1);
-				}
-			}
-		} else {
-			return terminals.get(0);
-		}
-	}
+                c = in.nextInt();
+                if (c > 0 && c <= terminals.size()) {
+                    in.close();
+                    return terminals.get(c - 1);
+                }
+            }
+        } else {
+            return terminals.get(0);
+        }
+    }
 
-	public void rn() {
-		System.setProperty("sun.security.smartcardio.library", "libpcsclite.so.1");
-		try {
+    public void rn() {
+        System.setProperty("sun.security.smartcardio.library", "libpcsclite.so.1");
+        try {
 
-			TerminalFactory factory = TerminalFactory.getDefault();
-			terminals = factory.terminals().list();
+            TerminalFactory factory = TerminalFactory.getDefault();
+            terminals = factory.terminals().list();
 
-			System.out.println("Using reader		: " + terminals);
+            System.out.println("Using reader		: " + terminals);
 
-			CardTerminal terminal = terminals.get(0);
-			Card card  = terminal.connect("*");
-			EidCard eidCard = EidCard.fromCard(card);
-			EidInfo eidInfo = eidCard.readEidInfo();
+            CardTerminal terminal = terminals.get(0);
+            Card card = terminal.connect("*");
+            EidCard eidCard = EidCard.fromCard(card);
+            EidInfo eidInfo = eidCard.readEidInfo();
 
-			user = new Users();
-			user.setIme(eidInfo.getNameFull());
-			user.setJMBG(eidInfo.getPersonalNumber());
-			user.setDatum_rodjenja(eidInfo.getDateOfBirth());
-			user.setMesto(eidInfo.getPlace());
-			user.setAdresa(eidInfo.getStreet() + " " + eidInfo.getHouseNumber());
-			user.setBr_lk(eidInfo.getDocRegNo());
-			this.userImage = eidCard.readEidPhoto();
+            user = new Users();
+            user.setIme(eidInfo.getNameFull());
+            user.setJMBG(eidInfo.getPersonalNumber());
+            user.setDatum_rodjenja(eidInfo.getDateOfBirth());
+            user.setMesto(eidInfo.getPlace());
+            user.setAdresa(eidInfo.getStreet() + " " + eidInfo.getHouseNumber());
+            user.setBr_lk(eidInfo.getDocRegNo());
+            this.userImage = eidCard.readEidPhoto();
 
-		} catch (CardException ex) {
-			Logger.getLogger(SmartCardReader.class.getName()).log(Level.SEVERE, null, ex);
-		}
+        } catch (CardException ex) {
+            Logger.getLogger(SmartCardReader.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-	}
-
-
-
-	public BufferedImage toBufferedImage() {
-	    int w = this.userImage.getWidth(null);
-	    int h = this.userImage.getHeight(null);
-	    int type = BufferedImage.TYPE_INT_RGB; // other options
-	    BufferedImage dest = new BufferedImage(w, h, type);
-	    Graphics2D g2 = dest.createGraphics();
-	    g2.drawImage(this.userImage, 0, 0, null);
-	    g2.dispose();
-	    return dest;
-	}
+    }
 
 
-	public Users getUserData() {
-		return this.user;
-	}
+    public BufferedImage toBufferedImage() {
+        int w = this.userImage.getWidth(null);
+        int h = this.userImage.getHeight(null);
+        int type = BufferedImage.TYPE_INT_RGB; // other options
+        BufferedImage dest = new BufferedImage(w, h, type);
+        Graphics2D g2 = dest.createGraphics();
+        g2.drawImage(this.userImage, 0, 0, null);
+        g2.dispose();
+        return dest;
+    }
 
-	public Image getUserImage() {
-		return this.userImage;
-	}
+
+    public Users getUserData() {
+        return this.user;
+    }
+
+    public Image getUserImage() {
+        return this.userImage;
+    }
 
 }

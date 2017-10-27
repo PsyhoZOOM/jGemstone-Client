@@ -1,9 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.InternetPaketi;
-import net.yuvideo.jgemstone.client.classes.NewInterface;
-import net.yuvideo.jgemstone.client.classes.NotifyUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +10,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.InternetPaketi;
+import net.yuvideo.jgemstone.client.classes.NewInterface;
+import net.yuvideo.jgemstone.client.classes.NotifyUser;
 import org.json.JSONObject;
 
 import java.net.URL;

@@ -3,13 +3,13 @@ package net.yuvideo.jgemstone.client.Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.OperatersDozvole;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.OperatersDozvole;
 
 /**
  * Created by zoom on 1/31/17.

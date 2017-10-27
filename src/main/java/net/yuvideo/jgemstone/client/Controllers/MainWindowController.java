@@ -48,9 +48,8 @@ public class MainWindowController implements Initializable {
 
 
     ResourceBundle resource;
-    private FXMLLoader fxmloader;
     Thread threadCheckAlive;
-
+    private FXMLLoader fxmloader;
     private Timer checkPingTimer = new Timer(true);
 
 

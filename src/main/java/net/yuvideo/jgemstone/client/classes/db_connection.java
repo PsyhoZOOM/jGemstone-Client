@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.classes;
 
 
-
 import java.sql.*;
 import java.util.logging.Logger;
 

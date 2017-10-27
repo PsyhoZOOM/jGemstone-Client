@@ -430,7 +430,7 @@ public class KorisnikUplateController implements Initializable {
         jObj.put("action", "uplata_servisa");
         jObj.put("userID", user.getId());
         jObj.put("id", uplata.getId());
-	    jObj.put("id_ServiceUser", uplata.getId_ServiceUser());
+        jObj.put("id_ServiceUser", uplata.getId_ServiceUser());
         jObj.put("paketType", uplata.getPaketType());
         jObj.put("skipProduzenje", uplata.isSkipProduzenje());
         Double numbUplacenoNov = null;
@@ -505,7 +505,6 @@ public class KorisnikUplateController implements Initializable {
 
         show_data();
     }
-
 
 
     public ArrayList<ServicesUser> get_user_services() {

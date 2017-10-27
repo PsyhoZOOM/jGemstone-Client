@@ -94,8 +94,6 @@ public class BoxPaketController implements Initializable {
         });
 
 
-
-
     }
 
     public void set_data() {

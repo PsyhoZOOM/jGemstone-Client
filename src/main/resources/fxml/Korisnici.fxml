@@ -3,59 +3,63 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisniciController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
+            fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisniciController">
     <children>
-        <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
             <children>
                 <HBox accessibleRole="TOOL_BAR" alignment="CENTER" spacing="5.0" VBox.vgrow="NEVER">
                     <children>
-                        <Button fx:id="bNovKorisnik" alignment="BOTTOM_CENTER" onAction="#newUser" text="Nov" />
-                        <Button fx:id="bIzmeni" onAction="#bEditUser" text="Izmeni" />
-                        <Button fx:id="bUplate" mnemonicParsing="false" onAction="#showUplate" text="Uplate" />
-                        <Button fx:id="bFakture" mnemonicParsing="false" onAction="#showFakture" text="Fakture" />
-                        <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="tUserSearch" promptText="Ime, Korisnik, Broj" HBox.hgrow="SOMETIMES" />
+                        <Button fx:id="bNovKorisnik" alignment="BOTTOM_CENTER" onAction="#newUser" text="Nov"/>
+                        <Button fx:id="bIzmeni" onAction="#bEditUser" text="Izmeni"/>
+                        <Button fx:id="bUplate" mnemonicParsing="false" onAction="#showUplate" text="Uplate"/>
+                        <Button fx:id="bFakture" mnemonicParsing="false" onAction="#showFakture" text="Fakture"/>
+                        <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS"/>
+                        <TextField fx:id="tUserSearch" promptText="Ime, Korisnik, Broj" HBox.hgrow="SOMETIMES"/>
                         <Button fx:id="bUserSearch" onAction="#bUserSearchAction" text="Traži">
                         </Button>
                     </children>
                     <VBox.margin>
-                        <Insets />
+                        <Insets/>
                     </VBox.margin>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
                 </HBox>
                 <TableView fx:id="tUsers" VBox.vgrow="ALWAYS">
                     <columns>
-                        <TableColumn fx:id="cJBroj" text="User ID" />
-                        <TableColumn fx:id="cFullName" text="Ime i Prezime" />
-                        <TableColumn fx:id="cAddress" prefWidth="200.0" text="Adresa" />
-                        <TableColumn fx:id="cAdressUsluge" text="Adresa Usluge" />
-                        <TableColumn fx:id="cPlace" text="Mesto" />
+                        <TableColumn fx:id="cJBroj" text="User ID"/>
+                        <TableColumn fx:id="cFullName" text="Ime i Prezime"/>
+                        <TableColumn fx:id="cAddress" prefWidth="200.0" text="Adresa"/>
+                        <TableColumn fx:id="cAdressUsluge" text="Adresa Usluge"/>
+                        <TableColumn fx:id="cPlace" text="Mesto"/>
                         <TableColumn fx:id="cDug" prefWidth="75.0" text="Dug"/>
                     </columns>
                     <ContextMenu>
                         <items>
-                            <MenuItem mnemonicParsing="false" onAction="#mIzmenKorisnika" text="Izmeni" />
-                            <MenuItem mnemonicParsing="false" onAction="#mIzbrisiKorisnika" text="Izbriši" />
+                            <MenuItem mnemonicParsing="false" onAction="#mIzmenKorisnika" text="Izmeni"/>
+                            <MenuItem mnemonicParsing="false" onAction="#mIzbrisiKorisnika" text="Izbriši"/>
                         </items>
                     </ContextMenu>
                     <contextMenu>
                         <ContextMenu>
                             <items>
                                 <MenuItem fx:id="cmUplate" mnemonicParsing="false" onAction="#mUplate" text="Uplate"/>
-                                <MenuItem fx:id="cmIzmeni" mnemonicParsing="false" onAction="#mIzmenKorisnika" text="Izmeni">
+                                <MenuItem fx:id="cmIzmeni" mnemonicParsing="false" onAction="#mIzmenKorisnika"
+                                          text="Izmeni">
                                 </MenuItem>
-                                <MenuItem fx:id="cmIzbrisi" mnemonicParsing="false" onAction="#mIzbrisiKorisnika" text="Obrisi">
+                                <MenuItem fx:id="cmIzbrisi" mnemonicParsing="false" onAction="#mIzbrisiKorisnika"
+                                          text="Obrisi">
                                 </MenuItem>
                             </items>
                         </ContextMenu>
                     </contextMenu>
                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                     </columnResizePolicy>
                     <VBox.margin>
-                        <Insets />
+                        <Insets/>
                     </VBox.margin>
                 </TableView>
             </children>

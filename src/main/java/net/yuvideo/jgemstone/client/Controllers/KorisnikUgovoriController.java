@@ -1,9 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import net.yuvideo.jgemstone.client.classes.AlertUser;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.NewInterface;
-import net.yuvideo.jgemstone.client.classes.ugovori_types;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +7,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.NewInterface;
+import net.yuvideo.jgemstone.client.classes.ugovori_types;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -160,7 +160,7 @@ public class KorisnikUgovoriController implements Initializable {
         jObj.put("action", "check_brUgovora_busy");
         jObj.put("brojUgovora", tBrUgovora.getText());
         jObj = client.send_object(jObj);
-        if(jObj.has("ERROR")){
+        if (jObj.has("ERROR")) {
             AlertUser.error("GRESKA", jObj.getString("ERROR"));
             return;
         }

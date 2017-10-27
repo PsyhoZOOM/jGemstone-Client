@@ -211,6 +211,6 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return this.jbroj +  ", " + this.ime;
+        return this.jbroj + ", " + this.ime;
     }
 }
