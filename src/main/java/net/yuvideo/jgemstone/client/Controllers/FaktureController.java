@@ -1,12 +1,8 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXToolbar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -33,9 +29,9 @@ import java.util.logging.Logger;
  * Created by zoom on 11/22/16.
  */
 public class FaktureController implements Initializable {
-    public JFXComboBox cmbBrFakture;
-    public JFXComboBox cmbGodina;
-    public JFXButton bPrikaziFakture;
+    public ComboBox cmbBrFakture;
+    public ComboBox cmbGodina;
+    public Button bPrikaziFakture;
     public TableView tblFakture;
     public TableColumn cId;
     public TableColumn colBr;
@@ -47,9 +43,7 @@ public class FaktureController implements Initializable {
     public TableColumn cOsnovicaZaPdv;
     public TableColumn cStopaPDV;
     public TableColumn cVrednostSaPDV;
-    public JFXButton bDodajFakturu;
-    public JFXButton bClose;
-    public JFXToolbar jfxToolbar;
+    public Button bDodajFakturu;
     public MenuItem miDeleteFakture;
     public TableColumn cIznosPDV;
     public Label lOsnovicaZaPDV;
@@ -82,13 +76,6 @@ public class FaktureController implements Initializable {
         makeHeaderWrappable(cStopaPDV);
         makeHeaderWrappable(cVrednostSaPDV);
 
-        bClose.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                stage = (Stage) bClose.getScene().getWindow();
-                stage.close();
-            }
-        });
 
         set_table();
 
