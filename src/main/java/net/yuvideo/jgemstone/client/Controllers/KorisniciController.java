@@ -293,11 +293,10 @@ public class KorisniciController implements Initializable {
         }
         Users user = tUsers.getSelectionModel().getSelectedItem();
 
-        NewInterface faktureInterface = new NewInterface("fxml/Fakture.fxml", "Fakture", resources);
-        FaktureController faktureController = faktureInterface.getLoader().getController();
-        faktureController.client = client;
-        faktureController.userData = user;
-        faktureController.resource = resources;
+        NewInterface faktureInterface = new NewInterface("fxml/FakturePrikaz.fxml", "Fakture", resources);
+        FakturePrikazController fakturePrikazController = faktureInterface.getLoader().getController();
+        fakturePrikazController.client = client;
+        fakturePrikazController.user = user;
         faktureInterface.getStage().showAndWait();
     }
 
