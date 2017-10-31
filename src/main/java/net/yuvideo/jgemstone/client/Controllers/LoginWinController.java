@@ -56,12 +56,14 @@ public class LoginWinController implements Initializable {
                 rootMainWindow = fxmlLoader.load();
                 MainWindowController mainCtrl = fxmlLoader.getController();
                 mainCtrl.client = client;
-                Scene scene;
-                scene = new Scene(rootMainWindow);
+                Scene scene = bLogin.getScene();
+                //scene = new Scene(rootMainWindow);
+                scene.setRoot(rootMainWindow);
                 stage.setScene(scene);
                 stage.setResizable(true);
                 stage.setTitle("YUVIDEO");
                 stage.setMaximized(true);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
