@@ -29,7 +29,15 @@ public class Users implements Serializable {
     String jAdresaBroj;
     String jbroj;
     double dug;
+    boolean firma;
 
+    public boolean isFirma() {
+        return firma;
+    }
+
+    public void setFirma(boolean firma) {
+        this.firma = firma;
+    }
 
     public double getDug() {
         return dug;

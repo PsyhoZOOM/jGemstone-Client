@@ -118,6 +118,8 @@ public class EditKorisnikController implements Initializable {
         korisnikFirmaController = fxmlLoader.getController();
         korisnikFirmaController.client = this.client;
         korisnikFirmaController.userID = userID;
+        korisnikFirmaController.user = userEdit;
+        if (userEdit.isFirma()) korisnikFirmaController.setData();
     }
 
 

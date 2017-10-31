@@ -127,9 +127,11 @@ public class KorisniciController implements Initializable {
             user.setKomentar(jUser.getString("komentar"));
             user.setPostanski_broj(jUser.getString("postBr"));
             user.setJbroj(jUser.getString("jBroj"));
+            user.setFirma(jUser.getBoolean("firma"));
             user.setDug(jUser.getDouble("dug"));
             if (!jUser.getString("jBroj").isEmpty())
                 user.setBr(Integer.valueOf(jUser.getString("jBroj")));
+
             users.add(user);
         }
 
