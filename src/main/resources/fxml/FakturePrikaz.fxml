@@ -27,7 +27,7 @@
                <children>
                   <DatePicker />
                   <Button mnemonicParsing="false" text="Nova" />
-                  <Button fx:id="bPrikaziFakturu" mnemonicParsing="false" text="Prikaži" />
+                   <Button fx:id="bPrikaziFakturu" mnemonicParsing="false" text="Prikaži" onAction="#prikaziFakturu"/>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

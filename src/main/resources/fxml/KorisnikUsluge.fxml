@@ -280,8 +280,8 @@
                                 <ComboBox fx:id="cmbFixPaket" prefWidth="150.0" GridPane.columnIndex="1"/>
                                 <TextField fx:id="tFixPopust" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                                 <TextField fx:id="tFixBrojTel" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                <CheckBox fx:id="chkFixStampaObracun" mnemonicParsing="false" GridPane.columnIndex="1"
-                                          GridPane.rowIndex="3"/>
+                                <CheckBox fx:id="chkFixStampaObracun" mnemonicParsing="false" selected="true"
+                                          GridPane.columnIndex="1" GridPane.rowIndex="3"/>
                                 <ComboBox fx:id="cmbFixBrojUgovora" prefWidth="150.0" GridPane.columnIndex="1"
                                           GridPane.rowIndex="4"/>
                                 <TextArea fx:id="tFixOpis" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
@@ -338,7 +338,7 @@
                                                   GridPane.rowIndex="6"/>
                                         <TextField fx:id="tIPTVPrekoracenje" text="2" GridPane.columnIndex="1"
                                                    GridPane.rowIndex="7"/>
-                                        <CheckBox fx:id="cmbObracunIPTV" mnemonicParsing="false"
+                                        <CheckBox fx:id="cmbObracunIPTV" mnemonicParsing="false" selected="true"
                                                   text="Obračun i štampa računa" GridPane.columnIndex="1"
                                                   GridPane.rowIndex="8"/>
                                         <Button fx:id="bSnimiIPTVUsluguIPTV" mnemonicParsing="false"

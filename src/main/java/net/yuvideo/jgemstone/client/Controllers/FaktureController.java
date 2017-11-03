@@ -1,7 +1,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -10,18 +10,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.Fakture;
-import net.yuvideo.jgemstone.client.classes.NewInterface;
 import net.yuvideo.jgemstone.client.classes.Users;
-import org.controlsfx.control.Notifications;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
@@ -29,8 +25,6 @@ import java.util.logging.Logger;
  * Created by zoom on 11/22/16.
  */
 public class FaktureController implements Initializable {
-    public ComboBox cmbBrFakture;
-    public ComboBox cmbGodina;
     public Button bPrikaziFakture;
     public TableView tblFakture;
     public TableColumn cId;
@@ -54,6 +48,12 @@ public class FaktureController implements Initializable {
     public Client client;
     public Users userData;
     public ResourceBundle resource;
+    public Label lBrFakture;
+    public TextField tNaizv;
+    public ComboBox cmbJedMere;
+    public Spinner spnKLolicina;
+    public Spinner spnCena;
+    public Spinner spnPDV;
     DecimalFormat decFormat = new DecimalFormat("#,###.00");
     Stage stage;
     private URL location;
@@ -77,6 +77,46 @@ public class FaktureController implements Initializable {
         makeHeaderWrappable(cVrednostSaPDV);
 
 
+        spnCena.getEditor().textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                try {
+                    spnCena.getEditor().setText(String.valueOf(Double.parseDouble(newValue)));
+                } catch (NumberFormatException ne) {
+                    spnCena.getEditor().setText(oldValue);
+                }
+            }
+        });
+
+
+        spnPDV.getEditor().textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                try {
+                    spnPDV.getEditor().setText(String.valueOf(Double.parseDouble(newValue)));
+                } catch (NumberFormatException ne) {
+                    spnPDV.getEditor().setText(oldValue);
+                }
+            }
+        });
+
+        spnKLolicina.getEditor().textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                try {
+                    spnKLolicina.getEditor().setText(String.valueOf(Double.parseDouble(newValue)));
+                } catch (NumberFormatException ne) {
+                    spnKLolicina.getEditor().setText(oldValue);
+                }
+            }
+        });
+
+        SpinnerValueFactory.DoubleSpinnerValueFactory doubleSpinValueFactoryCena = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, Double.MAX_VALUE, 0);
+        SpinnerValueFactory.DoubleSpinnerValueFactory doubleSpinValueFactoryKol = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, Double.MAX_VALUE, 0);
+        SpinnerValueFactory.DoubleSpinnerValueFactory doubleSpinValueFactoryPDV = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, Double.MAX_VALUE, 0);
+        spnCena.setValueFactory(doubleSpinValueFactoryCena);
+        spnKLolicina.setValueFactory(doubleSpinValueFactoryKol);
+        spnPDV.setValueFactory(doubleSpinValueFactoryPDV);
         set_table();
 
     }
@@ -175,9 +215,6 @@ public class FaktureController implements Initializable {
         Fakture fakture;
         jObj = new JSONObject();
         jObj.put("action", "get_fakture");
-        jObj.put("userId", userData.getId());
-        jObj.put("brFakture", cmbBrFakture.getValue());
-        jObj.put("godina", cmbGodina.getValue());
         jObj = client.send_object(jObj);
 
 
@@ -208,69 +245,7 @@ public class FaktureController implements Initializable {
     }
 
 
-    public void prikaziFakture(ActionEvent actionEvent) {
-        ObservableList<Fakture> fakture = FXCollections.observableArrayList(get_fakture());
-        tblFakture.setItems(fakture);
-        set_table();
-        set_cmbBoxes();
-        calculate_fakture();
 
-    }
-
-    private void set_cmbBoxes() {
-        jObj = new JSONObject();
-        jObj.put("action", "get_fakture");
-        jObj.put("userId", userData.getId());
-        jObj = client.send_object(jObj);
-
-        JSONObject jfakture;
-
-        ArrayList<Fakture> faktureArray = new ArrayList<>();
-        cmbBrFakture.getItems().removeAll();
-        cmbGodina.getItems().removeAll();
-
-        for (int i = 0; i < jObj.length(); i++) {
-            jfakture = (JSONObject) jObj.get(String.valueOf(i));
-            if (!cmbBrFakture.getItems().contains(jfakture.getInt("brFakture"))) {
-                cmbBrFakture.getItems().add(jfakture.getInt("brFakture"));
-            }
-            if (!cmbGodina.getItems().contains(jfakture.getString("godina"))) {
-                cmbGodina.getItems().add(jfakture.getString("godina"));
-            }
-        }
-        cmbBrFakture.getItems().sorted(Comparator.naturalOrder());
-        cmbGodina.getItems().sorted(Comparator.naturalOrder());
-    }
-
-    private void calculate_fakture() {
-        int table_size = tblFakture.getItems().size();
-        double osnovica_za_pdv = 0;
-        double pdv = 0;
-        double vrednost_sa_pdv = 0;
-        double ukupno_osnovica_za_pdv;
-        double iznos_pdv = 0;
-        double ukupno_vrednost_sa_pdv;
-        double OsnovicaZaPdvSaPdvZbir = 0;
-
-        Fakture fak;
-
-        for (int i = 0; i < table_size; i++) {
-            fak = (Fakture) tblFakture.getItems().get(i);
-            osnovica_za_pdv += fak.getOsnovicaZaPDV();
-            pdv = fak.getStopaPDV();
-            iznos_pdv += fak.getIznosPDV();
-            vrednost_sa_pdv += fak.getVrednostSaPDV();
-
-        }
-
-
-        lOsnovicaZaPDV.setText(decFormat.format(osnovica_za_pdv));
-        lPDV.setText(decFormat.format(pdv));
-        lIznosPDVZbir.setText(decFormat.format(iznos_pdv));
-        lvrednostSaPDVZbir.setText(decFormat.format(vrednost_sa_pdv));
-
-
-    }
 
     private void makeHeaderWrappable(TableColumn col) {
         Label label = new Label(col.getText());
@@ -286,49 +261,13 @@ public class FaktureController implements Initializable {
         col.setGraphic(stack);
     }
 
-    public void dodajFakturu(ActionEvent actionEvent) {
 
-        if (cmbBrFakture.getEditor().getText().isEmpty() || cmbGodina.getEditor().getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Nedostaje broj fakture ili godina");
-            alert.setTitle("Upozornje");
-            alert.setHeaderText("Greška");
-            alert.initOwner(stage);
-            alert.showAndWait();
-            return;
-        } else {
-        }
-        resourceFXML = "fxml/NovaFaktura.fxml";
-        NewInterface novaFakturaInterface = new NewInterface(resourceFXML, "Nova Faktura", resource);
-        NovaFakturaController novaFakturaController = novaFakturaInterface.getLoader().getController();
-        novaFakturaController.client = this.client;
-        novaFakturaController.brFakture = cmbBrFakture.getEditor().getText();
-        novaFakturaController.user = userData;
-        novaFakturaController.godina = cmbGodina.getEditor().getText();
-        novaFakturaInterface.getStage().showAndWait();
-        prikaziFakture(null);
-
-
+    public void dodajFakturu(ActionEvent event) {
     }
 
-
-    public void deleteFakturu(ActionEvent actionEvent) {
-        if (tblFakture.getSelectionModel().getSelectedIndex() == -1) {
-            Notifications.create()
-                    .position(Pos.BOTTOM_RIGHT)
-                    .text("Nije izabrana faktura za brisanje")
-                    .hideAfter(Duration.seconds(6))
-                    .title("Upozorenje")
-                    .showWarning();
-            return;
-        }
-        selectedFacture = (Fakture) tblFakture.getSelectionModel().getSelectedItem();
-        jObj = new JSONObject();
-        jObj.put("action", "delete_fakturu");
-        jObj.put("idFactura", selectedFacture.getId());
-        jObj = client.send_object(jObj);
-        LOGGER.info(jObj.getString("Message"));
-        prikaziFakture(null);
+    public void deleteFakturu(ActionEvent event) {
     }
 
-
+    public void prikaziFakture(ActionEvent event) {
+    }
 }

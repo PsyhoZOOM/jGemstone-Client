@@ -6,31 +6,50 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikFirmaController">
    <children>
-      <VBox layoutX="5.0" layoutY="5.0" minWidth="200.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-             <CheckBox fx:id="chkIsFirma" mnemonicParsing="false" text="Firma"/>
-              <Label text="Naziv Firme:" />
-      
-                          <TextField fx:id="tNazivFime" />
-              <Label text="Kontak osoba:" />
-              <TextField fx:id="tKontaktOsoba" />
-              <Label text="Kod banke:" />
-              <TextField fx:id="tKodBanke" />
-              <Label text="PIB:" />
-              <TextField fx:id="tPIB" />
-              <Label text="Matični Broj:" />
-              <TextField fx:id="tMaticniBroj" />
-              <Label text="Tekuci Racun:" />
-              <TextField fx:id="tTekuciRacun" />
+       <VBox layoutX="5.0" layoutY="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+           <children>
+               <HBox>
+                   <children>
+                       <VBox minWidth="200.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                           <children>
+                               <CheckBox fx:id="chkIsFirma" mnemonicParsing="false" text="Firma"/>
+                               <Label text="Naziv Firme:"/>
+
+                               <TextField fx:id="tNazivFime"/>
+                               <Label text="Kontak osoba:"/>
+                               <TextField fx:id="tKontaktOsoba"/>
+                               <Label text="Kod banke:"/>
+                               <TextField fx:id="tKodBanke"/>
+                               <Label text="PIB:"/>
+                               <TextField fx:id="tPIB"/>
+                               <Label text="Matični Broj:"/>
+                               <TextField fx:id="tMaticniBroj"/>
+                               <Label text="Tekuci Racun:"/>
+                               <TextField fx:id="tTekuciRacun"/>
+                           </children>
+                           <padding>
+                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                           </padding>
+                       </VBox>
+                       <Separator orientation="VERTICAL" prefHeight="200.0"/>
+                       <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                           <children>
+                               <Label text="fax"/>
+                               <TextField/>
+                           </children>
+                           <padding>
+                               <Insets bottom="5.0" left="5.0" right="5.0" top="25.0"/>
+                           </padding>
+                       </VBox>
+                   </children>
+               </HBox>
               <HBox alignment="CENTER_RIGHT">
                <children>
                    <Button fx:id="bSnimiFirma" mnemonicParsing="false" onAction="#bSnimiFirmu" text="Snimi"/>
                </children>
               </HBox>
          </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
       </VBox>
    </children>
    <padding>
