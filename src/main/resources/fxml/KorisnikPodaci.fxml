@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -35,7 +34,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER"/>
             </rowConstraints>
             <children>
-                <Label text="KORISNIČKI PODACI" underline="true" GridPane.columnSpan="2147483647"
+                <Label text="KORISNIČKI PODACI - KONTAKT OSOBA" underline="true" GridPane.columnSpan="2147483647"
                        GridPane.halignment="LEFT">
                     <font>
                         <Font name="System Bold" size="13.0"/>

@@ -17,8 +17,6 @@
                                <Label text="Naziv Firme:"/>
 
                                <TextField fx:id="tNazivFime"/>
-                               <Label text="Kontak osoba:"/>
-                               <TextField fx:id="tKontaktOsoba"/>
                                <Label text="Kod banke:"/>
                                <TextField fx:id="tKodBanke"/>
                                <Label text="PIB:"/>
@@ -35,7 +33,9 @@
                        <Separator orientation="VERTICAL" prefHeight="200.0"/>
                        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                            <children>
-                               <Label text="fax"/>
+                               <Label text="FAX:"/>
+                               <TextField/>
+                               <Label text="Adresa firme:"/>
                                <TextField/>
                            </children>
                            <padding>
