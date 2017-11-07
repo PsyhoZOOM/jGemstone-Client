@@ -13,6 +13,7 @@ public class ServicesUser implements Serializable {
     String brUgovora;
     String operater;
     Double cena;
+    Double pdv;
     Double popust;
     boolean aktivan;
     boolean obracun;
@@ -37,6 +38,15 @@ public class ServicesUser implements Serializable {
     String IPTV_EXT_ID;
     private String nazivIPTV;
     private String endDate;
+
+
+    public Double getPdv() {
+        return pdv;
+    }
+
+    public void setPdv(Double pdv) {
+        this.pdv = pdv;
+    }
 
     public String getEndDate() {
         return endDate;

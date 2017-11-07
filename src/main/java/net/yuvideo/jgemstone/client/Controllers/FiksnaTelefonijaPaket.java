@@ -28,17 +28,22 @@ public class FiksnaTelefonijaPaket implements Initializable {
     public TableColumn cPretplata;
     public TableColumn cPDV;
     public TextField tNaziv;
-    public TextField tPretplata;
-    public TextField tPDV;
     public Button bDelete;
     public Button bNov;
     public Button bSnimi;
     public Button bOsvezi;
-    public TextField tBesplatniMinutiFiksna;
     public Client client;
+    public Spinner spnPretplata;
+    public Spinner spnPDV;
+    public Spinner spnBesplatniMinuti;
     private ResourceBundle resources;
     private URL location;
     private JSONObject jObj;
+
+    private SpinnerValueFactory.DoubleSpinnerValueFactory dblSpnFacCena = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 0.00);
+    private SpinnerValueFactory.DoubleSpinnerValueFactory dblSpnFacPDV = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 0.00);
+    private SpinnerValueFactory.DoubleSpinnerValueFactory dblSpnFacPBesplMinuti = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 0.00);
+
 
     private DecimalFormat df = new DecimalFormat("###,###,##0.##");
 
@@ -96,11 +101,17 @@ public class FiksnaTelefonijaPaket implements Initializable {
 
                 Paketi paketData = tblPaketi.getSelectionModel().getSelectedItem();
                 tNaziv.setText(paketData.getNaziv());
-                tPDV.setText(String.valueOf(paketData.getPDV()));
-                tPretplata.setText(String.valueOf(paketData.getPretplata()));
-                tBesplatniMinutiFiksna.setText(String.valueOf(paketData.getBesplatiniMinutiFiksna()));
+                spnPDV.getEditor().setText(String.valueOf(paketData.getPDV()));
+                spnPretplata.getEditor().setText(String.valueOf(paketData.getPretplata()));
+                spnPretplata.getEditor().setText(String.valueOf(paketData.getBesplatiniMinutiFiksna()));
             }
         });
+
+
+        spnPDV.setValueFactory(dblSpnFacPDV);
+        spnPretplata.setValueFactory(dblSpnFacCena);
+        spnBesplatniMinuti.setValueFactory(dblSpnFacPBesplMinuti);
+
     }
 
     public void deleteData(ActionEvent actionEvent) {
@@ -125,9 +136,9 @@ public class FiksnaTelefonijaPaket implements Initializable {
         jObj = new JSONObject();
         jObj.put("action", "add_fixTel_paket");
         jObj.put("naziv", tNaziv.getText());
-        jObj.put("pretplata", Double.valueOf(tPretplata.getText()));
-        jObj.put("PDV", Double.valueOf(tPDV.getText()));
-        jObj.put("besplatniMinutiFiksna", Integer.valueOf(tBesplatniMinutiFiksna.getText()));
+        jObj.put("pretplata", Double.valueOf(spnPretplata.getEditor().getText()));
+        jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
+        jObj.put("besplatniMinutiFiksna", Integer.valueOf(spnBesplatniMinuti.getEditor().getText()));
         client.send_object(jObj);
         if (jObj.has("Error")) {
             NotifyUser.NotifyUser("Greska", jObj.getString("Error"), 3);
@@ -143,9 +154,9 @@ public class FiksnaTelefonijaPaket implements Initializable {
         jObj.put("action", "edit_fixTel_paket");
 
         jObj.put("naziv", tNaziv.getText());
-        jObj.put("PDV", Double.valueOf(tPDV.getText()));
-        jObj.put("pretplata", Double.valueOf(tPretplata.getText()));
-        jObj.put("besplatniMinutiFiksna", Integer.valueOf(tBesplatniMinutiFiksna.getText()));
+        jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
+        jObj.put("pretplata", Double.valueOf(spnPretplata.getEditor().getText()));
+        jObj.put("besplatniMinutiFiksna", Integer.valueOf(spnBesplatniMinuti.getEditor().getText()));
         jObj.put("id", tblPaketi.getSelectionModel().getSelectedItem().getId());
 
         jObj = client.send_object(jObj);
@@ -182,7 +193,7 @@ public class FiksnaTelefonijaPaket implements Initializable {
             paketi.setNaziv(paketiObj.getString("naziv"));
             paketi.setPretplata(paketiObj.getDouble("pretplata"));
             paketi.setBesplatiniMinutiFiksna(paketiObj.getInt("besplatniMinutiFiksna"));
-            paketi.setPDV(paketiObj.getDouble("PDV"));
+            paketi.setPDV(paketiObj.getDouble("pdv"));
             paketis.add(paketi);
         }
 

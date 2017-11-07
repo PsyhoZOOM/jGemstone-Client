@@ -6,10 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
@@ -26,7 +23,6 @@ import java.util.ResourceBundle;
  */
 public class IPTVPaketiEditController implements Initializable {
     public TextField tNaziv;
-    public TextField tCena;
     public Button bSnimi;
     public TextArea tOpis;
     public ComboBox<IPTVPaketi> cmbIPTVPakets;
@@ -34,9 +30,14 @@ public class IPTVPaketiEditController implements Initializable {
     public IPTVPaketi paket;
     public int paketEditID;
     public boolean edit;
+    public Spinner spnCena;
+    public Spinner spnPDV;
     Stage stage;
     private URL location;
     private ResourceBundle resources;
+
+    SpinnerValueFactory.DoubleSpinnerValueFactory doubleSpinnerValueFactoryCena = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 0.00);
+    SpinnerValueFactory.DoubleSpinnerValueFactory doubleSpinnerValueFactoryPDV = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 0.00);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -66,6 +67,9 @@ public class IPTVPaketiEditController implements Initializable {
                 System.out.println(newValue.getIptv_id());
             }
         });
+
+        spnPDV.setValueFactory(doubleSpinnerValueFactoryPDV);
+        spnCena.setValueFactory(doubleSpinnerValueFactoryCena);
     }
 
     public void setData() {
@@ -83,6 +87,7 @@ public class IPTVPaketiEditController implements Initializable {
             pakets.setName(iptvPaketiObj.getString("name"));
             pakets.setExternal_id(iptvPaketiObj.getString("external_id"));
             pakets.setIptv_id(iptvPaketiObj.getInt("id"));
+            pakets.setPdv(iptvPaketiObj.getDouble("pdv"));
             if (edit)
                 iptvPaketiArrayList.add(paket);
             iptvPaketiArrayList.add(pakets);
@@ -92,7 +97,8 @@ public class IPTVPaketiEditController implements Initializable {
         cmbIPTVPakets.setItems(items);
         if (edit) {
             cmbIPTVPakets.setValue(paket);
-            tCena.setText(String.valueOf(paket.getCena()));
+            spnCena.getEditor().setText(String.valueOf(paket.getCena()));
+            spnPDV.getEditor().setText(String.valueOf(paket.getPdv()));
             tNaziv.setText(paket.getName());
         }
     }
@@ -100,7 +106,8 @@ public class IPTVPaketiEditController implements Initializable {
     public void setItemsEdit() {
         setData();
         this.tNaziv.setText(paket.getName());
-        this.tCena.setText(String.valueOf(paket.getCena()));
+        this.spnCena.getEditor().setText(String.valueOf(paket.getCena()));
+        spnPDV.getEditor().setText(String.valueOf(paket.getPdv()));
         for (IPTVPaketi pak : cmbIPTVPakets.getItems()) {
             if (pak.getExternal_id() == paket.getExternal_id()) {
                 cmbIPTVPakets.setValue(pak);
@@ -130,8 +137,9 @@ public class IPTVPaketiEditController implements Initializable {
         jsonObject.put("external_id", cmbIPTVPakets.getValue().getExternal_id());
         jsonObject.put("iptv_id", cmbIPTVPakets.getValue().getIptv_id());
         jsonObject.put("name", cmbIPTVPakets.getValue().getName());
-        jsonObject.put("cena", tCena.getText());
+        jsonObject.put("cena", spnCena.getEditor().getText());
         jsonObject.put("opis", tOpis.getText());
+        jsonObject.put("pdv", spnPDV.getEditor().getText());
 
         jsonObject = client.send_object(jsonObject);
 
@@ -150,12 +158,13 @@ public class IPTVPaketiEditController implements Initializable {
         jsonObject.put("external_id", cmbIPTVPakets.getValue().getExternal_id());
         jsonObject.put("iptv_id", cmbIPTVPakets.getValue().getIptv_id());
         try {
-            jsonObject.put("cena", Double.valueOf(tCena.getText()));
+            jsonObject.put("cena", Double.valueOf(spnCena.getEditor().getText()));
         } catch (NumberFormatException e) {
             AlertUser.error("GRESKA", "Pogresan unos cene");
         }
         jsonObject.put("nazivPaketa", cmbIPTVPakets.getValue().getName());
         jsonObject.put("opis", tOpis.getText());
+        jsonObject.put("pdv", spnPDV.getEditor().getText());
 
         jsonObject = client.send_object(jsonObject);
         if (jsonObject.has("Error")) {

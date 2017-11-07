@@ -7,43 +7,39 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.DigitalniTVPaketEditController">
     <children>
-        <GridPane hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <columnConstraints>
-                <ColumnConstraints halignment="RIGHT"/>
-                <ColumnConstraints fillWidth="false" hgrow="ALWAYS"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints vgrow="NEVER"/>
-                <RowConstraints vgrow="NEVER"/>
-                <RowConstraints vgrow="NEVER"/>
-                <RowConstraints vgrow="NEVER"/>
-                <RowConstraints vgrow="NEVER"/>
-                <RowConstraints vgrow="NEVER"/>
-                <RowConstraints vgrow="NEVER"/>
-            </rowConstraints>
+        <VBox fillWidth="false" layoutX="5.0" layoutY="5.0" spacing="5.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Label text="DIGITALNA TV PAKET" underline="true" GridPane.columnSpan="2147483647"
-                       GridPane.halignment="LEFT">
+                <Label text="DIGITALNA TV PAKET" underline="true">
                     <font>
                         <Font name="System Bold" size="13.0"/>
                     </font>
                 </Label>
-                <Label text="Naziv:" GridPane.rowIndex="1"/>
-                <Label text="Paket ID:" GridPane.rowIndex="2"/>
-                <Label text="Cena:" GridPane.rowIndex="3"/>
-                <Label text="Prekoračenje:" GridPane.rowIndex="4"/>
-                <Label text="Opis:" GridPane.rowIndex="5"/>
-                <TextField fx:id="tNaziv" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                <TextField fx:id="tPaketID" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                <TextField fx:id="tCena" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                <TextArea fx:id="tOpis" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5"/>
-                <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#snimi" text="Snimi" GridPane.columnIndex="1"
-                        GridPane.halignment="RIGHT" GridPane.rowIndex="6"/>
+                <Label text="Naziv:"/>
+                <TextField fx:id="tNaziv"/>
+                <Label text="Paket ID:"/>
+                <TextField fx:id="tPaketID"/>
+                <Label text="Cena:"/>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Spinner fx:id="spnCena"/>
+                        <Label text="din."/>
+                    </children>
+                </HBox>
+                <Label text="PDV:"/>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Spinner fx:id="spnPDV"/>
+                        <Label text="\%"/>
+                    </children>
+                </HBox>
+                <Label text="Opis:"/>
+                <TextArea fx:id="tOpis"/>
+                <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#snimi" text="Snimi"/>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </padding>
-        </GridPane>
+        </VBox>
     </children>
 </AnchorPane>

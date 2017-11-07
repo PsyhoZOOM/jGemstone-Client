@@ -6,31 +6,28 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.FiksnaTelefonijaPaket">
     <children>
-        <GridPane alignment="CENTER" hgap="5.0" layoutX="80.0" layoutY="110.0" vgap="5.0" AnchorPane.bottomAnchor="0.0"
-                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
-                <ColumnConstraints fillWidth="false" hgrow="ALWAYS"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                <RowConstraints vgrow="ALWAYS"/>
-            </rowConstraints>
+        <VBox layoutX="5.0" layoutY="-75.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Label text="Naziv:"/>
-                <Label text="Pretplata:" GridPane.rowIndex="1"/>
-                <Label text="PDV:" GridPane.rowIndex="2"/>
-                <Label text="Besplatni minuti fiksna:" GridPane.rowIndex="3"/>
-                <TextField fx:id="tNaziv" GridPane.columnIndex="1"/>
-                <TextField fx:id="tPretplata" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                <TextField fx:id="tPDV" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                <TextField fx:id="tBesplatniMinutiFiksna" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0"
-                      GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
+                <TextField fx:id="tNaziv" maxWidth="200.0" minWidth="200.0"/>
+                <Label text="Pretplata:"/>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Spinner fx:id="spnPretplata"/>
+                        <Label text="din."/>
+                    </children>
+                </HBox>
+                <Label text="PDV:"/>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Spinner fx:id="spnPDV"/>
+                        <Label text="\%"/>
+                    </children>
+                </HBox>
+                <Label text="Besplatni minuti fiksna:"/>
+                <Spinner fx:id="spnBesplatniMinuti"/>
+                <HBox alignment="CENTER_RIGHT" spacing="5.0">
                     <children>
                         <Button fx:id="bDelete" mnemonicParsing="false" onAction="#deleteData" text="Izbriši"/>
                         <Button fx:id="bNov" mnemonicParsing="false" onAction="#snimiNov" text="Snimi nov"/>
@@ -38,8 +35,7 @@
                         <Button fx:id="bOsvezi" mnemonicParsing="false" onAction="#osveziTable" text="Osveži"/>
                     </children>
                 </HBox>
-                <TableView fx:id="tblPaketi" minWidth="600.0" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS"
-                           GridPane.rowIndex="5">
+                <TableView fx:id="tblPaketi" minWidth="600.0" VBox.vgrow="ALWAYS">
                     <columns>
                         <TableColumn fx:id="cNaziv" prefWidth="75.0" text="Naziv"/>
                         <TableColumn fx:id="cPretplata" prefWidth="75.0" text="Pretplata"/>
@@ -48,14 +44,11 @@
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                     </columnResizePolicy>
-                    <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </GridPane.margin>
                 </TableView>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </padding>
-        </GridPane>
+        </VBox>
     </children>
 </AnchorPane>

@@ -1,5 +1,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +13,8 @@ import net.yuvideo.jgemstone.client.classes.*;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -23,7 +27,6 @@ public class BoxPaketController implements Initializable {
     public ComboBox<InternetPaketi> cmbInternetNaziv;
     public ComboBox<IPTVPaketi> cmbNazivIPTV;
     public ComboBox<FiksnaPaketi> cmbNazivFiksnaTel;
-    public TextField tCenaBox;
     public Button bSnimiBox;
     public TableView<BoxPaket> tblBox;
     public TableColumn cNaziv;
@@ -33,9 +36,13 @@ public class BoxPaketController implements Initializable {
     public TableColumn cFiksna;
 
     public Client client;
+    public Spinner spnCena;
+    public Spinner spnPDV;
     private URL location;
     private ResourceBundle resource;
     private JSONObject jObj;
+
+    DecimalFormat df = new DecimalFormat("#.##");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -94,6 +101,25 @@ public class BoxPaketController implements Initializable {
         });
 
 
+        SpinnerValueFactory.DoubleSpinnerValueFactory spinnerValueFactoryCena = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 1.00);
+        SpinnerValueFactory.DoubleSpinnerValueFactory spinnerValueFactoryPDV = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 1.00);
+        spnPDV.setValueFactory(spinnerValueFactoryCena);
+        spnCena.setValueFactory(spinnerValueFactoryPDV);
+
+        spnPDV.getEditor().textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                try {
+                    double pdv = (double) df.parse(newValue);
+                    spnPDV.getEditor().setText(String.valueOf(pdv));
+                } catch (ParseException e) {
+                    spnPDV.getEditor().setText(oldValue);
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
     }
 
     public void set_data() {
@@ -132,6 +158,7 @@ public class BoxPaketController implements Initializable {
             digitalniTVPaket.setId(digitalniObj.getInt("id"));
             digitalniTVPaket.setNaziv(digitalniObj.getString("naziv"));
             digitalniTVPaket.setCena(digitalniObj.getDouble("cena"));
+            digitalniTVPaket.setPdv(digitalniObj.getDouble("pdv"));
             digitalniTVPaket.setPaketID(digitalniObj.getInt("id"));
             digitalniTVPaket.setOpis(digitalniObj.getString("opis"));
             digitalniTVPaketArrayList.add(digitalniTVPaket);
@@ -158,6 +185,9 @@ public class BoxPaketController implements Initializable {
             internetPaketi.setNaziv(internetObj.getString("naziv"));
             internetPaketi.setBrzina(internetObj.getString("brzina"));
             internetPaketi.setIdleTimeout(internetObj.getString("idleTimeout"));
+            internetPaketi.setCena(internetObj.getDouble("cena"));
+            internetPaketi.setPdv(internetObj.getDouble("pdv"));
+            internetPaketi.setOpis(internetObj.getString("opis"));
             internetPaketisArray.add(internetPaketi);
         }
 
@@ -197,6 +227,7 @@ public class BoxPaketController implements Initializable {
                 paketBox.setFIKSNA_naziv(paketObj.getString("FIX_naziv"));
             }
             paketBox.setCena(paketObj.getDouble("cena"));
+            paketBox.setPdv(paketObj.getDouble("pdv"));
             paketBoxesArr.add(paketBox);
         }
         return paketBoxesArr;
@@ -220,6 +251,7 @@ public class BoxPaketController implements Initializable {
             iptvPaketi.setExternal_id(iptvJsonObject.getString("external_id"));
             iptvPaketi.setCena(iptvJsonObject.getDouble("cena"));
             iptvPaketi.setDescription(iptvJsonObject.getString("opis"));
+            iptvPaketi.setPdv(iptvJsonObject.getDouble("pdv"));
             iptvPaketiArrayList.add(iptvPaketi);
         }
 
@@ -242,7 +274,7 @@ public class BoxPaketController implements Initializable {
             fiksnaPaketi.setId(fiksnaObj.getInt("id"));
             fiksnaPaketi.setNaziv(fiksnaObj.getString("naziv"));
             fiksnaPaketi.setPretplata(fiksnaObj.getDouble("pretplata"));
-            fiksnaPaketi.setPdv(fiksnaObj.getDouble("PDV"));
+            fiksnaPaketi.setPdv(fiksnaObj.getDouble("pdv"));
             fiksnaPaketiArrayList.add(fiksnaPaketi);
         }
 
@@ -253,7 +285,7 @@ public class BoxPaketController implements Initializable {
 
 
     public void saveBox(ActionEvent actionEvent) {
-        if (tNazivPaketa.getText().isEmpty() || tCenaBox.getText().isEmpty()) {
+        if (tNazivPaketa.getText().isEmpty() || spnCena.getEditor().getText().isEmpty()) {
             AlertUser.warrning("GRESKA", "Naziv Box Paketa ili Cena ne mogu biti prazna");
             return;
         }
@@ -283,7 +315,8 @@ public class BoxPaketController implements Initializable {
             jObj.put("FIX_id", cmbNazivFiksnaTel.getValue().getId());
             jObj.put("FIX_naziv", cmbNazivFiksnaTel.getValue().getNaziv());
         }
-        jObj.put("cena", tCenaBox.getText());
+        jObj.put("cena", spnCena.getEditor().getText());
+        jObj.put("pdv", spnPDV.getEditor().getText());
 
 
         jObj = client.send_object(jObj);
@@ -294,7 +327,8 @@ public class BoxPaketController implements Initializable {
 
         set_data();
         tNazivPaketa.clear();
-        tCenaBox.clear();
+        spnCena.getEditor().setText("0.00");
+        spnPDV.getEditor().setText("20.0");
 
     }
 }

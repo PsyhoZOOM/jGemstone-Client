@@ -695,6 +695,7 @@ public class KorisnikUslugeController implements Initializable {
             iPaketi.setNaziv(iPaketiObj.getString("naziv"));
             iPaketi.setBrzina(iPaketiObj.getString("brzina"));
             iPaketi.setCena(iPaketiObj.getDouble("cena"));
+            iPaketi.setPdv(iPaketiObj.getDouble("pdv"));
             iPaketi.setOpis(iPaketiObj.getString("opis"));
             iPaketi.setIdleTimeout(iPaketiObj.getString("idleTimeout"));
             iPaketiArr.add(iPaketi);
@@ -762,6 +763,7 @@ public class KorisnikUslugeController implements Initializable {
             dtvPaketi.setId(dtvPaketiObj.getInt("id"));
             dtvPaketi.setNaziv(dtvPaketiObj.getString("naziv"));
             dtvPaketi.setCena(dtvPaketiObj.getDouble("cena"));
+            dtvPaketi.setPdv(dtvPaketiObj.getDouble("pdv"));
             dtvPaketi.setPaketID(dtvPaketiObj.getInt("idPaket"));
             dtvPaketi.setOpis(dtvPaketiObj.getString("opis"));
             dtvPaketiArr.add(dtvPaketi);
@@ -1033,7 +1035,7 @@ public class KorisnikUslugeController implements Initializable {
             fiksnaPaketi.setId(fiksnaObj.getInt("id"));
             fiksnaPaketi.setNaziv(fiksnaObj.getString("naziv"));
             fiksnaPaketi.setBesplatniMinutiFiksna(fiksnaObj.getDouble("besplatniMinutiFiksna"));
-            fiksnaPaketi.setPdv(fiksnaObj.getDouble("PDV"));
+            fiksnaPaketi.setPdv(fiksnaObj.getDouble("pdv"));
             fiksnaPaketi.setPretplata(fiksnaObj.getDouble("pretplata"));
             paketArr.add(fiksnaPaketi);
 

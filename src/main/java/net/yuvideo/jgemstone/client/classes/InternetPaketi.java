@@ -12,7 +12,16 @@ public class InternetPaketi implements Serializable {
     Double cena;
     String opis;
     String idleTimeout;
+    double pdv;
     boolean obracun = true;
+
+    public double getPdv() {
+        return pdv;
+    }
+
+    public void setPdv(double pdv) {
+        this.pdv = pdv;
+    }
 
     public String getIdleTimeout() {
         return idleTimeout;

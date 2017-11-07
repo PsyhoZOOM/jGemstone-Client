@@ -21,7 +21,6 @@ public class KorisnikFirmaController implements Initializable {
     public Client client;
     public int userID;
     public TextField tNazivFime;
-    public TextField tKontaktOsoba;
     public TextField tKodBanke;
     public TextField tPIB;
     public TextField tMaticniBroj;
@@ -48,7 +47,6 @@ public class KorisnikFirmaController implements Initializable {
         jsonObject.put("kodBanke", tKodBanke.getText());
         jsonObject.put("pib", tPIB.getText());
         jsonObject.put("maticniBroj", tMaticniBroj.getText());
-        jsonObject.put("kontaktOsoba", tKontaktOsoba.getText());
         jsonObject.put("tekuciRacun", tTekuciRacun.getText());
         jsonObject = client.send_object(jsonObject);
 
@@ -73,12 +71,21 @@ public class KorisnikFirmaController implements Initializable {
         }
 
         chkIsFirma.setSelected(true);
-        tNazivFime.setText(jObj.getString("nazivFirme"));
-        tKontaktOsoba.setText(jObj.getString("kontaktOsoba"));
+        if (jObj.has("nazivFirme"))
+            tNazivFime.setText(jObj.getString("nazivFirme"));
+
+
+        if (jObj.has("kodBanke"))
         tKodBanke.setText(jObj.getString("kodBanke"));
-        tPIB.setText(jObj.getString("pib"));
-        tMaticniBroj.setText(jObj.getString("maticniBroj"));
-        tTekuciRacun.setText(jObj.getString("tekuciRacun"));
+
+        if (jObj.has("pib"))
+            tPIB.setText(jObj.getString("pib"));
+
+        if (jObj.has("maticniBroj"))
+            tMaticniBroj.setText(jObj.getString("maticniBroj"));
+
+        if (jObj.has("tekuciRacun"))
+            tTekuciRacun.setText(jObj.getString("tekuciRacun"));
 
 
     }

@@ -10,8 +10,17 @@ public class digitalniTVPaket {
     int produzenje;
     String opis;
     Double cena;
+    Double pdv;
     boolean obracun;
 
+
+    public Double getPdv() {
+        return pdv;
+    }
+
+    public void setPdv(Double pdv) {
+        this.pdv = pdv;
+    }
 
     public int getId() {
         return id;

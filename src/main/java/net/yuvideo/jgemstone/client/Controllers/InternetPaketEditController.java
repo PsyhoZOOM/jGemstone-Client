@@ -2,9 +2,7 @@ package net.yuvideo.jgemstone.client.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
@@ -20,25 +18,32 @@ import java.util.ResourceBundle;
 public class InternetPaketEditController implements Initializable {
     public TextField tNaziv;
     public TextField tBrzina;
-    public TextField tCena;
     public TextArea tOpis;
     public Button bSnimi;
     public Button bClose;
-    public TextField tIdleTimout;
     public Client client;
     public boolean edit = false;
     public int idRad;
     public int idPaket;
     public InternetPaketi paket;
+    public Spinner spnCena;
+    public Spinner spnPDV;
+    public Spinner spnIdleTimeout;
     private ResourceBundle resource;
     private URL location;
     private JSONObject jObj;
+
+    private SpinnerValueFactory.DoubleSpinnerValueFactory doubleSpinnerValueFactoryCena = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 0.00);
+    private SpinnerValueFactory.DoubleSpinnerValueFactory doubleSpinnerValueFactoryPDV = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 0.00);
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resource = resources;
         this.location = location;
 
+        spnPDV.setValueFactory(doubleSpinnerValueFactoryPDV);
+        spnCena.setValueFactory(doubleSpinnerValueFactoryCena);
 
     }
 
@@ -55,16 +60,17 @@ public class InternetPaketEditController implements Initializable {
         jObj.put("action", "snimi_internet_paket");
         jObj.put("naziv", tNaziv.getText());
         jObj.put("brzina", tBrzina.getText());
-        jObj.put("cena", Double.valueOf(tCena.getText()));
+        jObj.put("cena", Double.valueOf(spnCena.getEditor().getText()));
+        jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
         jObj.put("opis", tOpis.getText());
-        jObj.put("idleTimeout", tIdleTimout.getText());
+        jObj.put("idleTimeout", spnIdleTimeout.getEditor().getText());
 
         jObj = client.send_object(jObj);
 
         if (jObj.has("Message")) {
             AlertUser.info("PAKET SNIMLJEN", "Paket je snimljen");
             close(null);
-        } else if (jObj.has("Error")) {
+        } else if (jObj.has("ERROR")) {
             AlertUser.error("GRESKA", "Paket nije uspešno snimljen: " + jObj.get("Message"));
         }
 
@@ -77,15 +83,16 @@ public class InternetPaketEditController implements Initializable {
         jObj.put("idPaket", paket.getId());
         jObj.put("naziv", paket.getNaziv());
         jObj.put("brzina", tBrzina.getText());
-        jObj.put("cena", Double.valueOf(tCena.getText()));
-        jObj.put("idleTimeout", tIdleTimout.getText());
+        jObj.put("cena", Double.valueOf(spnCena.getEditor().getText()));
+        jObj.put("idleTimeout", spnIdleTimeout.getEditor().getText());
+        jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
         jObj.put("opis", tOpis.getText());
         jObj = client.send_object(jObj);
 
         if (jObj.has("Message")) {
             AlertUser.info("PAKET JE IZMENJEN", "Izmene snimljene");
             close(null);
-        } else if (jObj.has("Error")) {
+        } else if (jObj.has("ERROR")) {
             AlertUser.error("GRESKA", "Greska: " + jObj.get("Error"));
         }
 
@@ -100,8 +107,9 @@ public class InternetPaketEditController implements Initializable {
         tNaziv.setEditable(false);
         tNaziv.setText(paket.getNaziv());
         tBrzina.setText(paket.getBrzina());
-        tCena.setText(String.valueOf(paket.getCena()));
-        tIdleTimout.setText(paket.getIdleTimeout());
+        spnCena.getEditor().setText(String.valueOf(paket.getCena()));
+        spnIdleTimeout.getEditor().setText(paket.getIdleTimeout());
+        spnPDV.getEditor().setText("0.00");
         tOpis.setText(paket.getOpis());
 
 

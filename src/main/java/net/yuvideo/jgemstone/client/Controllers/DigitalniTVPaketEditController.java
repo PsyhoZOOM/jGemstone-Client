@@ -2,9 +2,7 @@ package net.yuvideo.jgemstone.client.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
@@ -22,21 +20,29 @@ public class DigitalniTVPaketEditController implements Initializable {
     public Button bClose;
     public TextField tNaziv;
     public TextField tPaketID;
-    public TextField tCena;
     public TextArea tOpis;
     public Button bSnimi;
     public Client client;
     public digitalniTVPaket dtvPaket;
+    public Spinner spnCena;
+    public Spinner spnPDV;
     ResourceBundle resources;
     URL location;
     boolean edit = false;
     JSONObject jObj;
     Logger LOGGER = Logger.getLogger("DTV_EDIT");
 
+    SpinnerValueFactory.DoubleSpinnerValueFactory dblSngFactoryCena = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 0.00);
+    SpinnerValueFactory.DoubleSpinnerValueFactory dblSpnFactoryPDV = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 0.00);
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.location = location;
         this.resources = resources;
+
+        spnPDV.setValueFactory(dblSpnFactoryPDV);
+        spnCena.setValueFactory(dblSngFactoryCena);
 
     }
 
@@ -57,7 +63,8 @@ public class DigitalniTVPaketEditController implements Initializable {
         jObj = new JSONObject();
         jObj.put("action", "add_dtv_paket");
         jObj.put("naziv", tNaziv.getText());
-        jObj.put("cena", Double.valueOf(tCena.getText()));
+        jObj.put("cena", Double.valueOf(spnCena.getEditor().getText()));
+        jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
         jObj.put("opis", tOpis.getText());
         jObj.put("idPaket", Integer.valueOf(tPaketID.getText()));
 
@@ -69,7 +76,7 @@ public class DigitalniTVPaketEditController implements Initializable {
             AlertUser.info("DTV Paket", "DTV Paket je kreiran");
             close(null);
         } else {
-            AlertUser.error("GRESKA!", jObj.getString("Error"));
+            AlertUser.error("GRESKA!", jObj.getString("ERROR"));
         }
 
 
@@ -80,7 +87,8 @@ public class DigitalniTVPaketEditController implements Initializable {
         jObj.put("action", "edit_dtv_paket");
         jObj.put("id", dtvPaket.getId());
         jObj.put("naziv", tNaziv.getText());
-        jObj.put("cena", Double.valueOf(tCena.getText()));
+        jObj.put("cena", Double.valueOf(spnCena.getEditor().getText()));
+        jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
         jObj.put("opis", tOpis.getText());
         jObj.put("idPaket", Integer.valueOf(tPaketID.getText()));
 
@@ -89,7 +97,7 @@ public class DigitalniTVPaketEditController implements Initializable {
 
 
         if (jObj.has("Error")) {
-            AlertUser.error("GRESKA", jObj.getString("Error"));
+            AlertUser.error("GRESKA", jObj.getString("ERROR"));
 
         } else {
             AlertUser.info("INFORMACIJA", "Izmene snimljene");
@@ -100,7 +108,8 @@ public class DigitalniTVPaketEditController implements Initializable {
 
     public void show_data() {
         tNaziv.setText(dtvPaket.getNaziv());
-        tCena.setText(String.valueOf(dtvPaket.getCena()));
+        spnCena.getEditor().setText(String.valueOf(dtvPaket.getCena()));
+        spnPDV.getEditor().setText(String.valueOf(dtvPaket.getPdv()));
         tOpis.setText(dtvPaket.getOpis());
         tPaketID.setText(String.valueOf(dtvPaket.getPaketID()));
 

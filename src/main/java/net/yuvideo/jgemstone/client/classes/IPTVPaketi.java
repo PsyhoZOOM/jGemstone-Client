@@ -13,6 +13,15 @@ public class IPTVPaketi implements Serializable {
     String user_default;
     String description;
     Double cena;
+    Double pdv;
+
+    public Double getPdv() {
+        return pdv;
+    }
+
+    public void setPdv(Double pdv) {
+        this.pdv = pdv;
+    }
 
     public int getId() {
         return id;

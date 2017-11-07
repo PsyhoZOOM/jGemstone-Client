@@ -5,61 +5,53 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity"
-            prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Main.css"
-            xmlns="http://javafx.com/javafx/8.0.111"
+            minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Main.css"
+            xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.InternetPaketEditController">
     <children>
-        <VBox layoutX="53.0" layoutY="126.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+        <VBox layoutX="53.0" layoutY="126.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <ToolBar prefHeight="40.0" prefWidth="200.0">
-                    <items>
-                        <Button fx:id="bClose" mnemonicParsing="false" onAction="#close" text="Zatvori"/>
-                    </items>
-                </ToolBar>
-                <GridPane hgap="5.0" vgap="5.0">
-                    <columnConstraints>
-                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
-                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints vgrow="NEVER"/>
-                        <RowConstraints vgrow="NEVER"/>
-                        <RowConstraints vgrow="NEVER"/>
-                        <RowConstraints vgrow="NEVER"/>
-                        <RowConstraints vgrow="NEVER"/>
-                        <RowConstraints vgrow="NEVER"/>
-                        <RowConstraints vgrow="NEVER"/>
-                        <RowConstraints vgrow="NEVER"/>
-                    </rowConstraints>
-                    <children>
-                        <Label text="Naziv:" GridPane.rowIndex="1"/>
-                        <Label prefHeight="100.0" prefWidth="167.0" text="Brzina (UpM/DownM) (1M/10M):"
-                               textAlignment="RIGHT" wrapText="true" GridPane.rowIndex="2"/>
-                        <Label text="Cena:" GridPane.rowIndex="3"/>
-                        <Label text="Prekoračenje:" GridPane.rowIndex="4"/>
-                        <TextField fx:id="tNaziv" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                        <TextField fx:id="tBrzina" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                        <TextField fx:id="tCena" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                        <Label text="INTERNET PAKET:" underline="true" GridPane.columnSpan="2147483647"
-                               GridPane.halignment="LEFT">
-                            <font>
-                                <Font name="System Bold" size="13.0"/>
-                            </font>
-                        </Label>
-                        <Label text="Opis:" GridPane.rowIndex="6"/>
-                        <TextField fx:id="tIdleTimout" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                        <TextArea fx:id="tOpis" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                        <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#savePaket" text="Snimi"
-                                GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7"/>
-                        <Label text="Idle-Timout" GridPane.rowIndex="5"/>
-                    </children>
+                <Label text="INTERNET PAKET:" underline="true">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </padding>
-                </GridPane>
+                </Label>
+                <Label text="Naziv:"/>
+                <TextField fx:id="tNaziv" maxWidth="200.0"/>
+                <Label text="Brzina (UpM/DownM) (1M/10M):" textAlignment="RIGHT" wrapText="true"/>
+                <TextField fx:id="tBrzina" maxWidth="200.0"/>
+                <Label text="Cena:"/>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Spinner fx:id="spnCena"/>
+                        <Label text="din."/>
+                    </children>
+                </HBox>
+                <Label text="PDV:"/>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Spinner fx:id="spnPDV"/>
+                        <Label text="\%"/>
+                    </children>
+                </HBox>
+                <Label text="Idle-Timeout"/>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Spinner fx:id="spnIdleTimeout"/>
+                        <Label text="msec."/>
+                    </children>
+                </HBox>
+                <Label text="Opis:"/>
+                <TextArea fx:id="tOpis"/>
+                <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#savePaket" text="Snimi"/>
             </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
         </VBox>
     </children>
 </AnchorPane>
