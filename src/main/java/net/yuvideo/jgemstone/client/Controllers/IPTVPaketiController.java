@@ -109,7 +109,7 @@ public class IPTVPaketiController implements Initializable {
             paketi.setCena(pakobj.getDouble("cena"));
             paketi.setDescription(pakobj.getString("opis"));
             paketi.setIptv_id(pakobj.getInt("IPTV_id"));
-            paketi.setPdv(pakobj.getDouble("pdb"));
+            paketi.setPdv(pakobj.getDouble("pdv"));
             iptvPaketiArrayList.add(paketi);
 
         }
