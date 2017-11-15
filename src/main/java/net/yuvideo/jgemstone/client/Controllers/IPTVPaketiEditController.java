@@ -157,16 +157,19 @@ public class IPTVPaketiEditController implements Initializable {
         jsonObject.put("action", "snimiNovIPTVPaket");
         jsonObject.put("external_id", cmbIPTVPakets.getValue().getExternal_id());
         jsonObject.put("iptv_id", cmbIPTVPakets.getValue().getIptv_id());
+
         try {
             jsonObject.put("cena", Double.valueOf(spnCena.getEditor().getText()));
         } catch (NumberFormatException e) {
             AlertUser.error("GRESKA", "Pogresan unos cene");
         }
+
         jsonObject.put("nazivPaketa", cmbIPTVPakets.getValue().getName());
         jsonObject.put("opis", tOpis.getText());
         jsonObject.put("pdv", spnPDV.getEditor().getText());
 
         jsonObject = client.send_object(jsonObject);
+
         if (jsonObject.has("Error")) {
             AlertUser.error("Greska", jsonObject.getString("Error"));
         } else {

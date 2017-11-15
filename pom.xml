@@ -5,7 +5,7 @@
 
     <groupId>net.yuvideo</groupId>
     <artifactId>jGemstone-Client</artifactId>
-    <version>SNAPSHOT-0.1${v}</version>
+    <version>SNAPSHOT-0.1</version>
     <packaging>jar</packaging>
 
     <name>jGemston-Client</name>
@@ -21,7 +21,7 @@
     </organization>
 
     <build>
-        <finalName>${artifactId}</finalName>
+        <finalName>${project.artifactId}</finalName>
 
         <plugins>
             <plugin>
@@ -43,46 +43,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
-                <executions>
-                    <execution>
-                        <id>unpack-dependencies</id>
-
-                        <phase>package</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>${java.home}/../bin/javafxpackager</executable>
-                            <arguments>
-                                <argument>-createjar</argument>
-                                <argument>-nocss2bin</argument>
-                                <argument>-appclass</argument>
-                                <argument>${mainClass}</argument>
-                                <argument>-srcdir</argument>
-                                <argument>${project.build.directory}/classes</argument>
-                                <argument>-outdir</argument>
-                                <argument>${project.build.directory}</argument>
-                                <argument>-outfile</argument>
-                                <argument>${project.build.finalName}.jar</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-cli</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>${java.home}/bin/java</executable>
-                            <commandlineArgs>${runfx.args}</commandlineArgs>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -107,16 +68,7 @@
             </plugin>
         </plugins>
     </build>
-    <repositories>
-        <repository>
-            <id>jfreesteel-repository</id>
-            <name>JFreesteel Maven Repository</name>
-            <url>http://jfreesteel.devbase.net/maven/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
+    
     <dependencies>
         <dependency>
             <groupId>org.json</groupId>

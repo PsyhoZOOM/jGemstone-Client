@@ -121,6 +121,7 @@ public class InternetPaketController implements Initializable {
             paket.setCena(paketObj.getDouble("cena"));
             paket.setBrzina(paketObj.getString("brzina"));
             paket.setOpis(paketObj.getString("opis"));
+	    paket.setPdv(paketObj.getDouble("pdv"));
             paket.setIdleTimeout(paketObj.getString("idleTimeout"));
             paketiArr.add(paket);
         }

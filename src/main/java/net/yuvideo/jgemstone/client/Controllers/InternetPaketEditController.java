@@ -10,108 +10,136 @@ import net.yuvideo.jgemstone.client.classes.InternetPaketi;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import net.yuvideo.jgemstone.client.classes.valueToPercent;
 
 /**
  * Created by zoom on 1/31/17.
  */
 public class InternetPaketEditController implements Initializable {
-    public TextField tNaziv;
-    public TextField tBrzina;
-    public TextArea tOpis;
-    public Button bSnimi;
-    public Button bClose;
-    public Client client;
-    public boolean edit = false;
-    public int idRad;
-    public int idPaket;
-    public InternetPaketi paket;
-    public Spinner spnCena;
-    public Spinner spnPDV;
-    public Spinner spnIdleTimeout;
-    private ResourceBundle resource;
-    private URL location;
-    private JSONObject jObj;
 
-    private SpinnerValueFactory.DoubleSpinnerValueFactory doubleSpinnerValueFactoryCena = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 0.00);
-    private SpinnerValueFactory.DoubleSpinnerValueFactory doubleSpinnerValueFactoryPDV = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 0.00);
+	public TextField tNaziv;
+	public TextField tBrzina;
+	public TextArea tOpis;
+	public Button bSnimi;
+	public Button bClose;
+	public Client client;
+	public boolean edit = false;
+	public int idRad;
+	public int idPaket;
+	public InternetPaketi paket;
+	public Spinner spnCena;
+	public Spinner spnPDV;
+	public Label lCenaNet;
+	public Spinner spnIdleTimeout;
+	private ResourceBundle resource;
+	private URL location;
+	private JSONObject jObj;
 
+	private SpinnerValueFactory.DoubleSpinnerValueFactory doubleSpinnerValueFactoryCena = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 0.00);
+	private SpinnerValueFactory.DoubleSpinnerValueFactory doubleSpinnerValueFactoryPDV = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 0.00);
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        this.resource = resources;
-        this.location = location;
+	private final DecimalFormat df = new DecimalFormat("#.00");
 
-        spnPDV.setValueFactory(doubleSpinnerValueFactoryPDV);
-        spnCena.setValueFactory(doubleSpinnerValueFactoryCena);
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		this.resource = resources;
+		this.location = location;
 
-    }
+		spnPDV.setValueFactory(doubleSpinnerValueFactoryPDV);
+		spnCena.setValueFactory(doubleSpinnerValueFactoryCena);
 
-    public void savePaket(ActionEvent actionEvent) {
-        if (edit) {
-            snimiUpdate();
-        } else {
-            snimiNov();
-        }
-    }
+		spnCena.getEditor().textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				setCenaSaPDV();
+			}
+		});
 
-    private void snimiNov() {
-        jObj = new JSONObject();
-        jObj.put("action", "snimi_internet_paket");
-        jObj.put("naziv", tNaziv.getText());
-        jObj.put("brzina", tBrzina.getText());
-        jObj.put("cena", Double.valueOf(spnCena.getEditor().getText()));
-        jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
-        jObj.put("opis", tOpis.getText());
-        jObj.put("idleTimeout", spnIdleTimeout.getEditor().getText());
+		spnPDV.getEditor().textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				setCenaSaPDV();
+			}
+		});
 
-        jObj = client.send_object(jObj);
+	}
 
-        if (jObj.has("Message")) {
-            AlertUser.info("PAKET SNIMLJEN", "Paket je snimljen");
-            close(null);
-        } else if (jObj.has("ERROR")) {
-            AlertUser.error("GRESKA", "Paket nije uspešno snimljen: " + jObj.get("Message"));
-        }
+	public void savePaket(ActionEvent actionEvent) {
+		if (edit) {
+			snimiUpdate();
+		} else {
+			snimiNov();
+		}
+	}
 
+	private void snimiNov() {
+		jObj = new JSONObject();
+		jObj.put("action", "snimi_internet_paket");
+		jObj.put("naziv", tNaziv.getText());
+		jObj.put("brzina", tBrzina.getText());
+		jObj.put("cena", Double.valueOf(spnCena.getEditor().getText()));
+		jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
+		jObj.put("opis", tOpis.getText());
+		jObj.put("idleTimeout", spnIdleTimeout.getEditor().getText());
 
-    }
+		jObj = client.send_object(jObj);
 
-    private void snimiUpdate() {
-        jObj = new JSONObject();
-        jObj.put("action", "update_internet_paket");
-        jObj.put("idPaket", paket.getId());
-        jObj.put("naziv", paket.getNaziv());
-        jObj.put("brzina", tBrzina.getText());
-        jObj.put("cena", Double.valueOf(spnCena.getEditor().getText()));
-        jObj.put("idleTimeout", spnIdleTimeout.getEditor().getText());
-        jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
-        jObj.put("opis", tOpis.getText());
-        jObj = client.send_object(jObj);
+		if (jObj.has("Message")) {
+			AlertUser.info("PAKET SNIMLJEN", "Paket je snimljen");
+			close(null);
+		} else if (jObj.has("ERROR")) {
+			AlertUser.error("GRESKA", "Paket nije uspešno snimljen: " + jObj.get("Message"));
+		}
 
-        if (jObj.has("Message")) {
-            AlertUser.info("PAKET JE IZMENJEN", "Izmene snimljene");
-            close(null);
-        } else if (jObj.has("ERROR")) {
-            AlertUser.error("GRESKA", "Greska: " + jObj.get("Error"));
-        }
+	}
 
-    }
+	private void snimiUpdate() {
+		jObj = new JSONObject();
+		jObj.put("action", "update_internet_paket");
+		jObj.put("idPaket", paket.getId());
+		jObj.put("naziv", paket.getNaziv());
+		jObj.put("brzina", tBrzina.getText());
+		jObj.put("cena", Double.valueOf(spnCena.getEditor().getText()));
+		jObj.put("idleTimeout", spnIdleTimeout.getEditor().getText());
+		jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
+		jObj.put("opis", tOpis.getText());
+		jObj = client.send_object(jObj);
 
-    public void close(ActionEvent actionEvent) {
-        Stage stage = (Stage) bClose.getScene().getWindow();
-        stage.close();
-    }
+		if (jObj.has("Message")) {
+			AlertUser.info("PAKET JE IZMENJEN", "Izmene snimljene");
+			close(null);
+		} else if (jObj.has("ERROR")) {
+			AlertUser.error("GRESKA", "Greska: " + jObj.get("Error"));
+		}
 
-    public void show_data() {
-        tNaziv.setEditable(false);
-        tNaziv.setText(paket.getNaziv());
-        tBrzina.setText(paket.getBrzina());
-        spnCena.getEditor().setText(String.valueOf(paket.getCena()));
-        spnIdleTimeout.getEditor().setText(paket.getIdleTimeout());
-        spnPDV.getEditor().setText("0.00");
-        tOpis.setText(paket.getOpis());
+	}
 
+	public void close(ActionEvent actionEvent) {
+		Stage stage = (Stage) bClose.getScene().getWindow();
+		stage.close();
+	}
 
-    }
+	public void show_data() {
+		System.out.println("PDV:" + paket.getPdv());
+		tNaziv.setEditable(false);
+		tNaziv.setText(paket.getNaziv());
+		tBrzina.setText(paket.getBrzina());
+		spnCena.getEditor().setText(String.valueOf(paket.getCena()));
+		spnIdleTimeout.getEditor().setText(paket.getIdleTimeout());
+		spnPDV.getEditor().setText(String.valueOf(paket.getPdv()));
+		tOpis.setText(paket.getOpis());
+		setCenaSaPDV();
+
+	}
+
+	private void setCenaSaPDV() {
+		Double cena = Double.valueOf(spnCena.getEditor().getText());
+		Double pdv = Double.valueOf(spnPDV.getEditor().getText());
+		Double pdvDiff = valueToPercent.getDiffValue(cena, pdv);
+		lCenaNet.setText(df.format(cena + pdvDiff));
+	}
 }

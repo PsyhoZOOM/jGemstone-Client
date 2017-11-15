@@ -89,6 +89,7 @@ public class DigitalniTVPaketController implements Initializable {
             dtvPak.setCena(dtvPakObj.getDouble("cena"));
             dtvPak.setPaketID(dtvPakObj.getInt("idPaket"));
             dtvPak.setOpis(dtvPakObj.getString("opis"));
+	    dtvPak.setPdv(dtvPakObj.getDouble("pdv"));
 
             dtvPakArr.add(dtvPak);
         }

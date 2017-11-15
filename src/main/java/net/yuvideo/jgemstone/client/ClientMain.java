@@ -34,6 +34,7 @@ public class ClientMain extends Application {
 
     public static void main(String[] args) {
         launch(args);
+	
 
     }
 
@@ -85,7 +86,7 @@ public class ClientMain extends Application {
             stage.setTitle("YUVideo LOGIN");
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+		System.out.println(e.getMessage());
         }
 
     }

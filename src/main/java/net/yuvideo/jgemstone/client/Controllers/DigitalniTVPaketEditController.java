@@ -10,8 +10,12 @@ import net.yuvideo.jgemstone.client.classes.digitalniTVPaket;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import net.yuvideo.jgemstone.client.classes.valueToPercent;
 
 /**
  * Created by zoom on 2/2/17.
@@ -26,6 +30,7 @@ public class DigitalniTVPaketEditController implements Initializable {
     public digitalniTVPaket dtvPaket;
     public Spinner spnCena;
     public Spinner spnPDV;
+    public Label lCenaPaketa;
     ResourceBundle resources;
     URL location;
     boolean edit = false;
@@ -35,6 +40,8 @@ public class DigitalniTVPaketEditController implements Initializable {
     SpinnerValueFactory.DoubleSpinnerValueFactory dblSngFactoryCena = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 0.00);
     SpinnerValueFactory.DoubleSpinnerValueFactory dblSpnFactoryPDV = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 0.00);
 
+    DecimalFormat df = new DecimalFormat("#.00");
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -43,6 +50,20 @@ public class DigitalniTVPaketEditController implements Initializable {
 
         spnPDV.setValueFactory(dblSpnFactoryPDV);
         spnCena.setValueFactory(dblSngFactoryCena);
+
+	spnPDV.getEditor().textProperty().addListener(new ChangeListener<String>() {
+		@Override
+		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+			setCenaPDV();
+		}
+	});
+
+	spnCena.getEditor().textProperty().addListener(new ChangeListener<String>() {
+		@Override
+		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+			setCenaPDV();
+		}
+	});
 
     }
 
@@ -112,7 +133,17 @@ public class DigitalniTVPaketEditController implements Initializable {
         spnPDV.getEditor().setText(String.valueOf(dtvPaket.getPdv()));
         tOpis.setText(dtvPaket.getOpis());
         tPaketID.setText(String.valueOf(dtvPaket.getPaketID()));
+	setCenaPDV();
 
 
+    }
+
+
+    private void setCenaPDV(){
+	    Double cena = Double.valueOf(spnCena.getEditor().getText());
+	    Double pdv =  Double.valueOf(spnPDV.getEditor().getText());
+	    Double pdvDiff = valueToPercent.getDiffValue(cena, pdv);
+
+	    lCenaPaketa.setText(df.format(cena+pdvDiff));
     }
 }
