@@ -107,17 +107,16 @@ public class BoxPaketController implements Initializable {
 		spnPDV.getEditor().textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-					setCenaPDV();
+				setCenaPDV();
 			}
 		});
 
 		spnCena.getEditor().textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-					setCenaPDV();
+				setCenaPDV();
 			}
 		});
-
 	}
 
 	public void set_data() {
@@ -317,7 +316,7 @@ public class BoxPaketController implements Initializable {
 		set_data();
 		tNazivPaketa.clear();
 		spnCena.getEditor().setText("0.00");
-		spnPDV.getEditor().setText("0.0");
+		spnPDV.getEditor().setText("0.00");
 	}
 
 	private void setCenaPDV() {
