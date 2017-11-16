@@ -6,49 +6,59 @@ import java.io.Serializable;
  * Created by PsyhoZOOM@gmail.com on 6/6/17.
  */
 public class FiksnaPaketi implements Serializable {
-    int id;
-    String naziv;
-    Double pretplata;
-    Double pdv;
-    Double besplatniMinutiFiksna;
 
-    public int getId() {
-        return id;
-    }
+	int id;
+	String naziv;
+	Double pretplata;
+	Double pdv;
+	int besplatniMinutiFiksna;
+	Double cenaPDV;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getBesplatniMinutiFiksna() {
+		return besplatniMinutiFiksna;
+	}
 
-    public String getNaziv() {
-        return naziv;
-    }
+	public void setBesplatniMinutiFiksna(int besplatniMinutiFiksna) {
+		this.besplatniMinutiFiksna = besplatniMinutiFiksna;
+	}
 
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
-    }
+	public Double getCenaPDV() {
+		return cenaPDV;
+	}
 
-    public Double getPretplata() {
-        return pretplata;
-    }
+	public void setCenaPDV(Double cenaPDV) {
+		this.cenaPDV = cenaPDV;
+	}
 
-    public void setPretplata(Double pretplata) {
-        this.pretplata = pretplata;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public Double getPdv() {
-        return pdv;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setPdv(Double pdv) {
-        this.pdv = pdv;
-    }
+	public String getNaziv() {
+		return naziv;
+	}
 
-    public Double getBesplatniMinutiFiksna() {
-        return besplatniMinutiFiksna;
-    }
+	public void setNaziv(String naziv) {
+		this.naziv = naziv;
+	}
 
-    public void setBesplatniMinutiFiksna(Double besplatniMinutiFiksna) {
-        this.besplatniMinutiFiksna = besplatniMinutiFiksna;
-    }
+	public Double getPretplata() {
+		return pretplata;
+	}
+
+	public void setPretplata(Double pretplata) {
+		this.pretplata = pretplata;
+	}
+
+	public Double getPdv() {
+		return pdv;
+	}
+
+	public void setPdv(Double pdv) {
+		this.pdv = pdv;
+	}
 }

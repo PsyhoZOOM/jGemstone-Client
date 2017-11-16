@@ -21,8 +21,17 @@ public class BoxPaket implements Serializable {
     int produzenje;
     double cena;
     double pdv;
+	double cenaPDV;
     int obracune;
     String paketType;
+
+	public double getCenaPDV() {
+		return cenaPDV;
+	}
+
+	public void setCenaPDV(double cenaPDV) {
+		this.cenaPDV = cenaPDV;
+	}
 
 
     public double getPdv() {

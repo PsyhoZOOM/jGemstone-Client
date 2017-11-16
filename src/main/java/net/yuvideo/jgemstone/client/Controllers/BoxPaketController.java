@@ -1,10 +1,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,20 +11,16 @@ import org.json.JSONObject;
 
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.util.Callback;
 
 /**
  * Created by zoom on 2/23/17.
  */
 public class BoxPaketController implements Initializable {
 
-	public TextField tNazivPaketa;
-	public ComboBox<digitalniTVPaket> cmbDTVNaziv;
-	public ComboBox<InternetPaketi> cmbInternetNaziv;
-	public ComboBox<IPTVPaketi> cmbNazivIPTV;
-	public ComboBox<FiksnaPaketi> cmbNazivFiksnaTel;
 	public Button bSnimiBox;
 	public TableView<BoxPaket> tblBox;
 	public TableColumn cNaziv;
@@ -35,11 +28,11 @@ public class BoxPaketController implements Initializable {
 	public TableColumn cNET;
 	public TableColumn cIPTV;
 	public TableColumn cFiksna;
-	public Label lCenaPaketa;
+	@FXML	TableColumn<BoxPaket, Double> cCena;
+	@FXML	TableColumn<BoxPaket, Double> cPDV;
+	@FXML 	TableColumn<BoxPaket, Double> cCenaPDV;
 
 	public Client client;
-	public Spinner spnCena;
-	public Spinner spnPDV;
 	private URL location;
 	private ResourceBundle resource;
 	private JSONObject jObj;
@@ -58,135 +51,80 @@ public class BoxPaketController implements Initializable {
 		cNET.setCellValueFactory(new PropertyValueFactory<BoxPaket, String>("NET_naziv"));
 		cIPTV.setCellValueFactory(new PropertyValueFactory<BoxPaket, String>("IPTV_naziv"));
 		cFiksna.setCellValueFactory(new PropertyValueFactory<BoxPaket, String>("FIKSNA_naziv"));
+		cCena.setCellValueFactory(new PropertyValueFactory<BoxPaket, Double>("cena"));
+		cPDV.setCellValueFactory(new PropertyValueFactory<BoxPaket, Double>("pdv"));
+		cCenaPDV.setCellValueFactory(new PropertyValueFactory<BoxPaket, Double>("cenaPDV"));
 
-		cmbNazivFiksnaTel.setConverter(new StringConverter<FiksnaPaketi>() {
-			@Override
-			public String toString(FiksnaPaketi object) {
-				return object.getNaziv();
-			}
 
+		cCena.setCellFactory(new Callback<TableColumn<BoxPaket, Double>, TableCell<BoxPaket, Double>>() {
 			@Override
-			public FiksnaPaketi fromString(String string) {
-				FiksnaPaketi fiksnaPaketi = new FiksnaPaketi();
-				fiksnaPaketi.setNaziv(string);
-				return fiksnaPaketi;
-			}
-		});
-
-		cmbNazivIPTV.setConverter(new StringConverter<IPTVPaketi>() {
-			@Override
-			public String toString(IPTVPaketi object) {
-				return object.getName();
-			}
-
-			@Override
-			public IPTVPaketi fromString(String string) {
-				IPTVPaketi paket = new IPTVPaketi();
-				paket.setName(string);
-				return null;
+			public TableCell<BoxPaket, Double> call(TableColumn<BoxPaket, Double> param) {
+				return new TableCell<BoxPaket, Double>(){
+					@Override
+					protected void updateItem(Double item, boolean empty) {
+						super.updateItem(item, empty); 
+						if(empty){
+							setText("");
+						}else{
+							setText(df.format(item));
+						}
+					}
+					
+				};
 			}
 		});
 
-		cmbDTVNaziv.setConverter(new StringConverter<digitalniTVPaket>() {
+		cPDV.setCellFactory(new Callback<TableColumn<BoxPaket, Double>, TableCell<BoxPaket, Double>>() {
 			@Override
-			public String toString(digitalniTVPaket object) {
-				return object.getNaziv();
-			}
-
-			@Override
-			public digitalniTVPaket fromString(String string) {
-				digitalniTVPaket paket = new digitalniTVPaket();
-				paket.setNaziv(string);
-				return paket;
-			}
-		});
-
-		spnPDV.setValueFactory(spinnerValueFactoryCena);
-		spnCena.setValueFactory(spinnerValueFactoryPDV);
-
-		spnPDV.getEditor().textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				setCenaPDV();
+			public TableCell<BoxPaket, Double> call(TableColumn<BoxPaket, Double> param) {
+				return new TableCell<BoxPaket, Double>(){
+					@Override
+					protected void updateItem(Double item, boolean empty) {
+						super.updateItem(item, empty); 
+						if(empty){
+							setText("");
+						}else{
+							setText(df.format(item));
+						}
+					}
+					
+				};
 			}
 		});
 
-		spnCena.getEditor().textProperty().addListener(new ChangeListener<String>() {
+
+		cCenaPDV.setCellFactory(new Callback<TableColumn<BoxPaket, Double>, TableCell<BoxPaket, Double>>() {
 			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				setCenaPDV();
+			public TableCell<BoxPaket, Double> call(TableColumn<BoxPaket, Double> param) {
+				return new TableCell<BoxPaket, Double>(){
+					@Override
+					protected void updateItem(Double item, boolean empty) {
+						super.updateItem(item, empty);
+						if(empty){
+							setText("");
+						}else{
+							setText(df.format(item));
+						}
+					}
+					
+				};
 			}
 		});
+
+
 	}
 
+	
+
+	
+	
+	
 	public void set_data() {
 		ObservableList tablebox = FXCollections.observableArrayList(get_paketBox());
 		tblBox.setItems(tablebox);
-
-		ObservableList internetpaket = FXCollections.observableArrayList(get_internet_paketi());
-		cmbInternetNaziv.setItems(internetpaket);
-
-		ObservableList dtvpaket = FXCollections.observableArrayList(get_dtv_paketi());
-		cmbDTVNaziv.setItems(dtvpaket);
-
-		ObservableList fixPaket = FXCollections.observableArrayList(get_fiksna_paketi());
-		cmbNazivFiksnaTel.setItems(fixPaket);
-
-		ObservableList iptvPaket = FXCollections.observableArrayList(get_IPTVPaketi());
-		cmbNazivIPTV.setItems(iptvPaket);
-
 	}
 
-	private ArrayList<digitalniTVPaket> get_dtv_paketi() {
-		jObj = new JSONObject();
-		jObj.put("action", "getDigitalTVPaketi");
 
-		jObj = client.send_object(jObj);
-
-		digitalniTVPaket digitalniTVPaket;
-		ArrayList<digitalniTVPaket> digitalniTVPaketArrayList = new ArrayList<>();
-		JSONObject digitalniObj;
-
-		for (int i = 0; i < jObj.length(); i++) {
-			digitalniTVPaket = new digitalniTVPaket();
-			digitalniObj = (JSONObject) jObj.get(String.valueOf(i));
-			digitalniTVPaket.setId(digitalniObj.getInt("id"));
-			digitalniTVPaket.setNaziv(digitalniObj.getString("naziv"));
-			digitalniTVPaket.setCena(digitalniObj.getDouble("cena"));
-			digitalniTVPaket.setPdv(digitalniObj.getDouble("pdv"));
-			digitalniTVPaket.setPaketID(digitalniObj.getInt("id"));
-			digitalniTVPaket.setOpis(digitalniObj.getString("opis"));
-			digitalniTVPaketArrayList.add(digitalniTVPaket);
-
-		}
-		return digitalniTVPaketArrayList;
-	}
-
-	private ArrayList<InternetPaketi> get_internet_paketi() {
-		jObj = new JSONObject();
-		jObj.put("action", "get_internet_paketi");
-
-		jObj = client.send_object(jObj);
-
-		InternetPaketi internetPaketi;
-		ArrayList<InternetPaketi> internetPaketisArray = new ArrayList<>();
-		JSONObject internetObj;
-
-		for (int i = 0; i < jObj.length(); i++) {
-			internetPaketi = new InternetPaketi();
-			internetObj = (JSONObject) jObj.get(String.valueOf(i));
-			internetPaketi.setId(internetObj.getInt("id"));
-			internetPaketi.setNaziv(internetObj.getString("naziv"));
-			internetPaketi.setBrzina(internetObj.getString("brzina"));
-			internetPaketi.setIdleTimeout(internetObj.getString("idleTimeout"));
-			internetPaketi.setCena(internetObj.getDouble("cena"));
-			internetPaketi.setPdv(internetObj.getDouble("pdv"));
-			internetPaketi.setOpis(internetObj.getString("opis"));
-			internetPaketisArray.add(internetPaketi);
-		}
-
-		return internetPaketisArray;
-	}
 
 	private ArrayList<BoxPaket> get_paketBox() {
 
@@ -221,108 +159,45 @@ public class BoxPaketController implements Initializable {
 			}
 			paketBox.setCena(paketObj.getDouble("cena"));
 			paketBox.setPdv(paketObj.getDouble("pdv"));
+			paketBox.setCenaPDV(paketObj.getDouble("cena") + valueToPercent.getDiffValue(paketObj.getDouble("cena"), paketObj.getDouble("pdv")));
 			paketBoxesArr.add(paketBox);
 		}
 		return paketBoxesArr;
 
 	}
 
-	private ArrayList<IPTVPaketi> get_IPTVPaketi() {
-		jObj = new JSONObject();
-		jObj.put("action", "get_paket_IPTV");
-		jObj = client.send_object(jObj);
 
-		IPTVPaketi iptvPaketi;
-		ArrayList<IPTVPaketi> iptvPaketiArrayList = new ArrayList<>();
-		JSONObject iptvJsonObject;
 
-		for (int i = 0; i < jObj.length(); i++) {
-			iptvJsonObject = (JSONObject) jObj.get(String.valueOf(i));
-			iptvPaketi = new IPTVPaketi();
-			iptvPaketi.setId(iptvJsonObject.getInt("id"));
-			iptvPaketi.setName(iptvJsonObject.getString("name"));
-			iptvPaketi.setExternal_id(iptvJsonObject.getString("external_id"));
-			iptvPaketi.setCena(iptvJsonObject.getDouble("cena"));
-			iptvPaketi.setDescription(iptvJsonObject.getString("opis"));
-			iptvPaketi.setPdv(iptvJsonObject.getDouble("pdv"));
-			iptvPaketiArrayList.add(iptvPaketi);
-		}
-
-		return iptvPaketiArrayList;
-	}
-
-	private ArrayList<FiksnaPaketi> get_fiksna_paketi() {
-		jObj = new JSONObject();
-		jObj.put("action", "show_fixTel_paketi");
-
-		jObj = client.send_object(jObj);
-
-		FiksnaPaketi fiksnaPaketi;
-		ArrayList<FiksnaPaketi> fiksnaPaketiArrayList = new ArrayList<>();
-		JSONObject fiksnaObj;
-
-		for (int i = 0; i < jObj.length(); i++) {
-			fiksnaPaketi = new FiksnaPaketi();
-			fiksnaObj = (JSONObject) jObj.get(String.valueOf(i));
-			fiksnaPaketi.setId(fiksnaObj.getInt("id"));
-			fiksnaPaketi.setNaziv(fiksnaObj.getString("naziv"));
-			fiksnaPaketi.setPretplata(fiksnaObj.getDouble("pretplata"));
-			fiksnaPaketi.setPdv(fiksnaObj.getDouble("pdv"));
-			fiksnaPaketiArrayList.add(fiksnaPaketi);
-		}
-
-		return fiksnaPaketiArrayList;
-
-	}
-
-	public void saveBox(ActionEvent actionEvent) {
-		if (tNazivPaketa.getText().isEmpty() || spnCena.getEditor().getText().isEmpty()) {
+	@FXML
+	private void izmeniBox() {
+		if (tblBox.getSelectionModel().getSelectedIndex() == -1) {
 			AlertUser.warrning("GRESKA", "Naziv Box Paketa ili Cena ne mogu biti prazna");
 			return;
 		}
+		BoxPaket paket = tblBox.getSelectionModel().getSelectedItem();
 
-		jObj = new JSONObject();
-		jObj.put("action", "save_Box_Paket");
+		NewInterface paketBoxEditInterface = new NewInterface("fxml/BoxPaketEdit.fxml", "BOX Paket izmena " + paket.getNaziv(), resource);
+		BoxPaketEditController paketBoxEditController = paketBoxEditInterface.getLoader().getController();
 
-		jObj.put("naziv", tNazivPaketa.getText());
+		paketBoxEditController.client = client;
+		paketBoxEditController.editPaket = true;
+		paketBoxEditController.boxPaket = paket;
+		paketBoxEditController.set_data();
 
-		if (cmbDTVNaziv.getValue() != null) {
-			jObj.put("DTV_id", cmbDTVNaziv.getValue().getId());
-			jObj.put("DTV_naziv", cmbDTVNaziv.getValue().getNaziv());
-		}
-		if (cmbInternetNaziv.getValue() != null) {
-			jObj.put("NET_id", cmbInternetNaziv.getValue().getId());
-			jObj.put("NET_naziv", cmbInternetNaziv.getValue().getNaziv());
-		}
-		if (cmbNazivIPTV.getValue() != null) {
-			jObj.put("IPTV_id", cmbNazivIPTV.getValue().getId());
-			jObj.put("IPTV_naziv", cmbNazivIPTV.getValue().getName());
-			cmbNazivIPTV.getValue().getId();
-			cmbNazivIPTV.getValue().getName();
-		}
-		if (cmbNazivFiksnaTel.getValue() != null) {
-			jObj.put("FIX_id", cmbNazivFiksnaTel.getValue().getId());
-			jObj.put("FIX_naziv", cmbNazivFiksnaTel.getValue().getNaziv());
-		}
-		jObj.put("cena", spnCena.getEditor().getText());
-		jObj.put("pdv", spnPDV.getEditor().getText());
-
-		jObj = client.send_object(jObj);
-		if (jObj.has("Error")) {
-			AlertUser.error("GRESKA", jObj.getString("Error"));
-			return;
-		}
-
+		paketBoxEditInterface.getStage()
+				.showAndWait();
 		set_data();
-		tNazivPaketa.clear();
-		spnCena.getEditor().setText("0.00");
-		spnPDV.getEditor().setText("0.00");
 	}
 
-	private void setCenaPDV() {
-		Double cena = Double.valueOf(spnCena.getEditor().getText());
-		Double pdv = Double.valueOf(spnPDV.getEditor().getText());
-		Double pdvDiff = valueToPercent.getDiffValue(cena, pdv);
-		lCenaPaketa.setText(df.format(cena + pdvDiff));
+	@FXML
+	private void novBox() {
+		NewInterface paketBoxNewInterface = new NewInterface("fxml/BoxPaketEdit.fxml", "BOX Paket", resource);
+		BoxPaketEditController paketBoxNewController = paketBoxNewInterface.getLoader().getController();
+		paketBoxNewController.client = client;
+		paketBoxNewController.editPaket = false;
+		paketBoxNewController.set_data();
+		paketBoxNewInterface.getStage().showAndWait();
+		set_data();
 	}
+
 }

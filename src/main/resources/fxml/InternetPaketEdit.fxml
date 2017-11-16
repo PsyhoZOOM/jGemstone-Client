@@ -54,7 +54,7 @@
                 <Label text="Idle-Timeout" />
                 <HBox alignment="CENTER_LEFT">
                     <children>
-                        <Spinner fx:id="spnIdleTimeout" />
+                        <Spinner fx:id="spnIdleTimeout" editable="true" />
                         <Label text="msec." />
                     </children>
                 </HBox>

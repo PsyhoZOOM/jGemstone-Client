@@ -68,7 +68,7 @@ public class DigitalniTVPaketEditController implements Initializable {
     }
 
     public void close(ActionEvent actionEvent) {
-        Stage stage = (Stage) bClose.getScene().getWindow();
+        Stage stage = (Stage) bSnimi.getScene().getWindow();
         stage.close();
     }
 
@@ -146,4 +146,6 @@ public class DigitalniTVPaketEditController implements Initializable {
 
 	    lCenaPaketa.setText(df.format(cena+pdvDiff));
     }
+
+
 }

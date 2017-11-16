@@ -25,7 +25,6 @@ public class InternetPaketEditController implements Initializable {
 	public TextField tBrzina;
 	public TextArea tOpis;
 	public Button bSnimi;
-	public Button bClose;
 	public Client client;
 	public boolean edit = false;
 	public int idRad;
@@ -119,7 +118,7 @@ public class InternetPaketEditController implements Initializable {
 	}
 
 	public void close(ActionEvent actionEvent) {
-		Stage stage = (Stage) bClose.getScene().getWindow();
+		Stage stage = (Stage) bSnimi.getScene().getWindow();
 		stage.close();
 	}
 
