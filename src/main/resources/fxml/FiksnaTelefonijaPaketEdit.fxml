@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" stylesheets="@../css/Main.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9" fx:controller="net.yuvideo.jgemstone.client.Controllers.FiksnaTelefonijaPaketEditController">
+<AnchorPane id="AnchorPane" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.FiksnaTelefonijaPaketEditController">
    <children>
       <VBox layoutX="200.0" layoutY="67.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
@@ -20,9 +19,25 @@
             <Label text="Naziv:" />
             <TextField fx:id="tNaziv" maxWidth="200.0" minWidth="200.0" />
             <Label text="Pretplata:" />
-            <Spinner fx:id="spnPretplata" />
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Spinner fx:id="spnPretplata" editable="true" />
+                  <Label text="din." />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
             <Label text="PDV:" />
-            <Spinner fx:id="spnPDV" />
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Spinner fx:id="spnPDV" editable="true" />
+                  <Label text="\%" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
             <HBox spacing="5.0">
                <children>
                   <Label text="Cena Paketa:" />

@@ -99,10 +99,8 @@ public class FiksnaTelefonijaPaket implements Initializable {
 							setText(df.format(item));
 						}
 					}
-					
-				}
+				};
 			}
-		
 		});
 
 	}
@@ -146,6 +144,7 @@ public class FiksnaTelefonijaPaket implements Initializable {
 		ediPaketFiksna.client = client;
 		ediPaketFiksna.edit = true;
 		ediPaketFiksna.paketEdit = paket;
+		ediPaketFiksna.set_data();
 		editFiksPaketInterface.getStage().showAndWait();
 		setTable();
 	}

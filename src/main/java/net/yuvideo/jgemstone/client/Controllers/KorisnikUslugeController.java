@@ -1034,7 +1034,7 @@ public class KorisnikUslugeController implements Initializable {
             fiksnaPaketi = new FiksnaPaketi();
             fiksnaPaketi.setId(fiksnaObj.getInt("id"));
             fiksnaPaketi.setNaziv(fiksnaObj.getString("naziv"));
-            fiksnaPaketi.setBesplatniMinutiFiksna(fiksnaObj.getDouble("besplatniMinutiFiksna"));
+            fiksnaPaketi.setBesplatniMinutiFiksna(fiksnaObj.getInt("besplatniMinutiFiksna"));
             fiksnaPaketi.setPdv(fiksnaObj.getDouble("pdv"));
             fiksnaPaketi.setPretplata(fiksnaObj.getDouble("pretplata"));
             paketArr.add(fiksnaPaketi);

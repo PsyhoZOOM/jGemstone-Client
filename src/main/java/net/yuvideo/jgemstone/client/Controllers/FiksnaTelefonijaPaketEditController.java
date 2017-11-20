@@ -10,7 +10,6 @@ import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -138,5 +137,12 @@ private void setCenaSaPDV() {
 		Double pdv = Double.valueOf(spnPDV.getEditor().getText());
 		Double pdvDiff = valueToPercent.getDiffValue(cena, pdv);
 		lCenaPaketa.setText(df.format(cena + pdvDiff));
+	}
+
+	void set_data() {
+		tNaziv.setText(paketEdit.getNaziv());
+		spnBesplatniMinuti.getEditor().setText(String.valueOf(paketEdit.getBesplatniMinutiFiksna()));
+		spnPDV.getEditor().setText(df.format(paketEdit.getPdv()));
+		spnPretplata.getEditor().setText(df.format(paketEdit.getPretplata()));
 	}
 }
