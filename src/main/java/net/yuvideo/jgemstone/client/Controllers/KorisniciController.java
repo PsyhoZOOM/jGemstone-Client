@@ -269,10 +269,17 @@ public class KorisniciController implements Initializable {
 
 
     public void newUser(ActionEvent actionEvent) {
+        //treba na free id iz mysql baze da ne bi bilo rupa :) (klin se klinom izbija ali rupa ostaje ;))
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("action", "get_next_free_ID");
+        jsonObject = client.send_object(jsonObject);
+
+
         NewInterface novKorisnik = new NewInterface("fxml/NovKorisnik.fxml", "Nov Korisnik", resources);
         NovKorisnikController novKorisnikController = novKorisnik.getLoader().getController();
 
         novKorisnikController.setClient(client);
+        novKorisnikController.freeID = jsonObject.getInt("freeID");
 
         novKorisnik.getStage().showAndWait();
 

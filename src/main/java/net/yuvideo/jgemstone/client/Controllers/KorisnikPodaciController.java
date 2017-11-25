@@ -109,10 +109,11 @@ public class KorisnikPodaciController implements Initializable {
         cmbAdresaUsluge.valueProperty().addListener(new ChangeListener<Adrese>() {
             @Override
             public void changed(ObservableValue<? extends Adrese> observable, Adrese oldValue, Adrese newValue) {
+                String formatedUserJBROJ = String.format("%05d", userData.getId());
                 if (!cmbAdresaUsluge.getItems().isEmpty()) {
-                    lUserID.setText(cmbAdresaUsluge.getValue().getBrojMesta() + cmbAdresaUsluge.getValue().getBrojAdrese() + userData.getId());
+                    lUserID.setText(cmbAdresaUsluge.getValue().getBrojMesta() + cmbAdresaUsluge.getValue().getBrojAdrese() + formatedUserJBROJ);
                 } else {
-                    lUserID.setText(String.valueOf(userData.getjMesto() + userData.getjAdresa() + userData.getId()));
+                    lUserID.setText(String.valueOf(userData.getjMesto() + userData.getjAdresa() + formatedUserJBROJ));
                 }
             }
         });

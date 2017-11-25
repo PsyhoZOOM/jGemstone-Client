@@ -1,6 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
@@ -98,8 +97,12 @@ public class OstaleUslugeController implements Initializable {
 
 
     public void updateItems(){
-        client.send_object(new JSONObject());
-        System.out.println("HELOOOO");
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("action", "getOstaleUslugeData");
+        jsonObject = client.send_object(jsonObject);
+
+
+
     }
 
 }

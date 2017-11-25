@@ -49,6 +49,7 @@ public class NovKorisnikController implements Initializable {
     private Alert alert;
     @FXML
     private ComboBox<CardTerminal> cmbCardReader;
+    public int freeID;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -101,15 +102,18 @@ public class NovKorisnikController implements Initializable {
 
     public void setClient(Client client) {
         List<CardTerminal> terminals = getTerminals();
-        cmbCardReader.getItems().addAll(terminals);
+        if (terminals != null) cmbCardReader.getItems().addAll(terminals);
         this.client = client;
 
     }
 
     public void bSaveUser(ActionEvent actionEvent) {
 
+        String formatedUserJbroj = String.format("%05d", freeID);
         jObj = new JSONObject();
         jObj.put("action", "new_user");
+
+        jObj.put("freeID", freeID);
 
         jObj.put("fullName", tFullName.getText());
         jObj.put("datumRodjenja", tDatumRodjenja.getValue().format(dateTimeFormatterRodjen));
@@ -121,6 +125,7 @@ public class NovKorisnikController implements Initializable {
         jObj.put("komentar", tKomentar.getText());
         jObj.put("telFiksni", tFiksni.getText());
         jObj.put("telMobilni", tMobilni.getText());
+        jObj.put("jBroj", formatedUserJbroj);
 
 
         jObj = client.send_object(jObj);
