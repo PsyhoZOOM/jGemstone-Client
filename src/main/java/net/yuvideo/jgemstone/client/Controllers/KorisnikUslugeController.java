@@ -317,9 +317,10 @@ public class KorisnikUslugeController implements Initializable {
 			@Override
 			protected void updateItem(Double item, boolean empty) {
 				super.updateItem(item, empty);
-				if(empty){
+				if(empty || item == null ){
 					setText(null);
 				}else{
+					System.out.println("ZAUPLATU:"+item);
 					setText(df.format(item));
 				}
 			}
