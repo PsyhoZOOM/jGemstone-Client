@@ -124,6 +124,7 @@
                                                         <TableColumn fx:id="cZaMesec" prefWidth="75.0" text="Za Mesec" />
                                                         <TableColumn fx:id="cCena" minWidth="-1.0" prefWidth="-1.0" text="Cena" />
                                                         <TableColumn fx:id="cPopust" minWidth="-1.0" prefWidth="-1.0" text="Popust" />
+                                          <TableColumn fx:id="cPDV" prefWidth="75.0" text="PDV" />
                                                         <TableColumn fx:id="cZaUplatu" minWidth="-1.0" prefWidth="-1.0" text="Za uplatu" />
                                                         <TableColumn fx:id="cUplaceno" prefWidth="75.0" text="Uplaćeno" />
                                                         <TableColumn fx:id="cZaduzenOd" prefWidth="75.0" text="Zaduzen Od" visible="false" />

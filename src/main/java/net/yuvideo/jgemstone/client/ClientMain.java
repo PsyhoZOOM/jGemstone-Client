@@ -19,6 +19,9 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
+import javafx.scene.image.Image;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 
 public class ClientMain extends Application {
@@ -58,6 +61,10 @@ public class ClientMain extends Application {
         Locale.setDefault(new Locale("sr_latin", "RS"));
         System.setProperty("file.encoding", "UTF-8");
         Charset.defaultCharset();
+
+		///SET ICON
+		primaryStage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/YuVideoLogo.png")));
+		
         this.stage = primaryStage;
 
         primaryStage.setTitle("JGemstone");

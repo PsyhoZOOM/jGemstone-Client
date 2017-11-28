@@ -1,66 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorPane" prefHeight="768.0" prefWidth="1151.0"
-            stylesheets="@../css/Main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65"
-            fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUslugeController">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="768.0" prefWidth="1151.0" stylesheets="@../css/Main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUslugeController">
     <children>
-        <TabPane tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0"
-                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <TabPane tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <tabs>
                 <Tab fx:id="usluge" closable="false" text="Usluge">
                     <content>
                         <AnchorPane>
                             <children>
-                                <GridPane depthTest="DISABLE" hgap="5.0" layoutX="59.0" layoutY="144.0" vgap="5.0"
-                                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <GridPane depthTest="DISABLE" hgap="5.0" layoutX="59.0" layoutY="144.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <columnConstraints>
-                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                        <ColumnConstraints hgrow="ALWAYS" />
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS"/>
-                                        <RowConstraints vgrow="NEVER"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                        <RowConstraints vgrow="NEVER" />
                                     </rowConstraints>
                                     <padding>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </padding>
                                     <children>
                                         <HBox alignment="CENTER_RIGHT" spacing="5.0" GridPane.rowIndex="1">
                                             <children>
-                                                <Button fx:id="bDeleteService" mnemonicParsing="false"
-                                                        onAction="#deleteUserService" text="Obriši"/>
-                                                <Button fx:id="bIzmeniServis" mnemonicParsing="false" text="Izmeni"/>
-                                                <Button fx:id="bActivateService" minWidth="100.0"
-                                                        mnemonicParsing="false" onAction="#activateService"
-                                                        prefWidth="100.0" text="Aktiviraj"/>
+                                                <Button fx:id="bDeleteService" mnemonicParsing="false" onAction="#deleteUserService" text="Obriši" />
+                                                <Button fx:id="bIzmeniServis" mnemonicParsing="false" text="Izmeni" />
+                                                <Button fx:id="bActivateService" minWidth="100.0" mnemonicParsing="false" onAction="#activateService" prefWidth="100.0" text="Aktiviraj" />
                                             </children>
                                         </HBox>
-                                        <TreeTableView fx:id="tblServices">
+                                        <TreeTableView fx:id="tblServices" tableMenuButtonVisible="true">
                                             <columns>
-                                                <TreeTableColumn fx:id="cServicesNaziv" prefWidth="75.0" text="Naziv"/>
-                                                <TreeTableColumn fx:id="cServiceIdentification" prefWidth="75.0"
-                                                                 text="Identifikacija"/>
-                                                <TreeTableColumn fx:id="cServicesDatum" prefWidth="75.0"
-                                                                 text="Datum Kreiranja"/>
-                                                <TreeTableColumn fx:id="cDatumIsteka" prefWidth="75.0" text="Ističe"/>
-                                                <TreeTableColumn fx:id="cServicesBrojUgovora" prefWidth="75.0"
-                                                                 text="Broj ugovora"/>
-                                                <TreeTableColumn fx:id="cSservicesOperater" prefWidth="75.0"
-                                                                 text="Operater"/>
-                                                <TreeTableColumn fx:id="cServicePopust" minWidth="-1.0" prefWidth="-1.0"
-                                                                 text="Popust"/>
-                                                <TreeTableColumn fx:id="cServiceCena" prefWidth="75.0" text="Cena"/>
-                                                <TreeTableColumn fx:id="cServiceObracun" prefWidth="75.0"
-                                                                 text="Obračun"/>
-                                                <TreeTableColumn fx:id="cServiceAktivan" prefWidth="75.0"
-                                                                 text="Aktivan"/>
+                                                <TreeTableColumn fx:id="cServicesNaziv" prefWidth="75.0" text="Naziv" />
+                                                <TreeTableColumn fx:id="cServiceIdentification" prefWidth="75.0" text="Identifikacija" />
+                                                <TreeTableColumn fx:id="cServicesDatum" prefWidth="75.0" text="Datum Kreiranja" />
+                                                <TreeTableColumn fx:id="cDatumIsteka" prefWidth="75.0" text="Ističe" />
+                                                <TreeTableColumn fx:id="cServicesBrojUgovora" prefWidth="75.0" text="Broj ugovora" />
+                                                <TreeTableColumn fx:id="cSservicesOperater" prefWidth="75.0" text="Operater" />
+                                                <TreeTableColumn fx:id="cServiceCena" prefWidth="75.0" text="Cena" />
+                                                <TreeTableColumn fx:id="cServicePopust" minWidth="-1.0" prefWidth="-1.0" text="Popust" />
+                                    <TreeTableColumn fx:id="cPDV" prefWidth="75.0" text="PDV" />
+                                    <TreeTableColumn fx:id="cZaUplatu" prefWidth="75.0" text="Za Uplatu" />
+                                                <TreeTableColumn fx:id="cServiceObracun" prefWidth="75.0" text="Obračun" />
+                                                <TreeTableColumn fx:id="cServiceAktivan" prefWidth="75.0" text="Aktivan" />
                                             </columns>
                                             <columnResizePolicy>
-                                                <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                                <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                             </columnResizePolicy>
                                         </TreeTableView>
                                     </children>
@@ -73,63 +74,52 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <GridPane hgap="5.0" layoutX="169.0" layoutY="190.0" prefHeight="768.0"
-                                          prefWidth="1118.0" vgap="5.0" AnchorPane.bottomAnchor="0.0"
-                                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                          AnchorPane.topAnchor="0.0">
+                                <GridPane hgap="5.0" layoutX="169.0" layoutY="190.0" prefHeight="768.0" prefWidth="1118.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <columnConstraints>
-                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
-                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0"
-                                                           prefWidth="100.0"/>
+                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
+                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
                                     </rowConstraints>
                                     <children>
-                                        <Label text="Naziv BOX Paketa:"/>
-                                        <Label text="DTV Kartica:" GridPane.rowIndex="1"/>
-                                        <Label text="Korisničko ime:" GridPane.rowIndex="2"/>
-                                        <Label text="Lozinka:" GridPane.rowIndex="3"/>
-                                        <Label text="IPTV MAC:" GridPane.rowIndex="4"/>
-                                        <Label text="Fiksna tel.:" GridPane.rowIndex="5"/>
-                                        <Label text="Popust:" GridPane.rowIndex="6"/>
-                                        <Label text="Ugovor:" GridPane.rowIndex="7"/>
-                                        <Label text="Prekoračenje (meseci):" GridPane.rowIndex="8"/>
-                                        <Label text="Opis:" GridPane.rowIndex="10"/>
-                                        <ComboBox fx:id="cmbPaketBOX" GridPane.columnIndex="1"/>
-                                        <TextField fx:id="tKarticaBox" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                        <TextField fx:id="tUserNameBox" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                        <PasswordField fx:id="tPasswordBox" GridPane.columnIndex="1"
-                                                       GridPane.rowIndex="3"/>
-                                        <TextField fx:id="tMACIPTVBox" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                                        <TextField fx:id="tFiksnaTelBox" GridPane.columnIndex="1"
-                                                   GridPane.rowIndex="5"/>
-                                        <TextField fx:id="tPopustBox" text="0.00" GridPane.columnIndex="1"
-                                                   GridPane.rowIndex="6"/>
-                                        <ComboBox fx:id="cmbUgovorBox" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-                                        <TextField fx:id="tProduzenjeBox" text="2" GridPane.columnIndex="1"
-                                                   GridPane.rowIndex="8"/>
-                                        <CheckBox fx:id="chkRacunBOX" mnemonicParsing="false" selected="true"
-                                                  GridPane.columnIndex="1" GridPane.rowIndex="9"/>
-                                        <TextArea fx:id="tOpisBox" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
-                                        <Button fx:id="bSnimiBox" mnemonicParsing="false" onAction="#addServiceBox"
-                                                text="Snimi" GridPane.columnIndex="1" GridPane.halignment="RIGHT"
-                                                GridPane.rowIndex="11"/>
-                                        <Label text="Obračun:" GridPane.rowIndex="9"/>
+                                        <Label text="Naziv BOX Paketa:" />
+                                        <Label text="DTV Kartica:" GridPane.rowIndex="1" />
+                                        <Label text="Korisničko ime:" GridPane.rowIndex="2" />
+                                        <Label text="Lozinka:" GridPane.rowIndex="3" />
+                                        <Label text="IPTV MAC:" GridPane.rowIndex="4" />
+                                        <Label text="Fiksna tel.:" GridPane.rowIndex="5" />
+                                        <Label text="Popust:" GridPane.rowIndex="6" />
+                                        <Label text="Ugovor:" GridPane.rowIndex="7" />
+                                        <Label text="Prekoračenje (meseci):" GridPane.rowIndex="8" />
+                                        <Label text="Opis:" GridPane.rowIndex="10" />
+                                        <ComboBox fx:id="cmbPaketBOX" GridPane.columnIndex="1" />
+                                        <TextField fx:id="tKarticaBox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="tUserNameBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <PasswordField fx:id="tPasswordBox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <TextField fx:id="tMACIPTVBox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        <TextField fx:id="tFiksnaTelBox" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                        <TextField fx:id="tPopustBox" text="0.00" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                        <ComboBox fx:id="cmbUgovorBox" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                        <TextField fx:id="tProduzenjeBox" text="2" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                        <CheckBox fx:id="chkRacunBOX" mnemonicParsing="false" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                        <TextArea fx:id="tOpisBox" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                        <Button fx:id="bSnimiBox" mnemonicParsing="false" onAction="#addServiceBox" text="Snimi" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="11" />
+                                        <Label text="Obračun:" GridPane.rowIndex="9" />
                                     </children>
                                     <padding>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </padding>
                                 </GridPane>
                             </children>
@@ -140,49 +130,40 @@
                     <content>
                         <AnchorPane>
                             <children>
-                                <GridPane hgap="5.0" layoutX="33.0" layoutY="155.0" vgap="5.0"
-                                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <GridPane hgap="5.0" layoutX="33.0" layoutY="155.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <columnConstraints>
-                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
-                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0"
-                                                           prefWidth="100.0"/>
+                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
+                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
                                     </rowConstraints>
                                     <children>
-                                        <ComboBox fx:id="cmbPaketDTV" prefWidth="150.0" GridPane.columnIndex="1"/>
-                                        <TextField fx:id="tPopustDTV" text="0" GridPane.columnIndex="1"
-                                                   GridPane.rowIndex="1"/>
-                                        <TextField fx:id="tKarticaDTV" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                        <TextField fx:id="tDTVPrekoracenje" text="2" GridPane.columnIndex="1"
-                                                   GridPane.rowIndex="3"/>
-                                        <CheckBox fx:id="chkRacunDTV" mnemonicParsing="false" selected="true"
-                                                  GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                                        <ComboBox fx:id="cmbUgovorDTV" prefWidth="150.0" GridPane.columnIndex="1"
-                                                  GridPane.rowIndex="5"/>
-                                        <TextArea fx:id="tOpisDTV" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                                        <Button fx:id="bAddServiceDTV" mnemonicParsing="false" onAction="#addServiceDTV"
-                                                text="Dodaj uslugu" GridPane.columnIndex="1" GridPane.halignment="RIGHT"
-                                                GridPane.rowIndex="7"/>
-                                        <Label text="Naziv paketa:"/>
-                                        <Label text="Popust %:" GridPane.rowIndex="1"/>
-                                        <Label text="Kartica broj (10 brojeva):" GridPane.rowIndex="2"/>
-                                        <Label text="Štampa i obračun računa:" GridPane.rowIndex="4"/>
-                                        <Label text="Opis:" GridPane.rowIndex="6"/>
-                                        <Label text="Broj Ugovora" GridPane.rowIndex="5"/>
-                                        <Label text="Prekoračenje (meseci):" GridPane.rowIndex="3"/>
+                                        <ComboBox fx:id="cmbPaketDTV" prefWidth="150.0" GridPane.columnIndex="1" />
+                                        <TextField fx:id="tPopustDTV" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="tKarticaDTV" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <TextField fx:id="tDTVPrekoracenje" text="2" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <CheckBox fx:id="chkRacunDTV" mnemonicParsing="false" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        <ComboBox fx:id="cmbUgovorDTV" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                        <TextArea fx:id="tOpisDTV" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                        <Button fx:id="bAddServiceDTV" mnemonicParsing="false" onAction="#addServiceDTV" text="Dodaj uslugu" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+                                        <Label text="Naziv paketa:" />
+                                        <Label text="Popust %:" GridPane.rowIndex="1" />
+                                        <Label text="Kartica broj (10 brojeva):" GridPane.rowIndex="2" />
+                                        <Label text="Štampa i obračun računa:" GridPane.rowIndex="4" />
+                                        <Label text="Opis:" GridPane.rowIndex="6" />
+                                        <Label text="Broj Ugovora" GridPane.rowIndex="5" />
+                                        <Label text="Prekoračenje (meseci):" GridPane.rowIndex="3" />
                                     </children>
                                     <padding>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </padding>
                                 </GridPane>
                             </children>
@@ -193,60 +174,46 @@
                     <content>
                         <AnchorPane>
                             <children>
-                                <GridPane hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0"
-                                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                          AnchorPane.topAnchor="0.0">
+                                <GridPane hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <columnConstraints>
-                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
-                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0"
-                                                           prefWidth="100.0"/>
+                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
+                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
                                     </rowConstraints>
                                     <children>
-                                        <ComboBox fx:id="cmbPaketInternet" GridPane.columnIndex="1"
-                                                  GridPane.hgrow="ALWAYS"/>
-                                        <TextField fx:id="tPopustInternet" text="0" GridPane.columnIndex="1"
-                                                   GridPane.rowIndex="1"/>
-                                        <TextField fx:id="tUserNameInternet" GridPane.columnIndex="1"
-                                                   GridPane.rowIndex="2"/>
-                                        <PasswordField fx:id="tLoznikaInternet" GridPane.columnIndex="1"
-                                                       GridPane.rowIndex="3"/>
-                                        <PasswordField fx:id="tLozinkaCInternet" GridPane.columnIndex="1"
-                                                       GridPane.rowIndex="4"/>
-                                        <TextField fx:id="tInternetPrekoracenje" text="2" GridPane.columnIndex="1"
-                                                   GridPane.rowIndex="5"/>
-                                        <CheckBox fx:id="chkRacunInternet" mnemonicParsing="false" selected="true"
-                                                  GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                                        <ComboBox fx:id="cmbUgovorInternet" prefWidth="150.0" GridPane.columnIndex="1"
-                                                  GridPane.rowIndex="7"/>
-                                        <TextArea fx:id="tOpisInternet" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
-                                        <Button fx:id="bAddServiceInternet" mnemonicParsing="false"
-                                                onAction="#addServiceInternet" text="Dodaj uslugu"
-                                                GridPane.columnIndex="1" GridPane.halignment="RIGHT"
-                                                GridPane.rowIndex="9"/>
-                                        <Label text="Paket:"/>
-                                        <Label text="Korisničko ime:" GridPane.rowIndex="2"/>
-                                        <Label text="Lozinka:" GridPane.rowIndex="3"/>
-                                        <Label text="Potvrda lozinke:" GridPane.rowIndex="4"/>
-                                        <Label text="Obračun i štampa računa:" GridPane.rowIndex="6"/>
-                                        <Label text="Opis:" GridPane.rowIndex="8"/>
-                                        <Label text="Popust %:" GridPane.rowIndex="1"/>
-                                        <Label text="Broj ugovora:" GridPane.rowIndex="7"/>
-                                        <Label text="Prekoračenje (meseci):" GridPane.rowIndex="5"/>
+                                        <ComboBox fx:id="cmbPaketInternet" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                                        <TextField fx:id="tPopustInternet" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="tUserNameInternet" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <PasswordField fx:id="tLoznikaInternet" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <PasswordField fx:id="tLozinkaCInternet" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        <TextField fx:id="tInternetPrekoracenje" text="2" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                        <CheckBox fx:id="chkRacunInternet" mnemonicParsing="false" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                        <ComboBox fx:id="cmbUgovorInternet" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                        <TextArea fx:id="tOpisInternet" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                        <Button fx:id="bAddServiceInternet" mnemonicParsing="false" onAction="#addServiceInternet" text="Dodaj uslugu" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="9" />
+                                        <Label text="Paket:" />
+                                        <Label text="Korisničko ime:" GridPane.rowIndex="2" />
+                                        <Label text="Lozinka:" GridPane.rowIndex="3" />
+                                        <Label text="Potvrda lozinke:" GridPane.rowIndex="4" />
+                                        <Label text="Obračun i štampa računa:" GridPane.rowIndex="6" />
+                                        <Label text="Opis:" GridPane.rowIndex="8" />
+                                        <Label text="Popust %:" GridPane.rowIndex="1" />
+                                        <Label text="Broj ugovora:" GridPane.rowIndex="7" />
+                                        <Label text="Prekoračenje (meseci):" GridPane.rowIndex="5" />
                                     </children>
                                     <padding>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </padding>
                                 </GridPane>
                             </children>
@@ -257,40 +224,35 @@
                     <content>
                         <GridPane hgap="5.0" vgap="5.0">
                             <columnConstraints>
-                                <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
-                                <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0"
-                                                   prefWidth="100.0"/>
+                                <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
+                                <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                                <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                             </rowConstraints>
                             <children>
-                                <Label text="Paket:"/>
-                                <Label text="Popust:" GridPane.rowIndex="1"/>
-                                <Label text="Broj telefona:" GridPane.rowIndex="2"/>
-                                <Label text="Obračun i štampa računa:" GridPane.rowIndex="3"/>
-                                <Label text="Broj ugovora:" GridPane.rowIndex="4"/>
-                                <Label text="Opis:" GridPane.rowIndex="5"/>
-                                <ComboBox fx:id="cmbFixPaket" prefWidth="150.0" GridPane.columnIndex="1"/>
-                                <TextField fx:id="tFixPopust" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                <TextField fx:id="tFixBrojTel" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                <CheckBox fx:id="chkFixStampaObracun" mnemonicParsing="false" selected="true"
-                                          GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                                <ComboBox fx:id="cmbFixBrojUgovora" prefWidth="150.0" GridPane.columnIndex="1"
-                                          GridPane.rowIndex="4"/>
-                                <TextArea fx:id="tFixOpis" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                                <Button fx:id="bFixDodajUslugu" mnemonicParsing="false" onAction="#addFixUslugu"
-                                        text="Dodaj uslugu" GridPane.columnIndex="1" GridPane.halignment="RIGHT"
-                                        GridPane.rowIndex="6"/>
+                                <Label text="Paket:" />
+                                <Label text="Popust:" GridPane.rowIndex="1" />
+                                <Label text="Broj telefona:" GridPane.rowIndex="2" />
+                                <Label text="Obračun i štampa računa:" GridPane.rowIndex="3" />
+                                <Label text="Broj ugovora:" GridPane.rowIndex="4" />
+                                <Label text="Opis:" GridPane.rowIndex="5" />
+                                <ComboBox fx:id="cmbFixPaket" prefWidth="150.0" GridPane.columnIndex="1" />
+                                <TextField fx:id="tFixPopust" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <TextField fx:id="tFixBrojTel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <CheckBox fx:id="chkFixStampaObracun" mnemonicParsing="false" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <ComboBox fx:id="cmbFixBrojUgovora" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                <TextArea fx:id="tFixOpis" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                <Button fx:id="bFixDodajUslugu" mnemonicParsing="false" onAction="#addFixUslugu" text="Dodaj uslugu" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
                             </children>
                             <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </padding>
                         </GridPane>
                     </content>
@@ -299,59 +261,46 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <GridPane hgap="5.0" layoutX="364.0" layoutY="198.0" prefHeight="719.0"
-                                          prefWidth="1141.0" vgap="5.0" AnchorPane.bottomAnchor="0.0"
-                                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                          AnchorPane.topAnchor="0.0">
+                                <GridPane hgap="5.0" layoutX="364.0" layoutY="198.0" prefHeight="719.0" prefWidth="1141.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <columnConstraints>
-                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
-                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0"
-                                                           prefWidth="100.0"/>
+                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
+                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
-                                        <RowConstraints vgrow="NEVER"/>
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
+                                        <RowConstraints vgrow="NEVER" />
                                     </rowConstraints>
                                     <children>
-                                        <Label text="Naziv paketa:"/>
-                                        <Label text="Username:" GridPane.rowIndex="2"/>
-                                        <Label text="Password:" GridPane.rowIndex="3"/>
-                                        <ComboBox fx:id="cmbIPTVPaket" prefWidth="150.0" GridPane.columnIndex="1"/>
-                                        <TextField fx:id="tPopustIPTV" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                                        <TextField fx:id="tUserNameIPTV" GridPane.columnIndex="1"
-                                                   GridPane.rowIndex="2"/>
-                                        <PasswordField fx:id="tPasswordIPTV" GridPane.columnIndex="1"
-                                                       GridPane.rowIndex="3"/>
-                                        <PasswordField fx:id="tPasswordIPTVCheck" GridPane.columnIndex="1"
-                                                       GridPane.rowIndex="4"/>
-                                        <TextField fx:id="tStbMACIPTV" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                                        <ComboBox fx:id="cmbUgovorIPTV" prefWidth="150.0" GridPane.columnIndex="1"
-                                                  GridPane.rowIndex="6"/>
-                                        <TextField fx:id="tIPTVPrekoracenje" text="2" GridPane.columnIndex="1"
-                                                   GridPane.rowIndex="7"/>
-                                        <CheckBox fx:id="cmbObracunIPTV" mnemonicParsing="false" selected="true"
-                                                  text="Obračun i štampa računa" GridPane.columnIndex="1"
-                                                  GridPane.rowIndex="8"/>
-                                        <Button fx:id="bSnimiIPTVUsluguIPTV" mnemonicParsing="false"
-                                                onAction="#addServiceIPTV" text="Snimi" GridPane.columnIndex="1"
-                                                GridPane.rowIndex="9"/>
-                                        <Label text="Popust:" GridPane.rowIndex="1"/>
-                                        <Label text="Ugovor:" GridPane.rowIndex="6"/>
-                                        <Label text="STB MAC:" GridPane.rowIndex="5"/>
-                                        <Label text="Prekoračenje (meseci):" GridPane.rowIndex="7"/>
-                                        <Label text="Potvrda passworda:" GridPane.rowIndex="4"/>
+                                        <Label text="Naziv paketa:" />
+                                        <Label text="Username:" GridPane.rowIndex="2" />
+                                        <Label text="Password:" GridPane.rowIndex="3" />
+                                        <ComboBox fx:id="cmbIPTVPaket" prefWidth="150.0" GridPane.columnIndex="1" />
+                                        <TextField fx:id="tPopustIPTV" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="tUserNameIPTV" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <PasswordField fx:id="tPasswordIPTV" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <PasswordField fx:id="tPasswordIPTVCheck" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        <TextField fx:id="tStbMACIPTV" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                        <ComboBox fx:id="cmbUgovorIPTV" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                        <TextField fx:id="tIPTVPrekoracenje" text="2" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                        <CheckBox fx:id="cmbObracunIPTV" mnemonicParsing="false" selected="true" text="Obračun i štampa računa" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                        <Button fx:id="bSnimiIPTVUsluguIPTV" mnemonicParsing="false" onAction="#addServiceIPTV" text="Snimi" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                        <Label text="Popust:" GridPane.rowIndex="1" />
+                                        <Label text="Ugovor:" GridPane.rowIndex="6" />
+                                        <Label text="STB MAC:" GridPane.rowIndex="5" />
+                                        <Label text="Prekoračenje (meseci):" GridPane.rowIndex="7" />
+                                        <Label text="Potvrda passworda:" GridPane.rowIndex="4" />
                                     </children>
                                     <padding>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </padding>
                                 </GridPane>
                             </children>
@@ -360,7 +309,7 @@
                 </Tab>
             </tabs>
             <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding>
         </TabPane>
     </children>

@@ -15,6 +15,7 @@ public class ServicesUser implements Serializable {
     Double cena;
     Double pdv;
     Double popust;
+	Double zaUplatu;
     boolean aktivan;
     boolean obracun;
     String idUniqueName;
@@ -39,6 +40,18 @@ public class ServicesUser implements Serializable {
     private String nazivIPTV;
     private String endDate;
 
+	public Double getZaUplatu() {
+		return zaUplatu;
+	}
+
+	public void setZaUplatu(Double zaUplatu) {
+		this.zaUplatu = zaUplatu;
+	}
+
+
+
+
+	
 
     public Double getPdv() {
         return pdv;

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 
 /**
  * Created by zoom on 2/2/17.
@@ -39,6 +40,10 @@ public class KorisnikUslugeController implements Initializable {
     public TreeTableColumn cServiceIdentification;
     public TreeTableColumn cServiceObracun;
     public TreeTableColumn cServiceAktivan;
+	@FXML
+	private TreeTableColumn cPDV;
+	@FXML
+	private TreeTableColumn cZaUplatu;
 
 
     //intenret service
@@ -290,7 +295,37 @@ public class KorisnikUslugeController implements Initializable {
         cServiceIdentification.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, String>("idUniqueName"));
         cDatumIsteka.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, String>("endDate"));
 
+		cPDV.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, Double>("pdv"));
 
+		cZaUplatu.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser,Double>("zaUplatu"));
+
+
+		cPDV.setCellFactory(cf ->new TreeTableCell<ServicesUser, Double>(){
+			@Override
+			protected void updateItem(Double item, boolean empty) {
+				super.updateItem(item, empty); 
+				if(empty){
+					setText(null);
+				}else{
+					setText(df.format(item));
+				}
+			}
+			
+		});
+
+		cZaUplatu.setCellFactory(cf -> new TreeTableCell<ServicesUser, Double>(){
+			@Override
+			protected void updateItem(Double item, boolean empty) {
+				super.updateItem(item, empty);
+				if(empty){
+					setText(null);
+				}else{
+					setText(df.format(item));
+				}
+			}
+			
+		});
+		
         cServiceCena.setCellFactory(lv -> new TreeTableCell<ServicesUser, Double>() {
             protected void updateItem(Double cena, boolean bool) {
                 super.updateItem(cena, bool);
@@ -506,6 +541,7 @@ public class KorisnikUslugeController implements Initializable {
             service.setProduzenje(serviceObj.getInt("produzenje"));
             service.setCena(serviceObj.getDouble("cena"));
             service.setPopust(serviceObj.getDouble("popust"));
+			service.setPdv(serviceObj.getDouble("pdv"));
             service.setNazivPaketa(serviceObj.getString("nazivPaketa"));
             service.setLinkedService(serviceObj.getBoolean("linkedService"));
             service.setPaketType(serviceObj.getString("paketType"));
@@ -562,8 +598,17 @@ public class KorisnikUslugeController implements Initializable {
             serviceObj = (JSONObject) jObj.get(String.valueOf(i));
             service.setId(serviceObj.getInt("id"));
             service.setBrUgovora(serviceObj.getString("brojUgovora"));
-            service.setCena(serviceObj.getDouble("cena"));
-            service.setPopust(serviceObj.getDouble("popust"));
+			double cena = serviceObj.getDouble("cena");
+			double popust = serviceObj.getDouble("popust");
+			double pdv = serviceObj.getDouble("pdv");
+			double zaUplatu  = cena + valueToPercent.getDiffValue(cena, pdv);
+			
+			zaUplatu = zaUplatu - valueToPercent.getDiffValue(zaUplatu, popust);
+			
+            service.setCena(cena);
+            service.setPopust(popust);
+			service.setPdv(pdv);
+			service.setZaUplatu(zaUplatu);
             service.setOperater(serviceObj.getString("operName"));
             service.setDatum(serviceObj.getString("date_added"));
             service.setAktivan(serviceObj.getBoolean("aktivan"));
@@ -652,6 +697,7 @@ public class KorisnikUslugeController implements Initializable {
             box.setId(boxObj.getInt("id"));
             box.setNaziv(boxObj.getString("naziv"));
             box.setCena(boxObj.getDouble("cena"));
+			box.setPdv(boxObj.getDouble("pdv"));
             box.setPaketType(boxObj.getString("paketType"));
             if (boxObj.has("DTV_id")) {
                 box.setDTV(boxObj.getInt("DTV_id"));
@@ -720,6 +766,7 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("servicePopust", Double.valueOf(tPopustInternet.getText()));
         jObj.put("paketType", "INTERNET");
         jObj.put("cena", Double.valueOf(cmbPaketInternet.getValue().getCena()));
+		jObj.put("cena", cmbPaketInternet.getValue().getPdv());
         jObj.put("obracun", chkRacunInternet.isSelected());
         jObj.put("brojUgovora", cmbUgovorInternet.getValue().getBr());
         jObj.put("userName", tUserNameInternet.getText());
@@ -789,6 +836,7 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("servicePopust", Double.valueOf(tPopustDTV.getText()));
         jObj.put("paketType", "DTV");
         jObj.put("cena", Double.valueOf(cmbPaketDTV.getValue().getCena()));
+		jObj.put("pdv", cmbPaketDTV.getValue().getPdv());
         jObj.put("idPaket", cmbPaketDTV.getValue().getPaketID());
         jObj.put("brojUgovora", cmbUgovorDTV.getValue().getBr());
         jObj.put("idUniqueName", tKarticaDTV.getText());
@@ -862,6 +910,7 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("obracun", chkRacunBOX.isSelected());
         jObj.put("popust", Double.valueOf(tPopustBox.getText()));
         jObj.put("cena", Double.valueOf(cmbPaketBOX.getValue().getCena()));
+		jObj.put("pdv", cmbPaketBOX.getValue().getPdv());
         jObj.put("opis", tOpisBox.getText());
 
         if (!tUserNameBox.getText().isEmpty())
@@ -1002,7 +1051,8 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("nazivPaketa", cmbFixPaket.getValue().getNaziv());
         jObj.put("userID", userID);
         jObj.put("popust", Double.valueOf(tFixPopust.getText()));
-        jObj.put("cena", Double.valueOf(cmbFixPaket.getValue().getPretplata()));
+        jObj.put("cena", cmbFixPaket.getValue().getPretplata());
+		jObj.put("pdv", cmbFixPaket.getValue().getPdv());
         jObj.put("obracun", chkFixStampaObracun.isSelected());
         jObj.put("brojUgovora", cmbFixBrojUgovora.getValue().getBr());
         jObj.put("brojTel", tFixBrojTel.getText());
@@ -1061,6 +1111,7 @@ public class KorisnikUslugeController implements Initializable {
             iptvPaketi.setName(iptvJSON.getString("name"));
             iptvPaketi.setDescription(iptvJSON.getString("opis"));
             iptvPaketi.setCena(iptvJSON.getDouble("cena"));
+			iptvPaketi.setPdv(iptvJSON.getDouble("pdv"));
             iptvPaketiArrayList.add(iptvPaketi);
         }
         return iptvPaketiArrayList;
@@ -1086,6 +1137,7 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("status", 1);
         jObj.put("cena", cmbIPTVPaket.getValue().getCena());
         jObj.put("popust", tPopustIPTV.getText());
+		jObj.put("pdv", cmbIPTVPaket.getValue().getPdv());
         jObj.put("produzenje", Integer.valueOf(tIPTVPrekoracenje.getText()));
         jObj.put("brojUgovora", cmbUgovorIPTV.getValue().getBr());
         jObj.put("STB_MAC", tStbMACIPTV.getText().trim());
