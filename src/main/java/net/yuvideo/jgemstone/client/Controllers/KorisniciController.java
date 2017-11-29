@@ -219,6 +219,7 @@ public class KorisniciController implements Initializable {
         Users user = tUsers.getSelectionModel().getSelectedItem();
         int userId = user.getId();
         EditUser(userId);
+		show_table(tUserSearch.getText());
 
     }
 
@@ -236,6 +237,7 @@ public class KorisniciController implements Initializable {
         editUserController.loadKorisnikFirma();
 
         editKorisnikInterface.getStage().showAndWait();
+		
     }
 
 

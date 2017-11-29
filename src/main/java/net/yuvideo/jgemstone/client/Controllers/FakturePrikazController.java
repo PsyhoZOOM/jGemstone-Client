@@ -8,16 +8,20 @@ import net.yuvideo.jgemstone.client.classes.NewInterface;
 import net.yuvideo.jgemstone.client.classes.Users;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Fakture;
+import net.yuvideo.jgemstone.client.classes.valueToPercent;
 import org.json.JSONObject;
 
 /**
@@ -30,6 +34,7 @@ public class FakturePrikazController implements Initializable {
 	public Button bPrikaziFakturu;
 	private URL location;
 	private ResourceBundle resources;
+	private DecimalFormat df = new DecimalFormat("0.00");
 
 	@FXML
 	TableView<Fakture> tblFakture;
@@ -40,7 +45,7 @@ public class FakturePrikazController implements Initializable {
 	@FXML
 	TableColumn<Fakture, Double> cIznosBezPDV;
 	@FXML
-	TableColumn<Fakture, Double> cIznostPDV;
+	TableColumn<Fakture, Double> cPDV;
 	@FXML
 	TableColumn<Fakture, Double> cCenaSaPDV;
 
@@ -49,6 +54,51 @@ public class FakturePrikazController implements Initializable {
 		this.location = location;
 		this.resources = resources;
 
+		cBr.setCellValueFactory(new PropertyValueFactory<>("brFakture"));
+		cDatum.setCellValueFactory(new PropertyValueFactory<>("datum"));
+		cIznosBezPDV.setCellValueFactory(new PropertyValueFactory<>("vrednostBezPDV"));
+		cPDV.setCellValueFactory(new PropertyValueFactory<>("iznosPDV"));
+		cCenaSaPDV.setCellValueFactory(new PropertyValueFactory<>("vrednostSaPDV"));
+
+		cIznosBezPDV.setCellFactory(tc -> new TableCell<Fakture, Double>() {
+			@Override
+			protected void updateItem(Double item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty) {
+					setText(null);
+				} else {
+					setText(df.format(item));
+				}
+			}
+
+		});
+
+		cPDV.setCellFactory(tc ->new TableCell<Fakture, Double>(){
+			@Override
+			protected void updateItem(Double item, boolean empty) {
+				super.updateItem(item, empty); 
+				if(empty){
+					setText(null);
+				}else{
+					setText(df.format(item));
+				}
+			}
+			
+		});
+
+		cCenaSaPDV.setCellFactory(tc -> new TableCell<Fakture, Double>(){
+			@Override
+			protected void updateItem(Double item, boolean empty) {
+				super.updateItem(item, empty); 
+				if(empty){
+					setText(null);
+				}else{
+					setText(df.format(item));
+				}
+			}
+			
+		});
+		
 	}
 
 	public void prikaziFakturu(ActionEvent event) {
@@ -81,19 +131,24 @@ public class FakturePrikazController implements Initializable {
 		ArrayList<Fakture> faktureArr = new ArrayList<>();
 
 		for (int i = 0; i < jObj.length(); i++) {
+			JSONObject faktureObj = (JSONObject) jObj.get(String.valueOf(i));
 			fakture = new Fakture();
-			fakture.setId(jObj.getInt("id"));
-			fakture.setBrFakture(jObj.getInt("br"));
-			fakture.setNaziv(jObj.getString("naziv"));
-			fakture.setJedMere(jObj.getString("jedMere"));
-			fakture.setKolicina(jObj.getInt("kolicina"));
-			fakture.setVrednostBezPDV(jObj.getDouble("cena"));
-			fakture.setIznosPDV(jObj.getDouble("pdv"));
-			fakture.setOperater(jObj.getString("operater"));
-			fakture.setUserId(jObj.getInt("userID"));
-			fakture.setDatum(jObj.getString("datum"));
-			fakture.setGodina(jObj.getString("godina"));
-			fakture.setMesec(jObj.getString("mesec"));
+			fakture.setId(faktureObj.getInt("id"));
+			fakture.setBrFakture(faktureObj.getInt("br"));
+			fakture.setNaziv(faktureObj.getString("naziv"));
+			fakture.setJedMere(faktureObj.getString("jedMere"));
+			fakture.setKolicina(faktureObj.getInt("kolicina"));
+			double cenaBezPDV = faktureObj.getDouble("cenaBezPDV");
+			double pdv = faktureObj.getDouble("pdv");
+			double cenaSaPDV = cenaBezPDV + valueToPercent.getDiffValue(cenaBezPDV, pdv);
+			fakture.setVrednostBezPDV(cenaBezPDV);
+			fakture.setIznosPDV(pdv);
+			fakture.setVrednostSaPDV(cenaSaPDV);
+			fakture.setOperater(faktureObj.getString("operater"));
+			fakture.setUserId(faktureObj.getInt("userID"));
+			fakture.setDatum(faktureObj.getString("datum"));
+			fakture.setGodina(faktureObj.getString("godina"));
+			fakture.setMesec(faktureObj.getString("mesec"));
 			faktureArr.add(fakture);
 		}
 
