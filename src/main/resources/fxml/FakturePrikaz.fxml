@@ -17,9 +17,6 @@
               <columns>
                 <TableColumn fx:id="cBr" prefWidth="75.0" text="br" />
                 <TableColumn fx:id="cDatum" prefWidth="75.0" text="Datum" />
-                  <TableColumn fx:id="cIznosBezPDV" prefWidth="75.0" text="Iznos bez PDV" />
-                  <TableColumn fx:id="cPDV" prefWidth="75.0" text="PDV" />
-                  <TableColumn fx:id="cCenaSaPDV" prefWidth="75.0" text="Ukupno" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

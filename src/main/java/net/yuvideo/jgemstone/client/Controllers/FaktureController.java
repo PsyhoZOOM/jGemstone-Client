@@ -20,6 +20,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Created by zoom on 11/22/16.
@@ -61,6 +63,7 @@ public class FaktureController implements Initializable {
     private Fakture selectedFacture;
     private JSONObject jObj;
     private Logger LOGGER = Logger.getLogger("FAKTURE");
+	Fakture faktura;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -124,7 +127,7 @@ public class FaktureController implements Initializable {
     public void set_table() {
 
         cId.setCellValueFactory(new PropertyValueFactory<Fakture, Integer>("id"));
-        colBr.setCellValueFactory(new PropertyValueFactory<Fakture, Integer>("brFakture"));
+        colBr.setCellValueFactory(new PropertyValueFactory<Fakture, Integer>("br"));
         colVrstaNaziv.setCellValueFactory(new PropertyValueFactory<Fakture, String>("naziv"));
         cJedMere.setCellValueFactory(new PropertyValueFactory<Fakture, String>("jedMere"));
         cKolicina.setCellValueFactory(new PropertyValueFactory<Fakture, Integer>("kolicina"));
@@ -133,7 +136,7 @@ public class FaktureController implements Initializable {
             @Override
             protected void updateItem(Double value, boolean empty) {
                 super.updateItem(value, empty);
-                if (empty) {
+                if (empty || value == null){
                     setText(null);
                 } else {
                     setText(decFormat.format(value.doubleValue()));
@@ -215,6 +218,9 @@ public class FaktureController implements Initializable {
         Fakture fakture;
         jObj = new JSONObject();
         jObj.put("action", "get_fakture");
+		jObj.put("datum", faktura.getDatum());
+		jObj.put("userID", faktura.getUserId());
+		jObj.put("br", faktura.getBrFakture());
         jObj = client.send_object(jObj);
 
 
@@ -226,15 +232,19 @@ public class FaktureController implements Initializable {
             jfakture = (JSONObject) jObj.get(String.valueOf(i));
             fakture = new Fakture();
             fakture.setId(jfakture.getInt("id"));
-            fakture.setNaziv(jfakture.getString("vrstaNaziv"));
+			fakture.setBr(jfakture.getInt("br"));
+			fakture.setUserId(jfakture.getInt("userID"));
+            fakture.setNaziv(jfakture.getString("naziv"));
+			fakture.setDatum(jfakture.getString("datum"));
+			fakture.setMesec(jfakture.getString("mesec"));
+            fakture.setGodina(jfakture.getString("godina"));
             fakture.setJedMere(jfakture.getString("jedMere"));
             fakture.setKolicina(jfakture.getInt("kolicina"));
-            fakture.setJedCena(jfakture.getDouble("jedCena"));
-            fakture.setStopaPDV(jfakture.getInt("stopaPdv"));
-            fakture.setBrFakture(jfakture.getInt("brFakture"));
-            fakture.setGodina(jfakture.getString("godina"));
-            fakture.setDateCreated(jfakture.getString("dateCreated"));
-            fakture.setVrednostBezPDV(jfakture.getDouble("VrednostBezPDV"));
+            fakture.setJedCena(jfakture.getDouble("cenaBezPDV"));
+            fakture.setStopaPDV(jfakture.getInt("pdv"));
+            fakture.setBrFakture(jfakture.getInt("br"));
+			fakture.setOperater(jfakture.getString("operater"));
+            fakture.setVrednostBezPDV(jfakture.getDouble("cenaBezPDV"));
             fakture.setOsnovicaZaPDV(jfakture.getDouble("OsnovicaZaPDV"));
             fakture.setIznosPDV(jfakture.getDouble("iznosPDV"));
             fakture.setVrednostSaPDV(jfakture.getDouble("VrednostSaPDV"));
@@ -270,4 +280,10 @@ public class FaktureController implements Initializable {
 
     public void prikaziFakture(ActionEvent event) {
     }
+
+
+	public void setData(){
+		ObservableList data = FXCollections.observableArrayList(get_fakture());
+		tblFakture.setItems(data);
+	}
 }

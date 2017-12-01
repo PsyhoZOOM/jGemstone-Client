@@ -12,7 +12,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableCell;
@@ -34,7 +33,7 @@ public class FakturePrikazController implements Initializable {
 	public Button bPrikaziFakturu;
 	private URL location;
 	private ResourceBundle resources;
-	private DecimalFormat df = new DecimalFormat("0.00");
+	private final DecimalFormat df = new DecimalFormat("0.00");
 
 	@FXML
 	TableView<Fakture> tblFakture;
@@ -42,12 +41,6 @@ public class FakturePrikazController implements Initializable {
 	TableColumn<Fakture, Integer> cBr;
 	@FXML
 	TableColumn<Fakture, String> cDatum;
-	@FXML
-	TableColumn<Fakture, Double> cIznosBezPDV;
-	@FXML
-	TableColumn<Fakture, Double> cPDV;
-	@FXML
-	TableColumn<Fakture, Double> cCenaSaPDV;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -56,49 +49,7 @@ public class FakturePrikazController implements Initializable {
 
 		cBr.setCellValueFactory(new PropertyValueFactory<>("brFakture"));
 		cDatum.setCellValueFactory(new PropertyValueFactory<>("datum"));
-		cIznosBezPDV.setCellValueFactory(new PropertyValueFactory<>("vrednostBezPDV"));
-		cPDV.setCellValueFactory(new PropertyValueFactory<>("iznosPDV"));
-		cCenaSaPDV.setCellValueFactory(new PropertyValueFactory<>("vrednostSaPDV"));
 
-		cIznosBezPDV.setCellFactory(tc -> new TableCell<Fakture, Double>() {
-			@Override
-			protected void updateItem(Double item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty) {
-					setText(null);
-				} else {
-					setText(df.format(item));
-				}
-			}
-
-		});
-
-		cPDV.setCellFactory(tc ->new TableCell<Fakture, Double>(){
-			@Override
-			protected void updateItem(Double item, boolean empty) {
-				super.updateItem(item, empty); 
-				if(empty){
-					setText(null);
-				}else{
-					setText(df.format(item));
-				}
-			}
-			
-		});
-
-		cCenaSaPDV.setCellFactory(tc -> new TableCell<Fakture, Double>(){
-			@Override
-			protected void updateItem(Double item, boolean empty) {
-				super.updateItem(item, empty); 
-				if(empty){
-					setText(null);
-				}else{
-					setText(df.format(item));
-				}
-			}
-			
-		});
-		
 	}
 
 	public void prikaziFakturu(ActionEvent event) {
@@ -106,6 +57,8 @@ public class FakturePrikazController implements Initializable {
 		FaktureController faktureController = faktureInterface.getLoader().getController();
 		faktureController.client = this.client;
 		faktureController.userData = user;
+		faktureController.faktura = tblFakture.getSelectionModel().getSelectedItem();
+		faktureController.setData();
 		faktureInterface.getStage().showAndWait();
 
 	}
@@ -118,7 +71,7 @@ public class FakturePrikazController implements Initializable {
 
 	private ArrayList<Fakture> getFaktureData() {
 		JSONObject jObj = new JSONObject();
-		jObj.put("action", "get_fakture");
+		jObj.put("action", "get_uniqueFakture");
 		jObj.put("userID", user.getId());
 		jObj = client.send_object(jObj);
 
