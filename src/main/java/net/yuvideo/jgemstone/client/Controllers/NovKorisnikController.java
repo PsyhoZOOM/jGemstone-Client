@@ -15,7 +15,12 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javax.smartcardio.CardTerminal;
+import javax.smartcardio.CardTerminals;
 
 /**
  * Created by zoom on 8/8/16.
@@ -36,6 +41,8 @@ public class NovKorisnikController implements Initializable {
     public ImageView imgUserPhoto;
     public Users user;
     public boolean user_saved;
+	@FXML
+	private ComboBox<CardTerminal> cmbCardReader;
     //JSON
     JSONObject jObj;
     DateTimeFormatter dateTimeFormatterRodjen = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -43,6 +50,7 @@ public class NovKorisnikController implements Initializable {
     private Client client;
     private messageS mess;
     private Alert alert;
+   	SmartCardReader sr;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -71,13 +79,13 @@ public class NovKorisnikController implements Initializable {
         });
 
 
+
         bReadCardReader.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 Image img1 = new Image(ClassLoader.getSystemResource("images/YuVideoLogo.png").toString());
                 imgUserPhoto.setImage(img1);
-                SmartCardReader sr = new SmartCardReader();
-                sr.rn();
+                sr.scan(cmbCardReader.getValue());
                 Users user = sr.getUserData();
                 tFullName.setText(CyrToLatin.CirilicaToLatinica(user.getIme()));
                 tJMBG.setText(user.getJMBG());
@@ -95,7 +103,10 @@ public class NovKorisnikController implements Initializable {
     }
 
     public void setClient(Client client) {
+		List<CardTerminal> terminals = getTerminals();
+			cmbCardReader.getItems().addAll(terminals);
         this.client = client;
+
     }
 
     public void bSaveUser(ActionEvent actionEvent) {
@@ -135,4 +146,11 @@ public class NovKorisnikController implements Initializable {
 
 
     }
+
+	private List<CardTerminal> getTerminals() {
+		sr = new SmartCardReader();
+		List<CardTerminal> terminals = sr.getTerminals();
+		
+		return terminals;
+	}
 }

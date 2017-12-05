@@ -20,7 +20,7 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="768.0" prefWidth="1151.0" stylesheets="@../css/Main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUslugeController">
     <children>
-        <TabPane tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <TabPane rotateGraphic="true" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <tabs>
                 <Tab fx:id="usluge" closable="false" text="Usluge">
                     <content>
@@ -70,7 +70,7 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab fx:id="box" text="BOX">
+                <Tab fx:id="box" closable="false" text="BOX">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>

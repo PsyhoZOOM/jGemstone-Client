@@ -27,263 +27,248 @@ import javafx.collections.ObservableList;
  * Created by zoom on 11/22/16.
  */
 public class FaktureController implements Initializable {
-    public Button bPrikaziFakture;
-    public TableView tblFakture;
-    public TableColumn cId;
-    public TableColumn colBr;
-    public TableColumn colVrstaNaziv;
-    public TableColumn cJedMere;
-    public TableColumn cKolicina;
-    public TableColumn cCenaBezPdv;
-    public TableColumn cVrednostBezPdv;
-    public TableColumn cOsnovicaZaPdv;
-    public TableColumn cStopaPDV;
-    public TableColumn cVrednostSaPDV;
-    public Button bDodajFakturu;
-    public MenuItem miDeleteFakture;
-    public TableColumn cIznosPDV;
-    public Label lOsnovicaZaPDV;
-    public Label lPDV;
-    public Label lvrednostSaPDVZbir;
-    public Label lUkupnoOsnovicaZaPDV;
-    public Label lIznosPDVZbir;
-    public Client client;
-    public Users userData;
-    public ResourceBundle resource;
-    public Label lBrFakture;
-    public TextField tNaizv;
-    public ComboBox cmbJedMere;
-    public Spinner spnKLolicina;
-    public Spinner spnCena;
-    public Spinner spnPDV;
-    DecimalFormat decFormat = new DecimalFormat("#,###.00");
-    Stage stage;
-    private URL location;
-    private String resourceFXML;
-    private Fakture selectedFacture;
-    private JSONObject jObj;
-    private Logger LOGGER = Logger.getLogger("FAKTURE");
+
+	public Button bPrikaziFakture;
+	public TableView tblFakture;
+	public TableColumn cId;
+	public TableColumn colBr;
+	public TableColumn colVrstaNaziv;
+	public TableColumn cJedMere;
+	public TableColumn cKolicina;
+	public TableColumn cCenaBezPdv;
+	public TableColumn cVrednostBezPdv;
+	public TableColumn cOsnovicaZaPdv;
+	public TableColumn cStopaPDV;
+	public TableColumn cVrednostSaPDV;
+	public Button bDodajFakturu;
+	public MenuItem miDeleteFakture;
+	public TableColumn cIznosPDV;
+	public Label lOsnovicaZaPDV;
+	public Label lPDV;
+	public Label lvrednostSaPDVZbir;
+	public Label lUkupnoOsnovicaZaPDV;
+	public Label lIznosPDVZbir;
+	public Client client;
+	public Users userData;
+	public ResourceBundle resource;
+	public Label lBrFakture;
+	DecimalFormat decFormat = new DecimalFormat("#,###.00");
+	Stage stage;
+	private URL location;
+	private String resourceFXML;
+	private Fakture selectedFacture;
+	private JSONObject jObj;
+	private Logger LOGGER = Logger.getLogger("FAKTURE");
 	Fakture faktura;
+	Users user;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 
-        makeHeaderWrappable(cId);
-        makeHeaderWrappable(colBr);
-        makeHeaderWrappable(colVrstaNaziv);
-        makeHeaderWrappable(cJedMere);
-        makeHeaderWrappable(cKolicina);
-        makeHeaderWrappable(cCenaBezPdv);
-        makeHeaderWrappable(cVrednostBezPdv);
-        makeHeaderWrappable(cOsnovicaZaPdv);
-        makeHeaderWrappable(cStopaPDV);
-        makeHeaderWrappable(cVrednostSaPDV);
+		makeHeaderWrappable(cId);
+		makeHeaderWrappable(colBr);
+		makeHeaderWrappable(colVrstaNaziv);
+		makeHeaderWrappable(cJedMere);
+		makeHeaderWrappable(cKolicina);
+		makeHeaderWrappable(cCenaBezPdv);
+		makeHeaderWrappable(cVrednostBezPdv);
+		makeHeaderWrappable(cOsnovicaZaPdv);
+		makeHeaderWrappable(cStopaPDV);
+		makeHeaderWrappable(cVrednostSaPDV);
 
+		set_table();
 
-        spnCena.getEditor().textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                try {
-                    spnCena.getEditor().setText(String.valueOf(Double.parseDouble(newValue)));
-                } catch (NumberFormatException ne) {
-                    spnCena.getEditor().setText(oldValue);
-                }
-            }
-        });
+	}
 
+	public void set_table() {
 
-        spnPDV.getEditor().textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                try {
-                    spnPDV.getEditor().setText(String.valueOf(Double.parseDouble(newValue)));
-                } catch (NumberFormatException ne) {
-                    spnPDV.getEditor().setText(oldValue);
-                }
-            }
-        });
+		cId.setCellValueFactory(new PropertyValueFactory<Fakture, Integer>("id"));
+		colBr.setCellValueFactory(new PropertyValueFactory<Fakture, Integer>("br"));
+		colVrstaNaziv.setCellValueFactory(new PropertyValueFactory<Fakture, String>("naziv"));
+		cJedMere.setCellValueFactory(new PropertyValueFactory<Fakture, String>("jedMere"));
+		cKolicina.setCellValueFactory(new PropertyValueFactory<Fakture, Integer>("kolicina"));
+		cCenaBezPdv.setCellValueFactory(new PropertyValueFactory<Fakture, Double>("jedCena"));
+		cCenaBezPdv.setCellFactory(tc -> new TableCell<Fakture, Double>() {
+			@Override
+			protected void updateItem(Double value, boolean empty) {
+				super.updateItem(value, empty);
+				if (empty || value == null) {
+					setText(null);
+				} else {
+					setText(decFormat.format(value.doubleValue()));
+				}
+			}
+		});
 
-        spnKLolicina.getEditor().textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                try {
-                    spnKLolicina.getEditor().setText(String.valueOf(Double.parseDouble(newValue)));
-                } catch (NumberFormatException ne) {
-                    spnKLolicina.getEditor().setText(oldValue);
-                }
-            }
-        });
+		cVrednostBezPdv.setCellValueFactory(new PropertyValueFactory<Fakture, Double>("vrednostBezPDV"));
+		cVrednostBezPdv.setCellFactory(tc -> new TableCell<Fakture, Double>() {
+			@Override
+			protected void updateItem(Double value, boolean empty) {
+				super.updateItem(value, empty);
+				if (empty) {
+					setText(null);
+				} else {
+					setText(decFormat.format(value.doubleValue()));
+				}
+			}
+		});
 
-        SpinnerValueFactory.DoubleSpinnerValueFactory doubleSpinValueFactoryCena = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, Double.MAX_VALUE, 0);
-        SpinnerValueFactory.DoubleSpinnerValueFactory doubleSpinValueFactoryKol = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, Double.MAX_VALUE, 0);
-        SpinnerValueFactory.DoubleSpinnerValueFactory doubleSpinValueFactoryPDV = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, Double.MAX_VALUE, 0);
-        spnCena.setValueFactory(doubleSpinValueFactoryCena);
-        spnKLolicina.setValueFactory(doubleSpinValueFactoryKol);
-        spnPDV.setValueFactory(doubleSpinValueFactoryPDV);
-        set_table();
+		cOsnovicaZaPdv.setCellValueFactory(new PropertyValueFactory<Fakture, Double>("osnovicaZaPDV"));
+		cOsnovicaZaPdv.setCellFactory(tc -> new TableCell<Fakture, Double>() {
+			@Override
+			protected void updateItem(Double value, boolean empty) {
+				super.updateItem(value, empty);
+				if (empty) {
+					setText(null);
+				} else {
+					setText(decFormat.format(value.doubleValue()));
+				}
+			}
+		});
 
-    }
+		cStopaPDV.setCellValueFactory(new PropertyValueFactory<Fakture, Integer>("stopaPDV"));
+		cStopaPDV.setCellFactory(tc -> new TableCell<Fakture, Integer>() {
+			@Override
+			protected void updateItem(Integer value, boolean empty) {
+				super.updateItem(value, empty);
+				if (empty) {
+					setText(null);
+				} else {
+					setText(decFormat.format(value));
+				}
+			}
+		});
 
-    public void set_table() {
+		cIznosPDV.setCellValueFactory(new PropertyValueFactory<Fakture, Double>("iznosPDV"));
+		cIznosPDV.setCellFactory(tc -> new TableCell<Fakture, Double>() {
+			@Override
+			protected void updateItem(Double Value, boolean empty) {
+				super.updateItem(Value, empty);
+				{
+					if (empty) {
+						setText(null);
+					} else {
+						setText(decFormat.format(Value.doubleValue()));
+					}
+				}
+			}
+		});
 
-        cId.setCellValueFactory(new PropertyValueFactory<Fakture, Integer>("id"));
-        colBr.setCellValueFactory(new PropertyValueFactory<Fakture, Integer>("br"));
-        colVrstaNaziv.setCellValueFactory(new PropertyValueFactory<Fakture, String>("naziv"));
-        cJedMere.setCellValueFactory(new PropertyValueFactory<Fakture, String>("jedMere"));
-        cKolicina.setCellValueFactory(new PropertyValueFactory<Fakture, Integer>("kolicina"));
-        cCenaBezPdv.setCellValueFactory(new PropertyValueFactory<Fakture, Double>("jedCena"));
-        cCenaBezPdv.setCellFactory(tc -> new TableCell<Fakture, Double>() {
-            @Override
-            protected void updateItem(Double value, boolean empty) {
-                super.updateItem(value, empty);
-                if (empty || value == null){
-                    setText(null);
-                } else {
-                    setText(decFormat.format(value.doubleValue()));
-                }
-            }
-        });
+		cVrednostSaPDV.setCellValueFactory(new PropertyValueFactory<Fakture, Double>("vrednostSaPDV"));
+		cVrednostSaPDV.setCellFactory(tc -> new TableCell<Fakture, Double>() {
+			@Override
+			protected void updateItem(Double Value, boolean empty) {
+				super.updateItem(Value, empty);
+				if (empty) {
+					setText(null);
+				} else {
+					setText(decFormat.format(Value.doubleValue()));
+				}
+			}
+		});
 
-        cVrednostBezPdv.setCellValueFactory(new PropertyValueFactory<Fakture, Double>("vrednostBezPDV"));
-        cVrednostBezPdv.setCellFactory(tc -> new TableCell<Fakture, Double>() {
-            @Override
-            protected void updateItem(Double value, boolean empty) {
-                super.updateItem(value, empty);
-                if (empty) {
-                    setText(null);
-                } else {
-                    setText(decFormat.format(value.doubleValue()));
-                }
-            }
-        });
+	}
 
-        cOsnovicaZaPdv.setCellValueFactory(new PropertyValueFactory<Fakture, Double>("osnovicaZaPDV"));
-        cOsnovicaZaPdv.setCellFactory(tc -> new TableCell<Fakture, Double>() {
-            @Override
-            protected void updateItem(Double value, boolean empty) {
-                super.updateItem(value, empty);
-                if (empty) {
-                    setText(null);
-                } else {
-                    setText(decFormat.format(value.doubleValue()));
-                }
-            }
-        });
-
-        cStopaPDV.setCellValueFactory(new PropertyValueFactory<Fakture, Integer>("stopaPDV"));
-        cStopaPDV.setCellFactory(tc -> new TableCell<Fakture, Integer>() {
-            @Override
-            protected void updateItem(Integer value, boolean empty) {
-                super.updateItem(value, empty);
-                if (empty) {
-                    setText(null);
-                } else {
-                    setText(decFormat.format(value));
-                }
-            }
-        });
-
-        cIznosPDV.setCellValueFactory(new PropertyValueFactory<Fakture, Double>("iznosPDV"));
-        cIznosPDV.setCellFactory(tc -> new TableCell<Fakture, Double>() {
-            @Override
-            protected void updateItem(Double Value, boolean empty) {
-                super.updateItem(Value, empty);
-                {
-                    if (empty) {
-                        setText(null);
-                    } else {
-                        setText(decFormat.format(Value.doubleValue()));
-                    }
-                }
-            }
-        });
-
-        cVrednostSaPDV.setCellValueFactory(new PropertyValueFactory<Fakture, Double>("vrednostSaPDV"));
-        cVrednostSaPDV.setCellFactory(tc -> new TableCell<Fakture, Double>() {
-            @Override
-            protected void updateItem(Double Value, boolean empty) {
-                super.updateItem(Value, empty);
-                if (empty) {
-                    setText(null);
-                } else {
-                    setText(decFormat.format(Value.doubleValue()));
-                }
-            }
-        });
-
-
-    }
-
-    private ArrayList<Fakture> get_fakture() {
-        Fakture fakture;
-        jObj = new JSONObject();
-        jObj.put("action", "get_fakture");
+	private ArrayList<Fakture> get_fakture() {
+		Fakture fakture;
+		jObj = new JSONObject();
+		jObj.put("action", "get_fakture");
 		jObj.put("datum", faktura.getDatum());
 		jObj.put("userID", faktura.getUserId());
 		jObj.put("br", faktura.getBrFakture());
-        jObj = client.send_object(jObj);
+		jObj = client.send_object(jObj);
 
+		JSONObject jfakture;
 
-        JSONObject jfakture;
+		ArrayList<Fakture> faktureArray = new ArrayList<>();
 
-        ArrayList<Fakture> faktureArray = new ArrayList<>();
-
-        for (int i = 0; i < jObj.length(); i++) {
-            jfakture = (JSONObject) jObj.get(String.valueOf(i));
-            fakture = new Fakture();
-            fakture.setId(jfakture.getInt("id"));
+		for (int i = 0; i < jObj.length(); i++) {
+			jfakture = (JSONObject) jObj.get(String.valueOf(i));
+			fakture = new Fakture();
+			fakture.setId(jfakture.getInt("id"));
 			fakture.setBr(jfakture.getInt("br"));
 			fakture.setUserId(jfakture.getInt("userID"));
-            fakture.setNaziv(jfakture.getString("naziv"));
+			fakture.setNaziv(jfakture.getString("naziv"));
 			fakture.setDatum(jfakture.getString("datum"));
 			fakture.setMesec(jfakture.getString("mesec"));
-            fakture.setGodina(jfakture.getString("godina"));
-            fakture.setJedMere(jfakture.getString("jedMere"));
-            fakture.setKolicina(jfakture.getInt("kolicina"));
-            fakture.setJedCena(jfakture.getDouble("cenaBezPDV"));
-            fakture.setStopaPDV(jfakture.getInt("pdv"));
-            fakture.setBrFakture(jfakture.getInt("br"));
+			fakture.setGodina(jfakture.getString("godina"));
+			fakture.setJedMere(jfakture.getString("jedMere"));
+			fakture.setKolicina(jfakture.getInt("kolicina"));
+			fakture.setJedCena(jfakture.getDouble("cenaBezPDV"));
+			fakture.setStopaPDV(jfakture.getInt("pdv"));
+			fakture.setBrFakture(jfakture.getInt("br"));
 			fakture.setOperater(jfakture.getString("operater"));
-            fakture.setVrednostBezPDV(jfakture.getDouble("cenaBezPDV"));
-            fakture.setOsnovicaZaPDV(jfakture.getDouble("OsnovicaZaPDV"));
-            fakture.setIznosPDV(jfakture.getDouble("iznosPDV"));
-            fakture.setVrednostSaPDV(jfakture.getDouble("VrednostSaPDV"));
-            faktureArray.add(fakture);
+			fakture.setVrednostBezPDV(jfakture.getDouble("cenaBezPDV"));
+			fakture.setOsnovicaZaPDV(jfakture.getDouble("OsnovicaZaPDV"));
+			fakture.setIznosPDV(jfakture.getDouble("iznosPDV"));
+			fakture.setVrednostSaPDV(jfakture.getDouble("VrednostSaPDV"));
+			faktureArray.add(fakture);
 
-        }
-        return faktureArray;
-    }
+		}
+		return faktureArray;
+	}
 
+	private void makeHeaderWrappable(TableColumn col) {
+		Label label = new Label(col.getText());
+		label.setStyle("-fx-padding: 8px");
+		label.setWrapText(true);
+		label.setAlignment(Pos.CENTER);
+		label.setTextAlignment(TextAlignment.CENTER);
 
+		StackPane stack = new StackPane();
+		stack.getChildren().add(label);
+		stack.prefWidthProperty().bind(col.widthProperty().subtract(5));
+		label.prefWidthProperty().bind(stack.prefWidthProperty());
+		col.setGraphic(stack);
+	}
 
+	public void dodajFakturu(ActionEvent event) {
+	}
 
-    private void makeHeaderWrappable(TableColumn col) {
-        Label label = new Label(col.getText());
-        label.setStyle("-fx-padding: 8px");
-        label.setWrapText(true);
-        label.setAlignment(Pos.CENTER);
-        label.setTextAlignment(TextAlignment.CENTER);
+	public void deleteFakturu(ActionEvent event) {
+	}
 
-        StackPane stack = new StackPane();
-        stack.getChildren().add(label);
-        stack.prefWidthProperty().bind(col.widthProperty().subtract(5));
-        label.prefWidthProperty().bind(stack.prefWidthProperty());
-        col.setGraphic(stack);
-    }
+	public void prikaziFakture(ActionEvent event) {
+	}
 
-
-    public void dodajFakturu(ActionEvent event) {
-    }
-
-    public void deleteFakturu(ActionEvent event) {
-    }
-
-    public void prikaziFakture(ActionEvent event) {
-    }
-
-
-	public void setData(){
+	public void setData() {
+		this.user = getUserData(faktura.getUserId());
 		ObservableList data = FXCollections.observableArrayList(get_fakture());
 		tblFakture.setItems(data);
+
+		lBrFakture.setText(String.format("%s/%d/%s", user.getJbroj(), faktura.getBrFakture(), faktura.getGodina()));
+	}
+
+	private Users getUserData(int userId) {
+		JSONObject jUser = new JSONObject();
+		jUser.put("action", "get_user_data");
+		jUser.put("userId", userId);
+		jUser = client.send_object(jUser);
+		
+		Users user = new Users();
+		user.setId(jUser.getInt("id"));
+		user.setjMesto(jUser.getString("jMesto"));
+		user.setjAdresa(jUser.getString("jAdresa"));
+		user.setjAdresaBroj(jUser.getString("jAdresaBroj"));
+		user.setIme(jUser.getString("fullName"));
+		user.setMesto(jUser.getString("mesto"));
+		user.setAdresa(jUser.getString("adresa"));
+		user.setAdresa_usluge(jUser.getString("adresaUsluge"));
+		user.setMesto_usluge(jUser.getString("mestoUsluge"));
+		user.setBr_lk(jUser.getString("brLk"));
+		user.setDatum_rodjenja(jUser.getString("datumRodjenja"));
+		user.setFiksni(jUser.getString("telFix"));
+		user.setMobilni(jUser.getString("telMob"));
+		user.setJMBG(jUser.getString("JMBG"));
+		user.setKomentar(jUser.getString("komentar"));
+		user.setPostanski_broj(jUser.getString("postBr"));
+		user.setJbroj(jUser.getString("jBroj"));
+		user.setFirma(jUser.getBoolean("firma"));
+		if (!jUser.getString("jBroj").isEmpty()) {
+			user.setBr(Integer.valueOf(jUser.getString("jBroj")));
+		}
+
+		return user;
+
 	}
 }
