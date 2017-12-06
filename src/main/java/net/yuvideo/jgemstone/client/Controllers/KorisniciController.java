@@ -219,7 +219,7 @@ public class KorisniciController implements Initializable {
         Users user = tUsers.getSelectionModel().getSelectedItem();
         int userId = user.getId();
         EditUser(userId);
-		show_table(tUserSearch.getText());
+        show_table(tUserSearch.getText());
 
     }
 
@@ -237,7 +237,7 @@ public class KorisniciController implements Initializable {
         editUserController.loadKorisnikFirma();
 
         editKorisnikInterface.getStage().showAndWait();
-		
+
     }
 
 
@@ -299,7 +299,7 @@ public class KorisniciController implements Initializable {
         FakturePrikazController fakturePrikazController = faktureInterface.getLoader().getController();
         fakturePrikazController.client = client;
         fakturePrikazController.user = user;
-		fakturePrikazController.set_data();
+        fakturePrikazController.set_data();
         faktureInterface.getStage().showAndWait();
     }
 

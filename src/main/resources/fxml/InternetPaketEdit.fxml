@@ -1,69 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.InternetPaketEditController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Main.css"
+            xmlns="http://javafx.com/javafx/9"
+            fx:controller="net.yuvideo.jgemstone.client.Controllers.InternetPaketEditController">
     <children>
-        <VBox layoutX="53.0" layoutY="126.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox layoutX="53.0" layoutY="126.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Label text="INTERNET PAKET:" underline="true">
                     <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="13.0"/>
                     </font>
                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </padding>
                 </Label>
-                <Label text="Naziv:" />
-                <TextField fx:id="tNaziv" maxWidth="200.0" />
-                <Label text="Brzina (UpM/DownM) (1M/10M):" textAlignment="RIGHT" wrapText="true" />
-                <TextField fx:id="tBrzina" maxWidth="200.0" />
-                <Label text="Cena:" />
+                <Label text="Naziv:"/>
+                <TextField fx:id="tNaziv" maxWidth="200.0"/>
+                <Label text="Brzina (UpM/DownM) (1M/10M):" textAlignment="RIGHT" wrapText="true"/>
+                <TextField fx:id="tBrzina" maxWidth="200.0"/>
+                <Label text="Cena:"/>
                 <HBox alignment="CENTER_LEFT">
                     <children>
-                        <Spinner fx:id="spnCena" editable="true" />
-                        <Label text="din." />
+                        <Spinner fx:id="spnCena" editable="true"/>
+                        <Label text="din."/>
                     </children>
                 </HBox>
-                <Label text="PDV:" />
+                <Label text="PDV:"/>
                 <HBox alignment="CENTER_LEFT">
                     <children>
-                        <Spinner fx:id="spnPDV" editable="true" />
-                        <Label text="\%" />
+                        <Spinner fx:id="spnPDV" editable="true"/>
+                        <Label text="\%"/>
                     </children>
                 </HBox>
-            <HBox alignment="CENTER_LEFT" spacing="5.0">
-               <children>
-                  <Label text="Cena paketa: " />
-                  <Label fx:id="lCenaNet" text="0.00" />
-                  <Label text="din." />
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </HBox>
-                <Label text="Idle-Timeout" />
+                <HBox alignment="CENTER_LEFT" spacing="5.0">
+                    <children>
+                        <Label text="Cena paketa: "/>
+                        <Label fx:id="lCenaNet" text="0.00"/>
+                        <Label text="din."/>
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                </HBox>
+                <Label text="Idle-Timeout"/>
                 <HBox alignment="CENTER_LEFT">
                     <children>
-                        <Spinner fx:id="spnIdleTimeout" editable="true" />
-                        <Label text="msec." />
+                        <Spinner fx:id="spnIdleTimeout" editable="true"/>
+                        <Label text="msec."/>
                     </children>
                 </HBox>
-                <Label text="Opis:" />
-                <TextArea fx:id="tOpis" />
-                <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#savePaket" text="Snimi" />
+                <Label text="Opis:"/>
+                <TextArea fx:id="tOpis"/>
+                <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#savePaket" text="Snimi"/>
             </children>
             <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </padding>
         </VBox>
     </children>

@@ -1,8 +1,10 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
@@ -13,8 +15,6 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.scene.control.ButtonType;
 
 /**
  * Created by zoom on 4/10/17.
@@ -29,13 +29,12 @@ public class KorisnikFirmaController implements Initializable {
     public TextField tMaticniBroj;
     public TextField tTekuciRacun;
     public CheckBox chkIsFirma;
-	@FXML
-	private TextField tAdresaFirme;
-	@FXML
-	private TextField tFax;
-	
-			
-	
+    @FXML
+    private TextField tAdresaFirme;
+    @FXML
+    private TextField tFax;
+
+
     URL location;
     ResourceBundle resources;
     public Users user;
@@ -50,26 +49,26 @@ public class KorisnikFirmaController implements Initializable {
 
     public void bSnimiFirmu(ActionEvent actionEvent) {
         JSONObject jsonObject = new JSONObject();
-		if(!chkIsFirma.isSelected()){
-			jsonObject.put("action", "deleteFirma");
-			jsonObject.put("userID", user.getId());
-			
-			Optional<ButtonType> yesNo = AlertUser.yesNo("BRISANJE FIRME", "Da li ste sigurni da zelite da izbrisete firmu?");
-			
-			if(yesNo.get().equals(AlertUser.NE))
-				return;
-			
-			jsonObject = client.send_object(jsonObject);
+        if (!chkIsFirma.isSelected()) {
+            jsonObject.put("action", "deleteFirma");
+            jsonObject.put("userID", user.getId());
 
-			if(jsonObject.has("ERROR")){
-				AlertUser.error("GRESKA", jsonObject.getString("ERROR"));
-			}else{
-				AlertUser.info("BRISANJE FIRME", String.format("FIRMA IZBRISANA!"));
-			}
-			return;
-		}
-			
-		
+            Optional<ButtonType> yesNo = AlertUser.yesNo("BRISANJE FIRME", "Da li ste sigurni da zelite da izbrisete firmu?");
+
+            if (yesNo.get().equals(AlertUser.NE))
+                return;
+
+            jsonObject = client.send_object(jsonObject);
+
+            if (jsonObject.has("ERROR")) {
+                AlertUser.error("GRESKA", jsonObject.getString("ERROR"));
+            } else {
+                AlertUser.info("BRISANJE FIRME", String.format("FIRMA IZBRISANA!"));
+            }
+            return;
+        }
+
+
         jsonObject.put("action", "setUserFirma");
         jsonObject.put("userID", user.getId());
         jsonObject.put("firma", chkIsFirma.isSelected());
@@ -78,9 +77,9 @@ public class KorisnikFirmaController implements Initializable {
         jsonObject.put("pib", tPIB.getText());
         jsonObject.put("maticniBroj", tMaticniBroj.getText());
         jsonObject.put("tekuciRacun", tTekuciRacun.getText());
-		jsonObject.put("kontaktOsoba", user.getIme());
-		jsonObject.put("adresaFirme", tAdresaFirme.getText());
-		jsonObject.put("fax", tFax.getText());
+        jsonObject.put("kontaktOsoba", user.getIme());
+        jsonObject.put("adresaFirme", tAdresaFirme.getText());
+        jsonObject.put("fax", tFax.getText());
         jsonObject = client.send_object(jsonObject);
 
         if (jsonObject.has("ERROR")) {
@@ -93,8 +92,8 @@ public class KorisnikFirmaController implements Initializable {
 
 
     public void setData() {
-		if(!user.isFirma())
-			return;
+        if (!user.isFirma())
+            return;
         JSONObject jObj = new JSONObject();
         jObj.put("action", "getUserFirma");
         jObj.put("userID", user.getId());
@@ -111,7 +110,7 @@ public class KorisnikFirmaController implements Initializable {
 
 
         if (jObj.has("kodBanke"))
-        tKodBanke.setText(jObj.getString("kodBanke"));
+            tKodBanke.setText(jObj.getString("kodBanke"));
 
         if (jObj.has("pib"))
             tPIB.setText(jObj.getString("pib"));
@@ -122,11 +121,11 @@ public class KorisnikFirmaController implements Initializable {
         if (jObj.has("tekuciRacun"))
             tTekuciRacun.setText(jObj.getString("tekuciRacun"));
 
-		if(jObj.has("adresaFirme"))
-			tAdresaFirme.setText(jObj.getString("adresaFirme"));
+        if (jObj.has("adresaFirme"))
+            tAdresaFirme.setText(jObj.getString("adresaFirme"));
 
-		if(jObj.has("fax"))
-			tFax.setText(jObj.getString("fax"));
+        if (jObj.has("fax"))
+            tFax.setText(jObj.getString("fax"));
 
 
     }

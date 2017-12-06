@@ -24,42 +24,35 @@ public class Fakture implements Serializable {
     private double osnovicaZaPDV;
     private double iznosPDV;
     private double vrednostSaPDV;
-	private String operater;
-	private String mesec;
+    private String operater;
+    private String mesec;
 
-	public int getUserId() {
-		return userId;
-	}
+    public int getUserId() {
+        return userId;
+    }
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
-	public String getMesec() {
-		return mesec;
-	}
+    public String getMesec() {
+        return mesec;
+    }
 
-	public void setMesec(String mesec) {
-		this.mesec = mesec;
-	}
-
-
+    public void setMesec(String mesec) {
+        this.mesec = mesec;
+    }
 
 
-	
+    public String getOperater() {
+        return operater;
+    }
 
-	public String getOperater() {
-		return operater;
-	}
-
-	public void setOperater(String operater) {
-		this.operater = operater;
-	}
+    public void setOperater(String operater) {
+        this.operater = operater;
+    }
 
 
-	
-
-	
     public int getKolicina() {
         return kolicina;
     }
@@ -155,7 +148,6 @@ public class Fakture implements Serializable {
     public void setJedMere(String jedMere) {
         this.jedMere = jedMere;
     }
-
 
 
     public String getDateCreated() {

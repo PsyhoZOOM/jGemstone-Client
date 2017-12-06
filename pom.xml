@@ -43,7 +43,7 @@
                     </execution>
                 </executions>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -68,8 +68,13 @@
             </plugin>
         </plugins>
     </build>
-    
+
     <dependencies>
+        <dependency>
+            <groupId>net.devbase.jfreesteel</groupId>
+            <artifactId>jfreesteel</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
@@ -119,6 +124,21 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.21</version>
+        </dependency>
+        <dependency>
+            <groupId>net.yuvideo</groupId>
+            <artifactId>jGemstone-Client</artifactId>
+            <version>SNAPSHOT-0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.yuvideo</groupId>
+            <artifactId>jGemstone-Client</artifactId>
+            <version>SNAPSHOT-0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.yuvideo</groupId>
+            <artifactId>jGemstone-Client</artifactId>
+            <version>SNAPSHOT-0.1</version>
         </dependency>
     </dependencies>
 </project>

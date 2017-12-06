@@ -3,6 +3,7 @@ package net.yuvideo.jgemstone.client.Controllers;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -12,15 +13,12 @@ import javafx.util.StringConverter;
 import net.yuvideo.jgemstone.client.classes.*;
 import org.json.JSONObject;
 
+import javax.smartcardio.CardTerminal;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javax.smartcardio.CardTerminal;
-import javax.smartcardio.CardTerminals;
 
 /**
  * Created by zoom on 8/8/16.
@@ -41,8 +39,7 @@ public class NovKorisnikController implements Initializable {
     public ImageView imgUserPhoto;
     public Users user;
     public boolean user_saved;
-	@FXML
-	private ComboBox<CardTerminal> cmbCardReader;
+    SmartCardReader sr;
     //JSON
     JSONObject jObj;
     DateTimeFormatter dateTimeFormatterRodjen = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -50,7 +47,8 @@ public class NovKorisnikController implements Initializable {
     private Client client;
     private messageS mess;
     private Alert alert;
-   	SmartCardReader sr;
+    @FXML
+    private ComboBox<CardTerminal> cmbCardReader;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -79,7 +77,6 @@ public class NovKorisnikController implements Initializable {
         });
 
 
-
         bReadCardReader.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -103,8 +100,8 @@ public class NovKorisnikController implements Initializable {
     }
 
     public void setClient(Client client) {
-		List<CardTerminal> terminals = getTerminals();
-			cmbCardReader.getItems().addAll(terminals);
+        List<CardTerminal> terminals = getTerminals();
+        cmbCardReader.getItems().addAll(terminals);
         this.client = client;
 
     }
@@ -147,10 +144,10 @@ public class NovKorisnikController implements Initializable {
 
     }
 
-	private List<CardTerminal> getTerminals() {
-		sr = new SmartCardReader();
-		List<CardTerminal> terminals = sr.getTerminals();
-		
-		return terminals;
-	}
+    private List<CardTerminal> getTerminals() {
+        sr = new SmartCardReader();
+        List<CardTerminal> terminals = sr.getTerminals();
+
+        return terminals;
+    }
 }

@@ -5,9 +5,6 @@
  */
 package net.yuvideo.jgemstone.client.Controllers;
 
-import java.net.URL;
-import java.text.DecimalFormat;
-import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -17,12 +14,12 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.control.TextField;
-import net.yuvideo.jgemstone.client.classes.AlertUser;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.FiksnaPaketi;
-import net.yuvideo.jgemstone.client.classes.NotifyUser;
-import net.yuvideo.jgemstone.client.classes.valueToPercent;
+import net.yuvideo.jgemstone.client.classes.*;
 import org.json.JSONObject;
+
+import java.net.URL;
+import java.text.DecimalFormat;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
@@ -31,118 +28,114 @@ import org.json.JSONObject;
  */
 public class FiksnaTelefonijaPaketEditController implements Initializable {
 
-	private URL url;
-	private ResourceBundle resourceBoundle;
-	public Client client;
+    public Client client;
+    public FiksnaPaketi paketEdit;
+    public boolean edit;
+    SpinnerValueFactory.DoubleSpinnerValueFactory spnPDVFac
+            = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, Double.MAX_VALUE, 0);
+    SpinnerValueFactory.DoubleSpinnerValueFactory spnCenaFac
+            = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, Double.MAX_VALUE, 0);
+    SpinnerValueFactory.IntegerSpinnerValueFactory spnBesMinFac = new IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0);
+    private URL url;
+    private ResourceBundle resourceBoundle;
+    @FXML
+    private Spinner spnPretplata;
+    @FXML
+    private Spinner spnPDV;
+    @FXML
+    private Spinner spnBesplatniMinuti;
+    @FXML
+    private TextField tNaziv;
+    @FXML
+    private Label lCenaPaketa;
+    private DecimalFormat df = new DecimalFormat("0.00");
+    private JSONObject jObj;
 
-	public FiksnaPaketi paketEdit;
-	public boolean edit;
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        this.url = url;
+        this.resourceBoundle = rb;
 
-	@FXML
-	private Spinner spnPretplata;
-	@FXML
-	private Spinner spnPDV;
-	@FXML
-	private Spinner spnBesplatniMinuti;
-	@FXML
-	private TextField tNaziv;
-	@FXML
-	private Label lCenaPaketa;
+        spnPretplata.setValueFactory(spnCenaFac);
+        spnPDV.setValueFactory(spnPDVFac);
+        spnBesplatniMinuti.setValueFactory(spnBesMinFac);
 
-	private DecimalFormat df = new DecimalFormat("0.00");
-	private JSONObject jObj;
+        spnPretplata.getEditor().textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                setCenaSaPDV();
+            }
+        });
 
-	SpinnerValueFactory.DoubleSpinnerValueFactory spnPDVFac
-			= new SpinnerValueFactory.DoubleSpinnerValueFactory(0, Double.MAX_VALUE, 0);
-	SpinnerValueFactory.DoubleSpinnerValueFactory spnCenaFac
-			= new SpinnerValueFactory.DoubleSpinnerValueFactory(0, Double.MAX_VALUE, 0);
-	SpinnerValueFactory.IntegerSpinnerValueFactory spnBesMinFac = new IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0);
+        spnPDV.getEditor().textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                setCenaSaPDV();
+            }
+        });
 
-	/**
-	 * Initializes the controller class.
-	 */
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		this.url = url;
-		this.resourceBoundle = rb;
+    }
 
-		spnPretplata.setValueFactory(spnCenaFac);
-		spnPDV.setValueFactory(spnPDVFac);
-		spnBesplatniMinuti.setValueFactory(spnBesMinFac);
+    @FXML
+    private void savePaket() {
+        if (edit) {
+            snimiEdit();
+        } else {
+            snimiNov();
+        }
+    }
 
-		spnPretplata.getEditor().textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				setCenaSaPDV();
-			}
-		});
+    public void snimiNov() {
+        jObj = new JSONObject();
+        jObj.put("action", "add_fixTel_paket");
+        jObj.put("naziv", tNaziv.getText());
+        jObj.put("pretplata", Double.valueOf(spnPretplata.getEditor().getText()));
+        jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
+        jObj.put("besplatniMinutiFiksna", Integer.valueOf(spnBesplatniMinuti.getEditor().getText()));
+        client.send_object(jObj);
+        if (jObj.has("Error")) {
+            NotifyUser.NotifyUser("Greska", jObj.getString("Error"), 3);
+        } else {
+            NotifyUser.NotifyUser("Paket snimljen", String.format("Paket %s je snimljen", tNaziv.getText()), 1);
+        }
 
-		spnPDV.getEditor().textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				setCenaSaPDV();
-			}
-		});
+    }
 
-	}
+    public void snimiEdit() {
+        jObj = new JSONObject();
+        jObj.put("action", "edit_fixTel_paket");
 
-	@FXML
-	private void savePaket() {
-		if (edit) {
-			snimiEdit();
-		} else {
-			snimiNov();
-		}
-	}
+        jObj.put("naziv", tNaziv.getText());
+        jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
+        jObj.put("pretplata", Double.valueOf(spnPretplata.getEditor().getText()));
+        jObj.put("besplatniMinutiFiksna", Integer.valueOf(spnBesplatniMinuti.getEditor().getText()));
+        jObj.put("id", paketEdit.getId());
 
-	public void snimiNov() {
-		jObj = new JSONObject();
-		jObj.put("action", "add_fixTel_paket");
-		jObj.put("naziv", tNaziv.getText());
-		jObj.put("pretplata", Double.valueOf(spnPretplata.getEditor().getText()));
-		jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
-		jObj.put("besplatniMinutiFiksna", Integer.valueOf(spnBesplatniMinuti.getEditor().getText()));
-		client.send_object(jObj);
-		if (jObj.has("Error")) {
-			NotifyUser.NotifyUser("Greska", jObj.getString("Error"), 3);
-		} else {
-			NotifyUser.NotifyUser("Paket snimljen", String.format("Paket %s je snimljen", tNaziv.getText()), 1);
-		}
+        jObj = client.send_object(jObj);
 
-	}
+        if (jObj.has("Error")) {
+            AlertUser.error("GRESKA", jObj.getString("Error"));
+        } else {
+            AlertUser.info("INFO", String.format("Paket %s je izmenjen", tNaziv.getText()));
+        }
 
-	public void snimiEdit() {
-		jObj = new JSONObject();
-		jObj.put("action", "edit_fixTel_paket");
-
-		jObj.put("naziv", tNaziv.getText());
-		jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
-		jObj.put("pretplata", Double.valueOf(spnPretplata.getEditor().getText()));
-		jObj.put("besplatniMinutiFiksna", Integer.valueOf(spnBesplatniMinuti.getEditor().getText()));
-		jObj.put("id", paketEdit.getId());
-
-		jObj = client.send_object(jObj);
-
-		if (jObj.has("Error")) {
-			AlertUser.error("GRESKA", jObj.getString("Error"));
-		} else {
-			AlertUser.info("INFO", String.format("Paket %s je izmenjen", tNaziv.getText()));
-		}
-
-	}
+    }
 
 
-private void setCenaSaPDV() {
-		Double cena = Double.valueOf(spnPretplata.getEditor().getText());
-		Double pdv = Double.valueOf(spnPDV.getEditor().getText());
-		Double pdvDiff = valueToPercent.getDiffValue(cena, pdv);
-		lCenaPaketa.setText(df.format(cena + pdvDiff));
-	}
+    private void setCenaSaPDV() {
+        Double cena = Double.valueOf(spnPretplata.getEditor().getText());
+        Double pdv = Double.valueOf(spnPDV.getEditor().getText());
+        Double pdvDiff = valueToPercent.getDiffValue(cena, pdv);
+        lCenaPaketa.setText(df.format(cena + pdvDiff));
+    }
 
-	void set_data() {
-		tNaziv.setText(paketEdit.getNaziv());
-		spnBesplatniMinuti.getEditor().setText(String.valueOf(paketEdit.getBesplatniMinutiFiksna()));
-		spnPDV.getEditor().setText(df.format(paketEdit.getPdv()));
-		spnPretplata.getEditor().setText(df.format(paketEdit.getPretplata()));
-	}
+    void set_data() {
+        tNaziv.setText(paketEdit.getNaziv());
+        spnBesplatniMinuti.getEditor().setText(String.valueOf(paketEdit.getBesplatniMinutiFiksna()));
+        spnPDV.getEditor().setText(df.format(paketEdit.getPdv()));
+        spnPretplata.getEditor().setText(df.format(paketEdit.getPretplata()));
+    }
 }

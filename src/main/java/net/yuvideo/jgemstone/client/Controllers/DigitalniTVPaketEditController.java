@@ -1,5 +1,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -7,15 +9,13 @@ import javafx.stage.Stage;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.digitalniTVPaket;
+import net.yuvideo.jgemstone.client.classes.valueToPercent;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import net.yuvideo.jgemstone.client.classes.valueToPercent;
 
 /**
  * Created by zoom on 2/2/17.
@@ -51,19 +51,19 @@ public class DigitalniTVPaketEditController implements Initializable {
         spnPDV.setValueFactory(dblSpnFactoryPDV);
         spnCena.setValueFactory(dblSngFactoryCena);
 
-	spnPDV.getEditor().textProperty().addListener(new ChangeListener<String>() {
-		@Override
-		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-			setCenaPDV();
-		}
-	});
+        spnPDV.getEditor().textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                setCenaPDV();
+            }
+        });
 
-	spnCena.getEditor().textProperty().addListener(new ChangeListener<String>() {
-		@Override
-		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-			setCenaPDV();
-		}
-	});
+        spnCena.getEditor().textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                setCenaPDV();
+            }
+        });
 
     }
 
@@ -133,18 +133,18 @@ public class DigitalniTVPaketEditController implements Initializable {
         spnPDV.getEditor().setText(String.valueOf(dtvPaket.getPdv()));
         tOpis.setText(dtvPaket.getOpis());
         tPaketID.setText(String.valueOf(dtvPaket.getPaketID()));
-	setCenaPDV();
+        setCenaPDV();
 
 
     }
 
 
-    private void setCenaPDV(){
-	    Double cena = Double.valueOf(spnCena.getEditor().getText());
-	    Double pdv =  Double.valueOf(spnPDV.getEditor().getText());
-	    Double pdvDiff = valueToPercent.getDiffValue(cena, pdv);
+    private void setCenaPDV() {
+        Double cena = Double.valueOf(spnCena.getEditor().getText());
+        Double pdv = Double.valueOf(spnPDV.getEditor().getText());
+        Double pdvDiff = valueToPercent.getDiffValue(cena, pdv);
 
-	    lCenaPaketa.setText(df.format(cena+pdvDiff));
+        lCenaPaketa.setText(df.format(cena + pdvDiff));
     }
 
 

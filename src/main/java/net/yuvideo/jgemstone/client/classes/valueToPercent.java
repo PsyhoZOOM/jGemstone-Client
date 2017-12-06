@@ -16,9 +16,9 @@ public class valueToPercent {
         return result;
     }
 
-    public static Double getDiffValue(double value, double pdv){
-	    double percen = value - (value * pdv / 100);
-	    return value - percen;
+    public static Double getDiffValue(double value, double pdv) {
+        double percen = value - (value * pdv / 100);
+        return value - percen;
     }
 
 }

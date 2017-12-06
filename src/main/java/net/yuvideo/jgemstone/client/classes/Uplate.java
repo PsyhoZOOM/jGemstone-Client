@@ -21,25 +21,21 @@ public class Uplate implements Serializable {
     String operater;
     double dug;
     String zaMesec;
-  double pdv;
+    double pdv;
     String mestoUplate;
     String zaduzenOd;
     String napomena;
 
     private boolean skipProduzenje;
 
-	public double getPdv() {
-		return pdv;
-	}
+    public double getPdv() {
+        return pdv;
+    }
 
-	public void setPdv(double pdv) {
-		this.pdv = pdv;
-	}
+    public void setPdv(double pdv) {
+        this.pdv = pdv;
+    }
 
-
-
-
-	
 
     public String getNapomena() {
         return napomena;

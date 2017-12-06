@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -12,14 +13,13 @@ import javafx.util.StringConverter;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.IPTVPaketi;
+import net.yuvideo.jgemstone.client.classes.valueToPercent;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import net.yuvideo.jgemstone.client.classes.valueToPercent;
 
 /**
  * Created by PsyhoZOOM@gmail.com on 8/15/17.
@@ -38,10 +38,10 @@ public class IPTVPaketiEditController implements Initializable {
     Stage stage;
     private URL location;
     private ResourceBundle resources;
-	private DecimalFormat df = new DecimalFormat("#.00");
+    private DecimalFormat df = new DecimalFormat("#.00");
 
-	@FXML
-	private Label lCenaPaketa;
+    @FXML
+    private Label lCenaPaketa;
 
     SpinnerValueFactory.DoubleSpinnerValueFactory doubleSpinnerValueFactoryCena = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 0.00);
     SpinnerValueFactory.DoubleSpinnerValueFactory doubleSpinnerValueFactoryPDV = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.00, Double.MAX_VALUE, 0.00);
@@ -77,19 +77,19 @@ public class IPTVPaketiEditController implements Initializable {
         spnPDV.setValueFactory(doubleSpinnerValueFactoryPDV);
         spnCena.setValueFactory(doubleSpinnerValueFactoryCena);
 
-		spnCena.getEditor().textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				setCenaPDV();
-			}
-		});
+        spnCena.getEditor().textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                setCenaPDV();
+            }
+        });
 
-		spnPDV.getEditor().textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				setCenaPDV();
-			}
-		});
+        spnPDV.getEditor().textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                setCenaPDV();
+            }
+        });
     }
 
     public void setData() {
@@ -107,25 +107,25 @@ public class IPTVPaketiEditController implements Initializable {
             pakets.setName(iptvPaketiObj.getString("name"));
             pakets.setExternal_id(iptvPaketiObj.getString("external_id"));
             pakets.setIptv_id(iptvPaketiObj.getInt("id"));
-            
+
             iptvPaketiArrayList.add(pakets);
         }
 
         ObservableList<IPTVPaketi> items = FXCollections.observableArrayList(iptvPaketiArrayList);
         cmbIPTVPakets.setItems(items);
         if (edit) {
-			for(IPTVPaketi paketi : cmbIPTVPakets.getItems()){
-					System.out.println("paket.getId()="+paket.getId()+"paketi.getId()="+paketi.getId());
-				if(paket.getIptv_id() == paketi.getIptv_id()){
-					cmbIPTVPakets.getSelectionModel().select(paketi);
-					cmbIPTVPakets.setValue(paketi);
-					break;
-				}
-			}
+            for (IPTVPaketi paketi : cmbIPTVPakets.getItems()) {
+                System.out.println("paket.getId()=" + paket.getId() + "paketi.getId()=" + paketi.getId());
+                if (paket.getIptv_id() == paketi.getIptv_id()) {
+                    cmbIPTVPakets.getSelectionModel().select(paketi);
+                    cmbIPTVPakets.setValue(paketi);
+                    break;
+                }
+            }
             spnCena.getEditor().setText(String.valueOf(paket.getCena()));
             spnPDV.getEditor().setText(String.valueOf(paket.getPdv()));
             tNaziv.setText(paket.getName());
-			tOpis.setText(paket.getDescription());
+            tOpis.setText(paket.getDescription());
         }
     }
 
@@ -137,10 +137,10 @@ public class IPTVPaketiEditController implements Initializable {
 
     public void snimiPaket(ActionEvent actionEvent) {
         //ako nije izabran ni jedan paket izlazimo iz metode
-        if (cmbIPTVPakets.getSelectionModel().getSelectedIndex() == -1){
-			AlertUser.error("GRESKA", "PAKET NIJE IZABRAN");
+        if (cmbIPTVPakets.getSelectionModel().getSelectedIndex() == -1) {
+            AlertUser.error("GRESKA", "PAKET NIJE IZABRAN");
             return;
-		}
+        }
 
         if (edit) {
             editIPTVPaket();
@@ -150,7 +150,7 @@ public class IPTVPaketiEditController implements Initializable {
     }
 
     private void editIPTVPaket() {
-		System.out.println("SELECTEDPAKET: "+cmbIPTVPakets.getSelectionModel().getSelectedItem().getName());
+        System.out.println("SELECTEDPAKET: " + cmbIPTVPakets.getSelectionModel().getSelectedItem().getName());
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("action", "snimiEditIPTVPaket");
         jsonObject.put("id", paketEditID);
@@ -199,12 +199,12 @@ public class IPTVPaketiEditController implements Initializable {
         }
     }
 
-	private void setCenaPDV() {
-		Double cena = Double.valueOf(spnCena.getEditor().getText());
-		Double pdv = Double.valueOf(spnPDV.getEditor().getText());
-		Double pdvDiff = valueToPercent.getDiffValue(cena, pdv);
-		lCenaPaketa.setText(df.format(cena + pdvDiff));
-	}
+    private void setCenaPDV() {
+        Double cena = Double.valueOf(spnCena.getEditor().getText());
+        Double pdv = Double.valueOf(spnPDV.getEditor().getText());
+        Double pdvDiff = valueToPercent.getDiffValue(cena, pdv);
+        lCenaPaketa.setText(df.format(cena + pdvDiff));
+    }
 
 
 }

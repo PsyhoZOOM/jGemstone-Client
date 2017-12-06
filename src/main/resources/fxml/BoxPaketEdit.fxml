@@ -1,48 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.BoxPaketEditController">
-   <children>
-      <VBox fillWidth="false" layoutX="83.0" layoutY="-18.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-         <children>
-            <Label text="Naziv paketa:" />
-            <TextField fx:id="tNazivPaketa" />
-            <Label text="Digitalna Televizija" />
-            <ComboBox fx:id="cmbDTV" prefWidth="150.0" />
-            <Label text="Internet" />
-            <ComboBox fx:id="cmbInternet" prefWidth="150.0" />
-            <Label text="IPTV" />
-            <ComboBox fx:id="cmbIPTV" prefWidth="150.0" />
-            <Label text="Fiksna Telefonija" />
-            <ComboBox fx:id="cmbFiks" prefWidth="150.0" stylesheets="@../css/Main.css" />
-            <Label text="Cena" />
-            <Spinner fx:id="spnCena" editable="true" />
-            <Label text="PDV" />
-            <Spinner fx:id="spnPDV" editable="true" />
-            <HBox alignment="CENTER_LEFT" spacing="5.0">
-               <children>
-                  <Label text="Cena Paketa:" />
-                  <Label fx:id="lCenaPaketa" text="0.00" />
-                  <Label text="din." />
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </HBox>
-            <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#saveBox" text="Snimi" />
-         </children>
-      </VBox>
-   </children>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+            stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/9"
+            fx:controller="net.yuvideo.jgemstone.client.Controllers.BoxPaketEditController">
+    <children>
+        <VBox fillWidth="false" layoutX="83.0" layoutY="-18.0" spacing="5.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+            <children>
+                <Label text="Naziv paketa:"/>
+                <TextField fx:id="tNazivPaketa"/>
+                <Label text="Digitalna Televizija"/>
+                <ComboBox fx:id="cmbDTV" prefWidth="150.0"/>
+                <Label text="Internet"/>
+                <ComboBox fx:id="cmbInternet" prefWidth="150.0"/>
+                <Label text="IPTV"/>
+                <ComboBox fx:id="cmbIPTV" prefWidth="150.0"/>
+                <Label text="Fiksna Telefonija"/>
+                <ComboBox fx:id="cmbFiks" prefWidth="150.0" stylesheets="@../css/Main.css"/>
+                <Label text="Cena"/>
+                <Spinner fx:id="spnCena" editable="true"/>
+                <Label text="PDV"/>
+                <Spinner fx:id="spnPDV" editable="true"/>
+                <HBox alignment="CENTER_LEFT" spacing="5.0">
+                    <children>
+                        <Label text="Cena Paketa:"/>
+                        <Label fx:id="lCenaPaketa" text="0.00"/>
+                        <Label text="din."/>
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                </HBox>
+                <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#saveBox" text="Snimi"/>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

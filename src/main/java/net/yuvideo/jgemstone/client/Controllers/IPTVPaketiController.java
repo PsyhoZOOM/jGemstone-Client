@@ -5,24 +5,24 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.IPTVPaketi;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
+import net.yuvideo.jgemstone.client.classes.valueToPercent;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.scene.control.TableCell;
-import javafx.util.Callback;
-import net.yuvideo.jgemstone.client.classes.valueToPercent;
 
 /**
  * Created by PsyhoZOOM@gmail.com on 8/15/17.
@@ -38,16 +38,15 @@ public class IPTVPaketiController implements Initializable {
     public TableColumn<IPTVPaketi, Integer> cExternalID;
     public TableColumn<IPTVPaketi, Double> cCena;
     public TableColumn<IPTVPaketi, Integer> cIPTVID;
-	@FXML
-	private TableColumn<IPTVPaketi, Double> cPDV;
-	@FXML
-	private TableColumn<IPTVPaketi, Double> cCenaPDV;
-	
+    DecimalFormat df = new DecimalFormat("0.00");
+    @FXML
+    private TableColumn<IPTVPaketi, Double> cPDV;
+
     public Client client;
     private URL location;
     private ResourceBundle resources;
-
-	DecimalFormat df = new DecimalFormat("0.00");
+    @FXML
+    private TableColumn<IPTVPaketi, Double> cCenaPDV;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -60,62 +59,61 @@ public class IPTVPaketiController implements Initializable {
         cExternalID.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Integer>("external_id"));
         cCena.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Double>("cena"));
         cIPTVID.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Integer>("iptv_id"));
-		cPDV.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Double>("pdv"));
-		cCenaPDV.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Double>("cenaPDV"));
+        cPDV.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Double>("pdv"));
+        cCenaPDV.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Double>("cenaPDV"));
 
-		cCena.setCellFactory(new Callback<TableColumn<IPTVPaketi, Double>, TableCell<IPTVPaketi, Double>>() {
-			@Override
-			public TableCell<IPTVPaketi, Double> call(TableColumn<IPTVPaketi, Double> param) {
-				return new TableCell<IPTVPaketi, Double>(){
-					@Override
-					protected void updateItem(Double item, boolean empty) {
-						super.updateItem(item, empty);
-						if(empty){
-							setText("");
-						}else{
-							setText(df.format(item));
-						}
-					}
-				};
-			}
-		});
+        cCena.setCellFactory(new Callback<TableColumn<IPTVPaketi, Double>, TableCell<IPTVPaketi, Double>>() {
+            @Override
+            public TableCell<IPTVPaketi, Double> call(TableColumn<IPTVPaketi, Double> param) {
+                return new TableCell<IPTVPaketi, Double>() {
+                    @Override
+                    protected void updateItem(Double item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setText("");
+                        } else {
+                            setText(df.format(item));
+                        }
+                    }
+                };
+            }
+        });
 
-		cPDV.setCellFactory(new Callback<TableColumn<IPTVPaketi, Double>, TableCell<IPTVPaketi, Double>>() {
-			@Override
-			public TableCell<IPTVPaketi, Double> call(TableColumn<IPTVPaketi, Double> param) {
-				return new TableCell<IPTVPaketi, Double>(){
-					@Override
-					protected void updateItem(Double item, boolean empty) {
-						super.updateItem(item, empty); 
-						if(empty){
-							setText("");
-						}
-						else{
-							setText(df.format(item));
-						}
-					}
-					
-				};
-			}
-		});
+        cPDV.setCellFactory(new Callback<TableColumn<IPTVPaketi, Double>, TableCell<IPTVPaketi, Double>>() {
+            @Override
+            public TableCell<IPTVPaketi, Double> call(TableColumn<IPTVPaketi, Double> param) {
+                return new TableCell<IPTVPaketi, Double>() {
+                    @Override
+                    protected void updateItem(Double item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setText("");
+                        } else {
+                            setText(df.format(item));
+                        }
+                    }
 
-		cCenaPDV.setCellFactory(new Callback<TableColumn<IPTVPaketi, Double>, TableCell<IPTVPaketi, Double>>() {
-			@Override
-			public TableCell<IPTVPaketi, Double> call(TableColumn<IPTVPaketi, Double> param) {
-				return new TableCell<IPTVPaketi, Double>(){
-					@Override
-					protected void updateItem(Double item, boolean empty) {
-						super.updateItem(item, empty); 
-						if(empty){
-							setText("");
-						}else{
-							setText(df.format(item));
-						}
-					}
-					
-				};
-			}
-		});
+                };
+            }
+        });
+
+        cCenaPDV.setCellFactory(new Callback<TableColumn<IPTVPaketi, Double>, TableCell<IPTVPaketi, Double>>() {
+            @Override
+            public TableCell<IPTVPaketi, Double> call(TableColumn<IPTVPaketi, Double> param) {
+                return new TableCell<IPTVPaketi, Double>() {
+                    @Override
+                    protected void updateItem(Double item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setText("");
+                        } else {
+                            setText(df.format(item));
+                        }
+                    }
+
+                };
+            }
+        });
 
 
         tblPaketiIPTV.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IPTVPaketi>() {
@@ -179,10 +177,10 @@ public class IPTVPaketiController implements Initializable {
             paketi.setDescription(pakobj.getString("opis"));
             paketi.setIptv_id(pakobj.getInt("IPTV_id"));
             paketi.setPdv(pakobj.getDouble("pdv"));
-			Double cenaPDV = valueToPercent.getDiffValue(pakobj.getDouble("cena"),
-					pakobj.getDouble("pdv"));
-			paketi.setCenaPDV(Double.valueOf(df.format(cenaPDV+pakobj.getDouble("cena"))));
-			
+            Double cenaPDV = valueToPercent.getDiffValue(pakobj.getDouble("cena"),
+                    pakobj.getDouble("pdv"));
+            paketi.setCenaPDV(Double.valueOf(df.format(cenaPDV + pakobj.getDouble("cena"))));
+
             iptvPaketiArrayList.add(paketi);
 
         }

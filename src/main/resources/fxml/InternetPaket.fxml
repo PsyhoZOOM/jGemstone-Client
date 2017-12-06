@@ -1,38 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.InternetPaketController">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="800.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/9"
+            fx:controller="net.yuvideo.jgemstone.client.Controllers.InternetPaketController">
     <children>
-        <VBox layoutX="67.0" layoutY="32.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox layoutX="67.0" layoutY="32.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <HBox alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
                     <children>
-                        <Button fx:id="bNov" mnemonicParsing="false" onAction="#pNovAction" text="Nov" />
-                        <Button fx:id="bPromeni" mnemonicParsing="false" onAction="#bPromeni" text="Promeni" />
+                        <Button fx:id="bNov" mnemonicParsing="false" onAction="#pNovAction" text="Nov"/>
+                        <Button fx:id="bPromeni" mnemonicParsing="false" onAction="#bPromeni" text="Promeni"/>
                     </children>
                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </padding>
                 </HBox>
                 <TableView fx:id="tblInternetPaket" VBox.vgrow="ALWAYS">
                     <columns>
-                        <TableColumn fx:id="cNaziv" prefWidth="75.0" text="Naziv" />
-                        <TableColumn fx:id="cBrzina" prefWidth="75.0" text="Brzina" />
-                        <TableColumn fx:id="cIdleTimeout" prefWidth="75.0" text="Idle-Timeout" />
-                        <TableColumn fx:id="cOpis" prefWidth="75.0" text="Opis" />
-                        <TableColumn fx:id="cCena" prefWidth="75.0" text="Cena" />
-                  <TableColumn fx:id="cPDV" prefWidth="75.0" text="PDV" />
-                  <TableColumn fx:id="cCenaPDV" prefWidth="75.0" text="Cena sa PDV" />
+                        <TableColumn fx:id="cNaziv" prefWidth="75.0" text="Naziv"/>
+                        <TableColumn fx:id="cBrzina" prefWidth="75.0" text="Brzina"/>
+                        <TableColumn fx:id="cIdleTimeout" prefWidth="75.0" text="Idle-Timeout"/>
+                        <TableColumn fx:id="cOpis" prefWidth="75.0" text="Opis"/>
+                        <TableColumn fx:id="cCena" prefWidth="75.0" text="Cena"/>
+                        <TableColumn fx:id="cPDV" prefWidth="75.0" text="PDV"/>
+                        <TableColumn fx:id="cCenaPDV" prefWidth="75.0" text="Cena sa PDV"/>
                     </columns>
                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                     </columnResizePolicy>
                 </TableView>
             </children>

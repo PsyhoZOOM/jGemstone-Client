@@ -5,7 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -14,9 +17,6 @@ import net.yuvideo.jgemstone.client.classes.Client;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 
 /**
  * Created by zoom on 1/3/17.
@@ -75,11 +75,11 @@ public class LoginWinController implements Initializable {
 
         Scene scene = null;
         try {
-            scene = new Scene((Parent) fxmlLoader.load());
+            scene = new Scene(fxmlLoader.load());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        OptionsController optionsController = fxmlLoader.<OptionsController>getController();
+        OptionsController optionsController = fxmlLoader.getController();
         Stage stageOptions = new Stage();
 
         stageOptions.setScene(scene);

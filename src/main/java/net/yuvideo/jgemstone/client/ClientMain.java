@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -19,7 +20,6 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
-import javafx.scene.image.Image;
 
 
 public class ClientMain extends Application {
@@ -35,7 +35,7 @@ public class ClientMain extends Application {
 
     public static void main(String[] args) {
         launch(args);
-	
+
 
     }
 
@@ -60,9 +60,9 @@ public class ClientMain extends Application {
         System.setProperty("file.encoding", "UTF-8");
         Charset.defaultCharset();
 
-		///SET ICON
-		primaryStage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/YuVideoLogo.png")));
-		
+        ///SET ICON
+        primaryStage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/YuVideoLogo.png")));
+
         this.stage = primaryStage;
 
         primaryStage.setTitle("JGemstone");
@@ -91,7 +91,7 @@ public class ClientMain extends Application {
             stage.setTitle("YUVideo LOGIN");
             stage.show();
         } catch (IOException e) {
-		System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
     }
