@@ -39,6 +39,9 @@ public class KorisnikUplateController implements Initializable {
 	public TableColumn cZaUplatu;
 	@FXML
 	private TableColumn cPDV;
+	@FXML
+	private Label lIdentifikacija;
+
 	public Spinner cmbZaUplatu;
 
 	public TableView<Uplate> tblUplate;
@@ -205,6 +208,7 @@ public class KorisnikUplateController implements Initializable {
 				lStatusUplatioOper.setText(uplate.getOperater());
 				lStatusZaduzenOd.setText(uplate.getZaduzenOd());
 				lStatusDatumIsteka.setText(get_datum_isteka_servicsa(uplate.getId_ServiceUser()));
+				lIdentifikacija.setText(getIdentity(uplate.getId_ServiceUser()));
 
 				//disable uplate if cena i zaduzenje je isto
 				uplaceno = uplate.getUplaceno();
@@ -579,6 +583,23 @@ public class KorisnikUplateController implements Initializable {
 		}
 
 		show_data();
+
+	}
+
+
+	private String getIdentity(int id_service) {
+		JSONObject jObj = new JSONObject();
+		jObj.put("action", "get_Service_ident");
+		jObj.put("id_Service", id_service);
+
+		jObj = client.send_object(jObj);
+
+		if (jObj.has("ERROR")) {
+			AlertUser.error("GRESKA", jObj.getString("ERROR"));
+			return "--";
+		}
+
+		return jObj.getString("ident");
 
 	}
 }

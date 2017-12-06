@@ -165,6 +165,8 @@
                                                 </HBox>
                                                 <Label text="Rate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                                 <CheckBox fx:id="chkSveUplate" mnemonicParsing="false" text="Prikaži sve uplate" GridPane.columnIndex="8" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+                                    <Label text="Identifikacija:" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+                                    <Label fx:id="lIdentifikacija" text="--" GridPane.columnIndex="8" GridPane.rowIndex="4" />
                                             </children>
                                         </GridPane>
                                     </children>

@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.EditKorisnikController">
     <children>
-        <TabPane id="tabpane" fx:id="tabKorisnikEdit" layoutX="112.0" layoutY="107.0" rotateGraphic="true" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <TabPane id="tabpane" fx:id="tabKorisnikEdit" layoutX="112.0" layoutY="107.0" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <tabs>
                 <Tab fx:id="tabKorisnickiPodaci" closable="false" text="Korisnički podaci">
                     <content>

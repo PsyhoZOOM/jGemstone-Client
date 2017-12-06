@@ -20,8 +20,6 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import javafx.scene.image.Image;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 
 public class ClientMain extends Application {
