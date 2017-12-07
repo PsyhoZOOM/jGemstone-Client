@@ -67,6 +67,13 @@ public class KorisnikUplateController implements Initializable {
     public CheckBox chkSveUplate;
     public TableColumn cZaduzenOd;
     public TableColumn cUplatio;
+    @FXML
+    private TreeTableColumn cZaduzio;
+    @FXML
+    private TreeTableColumn cRazduzio;
+
+
+
     DecimalFormat df = new DecimalFormat("#,##0.00");
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     DateTimeFormatter formatterBack = DateTimeFormatter.ofPattern("yyyy-MM-dd");

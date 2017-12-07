@@ -120,6 +120,31 @@
                                                         </Label>
                                                     </children>
                                                 </HBox>
+                                                <TreeTableView tableMenuButtonVisible="true">
+                                                    <columns>
+                                                        <TreeTableColumn fx:id="cNazivServisa" prefWidth="75.0"
+                                                                         text="Naziv Usluge"/>
+                                                        <TreeTableColumn fx:id="cDatumZaduzenja" prefWidth="75.0"
+                                                                         text="Datum zaduženja"/>
+                                                        <TreeTableColumn fx:id="cZaMesec" prefWidth="75.0"
+                                                                         text="Za Mesec"/>
+                                                        <TreeTableColumn fx:id="cCena" prefWidth="75.0" text="Cena"/>
+                                                        <TreeTableColumn fx:id="cPopust" prefWidth="75.0"
+                                                                         text="Popust"/>
+                                                        <TreeTableColumn fx:id="cPDV" prefWidth="75.0" text="PDV"/>
+                                                        <TreeTableColumn fx:id="cZaUplatu" prefWidth="75.0"
+                                                                         text="Za Uplatu"/>
+                                                        <TreeTableColumn fx:id="cUplaceno" prefWidth="75.0"
+                                                                         text="Uplaceno"/>
+                                                        <TreeTableColumn fx:id="cZaduzio" prefWidth="75.0"
+                                                                         text="Zadužio" visible="false"/>
+                                                        <TreeTableColumn fx:id="cRazduzio" prefWidth="75.0"
+                                                                         text="Razdužio" visible="false"/>
+                                                    </columns>
+                                                    <columnResizePolicy>
+                                                        <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                                    </columnResizePolicy>
+                                                </TreeTableView>
                                                 <TableView fx:id="tblZaduzenja" tableMenuButtonVisible="true"
                                                            VBox.vgrow="ALWAYS">
                                                     <columns>

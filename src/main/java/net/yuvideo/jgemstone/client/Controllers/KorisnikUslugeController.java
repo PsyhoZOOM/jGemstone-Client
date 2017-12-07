@@ -294,9 +294,7 @@ public class KorisnikUslugeController implements Initializable {
         cServiceObracun.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, String>("obracun"));
         cServiceIdentification.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, String>("idUniqueName"));
         cDatumIsteka.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, String>("endDate"));
-
         cPDV.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, Double>("pdv"));
-
         cZaUplatu.setCellValueFactory(new TreeItemPropertyValueFactory<ServicesUser, Double>("zaUplatu"));
 
 
