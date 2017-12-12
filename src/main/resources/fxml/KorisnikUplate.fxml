@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" minHeight="600.0" minWidth="800.0" prefHeight="732.0" prefWidth="1179.0"
-            stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/9"
+            stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUplateController">
     <children>
         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -120,7 +120,7 @@
                                                         </Label>
                                                     </children>
                                                 </HBox>
-                                                <TreeTableView tableMenuButtonVisible="true">
+                                                <TreeTableView fx:id="tblZaduzenja" tableMenuButtonVisible="true">
                                                     <columns>
                                                         <TreeTableColumn fx:id="cNazivServisa" prefWidth="75.0"
                                                                          text="Naziv Usluge"/>
@@ -145,34 +145,6 @@
                                                         <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                                                     </columnResizePolicy>
                                                 </TreeTableView>
-                                                <TableView fx:id="tblZaduzenja" tableMenuButtonVisible="true"
-                                                           VBox.vgrow="ALWAYS">
-                                                    <columns>
-
-                                                        <TableColumn fx:id="cNazivServisa" editable="false"
-                                                                     minWidth="-1.0" prefWidth="-1.0"
-                                                                     text="Naziv&#10;Usluge"/>
-                                                        <TableColumn fx:id="cDatumZaduzenja" editable="false"
-                                                                     text="Datum&#10;Zaduženja"/>
-                                                        <TableColumn fx:id="cZaMesec" prefWidth="75.0" text="Za Mesec"/>
-                                                        <TableColumn fx:id="cCena" minWidth="-1.0" prefWidth="-1.0"
-                                                                     text="Cena"/>
-                                                        <TableColumn fx:id="cPopust" minWidth="-1.0" prefWidth="-1.0"
-                                                                     text="Popust"/>
-                                                        <TableColumn fx:id="cPDV" prefWidth="75.0" text="PDV"/>
-                                                        <TableColumn fx:id="cZaUplatu" minWidth="-1.0" prefWidth="-1.0"
-                                                                     text="Za uplatu"/>
-                                                        <TableColumn fx:id="cUplaceno" prefWidth="75.0"
-                                                                     text="Uplaćeno"/>
-                                                        <TableColumn fx:id="cZaduzenOd" prefWidth="75.0"
-                                                                     text="Zaduzen Od" visible="false"/>
-                                                        <TableColumn fx:id="cUplatio" prefWidth="75.0" text="Uplatio"
-                                                                     visible="false"/>
-                                                    </columns>
-                                                    <columnResizePolicy>
-                                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                                                    </columnResizePolicy>
-                                                </TableView>
                                                 <CheckBox fx:id="chkSveUplate" contentDisplay="TOP"
                                                           mnemonicParsing="false" text="Prikaži sve uplate"
                                                           underline="true"/>

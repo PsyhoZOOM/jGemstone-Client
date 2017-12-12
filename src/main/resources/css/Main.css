@@ -63,3 +63,8 @@
 .table-row-cell:selected {
     -fx-text-background-color: black;
 }
+
+.tree-table-row-cell:selected {
+    -fx-text-background-color:black;
+    -fx-background-color: grey;
+}

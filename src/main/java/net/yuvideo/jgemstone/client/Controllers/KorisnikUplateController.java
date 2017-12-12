@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import net.yuvideo.jgemstone.client.classes.*;
@@ -30,25 +31,13 @@ import java.util.ResourceBundle;
 public class KorisnikUplateController implements Initializable {
 
     public Button bClose;
-    public TableView<Uplate> tblZaduzenja;
 
-    public TableColumn cDatumZaduzenja;
-    public TableColumn cNazivServisa;
-    public TableColumn cCena;
-    public TableColumn cPopust;
-    public TableColumn cZaUplatu;
     public Spinner cmbZaUplatu;
-    public TableView<Uplate> tblUplate;
-    public TableColumn cDatumUplate;
-    public TableColumn cUplaceno;
-    public TableColumn cMestoUplate;
-    public TableColumn cOperater;
     public Label lUkupnoUplaceno;
     public Label lUkupanDug;
     public Label lZaUplatu;
     public DatePicker dtpDatumZaNaplatu;
     public Button bZaduzi;
-    public TableColumn cZaMesec;
     public Button bUplatiServis;
     public Client client;
     public Users user;
@@ -56,7 +45,6 @@ public class KorisnikUplateController implements Initializable {
     public Label lStatusZaduzenOd;
     public Label lStatusUplatioOper;
     public Label lStatusDatumUplate;
-    public TableColumn cUplateUplaceno;
     public Label lDugZaduzenja;
     public Button bZaduziCustomService;
     public ComboBox<ServicesUser> cmbUserServices;
@@ -65,21 +53,45 @@ public class KorisnikUplateController implements Initializable {
     public TextField tCenaCustom;
     public TextField tRate;
     public CheckBox chkSveUplate;
-    public TableColumn cZaduzenOd;
-    public TableColumn cUplatio;
     @FXML
-    private TreeTableColumn cZaduzio;
+    private TreeTableView<Uplate> tblZaduzenja;
     @FXML
-    private TreeTableColumn cRazduzio;
-
+    private TreeTableColumn<Uplate, String> cDatumZaduzenja;
+    @FXML
+    private TreeTableColumn<Uplate, String> cZaMesec;
+    @FXML
+    private TreeTableColumn<Uplate, Double> cPopust;
+    @FXML
+    private TreeTableColumn<Uplate, Double> cPDV;
+    @FXML
+    private TreeTableColumn<Uplate, Double> cZaUplatu;
+    @FXML
+    private TreeTableColumn<Uplate, Double> cCena;
+    @FXML
+    private TreeTableColumn<Uplate, Double> cUplaceno;
+    @FXML
+    private TableView<Uplate> tblUplate;
+    @FXML
+    private TableColumn<Uplate, String> cDatumUplate;
+    @FXML
+    private TableColumn<Uplate, Double> cUplateUplaceno;
+    @FXML
+    private TableColumn<Uplate, String> cMestoUplate;
+    @FXML
+    private TableColumn<Uplate, String> cOperater;
+    @FXML
+    private TreeTableColumn<Uplate, String> cNazivServisa;
+    @FXML
+    private TreeTableColumn<Uplate, String> cZaduzio;
+    @FXML
+    private TreeTableColumn<Uplate, String> cRazduzio;
 
 
     DecimalFormat df = new DecimalFormat("#,##0.00");
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     DateTimeFormatter formatterBack = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     DateTimeFormatter formatMonthYear = DateTimeFormatter.ofPattern("yyyy-MM");
-    @FXML
-    private TableColumn cPDV;
+
     @FXML
     private Label lIdentifikacija;
     private ResourceBundle resource;
@@ -98,24 +110,24 @@ public class KorisnikUplateController implements Initializable {
         tRate.setText("0");
         tCenaCustom.setText("0.00");
 
-        cDatumZaduzenja.setCellValueFactory(new PropertyValueFactory<Uplate, String>("datumZaduzenja"));
-        cNazivServisa.setCellValueFactory(new PropertyValueFactory<Uplate, String>("nazivPaket"));
-        cCena.setCellValueFactory(new PropertyValueFactory<Uplate, Double>("cena"));
-        cPopust.setCellValueFactory(new PropertyValueFactory<Uplate, Double>("popust"));
-        cZaUplatu.setCellValueFactory(new PropertyValueFactory<Uplate, Double>("dug"));
-        cZaMesec.setCellValueFactory(new PropertyValueFactory<Uplate, String>("zaMesec"));
-        cUplaceno.setCellValueFactory(new PropertyValueFactory<Uplate, Double>("uplaceno"));
-        cZaduzenOd.setCellValueFactory(new PropertyValueFactory<Uplate, String>("zaduzenOd"));
-        cUplatio.setCellValueFactory(new PropertyValueFactory<Uplate, String>("operater"));
-        cPDV.setCellValueFactory(new PropertyValueFactory<Uplate, Double>("pdv"));
+        cDatumZaduzenja.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, String>("datumZaduzenja"));
+        cNazivServisa.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, String>("nazivPaket"));
+        cCena.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, Double>("cena"));
+        cPopust.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, Double>("popust"));
+        cZaUplatu.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, Double>("dug"));
+        cZaMesec.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, String>("zaMesec"));
+        cUplaceno.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, Double>("uplaceno"));
+        cZaduzio.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, String>("zaduzenOd"));
+        cRazduzio.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, String>("operater"));
+        cPDV.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, Double>("pdv"));
 
-        cUplaceno.setCellFactory(tc -> new TableCell<Uplate, Double>() {
+        cUplaceno.setCellFactory(tc -> new TreeTableCell<Uplate, Double>() {
             protected void updateItem(Double uplaceno, boolean bool) {
                 super.updateItem(uplaceno, bool);
                 if (bool) {
                     setText(null);
                 } else {
-                    TableRow<Uplate> currentRow = getTableRow();
+                    TreeTableRow<Uplate> currentRow = getTreeTableRow();
                     Uplate uplate = currentRow.getItem();
                     if (uplate == null) {
                         return;
@@ -134,7 +146,7 @@ public class KorisnikUplateController implements Initializable {
             }
         });
 
-        cPDV.setCellFactory(tc -> new TableCell<Uplate, Double>() {
+        cPDV.setCellFactory(tc -> new TreeTableCell<Uplate, Double>() {
             @Override
             protected void updateItem(Double item, boolean empty) {
                 super.updateItem(item, empty);
@@ -147,7 +159,7 @@ public class KorisnikUplateController implements Initializable {
             }
         });
 
-        cCena.setCellFactory(tc -> new TableCell<Uplate, Double>() {
+        cCena.setCellFactory(tc -> new TreeTableCell<Uplate, Double>() {
             protected void updateItem(Double uplata, boolean bool) {
                 super.updateItem(uplata, bool);
                 if (bool) {
@@ -158,7 +170,7 @@ public class KorisnikUplateController implements Initializable {
             }
         });
 
-        cPopust.setCellFactory(tc -> new TableCell<Uplate, Double>() {
+        cPopust.setCellFactory(tc -> new TreeTableCell<Uplate, Double>() {
             protected void updateItem(Double uplata, boolean bool) {
                 super.updateItem(uplata, bool);
                 if (bool) {
@@ -169,7 +181,7 @@ public class KorisnikUplateController implements Initializable {
             }
         });
 
-        cZaUplatu.setCellFactory(tc -> new TableCell<Uplate, Double>() {
+        cZaUplatu.setCellFactory(tc -> new TreeTableCell<Uplate, Double>() {
             protected void updateItem(Double zaUplatu, boolean bool) {
                 super.updateItem(zaUplatu, bool);
                 if (bool) {
@@ -180,20 +192,27 @@ public class KorisnikUplateController implements Initializable {
             }
         });
 
-        tblZaduzenja.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Uplate>() {
+        tblZaduzenja.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Uplate>>() {
             @Override
-            public void changed(ObservableValue<? extends Uplate> observable, Uplate oldValue, Uplate newValue) {
+            public void changed(ObservableValue<? extends TreeItem<Uplate>> observable, TreeItem<Uplate> oldValue, TreeItem<Uplate> newValue) {
+
+            }
+        });
+
+        tblZaduzenja.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Uplate>>() {
+            @Override
+            public void changed(ObservableValue<? extends TreeItem<Uplate>> observable, TreeItem<Uplate> oldValue, TreeItem<Uplate> newValue) {
                 if (tblZaduzenja.getSelectionModel().getSelectedIndex() == -1) {
                     return;
                 }
 
                 Double uplaceno = 0.00;
                 Double dug = 0.00;
-                uplaceno = tblZaduzenja.getSelectionModel().getSelectedItem().getUplaceno();
+                uplaceno = tblZaduzenja.getSelectionModel().getSelectedItem().getValue().getUplaceno();
 
                 //BUTTON DISABLE UPLATE
-                cmbZaUplatu.getEditor().setText(df.format(newValue.getDug() - uplaceno));
-                if (newValue.getDug() == 0) {
+                cmbZaUplatu.getEditor().setText(df.format(newValue.getValue().getDug() - uplaceno));
+                if (newValue.getValue().getDug() == 0) {
                     bUplatiServis.setDisable(true);
                 } else {
                     cmbZaUplatu.setDisable(false);
@@ -201,7 +220,7 @@ public class KorisnikUplateController implements Initializable {
                 }
 
                 //STATUS UPLATE
-                Uplate uplate = tblZaduzenja.getSelectionModel().getSelectedItem();
+                Uplate uplate = tblZaduzenja.getSelectionModel().getSelectedItem().getValue();
                 if (uplate.getDatumUplate().equals("1000-01-01 00:00:00.0")) {
                     lStatusDatumUplate.setText("--");
                 } else if (uplate.getDatumUplate() != null) {
@@ -320,8 +339,17 @@ public class KorisnikUplateController implements Initializable {
 
     public void show_data() {
         ObservableList dataZaduzenja = FXCollections.observableArrayList(get_Zaduzenja());
-        tblZaduzenja.refresh();
-        tblZaduzenja.setItems(dataZaduzenja);
+
+        TreeItem rootNode = new TreeItem("UPLATE");
+        ArrayList<Uplate> zaduzenja = get_Zaduzenja();
+        for (Uplate uplata : zaduzenja) {
+            rootNode.getChildren().add(new TreeItem<Uplate>(uplata));
+        }
+
+        rootNode.setExpanded(true);
+        tblZaduzenja.setShowRoot(false);
+        tblZaduzenja.setRoot(rootNode);
+
 
         ObservableList dataUplate = FXCollections.observableArrayList(getUserUplate());
         tblZaduzenja.refresh();
@@ -438,7 +466,7 @@ public class KorisnikUplateController implements Initializable {
             return;
         }
 
-        Uplate uplata = tblZaduzenja.getSelectionModel().getSelectedItem();
+        Uplate uplata = tblZaduzenja.getSelectionModel().getSelectedItem().getValue();
         jObj = new JSONObject();
 
         jObj.put("action", "uplata_servisa");

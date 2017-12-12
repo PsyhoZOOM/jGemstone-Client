@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 
+
 public class ClientMain extends Application {
     public static final Logger LOGGER = Logger.getLogger("CLIENT_MAIN");
     public static ResourceBundle bundle;
@@ -51,14 +52,17 @@ public class ClientMain extends Application {
         //locale_sr = "RS";
         //locale = new Locale(locale_sr)
         //System.setProperty("javafx.userAgentStylesheetUrl", STYLESHEET_CASPIAN);
+        Locale locale = new Locale("sr");
 
-        System.out.println(ResourceBundle.getBundle("lang", new Locale("sr", "RS")).toString());
         bundle = ResourceBundle.getBundle("lang", new Locale("sr", "RS"), new EncodingControl("utf-8"));
 
         Font.loadFont(getClass().getResourceAsStream("font.roboto/Roboto-Black.ttf"), 9);
         Locale.setDefault(new Locale("sr_latin", "RS"));
         System.setProperty("file.encoding", "UTF-8");
         Charset.defaultCharset();
+
+        System.out.println(getClass().getProtectionDomain().getCodeSource().getLocation());
+
 
         ///SET ICON
         primaryStage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/YuVideoLogo.png")));
