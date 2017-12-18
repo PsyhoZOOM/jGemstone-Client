@@ -236,6 +236,7 @@ public class MainWindowController implements Initializable {
         jsonObject = client.send_object(jsonObject);
     }
 
+
     public void showIPTVPaketi(ActionEvent actionEvent) {
         NewInterface IPTVPaketInterface = new NewInterface("fxml/IPTVPaketi.fxml", "IPTV _Paketi", resource);
         IPTVPaketiController iptvPaketiController = IPTVPaketInterface.getLoader().getController();
@@ -287,6 +288,14 @@ public class MainWindowController implements Initializable {
         csvPreviewController.client = this.client;
         csvPreviewController.setData();
         showPregledCSVInterface.getStage().showAndWait();
+    }
+
+    public void mOpenQrScanner(ActionEvent actionEvent) {
+        NewInterface showQrScanner = new NewInterface("fxml/QrScanner.fxml", "QR Scanner",
+                this.resource);
+        QrScannerController qrScannerController = showQrScanner.getLoader().getController();
+        showQrScanner.getStage().showAndWait();
+
     }
 
 

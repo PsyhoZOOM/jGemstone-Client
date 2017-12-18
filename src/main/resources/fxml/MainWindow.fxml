@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorMainWindow" stylesheets="@../css/Main.css"
-            xmlns="http://javafx.com/javafx/9"
+            xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.MainWindowController">
     <children>
         <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -80,11 +80,13 @@
                         <MenuItem fx:id="Obracun" mnemonicParsing="false" onAction="#showObracun" text="Obračun"/>
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Help">
+                <Menu fx:id="help" mnemonicParsing="false" text="Help">
                     <items>
                         <MenuItem mnemonicParsing="false" text="About"/>
                         <MenuItem fx:id="StalkerAPITest" mnemonicParsing="false" onAction="#mOpenStalkerAPITest"
                                   text="StalkerApi"/>
+                        <MenuItem fx:id="barCodeReader" mnemonicParsing="false" onAction="#mOpenQrScanner"
+                                  text="QR Scanner"/>
                     </items>
                 </Menu>
             </menus>
