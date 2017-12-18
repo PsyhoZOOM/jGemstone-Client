@@ -545,7 +545,8 @@ public class KorisnikUslugeController implements Initializable {
             service.setLinkedService(serviceObj.getBoolean("linkedService"));
             service.setPaketType(serviceObj.getString("paketType"));
             service.setNewService(serviceObj.getBoolean("newService"));
-            service.setEndDate(serviceObj.getString("endDate"));
+            if (serviceObj.has("endDate"))
+                service.setEndDate(serviceObj.getString("endDate"));
 
             if (serviceObj.has("groupName"))
                 service.setGroupName(serviceObj.getString("groupName"));
@@ -772,6 +773,7 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("passWord", tLoznikaInternet.getText());
         jObj.put("produzenje", Integer.valueOf(tInternetPrekoracenje.getText()));
         jObj.put("groupName", cmbPaketInternet.getValue().getNaziv());
+        jObj.put("pdv", cmbPaketInternet.getValue().getPdv());
 
 
         jObj = client.send_object(jObj);
@@ -916,7 +918,7 @@ public class KorisnikUslugeController implements Initializable {
             jObj.put("userName", tUserNameBox.getText());
         jObj.put("passWord", tPasswordBox.getText());
 
-        if (!cmbPaketBOX.getValue().getNET_naziv().isEmpty())
+        if (cmbPaketBOX.getValue().getNET_naziv() != null)
             jObj.put("groupName", cmbPaketBOX.getValue().getNET_naziv());
 
 
