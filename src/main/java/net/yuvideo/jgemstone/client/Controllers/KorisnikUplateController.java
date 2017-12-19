@@ -11,11 +11,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import net.glxn.qrgen.core.scheme.VCard;
 import net.yuvideo.jgemstone.client.classes.*;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -85,9 +90,11 @@ public class KorisnikUplateController implements Initializable {
     private TreeTableColumn<Uplate, String> cZaduzio;
     @FXML
     private TreeTableColumn<Uplate, String> cRazduzio;
+    @FXML
+    ImageView imgQR;
 
 
-    DecimalFormat df = new DecimalFormat("#,##0.00");
+    DecimalFormat df = new DecimalFormat("0.00");
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     DateTimeFormatter formatterBack = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     DateTimeFormatter formatMonthYear = DateTimeFormatter.ofPattern("yyyy-MM");
@@ -362,6 +369,25 @@ public class KorisnikUplateController implements Initializable {
         ukupno = zaUplatu - ukupno_uplaceno;
         lUkupanDug.setText(df.format(ukupno));
 
+
+        setQrCode();
+
+    }
+
+    private void setQrCode() {
+        VCard vcard = new VCard(
+                user.getIme())
+                .setAddress(user.getAdresa())
+                .setCompany("YuVideo")
+                .setPhoneNumber(user.getMobilni())
+                .setWebsite("http://www.yuvideo.net");
+        ByteArrayOutputStream stream = net.glxn.qrgen.javase.QRCode.from(user.getJbroj()).stream();
+        File fImg = net.glxn.qrgen.javase.QRCode.from(user.getJbroj()).withCharset("CP1250").file();
+        //File fImg = QRCode.from(vcard).file();
+
+        //imgQR.setImage(img);
+        Image img = new Image(fImg.toURI().toString());
+        imgQR.setImage(img);
     }
 
     ArrayList<Uplate> get_Zaduzenja() {
@@ -398,6 +424,7 @@ public class KorisnikUplateController implements Initializable {
             uplata.setDatumUplate(uplataObj.getString("datumUplate"));
             uplata.setDug(uplataObj.getDouble("dug"));
             uplata.setPdv(uplataObj.getDouble("pdv"));
+            uplata.setPopust(uplataObj.getDouble("popust"));
             zaUplatu += uplataObj.getDouble("dug");
             dug = dug + uplataObj.getDouble("dug");
             uplata.setUplaceno(uplataObj.getDouble("uplaceno"));
@@ -476,8 +503,10 @@ public class KorisnikUplateController implements Initializable {
         jObj.put("paketType", uplata.getPaketType());
         jObj.put("skipProduzenje", uplata.isSkipProduzenje());
         Double numbUplacenoNov = null;
-        Double numbZauplatu = uplata.getDug();
-        Double numbUplaceno = uplata.getUplaceno();
+        Double numbZauplatu = null;
+        Double numbUplaceno = null;
+        numbZauplatu = uplata.getDug();
+        numbUplaceno = uplata.getUplaceno();
         try {
             numbUplacenoNov = df.parse(cmbZaUplatu.getEditor().getText()).doubleValue();
         } catch (ParseException e) {

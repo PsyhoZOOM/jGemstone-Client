@@ -844,6 +844,7 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("packetID", cmbPaketDTV.getValue().getPaketID());
         jObj.put("produzenje", Integer.valueOf(tDTVPrekoracenje.getText()));
         jObj.put("opis", tOpisDTV.getText());
+        jObj.put("pdv", cmbPaketDTV.getValue().getPdv());
         firstDateInMonth.set(Calendar.DAY_OF_MONTH, 1);
         firstDateInMonth.add(Calendar.MONTH, cmbPaketDTV.getValue().getProduzenje());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
