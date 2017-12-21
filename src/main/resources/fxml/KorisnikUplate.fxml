@@ -51,6 +51,8 @@
                                                                             editable="false"/>
                                                                 <Label text="Cena:"/>
                                                                 <TextField fx:id="tCenaCustom"/>
+                                                                <Label text="PDV:"/>
+                                                                <TextField fx:id="tPDVCustom" text="20"/>
                                                                 <Label text="Rate"/>
                                                                 <TextField fx:id="tRate"/>
                                                                 <Button fx:id="bZaduziCustomService" alignment="CENTER"

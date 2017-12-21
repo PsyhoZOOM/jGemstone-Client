@@ -1,7 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -31,22 +29,22 @@ import java.util.ResourceBundle;
 public class MestaController implements Initializable {
     public Client client;
 
-    public JFXTextField tMestoNaziv;
-    public JFXTextField tMestoBroj;
-    public JFXButton bAddMesto;
+    public TextField tMestoNaziv;
+    public TextField tMestoBroj;
+    public Button bAddMesto;
     public TableView tblMesto;
     public TableColumn colMesto;
     public TableColumn colMestoBroj;
-    public JFXButton bMestoDelete;
-    public JFXButton bMestoRefresh;
-    public JFXTextField tAdresaNaziv;
-    public JFXTextField tAdresaBroj;
-    public JFXButton bAddAdress;
+    public Button bMestoDelete;
+    public Button bMestoRefresh;
+    public TextField tAdresaNaziv;
+    public TextField tAdresaBroj;
+    public Button bAddAdress;
     public TableView tblAdrese;
     public TableColumn colAdresa;
     public TableColumn colAdresaBroj;
-    public JFXButton bAdresaDelete;
-    public JFXButton bAdresaRefresh;
+    public Button bAdresaDelete;
+    public Button bAdresaRefresh;
     private JSONObject jObj;
     private Mesta mesta;
     private Adrese adrese;

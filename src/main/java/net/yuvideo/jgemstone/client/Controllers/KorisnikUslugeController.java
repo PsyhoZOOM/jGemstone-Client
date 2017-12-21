@@ -766,7 +766,7 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("servicePopust", Double.valueOf(tPopustInternet.getText()));
         jObj.put("paketType", "INTERNET");
         jObj.put("cena", Double.valueOf(cmbPaketInternet.getValue().getCena()));
-        jObj.put("cena", cmbPaketInternet.getValue().getPdv());
+        jObj.put("cena", cmbPaketInternet.getValue().getCena());
         jObj.put("obracun", chkRacunInternet.isSelected());
         jObj.put("brojUgovora", cmbUgovorInternet.getValue().getBr());
         jObj.put("userName", tUserNameInternet.getText());
@@ -870,7 +870,7 @@ public class KorisnikUslugeController implements Initializable {
     }
 
     public void addServiceBox(ActionEvent actionEvent) {
-        if (cmbPaketBOX == null || cmbUgovorBox == null || tPopustBox.getText().isEmpty()) {
+        if (cmbPaketBOX.getValue() == null || cmbUgovorBox.getValue() == null || tPopustBox.getText().isEmpty()) {
             AlertUser.error("GRESKA", "Paket, ugovor i popust polje ne mogu biti prazna");
             return;
         }

@@ -1,30 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-            minHeight="480.0"
-            minWidth="640.0" xmlns="http://javafx.com/javafx/8.0.65"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+            minHeight="480.0" minWidth="640.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.MestaController">
     <children>
         <HBox layoutX="5.0" layoutY="4.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-              spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
               AnchorPane.topAnchor="0.0">
             <children>
                 <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                      spacing="20.0" HBox.hgrow="ALWAYS">
+                      spacing="5.0" HBox.hgrow="ALWAYS">
                     <children>
-                        <HBox alignment="BOTTOM_LEFT" spacing="20.0" VBox.vgrow="NEVER">
+                        <HBox alignment="CENTER_LEFT" spacing="20.0" VBox.vgrow="NEVER">
                             <children>
-                                <JFXTextField fx:id="tMestoNaziv" labelFloat="true" promptText="Mesto">
+                                <VBox spacing="5.0">
                                     <HBox.margin>
-                                        <Insets top="20.0"/>
+                                        <Insets/>
                                     </HBox.margin>
-                                </JFXTextField>
-                                <JFXTextField fx:id="tMestoBroj" promptText="Broj"/>
-                                <JFXButton fx:id="bAddMesto" onAction="#dodajMesto" text="Dodaj mesto"/>
+                                    <children>
+                                        <Label text="Mesto:"/>
+                                        <TextField fx:id="tMestoNaziv" promptText="Mesto"/>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                    </padding>
+                                </VBox>
+                                <VBox spacing="5.0">
+                                    <children>
+                                        <Label text="Broj:"/>
+                                        <TextField fx:id="tMestoBroj" promptText="Broj"/>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                    </padding>
+                                </VBox>
+                                <Button fx:id="bAddMesto" onAction="#dodajMesto" text="Dodaj mesto"/>
                             </children>
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -43,8 +56,8 @@
                         </TableView>
                         <HBox alignment="CENTER_RIGHT" spacing="20.0">
                             <children>
-                                <JFXButton fx:id="bMestoDelete" onAction="#izbrisiMesto" text="Izbrisi mesto"/>
-                                <JFXButton fx:id="bMestoRefresh" onAction="#osveziMesto" text="Osveži"/>
+                                <Button fx:id="bMestoDelete" onAction="#izbrisiMesto" text="Izbriši mesto"/>
+                                <Button fx:id="bMestoRefresh" onAction="#osveziMesto" text="Osveži"/>
                             </children>
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -55,23 +68,38 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </padding>
                 </VBox>
-                <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0"
+                <Separator orientation="VERTICAL" prefHeight="200.0"/>
+                <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="5.0"
                       HBox.hgrow="ALWAYS">
                     <children>
-                        <HBox alignment="BOTTOM_LEFT" maxHeight="1.7976931348623157E308"
+                        <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308"
                               maxWidth="1.7976931348623157E308" spacing="20.0" VBox.vgrow="NEVER">
                             <children>
-                                <JFXTextField fx:id="tAdresaNaziv" labelFloat="true" promptText="Adresa">
+                                <VBox spacing="5.0">
                                     <HBox.margin>
-                                        <Insets top="20.0"/>
+                                        <Insets/>
                                     </HBox.margin>
-                                </JFXTextField>
-                                <JFXTextField fx:id="tAdresaBroj" labelFloat="true" promptText="Broj">
+                                    <children>
+                                        <Label text="Adresa:"/>
+                                        <TextField fx:id="tAdresaNaziv" promptText="Adresa"/>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                    </padding>
+                                </VBox>
+                                <VBox spacing="5.0">
                                     <HBox.margin>
-                                        <Insets top="20.0"/>
+                                        <Insets/>
                                     </HBox.margin>
-                                </JFXTextField>
-                                <JFXButton fx:id="bAddAdress" onAction="#dodajAdresu" text="Dodaj adresu"/>
+                                    <children>
+                                        <Label text="Broj:"/>
+                                        <TextField fx:id="tAdresaBroj" promptText="Broj"/>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                    </padding>
+                                </VBox>
+                                <Button fx:id="bAddAdress" onAction="#dodajAdresu" text="Dodaj adresu"/>
                             </children>
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -93,8 +121,8 @@
                         </TableView>
                         <HBox alignment="CENTER_RIGHT" spacing="20.0">
                             <children>
-                                <JFXButton fx:id="bAdresaDelete" onAction="#izbrisiAdresu" text="Izbrisi adresu"/>
-                                <JFXButton fx:id="bAdresaRefresh" onAction="#osveziAdresu" text="Osveži"/>
+                                <Button fx:id="bAdresaDelete" onAction="#izbrisiAdresu" text="Izbriši adresu"/>
+                                <Button fx:id="bAdresaRefresh" onAction="#osveziAdresu" text="Osveži"/>
                             </children>
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

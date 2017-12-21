@@ -337,4 +337,9 @@ public class KorisnikPodaciController implements Initializable {
         updateUserData();
 
     }
+
+    public void copyToAdresaRacun(ActionEvent actionEvent) {
+        tAdresaRacuna.setText(tAdresa.getText());
+        tMestoRacuna.setText(tMesto.getText());
+    }
 }

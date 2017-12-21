@@ -56,6 +56,7 @@ public class KorisnikUplateController implements Initializable {
     public TextField tNazivUslugeCustom;
     public DatePicker dtpDatumZaNaplatuCustom;
     public TextField tCenaCustom;
+    public TextField tPDVCustom;
     public TextField tRate;
     public CheckBox chkSveUplate;
     @FXML
@@ -554,6 +555,7 @@ public class KorisnikUplateController implements Initializable {
         jObj.put("action", "zaduzi_servis_manual");
         jObj.put("nazivPaketa", tNazivUslugeCustom.getText());
         jObj.put("cena", tCenaCustom.getText());
+        jObj.put("pdv", tPDVCustom.getText());
         jObj.put("uplaceno", false);
         jObj.put("zaMesec", formatMonthYear.format(datumZaMesec));
         jObj.put("paketType", "CUSTOM");

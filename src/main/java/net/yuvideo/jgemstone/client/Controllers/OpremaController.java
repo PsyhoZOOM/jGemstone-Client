@@ -1,7 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -27,13 +26,13 @@ import java.util.ResourceBundle;
  * Created by zoom on 1/13/17.
  */
 public class OpremaController implements Initializable {
-    public JFXTextField tNaziv;
-    public JFXTextField tModel;
-    public JFXButton bSnimi;
+    public TextField tNaziv;
+    public TextField tModel;
+    public Button bSnimi;
     public TableView tblOprema;
     public TableColumn colNaziv;
     public TableColumn colModel;
-    public JFXButton bIzbrisi;
+    public Button bIzbrisi;
     public Button bClose;
     public Client client;
     private ResourceBundle resource;

@@ -98,6 +98,8 @@
                           GridPane.rowSpan="2"/>
                 <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#bSaveUser" text="Sacuvaj promene"
                         GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="13"/>
+                <Button fx:id="bCopyUserData" mnemonicParsing="false" onAction="#copyToAdresaRacun"
+                        text="&gt;&gt;&gt;&gt;" GridPane.columnIndex="3" GridPane.rowIndex="9"/>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
