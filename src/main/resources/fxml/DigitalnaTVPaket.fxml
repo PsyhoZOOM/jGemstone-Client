@@ -3,14 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity"
-            prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Main.css"
-            xmlns="http://javafx.com/javafx/9"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+            stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.DigitalniTVPaketController">
     <children>
-        <VBox layoutX="162.0" layoutY="69.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox layoutX="162.0" layoutY="69.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <HBox alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
                     <children>
@@ -21,11 +19,13 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </padding>
                 </HBox>
-                <TableView fx:id="tblDTV" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                <TableView fx:id="tblDTV" VBox.vgrow="ALWAYS">
                     <columns>
                         <TableColumn fx:id="cNaziv" prefWidth="75.0" text="Naziv"/>
                         <TableColumn fx:id="cPaket" prefWidth="75.0" text="ID PAKET"/>
                         <TableColumn fx:id="cCena" prefWidth="75.0" text="Cena"/>
+                        <TableColumn fx:id="cPDV" prefWidth="75.0" text="PDV"/>
+                        <TableColumn fx:id="cCenaPDV" prefWidth="75.0" text="Cena sa PDV"/>
                         <TableColumn fx:id="cOpis" prefWidth="75.0" text="Opis"/>
                     </columns>
                     <columnResizePolicy>

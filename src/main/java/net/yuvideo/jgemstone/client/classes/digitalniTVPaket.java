@@ -12,7 +12,19 @@ public class digitalniTVPaket {
     Double cena;
     Double pdv;
     boolean obracun;
+    Double cenaPDV;
 
+    public void setProduzenje(int produzenje) {
+        this.produzenje = produzenje;
+    }
+
+    public Double getCenaPDV() {
+        return cenaPDV;
+    }
+
+    public void setCenaPDV(Double cenaPDV) {
+        this.cenaPDV = cenaPDV;
+    }
 
     public Double getPdv() {
         return pdv;

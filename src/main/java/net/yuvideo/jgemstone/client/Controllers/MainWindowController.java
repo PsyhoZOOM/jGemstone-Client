@@ -259,16 +259,19 @@ public class MainWindowController implements Initializable {
         if (lf == null)
             return;
 
-        for (File file : lf)
+        for (File file : lf) {
             try {
                 String content = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
+                System.out.println("Reading file: " + file.getAbsolutePath());
                 jfileObj.put(file.getAbsoluteFile().getName(), content);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
 
+        System.out.println("SENDING FILE ");
         JSONObject jObj = client.send_object(jfileObj);
 
         if (jObj.has("ERROR")) {
@@ -276,6 +279,7 @@ public class MainWindowController implements Initializable {
         } else {
             AlertUser.info("Import CSV fajla", "Importovanje CSV fajla je uspesno zavrseno!");
         }
+
 
 
     }

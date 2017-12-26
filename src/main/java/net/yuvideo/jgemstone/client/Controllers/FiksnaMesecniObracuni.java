@@ -28,6 +28,7 @@ public class FiksnaMesecniObracuni implements Initializable {
     private URL location;
     private ResourceBundle resources;
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM");
+    private DateTimeFormatter dtfNomrmal = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -68,7 +69,7 @@ public class FiksnaMesecniObracuni implements Initializable {
     public void obracunaj(ActionEvent actionEvent) {
         JSONObject jObj = new JSONObject();
         String zaMesec = LocalDate.parse(dtpObracunZaMesec.getValue().toString()).format(dtf);
-        jObj.put("action", "obracunaj_za_mesec");
+        jObj.put("action", "obracunaj_FIX_za_mesec");
 
         jObj.put("zaMesec", zaMesec);
         jObj = client.send_object(jObj);

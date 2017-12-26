@@ -50,7 +50,7 @@ public class FaktureController implements Initializable {
     public Users userData;
     public ResourceBundle resource;
     public Label lBrFakture;
-    DecimalFormat decFormat = new DecimalFormat("#,###.00");
+    DecimalFormat decFormat = new DecimalFormat("#,##0.00");
     Stage stage;
     Fakture faktura;
     Users user;

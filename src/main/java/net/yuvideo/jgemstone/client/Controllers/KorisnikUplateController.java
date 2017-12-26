@@ -132,7 +132,7 @@ public class KorisnikUplateController implements Initializable {
         cUplaceno.setCellFactory(tc -> new TreeTableCell<Uplate, Double>() {
             protected void updateItem(Double uplaceno, boolean bool) {
                 super.updateItem(uplaceno, bool);
-                if (bool) {
+                if (bool || uplaceno == null) {
                     setText(null);
                 } else {
                     TreeTableRow<Uplate> currentRow = getTreeTableRow();
@@ -147,6 +147,8 @@ public class KorisnikUplateController implements Initializable {
                         currentRow.setStyle("-fx-background-color: darkorange");
                     } else if (uplate.getUplaceno() == uplate.getDug()) {
                         currentRow.setStyle("-fx-background-color: darkgreen");
+                    } else if (uplate.getUplaceno() > uplate.getDug()) {
+                        currentRow.setStyle("-fx-background-color: blue");
                     }
                 }
 
@@ -170,7 +172,7 @@ public class KorisnikUplateController implements Initializable {
         cCena.setCellFactory(tc -> new TreeTableCell<Uplate, Double>() {
             protected void updateItem(Double uplata, boolean bool) {
                 super.updateItem(uplata, bool);
-                if (bool) {
+                if (bool || uplata == null) {
                     setText(null);
                 } else {
                     setText(df.format(uplata));
@@ -181,7 +183,7 @@ public class KorisnikUplateController implements Initializable {
         cPopust.setCellFactory(tc -> new TreeTableCell<Uplate, Double>() {
             protected void updateItem(Double uplata, boolean bool) {
                 super.updateItem(uplata, bool);
-                if (bool) {
+                if (bool || uplata == null) {
                     setText(null);
                 } else {
                     setText(df.format(uplata) + "%");
@@ -192,7 +194,7 @@ public class KorisnikUplateController implements Initializable {
         cZaUplatu.setCellFactory(tc -> new TreeTableCell<Uplate, Double>() {
             protected void updateItem(Double zaUplatu, boolean bool) {
                 super.updateItem(zaUplatu, bool);
-                if (bool) {
+                if (bool || zaUplatu == null) {
                     setText(null);
                 } else {
                     setText(df.format(zaUplatu));
@@ -229,7 +231,9 @@ public class KorisnikUplateController implements Initializable {
 
                 //STATUS UPLATE
                 Uplate uplate = tblZaduzenja.getSelectionModel().getSelectedItem().getValue();
-                if (uplate.getDatumUplate().equals("1000-01-01 00:00:00.0")) {
+                if (uplate == null) {
+                    lStatusDatumUplate.setText("--");
+                } else if (uplate.getDatumUplate().equals("1000-01-01 00:00:00.0")) {
                     lStatusDatumUplate.setText("--");
                 } else if (uplate.getDatumUplate() != null) {
                     lStatusDatumUplate.setText(uplate.getDatumUplate());
@@ -239,12 +243,12 @@ public class KorisnikUplateController implements Initializable {
                 lStatusUplatioOper.setText(uplate.getOperater());
                 lStatusZaduzenOd.setText(uplate.getZaduzenOd());
                 lStatusDatumIsteka.setText(get_datum_isteka_servicsa(uplate.getId_ServiceUser()));
-                lIdentifikacija.setText(getIdentity(uplate.getId_ServiceUser()));
+                lIdentifikacija.setText(uplate.getIdentification());
 
-                //disable uplate if cena i zaduzenje je isto
+                //disable uplate if cena i zaduzenje je isto ili je treeitem child
                 uplaceno = uplate.getUplaceno();
                 dug = uplate.getDug();
-                if (uplaceno.equals(dug)) {
+                if (uplaceno.equals(dug) || uplate.getPaketType().contains("LINKED")) {
                     bUplatiServis.setDisable(true);
                     cmbZaUplatu.setDisable(true);
                 } else {
@@ -346,12 +350,45 @@ public class KorisnikUplateController implements Initializable {
     }
 
     public void show_data() {
-        ObservableList dataZaduzenja = FXCollections.observableArrayList(get_Zaduzenja());
 
         TreeItem rootNode = new TreeItem("UPLATE");
         ArrayList<Uplate> zaduzenja = get_Zaduzenja();
         for (Uplate uplata : zaduzenja) {
-            rootNode.getChildren().add(new TreeItem<Uplate>(uplata));
+            if (uplata.getPaketType().equals("FIX") || uplata.getPaketType().equals("LINKED_FIX")) {
+                Uplate uplataFixRoot = null;
+                Uplate uplateFixPaket = null;
+                try {
+                    uplataFixRoot = uplata.CopyUplate();
+                    uplateFixPaket = uplata.CopyUplate();
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
+                Uplate uplateFixSaobracaj = getFixSaobracaj(uplata.getIdentification(), uplata.getZaMesec(), uplata.getPdv(), uplata.getPopust());
+
+                //root item sum paket+saobracaj dug
+                double fixDug = uplateFixPaket.getDug() + uplateFixSaobracaj.getDug();
+                double fixCena = uplateFixPaket.getCena() + uplateFixSaobracaj.getCena();
+
+
+                uplateFixPaket.setNazivPaket("Paket");
+                uplataFixRoot.setDug(Double.parseDouble(df.format(fixDug)));
+                uplataFixRoot.setCena(Double.valueOf(df.format(fixCena)));
+                uplateFixPaket.setPaketType("LINKED_FIX_PAKET");
+
+                TreeItem<Uplate> treeFixSaobracaj = new TreeItem<>(uplateFixSaobracaj);
+                TreeItem<Uplate> treePaket = new TreeItem<>(uplateFixPaket);
+                TreeItem<Uplate> treeRoot = new TreeItem<>(uplataFixRoot);
+
+
+                treeRoot.getChildren().add(treePaket);
+//                if(treeFixSaobracaj.getValue().getDug() > 0)
+                treeRoot.getChildren().add(treeFixSaobracaj);
+
+                rootNode.getChildren().add(treeRoot);
+
+            } else {
+                rootNode.getChildren().add(new TreeItem<Uplate>(uplata));
+            }
         }
 
         rootNode.setExpanded(true);
@@ -434,6 +471,7 @@ public class KorisnikUplateController implements Initializable {
             uplata.setZaMesec(uplataObj.getString("zaMesec"));
             uplata.setZaduzenOd(uplataObj.getString("zaduzenOd"));
             uplata.setSkipProduzenje(uplataObj.getBoolean("skipProduzenje"));
+            uplata.setIdentification(uplataObj.getString("identification"));
             uplate.add(uplata);
 
         }
@@ -525,6 +563,7 @@ public class KorisnikUplateController implements Initializable {
         jObj.put("paketType", uplata.getPaketType());
         jObj.put("userServiceID", uplata.getId_ServiceUser());
         jObj.put("zaMesec", uplata.getZaMesec());
+        jObj.put("identification", uplata.getIdentification());
 
         jObj = client.send_object(jObj);
 
@@ -663,6 +702,41 @@ public class KorisnikUplateController implements Initializable {
         }
 
         return jObj.getString("ident");
+
+    }
+
+    public Uplate getFixSaobracaj(String account, String zaMesec, double pdv, Double popust) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("action", "get_FIX_account_saobracaj");
+        jsonObject.put("account", account);
+        jsonObject.put("zaMesec", zaMesec);
+        jsonObject.put("pdv", pdv);
+        jsonObject.put("popust", popust);
+        jsonObject = client.send_object(jsonObject);
+        Uplate uplata;
+        if (jsonObject.has("ERROR") || jsonObject == null) {
+            AlertUser.error("GRESKA", jsonObject.getString("ERROR"));
+            return null;
+        } else {
+            uplata = new Uplate();
+            uplata.setIdentification(jsonObject.getString("account"));
+            uplata.setId(jsonObject.getInt("id"));
+            uplata.setZaMesec(jsonObject.getString("zaMesec"));
+            uplata.setCena(jsonObject.getDouble("cena"));
+            uplata.setPdv(jsonObject.getDouble("pdv"));
+            uplata.setPopust(jsonObject.getDouble("popust"));
+            uplata.setOperater(jsonObject.getString("operater"));
+            uplata.setDug(jsonObject.getDouble("dug"));
+            uplata.setUplaceno(jsonObject.getDouble("uplaceno"));
+            uplata.setNazivPaket("Saobraćaj");
+            uplata.setDatumZaduzenja(jsonObject.getString("datumZaduzenja"));
+            uplata.setIdentification(jsonObject.getString("identification"));
+            uplata.setPaketType(jsonObject.getString("paketType"));
+            uplata.setDatumUplate(jsonObject.getString("datumUplate"));
+            if (jsonObject.has("uplatio"))
+                uplata.setZaduzenOd(jsonObject.getString("uplatio"));
+        }
+        return uplata;
 
     }
 }

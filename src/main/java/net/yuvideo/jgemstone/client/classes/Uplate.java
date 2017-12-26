@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by zoom on 9/7/16.
  */
-public class Uplate implements Serializable {
+public class Uplate implements Serializable, Cloneable {
     int id;
     int id_ServiceUser;
     int id_service;
@@ -25,6 +25,21 @@ public class Uplate implements Serializable {
     String mestoUplate;
     String zaduzenOd;
     String napomena;
+    String identification;
+
+
+    public Uplate CopyUplate() throws CloneNotSupportedException {
+
+        return (Uplate) this.clone();
+    }
+
+    public String getIdentification() {
+        return identification;
+    }
+
+    public void setIdentification(String identification) {
+        this.identification = identification;
+    }
 
     private boolean skipProduzenje;
 
