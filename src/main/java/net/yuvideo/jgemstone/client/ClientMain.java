@@ -61,7 +61,6 @@ public class ClientMain extends Application {
         System.setProperty("file.encoding", "UTF-8");
         Charset.defaultCharset();
 
-        System.out.println(getClass().getProtectionDomain().getCodeSource().getLocation());
 
 
         ///SET ICON

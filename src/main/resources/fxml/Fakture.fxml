@@ -25,28 +25,21 @@
                     <columns>
                         <TableColumn fx:id="cId" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0" text="ID"
                                      visible="false"/>
-                        <TableColumn fx:id="colBr" maxWidth="-1.0" minWidth="80.0" prefWidth="-1.0"
-                                     style="-fx-alignment: CENTER;" text="Br."/>
-                        <TableColumn fx:id="colVrstaNaziv" maxWidth="1.7976931348623157E308" minWidth="197.0"
-                                     prefWidth="204.0" style="-fx-alignment: CENTER;"
-                                     text="VRSTA-NAZIV &#10;DOBARA-USLUGA">
+                        <TableColumn fx:id="colBr" style="-fx-alignment: CENTER;" text="Br."/>
+                        <TableColumn fx:id="colVrstaNaziv" minWidth="300.0" prefWidth="300.0"
+                                     style="-fx-alignment: CENTER;" text="VRSTA-NAZIV &#10;DOBARA-USLUGA">
                         </TableColumn>
-                        <TableColumn fx:id="cJedMere" maxWidth="103.0" minWidth="31.0" prefWidth="96.0"
-                                     style="-fx-alignment: CENTER;" text="Jed. mere"/>
-                        <TableColumn fx:id="cKolicina" maxWidth="-1.0" minWidth="70.0" prefWidth="-1.0"
-                                     style="-fx-alignment: CENTER;" text="Količina"/>
-                        <TableColumn fx:id="cCenaBezPdv" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0"
-                                     style="-fx-alignment: CENTER-RIGHT;" text="Cena bez PDV"/>
-                        <TableColumn fx:id="cVrednostBezPdv" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0"
-                                     style="-fx-alignment: CENTER-RIGHT;" text="Vrednost &#10;bez PDV"/>
-                        <TableColumn fx:id="cOsnovicaZaPdv" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0"
-                                     style="-fx-alignment: CENTER-RIGHT;" text="Osnovica &#10;sa PDV"/>
-                        <TableColumn fx:id="cStopaPDV" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0"
-                                     style="-fx-alignment: CENTER-RIGHT;" text="Stopa  &#10;PDV"/>
-                        <TableColumn fx:id="cIznosPDV" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0"
-                                     style="-fx-alignment: CENTER-RIGHT;" text="Iznos &#10;PDV"/>
-                        <TableColumn fx:id="cVrednostSaPDV" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0"
-                                     style="-fx-alignment: CENTER-RIGHT;;" text="Vrednost &#10;sa PDV"/>
+                        <TableColumn fx:id="cJedMere" style="-fx-alignment: CENTER;" text="Jed. mere"/>
+                        <TableColumn fx:id="cKolicina" style="-fx-alignment: CENTER;" text="Količina"/>
+                        <TableColumn fx:id="cCenaBezPdv" style="-fx-alignment: CENTER-RIGHT;" text="Cena bez PDV"/>
+                        <TableColumn fx:id="cVrednostBezPdv" style="-fx-alignment: CENTER-RIGHT;"
+                                     text="Vrednost &#10;bez PDV"/>
+                        <TableColumn fx:id="cOsnovicaZaPdv" style="-fx-alignment: CENTER-RIGHT;"
+                                     text="Osnovica &#10;sa PDV"/>
+                        <TableColumn fx:id="cStopaPDV" style="-fx-alignment: CENTER-RIGHT;" text="Stopa  &#10;PDV"/>
+                        <TableColumn fx:id="cIznosPDV" style="-fx-alignment: CENTER-RIGHT;" text="Iznos &#10;PDV"/>
+                        <TableColumn fx:id="cVrednostSaPDV" style="-fx-alignment: CENTER-RIGHT;;"
+                                     text="Vrednost &#10;sa PDV"/>
                     </columns>
                     <contextMenu>
                         <ContextMenu>

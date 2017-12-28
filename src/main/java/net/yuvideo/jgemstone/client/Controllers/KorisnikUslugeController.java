@@ -130,14 +130,6 @@ public class KorisnikUslugeController implements Initializable {
                 }
                 ServicesUser srvusr = tblServices.getSelectionModel().getSelectedItem().getValue();
 
-                System.out.println(
-                        "IS BOX: " + srvusr.getBox() + "\n" + "NAZIV PAKETA: " + srvusr.getNazivPaketa() + "\n" +
-                                "ID SERVICE: " + srvusr.getId_Service() + "\n" +
-                                "PAKET TYPE: " + srvusr.getPaketType() + "\n" +
-                                "IS LINKED: " + srvusr.getLinkedService() + "\n" +
-                                "BOX_ID: " + srvusr.getBox_id() + "\n" +
-                                "NEW_SERVICE: " + srvusr.getNewService() + "\n"
-                );
 
                 if (srvusr.getLinkedService()) {
                     bActivateService.setDisable(true);
@@ -318,7 +310,6 @@ public class KorisnikUslugeController implements Initializable {
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    System.out.println("ZAUPLATU:" + item);
                     setText(df.format(item));
                 }
             }

@@ -62,7 +62,7 @@ public class FaktureController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        /*
         makeHeaderWrappable(cId);
         makeHeaderWrappable(colBr);
         makeHeaderWrappable(colVrstaNaziv);
@@ -73,7 +73,7 @@ public class FaktureController implements Initializable {
         makeHeaderWrappable(cOsnovicaZaPdv);
         makeHeaderWrappable(cStopaPDV);
         makeHeaderWrappable(cVrednostSaPDV);
-
+        */
         set_table();
 
     }

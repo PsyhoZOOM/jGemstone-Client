@@ -1,5 +1,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -86,6 +88,21 @@ public class KorisniciController implements Initializable {
                 }
             });
             return row;
+        });
+
+
+        tUsers.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Users>() {
+            @Override
+            public void changed(ObservableValue<? extends Users> observable, Users oldValue, Users newValue) {
+                if (newValue == null)
+                    return;
+                //ako korisnik nema firmau disable fakture;
+                if (newValue.isFirma()) {
+                    bFakture.setDisable(false);
+                } else {
+                    bFakture.setDisable(true);
+                }
+            }
         });
 
 
