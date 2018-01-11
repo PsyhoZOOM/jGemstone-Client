@@ -12,7 +12,7 @@ public class Fakture implements Serializable {
     private String nazivFirme;
     private String naziv;
     private Double jedCena;
-    private int stopaPDV;
+    private double stopaPDV;
     private int brFakture;
     private String datum;
     private String godina;
@@ -109,11 +109,11 @@ public class Fakture implements Serializable {
         this.jedCena = jedCena;
     }
 
-    public int getStopaPDV() {
+    public double getStopaPDV() {
         return stopaPDV;
     }
 
-    public void setStopaPDV(int stopaPDV) {
+    public void setStopaPDV(double stopaPDV) {
         this.stopaPDV = stopaPDV;
     }
 

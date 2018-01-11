@@ -50,6 +50,8 @@ public class FaktureController implements Initializable {
     public Users userData;
     public ResourceBundle resource;
     public Label lBrFakture;
+    public Label lUkupnoPDV;
+    public Label lUkupno;
     DecimalFormat decFormat = new DecimalFormat("#,##0.00");
     Stage stage;
     Fakture faktura;
@@ -124,10 +126,10 @@ public class FaktureController implements Initializable {
             }
         });
 
-        cStopaPDV.setCellValueFactory(new PropertyValueFactory<Fakture, Integer>("stopaPDV"));
-        cStopaPDV.setCellFactory(tc -> new TableCell<Fakture, Integer>() {
+        cStopaPDV.setCellValueFactory(new PropertyValueFactory<Fakture, Double>("stopaPDV"));
+        cStopaPDV.setCellFactory(tc -> new TableCell<Fakture, Double>() {
             @Override
-            protected void updateItem(Integer value, boolean empty) {
+            protected void updateItem(Double value, boolean empty) {
                 super.updateItem(value, empty);
                 if (empty) {
                     setText(null);
@@ -176,6 +178,12 @@ public class FaktureController implements Initializable {
         jObj.put("br", faktura.getBrFakture());
         jObj = client.send_object(jObj);
 
+        double vrednostSaPDV = 0.00;
+        double ukupno = 0.00;
+        double ukupnoPDV = 0.00;
+        double ukpnoOsnovicaSaPDV = 0.00;
+
+
         JSONObject jfakture;
 
         ArrayList<Fakture> faktureArray = new ArrayList<>();
@@ -193,13 +201,30 @@ public class FaktureController implements Initializable {
             fakture.setJedMere(jfakture.getString("jedMere"));
             fakture.setKolicina(jfakture.getInt("kolicina"));
             fakture.setJedCena(jfakture.getDouble("cenaBezPDV"));
-            fakture.setStopaPDV(jfakture.getInt("pdv"));
+            fakture.setStopaPDV(jfakture.getDouble("pdv"));
             fakture.setBrFakture(jfakture.getInt("br"));
             fakture.setOperater(jfakture.getString("operater"));
             fakture.setVrednostBezPDV(jfakture.getDouble("cenaBezPDV"));
             fakture.setOsnovicaZaPDV(jfakture.getDouble("OsnovicaZaPDV"));
             fakture.setIznosPDV(jfakture.getDouble("iznosPDV"));
             fakture.setVrednostSaPDV(jfakture.getDouble("VrednostSaPDV"));
+
+            //set label racunica
+            lPDV.setText(String.valueOf(fakture.getStopaPDV()));
+            vrednostSaPDV = +vrednostSaPDV + fakture.getOsnovicaZaPDV() + fakture.getIznosPDV();
+            ukupno = +fakture.getVrednostBezPDV();
+            ukupnoPDV = +ukupnoPDV + fakture.getIznosPDV();
+            ukpnoOsnovicaSaPDV = ukupno + ukupnoPDV;
+
+            lOsnovicaZaPDV.setText(String.valueOf(decFormat.format(ukupno)));
+            lIznosPDVZbir.setText(String.valueOf(decFormat.format(ukupnoPDV)));
+            lvrednostSaPDVZbir.setText(String.valueOf(decFormat.format(ukupno + ukupnoPDV)));
+            lUkupnoOsnovicaZaPDV.setText(String.valueOf(decFormat.format(ukupno)));
+            lUkupnoPDV.setText(String.valueOf(decFormat.format(ukupnoPDV)));
+            lUkupno.setText(String.valueOf(decFormat.format(ukpnoOsnovicaSaPDV)));
+
+
+
             faktureArray.add(fakture);
 
         }

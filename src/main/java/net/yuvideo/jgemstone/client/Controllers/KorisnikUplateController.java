@@ -354,6 +354,9 @@ public class KorisnikUplateController implements Initializable {
         TreeItem rootNode = new TreeItem("UPLATE");
         ArrayList<Uplate> zaduzenja = get_Zaduzenja();
         for (Uplate uplata : zaduzenja) {
+
+
+            //tree pravimo item children ako je pake FIXna telefonija
             if (uplata.getPaketType().equals("FIX") || uplata.getPaketType().equals("LINKED_FIX")) {
                 Uplate uplataFixRoot = null;
                 Uplate uplateFixPaket = null;
@@ -411,6 +414,7 @@ public class KorisnikUplateController implements Initializable {
         setQrCode();
 
     }
+
 
     private void setQrCode() {
         VCard vcard = new VCard(

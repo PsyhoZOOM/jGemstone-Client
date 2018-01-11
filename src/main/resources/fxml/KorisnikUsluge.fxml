@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorPane" prefHeight="768.0" prefWidth="1151.0"
             stylesheets="@../css/Main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9"
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUslugeController">
     <children>
         <TabPane rotateGraphic="true" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="100.0"
@@ -56,7 +56,7 @@
                                                 <TreeTableColumn fx:id="cServicePopust" minWidth="-1.0" prefWidth="-1.0"
                                                                  text="Popust"/>
                                                 <TreeTableColumn fx:id="cPDV" prefWidth="75.0" text="PDV"/>
-                                                <TreeTableColumn fx:id="cZaUplatu" prefWidth="75.0" text="Za Uplatu"/>
+                                                <TreeTableColumn fx:id="cZaUplatu" prefWidth="75.0" text="Ukupno"/>
                                                 <TreeTableColumn fx:id="cServiceObracun" prefWidth="75.0"
                                                                  text="Obračun"/>
                                                 <TreeTableColumn fx:id="cServiceAktivan" prefWidth="75.0"
