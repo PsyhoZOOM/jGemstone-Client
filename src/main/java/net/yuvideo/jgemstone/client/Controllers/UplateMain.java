@@ -279,7 +279,7 @@ public class UplateMain implements Initializable {
 
 
     public void uplati(ActionEvent actionEvent) {
-        if (dtpDatumUplate.getValue() == null || tUplaceno.getText().isEmpty() || cmbMestoUplate.getValue() == null) {
+        if (dtpDatumUplate.getValue() == null || tUplaceno.getText().isEmpty() || cmbMestoUplate.getValue() == null || userEDIT == null) {
             AlertUser.error("GREŠKA", "Polja datum uplate, uplaćeno i mesto uplate ne mogu biti prazna");
             return;
         }
