@@ -194,13 +194,6 @@ public class MainWindowController implements Initializable {
         boxPaketInterface.getStage().showAndWait();
     }
 
-    public void showUplateMain(ActionEvent actionEvent) {
-        NewInterface uplateMainInterface = new NewInterface("fxml/UplateMain.fxml", "UPLATE", resource);
-        UplateMain uplateMainController = uplateMainInterface.getLoader().getController();
-        uplateMainController.client = this.client;
-        uplateMainController.showData();
-        uplateMainInterface.getStage().showAndWait();
-    }
 
     public void showInternetMain(ActionEvent actionEvent) {
         NewInterface internetMainInterface = new NewInterface("fxml/InternetMain.fxml", "INTERNET", resource);
