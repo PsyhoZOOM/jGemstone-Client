@@ -29,7 +29,13 @@
                         <ToolBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                             <items>
                                 <Button fx:id="bClose" mnemonicParsing="false" onAction="#close" text="Zatvori" />
-                                <Pane HBox.hgrow="ALWAYS" />
+                                <Pane HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="lUserINFO" layoutX="19.0" layoutY="5.0" text="IME KORISNIKA" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font></Label>
+                           </children></Pane>
                             </items>
                         </ToolBar>
                     </children>
