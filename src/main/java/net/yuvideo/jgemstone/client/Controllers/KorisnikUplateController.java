@@ -527,6 +527,7 @@ public class KorisnikUplateController implements Initializable {
         jObj.put("zaMesec", uplata.getZaMesec());
         jObj.put("identification", uplata.getIdentification());
 
+
         jObj = client.send_object(jObj);
 
         if (jObj.has("Error")) {
