@@ -361,6 +361,67 @@
                         </AnchorPane>
                     </content>
                 </Tab>
+                <Tab text="Ostale Usluge">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <GridPane hgap="5.0" layoutX="5.0" layoutY="5.0" vgap="5.0"
+                                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0"/>
+                                        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0"
+                                                           prefWidth="100.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0"
+                                                        vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0"
+                                                        vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Naziv usluge:"/>
+                                        <ComboBox fx:id="cmbNazivUslugeOstalo" editable="true" prefWidth="150.0"
+                                                  GridPane.columnIndex="1"/>
+                                        <Label text="Popust:" GridPane.rowIndex="1"/>
+                                        <TextField fx:id="tPopustOstalo" GridPane.columnIndex="1"
+                                                   GridPane.rowIndex="1"/>
+                                        <Label text="Cena:" GridPane.rowIndex="2"/>
+                                        <TextField fx:id="tCenaOstalo" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                                        <Label text="Serijski broj:" GridPane.rowIndex="3"/>
+                                        <TextField fx:id="tSerijskiBrojOstalo" GridPane.columnIndex="1"
+                                                   GridPane.rowIndex="3"/>
+                                        <Label text="MAC:" GridPane.rowIndex="4"/>
+                                        <TextField fx:id="tMacOstalo" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                                        <Label text="Količina:" GridPane.rowIndex="5"/>
+                                        <Spinner fx:id="spnKolicinaOstalo" GridPane.columnIndex="1"
+                                                 GridPane.rowIndex="5"/>
+                                        <Label text="Komentar:" GridPane.rowIndex="6"/>
+                                        <TextArea fx:id="taKomentarOstalo" GridPane.columnIndex="1"
+                                                  GridPane.rowIndex="6"/>
+                                        <Button fx:id="bSnimiOstalo" mnemonicParsing="false"
+                                                onAction="#addServiceOstalo" text="Snimi" GridPane.columnIndex="1"
+                                                GridPane.rowIndex="7"/>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                    </padding>
+                                </GridPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
             </tabs>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

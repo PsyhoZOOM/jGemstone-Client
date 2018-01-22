@@ -40,6 +40,14 @@ public class KorisnikUslugeController implements Initializable {
     public TreeTableColumn cServiceIdentification;
     public TreeTableColumn cServiceObracun;
     public TreeTableColumn cServiceAktivan;
+    public ComboBox cmbNazivUslugeOstalo;
+    public TextField tPopustOstalo;
+    public TextField tCenaOstalo;
+    public TextField tSerijskiBrojOstalo;
+    public TextField tMacOstalo;
+    public Spinner spnKolicinaOstalo;
+    public TextArea taKomentarOstalo;
+    public Button bSnimiOstalo;
     @FXML
     private TreeTableColumn cPDV;
     @FXML
@@ -1149,5 +1157,8 @@ public class KorisnikUslugeController implements Initializable {
                     cmbIPTVPaket.getValue().getName()));
             setData();
         }
+    }
+
+    public void addServiceOstalo(ActionEvent actionEvent) {
     }
 }
