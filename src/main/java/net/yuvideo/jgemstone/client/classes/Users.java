@@ -30,6 +30,15 @@ public class Users implements Serializable {
     String jbroj;
     double dug;
     boolean firma;
+    public String nazivFirme;
+
+    public String getNazivFirme() {
+        return nazivFirme;
+    }
+
+    public void setNazivFirme(String nazivFirme) {
+        this.nazivFirme = nazivFirme;
+    }
 
     public boolean isFirma() {
         return firma;

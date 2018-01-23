@@ -53,7 +53,8 @@ public class KorisnikUplateController implements Initializable {
     public TextField tPDVCustom;
     public TextField tRate;
     public CheckBox chkSveUplate;
-    public Label lUserINFO;
+    public Label lUserJBroj;
+    public Label lImePrezime;
     @FXML
     private TreeTableView<Uplate> tblZaduzenja;
     @FXML
@@ -321,7 +322,12 @@ public class KorisnikUplateController implements Initializable {
 
     public void show_data() {
 
-        lUserINFO.setText(String.format("%s %s", user.getIme(), user.getJbroj()));
+        lUserJBroj.setText(user.getJbroj());
+        if(user.isFirma()){
+            lImePrezime.setText(user.getNazivFirme());
+        }else {
+            lImePrezime.setText(user.getIme());
+        }
         TreeItem rootNode = new TreeItem("UPLATE");
         ArrayList<Uplate> zaduzenja = get_Zaduzenja();
         for (Uplate uplata : zaduzenja) {

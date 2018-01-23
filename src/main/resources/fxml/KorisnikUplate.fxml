@@ -30,17 +30,12 @@
                             <items>
                                 <Button fx:id="bClose" mnemonicParsing="false" onAction="#close" text="Zatvori" />
                                 <Pane HBox.hgrow="ALWAYS">
-                           <children>
-                              <Label fx:id="lUserINFO" layoutX="19.0" layoutY="5.0" text="IME KORISNIKA" underline="true">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font></Label>
-                           </children></Pane>
+                           </Pane>
                             </items>
                         </ToolBar>
                     </children>
                 </HBox>
-                      <VBox spacing="5.0">
+                      <VBox spacing="5.0" VBox.vgrow="ALWAYS">
                           <children>
                               <HBox spacing="5.0" VBox.vgrow="NEVER">
                                   <children>
@@ -109,9 +104,11 @@
                                           </padding>
                                       </VBox>
                                       <Separator orientation="VERTICAL" prefHeight="200.0" />
-                                      <VBox prefHeight="200.0" prefWidth="100.0">
+                                      <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                           <children>
                                               <ImageView fx:id="imgQR" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <Label fx:id="lUserJBroj" text="UserID" />
+                              <Label fx:id="lImePrezime" text="IME PREZIME" />
                                           </children>
                                       </VBox>
                                   </children>
