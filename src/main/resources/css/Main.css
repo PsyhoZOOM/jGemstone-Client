@@ -29,8 +29,8 @@
     -fx-selection-bar-non-focused: rgb(50, 50, 50);
 
     /*custom font */
-    -fx-font-size: 11px;
-    -fx-font: 11px OpenSans;
+    -fx-font-size: 14px;
+    -fx-font: 14px OpenSans;
 }
 
 /* Fix derived prompt color for text fields */

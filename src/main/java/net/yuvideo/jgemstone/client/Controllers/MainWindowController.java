@@ -297,6 +297,12 @@ public class MainWindowController implements Initializable {
 
 
     public void showOstaleUsluige(ActionEvent actionEvent) {
+        NewInterface showOstaleUsluge =
+                new NewInterface("fxml/OstaleUsluge.fxml",
+                        "Ostale Usluge", this.resource);
+        OstaleUslugeController ostaleUslugeController = showOstaleUsluge.getLoader().getController();
+        ostaleUslugeController.client = this.client;
+        showOstaleUsluge.getStage().showAndWait();
     }
 }
 
