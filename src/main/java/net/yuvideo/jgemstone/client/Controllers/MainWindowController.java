@@ -296,6 +296,8 @@ public class MainWindowController implements Initializable {
     }
 
 
+    public void showOstaleUsluige(ActionEvent actionEvent) {
+    }
 }
 
 
