@@ -302,6 +302,7 @@ public class MainWindowController implements Initializable {
                         "Ostale Usluge", this.resource);
         OstaleUslugeController ostaleUslugeController = showOstaleUsluge.getLoader().getController();
         ostaleUslugeController.client = this.client;
+        ostaleUslugeController.updateItems();
         showOstaleUsluge.getStage().showAndWait();
     }
 }

@@ -93,11 +93,13 @@ public class OstaleUslugeController implements Initializable {
             }
         });
 
+
     }
 
 
-    private void updateItems(){
+    public void updateItems(){
         client.send_object(new JSONObject());
+        System.out.println("HELOOOO");
     }
 
 }
