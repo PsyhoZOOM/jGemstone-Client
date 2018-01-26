@@ -40,14 +40,17 @@ public class KorisnikUslugeController implements Initializable {
     public TreeTableColumn cServiceIdentification;
     public TreeTableColumn cServiceObracun;
     public TreeTableColumn cServiceAktivan;
-    public ComboBox cmbNazivUslugeOstalo;
+
+    //ostaleusluge
+    public ComboBox<OstaleUsluge> cmbNazivUslugeOstalo;
     public TextField tPopustOstalo;
-    public TextField tCenaOstalo;
     public TextField tSerijskiBrojOstalo;
     public TextField tMacOstalo;
-    public Spinner spnKolicinaOstalo;
     public TextArea taKomentarOstalo;
     public Button bSnimiOstalo;
+    public CheckBox chkProduzenjeOstalo;
+
+
     @FXML
     private TreeTableColumn cPDV;
     @FXML
@@ -154,6 +157,18 @@ public class KorisnikUslugeController implements Initializable {
             }
         });
 
+        cmbNazivUslugeOstalo.setCellFactory(lc -> new ListCell<OstaleUsluge>() {
+            @Override
+            protected void updateItem(OstaleUsluge item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(item.getNazivUsluge());
+                }
+            }
+        });
+
         cmbPaketInternet.setCellFactory(lv -> new ListCell<InternetPaketi>() {
             public void updateItem(InternetPaketi paket, boolean bool) {
                 super.updateItem(paket, bool);
@@ -219,6 +234,20 @@ public class KorisnikUslugeController implements Initializable {
                 } else {
                     setText(iptvPak.getName());
                 }
+            }
+        });
+
+        cmbNazivUslugeOstalo.setConverter(new StringConverter<OstaleUsluge>() {
+            @Override
+            public String toString(OstaleUsluge object) {
+                return object.getNazivUsluge();
+            }
+
+            @Override
+            public OstaleUsluge fromString(String string) {
+                OstaleUsluge ostaleUsluge = new OstaleUsluge();
+                ostaleUsluge.setNazivUsluge(string);
+                return ostaleUsluge;
             }
         });
 
@@ -456,6 +485,7 @@ public class KorisnikUslugeController implements Initializable {
         tPopustInternet.setText("0.00");
         tProduzenjeBox.setText("2");
         tFixPopust.setText("0.00");
+        tPopustOstalo.setText("0.00");
 
 
         ObservableList dataInternetPaket = FXCollections.observableArrayList(get_internet_paketi());
@@ -483,6 +513,9 @@ public class KorisnikUslugeController implements Initializable {
 
         ObservableList iptvPakets = FXCollections.observableArrayList(get_IPTV_paketi());
         cmbIPTVPaket.setItems(iptvPakets);
+
+        ObservableList ostaleUsluge = FXCollections.observableArrayList(get_ostale_usluge());
+        cmbNazivUslugeOstalo.setItems(ostaleUsluge);
 
 
     }
@@ -1094,6 +1127,25 @@ public class KorisnikUslugeController implements Initializable {
         return paketArr;
     }
 
+    public ArrayList<OstaleUsluge> get_ostale_usluge() {
+        jObj = new JSONObject();
+        jObj.put("action", "getOstaleUslugeData");
+        jObj = client.send_object(jObj);
+        ArrayList<OstaleUsluge> ostaleUslugesArr = new ArrayList<>();
+        for (int i = 0; i < jObj.length(); i++) {
+            JSONObject objUsluge = jObj.getJSONObject(String.valueOf(i));
+            OstaleUsluge ostaleUsluge = new OstaleUsluge();
+            ostaleUsluge.setId(objUsluge.getInt("id"));
+            ostaleUsluge.setNazivUsluge(objUsluge.getString("naziv"));
+            ostaleUsluge.setCena(objUsluge.getDouble("cena"));
+            ostaleUsluge.setPdv(objUsluge.getDouble("pdv"));
+            ostaleUsluge.setKomentar(objUsluge.getString("opis"));
+            ostaleUslugesArr.add(ostaleUsluge);
+
+        }
+        return ostaleUslugesArr;
+    }
+
 
     private ArrayList<IPTVPaketi> get_IPTV_paketi() {
         JSONObject jObj = new JSONObject();
@@ -1153,12 +1205,32 @@ public class KorisnikUslugeController implements Initializable {
         if (jObj.has("Error") || jObj.has("ERROR")) {
             AlertUser.error("GRESKA", jObj.getString("ERROR"));
         } else {
-            AlertUser.info("Servics je dodan", String.format("Servis %s je dodan.",
+            AlertUser.info("Servis je snimljen", String.format("Servis %s je snimljen.",
                     cmbIPTVPaket.getValue().getName()));
             setData();
         }
     }
 
     public void addServiceOstalo(ActionEvent actionEvent) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("action", "save_OstaleUsluge_USER");
+        jsonObject.put("id", cmbNazivUslugeOstalo.getValue().getId());
+        jsonObject.put("naziv", cmbNazivUslugeOstalo.getValue().getNazivUsluge());
+        jsonObject.put("userID", userID);
+        jsonObject.put("cena", cmbNazivUslugeOstalo.getValue().getCena());
+        jsonObject.put("pdv", cmbNazivUslugeOstalo.getValue().getPdv());
+        jsonObject.put("popust", tPopustOstalo.getText());
+        jsonObject.put("obracun", chkProduzenjeOstalo.isSelected());
+        jsonObject.put("komentar", taKomentarOstalo.getText());
+        jsonObject.put("paketType", "OSTALE_USLUGE");
+
+        jsonObject = client.send_object(jsonObject);
+        if (jObj.has("ERROR")) {
+            AlertUser.error("GRESKA", jsonObject.getString("ERROR"));
+        } else {
+            AlertUser.info("Servis je snimljen", String.format("Servis %s je snimljen", cmbNazivUslugeOstalo.getValue().getNazivUsluge()));
+        }
+        setData();
     }
+
 }

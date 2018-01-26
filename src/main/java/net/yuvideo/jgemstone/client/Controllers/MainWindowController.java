@@ -94,7 +94,8 @@ public class MainWindowController implements Initializable {
                 appExit = true;
                 anchorMainWindow.getScene().getWindow().hide();
                 disconnect = true;
-                threadCheckAlive.interrupt();
+                if (threadCheckAlive != null)
+                    threadCheckAlive.interrupt();
                 Platform.exit();
                 System.exit(0);
             }
