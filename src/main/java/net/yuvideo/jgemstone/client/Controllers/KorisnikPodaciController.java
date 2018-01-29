@@ -151,6 +151,7 @@ public class KorisnikPodaciController implements Initializable {
         Users user = getUserData(userEditID);
         setUserDataFields(user);
         lUserID.setText(user.getJbroj());
+
     }
 
     private ArrayList<Mesta> getMesta() {

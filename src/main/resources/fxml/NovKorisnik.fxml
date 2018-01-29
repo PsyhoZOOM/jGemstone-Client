@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/9"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.NovKorisnikController">
     <children>
         <VBox spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -84,10 +84,6 @@
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                             </GridPane.margin>
                         </BorderPane>
-                        <ComboBox fx:id="cmbMesto" editable="true" prefHeight="26.0" prefWidth="200.0"
-                                  promptText="Mesto" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
-                        <ComboBox fx:id="cmbAdresa" editable="true" prefWidth="200.0" promptText="Adresa"
-                                  GridPane.columnIndex="1" GridPane.rowIndex="11"/>
                         <TextField fx:id="tPostBr" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
                         <TextField fx:id="tBrLk" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
                         <TextField fx:id="tJMBG" GridPane.columnIndex="1" GridPane.rowIndex="14"/>
@@ -128,6 +124,8 @@
                                 <Font name="System Bold" size="13.0"/>
                             </font>
                         </Label>
+                        <TextField fx:id="tMesto" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+                        <TextField fx:id="tAdresa" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
                     </children>
                     <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

@@ -20,7 +20,7 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab fx:id="tabKorisnikUgovori" closable="false" text="Ugovori">
+                <Tab fx:id="tabKorisnikUgovori" closable="false" text="Ugovori" onSelectionChanged="#refreshUgovori">
                     <content>
                         <AnchorPane fx:id="anchorKorisnikUgovori" maxHeight="1.7976931348623157E308"
                                     maxWidth="1.7976931348623157E308">

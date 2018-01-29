@@ -33,12 +33,12 @@ public class NovKorisnikController implements Initializable {
     public TextField tFiksni;
     public TextField tMobilni;
     public TextArea tKomentar;
-    public ComboBox<Mesta> cmbMesto;
-    public ComboBox<Adrese> cmbAdresa;
     public Button bReadCardReader;
     public ImageView imgUserPhoto;
     public Users user;
     public boolean user_saved;
+    public TextField tMesto;
+    public TextField tAdresa;
     SmartCardReader sr;
     //JSON
     JSONObject jObj;
@@ -89,8 +89,8 @@ public class NovKorisnikController implements Initializable {
                 tJMBG.setText(user.getJMBG());
                 tBrLk.setText(user.getBr_lk());
                 tDatumRodjenja.setValue(LocalDate.parse(user.getDatum_rodjenja(), DateTimeFormatter.ofPattern("dd.MM.yyyy")));
-                cmbMesto.getEditor().setText(user.getMesto());
-                cmbAdresa.getEditor().setText(user.getAdresa());
+                tMesto.setText(user.getMesto());
+                tAdresa.setText(user.getAdresa());
                 Image img = SwingFXUtils.toFXImage(sr.toBufferedImage(), null);
                 imgUserPhoto.setImage(img);
 
@@ -118,10 +118,10 @@ public class NovKorisnikController implements Initializable {
         jObj.put("fullName", tFullName.getText());
         jObj.put("datumRodjenja", tDatumRodjenja.getValue().format(dateTimeFormatterRodjen));
         jObj.put("postBr", tPostBr.getText());
-        jObj.put("mesto", cmbMesto.getEditor().getText());
+        jObj.put("mesto", tMesto.getText());
         jObj.put("brLk", tBrLk.getText());
         jObj.put("JMBG", tJMBG.getText());
-        jObj.put("adresa", cmbAdresa.getEditor().getText());
+        jObj.put("adresa", tAdresa.getText());
         jObj.put("komentar", tKomentar.getText());
         jObj.put("telFiksni", tFiksni.getText());
         jObj.put("telMobilni", tMobilni.getText());
@@ -154,5 +154,39 @@ public class NovKorisnikController implements Initializable {
         List<CardTerminal> terminals = sr.getTerminals();
 
         return terminals;
+    }
+
+
+    public void setData() {
+        JSONObject objMesta = new JSONObject();
+        JSONObject objAdrese = new JSONObject();
+        objMesta.put("action", "getMesta");
+        objAdrese.put("action", "getAllAdrese");
+        ////TODO autokomplete mesta and adrese
+        /*
+        //objMesta = client.send_object(objMesta);
+        //objAdrese = client.send_object(objAdrese);
+
+        ArrayList<Mesta> mestaArr = new ArrayList<>();
+        for(int i =0; i< objMesta.length(); i++){
+            JSONObject mestaObj = new JSONObject();
+            Mesta mesta = new Mesta();
+            mestaObj = objMesta.getJSONObject(String.valueOf(i));
+            mesta.setId(mestaObj.getInt("id"));
+            mesta.setBrojMesta(mestaObj.getString("brojMesta"));
+            mesta.setNazivMesta(mestaObj.getString("nazivMesta"));
+            mestaArr.add(mesta);
+        }
+
+        AutoCompletionBinding<Mesta> mestaAutoCompletionBinding = TextFields.bindAutoCompletion(tMesto, FXCollections.observableArrayList(mestaArr));
+        mestaAutoCompletionBinding.setOnAutoCompleted(new EventHandler<AutoCompletionBinding.AutoCompletionEvent<Mesta>>() {
+            @Override
+            public void handle(AutoCompletionBinding.AutoCompletionEvent<Mesta> event) {
+                String valuefromAutoCompletetion = event.getCompletion().getNazivMesta();
+            }
+        });
+        */
+
+
     }
 }

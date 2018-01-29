@@ -127,6 +127,7 @@ public class EditKorisnikController implements Initializable {
     public void refreshUgovori(Event event) {
 
         korisnikUslugeController.refreshUgovori();
+        korisnikUgovoriController.set_data();
     }
 }
 

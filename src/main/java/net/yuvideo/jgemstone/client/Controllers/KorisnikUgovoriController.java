@@ -92,12 +92,19 @@ public class KorisnikUgovoriController implements Initializable {
 
     }
 
-    private void setUgovorNo() {
+    public void setUgovorNo() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("action", "getNextFreeUgovorID");
         jsonObject.put("userID", userID);
         jsonObject = client.send_object(jsonObject);
         this.ugovorNo = jsonObject.getInt("NO_UGOVORA");
+        jsonObject.put("action", "get_user_data");
+        jsonObject.put("userId", user.getId());
+        jsonObject = client.send_object(jsonObject);
+
+        user.setJbroj(jsonObject.getString("jBroj"));
+        user.setjMesto(jsonObject.getString("jMesto"));
+        user.setjAdresa(jsonObject.getString("jAdresa"));
         String formatedNoUgovora = String.format("%s-%d", user.getJbroj(), ugovorNo);
         tBrUgovora.setText(formatedNoUgovora);
 

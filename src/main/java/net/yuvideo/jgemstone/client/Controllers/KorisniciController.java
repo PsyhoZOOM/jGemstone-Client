@@ -280,6 +280,7 @@ public class KorisniciController implements Initializable {
 
         novKorisnikController.setClient(client);
         novKorisnikController.freeID = jsonObject.getInt("freeID");
+        novKorisnikController.setData();
 
         novKorisnik.getStage().showAndWait();
 
