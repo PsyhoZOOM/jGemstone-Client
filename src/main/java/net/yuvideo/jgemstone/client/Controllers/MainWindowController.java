@@ -306,6 +306,15 @@ public class MainWindowController implements Initializable {
         ostaleUslugeController.setData();
         showOstaleUsluge.getStage().showAndWait();
     }
+
+    public void showMagacin(ActionEvent actionEvent) {
+        NewInterface magacinInterface = new NewInterface("fxml/MagacinMain.fxml", "MAGACIN", this.resource);
+        MagacinMainController magacinMainController = magacinInterface.getLoader().getController();
+        magacinMainController.client = this.client;
+        magacinMainController.setForms();
+        magacinInterface.getStage().showAndWait();
+
+    }
 }
 
 
