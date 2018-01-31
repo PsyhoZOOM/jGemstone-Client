@@ -41,6 +41,16 @@ public class KorisnikPodaciController implements Initializable {
     public TextField tMestoRacuna;
     public TextField tAdresaRacuna;
     public TextField tAdresaUslugeBroj;
+    public CheckBox chkFirma;
+    public TextField tNazivFirme;
+    public TextField tKontaktOsoba;
+    public TextField tKodBanke;
+    public TextField tPIB;
+    public TextField tMaticniBroj;
+    public TextField tFAX;
+    public TextField tAdresaFirme;
+    public TextField tKontaktOsobaTel;
+    public TextField tTekuciRacun;
     private ResourceBundle resource;
     private URL location;
     private JSONObject jObj;
@@ -152,6 +162,8 @@ public class KorisnikPodaciController implements Initializable {
         setUserDataFields(user);
         lUserID.setText(user.getJbroj());
 
+        if (user.isFirma()) chkFirma.setSelected(true);
+
     }
 
     private ArrayList<Mesta> getMesta() {
@@ -231,6 +243,18 @@ public class KorisnikPodaciController implements Initializable {
         userData.setjAdresaBroj(jObj.getString("jAdresaBroj"));
         userData.setJbroj(jObj.getString("jBroj"));
 
+        //FIRMA
+        userData.setFirma(jObj.getBoolean("firma"));
+        userData.setNazivFirme(jObj.getString("nazivFirme"));
+        userData.setKontaktOsoba(jObj.getString("kontaktOsoba"));
+        userData.setTelKontaktOsobe(jObj.getString("kontaktOsobaTel"));
+        userData.setKodBanke(jObj.getString("kodBanke"));
+        userData.setTekuciRacuna(jObj.getString("tekuciRacun"));
+        userData.setPIB(jObj.getString("PIB"));
+        userData.setMaticniBroj(jObj.getString("maticniBroj"));
+        userData.setFax(jObj.getString("fax"));
+        userData.setAdresaFirme(jObj.getString("adresaFirme"));
+
         return userData;
     }
 
@@ -256,7 +280,6 @@ public class KorisnikPodaciController implements Initializable {
 
         jObj.put("action", "getAdresa");
         jObj.put("idMesta", user.getjAdresa());
-
 
         jObj = client.send_object(jObj);
 
@@ -287,6 +310,18 @@ public class KorisnikPodaciController implements Initializable {
         tMestoRacuna.setText(user.getMesto_usluge());
         tAdresaRacuna.setText(user.getAdresa_usluge());
         taKomentar.setText(user.getKomentar());
+
+        //FIRMA
+        chkFirma.setSelected(user.isFirma());
+        tNazivFirme.setText(user.getNazivFirme());
+        tKontaktOsoba.setText(user.getKontaktOsoba());
+        tKontaktOsobaTel.setText(user.getTelKontaktOsobe());
+        tKodBanke.setText(user.getKodBanke());
+        tTekuciRacun.setText(user.getTekuciRacuna());
+        tPIB.setText(user.getPIB());
+        tMaticniBroj.setText(user.getMaticniBroj());
+        tFAX.setText(user.getFax());
+        tAdresaFirme.setText(user.getAdresaFirme());
 
 
     }
@@ -321,6 +356,18 @@ public class KorisnikPodaciController implements Initializable {
         jObj.put("jMesto", String.valueOf(cmbMestoUsluge.getValue().getId()));
         jObj.put("komentar", taKomentar.getText().trim());
         jObj.put("jBroj", cmbMestoUsluge.getValue().getBrojMesta() + cmbAdresaUsluge.getValue().getBrojAdrese() + userJBRoj);
+
+        //FIRMA
+        jObj.put("firma", chkFirma.isSelected());
+        jObj.put("nazivFirme", tNazivFirme.getText());
+        jObj.put("kontaktOsoba", tKontaktOsoba.getText());
+        jObj.put("kontaktOsobaTel", tKontaktOsobaTel.getText());
+        jObj.put("kodBanke", tKodBanke.getText());
+        jObj.put("tekuciRacun", tTekuciRacun.getText());
+        jObj.put("PIB", tPIB.getText());
+        jObj.put("maticniBroj", tMaticniBroj.getText());
+        jObj.put("fax", tFAX.getText());
+        jObj.put("adresaFirme", tAdresaFirme.getText());
 
 
         jObj = client.send_object(jObj);

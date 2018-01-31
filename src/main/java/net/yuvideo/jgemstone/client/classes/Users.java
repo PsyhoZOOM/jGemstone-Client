@@ -32,6 +32,7 @@ public class Users implements Serializable {
     boolean firma;
     String nazivFirme;
     String kontaktOsoba;
+    String telKontaktOsobe;
     String kodBanke;
     String PIB;
     String maticniBroj;
@@ -39,6 +40,13 @@ public class Users implements Serializable {
     String fax;
     String adresaFirme;
 
+    public String getTelKontaktOsobe() {
+        return telKontaktOsobe;
+    }
+
+    public void setTelKontaktOsobe(String telKontaktOsobe) {
+        this.telKontaktOsobe = telKontaktOsobe;
+    }
 
     public String getKontaktOsoba() {
         return kontaktOsoba;

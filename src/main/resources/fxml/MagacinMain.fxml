@@ -98,9 +98,11 @@
                     </children>
                 </TilePane>
                 <Button fx:id="bTrazi" mnemonicParsing="false" onAction="#traziArtikal" prefWidth="80.0" text="Trazi"
-                        GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                        GridPane.columnIndex="6" GridPane.rowIndex="5"/>
                 <ComboBox fx:id="cmbJMere" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
                 <Spinner fx:id="spnKolicina" editable="true" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
+                <Button fx:id="bOcisti" minWidth="80.0" mnemonicParsing="false" onAction="#clearText" text="Očisti"
+                        GridPane.columnIndex="4" GridPane.rowIndex="5"/>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

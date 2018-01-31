@@ -3,17 +3,20 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65"
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/Main.css"
+            xmlns="http://javafx.com/javafx/8.0.65"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikPodaciController">
     <children>
-        <GridPane hgap="5.0" prefHeight="533.0" prefWidth="806.0" stylesheets="@../css/Main.css" vgap="5.0"
-                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                  AnchorPane.topAnchor="0.0">
+        <GridPane hgap="5.0" stylesheets="@../css/Main.css" vgap="5.0" AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0"/>
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="50.0"/>
                 <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="NEVER"/>
+                <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="50.0"/>
                 <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="50.0"/>
             </columnConstraints>
@@ -34,7 +37,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER"/>
             </rowConstraints>
             <children>
-                <Label text="KORISNIČKI PODACI - KONTAKT OSOBA" underline="true" GridPane.columnSpan="2147483647"
+                <Label text="KORISNIČKI PODACI - ODGOVORNA OSOBA" underline="true" GridPane.columnSpan="2147483647"
                        GridPane.halignment="LEFT">
                     <font>
                         <Font name="System Bold" size="13.0"/>
@@ -89,17 +92,49 @@
                 <ComboBox fx:id="cmbMestoUsluge" GridPane.columnIndex="4" GridPane.rowIndex="1"/>
                 <ComboBox fx:id="cmbAdresaUsluge" GridPane.columnIndex="4" GridPane.rowIndex="2"/>
                 <Label fx:id="lUserID" text="00000" GridPane.columnIndex="4" GridPane.rowIndex="3"/>
-                <TextField fx:id="tAdresaUslugeBroj" GridPane.columnIndex="4" GridPane.rowIndex="4"/>
-                <TextField fx:id="tMestoRacuna" GridPane.columnIndex="4" GridPane.rowIndex="7"/>
-                <TextField fx:id="tAdresaRacuna" GridPane.columnIndex="4" GridPane.rowIndex="8"/>
+                <TextField fx:id="tAdresaUslugeBroj" maxWidth="80.0" promptText="000" GridPane.columnIndex="4"
+                           GridPane.rowIndex="4"/>
+                <TextField fx:id="tMestoRacuna" promptText="Mesto Računa" GridPane.columnIndex="4"
+                           GridPane.rowIndex="7"/>
+                <TextField fx:id="tAdresaRacuna" promptText="Adresa Računa" GridPane.columnIndex="4"
+                           GridPane.rowIndex="8"/>
                 <TextArea fx:id="taKomentar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
                           prefHeight="153.0" prefWidth="491.0" promptText="Komentar" wrapText="true"
                           GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="11"
                           GridPane.rowSpan="2"/>
-                <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#bSaveUser" text="Sacuvaj promene"
-                        GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="13"/>
+                <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#bSaveUser" text="Sačuvaj promene"
+                        GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="13"/>
                 <Button fx:id="bCopyUserData" mnemonicParsing="false" onAction="#copyToAdresaRacun"
                         text="&gt;&gt;&gt;&gt;" GridPane.columnIndex="3" GridPane.rowIndex="9"/>
+                <Label text="Naziv firme:" GridPane.columnIndex="5" GridPane.rowIndex="1"/>
+                <Label text="Kontakt osoba:" GridPane.columnIndex="5" GridPane.rowIndex="2"/>
+                <Label text="Kod banke:" GridPane.columnIndex="5" GridPane.rowIndex="4"/>
+                <CheckBox fx:id="chkFirma" mnemonicParsing="false" text="FIRMA" underline="true"
+                          GridPane.columnIndex="5">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
+                </CheckBox>
+                <Label text="PIB:" GridPane.columnIndex="5" GridPane.rowIndex="6"/>
+                <Label text="Matični broj:" GridPane.columnIndex="5" GridPane.rowIndex="7"/>
+                <Label text="Fax:" GridPane.columnIndex="5" GridPane.rowIndex="8"/>
+                <Label text="Adresa firme:" GridPane.columnIndex="5" GridPane.rowIndex="9"/>
+                <TextField fx:id="tNazivFirme" promptText="Naziv firme" GridPane.columnIndex="6" GridPane.rowIndex="1"/>
+                <TextField fx:id="tKontaktOsoba" promptText="Kontakt osoba" GridPane.columnIndex="6"
+                           GridPane.rowIndex="2"/>
+                <TextField fx:id="tKodBanke" promptText="kodBanke" GridPane.columnIndex="6" GridPane.rowIndex="4"/>
+                <TextField fx:id="tPIB" promptText="PIB" GridPane.columnIndex="6" GridPane.rowIndex="6"/>
+                <TextField fx:id="tMaticniBroj" promptText="Matični broj" GridPane.columnIndex="6"
+                           GridPane.rowIndex="7"/>
+                <TextField fx:id="tFAX" promptText="Fax" GridPane.columnIndex="6" GridPane.rowIndex="8"/>
+                <TextField fx:id="tAdresaFirme" promptText="Adresa Firme" GridPane.columnIndex="6"
+                           GridPane.rowIndex="9"/>
+                <Label text="Tel. Kontakt osobe:" GridPane.columnIndex="5" GridPane.rowIndex="3"/>
+                <TextField fx:id="tKontaktOsobaTel" promptText="Telefon kontakt osobe" GridPane.columnIndex="6"
+                           GridPane.rowIndex="3"/>
+                <Label text="Tekući račun:" GridPane.columnIndex="5" GridPane.rowIndex="5"/>
+                <TextField fx:id="tTekuciRacun" promptText="Tekući račun" GridPane.columnIndex="6"
+                           GridPane.rowIndex="5"/>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

@@ -118,13 +118,32 @@ public class MagacinMainController implements Initializable {
         //set spinner value factoru min 0 max MAX_INTEGER_VALUE init value =1;
         spnKolicina.setValueFactory(integerSpinnerValueFactory);
 
-
-        tblArtikli.selectionModelProperty().addListener(new ChangeListener<TableView.TableViewSelectionModel<Artikli>>() {
+        tblArtikli.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Artikli>() {
             @Override
-            public void changed(ObservableValue<? extends TableView.TableViewSelectionModel<Artikli>> observable, TableView.TableViewSelectionModel<Artikli> oldValue, TableView.TableViewSelectionModel<Artikli> newValue) {
-
+            public void changed(ObservableValue<? extends Artikli> observable, Artikli oldValue, Artikli newValue) {
+                setValues();
             }
         });
+
+    }
+
+    private void setValues() {
+        Artikli artikli = tblArtikli.getSelectionModel().getSelectedItem();
+        tNaziv.setText(artikli.getNaziv());
+        tModel.setText(artikli.getModel());
+        tSerijski.setText(artikli.getSerijski());
+        tPserijski.setText(artikli.getPserijski());
+        tMAC.setText(artikli.getMac());
+        tDobavljac.setText(artikli.getDobavljac());
+        tBrDok.setText(artikli.getBrDok());
+        tNabavnaCena.setText(String.valueOf(artikli.getNabavnaCena()));
+        spnKolicina.getEditor().setText(String.valueOf(artikli.getKolicina()));
+        tOpis.setText(artikli.getOpis());
+        if (artikli.getJmere().equals("metri.")) {
+            cmbJMere.getSelectionModel().select(1);
+        } else {
+            cmbJMere.getSelectionModel().select(2);
+        }
 
 
     }
@@ -162,6 +181,7 @@ public class MagacinMainController implements Initializable {
                 return;
             } else {
                 artikalID = tblArtikli.getSelectionModel().getSelectedItem().getId();
+                jsonObject.put("id", artikalID);
             }
         } else if (addArtikl) {
             jsonObject.put("action", "addArtikal");
@@ -264,6 +284,21 @@ public class MagacinMainController implements Initializable {
         }
         return artikliArrayList;
 
+
+    }
+
+    public void clearText(ActionEvent actionEvent) {
+        tNaziv.clear();
+        tModel.clear();
+        tSerijski.clear();
+        tPserijski.clear();
+        tMAC.clear();
+        tDobavljac.clear();
+        tBrDok.clear();
+        tNabavnaCena.clear();
+        spnKolicina.getEditor().setText("0");
+        cmbJMere.getSelectionModel().select(0);
+        tOpis.clear();
 
     }
 }

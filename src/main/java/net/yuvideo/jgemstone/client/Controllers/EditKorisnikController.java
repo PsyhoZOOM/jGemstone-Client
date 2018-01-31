@@ -36,7 +36,6 @@ public class EditKorisnikController implements Initializable {
     KorisnikPodaciController KorisnikPodaciController;
     KorisnikUslugeController korisnikUslugeController;
     KorisnikUgovoriController korisnikUgovoriController;
-    KorisnikFirmaController korisnikFirmaController;
     private ResourceBundle resource;
     private URL location;
 
@@ -104,23 +103,6 @@ public class EditKorisnikController implements Initializable {
         korisnikUgovoriController.set_data();
 
 
-    }
-
-    public void loadKorisnikFirma() {
-        FXMLLoader fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("fxml/KorisnikFirma.fxml"), resource);
-
-        anchorKorisnikFirma.getChildren().clear();
-        try {
-            anchorKorisnikFirma.getChildren().add(fxmlLoader.load());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        korisnikFirmaController = fxmlLoader.getController();
-        korisnikFirmaController.client = this.client;
-        korisnikFirmaController.userID = userID;
-        korisnikFirmaController.user = userEdit;
-        if (userEdit.isFirma()) korisnikFirmaController.setData();
     }
 
 
