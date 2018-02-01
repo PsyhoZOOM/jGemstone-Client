@@ -40,7 +40,7 @@ public class KorisnikUgovoriController implements Initializable {
     public Button stampaUgovora;
     private URL location;
     private ResourceBundle resources;
-    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-YYYY");
+    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private JSONObject jObj;
     public Users user;
     int ugovorNo = 0;
@@ -194,11 +194,16 @@ public class KorisnikUgovoriController implements Initializable {
         ugovor.setKomentar(tOPis.getText());
         ugovor.setUserID(userID);
 
+        LocalDate start_ugovor = LocalDate.parse(ugovor.getPocetakUgovora(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        LocalDate stop_ugovor = LocalDate.parse(ugovor.getKrajUgovora(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        ugovor.setTrajanje(String.valueOf(stop_ugovor.compareTo(start_ugovor)));
 
         NewInterface ugovoriEditInterface = new NewInterface("fxml/KorisnikUgovorEdit.fxml", "Nov Ugovor", resources);
         KorisnikUgovorEditController korisnikUgovorEditController = ugovoriEditInterface.getLoader().getController();
         korisnikUgovorEditController.ugovor = ugovor;
         korisnikUgovorEditController.client = client;
+        korisnikUgovorEditController.replaceCode = true;
+        korisnikUgovorEditController.user = user;
         korisnikUgovorEditController.setData();
 
         ugovoriEditInterface.getStage().showAndWait();
@@ -224,6 +229,7 @@ public class KorisnikUgovoriController implements Initializable {
         korisnikUgovorEditController.ugovor = ugovor;
         korisnikUgovorEditController.editUgovor = true;
         korisnikUgovorEditController.client = client;
+        korisnikUgovorEditController.replaceCode = false;
         korisnikUgovorEditController.setData();
         ugovoriEditInterface.getStage().showAndWait();
         set_data();

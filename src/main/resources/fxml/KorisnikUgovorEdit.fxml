@@ -37,7 +37,7 @@
                         <Label fx:id="lDo" text="01-01-1000"/>
                     </children>
                 </HBox>
-                <Label text="Trajanje: "/>
+                <Label fx:id="lTrajanje" text="Trajanje: "/>
                 <HBox>
                     <children>
                         <Label text="Opis:"/>

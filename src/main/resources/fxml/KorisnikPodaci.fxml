@@ -94,9 +94,9 @@
                 <Label fx:id="lUserID" text="00000" GridPane.columnIndex="4" GridPane.rowIndex="3"/>
                 <TextField fx:id="tAdresaUslugeBroj" maxWidth="80.0" promptText="000" GridPane.columnIndex="4"
                            GridPane.rowIndex="4"/>
-                <TextField fx:id="tMestoRacuna" promptText="Mesto Računa" GridPane.columnIndex="4"
+                <TextField fx:id="tMestoRacuna" promptText="12000 Petrovac na Mlavi" GridPane.columnIndex="4"
                            GridPane.rowIndex="7"/>
-                <TextField fx:id="tAdresaRacuna" promptText="Adresa Računa" GridPane.columnIndex="4"
+                <TextField fx:id="tAdresaRacuna" promptText="Bate Bulic 22/8" GridPane.columnIndex="4"
                            GridPane.rowIndex="8"/>
                 <TextArea fx:id="taKomentar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
                           prefHeight="153.0" prefWidth="491.0" promptText="Komentar" wrapText="true"

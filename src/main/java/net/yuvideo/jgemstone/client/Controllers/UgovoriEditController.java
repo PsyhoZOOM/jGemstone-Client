@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -27,8 +28,6 @@ public class UgovoriEditController implements Initializable {
     public Button bSnimi;
     public Button bClose;
     public TextField tNazivUgovora;
-    public Button bPDFFile;
-    public Button bIzgled;
     int type;
     ugovori_types Ugovor;
     JSONObject jObj;
@@ -68,10 +67,11 @@ public class UgovoriEditController implements Initializable {
             Ugovor.setId(jObj.getInt("idUgovora"));
             Ugovor.setNaziv(jObj.getString("nazivUgovora"));
             Ugovor.setTextUgovora(jObj.getString("textUgovora"));
+            tNazivUgovora.setText(Ugovor.getNaziv());
 
             htmlUgovor.setHtmlText(Ugovor.getTextUgovora());
             htmlUgovor.setStyle("-fx-line-height: 1");
-            tNazivUgovora.setText(Ugovor.getNaziv());
+
 
 
         }
@@ -125,4 +125,9 @@ public class UgovoriEditController implements Initializable {
 
     }
 
+    public void insertData(MouseEvent mouseEvent) {
+        if (mouseEvent.isSecondaryButtonDown()) {
+
+        }
+    }
 }

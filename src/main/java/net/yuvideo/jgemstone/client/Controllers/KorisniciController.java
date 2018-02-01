@@ -134,8 +134,10 @@ public class KorisniciController implements Initializable {
             user.setIme(jUser.getString("fullName"));
             user.setMesto(jUser.getString("mesto"));
             user.setAdresa(jUser.getString("adresa"));
-            user.setAdresa_usluge(getNazivAdresa(user.getjAdresa()));
-            user.setMesto_usluge(jUser.getString("mestoUsluge"));
+            user.setAdresaUsluge(jUser.getString("adresaUsluge"));
+            user.setMestoUsluge(jUser.getString("mestoUsluge"));
+            user.setMestoRacuna(jUser.getString("mestoRacuna"));
+            user.setAdresaRacuna(jUser.getString("adresaRacuna"));
             user.setBr_lk(jUser.getString("brLk"));
             user.setDatum_rodjenja(jUser.getString("datumRodjenja"));
             user.setFiksni(jUser.getString("telFixni"));
@@ -148,16 +150,14 @@ public class KorisniciController implements Initializable {
             user.setDug(jUser.getDouble("dug"));
             if (!jUser.getString("jBroj").isEmpty())
                 user.setBr(Integer.valueOf(jUser.getString("jBroj")));
-            if (user.isFirma()) {
-                user.setNazivFirme(jUser.getString("nazivFirme"));
-                user.setKontaktOsoba(jUser.getString("kontaktOsoba"));
-                user.setKodBanke(jUser.getString("kodBanke"));
-                user.setPIB(jUser.getString("PIB"));
-                user.setMaticniBroj(jUser.getString("maticniBroj"));
-                user.setTekuciRacuna(jUser.getString("tekuciRacun"));
-                user.setFax(jUser.getString("fax"));
-                user.setAdresaFirme(jUser.getString("adresaFirme"));
-            }
+            user.setNazivFirme(jUser.getString("nazivFirme"));
+            user.setKontaktOsoba(jUser.getString("kontaktOsoba"));
+            user.setKodBanke(jUser.getString("kodBanke"));
+            user.setPIB(jUser.getString("PIB"));
+            user.setMaticniBroj(jUser.getString("maticniBroj"));
+            user.setTekuciRacuna(jUser.getString("tekuciRacun"));
+            user.setFax(jUser.getString("fax"));
+            user.setAdresaFirme(jUser.getString("adresaFirme"));
 
             users.add(user);
         }
@@ -165,20 +165,6 @@ public class KorisniciController implements Initializable {
         return users;
     }
 
-
-    private String getNazivAdresa(String jAdresa) {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("action", "getAdresa");
-        jsonObject.put("idMesta", Integer.valueOf(jAdresa));
-
-        jsonObject = client.send_object(jsonObject);
-        if (jsonObject.has("nazivAdrese")) {
-            return jsonObject.get("nazivAdrese").toString();
-        } else {
-            return "";
-        }
-
-    }
 
     public void bUserSearchAction(ActionEvent actionEvent) {
         show_table(tUserSearch.getText());

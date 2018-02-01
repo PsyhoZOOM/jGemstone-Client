@@ -1,38 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.web.HTMLEditor?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.111"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/Main.css"
+            xmlns="http://javafx.com/javafx/8.0.121"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.UgovoriEditController">
     <children>
-        <VBox layoutY="13.0" prefHeight="600.0" prefWidth="800.0" spacing="5.0">
+        <VBox layoutY="13.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <ToolBar prefHeight="40.0" prefWidth="200.0" VBox.vgrow="NEVER">
                     <items>
                         <Button fx:id="bClose" mnemonicParsing="false" text="Zatvori"/>
                     </items>
                 </ToolBar>
+                <TextField fx:id="tNazivUgovora"/>
                 <HBox alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
-                    <children>
-                        <Label text="Naziv ugovora:"/>
-                        <TextField fx:id="tNazivUgovora"/>
-                        <Button fx:id="bPDFFile" mnemonicParsing="false" onAction="#openPDFFile"
-                                text="Izaberi PDF Fajl"/>
-                    </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </padding>
+                    <children>
+                        <VBox prefHeight="85.0" prefWidth="1268.0">
+                            <children>
+                                <TitledPane text="CODES" VBox.vgrow="ALWAYS">
+                                    <content>
+                                        <GridPane hgap="5.0" vgap="5.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES"
+                                                                   minWidth="10.0"/>
+                                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES"/>
+                                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES"/>
+                                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES"/>
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints vgrow="SOMETIMES"/>
+                                                <RowConstraints vgrow="SOMETIMES"/>
+                                                <RowConstraints vgrow="SOMETIMES"/>
+                                                <RowConstraints vgrow="SOMETIMES"/>
+                                                <RowConstraints vgrow="SOMETIMES"/>
+                                                <RowConstraints vgrow="SOMETIMES"/>
+                                                <RowConstraints vgrow="SOMETIMES"/>
+                                                <RowConstraints vgrow="SOMETIMES"/>
+                                                <RowConstraints vgrow="SOMETIMES"/>
+                                                <RowConstraints vgrow="SOMETIMES"/>
+                                            </rowConstraints>
+                                            <children>
+                                                <Label text="Broj ugovora:"/>
+                                                <TextField editable="false" text="{%broj_ugovora}"
+                                                           GridPane.columnIndex="1"/>
+                                                <Label text="Zaključen dana:" GridPane.columnIndex="2"
+                                                       GridPane.rowIndex="2"/>
+                                                <Label text="Ime I prezime:" GridPane.columnIndex="2"/>
+                                                <Label text="Adresa LK" GridPane.rowIndex="1"/>
+                                                <TextField editable="false" text="{%adresa_LK}" GridPane.columnIndex="1"
+                                                           GridPane.rowIndex="1"/>
+                                                <Label text="JMBG:" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                                                <Label text="Broj LK" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                                                <Label text="Fiksni telefon:" GridPane.rowIndex="2"/>
+                                                <Label text="Mobilni telefon:" GridPane.rowIndex="3"/>
+                                                <Label text="Fax:" GridPane.rowIndex="4"/>
+                                                <Label text="Adresa za prijem pošte i računa:" GridPane.rowIndex="5"/>
+                                                <Label text="ADresa na kojoj se koristi usluga:" GridPane.rowIndex="6"/>
+                                                <Label text="Period zaključenja ugogovra:" GridPane.rowIndex="7"/>
+                                                <Label text="Datum:" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+                                                <Label text="Naziv-Poslovno ime:" GridPane.columnIndex="2"
+                                                       GridPane.rowIndex="5"/>
+                                                <Label text="PIB:" GridPane.columnIndex="2" GridPane.rowIndex="6"/>
+                                                <Label text="Matični:" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
+                                                <Label text="Kod banke:" GridPane.columnIndex="2"
+                                                       GridPane.rowIndex="8"/>
+                                                <Label text="Mesto LK:" GridPane.columnIndex="2" GridPane.rowIndex="9"/>
+                                                <TextField editable="false" text="{%tel_fix}" GridPane.columnIndex="1"
+                                                           GridPane.rowIndex="2"/>
+                                                <TextField editable="false" text="{%tel_mob}" GridPane.columnIndex="1"
+                                                           GridPane.rowIndex="3"/>
+                                                <TextField editable="false" text="{%fax}" GridPane.columnIndex="1"
+                                                           GridPane.rowIndex="4"/>
+                                                <TextField editable="false" text="{%adresa_za_prijem_racuna}"
+                                                           GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                                                <TextField editable="false" text="{%adresa_koriscenja_usluge}"
+                                                           GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                                                <TextField editable="false" text="{%period_ugovora}"
+                                                           GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                                                <TextField editable="false" text="{%ime_prezime_zastupnik}"
+                                                           GridPane.columnIndex="3"/>
+                                                <TextField editable="false" text="{%broj_LK}" GridPane.columnIndex="3"
+                                                           GridPane.rowIndex="1"/>
+                                                <TextField editable="false" text="{%datum_zaklj_ugovora}"
+                                                           GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+                                                <TextField editable="false" text="{%JMBG}" GridPane.columnIndex="3"
+                                                           GridPane.rowIndex="3"/>
+                                                <TextField editable="false" text="{%datum}" GridPane.columnIndex="3"
+                                                           GridPane.rowIndex="4"/>
+                                                <TextField editable="false" text="{%naziv_firme}"
+                                                           GridPane.columnIndex="3" GridPane.rowIndex="5"/>
+                                                <TextField editable="false" text="{%PIB}" GridPane.columnIndex="3"
+                                                           GridPane.rowIndex="6"/>
+                                                <TextField editable="false" text="{%maticni}" GridPane.columnIndex="3"
+                                                           GridPane.rowIndex="7"/>
+                                                <TextField editable="false" text="{%kod_banke}" GridPane.columnIndex="3"
+                                                           GridPane.rowIndex="8"/>
+                                                <TextField editable="false" text="{%mesto_LK}" GridPane.columnIndex="3"
+                                                           GridPane.rowIndex="9"/>
+                                                <Label text="Kontakt osoba:" GridPane.rowIndex="8"/>
+                                                <TextField editable="false" text="{%kontakt_osoba}"
+                                                           GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                                                <Label text="Broj računa" GridPane.rowIndex="9"/>
+                                                <TextField editable="false" text="{%broj_racuna}"
+                                                           GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                            </padding>
+                                        </GridPane>
+                                    </content>
+                                </TitledPane>
+                            </children>
+                        </VBox>
+                    </children>
                 </HBox>
                 <HTMLEditor fx:id="htmlUgovor"
                             htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;"
-                            VBox.vgrow="ALWAYS">
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </padding>
-                </HTMLEditor>
+                            VBox.vgrow="ALWAYS"/>
                 <HBox alignment="CENTER_RIGHT" spacing="5.0" VBox.vgrow="NEVER">
                     <children>
                         <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#snimiUgovor" text="Snimi"/>
@@ -42,6 +134,9 @@
                     </padding>
                 </HBox>
             </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
         </VBox>
     </children>
 </AnchorPane>

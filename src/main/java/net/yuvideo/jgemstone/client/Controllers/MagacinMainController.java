@@ -198,8 +198,8 @@ public class MagacinMainController implements Initializable {
         jsonObject.put("dobavljac", tDobavljac.getText());
         jsonObject.put("brDokumenta", tBrDok.getText());
         jsonObject.put("nabavnaCena", tNabavnaCena.getText());
-        jsonObject.put("jMere", cmbJMere.getValue().toString());
-        jsonObject.put("kolicina", Integer.valueOf(spnKolicina.getValue().toString()));
+        jsonObject.put("jMere", cmbJMere.getEditor().getText().toString());
+        jsonObject.put("kolicina", Integer.valueOf(spnKolicina.getEditor().getText()));
         jsonObject.put("opis", tOpis.getText());
 
 

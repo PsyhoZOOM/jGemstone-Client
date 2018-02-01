@@ -99,9 +99,10 @@ public class KorisnikPodaciController implements Initializable {
         cmbMestoUsluge.valueProperty().addListener(new ChangeListener<Mesta>() {
             @Override
             public void changed(ObservableValue<? extends Mesta> observable, Mesta oldValue, Mesta newValue) {
-                ObservableList adrese = FXCollections.observableArrayList(getAdrese((cmbMestoUsluge.getValue().getId())));
+                ObservableList adrese = FXCollections.observableArrayList(getAdrese((cmbMestoUsluge.getValue().getBrojMesta())));
 
                 cmbAdresaUsluge.getItems().clear();
+                cmbAdresaUsluge.getItems().removeAll();
                 cmbAdresaUsluge.setItems(adrese);
             }
         });
@@ -188,14 +189,14 @@ public class KorisnikPodaciController implements Initializable {
         return mestaArr;
     }
 
-    private ArrayList<Adrese> getAdrese(int mestoID) {
+    private ArrayList<Adrese> getAdrese(String brojMesta) {
         ArrayList<Adrese> adreseArr = new ArrayList();
         Adrese adresa;
         JSONObject adresaObj;
 
         jObj = new JSONObject();
         jObj.put("action", "getAdrese");
-        jObj.put("idMesta", mestoID);
+        jObj.put("brojMesta", brojMesta);
 
         jObj = client.send_object(jObj);
 
@@ -222,7 +223,6 @@ public class KorisnikPodaciController implements Initializable {
         jObj = client.send_object(jObj);
 
         userData = new Users();
-
         userData.setId(jObj.getInt("id"));
         userData.setIme(jObj.getString("fullName"));
         userData.setDatum_rodjenja(jObj.getString("datumRodjenja"));
@@ -233,10 +233,10 @@ public class KorisnikPodaciController implements Initializable {
         userData.setMobilni(jObj.getString("telMob"));
         userData.setJMBG(jObj.getString("JMBG"));
         userData.setBr_lk(jObj.getString("brLk"));
-        userData.setAdresa_usluge(jObj.getString("adresaUsluge"));
-        userData.setMesto_usluge(jObj.getString("mestoUsluge"));
-        userData.setjAdresa(jObj.getString("jAdresa"));
-        userData.setjAdresaBroj(jObj.getString("jAdresaBroj"));
+        userData.setAdresaRacuna(jObj.getString("adresaRacuna"));
+        userData.setMestoRacuna(jObj.getString("mestoRacuna"));
+        userData.setAdresaUsluge(jObj.getString("adresaUsluge"));
+        userData.setMestoUsluge(jObj.getString("mestoUsluge"));
         userData.setKomentar(jObj.getString("komentar"));
         userData.setjMesto(jObj.getString("jMesto"));
         userData.setjAdresa(jObj.getString("jAdresa"));
@@ -279,7 +279,9 @@ public class KorisnikPodaciController implements Initializable {
         jObj = new JSONObject();
 
         jObj.put("action", "getAdresa");
-        jObj.put("idMesta", user.getjAdresa());
+        jObj.put("brojMesta", user.getjMesto());
+        jObj.put("brojAdrese", user.getjAdresa());
+
 
         jObj = client.send_object(jObj);
 
@@ -304,11 +306,12 @@ public class KorisnikPodaciController implements Initializable {
 
         cmbMestoUsluge.setValue(userMesto);
         cmbAdresaUsluge.setValue(userAdresa);
+
         tAdresaUslugeBroj.setText(user.getjAdresaBroj());
 
 
-        tMestoRacuna.setText(user.getMesto_usluge());
-        tAdresaRacuna.setText(user.getAdresa_usluge());
+        tMestoRacuna.setText(user.getMestoRacuna());
+        tAdresaRacuna.setText(user.getAdresaRacuna());
         taKomentar.setText(user.getKomentar());
 
         //FIRMA
@@ -352,8 +355,8 @@ public class KorisnikPodaciController implements Initializable {
         jObj.put("adresaRacuna", tAdresaRacuna.getText().trim());
         jObj.put("mestoRacuna", tMestoRacuna.getText().trim());
         jObj.put("jAdresaBroj", tAdresaUslugeBroj.getText().trim());
-        jObj.put("jAdresa", String.valueOf(cmbAdresaUsluge.getValue().getId()));
-        jObj.put("jMesto", String.valueOf(cmbMestoUsluge.getValue().getId()));
+        jObj.put("jAdresa", String.valueOf(cmbAdresaUsluge.getValue().getBrojAdrese()));
+        jObj.put("jMesto", String.valueOf(cmbMestoUsluge.getValue().getBrojMesta()));
         jObj.put("komentar", taKomentar.getText().trim());
         jObj.put("jBroj", cmbMestoUsluge.getValue().getBrojMesta() + cmbAdresaUsluge.getValue().getBrojAdrese() + userJBRoj);
 
@@ -385,6 +388,7 @@ public class KorisnikPodaciController implements Initializable {
 
     public void bSaveUser(ActionEvent actionEvent) {
         updateUserData();
+        userData = getUserData(userData.getId());
 
     }
 

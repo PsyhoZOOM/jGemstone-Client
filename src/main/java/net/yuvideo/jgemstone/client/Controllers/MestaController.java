@@ -152,10 +152,10 @@ public class MestaController implements Initializable {
 
     }
 
-    private ArrayList<Adrese> get_adrese(int idMesta) {
+    private ArrayList<Adrese> get_adrese(String brojMesta) {
         jObj = new JSONObject();
         jObj.put("action", "getAdrese");
-        jObj.put("idMesta", idMesta);
+        jObj.put("brojMesta", brojMesta);
 
         jObj = client.send_object(jObj);
 
@@ -250,7 +250,7 @@ public class MestaController implements Initializable {
 
         mesta = (Mesta) tblMesto.getSelectionModel().getSelectedItem();
 
-        ObservableList<Adrese> observableListAdrese = FXCollections.observableArrayList(get_adrese(mesta.getId()));
+        ObservableList<Adrese> observableListAdrese = FXCollections.observableArrayList(get_adrese(mesta.getBrojMesta()));
         tblAdrese.setItems(observableListAdrese);
     }
 

@@ -22,9 +22,9 @@
                 <ComboBox fx:id="cmbTamplate"/>
                 <Label text="Trajanje:"/>
                 <Label text="Od:"/>
-                <DatePicker fx:id="dtpTrajanjeOd"/>
+                <DatePicker fx:id="dtpTrajanjeOd" editable="false"/>
                 <Label text="Do:"/>
-                <DatePicker fx:id="dtpTrajanjeDo"/>
+                <DatePicker fx:id="dtpTrajanjeDo" editable="false"/>
                 <Label text="Opis:"/>
                 <TextArea fx:id="tOPis" maxHeight="100.0" maxWidth="600.0" minHeight="100.0" minWidth="200.0"
                           prefHeight="100.0" prefWidth="200.0"/>

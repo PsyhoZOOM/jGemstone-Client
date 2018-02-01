@@ -17,8 +17,10 @@ public class Users implements Serializable {
     String br_lk;
     String JMBG;
     String adresa;
-    String adresa_usluge;
-    String mesto_usluge;
+    String adresaRacuna;
+    String mestoRacuna;
+    String adresaUsluge;
+    String mestoUsluge;
     String fiksni;
     String mobilni;
     String ostalo;
@@ -39,6 +41,38 @@ public class Users implements Serializable {
     String tekuciRacuna;
     String fax;
     String adresaFirme;
+
+    public String getAdresaRacuna() {
+        return adresaRacuna;
+    }
+
+    public void setAdresaRacuna(String adresaRacuna) {
+        this.adresaRacuna = adresaRacuna;
+    }
+
+    public String getMestoRacuna() {
+        return mestoRacuna;
+    }
+
+    public void setMestoRacuna(String mestoRacuna) {
+        this.mestoRacuna = mestoRacuna;
+    }
+
+    public String getAdresaUsluge() {
+        return adresaUsluge;
+    }
+
+    public void setAdresaUsluge(String adresaUsluge) {
+        this.adresaUsluge = adresaUsluge;
+    }
+
+    public String getMestoUsluge() {
+        return mestoUsluge;
+    }
+
+    public void setMestoUsluge(String mestoUsluge) {
+        this.mestoUsluge = mestoUsluge;
+    }
 
     public String getTelKontaktOsobe() {
         return telKontaktOsobe;
@@ -134,22 +168,6 @@ public class Users implements Serializable {
 
     public void setJbroj(String jbroj) {
         this.jbroj = jbroj;
-    }
-
-    public String getMesto_usluge() {
-        return mesto_usluge;
-    }
-
-    public void setMesto_usluge(String mesto_usluge) {
-        this.mesto_usluge = mesto_usluge;
-    }
-
-    public String getAdresa_usluge() {
-        return adresa_usluge;
-    }
-
-    public void setAdresa_usluge(String adresa_usluge) {
-        this.adresa_usluge = adresa_usluge;
     }
 
     public String getjMesto() {

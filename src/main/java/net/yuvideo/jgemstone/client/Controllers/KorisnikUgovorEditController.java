@@ -8,6 +8,7 @@ import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.Users;
 import net.yuvideo.jgemstone.client.classes.ugovori_types;
 import org.json.JSONObject;
 
@@ -30,12 +31,15 @@ public class KorisnikUgovorEditController implements Initializable {
     public boolean editUgovor = false;
     public ugovori_types ugovor;
     public Client client;
+    public Label lTrajanje;
     private URL location;
     private ResourceBundle resources;
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private DateTimeFormatter dateTimeFormatterSQL = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private JSONObject jObj = new JSONObject();
+    public Users user;
+    public boolean replaceCode;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -45,13 +49,46 @@ public class KorisnikUgovorEditController implements Initializable {
 
 
     public void setData() {
+        htmlUgovor.setHtmlText(ugovor.getTextUgovora());
+        //ne zelimo da zamenimo html text postojecem ugovoru (mozda je vec rucno menjan)
+        if (replaceCode) {
+            replace_codes();
+        }
         lBrUgovora.setText(String.valueOf(ugovor.getBr()));
         lNazivUgovora.setText(ugovor.getNaziv());
         lOd.setText(ugovor.getPocetakUgovora());
         lDo.setText(ugovor.getKrajUgovora());
         lOpis.setText(ugovor.getKomentar());
-        htmlUgovor.setHtmlText(ugovor.getTextUgovora());
+        lTrajanje.setText(String.valueOf(ugovor.getTrajanje()));
     }
+
+    private void replace_codes() {
+
+        htmlUgovor.setHtmlText(htmlUgovor.getHtmlText()
+                .replace("{%broj_ugovora}", ugovor.getBr())
+                .replace("{%adresa_LK}", user.getAdresa())
+                .replace("{%broj_LK}", user.getBr_lk())
+                .replace("{%datum_zaklj_ugovora}", LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
+                .replace("{%tel_fix}", user.getFiksni())
+                .replace("{%tel_mob}", user.getMobilni())
+                .replace("{%fax}", user.getFax())
+                .replace("{%adresa_za_prijem_racuna}", String.format("%s %s %s", user.getAdresaRacuna(), user.getMestoRacuna(), user.getjAdresaBroj()))
+                .replace("{%adresa_koriscenja_usluge}", String.format("%s %s", user.getAdresaUsluge(), user.getMestoUsluge()))
+                .replace("{%period_ugovora}", String.valueOf(ugovor.getTrajanje()))
+                .replace("{%datum}", LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
+                .replace("{%PIB}", user.getPIB())
+                .replace("{%JMBG}", user.getJMBG())
+                .replace("{%maticni}", user.getMaticniBroj())
+                .replace("{%kod_banke}", user.getKodBanke())
+                .replace("{%ime_prezime_zastupnik}", user.getIme())
+                .replace("{%mesto_LK}", user.getMesto())
+                .replace("{%broj_racuna}", user.getTekuciRacuna())
+                .replace("{%naziv_firme}", user.getNazivFirme())
+                .replace("{%kontakt_osoba}", user.getKontaktOsoba()));
+
+    }
+
+
 
     public void saveUgovor(ActionEvent actionEvent) {
         if (editUgovor) {
@@ -88,6 +125,7 @@ public class KorisnikUgovorEditController implements Initializable {
         jObj.put("krajUgovora", LocalDate.parse(ugovor.getKrajUgovora(), dateTimeFormatter));
         jObj.put("userID", ugovor.getUserID());
         jObj.put("brojUgovora", ugovor.getBr());
+        jObj.put("trajanjeUgovora", ugovor.getTrajanje());
 
         jObj = client.send_object(jObj);
 
@@ -105,4 +143,5 @@ public class KorisnikUgovorEditController implements Initializable {
         Stage stage = (Stage) bSnimi.getScene().getWindow();
         stage.close();
     }
+
 }

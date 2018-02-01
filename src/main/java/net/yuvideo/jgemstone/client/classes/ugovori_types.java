@@ -16,6 +16,15 @@ public class ugovori_types implements Serializable {
     private String krajUgovora;
     private int userID;
     private int serviceID;
+    private String trajanje;
+
+    public String getTrajanje() {
+        return trajanje;
+    }
+
+    public void setTrajanje(String trajanje) {
+        this.trajanje = trajanje;
+    }
 
     public int getId() {
         return id;

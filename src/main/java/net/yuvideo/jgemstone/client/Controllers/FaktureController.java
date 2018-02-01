@@ -276,8 +276,8 @@ public class FaktureController implements Initializable {
         user.setIme(jUser.getString("fullName"));
         user.setMesto(jUser.getString("mesto"));
         user.setAdresa(jUser.getString("adresa"));
-        user.setAdresa_usluge(jUser.getString("adresaUsluge"));
-        user.setMesto_usluge(jUser.getString("mestoUsluge"));
+        user.setAdresaRacuna(jUser.getString("adresaRacuna"));
+        user.setMestoRacuna(jUser.getString("mestoRacuna"));
         user.setBr_lk(jUser.getString("brLk"));
         user.setDatum_rodjenja(jUser.getString("datumRodjenja"));
         user.setFiksni(jUser.getString("telFix"));
