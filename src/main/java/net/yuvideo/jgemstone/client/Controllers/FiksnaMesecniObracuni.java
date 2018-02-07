@@ -35,7 +35,6 @@ public class FiksnaMesecniObracuni implements Initializable {
         this.location = location;
         this.resources = resources;
 
-        bObracunaj.setDisable(true);
         lMessage.setText(null);
         dtpObracunZaMesec.setEditable(false);
         dtpObracunZaMesec.setConverter(new StringConverter<LocalDate>() {

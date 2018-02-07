@@ -53,11 +53,9 @@
                     <contextMenu>
                         <ContextMenu>
                             <items>
-                                <Menu fx:id="zaduziOpera" mnemonicParsing="false" text="Unspecified Menu">
-                                    <items>
-                                        <MenuItem mnemonicParsing="false" text="Action 1"/>
-                                    </items>
-                                </Menu>
+                                <Menu fx:id="zaduziOpera" mnemonicParsing="false" text="Zaduzi"/>
+                                <MenuItem fx:id="showArtInfo" mnemonicParsing="false" onAction="#showArtInformation"
+                                          text="Info"/>
                             </items>
                         </ContextMenu>
                     </contextMenu>

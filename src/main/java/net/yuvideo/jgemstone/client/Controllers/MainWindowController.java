@@ -1,6 +1,12 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.tool.xml.XMLWorkerHelper;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,6 +20,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.web.HTMLEditor;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -22,12 +29,13 @@ import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -217,6 +225,7 @@ public class MainWindowController implements Initializable {
         NewInterface mesecniObracunInterface = new NewInterface("fxml/FiksnaObracun.fxml", "FIKSNA TELEFONIJA OBRAČUN", resource);
         FiksnaMesecniObracuni fiksnaMesecniObracuniController = mesecniObracunInterface.getLoader().getController();
         fiksnaMesecniObracuniController.client = client;
+        fiksnaMesecniObracuniController.check_if_obracun_postoji(LocalDate.now().minusMonths(1).with(TemporalAdjusters.firstDayOfMonth()).format(DateTimeFormatter.ofPattern("yyyy-MM")));
         mesecniObracunInterface.getStage().showAndWait();
 
     }
@@ -275,7 +284,6 @@ public class MainWindowController implements Initializable {
         }
 
 
-
     }
 
     public void showPregledCSV(ActionEvent actionEvent) {
@@ -313,6 +321,59 @@ public class MainWindowController implements Initializable {
         magacinMainController.client = this.client;
         magacinMainController.setForms();
         magacinInterface.getStage().showAndWait();
+
+    }
+
+    public void mOpenPDFPreview(ActionEvent actionEvent) {
+        JSONObject object = new JSONObject();
+        object.put("action", "get_single_ugovor");
+        object.put("idUgovora", 8);
+        object = client.send_object(object);
+
+
+        HTMLEditor htmlEditor = new HTMLEditor();
+        htmlEditor.setHtmlText(object.getString("textUgovora"));
+        String htmlString = htmlEditor.getHtmlText();
+        htmlEditor.setHtmlText(object.getString("textUgovora"));
+        htmlString = htmlString.replace("<br>", "");
+        htmlString = htmlString.replace("<br/>", "");
+        htmlString = htmlString.replace("<br />", "");
+
+        htmlString = htmlString.replace("<hr>", "<p></p>");
+        htmlString = htmlString.replace("<hr/>", "<p></p>");
+        htmlString = htmlString.replace("<hr />", "<p></p>");
+        htmlString = htmlString.replace("px", "");
+
+
+        try {
+            Document doc = new Document();
+            OutputStream file = new FileOutputStream(System.getProperty("user.home") + "/test.pdf");
+            StringReader is = new StringReader(htmlString);
+            PdfWriter pdfWriter = PdfWriter.getInstance(doc, file);
+            doc.open();
+            doc.add(new Chunk(""));
+
+            try {
+                final Paragraph test = new Paragraph();
+                System.out.println(is.toString());
+                XMLWorkerHelper.getInstance().parseXHtml(pdfWriter, doc, is);
+
+                pdfWriter.flush();
+                doc.close();
+                pdfWriter.close();
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
 
     }
 }

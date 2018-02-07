@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.141"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.OptionsController">
     <children>
         <VBox spacing="10.0">
@@ -23,8 +22,6 @@
                                                     <children>
                                                         <Label text="Hostname/IP:"/>
                                                         <Label text="Port:"/>
-                                                        <Label text="Korisničko ime:"/>
-                                                        <Label text="Lozinka:"/>
                                                     </children>
                                                     <padding>
                                                         <Insets right="5.0" top="5.0"/>
@@ -35,10 +32,6 @@
                                                         <TextField fx:id="tHostnameIp" maxHeight="-Infinity"
                                                                    maxWidth="-Infinity"/>
                                                         <TextField fx:id="tPort" maxWidth="-Infinity"/>
-                                                        <TextField fx:id="tLocalUsername" maxWidth="-Infinity"/>
-                                                        <PasswordField fx:id="tLocalPassword" maxWidth="-Infinity"/>
-                                                        <CheckBox fx:id="cSavePass" disable="false"
-                                                                  mnemonicParsing="false" text="Zapamti lozinku?"/>
                                                     </children>
                                                 </VBox>
                                             </children>
@@ -54,7 +47,6 @@
                 </TabPane>
                 <HBox alignment="TOP_RIGHT" spacing="10.0">
                     <children>
-                        <Button fx:id="bCancel" mnemonicParsing="false" onAction="#bCancel_close" text="Otkaži"/>
                         <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#bSnimi_options" text="Snimi"/>
                     </children>
                 </HBox>

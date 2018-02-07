@@ -56,6 +56,7 @@ public class MagacinMainController implements Initializable {
     public TableColumn<Artikli, String> cOpis;
     public Client client;
     public Menu zaduziOpera;
+    public MenuItem showArtInfo;
     SpinnerValueFactory.IntegerSpinnerValueFactory integerSpinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 1);
     private URL location;
     private ResourceBundle resources;
@@ -118,7 +119,7 @@ public class MagacinMainController implements Initializable {
         });
 
 
-        //set spinner value factoru min 0 max MAX_INTEGER_VALUE init value =1;
+        //set spinner value factory min 0 max MAX_INTEGER_VALUE init value =1;
         spnKolicina.setValueFactory(integerSpinnerValueFactory);
 
         tblArtikli.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Artikli>() {
@@ -132,6 +133,7 @@ public class MagacinMainController implements Initializable {
 
     private void setValues() {
         Artikli artikli = tblArtikli.getSelectionModel().getSelectedItem();
+        if (artikli == null) return;
         tNaziv.setText(artikli.getNaziv());
         tModel.setText(artikli.getModel());
         tSerijski.setText(artikli.getSerijski());
@@ -156,6 +158,8 @@ public class MagacinMainController implements Initializable {
             mitem.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
+                    if (tblArtikli.getSelectionModel().getSelectedItem() == null)
+                        return;
                     zaduziOperaSaItemom(tblArtikli.getSelectionModel().getSelectedItem().getId(), oper.getId());
 
                 }
@@ -329,5 +333,11 @@ public class MagacinMainController implements Initializable {
         cmbJMere.getSelectionModel().select(0);
         tOpis.clear();
 
+    }
+
+    public void showArtInformation(ActionEvent actionEvent) {
+        Artikli artikal = tblArtikli.getSelectionModel().getSelectedItem();
+        if (artikal == null) return;
+        System.out.println(artikal.toString());
     }
 }

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorPane" prefHeight="768.0" prefWidth="1151.0"
             stylesheets="@../css/Main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65"
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.141"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUslugeController">
     <children>
         <TabPane rotateGraphic="true" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -93,11 +93,14 @@
                                         <Label text="Prekoračenje (meseci):" GridPane.rowIndex="8" />
                                         <Label text="Opis:" GridPane.rowIndex="10" />
                                         <ComboBox fx:id="cmbPaketBOX" GridPane.columnIndex="1" />
-                                        <TextField fx:id="tKarticaBox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="tKarticaBox" promptText="10 brojeva" GridPane.columnIndex="1"
+                                                   GridPane.rowIndex="1"/>
                                         <TextField fx:id="tUserNameBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <PasswordField fx:id="tPasswordBox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                        <TextField fx:id="tMACIPTVBox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                        <TextField fx:id="tFiksnaTelBox" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                        <TextField fx:id="tMACIPTVBox" promptText="12 hex karaktera"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                                        <TextField fx:id="tFiksnaTelBox" promptText="format 38112430440"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="5"/>
                                         <TextField fx:id="tPopustBox" text="0.00" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                         <ComboBox fx:id="cmbUgovorBox" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                         <TextField fx:id="tProduzenjeBox" text="2" GridPane.columnIndex="1" GridPane.rowIndex="8" />
@@ -138,7 +141,8 @@
                                     <children>
                                         <ComboBox fx:id="cmbPaketDTV" prefWidth="150.0" GridPane.columnIndex="1" />
                                         <TextField fx:id="tPopustDTV" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <TextField fx:id="tKarticaDTV" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <TextField fx:id="tKarticaDTV" promptText="10 brojeva" GridPane.columnIndex="1"
+                                                   GridPane.rowIndex="2"/>
                                         <TextField fx:id="tDTVPrekoracenje" text="2" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                         <CheckBox fx:id="chkRacunDTV" mnemonicParsing="false" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                         <ComboBox fx:id="cmbUgovorDTV" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
@@ -146,7 +150,7 @@
                                         <Button fx:id="bAddServiceDTV" mnemonicParsing="false" onAction="#addServiceDTV" text="Dodaj uslugu" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
                                         <Label text="Naziv paketa:" />
                                         <Label text="Popust %:" GridPane.rowIndex="1" />
-                                        <Label text="Kartica broj (10 brojeva):" GridPane.rowIndex="2" />
+                                        <Label text="Kartica broj" GridPane.rowIndex="2"/>
                                         <Label text="Štampa i obračun računa:" GridPane.rowIndex="4" />
                                         <Label text="Opis:" GridPane.rowIndex="6" />
                                         <Label text="Broj Ugovora" GridPane.rowIndex="5" />
@@ -228,14 +232,15 @@
                             </rowConstraints>
                             <children>
                                 <Label text="Paket:" />
-                                <Label text="Popust:" GridPane.rowIndex="1" />
+                                <Label text="Popust %:" GridPane.rowIndex="1"/>
                                 <Label text="Broj telefona:" GridPane.rowIndex="2" />
                                 <Label text="Obračun i štampa računa:" GridPane.rowIndex="3" />
                                 <Label text="Broj ugovora:" GridPane.rowIndex="4" />
                                 <Label text="Opis:" GridPane.rowIndex="5" />
                                 <ComboBox fx:id="cmbFixPaket" prefWidth="150.0" GridPane.columnIndex="1" />
-                                <TextField fx:id="tFixPopust" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <TextField fx:id="tFixBrojTel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <TextField fx:id="tFixPopust" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                <TextField fx:id="tFixBrojTel" promptText="format 38112440430" GridPane.columnIndex="1"
+                                           GridPane.rowIndex="2"/>
                                 <CheckBox fx:id="chkFixStampaObracun" mnemonicParsing="false" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                 <ComboBox fx:id="cmbFixBrojUgovora" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                 <TextArea fx:id="tFixOpis" GridPane.columnIndex="1" GridPane.rowIndex="5" />
@@ -274,18 +279,20 @@
                                         <Label text="Username:" GridPane.rowIndex="2" />
                                         <Label text="Password:" GridPane.rowIndex="3" />
                                         <ComboBox fx:id="cmbIPTVPaket" prefWidth="150.0" GridPane.columnIndex="1" />
-                                        <TextField fx:id="tPopustIPTV" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="tPopustIPTV" text="0" GridPane.columnIndex="1"
+                                                   GridPane.rowIndex="1"/>
                                         <TextField fx:id="tUserNameIPTV" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <PasswordField fx:id="tPasswordIPTV" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                         <PasswordField fx:id="tPasswordIPTVCheck" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                        <TextField fx:id="tStbMACIPTV" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                        <TextField fx:id="tStbMACIPTV" promptText="12 hex karaktera"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="5"/>
                                         <ComboBox fx:id="cmbUgovorIPTV" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                         <TextField fx:id="tIPTVPrekoracenje" text="2" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                         <CheckBox fx:id="cmbObracunIPTV" mnemonicParsing="false" selected="true" text="Obračun i štampa računa" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                                         <Button fx:id="bSnimiIPTVUsluguIPTV" mnemonicParsing="false"
                                                 onAction="#addServiceIPTV" text="Dodaj uslugu" GridPane.columnIndex="1"
                                                 GridPane.rowIndex="9"/>
-                                        <Label text="Popust:" GridPane.rowIndex="1" />
+                                        <Label text="Popust %:" GridPane.rowIndex="1"/>
                                         <Label text="Ugovor:" GridPane.rowIndex="6" />
                                         <Label text="STB MAC:" GridPane.rowIndex="5" />
                                         <Label text="Prekoračenje (meseci):" GridPane.rowIndex="7" />
@@ -322,7 +329,7 @@
                                         <Label text="Naziv usluge:" />
                                         <ComboBox fx:id="cmbNazivUslugeOstalo" prefWidth="150.0"
                                                   GridPane.columnIndex="1"/>
-                                        <Label text="Popust:" GridPane.rowIndex="1" />
+                                        <Label text="Popust %:" GridPane.rowIndex="1"/>
                                         <TextField fx:id="tPopustOstalo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <Label text="Serijski broj:" GridPane.rowIndex="2"/>
                                         <TextField fx:id="tSerijskiBrojOstalo" GridPane.columnIndex="1"

@@ -46,6 +46,8 @@ public class SmartCardReader {
             user.setMesto(eidInfo.getPlace());
             user.setAdresa(eidInfo.getStreet() + " " + eidInfo.getHouseNumber());
             user.setBr_lk(eidInfo.getDocRegNo());
+
+            System.out.println(eidInfo.getIssuingAuthority());
             this.userImage = eidCard.readEidPhoto();
 
         } catch (CardException ex) {
@@ -78,10 +80,9 @@ public class SmartCardReader {
             terminals = factory.terminals().list();
             return terminals;
         } catch (CardException ex) {
-            Logger.getLogger(SmartCardReader.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
-
-        return null;
+        return terminals;
 
     }
 

@@ -101,8 +101,10 @@ public class NovKorisnikController implements Initializable {
     }
 
     public void setClient(Client client) {
+        System.setProperty("sun.security.smartcardio.library", "libpcsclite.so.1");
         List<CardTerminal> terminals = getTerminals();
-        if (terminals != null) cmbCardReader.getItems().addAll(terminals);
+        if (terminals != null)
+            cmbCardReader.getItems().addAll(terminals);
         this.client = client;
 
     }
