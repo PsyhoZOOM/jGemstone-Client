@@ -10,10 +10,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Artikli;
 import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.Operaters;
+import net.yuvideo.jgemstone.client.classes.Magacin;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -55,8 +56,12 @@ public class MagacinMainController implements Initializable {
     public TableColumn<Artikli, Integer> cKolicina;
     public TableColumn<Artikli, String> cOpis;
     public Client client;
-    public Menu zaduziOpera;
+    public Menu zaduziMagacin;
     public MenuItem showArtInfo;
+    public Button bNovMagacin;
+    public Button bIzmenaMagacin;
+    public Button bIzbrisiMagacin;
+    public ComboBox<Magacin> cmbMagacin;
     SpinnerValueFactory.IntegerSpinnerValueFactory integerSpinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 1);
     private URL location;
     private ResourceBundle resources;
@@ -119,6 +124,20 @@ public class MagacinMainController implements Initializable {
         });
 
 
+        cmbMagacin.setConverter(new StringConverter<Magacin>() {
+            @Override
+            public String toString(Magacin object) {
+                return object.getNaziv();
+            }
+
+            @Override
+            public Magacin fromString(String string) {
+                Magacin magacin = cmbMagacin.getValue();
+                return magacin;
+            }
+        });
+
+
         //set spinner value factory min 0 max MAX_INTEGER_VALUE init value =1;
         spnKolicina.setValueFactory(integerSpinnerValueFactory);
 
@@ -128,6 +147,7 @@ public class MagacinMainController implements Initializable {
                 setValues();
             }
         });
+
 
     }
 
@@ -151,33 +171,34 @@ public class MagacinMainController implements Initializable {
         }
 
 
-        zaduziOpera.getItems().clear();
-        for (Operaters oper : getOpers()) {
+        zaduziMagacin.getItems().clear();
+        for (Magacin magacin : getMagacini()) {
             MenuItem mitem = new MenuItem();
-            mitem.setText(String.format("%s %s %d", oper.getIme(), oper.getUsername(), oper.getId()));
+            mitem.setText(magacin.getNaziv());
             mitem.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    if (tblArtikli.getSelectionModel().getSelectedItem() == null)
-                        return;
-                    zaduziOperaSaItemom(tblArtikli.getSelectionModel().getSelectedItem().getId(), oper.getId());
+                    if (tblArtikli.getSelectionModel().getSelectedItem() != null) {
+                        zaduziMagacinSaArtiklom(tblArtikli.getSelectionModel().getSelectedItem().getId(), magacin.getId());
+                    }
+
 
                 }
             });
-            zaduziOpera.getItems().add(mitem);
+            zaduziMagacin.getItems().add(mitem);
         }
 
 
+
     }
 
-    private void zaduziOperaSaItemom(int itemID, int operID) {
-        System.out.println(String.format("zaduzujem opera %s sa itemom %s", operID, itemID));
+    private void zaduziMagacinSaArtiklom(int itemID, int idMagacin) {
+        System.out.println(String.format("zaduzujem opera %s sa itemom %s", idMagacin, itemID));
     }
 
-    private ArrayList<Operaters> getOpers() {
-        Operaters opers = new Operaters();
-        opers.initData(client);
-        return opers.getOperaters();
+    private ArrayList<Magacin> getMagacini() {
+        Magacin magacin = new Magacin();
+        return magacin.getMagaciniArr(client);
 
     }
 
@@ -194,6 +215,17 @@ public class MagacinMainController implements Initializable {
 
         tNabavnaCena.setText("0.00");
 
+
+        updateMagacinCmb();
+
+
+    }
+
+    private void updateMagacinCmb() {
+        Magacin magacin = new Magacin();
+        ObservableList magacinObs = FXCollections.observableArrayList(magacin.getMagaciniArr(client));
+        cmbMagacin.setItems(magacinObs);
+        cmbMagacin.getSelectionModel().select(0);
     }
 
 
@@ -291,32 +323,9 @@ public class MagacinMainController implements Initializable {
     }
 
     private ArrayList<Artikli> getArtikli(JSONObject jsonObject) {
-        JSONObject artikliObj = new JSONObject();
-        ArrayList<Artikli> artikliArrayList = new ArrayList<>();
-        artikliObj = client.send_object(jsonObject);
-
-        for (int i = 0; i < artikliObj.length(); i++) {
-            Artikli artikli = new Artikli();
-            JSONObject object = artikliObj.getJSONObject(String.valueOf(i));
-            artikli.setId(object.getInt("id"));
-            artikli.setNaziv(object.getString("naziv"));
-            artikli.setModel(object.getString("model"));
-            artikli.setSerijski(object.getString("serijski"));
-            artikli.setPserijski(object.getString("pserijski"));
-            artikli.setMac(object.getString("mac"));
-            artikli.setNabavnaCena(object.getDouble("nabavnaCena"));
-            artikli.setDobavljac(object.getString("dobavljac"));
-            artikli.setKolicina(object.getInt("kolicina"));
-            artikli.setBrDok(object.getString("brDokumenta"));
-            artikli.setJmere(object.getString("jMere"));
-            artikli.setKolicina(object.getInt("kolicina"));
-            artikli.setOpis(object.getString("opis"));
-            artikli.setDatum(object.getString("datum"));
-            artikli.setOperName(object.getString("operName"));
-            artikliArrayList.add(artikli);
-        }
-        return artikliArrayList;
-
+        Artikli artikli = new Artikli();
+        artikli.initMagacin(client);
+        return artikli.getArtikliArrayList();
 
     }
 
@@ -340,4 +349,5 @@ public class MagacinMainController implements Initializable {
         if (artikal == null) return;
         System.out.println(artikal.toString());
     }
+
 }

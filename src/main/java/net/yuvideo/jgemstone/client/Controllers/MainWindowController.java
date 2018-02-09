@@ -376,6 +376,14 @@ public class MainWindowController implements Initializable {
         }
 
     }
+
+    public void MagacinShow(ActionEvent actionEvent) {
+        NewInterface addMagacinInt = new NewInterface("fxml/MagaciniPreview.fxml", "KREIRANJE MAGACINA", this.resource);
+        MagacinPreviewController magacinEditController = addMagacinInt.getLoader().getController();
+        magacinEditController.client = this.client;
+        magacinEditController.showData();
+        addMagacinInt.getStage().showAndWait();
+    }
 }
 
 

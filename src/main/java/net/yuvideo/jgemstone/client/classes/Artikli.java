@@ -1,6 +1,9 @@
 package net.yuvideo.jgemstone.client.classes;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by PsyhoZOOM@gmail.com on 1/30/18.
@@ -20,6 +23,57 @@ public class Artikli implements Serializable {
     String operName;
     String datum;
     String brDok;
+    int idMagacin;
+
+    ArrayList<Artikli> artikliArrayList;
+
+    public void initMagacin(Client client) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("action", "getAllArtikles");
+        jsonObject = client.send_object(jsonObject);
+        artikliArrayList = new ArrayList<>();
+
+        for (int i = 0; i < jsonObject.length(); i++) {
+            JSONObject artkal = (JSONObject) jsonObject.get(String.valueOf(i));
+            Artikli artikli = new Artikli();
+            artikli.setId(artkal.getInt("id"));
+            artikli.setNaziv(artkal.getString("naziv"));
+            artikli.setModel(artkal.getString("model"));
+            artikli.setSerijski(artkal.getString("serijski"));
+            artikli.setPserijski(artkal.getString("pserijski"));
+            artikli.setMac(artkal.getString("mac"));
+            artikli.setDobavljac(artkal.getString("dobavljac"));
+            artikli.setBrDok(artkal.getString("brDokumenta"));
+            artikli.setNabavnaCena(artkal.getDouble("nabavnaCena"));
+            artikli.setJmere(artkal.getString("jMere"));
+            artikli.setKolicina(artkal.getInt("kolicina"));
+            artikli.setOpis(artkal.getString("opis"));
+            artikli.setDatum(artkal.getString("datum"));
+            artikli.setOperName(artkal.getString("operName"));
+            artikli.setIdMagacin(artkal.getInt("idMagacin"));
+            artikliArrayList.add(artikli);
+        }
+    }
+
+    public ArrayList<Artikli> getArtikliArrayList() {
+        return artikliArrayList;
+    }
+
+    public Artikli getArtikal(int id) {
+        for (Artikli art : getArtikliArrayList()) {
+            if (art.getId() == id)
+                return art;
+        }
+        return null;
+    }
+
+    public int getIdMagacin() {
+        return idMagacin;
+    }
+
+    public void setIdMagacin(int idMagacin) {
+        this.idMagacin = idMagacin;
+    }
 
     public String getPserijski() {
         return pserijski;

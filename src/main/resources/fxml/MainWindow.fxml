@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorMainWindow" stylesheets="@../css/Main.css"
-            xmlns="http://javafx.com/javafx/8.0.121"
+            xmlns="http://javafx.com/javafx/8.0.141"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.MainWindowController">
     <children>
         <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -78,6 +78,13 @@
                         <MenuItem fx:id="mImportCSV" mnemonicParsing="false" onAction="#importCSV" text="Import CSV Fajl" />
                         <MenuItem fx:id="mPregledCSV" mnemonicParsing="false" onAction="#showPregledCSV" text="Pregled CSV-a" />
                         <MenuItem fx:id="Obracun" mnemonicParsing="false" onAction="#showObracun" text="Obračun" />
+                    </items>
+                </Menu>
+                <Menu fx:id="mMagacin" mnemonicParsing="false" text="Magacini">
+                    <items>
+                        <MenuItem fx:id="mMagacinIzmene" mnemonicParsing="false" onAction="#MagacinShow"
+                                  text="Magacini"/>
+                        <MenuItem fx:id="mArtikliShow" mnemonicParsing="false" onAction="#showMagacin" text="Artikli"/>
                     </items>
                 </Menu>
                 <Menu fx:id="help" mnemonicParsing="false" text="Help">
