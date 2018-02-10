@@ -5,16 +5,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
-import net.yuvideo.jgemstone.client.classes.AlertUser;
-import net.yuvideo.jgemstone.client.classes.Artikli;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.Magacin;
+import net.yuvideo.jgemstone.client.classes.*;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -62,6 +58,7 @@ public class MagacinMainController implements Initializable {
     public Button bIzmenaMagacin;
     public Button bIzbrisiMagacin;
     public ComboBox<Magacin> cmbMagacin;
+    public MenuItem zaduziKorisnik;
     SpinnerValueFactory.IntegerSpinnerValueFactory integerSpinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 1);
     private URL location;
     private ResourceBundle resources;
@@ -171,23 +168,6 @@ public class MagacinMainController implements Initializable {
         }
 
 
-        zaduziMagacin.getItems().clear();
-        for (Magacin magacin : getMagacini()) {
-            MenuItem mitem = new MenuItem();
-            mitem.setText(magacin.getNaziv());
-            mitem.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    if (tblArtikli.getSelectionModel().getSelectedItem() != null) {
-                        zaduziMagacinSaArtiklom(tblArtikli.getSelectionModel().getSelectedItem().getId(), magacin.getId());
-                    }
-
-
-                }
-            });
-            zaduziMagacin.getItems().add(mitem);
-        }
-
 
 
     }
@@ -210,11 +190,9 @@ public class MagacinMainController implements Initializable {
         cmbJMere.getItems().add(0, "");
         cmbJMere.getItems().add(1, "metri.");
         cmbJMere.getItems().add(2, "kom.");
-
         cmbJMere.getSelectionModel().select(0);
 
         tNabavnaCena.setText("0.00");
-
 
         updateMagacinCmb();
 
@@ -223,8 +201,14 @@ public class MagacinMainController implements Initializable {
 
     private void updateMagacinCmb() {
         Magacin magacin = new Magacin();
+        Magacin magacinALL = new Magacin();
+        magacinALL.setNaziv("SVE");
+        magacin.setId(0);
         ObservableList magacinObs = FXCollections.observableArrayList(magacin.getMagaciniArr(client));
-        cmbMagacin.setItems(magacinObs);
+        cmbMagacin.getItems().clear();
+
+        cmbMagacin.getItems().add(magacinALL);
+        cmbMagacin.getItems().addAll(magacinObs);
         cmbMagacin.getSelectionModel().select(0);
     }
 
@@ -266,6 +250,7 @@ public class MagacinMainController implements Initializable {
         jsonObject.put("jMere", cmbJMere.getEditor().getText().toString());
         jsonObject.put("kolicina", Integer.valueOf(spnKolicina.getEditor().getText()));
         jsonObject.put("opis", tOpis.getText());
+        jsonObject.put("idMagacin", cmbMagacin.getValue().getId());
 
 
         if (addArtikl || editArtikl) {
@@ -324,7 +309,11 @@ public class MagacinMainController implements Initializable {
 
     private ArrayList<Artikli> getArtikli(JSONObject jsonObject) {
         Artikli artikli = new Artikli();
-        artikli.initMagacin(client);
+        if (cmbMagacin.getValue().getId() == 0) {
+            artikli.getAllArtikle(client);
+        } else {
+            artikli.searchArtikal(jsonObject, client);
+        }
         return artikli.getArtikliArrayList();
 
     }
@@ -350,4 +339,19 @@ public class MagacinMainController implements Initializable {
         System.out.println(artikal.toString());
     }
 
+
+    public void zaduziArtikl(ActionEvent actionEvent) {
+        if (tblArtikli.getSelectionModel().getSelectedIndex() == -1)
+            return;
+
+        Artikli artikli = tblArtikli.getSelectionModel().getSelectedItem();
+
+        NewInterface artikliZaduzivanje = new NewInterface("fxml/ArtikliZaduzivanje.fxml", "ZADUŽIVANJE ARTIKLA", resources);
+        ArtikliZaduzivanjeController artikliZaduzivanjeController = artikliZaduzivanje.getLoader().getController();
+        artikliZaduzivanjeController.client = this.client;
+        artikliZaduzivanjeController.artikal = artikli;
+        artikliZaduzivanjeController.setData();
+        artikliZaduzivanje.getStage().showAndWait();
+
+    }
 }

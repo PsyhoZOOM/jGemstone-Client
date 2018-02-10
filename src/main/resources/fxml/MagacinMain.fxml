@@ -20,7 +20,6 @@
                                            prefWidth="100.0"/>
                         <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0"
                                            prefWidth="100.0"/>
-                        <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="NEVER"/>
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints vgrow="NEVER"/>
@@ -56,8 +55,6 @@
                         <Label text="J.Mere:" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
                         <Label text="Kolicina" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
                         <Label text="Opis:" GridPane.columnIndex="4"/>
-                        <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="6"
-                                   GridPane.rowSpan="2147483647"/>
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -67,8 +64,19 @@
         </TitledPane>
         <HBox alignment="CENTER_LEFT">
             <children>
-                <Button fx:id="bTrazi" mnemonicParsing="false" onAction="#traziArtikal" prefWidth="80.0" text="Trazi"/>
+                <Button fx:id="bTrazi" minWidth="80.0" mnemonicParsing="false" onAction="#traziArtikal" prefWidth="80.0"
+                        text="Trazi"/>
                 <Button fx:id="bOcisti" minWidth="80.0" mnemonicParsing="false" onAction="#clearText" text="Očisti"/>
+                <Pane prefWidth="200.0" HBox.hgrow="NEVER"/>
+                <Button fx:id="bZaduzi" mnemonicParsing="false" onAction="#zaduziArtikl" text="Zaduživanje"/>
+                <Button mnemonicParsing="false" prefWidth="70.0" text="Info"/>
+                <Pane prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+                <Button fx:id="bNov" mnemonicParsing="false" onAction="#addArtikal" prefHeight="28.0" prefWidth="80.0"
+                        text="Nov"/>
+                <Button fx:id="bIzmeni" mnemonicParsing="false" onAction="#IzmeniArtikal" prefWidth="80.0"
+                        text="Izmena"/>
+                <Button fx:id="bIzbrisi" mnemonicParsing="false" onAction="#izbrisiArtikal" prefWidth="80.0"
+                        text="Izbriši"/>
             </children>
         </HBox>
         <TableView fx:id="tblArtikli" editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
@@ -92,23 +100,13 @@
             <contextMenu>
                 <ContextMenu>
                     <items>
-                        <Menu fx:id="zaduziMagacin" mnemonicParsing="false" text="Zaduzi"/>
+                        <MenuItem fx:id="zaduzi" mnemonicParsing="false" onAction="#zaduziArtikl" text="Zaduživanje"/>
                         <MenuItem fx:id="showArtInfo" mnemonicParsing="false" onAction="#showArtInformation"
                                   text="Info"/>
                     </items>
                 </ContextMenu>
             </contextMenu>
         </TableView>
-        <HBox alignment="CENTER_RIGHT" VBox.vgrow="NEVER">
-            <children>
-                <Button fx:id="bNov" mnemonicParsing="false" onAction="#addArtikal" prefHeight="28.0" prefWidth="80.0"
-                        text="Nov"/>
-                <Button fx:id="bIzmeni" mnemonicParsing="false" onAction="#IzmeniArtikal" prefWidth="80.0"
-                        text="Izmena"/>
-                <Button fx:id="bIzbrisi" mnemonicParsing="false" onAction="#izbrisiArtikal" prefWidth="80.0"
-                        text="Izbriši"/>
-            </children>
-        </HBox>
     </children>
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

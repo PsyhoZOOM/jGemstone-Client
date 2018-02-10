@@ -27,10 +27,7 @@ public class Artikli implements Serializable {
 
     ArrayList<Artikli> artikliArrayList;
 
-    public void initMagacin(Client client) {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("action", "getAllArtikles");
-        jsonObject = client.send_object(jsonObject);
+    private void setArtikle(JSONObject jsonObject) {
         artikliArrayList = new ArrayList<>();
 
         for (int i = 0; i < jsonObject.length(); i++) {
@@ -55,6 +52,15 @@ public class Artikli implements Serializable {
         }
     }
 
+    public void getAllArtikle(Client client) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("action", "getAllArtikles");
+        jsonObject = client.send_object(jsonObject);
+        this.setArtikle(jsonObject);
+
+
+    }
+
     public ArrayList<Artikli> getArtikliArrayList() {
         return artikliArrayList;
     }
@@ -65,6 +71,14 @@ public class Artikli implements Serializable {
                 return art;
         }
         return null;
+    }
+
+    public void searchArtikal(JSONObject obj, Client client) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("action", "searchArtikal");
+        jsonObject = client.send_object(obj);
+        this.setArtikle(jsonObject);
+
     }
 
     public int getIdMagacin() {

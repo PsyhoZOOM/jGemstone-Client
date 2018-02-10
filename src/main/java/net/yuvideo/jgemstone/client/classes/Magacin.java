@@ -70,4 +70,16 @@ public class Magacin implements Serializable {
         }
         return null;
     }
+
+    public ArrayList<Magacin> getMagacin(String naziv, Client client) {
+        initMagacini(client);
+        ArrayList<Magacin> magacinArrayList = new ArrayList<>();
+        for (Magacin magacin : this.magaciniArr) {
+            if (magacin.getNaziv().contains(naziv)) {
+
+                magacinArrayList.add(magacin);
+            }
+        }
+        return magacinArrayList;
+    }
 }

@@ -1,6 +1,9 @@
 package net.yuvideo.jgemstone.client.classes;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,6 +44,75 @@ public class Users implements Serializable {
     String tekuciRacuna;
     String fax;
     String adresaFirme;
+
+    ArrayList<Users> usersArrayList;
+
+    public ArrayList<Users> getUsers(Client client) {
+        usersArrayList = new ArrayList<>();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("action", "get_users");
+
+        jsonObject = client.send_object(jsonObject);
+
+        for (int i = 0; i < jsonObject.length(); i++) {
+            usersArrayList.add(this.getUserData(jsonObject.getJSONObject(String.valueOf(i))));
+
+        }
+
+        return usersArrayList;
+    }
+
+    public ArrayList<Users> getUsers(Client client, String searchCrit) {
+        usersArrayList = new ArrayList<>();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("action", "get_users");
+        jsonObject.put("username", searchCrit);
+
+        jsonObject = client.send_object(jsonObject);
+
+        for (int i = 0; i < jsonObject.length(); i++) {
+            usersArrayList.add(this.getUserData(jsonObject.getJSONObject(String.valueOf(i))));
+
+        }
+
+        return usersArrayList;
+    }
+
+    private Users getUserData(JSONObject object) {
+        Users user = new Users();
+        user.setId(object.getInt("id"));
+        user.setIme(object.getString("fullName"));
+        user.setMesto(object.getString("mesto"));
+        user.setAdresa(object.getString("adresa"));
+        user.setAdresaRacuna(object.getString("adresaRacuna"));
+        user.setMestoRacuna(object.getString("mestoRacuna"));
+        user.setBr_lk(object.getString("brLk"));
+        user.setDatum_rodjenja(object.getString("datumRodjenja"));
+        user.setFiksni(object.getString("telFixni"));
+        user.setMobilni(object.getString("telMobilni"));
+        user.setJMBG(object.getString("JMBG"));
+        user.setKomentar(object.getString("komentar"));
+        user.setPostanski_broj(object.getString("postBr"));
+        user.setJbroj(object.getString("jBroj"));
+        user.setjAdresa(object.getString("jAdresa"));
+        user.setjAdresaBroj(object.getString("jAdresaBroj"));
+        user.setjMesto(object.getString("jMesto"));
+        user.setAdresaUsluge(object.getString("adresaUsluge"));
+        user.setMestoUsluge(object.getString("mestoUsluge"));
+        user.setDug(object.getDouble("dug"));
+        user.setFirma(object.getBoolean("firma"));
+        user.setNazivFirme(object.getString("nazivFirme"));
+        user.setKontaktOsoba(object.getString("kontaktOsoba"));
+        user.setTelKontaktOsobe(object.getString("kontaktOsobaTel"));
+        user.setKodBanke(object.getString("kodBanke"));
+        user.setPIB(object.getString("PIB"));
+        user.setMaticniBroj(object.getString("maticniBroj"));
+        user.setTekuciRacuna(object.getString("tekuciRacun"));
+        user.setFax(object.getString("fax"));
+        user.setAdresaFirme(object.getString("adresaFirme"));
+
+        return user;
+    }
 
     public String getAdresaRacuna() {
         return adresaRacuna;
