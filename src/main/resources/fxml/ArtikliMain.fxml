@@ -6,22 +6,25 @@
 <VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" spacing="5.0" stylesheets="@../css/Main.css"
       xmlns="http://javafx.com/javafx/8.0.141"
-      fx:controller="net.yuvideo.jgemstone.client.Controllers.MagacinMainController">
+      fx:controller="net.yuvideo.jgemstone.client.Controllers.ArtikliMainController">
     <children>
         <TitledPane collapsible="false" prefHeight="200.0" prefWidth="200.0" text="Pretraga">
             <content>
                 <GridPane hgap="5.0" vgap="5.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="NEVER"/>
+                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
+                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
+                        <ColumnConstraints halignment="CENTER" hgrow="NEVER"/>
+                        <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
                         <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="NEVER"/>
                         <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="NEVER"/>
                         <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="NEVER"/>
-                        <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="NEVER" minWidth="10.0"
-                                           prefWidth="100.0"/>
+                        <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="NEVER"/>
                         <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0"
                                            prefWidth="100.0"/>
                     </columnConstraints>
                     <rowConstraints>
+                        <RowConstraints/>
                         <RowConstraints vgrow="NEVER"/>
                         <RowConstraints vgrow="NEVER"/>
                         <RowConstraints vgrow="NEVER"/>
@@ -30,31 +33,33 @@
                         <RowConstraints vgrow="NEVER"/>
                     </rowConstraints>
                     <children>
-                        <Label text="Magacin:"/>
-                        <ComboBox fx:id="cmbMagacin" prefWidth="150.0" GridPane.columnIndex="1"/>
-                        <Label text="Naziv:" GridPane.rowIndex="1"/>
-                        <TextField fx:id="tNaziv" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                        <Label text="Model:" GridPane.rowIndex="2"/>
-                        <TextField fx:id="tModel" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                        <TextField fx:id="tSerijski" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                        <TextField fx:id="tPserijski" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                        <TextField fx:id="tMAC" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                        <TextField fx:id="tDobavljac" GridPane.columnIndex="3"/>
-                        <TextField fx:id="tBrDok" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
-                        <TextField fx:id="tNabavnaCena" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
-                        <ComboBox fx:id="cmbJMere" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
-                        <Spinner fx:id="spnKolicina" editable="true" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
-                        <TextArea fx:id="tOpis" prefHeight="100.0" prefWidth="356.0" GridPane.columnIndex="5"
-                                  GridPane.rowSpan="2147483647"/>
-                        <Label text="Serijski:" GridPane.rowIndex="3"/>
-                        <Label text="PSerijski:" GridPane.rowIndex="4"/>
-                        <Label text="MAC:" GridPane.rowIndex="5"/>
-                        <Label text="Dobavljač:" GridPane.columnIndex="2"/>
-                        <Label text="Br. Dokumenta:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-                        <Label text="Nabavna Cena:" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-                        <Label text="J.Mere:" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
-                        <Label text="Kolicina" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
-                        <Label text="Opis:" GridPane.columnIndex="4"/>
+                        <Label text="Magacin:" GridPane.rowIndex="1"/>
+                        <ComboBox fx:id="cmbMagacin" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <TextField fx:id="tNaziv" GridPane.columnIndex="4" GridPane.rowIndex="1"/>
+                        <TextField fx:id="tProizvodjac" GridPane.columnIndex="4" GridPane.rowIndex="2"/>
+                        <TextField fx:id="tModel" GridPane.columnIndex="4" GridPane.rowIndex="3"/>
+                        <TextField fx:id="tSerijski" GridPane.columnIndex="4" GridPane.rowIndex="4"/>
+                        <TextField fx:id="tMAC" GridPane.columnIndex="4" GridPane.rowIndex="5"/>
+                        <TextField fx:id="tPON" GridPane.columnIndex="4" GridPane.rowIndex="6"/>
+                        <TextField fx:id="tDobavljac" GridPane.columnIndex="6" GridPane.rowIndex="1"/>
+                        <TextField fx:id="tBrDok" GridPane.columnIndex="6" GridPane.rowIndex="2"/>
+                        <TextField fx:id="tNabavnaCena" GridPane.columnIndex="6" GridPane.rowIndex="3"/>
+                        <ComboBox fx:id="cmbJMere" prefWidth="150.0" GridPane.columnIndex="6" GridPane.rowIndex="4"/>
+                        <Spinner fx:id="spnKolicina" editable="true" GridPane.columnIndex="6" GridPane.rowIndex="5"/>
+                        <TextArea fx:id="tOpis" prefHeight="100.0" prefWidth="356.0" GridPane.columnIndex="8"
+                                  GridPane.rowIndex="1" GridPane.rowSpan="2147483647"/>
+                        <Label text="Naziv:" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                        <Label text="Model:" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+                        <Label text="Serijski:" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
+                        <Label text="PON" GridPane.columnIndex="3" GridPane.rowIndex="6"/>
+                        <Label text="MAC:" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
+                        <Label text="Dobavljač:" GridPane.columnIndex="5" GridPane.rowIndex="1"/>
+                        <Label text="Br. Dokumenta:" GridPane.columnIndex="5" GridPane.rowIndex="2"/>
+                        <Label text="J.Mere:" GridPane.columnIndex="5" GridPane.rowIndex="4"/>
+                        <Label text="Kolicina" GridPane.columnIndex="5" GridPane.rowIndex="5"/>
+                        <Label text="Opis:" GridPane.columnIndex="7" GridPane.rowIndex="1"/>
+                        <Label text="Prozivodjač:" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+                        <Label text="Nabavna Cena:" GridPane.columnIndex="5" GridPane.rowIndex="3"/>
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -69,10 +74,9 @@
                 <Button fx:id="bOcisti" minWidth="80.0" mnemonicParsing="false" onAction="#clearText" text="Očisti"/>
                 <Pane prefWidth="200.0" HBox.hgrow="NEVER"/>
                 <Button fx:id="bZaduzi" mnemonicParsing="false" onAction="#zaduziArtikl" text="Zaduživanje"/>
-                <Button mnemonicParsing="false" prefWidth="70.0" text="Info"/>
+                <Button fx:id="bInfo" mnemonicParsing="false" onAction="#showInfoArtikl" prefWidth="70.0" text="Info"/>
                 <Pane prefWidth="200.0" HBox.hgrow="ALWAYS"/>
-                <Button fx:id="bNov" mnemonicParsing="false" onAction="#addArtikal" prefHeight="28.0" prefWidth="80.0"
-                        text="Nov"/>
+                <Button fx:id="bNov" mnemonicParsing="false" onAction="#addArtikal" prefWidth="80.0" text="Nov"/>
                 <Button fx:id="bIzmeni" mnemonicParsing="false" onAction="#IzmeniArtikal" prefWidth="80.0"
                         text="Izmena"/>
                 <Button fx:id="bIzbrisi" mnemonicParsing="false" onAction="#izbrisiArtikal" prefWidth="80.0"
@@ -81,14 +85,16 @@
         </HBox>
         <TableView fx:id="tblArtikli" editable="true" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
             <columns>
+                <TableColumn fx:id="cMagacin" prefWidth="75.0" text="Magacin"/>
                 <TableColumn fx:id="cNaziv" prefWidth="75.0" text="Naziv"/>
+                <TableColumn fx:id="cProzivodjac" prefWidth="75.0" text="Proizvodjac"/>
                 <TableColumn fx:id="cModel" prefWidth="75.0" text="Model"/>
                 <TableColumn fx:id="cSerijski" prefWidth="75.0" text="Serijski"/>
                 <TableColumn fx:id="cMac" prefWidth="75.0" text="MAC"/>
-                <TableColumn fx:id="cPSerijski" prefWidth="75.0" text="PSerijski"/>
+                <TableColumn fx:id="cPON" prefWidth="75.0" text="PON"/>
                 <TableColumn fx:id="cDobavljac" prefWidth="75.0" text="Dobavljac"/>
-                <TableColumn fx:id="cBrDokumenta" prefWidth="75.0" text="Br. Dokumenta"/>
-                <TableColumn fx:id="cNabavnaCena" prefWidth="75.0" text="Nabavna cena"/>
+                <TableColumn fx:id="cBrDokumenta" prefWidth="75.0" text="Br. Dok."/>
+                <TableColumn fx:id="cNabavnaCena" prefWidth="75.0" text="Nabavna &#10;cena"/>
                 <TableColumn fx:id="cDatum" prefWidth="75.0" text="Datum "/>
                 <TableColumn fx:id="cJMere" prefWidth="75.0" text="J.Mere"/>
                 <TableColumn fx:id="cKolicina" prefWidth="75.0" text="Kolicina"/>

@@ -2,6 +2,7 @@ package net.yuvideo.jgemstone.client.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
@@ -20,6 +21,7 @@ public class MagacinEditController implements Initializable {
     public TextArea taOpis;
     public boolean edit = false;
     public Client client;
+    public CheckBox chkGlavni;
     private URL location;
     private ResourceBundle resource;
     private int magacinID;
@@ -34,6 +36,7 @@ public class MagacinEditController implements Initializable {
     public void setData(Magacin magacin) {
         tNaziv.setText(magacin.getNaziv());
         taOpis.setText(magacin.getOpis());
+        chkGlavni.setSelected(magacin.isGlavniMagacin());
         this.magacinID = magacin.getId();
 
 
@@ -51,6 +54,7 @@ public class MagacinEditController implements Initializable {
         obj.put("id", magacinID);
         obj.put("naziv", tNaziv.getText());
         obj.put("opis", taOpis.getText());
+        obj.put("glavniMagacin", chkGlavni.isSelected());
 
         obj = client.send_object(obj);
         if (obj.has("ERROR")) {

@@ -16,17 +16,17 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
  * Created by PsyhoZOOM@gmail.com on 1/30/18.
  */
-public class MagacinMainController implements Initializable {
+public class ArtikliMainController implements Initializable {
     private final DecimalFormat df = new DecimalFormat("#.##");
     public TextField tNaziv;
     public TextField tModel;
     public TextField tSerijski;
-    public TextField tPserijski;
     public TextField tMAC;
     public TextField tDobavljac;
     public TextField tBrDok;
@@ -39,11 +39,13 @@ public class MagacinMainController implements Initializable {
     public ComboBox cmbJMere;
     public Spinner spnKolicina;
     public TableView<Artikli> tblArtikli;
+    public TableColumn<Artikli, String> cMagacin;
     public TableColumn<Artikli, String> cNaziv;
+    public TableColumn<Artikli, String> cProzivodjac;
     public TableColumn<Artikli, String> cModel;
     public TableColumn<Artikli, String> cSerijski;
     public TableColumn<Artikli, String> cMac;
-    public TableColumn<Artikli, String> cPSerijski;
+    public TableColumn<Artikli, String> cPON;
     public TableColumn<Artikli, String> cDobavljac;
     public TableColumn<Artikli, String> cBrDokumenta;
     public TableColumn<Artikli, Double> cNabavnaCena;
@@ -59,6 +61,8 @@ public class MagacinMainController implements Initializable {
     public Button bIzbrisiMagacin;
     public ComboBox<Magacin> cmbMagacin;
     public MenuItem zaduziKorisnik;
+    public TextField tProizvodjac;
+    public TextField tPON;
     SpinnerValueFactory.IntegerSpinnerValueFactory integerSpinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 1);
     private URL location;
     private ResourceBundle resources;
@@ -73,11 +77,13 @@ public class MagacinMainController implements Initializable {
         this.resources = resources;
 
 
+        cMagacin.setCellValueFactory(new PropertyValueFactory<>("nazivMagacina"));
         cNaziv.setCellValueFactory(new PropertyValueFactory<>("naziv"));
         cModel.setCellValueFactory(new PropertyValueFactory<>("model"));
+        cProzivodjac.setCellValueFactory(new PropertyValueFactory<>("proizvodjac"));
         cSerijski.setCellValueFactory(new PropertyValueFactory<>("serijski"));
         cMac.setCellValueFactory(new PropertyValueFactory<>("mac"));
-        cPSerijski.setCellValueFactory(new PropertyValueFactory<>("pserijski"));
+        cPON.setCellValueFactory(new PropertyValueFactory<>("pon"));
         cDobavljac.setCellValueFactory(new PropertyValueFactory<>("dobavljac"));
         cBrDokumenta.setCellValueFactory(new PropertyValueFactory<>("brDok"));
         cNabavnaCena.setCellValueFactory(new PropertyValueFactory<>("nabavnaCena"));
@@ -145,16 +151,16 @@ public class MagacinMainController implements Initializable {
             }
         });
 
-
     }
 
     private void setValues() {
         Artikli artikli = tblArtikli.getSelectionModel().getSelectedItem();
         if (artikli == null) return;
         tNaziv.setText(artikli.getNaziv());
+        tProizvodjac.setText(artikli.getProizvodjac());
         tModel.setText(artikli.getModel());
         tSerijski.setText(artikli.getSerijski());
-        tPserijski.setText(artikli.getPserijski());
+        tPON.setText(artikli.getPon());
         tMAC.setText(artikli.getMac());
         tDobavljac.setText(artikli.getDobavljac());
         tBrDok.setText(artikli.getBrDok());
@@ -168,6 +174,8 @@ public class MagacinMainController implements Initializable {
         }
 
 
+        cmbMagacin.getSelectionModel().select(getMagacin(artikli.getIdMagacin()));
+
 
 
     }
@@ -179,6 +187,17 @@ public class MagacinMainController implements Initializable {
     private ArrayList<Magacin> getMagacini() {
         Magacin magacin = new Magacin();
         return magacin.getMagaciniArr(client);
+
+    }
+
+    private Magacin getMagacin(int id) {
+        Magacin mag = new Magacin();
+        for (Magacin magacin : mag.getMagaciniArr(client)) {
+            if (magacin.getId() == id)
+                return magacin;
+        }
+
+        return null;
 
     }
 
@@ -204,7 +223,7 @@ public class MagacinMainController implements Initializable {
         Magacin magacinALL = new Magacin();
         magacinALL.setNaziv("SVE");
         magacin.setId(0);
-        ObservableList magacinObs = FXCollections.observableArrayList(magacin.getMagaciniArr(client));
+        ObservableList magacinObs = FXCollections.observableArrayList(getMagacini());
         cmbMagacin.getItems().clear();
 
         cmbMagacin.getItems().add(magacinALL);
@@ -214,6 +233,10 @@ public class MagacinMainController implements Initializable {
 
 
     public void addArtikal(ActionEvent actionEvent) {
+        if (cmbMagacin.getValue().getId() == 0) {
+            AlertUser.error("GRESKA", "Morate izabrati magacin kome pripada Artikal! jbg..");
+            return;
+        }
         addArtikl = true;
         artiklFunc();
     }
@@ -241,13 +264,14 @@ public class MagacinMainController implements Initializable {
         }
         jsonObject.put("naziv", tNaziv.getText());
         jsonObject.put("model", tModel.getText());
+        jsonObject.put("proizvodjac", tProizvodjac.getText());
         jsonObject.put("serijski", tSerijski.getText());
-        jsonObject.put("pserijski", tPserijski.getText());
+        jsonObject.put("pon", tPON.getText());
         jsonObject.put("mac", tMAC.getText());
         jsonObject.put("dobavljac", tDobavljac.getText());
         jsonObject.put("brDokumenta", tBrDok.getText());
         jsonObject.put("nabavnaCena", tNabavnaCena.getText());
-        jsonObject.put("jMere", cmbJMere.getEditor().getText().toString());
+        jsonObject.put("jMere", cmbJMere.getValue().toString());
         jsonObject.put("kolicina", Integer.valueOf(spnKolicina.getEditor().getText()));
         jsonObject.put("opis", tOpis.getText());
         jsonObject.put("idMagacin", cmbMagacin.getValue().getId());
@@ -290,6 +314,12 @@ public class MagacinMainController implements Initializable {
             return;
         }
 
+        Optional<ButtonType> upozorenje = AlertUser.yesNo("UPOZORENJE", String.format("Da li ste sigurni da zelite da izbrisete Artikal %s",
+                tblArtikli.getSelectionModel().getSelectedItem().getNaziv()));
+
+        if (AlertUser.NE == upozorenje.get())
+            return;
+
         int id = tblArtikli.getSelectionModel().getSelectedItem().getId();
         jsonObject.put("id", id);
         jsonObject = client.send_object(jsonObject);
@@ -297,7 +327,8 @@ public class MagacinMainController implements Initializable {
         if (jsonObject.has("ERROR")) {
             AlertUser.error("GRESKA", jsonObject.getString("ERROR"));
         } else {
-            AlertUser.info("ARTIKAL JE IZBRISA", String.format("Artikal ID:%d je obrisan", id));
+            AlertUser.info("ARTIKAL JE IZBRISAN", String.format("Artikal %s je obrisan",
+                    tblArtikli.getSelectionModel().getSelectedItem().getNaziv()));
         }
     }
 
@@ -320,13 +351,14 @@ public class MagacinMainController implements Initializable {
 
     public void clearText(ActionEvent actionEvent) {
         tNaziv.clear();
+        tProizvodjac.clear();
         tModel.clear();
         tSerijski.clear();
-        tPserijski.clear();
+        tPON.clear();
         tMAC.clear();
         tDobavljac.clear();
         tBrDok.clear();
-        tNabavnaCena.clear();
+        tNabavnaCena.setText("0");
         spnKolicina.getEditor().setText("0");
         cmbJMere.getSelectionModel().select(0);
         tOpis.clear();
@@ -343,6 +375,8 @@ public class MagacinMainController implements Initializable {
     public void zaduziArtikl(ActionEvent actionEvent) {
         if (tblArtikli.getSelectionModel().getSelectedIndex() == -1)
             return;
+        if (cmbMagacin.getValue().getId() <= 0)
+            return;
 
         Artikli artikli = tblArtikli.getSelectionModel().getSelectedItem();
 
@@ -350,8 +384,23 @@ public class MagacinMainController implements Initializable {
         ArtikliZaduzivanjeController artikliZaduzivanjeController = artikliZaduzivanje.getLoader().getController();
         artikliZaduzivanjeController.client = this.client;
         artikliZaduzivanjeController.artikal = artikli;
+        artikliZaduzivanjeController.artikal.setIdMagacin(tblArtikli.getSelectionModel().getSelectedItem().getIdMagacin());
         artikliZaduzivanjeController.setData();
         artikliZaduzivanje.getStage().showAndWait();
+
+    }
+
+    public void showInfoArtikl(ActionEvent actionEvent) {
+        int artID = tblArtikli.getSelectionModel().getSelectedItem().getId();
+        int magId = tblArtikli.getSelectionModel().getSelectedItem().getIdMagacin();
+        NewInterface artInfoInterface = new NewInterface("fxml/ArtikliTracking.fxml", "INFO ARTIKLA", resources);
+        ArtikliTrackingController artikliTrackingController = artInfoInterface.getLoader().getController();
+        artikliTrackingController.client = this.client;
+        artikliTrackingController.artID = artID;
+        artikliTrackingController.magID = magId;
+        artikliTrackingController.setData();
+        artInfoInterface.getStage().showAndWait();
+        ;
 
     }
 }

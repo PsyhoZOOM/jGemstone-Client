@@ -12,6 +12,7 @@ public class Magacin implements Serializable {
     int id;
     String naziv;
     String opis;
+    boolean glavniMagacin;
 
     ArrayList<Magacin> magaciniArr = new ArrayList<>();
 
@@ -39,6 +40,13 @@ public class Magacin implements Serializable {
         this.opis = opis;
     }
 
+    public boolean isGlavniMagacin() {
+        return glavniMagacin;
+    }
+
+    public void setGlavniMagacin(boolean glavniMagacin) {
+        this.glavniMagacin = glavniMagacin;
+    }
 
     private void initMagacini(Client client) {
         JSONObject jsonObject = new JSONObject();
@@ -52,6 +60,7 @@ public class Magacin implements Serializable {
             magacin.setId(magacinObj.getInt("id"));
             magacin.setNaziv(magacinObj.getString("naziv"));
             magacin.setOpis(magacinObj.getString("opis"));
+            magacin.setGlavniMagacin(magacinObj.getBoolean("glavniMagacin"));
             magaciniArr.add(magacin);
         }
     }

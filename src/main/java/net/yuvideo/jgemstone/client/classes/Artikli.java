@@ -12,8 +12,9 @@ public class Artikli implements Serializable {
     int id;
     String naziv;
     String model;
+    String proizvodjac;
     String serijski;
-    String pserijski;
+    String pon;
     String mac;
     String dobavljac;
     Double nabavnaCena;
@@ -23,21 +24,27 @@ public class Artikli implements Serializable {
     String operName;
     String datum;
     String brDok;
+    String nazivMagacina;
     int idMagacin;
+
 
     ArrayList<Artikli> artikliArrayList;
 
+    ArrayList<Magacin> magacinArrayList;
+
     private void setArtikle(JSONObject jsonObject) {
         artikliArrayList = new ArrayList<>();
+
 
         for (int i = 0; i < jsonObject.length(); i++) {
             JSONObject artkal = (JSONObject) jsonObject.get(String.valueOf(i));
             Artikli artikli = new Artikli();
             artikli.setId(artkal.getInt("id"));
             artikli.setNaziv(artkal.getString("naziv"));
+            artikli.setProizvodjac(artkal.getString("proizvodjac"));
             artikli.setModel(artkal.getString("model"));
             artikli.setSerijski(artkal.getString("serijski"));
-            artikli.setPserijski(artkal.getString("pserijski"));
+            artikli.setPon(artkal.getString("pon"));
             artikli.setMac(artkal.getString("mac"));
             artikli.setDobavljac(artkal.getString("dobavljac"));
             artikli.setBrDok(artkal.getString("brDokumenta"));
@@ -47,12 +54,27 @@ public class Artikli implements Serializable {
             artikli.setOpis(artkal.getString("opis"));
             artikli.setDatum(artkal.getString("datum"));
             artikli.setOperName(artkal.getString("operName"));
-            artikli.setIdMagacin(artkal.getInt("idMagacin"));
+            if (artkal.has("idMagacin"))
+                artikli.setIdMagacin(artkal.getInt("idMagacin"));
+            artikli.setNazivMagacina(getImeMagacina(artkal.getInt("idMagacin")));
             artikliArrayList.add(artikli);
         }
     }
 
+    private String getImeMagacina(int idMagacin) {
+        for (Magacin magacin : this.magacinArrayList) {
+            if (magacin.getId() == idMagacin)
+                return magacin.getNaziv();
+        }
+        return "";
+    }
+
+
+
     public void getAllArtikle(Client client) {
+        Magacin magacin = new Magacin();
+        this.magacinArrayList = magacin.getMagaciniArr(client);
+
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("action", "getAllArtikles");
         jsonObject = client.send_object(jsonObject);
@@ -60,6 +82,7 @@ public class Artikli implements Serializable {
 
 
     }
+
 
     public ArrayList<Artikli> getArtikliArrayList() {
         return artikliArrayList;
@@ -74,11 +97,23 @@ public class Artikli implements Serializable {
     }
 
     public void searchArtikal(JSONObject obj, Client client) {
+        Magacin magacin = new Magacin();
+        this.magacinArrayList = magacin.getMagaciniArr(client);
+
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("action", "searchArtikal");
         jsonObject = client.send_object(obj);
         this.setArtikle(jsonObject);
 
+
+    }
+
+    public String getNazivMagacina() {
+        return nazivMagacina;
+    }
+
+    public void setNazivMagacina(String nazivMagacina) {
+        this.nazivMagacina = nazivMagacina;
     }
 
     public int getIdMagacin() {
@@ -89,13 +124,22 @@ public class Artikli implements Serializable {
         this.idMagacin = idMagacin;
     }
 
-    public String getPserijski() {
-        return pserijski;
+    public String getProizvodjac() {
+        return proizvodjac;
     }
 
-    public void setPserijski(String pserijski) {
-        this.pserijski = pserijski;
+    public void setProizvodjac(String proizvodjac) {
+        this.proizvodjac = proizvodjac;
     }
+
+    public String getPon() {
+        return pon;
+    }
+
+    public void setPon(String pon) {
+        this.pon = pon;
+    }
+
 
     public String getBrDok() {
         return brDok;

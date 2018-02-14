@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.141"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisniciController">
     <children>
         <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -27,10 +27,11 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </padding>
                 </HBox>
-                <TableView fx:id="tUsers" VBox.vgrow="ALWAYS">
+                <TableView fx:id="tUsers" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
                     <columns>
                         <TableColumn fx:id="cJBroj" text="User ID"/>
                         <TableColumn fx:id="cFullName" text="Ime i Prezime"/>
+                        <TableColumn fx:id="cFIrma" prefWidth="75.0" text="Firma" visible="false"/>
                         <TableColumn fx:id="cAddress" prefWidth="200.0" text="Adresa"/>
                         <TableColumn fx:id="cAdressUsluge" text="Adresa Usluge"/>
                         <TableColumn fx:id="cPlace" text="Mesto"/>

@@ -27,6 +27,7 @@ public class MagacinPreviewController implements Initializable {
     public TableColumn<Magacin, Integer> cID;
     public TableColumn<Magacin, String> cNaziv;
     public TableColumn<Magacin, String> cOpis;
+    public TableColumn<Magacin, Boolean> cGlavni;
     public Button bNov;
     public Button bIzmena;
     public Button bIzbrisi;
@@ -46,6 +47,7 @@ public class MagacinPreviewController implements Initializable {
         cID.setCellValueFactory(new PropertyValueFactory<>("id"));
         cNaziv.setCellValueFactory(new PropertyValueFactory<>("naziv"));
         cOpis.setCellValueFactory(new PropertyValueFactory<>("opis"));
+        cGlavni.setCellValueFactory(new PropertyValueFactory<>("glavniMagacin"));
 
 
     }
@@ -58,7 +60,7 @@ public class MagacinPreviewController implements Initializable {
     }
 
     public void nov(ActionEvent actionEvent) {
-        NewInterface newMagacin = new NewInterface("fxml/EditMagacin.fxml", "Nov Magacin", this.resources);
+        NewInterface newMagacin = new NewInterface("fxml/MagacinEdit.fxml", "Nov Magacin", this.resources);
         MagacinEditController magacinEditController = newMagacin.getLoader().getController();
         magacinEditController.client = this.client;
         magacinEditController.edit = false;
@@ -68,7 +70,7 @@ public class MagacinPreviewController implements Initializable {
     }
 
     public void izmena(ActionEvent actionEvent) {
-        NewInterface newMagacin = new NewInterface("fxml/EditMagacin.fxml", "Nov Magacin", this.resources);
+        NewInterface newMagacin = new NewInterface("fxml/MagacinEdit.fxml", "Nov Magacin", this.resources);
         MagacinEditController magacinEditController = newMagacin.getLoader().getController();
         magacinEditController.client = this.client;
         magacinEditController.edit = true;

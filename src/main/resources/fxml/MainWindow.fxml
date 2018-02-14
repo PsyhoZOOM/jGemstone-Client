@@ -84,7 +84,7 @@
                     <items>
                         <MenuItem fx:id="mMagacinIzmene" mnemonicParsing="false" onAction="#MagacinShow"
                                   text="Magacini"/>
-                        <MenuItem fx:id="mArtikliShow" mnemonicParsing="false" onAction="#showMagacin" text="Artikli"/>
+                        <MenuItem fx:id="mArtikliShow" mnemonicParsing="false" onAction="#showArtikli" text="Artikli"/>
                     </items>
                 </Menu>
                 <Menu fx:id="help" mnemonicParsing="false" text="Help">
@@ -115,9 +115,9 @@
                                 <Button fx:id="bInternet" maxHeight="50.0" maxWidth="100.0" minHeight="50.0"
                                         minWidth="100.0" mnemonicParsing="false" onAction="#showInternetMain"
                                         prefHeight="50.0" prefWidth="100.0" styleClass="last" text="INTERNET"/>
-                                <Button fx:id="bMagacin" maxHeight="50.0" maxWidth="100.0" minHeight="50.0"
-                                        minWidth="100.0" mnemonicParsing="false" onAction="#showMagacin"
-                                        prefHeight="50.0" prefWidth="100.0" text="MAGACIN"/>
+                                <Button fx:id="bArtikli" maxHeight="50.0" maxWidth="100.0" minHeight="50.0"
+                                        minWidth="100.0" mnemonicParsing="false" onAction="#showArtikli"
+                                        prefHeight="50.0" prefWidth="100.0" text="Artikli"/>
                                 <Separator orientation="VERTICAL" />
                             </children>
                             <padding>

@@ -20,6 +20,7 @@ import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
 import net.yuvideo.jgemstone.client.classes.Users;
 import net.yuvideo.jgemstone.client.classes.messageS;
+import org.controlsfx.control.textfield.TextFields;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -48,6 +49,7 @@ public class KorisniciController implements Initializable {
     public Client client;
     public TableColumn cDug;
     public MenuItem cmUplate;
+    public TableColumn cFIrma;
     @FXML
     Button bNovKorisnik;
     FXMLLoader resoruceFXML;
@@ -75,9 +77,10 @@ public class KorisniciController implements Initializable {
         });
         cJBroj.setCellValueFactory(new PropertyValueFactory<Users, String>("jbroj"));
         cFullName.setCellValueFactory(new PropertyValueFactory<Users, String>("ime"));
+        cFIrma.setCellValueFactory(new PropertyValueFactory<Users, String>("nazivFirme"));
         cAddress.setCellValueFactory(new PropertyValueFactory<Users, String>("adresa"));
         cPlace.setCellValueFactory(new PropertyValueFactory<Users, String>("mesto"));
-        cAdressUsluge.setCellValueFactory(new PropertyValueFactory<Users, String>("adresa_usluge"));
+        cAdressUsluge.setCellValueFactory(new PropertyValueFactory<Users, String>("adresaUsluge"));
         cDug.setCellValueFactory(new PropertyValueFactory<Users, Double>("dug"));
         tUsers.setRowFactory(tv -> {
             TableRow<Users> row = new TableRow<Users>();
@@ -104,6 +107,7 @@ public class KorisniciController implements Initializable {
                 }
             }
         });
+
 
 
     }
@@ -161,6 +165,8 @@ public class KorisniciController implements Initializable {
 
             users.add(user);
         }
+
+        TextFields.bindAutoCompletion(tUserSearch, users);
 
         return users;
     }

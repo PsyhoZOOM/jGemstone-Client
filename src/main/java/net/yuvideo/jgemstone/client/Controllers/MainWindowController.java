@@ -302,6 +302,7 @@ public class MainWindowController implements Initializable {
         QrScannerController qrScannerController = showQrScanner.getLoader().getController();
         showQrScanner.getStage().showAndWait();
 
+
     }
 
 
@@ -315,11 +316,11 @@ public class MainWindowController implements Initializable {
         showOstaleUsluge.getStage().showAndWait();
     }
 
-    public void showMagacin(ActionEvent actionEvent) {
-        NewInterface magacinInterface = new NewInterface("fxml/MagacinMain.fxml", "MAGACIN", this.resource);
-        MagacinMainController magacinMainController = magacinInterface.getLoader().getController();
-        magacinMainController.client = this.client;
-        magacinMainController.setForms();
+    public void showArtikli(ActionEvent actionEvent) {
+        NewInterface magacinInterface = new NewInterface("fxml/ArtikliMain.fxml", "ARTIKLI", this.resource);
+        ArtikliMainController artikliMainController = magacinInterface.getLoader().getController();
+        artikliMainController.client = this.client;
+        artikliMainController.setForms();
         magacinInterface.getStage().showAndWait();
 
     }

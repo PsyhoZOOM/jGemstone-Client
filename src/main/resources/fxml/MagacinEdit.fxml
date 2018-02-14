@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" prefWidth="640.0" spacing="5.0" stylesheets="@../css/Main.css"
-      xmlns="http://javafx.com/javafx/8.0.141"
+      xmlns="http://javafx.com/javafx/8.0.121"
       fx:controller="net.yuvideo.jgemstone.client.Controllers.MagacinEditController">
     <children>
         <GridPane hgap="5.0" vgap="5.0" VBox.vgrow="ALWAYS">
@@ -24,6 +24,8 @@
                 <TextArea fx:id="taOpis" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                 <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#snimiMagacin" text="Snimi"
                         GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2"/>
+                <CheckBox fx:id="chkGlavni" mnemonicParsing="false" text="Glavni magacin" GridPane.columnIndex="1"
+                          GridPane.rowIndex="2"/>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
