@@ -340,11 +340,7 @@ public class ArtikliMainController implements Initializable {
 
     private ArrayList<Artikli> getArtikli(JSONObject jsonObject) {
         Artikli artikli = new Artikli();
-        if (cmbMagacin.getValue().getId() == 0) {
-            artikli.getAllArtikle(client);
-        } else {
             artikli.searchArtikal(jsonObject, client);
-        }
         return artikli.getArtikliArrayList();
 
     }
@@ -393,11 +389,13 @@ public class ArtikliMainController implements Initializable {
     public void showInfoArtikl(ActionEvent actionEvent) {
         int artID = tblArtikli.getSelectionModel().getSelectedItem().getId();
         int magId = tblArtikli.getSelectionModel().getSelectedItem().getIdMagacin();
+        int uniqueID = tblArtikli.getSelectionModel().getSelectedItem().getUniqueID();
         NewInterface artInfoInterface = new NewInterface("fxml/ArtikliTracking.fxml", "INFO ARTIKLA", resources);
         ArtikliTrackingController artikliTrackingController = artInfoInterface.getLoader().getController();
         artikliTrackingController.client = this.client;
         artikliTrackingController.artID = artID;
         artikliTrackingController.magID = magId;
+        artikliTrackingController.uniqueID = uniqueID;
         artikliTrackingController.setData();
         artInfoInterface.getStage().showAndWait();
         ;

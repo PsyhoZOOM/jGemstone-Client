@@ -27,7 +27,6 @@ public class EditKorisnikController implements Initializable {
     public AnchorPane anchroKorsinikPodaci;
     public AnchorPane anchorKorisnikUsluge;
     public AnchorPane anchorKorisnikUgovori;
-    public AnchorPane anchorKorisnikFirma;
     public AnchorPane anchorKorisnikOprema;
     public Tab tabKorisnikUsluge;
     public Client client;
@@ -37,6 +36,7 @@ public class EditKorisnikController implements Initializable {
     KorisnikPodaciController KorisnikPodaciController;
     KorisnikUslugeController korisnikUslugeController;
     KorisnikUgovoriController korisnikUgovoriController;
+    KorisnikOpremaController korisnikOpremaController;
     private ResourceBundle resource;
     private URL location;
 
@@ -101,10 +101,27 @@ public class EditKorisnikController implements Initializable {
         korisnikUgovoriController = fxmlLoader.getController();
         korisnikUgovoriController.client = client;
         korisnikUgovoriController.userID = userID;
-        UserData userData = new UserData(client, userID);
-        korisnikUgovoriController.user = userData;
+        korisnikUgovoriController.user = new UserData(client, userID);
         korisnikUgovoriController.set_data();
 
+
+    }
+
+    public void loadKorisnikOprema() {
+        FXMLLoader fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("fxml/KorisnikOprema.fxml"), resource);
+
+        try {
+            anchorKorisnikOprema.getChildren().clear();
+            anchorKorisnikOprema.getChildren().add(fxmlLoader.load());
+            anchorKorisnikOprema.autosize();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        korisnikOpremaController = fxmlLoader.getController();
+        korisnikOpremaController.client = client;
+        korisnikOpremaController.user = new UserData(client, userID);
+        korisnikOpremaController.setData();
 
     }
 

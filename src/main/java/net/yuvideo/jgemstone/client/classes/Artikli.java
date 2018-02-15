@@ -26,6 +26,8 @@ public class Artikli implements Serializable {
     String brDok;
     String nazivMagacina;
     int idMagacin;
+    int uniqueID;
+    boolean isUser;
 
 
     ArrayList<Artikli> artikliArrayList;
@@ -57,6 +59,7 @@ public class Artikli implements Serializable {
             if (artkal.has("idMagacin"))
                 artikli.setIdMagacin(artkal.getInt("idMagacin"));
             artikli.setNazivMagacina(getImeMagacina(artkal.getInt("idMagacin")));
+            artikli.setUniqueID(artkal.getInt("uniqueID"));
             artikliArrayList.add(artikli);
         }
     }
@@ -106,6 +109,14 @@ public class Artikli implements Serializable {
         this.setArtikle(jsonObject);
 
 
+    }
+
+    public int getUniqueID() {
+        return uniqueID;
+    }
+
+    public void setUniqueID(int uniqueID) {
+        this.uniqueID = uniqueID;
     }
 
     public String getNazivMagacina() {
@@ -246,4 +257,11 @@ public class Artikli implements Serializable {
         this.opis = opis;
     }
 
+    public boolean isUser() {
+        return isUser;
+    }
+
+    public void setUser(boolean user) {
+        isUser = user;
+    }
 }

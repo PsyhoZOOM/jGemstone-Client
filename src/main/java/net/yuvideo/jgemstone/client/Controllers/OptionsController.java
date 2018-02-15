@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.db_connection;
 
 import java.net.URL;
@@ -45,6 +46,10 @@ public class OptionsController implements Initializable {
             e.printStackTrace();
         }
         db_conn.close_db();
+
+        AlertUser.info("IZMENE SNIMLJENE", "Izmene uspešno snimljene ;)");
+        Stage stage = (Stage) bSnimi.getScene().getWindow();
+        stage.close();
 
 
     }

@@ -128,6 +128,7 @@ public class ArtikliZaduzivanjeController implements Initializable {
         object.put("sourceMagID", artikal.getIdMagacin());
         object.put("isUser", false);
         object.put("kolicina", Integer.valueOf(tKolicina.getText()));
+        object.put("uniqueID", artikal.getUniqueID());
 
         object = client.send_object(object);
 
@@ -147,17 +148,22 @@ public class ArtikliZaduzivanjeController implements Initializable {
         }
         Users user = tblUsers.getSelectionModel().getSelectedItem();
         JSONObject object = new JSONObject();
-        object.put("action", "zaduziKorisnikArtikal");
+        object.put("action", "zaduziUserArtikal");
         object.put("artikalID", artikal.getId());
         object.put("destUserID", user.getId());
         object.put("sourceMagID", artikal.getIdMagacin());
+        object.put("kolicina", Integer.valueOf(tKolicina.getText()));
+        object.put("isUser", true);
+        object.put("uniqueID", artikal.getUniqueID());
 
         object = client.send_object(object);
 
         if (object.has("ERROR")) {
             AlertUser.error("GRESKA", object.getString("ERROR"));
         } else {
-            AlertUser.info("INFO", String.format("%s je zaduzen sa %d %s", user.getIme(), tKolicina.getText(), artikal.getNaziv()));
+            AlertUser.info("INFO", String.format("%s je zaduzen sa %s %s", user.getIme(), tKolicina.getText(), artikal.getNaziv()));
+            Stage stage = (Stage) bTraziMagacin.getScene().getWindow();
+            stage.close();
         }
 
     }

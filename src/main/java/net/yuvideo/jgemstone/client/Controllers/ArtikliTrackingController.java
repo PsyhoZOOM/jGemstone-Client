@@ -1,7 +1,10 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,8 +29,10 @@ public class ArtikliTrackingController implements Initializable {
     public Client client;
     public int artID;
     public int magID;
+    public Label lInfo;
     private URL location;
     private ResourceBundle resources;
+    public int uniqueID;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -42,13 +47,19 @@ public class ArtikliTrackingController implements Initializable {
         cOperater.setCellValueFactory(new PropertyValueFactory<>("operater"));
         cOpis.setCellValueFactory(new PropertyValueFactory<>("opis"));
 
+        tblArtTracking.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ArtikliTracking>() {
+            @Override
+            public void changed(ObservableValue<? extends ArtikliTracking> observable, ArtikliTracking oldValue, ArtikliTracking newValue) {
+                lInfo.setText(newValue.getOpis());
+            }
+        });
 
     }
 
 
     public void setData() {
         ArtikliTracking artikliTracking = new ArtikliTracking();
-        artikliTracking.initArtikle(client, artID, magID);
+        artikliTracking.initArtikle(client, artID, magID, uniqueID);
         tblArtTracking.setItems(FXCollections.observableArrayList(artikliTracking.getArtikliTrackingArrayList()));
 
 

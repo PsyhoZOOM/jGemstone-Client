@@ -21,15 +21,17 @@ public class ArtikliTracking {
     String opis;
     int artikalID;
     boolean user;
+    int uniqueID;
 
 
     ArrayList<ArtikliTracking> artikliTrackingArrayList;
 
-    public void initArtikle(Client client, int artID, int magID) {
+    public void initArtikle(Client client, int artID, int magID, int uniqueID) {
         JSONObject obj = new JSONObject();
         obj.put("action", "getArtikliTracking");
         obj.put("artiklID", artID);
         obj.put("magID", magID);
+        obj.put("uniqueID", uniqueID);
         obj = client.send_object(obj);
 
         setArrayArt(obj);
@@ -38,6 +40,15 @@ public class ArtikliTracking {
 
     public ArrayList<ArtikliTracking> getArtikliTrackingArrayList() {
         return artikliTrackingArrayList;
+    }
+
+
+    public int getUniqueID() {
+        return uniqueID;
+    }
+
+    public void setUniqueID(int uniqueID) {
+        this.uniqueID = uniqueID;
     }
 
     public int getId() {
@@ -165,6 +176,8 @@ public class ArtikliTracking {
         art.setUser(artikal.getBoolean("isUser"));
         art.setKolicina(artikal.getInt("kolicina"));
         art.setArtikalID(artikal.getInt("artikalID"));
+        art.setUniqueID(artikal.getInt("uniqueID"));
+
 
         return art;
     }

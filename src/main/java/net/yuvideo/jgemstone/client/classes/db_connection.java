@@ -1,6 +1,7 @@
 package net.yuvideo.jgemstone.client.classes;
 
 
+import java.nio.file.Paths;
 import java.sql.*;
 import java.util.logging.Logger;
 
@@ -18,6 +19,7 @@ public class db_connection {
     private String DB_URL = "jdbc:sqlite:.JGemstone.db";
 
     public void init_database() {
+        System.out.println(Paths.get(".").toAbsolutePath().normalize().toString());
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL);
@@ -39,8 +41,6 @@ public class db_connection {
     private void create_dataTable() {
         query = "CREATE TABLE  IF NOT EXISTS Settings" +
                 "(ID INTEGER PRIMARY KEY AUTOINCREMENT , " +
-                "USERNAME TEXT, " +
-                "PASSWORD TEXT , " +
                 "REMOTE_HOST TEXT , " +
                 "REMOTE_PORT INT);" +
                 "INSERT OR IGNORE INTO Settings (ID) VALUES (1);";
@@ -61,8 +61,6 @@ public class db_connection {
             e.printStackTrace();
         }
         try {
-            local_settings.setLocalPassword(rs.getString("PASSWORD"));
-            local_settings.setLocalUser(rs.getString("USERNAME"));
             local_settings.setREMOTE_HOST(rs.getString("REMOTE_HOST"));
             local_settings.setREMOTE_PORT(rs.getInt("REMOTE_PORT"));
         } catch (SQLException e) {
@@ -73,25 +71,11 @@ public class db_connection {
     }
 
     public void set_settings() throws SQLException {
-        if (local_settings.getLocalPassword().isEmpty()) {
             query = String.format("UPDATE Settings SET " +
-                            "USERNAME='%s', " +
                             "REMOTE_HOST='%s', " +
                             "REMOTE_PORT='%d'",
-                    local_settings.getLocalUser(),
                     local_settings.getREMOTE_HOST(),
                     local_settings.getREMOTE_PORT());
-        } else {
-            query = String.format("UPDATE Settings SET " +
-                            "USERNAME='%s', " +
-                            "PASSWORD='%s', " +
-                            "REMOTE_HOST='%s', " +
-                            "REMOTE_PORT='%d'",
-                    local_settings.getLocalUser(),
-                    local_settings.getLocalPassword(),
-                    local_settings.getREMOTE_HOST(),
-                    local_settings.getREMOTE_PORT());
-        }
 
         LOGGER.info(query);
         stmt.executeUpdate(query);

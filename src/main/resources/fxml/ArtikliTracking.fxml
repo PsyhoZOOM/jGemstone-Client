@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
@@ -7,10 +8,25 @@
             xmlns="http://javafx.com/javafx/8.0.141"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.ArtikliTrackingController">
     <children>
-        <HBox layoutX="22.0" layoutY="92.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
             <children>
-                <TableView fx:id="tblArtTracking" HBox.hgrow="ALWAYS">
+                <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                    <content>
+                        <AnchorPane>
+                            <children>
+                                <Label fx:id="lInfo" layoutX="14.0" layoutY="19.0" maxHeight="1.7976931348623157E308"
+                                       maxWidth="800.0" text="Label" wrapText="true" AnchorPane.bottomAnchor="0.0"
+                                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                       AnchorPane.topAnchor="0.0"/>
+                            </children>
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                            </padding>
+                        </AnchorPane>
+                    </content>
+                </ScrollPane>
+                <TableView fx:id="tblArtTracking" VBox.vgrow="ALWAYS">
                     <columns>
                         <TableColumn fx:id="cArtikal" prefWidth="75.0" text="Artikal"/>
                         <TableColumn fx:id="cKol" prefWidth="75.0" text="Kolicina"/>
@@ -25,6 +41,6 @@
                     </columnResizePolicy>
                 </TableView>
             </children>
-        </HBox>
+        </VBox>
     </children>
 </AnchorPane>

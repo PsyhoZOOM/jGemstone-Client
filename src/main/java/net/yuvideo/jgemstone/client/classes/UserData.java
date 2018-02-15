@@ -2,6 +2,7 @@ package net.yuvideo.jgemstone.client.classes;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -94,6 +95,41 @@ public class UserData {
         setFax(obj.getString("fax"));
         setAdresaFirme(obj.getString("adresaFirme"));
 
+    }
+
+    public ArrayList<Artikli> getUserOprema() {
+        ArrayList<Artikli> userOpremaArrayList = new ArrayList<>();
+        JSONObject artikli = new JSONObject();
+        artikli.put("action", "getUserOprema");
+        artikli.put("userID", this.id);
+
+        artikli = client.send_object(artikli);
+
+        for (int i = 0; i < artikli.length(); i++) {
+            Artikli art = new Artikli();
+            JSONObject artObj = artikli.getJSONObject(String.valueOf(i));
+            art.setId(artObj.getInt("id"));
+            art.setNaziv(artObj.getString("naziv"));
+            art.setProizvodjac(artObj.getString("proizvodjac"));
+            art.setModel(artObj.getString("model"));
+            art.setSerijski(artObj.getString("serijski"));
+            art.setPon(artObj.getString("pon"));
+            art.setMac(artObj.getString("mac"));
+            art.setDobavljac(artObj.getString("dobavljac"));
+            art.setBrDok(artObj.getString("brDokumenta"));
+            art.setNabavnaCena(artObj.getDouble("nabavnaCena"));
+            art.setJmere(artObj.getString("jMere"));
+            art.setKolicina(artObj.getInt("kolicina"));
+            art.setOpis(artObj.getString("opis"));
+            art.setDatum(artObj.getString("datum"));
+            art.setOperName(artObj.getString("operName"));
+            art.setIdMagacin(artObj.getInt("idMagacin"));
+            art.setUser(artObj.getBoolean("isUser"));
+            art.setUniqueID(artObj.getInt("uniqueID"));
+            userOpremaArrayList.add(art);
+        }
+
+        return userOpremaArrayList;
     }
 
     public String getJbroj() {

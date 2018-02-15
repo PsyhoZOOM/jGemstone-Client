@@ -20,6 +20,7 @@ public class AlertUser {
         alert.setTitle(title);
         alert.setContentText(content);
         alert.setHeaderText("INFORMACIJA");
+        alert.getDialogPane().getStylesheets().add(ClassLoader.getSystemResource("css/Main.css").toExternalForm());
         alert.showAndWait();
     }
 
@@ -28,6 +29,7 @@ public class AlertUser {
         alert.setTitle(title);
         alert.setContentText(content);
         alert.setHeaderText("GREŠKA");
+        alert.getDialogPane().getStylesheets().add(ClassLoader.getSystemResource("css/Main.css").toExternalForm());
         alert.showAndWait();
     }
 
@@ -36,6 +38,7 @@ public class AlertUser {
         alert.setTitle(title);
         alert.setContentText(conent);
         alert.setHeaderText("UPOZORENJE");
+        alert.getDialogPane().getStylesheets().add(ClassLoader.getSystemResource("css/Main.css").toExternalForm());
         alert.showAndWait();
 
     }
@@ -45,6 +48,8 @@ public class AlertUser {
         alert.setHeaderText(title);
         alert.setContentText(content);
         alert.setHeaderText("CHOOSE YOUR DESTINY");
+        alert.getDialogPane().getStylesheets().add(ClassLoader.getSystemResource("css/Main.css").toExternalForm());
+
         Optional<ButtonType> result = alert.showAndWait();
         return result;
 

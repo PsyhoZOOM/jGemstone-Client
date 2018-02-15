@@ -253,6 +253,7 @@ public class KorisniciController implements Initializable {
         editUserController.loadKorisnikData();
         editUserController.loadKorisnikServices();
         editUserController.loadKorisnikUgovori();
+        editUserController.loadKorisnikOprema();
 
         editKorisnikInterface.getStage().showAndWait();
 
