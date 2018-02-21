@@ -46,6 +46,7 @@ public class ArtikliZaduzivanjeController implements Initializable {
     public Label lProizvodjac;
     public TextField tKolicina;
     public Button bZaduziMagacin;
+    public TextArea tOpis;
     private URL location;
     private ResourceBundle resources;
 
@@ -129,6 +130,7 @@ public class ArtikliZaduzivanjeController implements Initializable {
         object.put("isUser", false);
         object.put("kolicina", Integer.valueOf(tKolicina.getText()));
         object.put("uniqueID", artikal.getUniqueID());
+        object.put("opis", tOpis.getText());
 
         object = client.send_object(object);
 
@@ -155,6 +157,7 @@ public class ArtikliZaduzivanjeController implements Initializable {
         object.put("kolicina", Integer.valueOf(tKolicina.getText()));
         object.put("isUser", true);
         object.put("uniqueID", artikal.getUniqueID());
+        object.put("opis", tOpis.getText());
 
         object = client.send_object(object);
 

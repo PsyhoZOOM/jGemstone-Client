@@ -180,10 +180,6 @@ public class ArtikliMainController implements Initializable {
 
     }
 
-    private void zaduziMagacinSaArtiklom(int itemID, int idMagacin) {
-        System.out.println(String.format("zaduzujem opera %s sa itemom %s", idMagacin, itemID));
-    }
-
     private ArrayList<Magacin> getMagacini() {
         Magacin magacin = new Magacin();
         return magacin.getMagaciniArr(client);
@@ -207,7 +203,7 @@ public class ArtikliMainController implements Initializable {
         //combobox add jedinice mere
         cmbJMere.getItems().removeAll();
         cmbJMere.getItems().add(0, "");
-        cmbJMere.getItems().add(1, "metri.");
+        cmbJMere.getItems().add(1, "m.");
         cmbJMere.getItems().add(2, "kom.");
         cmbJMere.getSelectionModel().select(0);
 
@@ -221,13 +217,21 @@ public class ArtikliMainController implements Initializable {
     private void updateMagacinCmb() {
         Magacin magacin = new Magacin();
         Magacin magacinALL = new Magacin();
+        Magacin magacinUsers = new Magacin();
+
         magacinALL.setNaziv("SVE");
         magacin.setId(0);
+
+        magacinUsers.setNaziv("KORISNICI");
+        magacinUsers.setId(1);
+
         ObservableList magacinObs = FXCollections.observableArrayList(getMagacini());
         cmbMagacin.getItems().clear();
 
         cmbMagacin.getItems().add(magacinALL);
+        cmbMagacin.getItems().add(magacinUsers);
         cmbMagacin.getItems().addAll(magacinObs);
+
         cmbMagacin.getSelectionModel().select(0);
     }
 
@@ -274,7 +278,11 @@ public class ArtikliMainController implements Initializable {
         jsonObject.put("jMere", cmbJMere.getValue().toString());
         jsonObject.put("kolicina", Integer.valueOf(spnKolicina.getEditor().getText()));
         jsonObject.put("opis", tOpis.getText());
-        jsonObject.put("idMagacin", cmbMagacin.getValue().getId());
+        if (cmbMagacin.getValue() != null) {
+            jsonObject.put("idMagacin", cmbMagacin.getValue().getId());
+        } else {
+            jsonObject.put("idMagacin", tblArtikli.getSelectionModel().getSelectedItem().getIdMagacin());
+        }
 
 
         if (addArtikl || editArtikl) {

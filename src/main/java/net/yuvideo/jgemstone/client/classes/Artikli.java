@@ -33,6 +33,7 @@ public class Artikli implements Serializable {
     ArrayList<Artikli> artikliArrayList;
 
     ArrayList<Magacin> magacinArrayList;
+    private Client client;
 
     private void setArtikle(JSONObject jsonObject) {
         artikliArrayList = new ArrayList<>();
@@ -58,10 +59,19 @@ public class Artikli implements Serializable {
             artikli.setOperName(artkal.getString("operName"));
             if (artkal.has("idMagacin"))
                 artikli.setIdMagacin(artkal.getInt("idMagacin"));
-            artikli.setNazivMagacina(getImeMagacina(artkal.getInt("idMagacin")));
+            if (artkal.getBoolean("isUser")) {
+                artikli.setNazivMagacina(getUserIme(artkal.getInt("idMagacin")));
+            } else {
+                artikli.setNazivMagacina(getImeMagacina(artkal.getInt("idMagacin")));
+            }
             artikli.setUniqueID(artkal.getInt("uniqueID"));
             artikliArrayList.add(artikli);
         }
+    }
+
+    private String getUserIme(int idMagacin) {
+        UserData userData = new UserData(client, idMagacin);
+        return String.format("%s, %s", userData.getIme(), userData.getJbroj());
     }
 
     private String getImeMagacina(int idMagacin) {
@@ -100,6 +110,7 @@ public class Artikli implements Serializable {
     }
 
     public void searchArtikal(JSONObject obj, Client client) {
+        this.client = client;
         Magacin magacin = new Magacin();
         this.magacinArrayList = magacin.getMagaciniArr(client);
 

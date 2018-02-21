@@ -70,11 +70,17 @@
             </content>
         </TitledPane>
         <Separator prefWidth="200.0"/>
-        <Label text="ZADUŽIVANJE" underline="true"/>
+        <HBox alignment="CENTER" VBox.vgrow="NEVER">
+            <children>
+                <Label text="ZADUŽIVANJE" underline="true"/>
+            </children>
+        </HBox>
         <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="5.0">
             <children>
                 <Label text="Količina:"/>
                 <TextField fx:id="tKolicina"/>
+                <Label text="Opis:"/>
+                <TextArea fx:id="tOpis" prefHeight="62.0"/>
             </children>
             <padding>
                 <Insets top="5.0"/>
@@ -119,7 +125,7 @@
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                                             </padding>
                                         </HBox>
-                                        <Button mnemonicParsing="false" fx:id="bZaduziMagacin" onAction="#zaduziMagacin"
+                                        <Button fx:id="bZaduziMagacin" mnemonicParsing="false" onAction="#zaduziMagacin"
                                                 text="Zaduži" GridPane.rowIndex="2"/>
                                     </children>
                                     <padding>

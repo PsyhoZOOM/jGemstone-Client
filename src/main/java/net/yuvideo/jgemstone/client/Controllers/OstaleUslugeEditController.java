@@ -53,7 +53,7 @@ public class OstaleUslugeEditController implements Initializable {
         jsonObject.put("naziv", tNaziv.getText());
         jsonObject.put("cena", tCena.getText());
         jsonObject.put("pdv", tPDV.getText());
-        jsonObject.put("komentar", tKomentar.getText());
+        jsonObject.put("opis", tKomentar.getText());
         if (ostaleUsluge != null) {
             jsonObject.put("id", ostaleUsluge.getId());
         }

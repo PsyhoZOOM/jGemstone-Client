@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/Main.css"
-            xmlns="http://javafx.com/javafx/8.0.141"
+            xmlns="http://javafx.com/javafx/8.0.121"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.ArtikliTrackingController">
     <children>
         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -16,7 +16,7 @@
                         <AnchorPane>
                             <children>
                                 <Label fx:id="lInfo" layoutX="14.0" layoutY="19.0" maxHeight="1.7976931348623157E308"
-                                       maxWidth="800.0" text="Label" wrapText="true" AnchorPane.bottomAnchor="0.0"
+                                       maxWidth="800.0" wrapText="true" AnchorPane.bottomAnchor="0.0"
                                        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                                        AnchorPane.topAnchor="0.0"/>
                             </children>

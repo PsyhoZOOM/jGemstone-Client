@@ -97,11 +97,11 @@ public class KorisnikUplateController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resource = resources;
-        this.url = url;
+        this.url = location;
 
         dtpDatumZaNaplatu.setValue(LocalDate.now());
         dtpDatumZaNaplatuCustom.setValue(LocalDate.now());
-        tRate.setText("0");
+        tRate.setText("1");
         tCenaCustom.setText("0.00");
 
         cDatumZaduzenja.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, String>("datumZaduzenja"));

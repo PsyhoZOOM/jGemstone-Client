@@ -50,7 +50,8 @@ public class KorisnikOpremaController implements Initializable {
         tblUserOprema.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Artikli>() {
             @Override
             public void changed(ObservableValue<? extends Artikli> observable, Artikli oldValue, Artikli newValue) {
-                lInfo.setText(newValue.getOpis());
+                lInfo.setText(String.format("Naziv: %s \nDatum zaduženja: %s \nOpis: %s",
+                        newValue.getNaziv(), newValue.getDatum(), newValue.getOpis()));
             }
         });
     }

@@ -170,7 +170,8 @@ public class ArtikliTracking {
         art.setSourceMag(artikal.getInt("sourceID"));
         art.setDestMag(artikal.getInt("destinationID"));
         art.setOperater(artikal.getString("operName"));
-        art.setOpis(artikal.getString("message"));
+        //art.setOpis(artikal.getString("message"));
+        art.setOpis(artikal.getString("opis"));
         art.setSource(artikal.getString("source"));
         art.setDest(artikal.getString("destination"));
         art.setUser(artikal.getBoolean("isUser"));
