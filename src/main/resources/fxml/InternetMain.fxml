@@ -5,9 +5,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity"
-            prefHeight="768.0" prefWidth="1024.0" stylesheets="@../css/Main.css"
-            xmlns="http://javafx.com/javafx/8.0.65"
+            minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/Main.css"
+            xmlns="http://javafx.com/javafx/8.0.141"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.InternetMainController">
     <children>
         <BorderPane layoutX="118.0" layoutY="89.0" stylesheets="@../css/Main.css" AnchorPane.bottomAnchor="0.0"
@@ -26,7 +25,7 @@
                                 <Pane HBox.hgrow="ALWAYS"/>
                                 <TextField promptText="UserName "/>
                                 <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
-                                        text="Trazi"/>
+                                        text="Traži"/>
                             </children>
                         </HBox>
                     </items>
@@ -74,12 +73,12 @@
                 <TableView prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true"
                            BorderPane.alignment="CENTER">
                     <columns>
-                        <TableColumn prefWidth="75.0" text="C1"/>
-                        <TableColumn prefWidth="75.0" text="C2"/>
-                        <TableColumn prefWidth="75.0" text="Column X"/>
-                        <TableColumn prefWidth="75.0" text="Column X"/>
-                        <TableColumn prefWidth="75.0" text="Column X"/>
-                        <TableColumn prefWidth="75.0" text="Column X"/>
+                        <TableColumn prefWidth="75.0" text="Korisničko ime"/>
+                        <TableColumn prefWidth="75.0" text="IP Adresa"/>
+                        <TableColumn prefWidth="75.0" text="MAC"/>
+                        <TableColumn prefWidth="75.0" text="Start"/>
+                        <TableColumn prefWidth="75.0" text="NAS"/>
+                        <TableColumn prefWidth="75.0" text="IP NAS"/>
                         <TableColumn prefWidth="75.0" text="Column X"/>
                         <TableColumn prefWidth="75.0" text="Column X"/>
                     </columns>

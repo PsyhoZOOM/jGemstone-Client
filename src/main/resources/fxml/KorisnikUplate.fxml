@@ -26,8 +26,8 @@
                 </HBox>
                       <VBox spacing="5.0" VBox.vgrow="ALWAYS">
                           <children>
-                              <TitledPane alignment="CENTER" contentDisplay="CENTER" expanded="false"
-                                          text="UPLATE - STATUS" textAlignment="CENTER" VBox.vgrow="NEVER">
+                              <TitledPane alignment="CENTER" contentDisplay="CENTER" text="UPLATE - STATUS"
+                                          textAlignment="CENTER" VBox.vgrow="NEVER">
                                   <content>
                                       <HBox spacing="5.0">
                                           <children>
@@ -48,7 +48,7 @@
                                                       <Label text="PDV:"/>
                                                       <TextField fx:id="tPDVCustom" text="20"/>
                                                       <Label text="Rate"/>
-                                                      <TextField fx:id="tRate"/>
+                                                      <TextField fx:id="tRate" text="1"/>
                                                       <Button fx:id="bZaduziCustomService" alignment="CENTER"
                                                               contentDisplay="CENTER" mnemonicParsing="false"
                                                               onAction="#zaduziCustomService"

@@ -97,11 +97,11 @@ public class KorisnikUplateController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resource = resources;
-        this.url = location;
+        this.url = url;
 
         dtpDatumZaNaplatu.setValue(LocalDate.now());
         dtpDatumZaNaplatuCustom.setValue(LocalDate.now());
-        tRate.setText("1");
+        tRate.setText("0");
         tCenaCustom.setText("0.00");
 
         cDatumZaduzenja.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, String>("datumZaduzenja"));
@@ -197,12 +197,6 @@ public class KorisnikUplateController implements Initializable {
             }
         });
 
-        tblZaduzenja.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Uplate>>() {
-            @Override
-            public void changed(ObservableValue<? extends TreeItem<Uplate>> observable, TreeItem<Uplate> oldValue, TreeItem<Uplate> newValue) {
-
-            }
-        });
 
         tblZaduzenja.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Uplate>>() {
             @Override
@@ -213,7 +207,6 @@ public class KorisnikUplateController implements Initializable {
 
                 Double uplaceno = 0.00;
                 Double dug = 0.00;
-                //uplaceno = tblZaduzenja.getSelectionModel().getSelectedItem().getValue().getUplaceno();
 
                 TreeItem<Uplate> selectedItem = tblZaduzenja.getSelectionModel().getSelectedItem();
                 if (selectedItem.getChildren().size() > 0) {
@@ -582,6 +575,7 @@ public class KorisnikUplateController implements Initializable {
         jObj.put("zaMesec", uplata.getZaMesec());
         jObj.put("identification", uplata.getIdentification());
         jObj.put("haveFIX", uplata.isHaveFIX());
+        jObj.put("nazivPaketa", uplata.getNazivPaket());
 
 
         jObj = client.send_object(jObj);
