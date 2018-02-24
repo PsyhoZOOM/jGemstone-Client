@@ -110,12 +110,6 @@
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>com.jfoenix</groupId>
-            <artifactId>jfoenix</artifactId>
-            <version>1.6.0</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-client</artifactId>
             <version>1.19.1</version>
@@ -152,7 +146,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.7</version>
+            <version>1.7.13</version>
         </dependency>
         <dependency>
             <groupId>com.itextpdf</groupId>
