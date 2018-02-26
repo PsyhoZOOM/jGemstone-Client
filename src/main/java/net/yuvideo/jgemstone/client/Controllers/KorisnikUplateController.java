@@ -55,6 +55,7 @@ public class KorisnikUplateController implements Initializable {
     public CheckBox chkSveUplate;
     public Label lUserJBroj;
     public Label lImePrezime;
+    public Label lCustomCena;
     @FXML
     private TreeTableView<Uplate> tblZaduzenja;
     @FXML
@@ -104,6 +105,18 @@ public class KorisnikUplateController implements Initializable {
         tRate.setText("0");
         tCenaCustom.setText("0.00");
 
+        tCenaCustom.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(CenaFormatter.CenaFormatterString(newValue)){
+                    tCenaCustom.setText(newValue);
+                }else{
+                    tCenaCustom.setText(oldValue);
+                }
+            }
+        });
+
+
         cDatumZaduzenja.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, String>("datumZaduzenja"));
         cNazivServisa.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, String>("nazivPaket"));
         cCena.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, Double>("cena"));
@@ -126,21 +139,23 @@ public class KorisnikUplateController implements Initializable {
                     if (uplate == null) {
                         return;
                     }
+                    double upl = Double.valueOf(df.format(uplate.getUplaceno()));
+                    double dug = Double.valueOf(df.format(uplate.getDug()));
                     setText(df.format(uplaceno));
-                    if (uplate.getUplaceno() == 0) {
+                    if (upl == 0) {
                         currentRow.setStyle("" +
                                 "-fx-background-color: red;" +
                                 "-fx-border-color: black;" +
                                 "-fx-table-cell-border-color: black;");
-                    } else if (uplate.getUplaceno() > 0 && uplate.getUplaceno() < uplate.getDug()) {
+                    } else if (upl > 0 && upl < dug) {
                         currentRow.setStyle("-fx-background-color: darkorange;" +
                                 "-fx-border-color: black;" +
                                 "-fx-table-cell-border-color: black;");
-                    } else if (uplate.getUplaceno() == uplate.getDug()) {
+                    } else if (upl == dug) {
                         currentRow.setStyle("-fx-background-color: darkgreen; " +
                                 "-fx-border-color: black;" +
                                 "-fx-table-cell-border-color: black;");
-                    } else if (uplate.getUplaceno() > uplate.getDug()) {
+                    } else if (upl > dug) {
                         currentRow.setStyle("-fx-background-color: blue; " +
                                 "-fx-border-color: black;" +
                                 "-fx-table-cell-border-color: black;");
@@ -205,23 +220,26 @@ public class KorisnikUplateController implements Initializable {
                     return;
                 }
 
-                Double uplaceno = 0.00;
-                Double dug = 0.00;
+                double uplaceno = 0;
+                double dug = 0;
+                double zaUplatutxt = 0;
 
                 TreeItem<Uplate> selectedItem = tblZaduzenja.getSelectionModel().getSelectedItem();
                 if (selectedItem.getChildren().size() > 0) {
                     for (TreeItem<Uplate> uplateTreeItem : selectedItem.getChildren()) {
-                        uplaceno += uplateTreeItem.getValue().getUplaceno();
+                        uplaceno += Double.valueOf(df.format(uplateTreeItem.getValue().getUplaceno()));
                     }
                 } else {
-                    uplaceno = selectedItem.getValue().getUplaceno();
+                    uplaceno = Double.valueOf(df.format(selectedItem.getValue().getUplaceno()));
                 }
 
-                dug = tblZaduzenja.getSelectionModel().getSelectedItem().getValue().getDug();
+                dug = Double.valueOf(df.format(tblZaduzenja.getSelectionModel().getSelectedItem().getValue().getDug()));
 
                 //BUTTON DISABLE UPLATE
-                cmbZaUplatu.getEditor().setText(df.format(dug - uplaceno));
-                if (newValue.getValue().getDug() == 0) {
+                zaUplatutxt = Double.valueOf(df.format(dug - uplaceno));
+                cmbZaUplatu.getEditor().setText(df.format(zaUplatutxt));
+                System.out.println(String.format("Dug: %f, Uplaceno: %f, zaUplatu: %f",dug, uplaceno, zaUplatutxt));
+                if (newValue.getValue().getDug() <= 0) {
                     bUplatiServis.setDisable(true);
                 } else {
                     cmbZaUplatu.setDisable(false);
@@ -245,7 +263,7 @@ public class KorisnikUplateController implements Initializable {
                 lIdentifikacija.setText(uplate.getIdentification());
 
                 //disable uplate if cena i zaduzenje je isto ili je treeitem child
-                if (uplaceno.equals(dug) || uplate.getPaketType().contains("LINKED") || uplate.getPaketType().contains("SAOBRACAJ")) {
+                if (uplaceno == dug || uplate.getPaketType().contains("LINKED") || uplate.getPaketType().contains("SAOBRACAJ")) {
                     bUplatiServis.setDisable(true);
                     cmbZaUplatu.setDisable(true);
                 } else {
@@ -293,12 +311,18 @@ public class KorisnikUplateController implements Initializable {
         tCenaCustom.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                try {
-                    Double.parseDouble(newValue);
-                    tCenaCustom.setText(newValue);
-                } catch (Exception e) {
-                    tCenaCustom.setText(oldValue);
-                }
+                if(newValue == null || newValue.isEmpty())
+                    return;
+                calculateCenaPDV(tCenaCustom.getText(), tPDVCustom.getText());
+            }
+        });
+
+        tPDVCustom.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(newValue == null || newValue.isEmpty())
+                    return;
+                calculateCenaPDV(tCenaCustom.getText(), tPDVCustom.getText());
             }
         });
 
@@ -309,6 +333,16 @@ public class KorisnikUplateController implements Initializable {
             }
         });
 
+    }
+
+    private String calculateCenaPDV(String cenaT, String pdvT){
+        double cena = Double.valueOf(cenaT);
+        double pdv = Double.valueOf(pdvT);
+        double ukupno= cena + valueToPercent.getDiffValue(cena, pdv);
+
+        lCustomCena.setText(df.format(ukupno));
+
+        return df.format(ukupno);
     }
 
     private String get_datum_isteka_servicsa(int id) {

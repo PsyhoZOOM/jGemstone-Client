@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/Main.css"
-            xmlns="http://javafx.com/javafx/8.0.141"
-            fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUplateController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUplateController">
     <children>
         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -26,93 +38,87 @@
                 </HBox>
                       <VBox spacing="5.0" VBox.vgrow="ALWAYS">
                           <children>
-                              <TitledPane alignment="CENTER" contentDisplay="CENTER" text="UPLATE - STATUS"
-                                          textAlignment="CENTER" VBox.vgrow="NEVER">
+                              <TitledPane alignment="CENTER" contentDisplay="CENTER" text="UPLATE - STATUS" textAlignment="CENTER" VBox.vgrow="NEVER">
                                   <content>
                                       <HBox spacing="5.0">
                                           <children>
-                                              <VBox fillWidth="false" minWidth="250.0" prefHeight="200.0" spacing="5.0"
-                                                    HBox.hgrow="NEVER">
+                                              <VBox fillWidth="false" minWidth="250.0" prefHeight="200.0" spacing="5.0" HBox.hgrow="NEVER">
                                                   <children>
                                                       <Label text="ZADUZIVANJE OSTALIH USLUGA" underline="true">
                                                           <font>
-                                                              <Font name="System Bold" size="13.0"/>
+                                                              <Font name="System Bold" size="13.0" />
                                                           </font>
                                                       </Label>
-                                                      <Label text="Naziv usluge:"/>
-                                                      <TextField fx:id="tNazivUslugeCustom"/>
-                                                      <Label text="Za mesec"/>
-                                                      <DatePicker fx:id="dtpDatumZaNaplatuCustom" editable="false"/>
-                                                      <Label text="Cena:"/>
-                                                      <TextField fx:id="tCenaCustom"/>
-                                                      <Label text="PDV:"/>
-                                                      <TextField fx:id="tPDVCustom" text="20"/>
-                                                      <Label text="Rate"/>
-                                                      <TextField fx:id="tRate" text="1"/>
-                                                      <Button fx:id="bZaduziCustomService" alignment="CENTER"
-                                                              contentDisplay="CENTER" mnemonicParsing="false"
-                                                              onAction="#zaduziCustomService"
-                                                              text="Zaduži novu uslugu"/>
+                                                      <Label text="Naziv usluge:" />
+                                                      <TextField fx:id="tNazivUslugeCustom" />
+                                                      <Label text="Za mesec" />
+                                                      <DatePicker fx:id="dtpDatumZaNaplatuCustom" editable="false" />
+                                                      <Label text="Cena:" />
+                                                      <TextField fx:id="tCenaCustom" text="0.00" />
+                                                      <Label text="PDV:" />
+                                                      <TextField fx:id="tPDVCustom" text="20" />
+                                                      <Label text="Rate" />
+                                                      <TextField fx:id="tRate" text="1" />
+                                    <Label text="Ukupno:" />
+                                    <Label fx:id="lCustomCena" text="0.00" />
+                                                      <Button fx:id="bZaduziCustomService" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#zaduziCustomService" text="Zaduži novu uslugu" />
                                                   </children>
                                                   <padding>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                   </padding>
                                               </VBox>
-                                              <Separator orientation="VERTICAL"/>
+                                              <Separator orientation="VERTICAL" />
                                               <VBox minWidth="250.0" spacing="5.0" HBox.hgrow="SOMETIMES">
                                                   <children>
                                                       <Label text="UPLATE UNAPRED" underline="true">
                                                           <font>
-                                                              <Font name="System Bold" size="13.0"/>
+                                                              <Font name="System Bold" size="13.0" />
                                                           </font>
                                                       </Label>
-                                                      <Label text="Za mesec"/>
-                                                      <DatePicker fx:id="dtpDatumZaNaplatu" editable="false"/>
-                                                      <Label text="Naziv usluge:"/>
-                                                      <ComboBox fx:id="cmbUserServices"/>
-                                                      <Button fx:id="bZaduzi" alignment="CENTER" contentDisplay="CENTER"
-                                                              mnemonicParsing="false" onAction="#zaduziUsluguUnapred"
-                                                              text="Uplati"/>
+                                                      <Label text="Za mesec" />
+                                                      <DatePicker fx:id="dtpDatumZaNaplatu" editable="false" />
+                                                      <Label text="Naziv usluge:" />
+                                                      <ComboBox fx:id="cmbUserServices" />
+                                                      <Button fx:id="bZaduzi" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#zaduziUsluguUnapred" text="Uplati" />
                                                   </children>
                                                   <padding>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                   </padding>
                                               </VBox>
-                                              <Separator orientation="VERTICAL"/>
+                                              <Separator orientation="VERTICAL" />
                                               <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                                                   <children>
                                                       <Label text="STATUS" underline="true">
                                                           <font>
-                                                              <Font name="System Bold" size="13.0"/>
+                                                              <Font name="System Bold" size="13.0" />
                                                           </font>
                                                       </Label>
-                                                      <Label text="Datum isteka:"/>
-                                                      <Label fx:id="lStatusDatumIsteka" text="--"/>
-                                                      <Label text="Zaduzen od:"/>
-                                                      <Label fx:id="lStatusZaduzenOd" text="--"/>
-                                                      <Label text="Datum uplate:"/>
-                                                      <Label fx:id="lStatusDatumUplate" text="--"/>
-                                                      <Label text="Uplatio:"/>
-                                                      <Label fx:id="lStatusUplatioOper" text="--"/>
-                                                      <Label text="Identifikacija:"/>
-                                                      <Label fx:id="lIdentifikacija" text="--"/>
+                                                      <Label text="Datum isteka:" />
+                                                      <Label fx:id="lStatusDatumIsteka" text="--" />
+                                                      <Label text="Zaduzen od:" />
+                                                      <Label fx:id="lStatusZaduzenOd" text="--" />
+                                                      <Label text="Datum uplate:" />
+                                                      <Label fx:id="lStatusDatumUplate" text="--" />
+                                                      <Label text="Uplatio:" />
+                                                      <Label fx:id="lStatusUplatioOper" text="--" />
+                                                      <Label text="Identifikacija:" />
+                                                      <Label fx:id="lIdentifikacija" text="--" />
                                                   </children>
                                                   <padding>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                   </padding>
                                               </VBox>
-                                              <Separator orientation="VERTICAL" prefHeight="200.0"/>
+                                              <Separator orientation="VERTICAL" prefHeight="200.0" />
                                               <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                                   <children>
-                                                      <ImageView fx:id="imgQR" fitHeight="150.0" fitWidth="200.0"
-                                                                 pickOnBounds="true" preserveRatio="true"/>
-                                                      <Label fx:id="lUserJBroj" text="UserID"/>
-                                                      <Label fx:id="lImePrezime" text="IME PREZIME"/>
+                                                      <ImageView fx:id="imgQR" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <Label fx:id="lUserJBroj" text="UserID" />
+                                                      <Label fx:id="lImePrezime" text="IME PREZIME" />
                                                   </children>
                                               </VBox>
                                           </children>
                                           <padding>
-                                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                           </padding>
                                       </HBox>
                                   </content>

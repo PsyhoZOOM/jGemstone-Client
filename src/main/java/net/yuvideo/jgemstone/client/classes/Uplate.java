@@ -12,11 +12,11 @@ public class Uplate implements Serializable, Cloneable {
     String nazivPaket;
     String datumZaduzenja;
     int userID;
-    Double popust;
+    double popust;
     String paketType;
-    Double cena;
-    Double uplaceno;
-    Double zaUplatu;
+    double cena;
+    double uplaceno;
+    double zaUplatu;
     String datumUplate;
     String operater;
     double dug;
