@@ -12,6 +12,7 @@
             <TableView fx:id="tblUplate" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
               <columns>
                 <TableColumn fx:id="cDatumUplate" prefWidth="75.0" text="Datum Uplate" />
+                  <TableColumn fx:id="cZaMesec" prefWidth="75.0" text="Za Mesec" />
                   <TableColumn fx:id="cOperater" prefWidth="75.0" text="Operater" />
                 <TableColumn fx:id="cMestoUplate" prefWidth="75.0" text="Mesto" />
                   <TableColumn fx:id="cNazivUsluge" prefWidth="75.0" text="Naziv Usluge" />

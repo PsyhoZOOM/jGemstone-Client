@@ -332,10 +332,28 @@ public class KorisnikUplateController implements Initializable {
         chkSveUplate.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                show_data();
+                filter_data();
             }
         });
 
+    }
+
+    public void filter_data() {
+        show_data();
+        if(chkSveUplate.isSelected())
+            return;
+
+        TreeItem<Uplate> root = tblZaduzenja.getRoot();
+        TreeItem<Uplate> root_tmp= new TreeItem<>();
+        tblZaduzenja.getRoot().getChildren().removeAll();
+
+        for(TreeItem<Uplate> uplataRow : root.getChildren()){
+            if(uplataRow.getValue().getDug() > uplataRow.getValue().getUplaceno()){
+                root_tmp.getChildren().add(uplataRow);
+            }
+        }
+
+        tblZaduzenja.setRoot(root_tmp);
     }
 
     private String calculateCenaPDV(String cenaT, String pdvT){
@@ -460,8 +478,6 @@ public class KorisnikUplateController implements Initializable {
         tblZaduzenja.setRoot(rootNode);
 
 
-        ObservableList dataUplate = FXCollections.observableArrayList(getUserUplate());
-        tblZaduzenja.refresh();
 
         ObservableList<ServicesUser> userServices = FXCollections.observableArrayList(get_user_services());
         cmbUserServices.setItems(userServices);
@@ -472,23 +488,11 @@ public class KorisnikUplateController implements Initializable {
 
     }
 
-    private boolean check_box_fix_service(int id_serviceUser) {
-        boolean boxHaveFix = false;
-        JSONObject jsonObject = new JSONObject();
-
-        jsonObject.put("action", "check_box_fix_usluga");
-        jsonObject.put("idService", id_serviceUser);
-        if (client.send_object(jsonObject).getBoolean("haveFixService"))
-            boxHaveFix = true;
-
-        return boxHaveFix;
-
-    }
 
     private void getUserDebt(int id) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("action", "getUserDebt");
-        jsonObject.put("userID", user.getId());
+        jsonObject.put("userID", id);
 
         jsonObject = client.send_object(jsonObject);
         lDugZaduzenja.setText(df.format(jsonObject.getDouble("ukupanDug")));
@@ -508,7 +512,7 @@ public class KorisnikUplateController implements Initializable {
         jObj = new JSONObject();
         jObj.put("action", "get_zaduzenja_user");
         jObj.put("userID", user.getId());
-        jObj.put("sveUplate", chkSveUplate.isSelected());
+        jObj.put("sveUplate", true);
         Double dug = 0.00;
 
         jObj = client.send_object(jObj);

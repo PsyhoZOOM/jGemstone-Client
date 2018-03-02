@@ -20,6 +20,7 @@ public class UplatePregledController implements Initializable {
     public TableColumn<Uplate, String> cMestoUplate;
     public TableColumn<Uplate, String> cNazivUsluge;
     public TableColumn<Uplate, Double> cUplaceno;
+    public TableColumn cZaMesec;
     private URL location;
     private ResourceBundle resources;
     public Users user;
@@ -36,6 +37,7 @@ public class UplatePregledController implements Initializable {
         cMestoUplate.setCellValueFactory(new PropertyValueFactory<>("mestoUplate"));
         cNazivUsluge.setCellValueFactory(new PropertyValueFactory<>("nazivPaket"));
         cUplaceno.setCellValueFactory(new PropertyValueFactory<>("uplaceno"));
+        cZaMesec.setCellValueFactory(new PropertyValueFactory<>("zaMesec"));
 
 
 
@@ -58,6 +60,7 @@ public class UplatePregledController implements Initializable {
             uplate.setDatumUplate(uplataObj.getString("datumUplate"));
             uplate.setNazivPaket(uplataObj.getString("nazivServisa"));
             uplate.setOperater(uplataObj.getString("operater"));
+            uplate.setZaMesec(uplataObj.getString("zaMesec"));
             uplateArrayList.add(uplate);
 
         }

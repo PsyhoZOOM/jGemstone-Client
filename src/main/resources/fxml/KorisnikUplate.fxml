@@ -162,9 +162,14 @@
                                       <Label fx:id="lDugZaduzenja" text="0,00" />
                                   </children>
                               </HBox>
+                  <HBox alignment="CENTER_RIGHT">
+                     <children>
+                        <Label text="Mesto uplate:" />
+                        <ComboBox fx:id="cmbTypeUplate" prefWidth="150.0" />
+                     </children>
+                  </HBox>
                               <HBox alignment="CENTER_RIGHT" spacing="5.0" VBox.vgrow="NEVER">
                                   <children>
-                        <ComboBox fx:id="cmbTypeUplate" prefWidth="150.0" />
                                       <Label text="Za uplatu:" />
                                       <Spinner fx:id="cmbZaUplatu" />
                                       <Button fx:id="bUplatiServis" mnemonicParsing="false" onAction="#uplatiServis" text="Uplati" />

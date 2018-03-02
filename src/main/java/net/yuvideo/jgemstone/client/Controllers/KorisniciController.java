@@ -305,7 +305,7 @@ public class KorisniciController implements Initializable {
         KorisnikUplateController uplateKorisnikController = uplateKorisnik.getLoader().getController();
         uplateKorisnikController.client = client;
         uplateKorisnikController.user = user;
-        uplateKorisnikController.show_data();
+        uplateKorisnikController.filter_data();
         uplateKorisnik.getStage().showAndWait();
 
     }
