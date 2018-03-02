@@ -338,8 +338,8 @@ public class BoxPaketEditController implements Initializable {
     private void setCenaPDV() {
         Double cena = Double.valueOf(spnCena.getEditor().getText());
         Double pdv = Double.valueOf(spnPDV.getEditor().getText());
-        Double pdvDiff = valueToPercent.getDiffValue(cena, pdv);
-        lCenaPaketa.setText(df.format(cena + pdvDiff));
+        Double value = valueToPercent.getValueOfPercentSub(cena, pdv);
+        lCenaPaketa.setText(df.format(cena - value));
     }
 
 
@@ -373,7 +373,7 @@ public class BoxPaketEditController implements Initializable {
             jObj.put("FIX_id", cmbFiks.getValue().getId());
             jObj.put("FIX_naziv", cmbFiks.getValue().getNaziv());
         }
-        jObj.put("cena", spnCena.getEditor().getText());
+        jObj.put("cena", Double.valueOf(lCenaPaketa.getText()));
         jObj.put("pdv", spnPDV.getEditor().getText());
 
         jObj = client.send_object(jObj);

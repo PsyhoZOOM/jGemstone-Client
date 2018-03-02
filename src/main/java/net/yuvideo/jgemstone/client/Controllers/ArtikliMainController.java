@@ -147,14 +147,13 @@ public class ArtikliMainController implements Initializable {
         tblArtikli.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Artikli>() {
             @Override
             public void changed(ObservableValue<? extends Artikli> observable, Artikli oldValue, Artikli newValue) {
-                setValues();
+                setValues(newValue);
             }
         });
 
     }
 
-    private void setValues() {
-        Artikli artikli = tblArtikli.getSelectionModel().getSelectedItem();
+    private void setValues(Artikli artikli) {
         if (artikli == null) return;
         tNaziv.setText(artikli.getNaziv());
         tProizvodjac.setText(artikli.getProizvodjac());
@@ -174,7 +173,12 @@ public class ArtikliMainController implements Initializable {
         }
 
 
-        cmbMagacin.getSelectionModel().select(getMagacin(artikli.getIdMagacin()));
+        //ako je artikal zaduzen kod korisnika, else select magacin
+        if(artikli.isUser()){
+            cmbMagacin.getSelectionModel().select(1);
+        }else {
+            cmbMagacin.getSelectionModel().select(getMagacin(artikli.getIdMagacin()));
+        }
 
 
 
@@ -215,6 +219,7 @@ public class ArtikliMainController implements Initializable {
     }
 
     private void updateMagacinCmb() {
+        cmbMagacin.getItems().clear();
         Magacin magacin = new Magacin();
         Magacin magacinALL = new Magacin();
         Magacin magacinUsers = new Magacin();
@@ -226,7 +231,6 @@ public class ArtikliMainController implements Initializable {
         magacinUsers.setId(1);
 
         ObservableList magacinObs = FXCollections.observableArrayList(getMagacini());
-        cmbMagacin.getItems().clear();
 
         cmbMagacin.getItems().add(magacinALL);
         cmbMagacin.getItems().add(magacinUsers);

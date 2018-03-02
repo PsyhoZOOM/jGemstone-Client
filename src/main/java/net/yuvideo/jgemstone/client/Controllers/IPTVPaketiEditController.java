@@ -157,7 +157,7 @@ public class IPTVPaketiEditController implements Initializable {
         jsonObject.put("external_id", cmbIPTVPakets.getValue().getExternal_id());
         jsonObject.put("iptv_id", cmbIPTVPakets.getValue().getIptv_id());
         jsonObject.put("name", cmbIPTVPakets.getValue().getName());
-        jsonObject.put("cena", spnCena.getEditor().getText());
+        jsonObject.put("cena", Double.valueOf(lCenaPaketa.getText()));
         jsonObject.put("opis", tOpis.getText());
         jsonObject.put("pdv", spnPDV.getEditor().getText());
 
@@ -179,7 +179,7 @@ public class IPTVPaketiEditController implements Initializable {
         jsonObject.put("iptv_id", cmbIPTVPakets.getValue().getIptv_id());
 
         try {
-            jsonObject.put("cena", Double.valueOf(spnCena.getEditor().getText()));
+            jsonObject.put("cena", Double.valueOf(lCenaPaketa.getText()));
         } catch (NumberFormatException e) {
             AlertUser.error("GRESKA", "Pogresan unos cene");
         }
@@ -202,8 +202,8 @@ public class IPTVPaketiEditController implements Initializable {
     private void setCenaPDV() {
         Double cena = Double.valueOf(spnCena.getEditor().getText());
         Double pdv = Double.valueOf(spnPDV.getEditor().getText());
-        Double pdvDiff = valueToPercent.getDiffValue(cena, pdv);
-        lCenaPaketa.setText(df.format(cena + pdvDiff));
+        Double value = valueToPercent.getValueOfPercentSub(cena, pdv);
+        lCenaPaketa.setText(df.format(cena - value));
     }
 
 

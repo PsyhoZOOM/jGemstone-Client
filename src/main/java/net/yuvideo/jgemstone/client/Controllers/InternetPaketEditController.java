@@ -62,6 +62,7 @@ public class InternetPaketEditController implements Initializable {
                 setCenaSaPDV();
             }
         });
+        spnIdleTimeout.getEditor().setText("600");
 
     }
 
@@ -78,7 +79,7 @@ public class InternetPaketEditController implements Initializable {
         jObj.put("action", "snimi_internet_paket");
         jObj.put("naziv", tNaziv.getText());
         jObj.put("brzina", tBrzina.getText());
-        jObj.put("cena", Double.valueOf(spnCena.getEditor().getText()));
+        jObj.put("cena", Double.valueOf(lCenaNet.getText()));
         jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
         jObj.put("opis", tOpis.getText());
         jObj.put("idleTimeout", spnIdleTimeout.getEditor().getText());
@@ -100,7 +101,7 @@ public class InternetPaketEditController implements Initializable {
         jObj.put("idPaket", paket.getId());
         jObj.put("naziv", paket.getNaziv());
         jObj.put("brzina", tBrzina.getText());
-        jObj.put("cena", Double.valueOf(spnCena.getEditor().getText()));
+        jObj.put("cena", Double.valueOf(lCenaNet.getText()));
         jObj.put("idleTimeout", spnIdleTimeout.getEditor().getText());
         jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
         jObj.put("opis", tOpis.getText());
@@ -136,7 +137,7 @@ public class InternetPaketEditController implements Initializable {
     private void setCenaSaPDV() {
         Double cena = Double.valueOf(spnCena.getEditor().getText());
         Double pdv = Double.valueOf(spnPDV.getEditor().getText());
-        Double pdvDiff = valueToPercent.getDiffValue(cena, pdv);
-        lCenaNet.setText(df.format(cena + pdvDiff));
+        Double value = valueToPercent.getValueOfPercentSub(cena, pdv);
+        lCenaNet.setText(df.format(cena - value));
     }
 }

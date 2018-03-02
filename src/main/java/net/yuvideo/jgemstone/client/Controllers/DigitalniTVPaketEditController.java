@@ -84,7 +84,7 @@ public class DigitalniTVPaketEditController implements Initializable {
         jObj = new JSONObject();
         jObj.put("action", "add_dtv_paket");
         jObj.put("naziv", tNaziv.getText());
-        jObj.put("cena", Double.valueOf(spnCena.getEditor().getText()));
+        jObj.put("cena", Double.valueOf(lCenaPaketa.getText()));
         jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
         jObj.put("opis", tOpis.getText());
         jObj.put("idPaket", Integer.valueOf(tPaketID.getText()));
@@ -108,7 +108,7 @@ public class DigitalniTVPaketEditController implements Initializable {
         jObj.put("action", "edit_dtv_paket");
         jObj.put("id", dtvPaket.getId());
         jObj.put("naziv", tNaziv.getText());
-        jObj.put("cena", Double.valueOf(spnCena.getEditor().getText()));
+        jObj.put("cena", Double.valueOf(lCenaPaketa.getText()));
         jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
         jObj.put("opis", tOpis.getText());
         jObj.put("idPaket", Integer.valueOf(tPaketID.getText()));
@@ -142,9 +142,9 @@ public class DigitalniTVPaketEditController implements Initializable {
     private void setCenaPDV() {
         Double cena = Double.valueOf(spnCena.getEditor().getText());
         Double pdv = Double.valueOf(spnPDV.getEditor().getText());
-        Double pdvDiff = valueToPercent.getDiffValue(cena, pdv);
+        Double value = valueToPercent.getValueOfPercentSub(cena, pdv);
 
-        lCenaPaketa.setText(df.format(cena + pdvDiff));
+        lCenaPaketa.setText(df.format(cena - value));
     }
 
 

@@ -92,7 +92,7 @@ public class FiksnaTelefonijaPaketEditController implements Initializable {
         jObj = new JSONObject();
         jObj.put("action", "add_fixTel_paket");
         jObj.put("naziv", tNaziv.getText());
-        jObj.put("pretplata", Double.valueOf(spnPretplata.getEditor().getText()));
+        jObj.put("pretplata", Double.valueOf(lCenaPaketa.getText()));
         jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
         jObj.put("besplatniMinutiFiksna", Integer.valueOf(spnBesplatniMinuti.getEditor().getText()));
         client.send_object(jObj);
@@ -110,7 +110,7 @@ public class FiksnaTelefonijaPaketEditController implements Initializable {
 
         jObj.put("naziv", tNaziv.getText());
         jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
-        jObj.put("pretplata", Double.valueOf(spnPretplata.getEditor().getText()));
+        jObj.put("pretplata", Double.valueOf(lCenaPaketa.getText()));
         jObj.put("besplatniMinutiFiksna", Integer.valueOf(spnBesplatniMinuti.getEditor().getText()));
         jObj.put("id", paketEdit.getId());
 
@@ -128,8 +128,8 @@ public class FiksnaTelefonijaPaketEditController implements Initializable {
     private void setCenaSaPDV() {
         Double cena = Double.valueOf(spnPretplata.getEditor().getText());
         Double pdv = Double.valueOf(spnPDV.getEditor().getText());
-        Double pdvDiff = valueToPercent.getDiffValue(cena, pdv);
-        lCenaPaketa.setText(df.format(cena + pdvDiff));
+        Double value = valueToPercent.getValueOfPercentSub(cena, pdv);
+        lCenaPaketa.setText(df.format(cena - value));
     }
 
     void set_data() {

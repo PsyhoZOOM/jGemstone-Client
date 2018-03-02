@@ -57,6 +57,7 @@ public class Artikli implements Serializable {
             artikli.setOpis(artkal.getString("opis"));
             artikli.setDatum(artkal.getString("datum"));
             artikli.setOperName(artkal.getString("operName"));
+            artikli.setUser(artkal.getBoolean("isUser"));
             if (artkal.has("idMagacin"))
                 artikli.setIdMagacin(artkal.getInt("idMagacin"));
             if (artkal.getBoolean("isUser")) {

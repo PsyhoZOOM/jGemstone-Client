@@ -205,10 +205,10 @@ public class MainWindowController implements Initializable {
 
 
     public void showInternetMain(ActionEvent actionEvent) {
-        NewInterface internetMainInterface = new NewInterface("fxml/InternetMain.fxml", "INTERNET", resource);
+        NewInterface internetMainInterface = new NewInterface("fxml/Administration/InternetMain.fxml", "INTERNET", resource);
         InternetMainController internetMainController = internetMainInterface.getLoader().getController();
         internetMainController.client = client;
-        internetMainController.stage = internetMainInterface.getStage();
+        internetMainController.setTreeItems();
         internetMainInterface.getStage().showAndWait();
     }
 

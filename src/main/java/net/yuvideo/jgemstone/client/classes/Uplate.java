@@ -27,6 +27,32 @@ public class Uplate implements Serializable, Cloneable {
     String napomena;
     String identification;
     boolean haveFIX;
+    String vrstaUplate;
+
+
+    public void setPopust(double popust) {
+        this.popust = popust;
+    }
+
+    public void setCena(double cena) {
+        this.cena = cena;
+    }
+
+    public void setUplaceno(double uplaceno) {
+        this.uplaceno = uplaceno;
+    }
+
+    public void setZaUplatu(double zaUplatu) {
+        this.zaUplatu = zaUplatu;
+    }
+
+    public String getVrstaUplate() {
+        return vrstaUplate;
+    }
+
+    public void setVrstaUplate(String vrstaUplate) {
+        this.vrstaUplate = vrstaUplate;
+    }
 
     public boolean isHaveFIX() {
         return haveFIX;

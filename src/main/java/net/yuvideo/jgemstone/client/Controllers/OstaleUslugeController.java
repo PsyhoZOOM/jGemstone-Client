@@ -28,6 +28,7 @@ public class OstaleUslugeController implements Initializable {
     public TableColumn<OstaleUsluge, Double> cCena;
     public TableView<OstaleUsluge> tblOstaleUsluge;
     public TableColumn<OstaleUsluge, String> cOpis;
+    public TableColumn<OstaleUsluge, Double> cCenaPDV;
     private ResourceBundle resources;
     private URL location;
     public Client client;
@@ -45,6 +46,7 @@ public class OstaleUslugeController implements Initializable {
         cPDV.setCellValueFactory(new PropertyValueFactory<>("pdv"));
         cCena.setCellValueFactory(new PropertyValueFactory<>("cena"));
         cOpis.setCellValueFactory(new PropertyValueFactory<>("komentar"));
+        cCenaPDV.setCellValueFactory(new PropertyValueFactory<>("cenaPDV"));
 
 
         cPDV.setCellFactory(new Callback<TableColumn<OstaleUsluge, Double>, TableCell<OstaleUsluge, Double>>() {
@@ -97,6 +99,7 @@ public class OstaleUslugeController implements Initializable {
             ostaleUsluge.setId(obj.getInt("id"));
             ostaleUsluge.setNazivUsluge(obj.getString("naziv"));
             ostaleUsluge.setCena(obj.getDouble("cena"));
+            ostaleUsluge.setCenaPDV(obj.getDouble("cenaPDV"));
             ostaleUsluge.setPdv(obj.getDouble("pdv"));
             ostaleUsluge.setKomentar(obj.getString("opis"));
             ostaleUslugesArr.add(ostaleUsluge);

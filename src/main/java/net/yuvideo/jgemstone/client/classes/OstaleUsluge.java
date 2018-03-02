@@ -9,6 +9,15 @@ public class OstaleUsluge implements Serializable {
     double cena;
     double pdv;
     double popust;
+    double cenaPDV;
+
+    public double getCenaPDV() {
+        return cenaPDV;
+    }
+
+    public void setCenaPDV(double cenaPDV) {
+        this.cenaPDV = cenaPDV;
+    }
 
     public int getId() {
         return id;

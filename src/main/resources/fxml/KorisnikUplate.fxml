@@ -21,7 +21,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUplateController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUplateController">
     <children>
         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -109,12 +109,17 @@
                                                   </padding>
                                               </VBox>
                                               <Separator orientation="VERTICAL" prefHeight="200.0" />
-                                              <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                              <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                                                   <children>
                                                       <ImageView fx:id="imgQR" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                                                       <Label fx:id="lUserJBroj" text="UserID" />
                                                       <Label fx:id="lImePrezime" text="IME PREZIME" />
+                                    <Separator prefWidth="200.0" />
+                                    <Button fx:id="bPrikaziUplate" mnemonicParsing="false" onAction="#showAllUplate" text="Prikaži uplate" />
                                                   </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
                                               </VBox>
                                           </children>
                                           <padding>
@@ -159,6 +164,7 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" spacing="5.0" VBox.vgrow="NEVER">
                                   <children>
+                        <ComboBox fx:id="cmbTypeUplate" prefWidth="150.0" />
                                       <Label text="Za uplatu:" />
                                       <Spinner fx:id="cmbZaUplatu" />
                                       <Button fx:id="bUplatiServis" mnemonicParsing="false" onAction="#uplatiServis" text="Uplati" />

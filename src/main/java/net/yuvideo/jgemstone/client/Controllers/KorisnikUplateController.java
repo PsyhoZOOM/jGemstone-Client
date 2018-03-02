@@ -56,6 +56,7 @@ public class KorisnikUplateController implements Initializable {
     public Label lUserJBroj;
     public Label lImePrezime;
     public Label lCustomCena;
+    public ComboBox cmbTypeUplate;
     @FXML
     private TreeTableView<Uplate> tblZaduzenja;
     @FXML
@@ -100,9 +101,11 @@ public class KorisnikUplateController implements Initializable {
         this.resource = resources;
         this.url = url;
 
+
+
         dtpDatumZaNaplatu.setValue(LocalDate.now());
         dtpDatumZaNaplatuCustom.setValue(LocalDate.now());
-        tRate.setText("0");
+        tRate.setText("1");
         tCenaCustom.setText("0.00");
 
         tCenaCustom.textProperty().addListener(new ChangeListener<String>() {
@@ -338,11 +341,11 @@ public class KorisnikUplateController implements Initializable {
     private String calculateCenaPDV(String cenaT, String pdvT){
         double cena = Double.valueOf(cenaT);
         double pdv = Double.valueOf(pdvT);
-        double ukupno= cena + valueToPercent.getDiffValue(cena, pdv);
+        double perc = valueToPercent.getValueOfPercentSub(cena, pdv);
+        System.out.println(perc);
+        lCustomCena.setText(df.format(cena-perc));
 
-        lCustomCena.setText(df.format(ukupno));
-
-        return df.format(ukupno);
+        return df.format(cena-perc);
     }
 
     private String get_datum_isteka_servicsa(int id) {
@@ -439,6 +442,17 @@ public class KorisnikUplateController implements Initializable {
                 rootNode.getChildren().add(rootTree);
             }
         }
+
+
+
+        cmbTypeUplate.getItems().removeAll();
+        cmbTypeUplate.getItems().clear();
+        cmbTypeUplate.getItems().add(0, "Keš");
+        cmbTypeUplate.getItems().add(1, "Faktura");
+        cmbTypeUplate.getItems().add(2, "Pošta");
+        cmbTypeUplate.getItems().add(3, "Ostalo");
+        cmbTypeUplate.getSelectionModel().select(0);
+
 
 
         rootNode.setExpanded(true);
@@ -584,6 +598,7 @@ public class KorisnikUplateController implements Initializable {
         jObj.put("id_ServiceUser", uplata.getId_ServiceUser());
         jObj.put("paketType", uplata.getPaketType());
         jObj.put("skipProduzenje", uplata.isSkipProduzenje());
+        jObj.put("mestoUplate", cmbTypeUplate.getValue().toString());
 
         Double numbUplacenoNov = null;
         Double numbZauplatu = null;
@@ -640,7 +655,7 @@ public class KorisnikUplateController implements Initializable {
 
         jObj.put("action", "zaduzi_servis_manual");
         jObj.put("nazivPaketa", tNazivUslugeCustom.getText());
-        jObj.put("cena", tCenaCustom.getText());
+        jObj.put("cena", Double.valueOf(lCustomCena.getText()));
         jObj.put("pdv", tPDVCustom.getText());
         jObj.put("uplaceno", false);
         jObj.put("zaMesec", formatMonthYear.format(datumZaMesec));
@@ -785,5 +800,14 @@ public class KorisnikUplateController implements Initializable {
 
         return uplata;
 
+    }
+
+    public void showAllUplate(ActionEvent actionEvent) {
+        NewInterface allUplateInterface = new NewInterface("fxml/UplatePregled.fxml", String.format("UPLATE KORISNIK %s - %s", user.getIme(), user.getJbroj()),this.resource);
+        UplatePregledController uplatePregledController = allUplateInterface.getLoader().getController();
+        uplatePregledController.user = this.user;
+        uplatePregledController.client = this.client;
+        uplatePregledController.setData();
+        allUplateInterface.getStage().showAndWait();
     }
 }
