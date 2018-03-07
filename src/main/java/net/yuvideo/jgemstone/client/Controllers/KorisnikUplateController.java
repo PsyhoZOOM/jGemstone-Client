@@ -814,4 +814,8 @@ public class KorisnikUplateController implements Initializable {
         uplatePregledController.setData();
         allUplateInterface.getStage().showAndWait();
     }
+
+    public void prikaziRacun(ActionEvent actionEvent) {
+        Racun userRacun = new Racun(this.user.getId(), tblZaduzenja.getSelectionModel().getSelectedItem().getValue().getZaMesec(), this.client);
+    }
 }

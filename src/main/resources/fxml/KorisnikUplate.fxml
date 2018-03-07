@@ -116,6 +116,7 @@
                                                       <Label fx:id="lImePrezime" text="IME PREZIME" />
                                     <Separator prefWidth="200.0" />
                                     <Button fx:id="bPrikaziUplate" mnemonicParsing="false" onAction="#showAllUplate" text="Prikaži uplate" />
+                                    <Button fx:id="bPrikaziRacun" mnemonicParsing="false" onAction="#prikaziRacun" text="Prikaži racun" />
                                                   </children>
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

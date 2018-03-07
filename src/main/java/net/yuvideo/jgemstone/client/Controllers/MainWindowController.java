@@ -265,7 +265,6 @@ public class MainWindowController implements Initializable {
         for (File file : lf) {
             try {
                 String content = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
-                System.out.println("Reading file: " + file.getAbsolutePath());
                 jfileObj.put(file.getAbsoluteFile().getName(), content);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -274,7 +273,6 @@ public class MainWindowController implements Initializable {
             }
         }
 
-        System.out.println("SENDING FILE ");
         JSONObject jObj = client.send_object(jfileObj);
 
         if (jObj.has("ERROR")) {
