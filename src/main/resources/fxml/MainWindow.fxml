@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorMainWindow" stylesheets="@../css/Main.css"
-            xmlns="http://javafx.com/javafx/8.0.141"
+            xmlns="http://javafx.com/javafx/8.0.162"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.MainWindowController">
     <children>
         <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -85,6 +85,12 @@
                         <MenuItem fx:id="mMagacinIzmene" mnemonicParsing="false" onAction="#MagacinShow"
                                   text="Magacini"/>
                         <MenuItem fx:id="mArtikliShow" mnemonicParsing="false" onAction="#showArtikli" text="Artikli"/>
+                    </items>
+                </Menu>
+                <Menu fx:id="mIzvestajiIObracun" mnemonicParsing="false" text="Izveštaji i Obračuni">
+                    <items>
+                        <MenuItem fx:id="mPDVObracun" mnemonicParsing="false" onAction="#showPDVObracun"
+                                  text="PDV Obračun"/>
                     </items>
                 </Menu>
                 <Menu fx:id="help" mnemonicParsing="false" text="Help">

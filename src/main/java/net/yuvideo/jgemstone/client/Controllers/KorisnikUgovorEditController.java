@@ -75,7 +75,7 @@ public class KorisnikUgovorEditController implements Initializable {
                 .replace("{%fax}", user.getFax())
                 .replace("{%adresa_za_prijem_racuna}", String.format("%s %s", user.getAdresaRacuna(), user.getMestoRacuna()))
                 .replace("{%adresa_koriscenja_usluge}", String.format("%s %s %s", user.getAdresaUsluge(), user.getjAdresaBroj(), user.getMestoUsluge()))
-                .replace("{%period_ugovora}", String.valueOf(ugovor.getTrajanje()))
+                .replace("{%period_ugovora}", String.valueOf(ugovor.getTrajanje() + String.format(" (%s)", getGodinaSlova(Integer.parseInt(ugovor.getTrajanje())))))
                 .replace("{%datum}", LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
                 .replace("{%PIB}", user.getPIB())
                 .replace("{%JMBG}", user.getJMBG())
@@ -87,6 +87,33 @@ public class KorisnikUgovorEditController implements Initializable {
                 .replace("{%naziv_firme}", user.getNazivFirme())
                 .replace("{%kontakt_osoba}", user.getKontaktOsoba()));
 
+    }
+
+
+    private String getGodinaSlova(int ugTrajanje) {
+        String godina = "";
+        switch (ugTrajanje) {
+            case 1:
+                godina = "jedna";
+                break;
+            case 2:
+                godina = "dve";
+                break;
+            case 3:
+                godina = "tri";
+                break;
+            case 4:
+                godina = "četri";
+                break;
+            case 5:
+                godina = "pet";
+                break;
+            case 6:
+                godina = "šest";
+                break;
+
+        }
+        return godina;
     }
 
 

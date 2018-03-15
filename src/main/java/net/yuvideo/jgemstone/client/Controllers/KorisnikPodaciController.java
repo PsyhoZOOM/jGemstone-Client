@@ -398,6 +398,6 @@ public class KorisnikPodaciController implements Initializable {
 
     public void copyToAdresaRacun(ActionEvent actionEvent) {
         tAdresaRacuna.setText(tAdresa.getText());
-        tMestoRacuna.setText(tMesto.getText());
+        tMestoRacuna.setText(String.format("%s %s", tPostBr.getText(), tMesto.getText()));
     }
 }

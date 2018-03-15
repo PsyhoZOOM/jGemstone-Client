@@ -2,7 +2,7 @@ package net.yuvideo.jgemstone.client.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.print.*;
+import javafx.print.PrinterJob;
 import javafx.scene.web.WebView;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.Users;
@@ -48,19 +48,21 @@ public class UgovorStampaController implements Initializable {
 
 
     public void printContent(ActionEvent actionEvent) {
-        Printer printer = Printer.getDefaultPrinter();
-        PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT);
-        PrinterJob printerJob = PrinterJob.createPrinterJob(printer);
-        printerJob.getJobSettings().setPageLayout(pageLayout);
-        if (printerJob != null) {
-            if (printerJob.showPrintDialog(browser.getScene().getWindow())) {
-                browser.getEngine().print(printerJob);
-                printerJob.endJob();
-            }
+        //Printer printer = Printer.getDefaultPrinter();
+        ////PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT);
+        //PrinterJob printerJob = PrinterJob.createPrinterJob(printer);
+        //printerJob.getJobSettings().setPageLayout(pageLayout);
+
+        PrinterJob printerJob = PrinterJob.createPrinterJob();
+        if (!printerJob.showPrintDialog(browser.getScene().getWindow())) {
+            System.out.println(browser.getEngine().getDocument().getTextContent());
+            browser.getEngine().print(printerJob);
+            printerJob.endJob();
         }
     }
 
-    public void scaleDown(ActionEvent actionEvent) {
+    public void scaleDown(ActionEvent
+                                  actionEvent) {
         browser.setScaleX(browser.getScaleX() / 2);
         browser.setScaleY(browser.getScaleY() / 2);
     }

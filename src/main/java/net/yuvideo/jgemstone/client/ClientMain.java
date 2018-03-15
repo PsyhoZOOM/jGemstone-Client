@@ -47,7 +47,7 @@ public class ClientMain extends Application {
     }
 
     @Override
-    public void start(final Stage primaryStage) throws Exception {
+    public void start(final Stage primaryStage) {
 
         //locale_sr = "RS";
         //locale = new Locale(locale_sr)
@@ -69,6 +69,9 @@ public class ClientMain extends Application {
         this.stage = primaryStage;
 
         primaryStage.setTitle("JGemstone");
+
+
+        setUserAgentStylesheet(STYLESHEET_MODENA);
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override

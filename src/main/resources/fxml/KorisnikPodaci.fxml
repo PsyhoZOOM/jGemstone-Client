@@ -4,21 +4,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/Main.css"
-            xmlns="http://javafx.com/javafx/8.0.65"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikPodaciController">
     <children>
         <GridPane hgap="5.0" stylesheets="@../css/Main.css" vgap="5.0" AnchorPane.bottomAnchor="0.0"
                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0"/>
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="50.0"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
                 <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="NEVER"/>
                 <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="50.0"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
                 <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="50.0"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints valignment="CENTER" vgrow="NEVER"/>
@@ -33,7 +31,7 @@
                 <RowConstraints valignment="CENTER" vgrow="NEVER"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS"/>
+                <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" valignment="CENTER"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER"/>
             </rowConstraints>
             <children>
@@ -98,10 +96,8 @@
                            GridPane.rowIndex="7"/>
                 <TextField fx:id="tAdresaRacuna" promptText="Bate Bulic 22/8" GridPane.columnIndex="4"
                            GridPane.rowIndex="8"/>
-                <TextArea fx:id="taKomentar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                          prefHeight="153.0" prefWidth="491.0" promptText="Komentar" wrapText="true"
-                          GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="11"
-                          GridPane.rowSpan="2"/>
+                <TextArea fx:id="taKomentar" promptText="Komentar" wrapText="true" GridPane.columnIndex="1"
+                          GridPane.columnSpan="2147483647" GridPane.rowIndex="11" GridPane.rowSpan="2"/>
                 <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#bSaveUser" text="Sačuvaj promene"
                         GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="13"/>
                 <Button fx:id="bCopyUserData" mnemonicParsing="false" onAction="#copyToAdresaRacun"

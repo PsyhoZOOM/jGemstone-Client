@@ -16,10 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.NewInterface;
-import net.yuvideo.jgemstone.client.classes.Users;
-import net.yuvideo.jgemstone.client.classes.messageS;
+import net.yuvideo.jgemstone.client.classes.*;
 import org.controlsfx.control.textfield.TextFields;
 import org.json.JSONObject;
 
@@ -199,7 +196,8 @@ public class KorisniciController implements Initializable {
             ButtonType bYES = new ButtonType("Da", ButtonBar.ButtonData.YES);
             ButtonType bNO = new ButtonType("NE", ButtonBar.ButtonData.NO);
 
-            alert = new Alert(Alert.AlertType.CONFIRMATION, "Da li ste sigurni da zelite da izbrišete korisnika", bYES, bNO);
+            alert = new Alert(Alert.AlertType.CONFIRMATION, "Da li ste sigurni da zelite da izbrišete korisnika? \n" +
+                    "Svi podaci, servisi, uplate, oprema, fakture, ", bYES, bNO);
             alert.setTitle("Upozorenje");
             alert.setHeaderText("Brisanje korisnika!");
             alert.initOwner(stage);
@@ -218,6 +216,11 @@ public class KorisniciController implements Initializable {
 
         jObj = client.send_object(jObj);
         show_table("");
+        if (jObj.has("ERROR")) {
+            AlertUser.error("GRESKA", jObj.getString("ERROR"));
+        } else {
+            AlertUser.info("KORISNIK OBRISAN", String.format("Korisnik %s je obrisan!", user.getIme()));
+        }
 
     }
 

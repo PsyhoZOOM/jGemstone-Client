@@ -383,6 +383,13 @@ public class MainWindowController implements Initializable {
         magacinEditController.showData();
         addMagacinInt.getStage().showAndWait();
     }
+
+    public void showPDVObracun(ActionEvent actionEvent) {
+        NewInterface izvestajPDVObracunInteface = new NewInterface("fxml/IzvestajPDVObracun.fxml", "OBRAČUN PDV", this.resource);
+        IzvestajPDVObracun izvestajPDVObracunController = izvestajPDVObracunInteface.getLoader().getController();
+        izvestajPDVObracunController.client = this.client;
+        izvestajPDVObracunInteface.getStage().showAndWait();
+    }
 }
 
 

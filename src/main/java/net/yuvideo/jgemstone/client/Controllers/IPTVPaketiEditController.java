@@ -200,9 +200,9 @@ public class IPTVPaketiEditController implements Initializable {
     }
 
     private void setCenaPDV() {
-        Double cena = Double.valueOf(spnCena.getEditor().getText());
-        Double pdv = Double.valueOf(spnPDV.getEditor().getText());
-        Double value = valueToPercent.getValueOfPercentSub(cena, pdv);
+        double cena = Double.valueOf(spnCena.getEditor().getText());
+        double pdv = Double.valueOf(spnPDV.getEditor().getText());
+        double value = valueToPercent.getValueOfPercentSub(cena, pdv);
         lCenaPaketa.setText(df.format(cena - value));
     }
 

@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import net.yuvideo.jgemstone.client.classes.*;
+import org.controlsfx.control.spreadsheet.StringConverterWithFormat;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -105,6 +106,32 @@ public class KorisnikUplateController implements Initializable {
 
         dtpDatumZaNaplatu.setValue(LocalDate.now());
         dtpDatumZaNaplatuCustom.setValue(LocalDate.now());
+
+        dtpDatumZaNaplatu.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate object) {
+                return object.format(formatter);
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                return LocalDate.parse(string, formatter);
+            }
+        });
+
+        dtpDatumZaNaplatuCustom.setConverter(new StringConverterWithFormat<LocalDate>() {
+            @Override
+            public String toString(LocalDate object) {
+                return object.format(formatter);
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                return LocalDate.parse(string, formatter);
+            }
+        });
+
+
         tRate.setText("1");
         tCenaCustom.setText("0.00");
 
@@ -726,10 +753,11 @@ public class KorisnikUplateController implements Initializable {
     }
 
     public void zaduziUsluguUnapred(ActionEvent actionEvent) {
-        if (!cmbUserServices.getValue().getAktivan()) {
-            AlertUser.warrning("GRESKA", "Usluga nije aktivirana");
+        if (cmbUserServices.getSelectionModel().getSelectedIndex() == -1 || !cmbUserServices.getValue().getAktivan()) {
+            AlertUser.warrning("GRESKA", "Usluga nije izabrana ili nije aktivirana");
             return;
         }
+
         jObj = new JSONObject();
         jObj.put("action", "zaduzi_uslugu");
         jObj.put("userID", user.getId());

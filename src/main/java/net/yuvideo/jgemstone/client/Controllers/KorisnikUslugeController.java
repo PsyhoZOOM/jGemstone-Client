@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 import net.yuvideo.jgemstone.client.classes.*;
 import org.json.JSONObject;
@@ -49,6 +50,7 @@ public class KorisnikUslugeController implements Initializable {
     public TextArea taKomentarOstalo;
     public Button bSnimiOstalo;
     public CheckBox chkProduzenjeOstalo;
+    public ComboBox<ugovori_types> cmbUgovorOstalo;
 
 
     @FXML
@@ -191,6 +193,35 @@ public class KorisnikUslugeController implements Initializable {
             }
         });
 
+        cmbUgovorBox.setCellFactory(new Callback<ListView<ugovori_types>, ListCell<ugovori_types>>() {
+            @Override
+            public ListCell<ugovori_types> call(ListView<ugovori_types> param) {
+                return new ListCell<ugovori_types>() {
+                    @Override
+                    protected void updateItem(ugovori_types item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setText(null);
+                        } else {
+                            setText(String.format("%s, %s", item.getNaziv(), item.getBr()));
+                        }
+                    }
+                };
+            }
+        });
+
+        cmbUgovorBox.setConverter(new StringConverter<ugovori_types>() {
+            @Override
+            public String toString(ugovori_types object) {
+                return String.format("%s, %s", object.getNaziv(), object.getBr());
+            }
+
+            @Override
+            public ugovori_types fromString(String string) {
+                return null;
+            }
+        });
+
         cmbUgovorInternet.setCellFactory(d -> new ListCell<ugovori_types>() {
             public void updateItem(ugovori_types ugovor, boolean bool) {
                 super.updateItem(ugovor, bool);
@@ -210,6 +241,32 @@ public class KorisnikUslugeController implements Initializable {
                 } else {
                     setText(ugovord.getNaziv() + ", " + ugovord.getBr());
                 }
+            }
+        });
+
+        cmbFixBrojUgovora.setCellFactory(new Callback<ListView<ugovori_types>, ListCell<ugovori_types>>() {
+            @Override
+            public ListCell<ugovori_types> call(ListView<ugovori_types> param) {
+                return new ListCell<ugovori_types>() {
+                    @Override
+                    protected void updateItem(ugovori_types item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (!empty) setText(String.format("%s, %s", item.getNaziv(), item.getBr()));
+                    }
+                };
+            }
+        });
+
+        cmbUgovorIPTV.setCellFactory(new Callback<ListView<ugovori_types>, ListCell<ugovori_types>>() {
+            @Override
+            public ListCell<ugovori_types> call(ListView<ugovori_types> param) {
+                return new ListCell<ugovori_types>() {
+                    @Override
+                    protected void updateItem(ugovori_types item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (!empty) setText(String.format("%s, %s", item.getNaziv(), item.getBr()));
+                    }
+                };
             }
         });
 
@@ -854,8 +911,8 @@ public class KorisnikUslugeController implements Initializable {
 
     public void addServiceDTV(ActionEvent actionEvent) {
 
-        if (cmbPaketDTV == null || cmbUgovorDTV == null || tPopustDTV.getText().isEmpty()) {
-            AlertUser.error("GRESKA", "Paket, ugovor i popust polje ne mogu biti prazna!");
+        if (cmbPaketDTV == null || cmbUgovorDTV == null || tPopustDTV.getText().isEmpty() || tKarticaDTV.getText().isEmpty()) {
+            AlertUser.error("GRESKA", "Paket, ugovor, broj kartice i popust polje ne mogu biti prazna!");
             return;
         }
 
@@ -890,7 +947,7 @@ public class KorisnikUslugeController implements Initializable {
             AlertUser.error("GRESKA!", jObj.getString("Error"));
             return;
         } else {
-            AlertUser.info("INFO", jObj.getString("Message"));
+            AlertUser.info("INFO", "Usluga dodana");
             tPopustDTV.setText("");
             tKarticaDTV.setText("");
             chkRacunDTV.setSelected(true);
@@ -1073,6 +1130,7 @@ public class KorisnikUslugeController implements Initializable {
         cmbFixBrojUgovora.getItems().clear();
         cmbFixBrojUgovora.setItems(ugovoriCombo);
         cmbUgovorIPTV.setItems(ugovoriCombo);
+        cmbUgovorOstalo.setItems(ugovoriCombo);
     }
 
     public void addFixUslugu(ActionEvent actionEvent) {
@@ -1205,7 +1263,7 @@ public class KorisnikUslugeController implements Initializable {
         if (jObj.has("Error") || jObj.has("ERROR")) {
             AlertUser.error("GRESKA", jObj.getString("ERROR"));
         } else {
-            AlertUser.info("Servis je snimljen", String.format("Servis %s je snimljen.",
+            AlertUser.info("Usluga je dodana", String.format("Usluga %s je dodana.",
                     cmbIPTVPaket.getValue().getName()));
             setData();
         }
@@ -1222,13 +1280,18 @@ public class KorisnikUslugeController implements Initializable {
         jsonObject.put("popust", tPopustOstalo.getText());
         jsonObject.put("obracun", chkProduzenjeOstalo.isSelected());
         jsonObject.put("komentar", taKomentarOstalo.getText());
+        if (cmbUgovorOstalo.getSelectionModel().isEmpty()) {
+            jsonObject.put("brojUgovora", "0");
+        } else {
+            jsonObject.put("brojUgovora", cmbUgovorOstalo.getValue().getBr());
+        }
         jsonObject.put("paketType", "OSTALE_USLUGE");
 
         jsonObject = client.send_object(jsonObject);
         if (jObj.has("ERROR")) {
             AlertUser.error("GRESKA", jsonObject.getString("ERROR"));
         } else {
-            AlertUser.info("Servis je snimljen", String.format("Servis %s je snimljen", cmbNazivUslugeOstalo.getValue().getNazivUsluge()));
+            AlertUser.info("Usluga je dodana", String.format("Usluga %s je dodana", cmbNazivUslugeOstalo.getValue().getNazivUsluge()));
         }
         setData();
     }
