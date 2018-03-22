@@ -87,6 +87,7 @@ public class MainWindowController implements Initializable {
 
         */
 
+
     }
 
     private void checkPing() {
@@ -390,6 +391,8 @@ public class MainWindowController implements Initializable {
         izvestajPDVObracunController.client = this.client;
         izvestajPDVObracunInteface.getStage().showAndWait();
     }
+
+
 }
 
 

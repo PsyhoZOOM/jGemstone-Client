@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/Main.css"
-            xmlns="http://javafx.com/javafx/8.0.162"
+            minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.162"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.IzvestajPDVObracun">
     <children>
         <VBox layoutX="52.0" layoutY="26.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
@@ -70,7 +69,7 @@
                                 <DatePicker fx:id="dtpDo"/>
                                 <HBox alignment="CENTER" HBox.hgrow="NEVER">
                                     <children>
-                                        <Button mnemonicParsing="false" text="Obračunaj"/>
+                                        <Button mnemonicParsing="false" onAction="#obracunaj" text="Obračunaj"/>
                                     </children>
                                 </HBox>
                             </children>
@@ -89,7 +88,8 @@
                             <columns>
                                 <TableColumn fx:id="cKorisnik" prefWidth="75.0" text="Korisnik"/>
                                 <TableColumn fx:id="cOsnovica" prefWidth="75.0" text="Osnovica"/>
-                                <TableColumn fx:id="cPDV" prefWidth="75.0" text="PDV"/>
+                                <TableColumn fx:id="cPDV" prefWidth="75.0" text="PDV %"/>
+                                <TableColumn fx:id="cPDVIznos" prefWidth="75.0" text="PDV Iznos"/>
                                 <TableColumn fx:id="cUkupno" prefWidth="75.0" text="Ukupno"/>
                             </columns>
                             <columnResizePolicy>
@@ -147,4 +147,8 @@
             </padding>
         </VBox>
     </children>
+    <stylesheets>
+        <URL value="@../css/Main.css"/>
+        <URL value="@../css/Main.css"/>
+    </stylesheets>
 </AnchorPane>

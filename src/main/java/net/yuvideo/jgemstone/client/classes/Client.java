@@ -57,15 +57,20 @@ public class Client {
                 }
             }
 
-            Bfw.write(rObj.toString());
-            Bfw.newLine();
-            Bfw.flush();
-            rObj = new JSONObject();
-            rObj = get_object();
-        } catch (IOException e) {
-            e.printStackTrace();
-            status_login = e.getMessage();
-            isConnected = false;
+
+            try {
+                Bfw.write(rObj.toString());
+                Bfw.newLine();
+                Bfw.flush();
+                rObj = get_object();
+            } catch (IOException e) {
+                status_login = e.getMessage();
+                AlertUser.error("GRESKA", e.getMessage());
+                e.printStackTrace();
+                isConnected = false;
+            }
+
+
         } catch (Exception e) {
             status_login = e.getMessage();
             e.printStackTrace();
@@ -155,6 +160,7 @@ public class Client {
             socket = (SSLSocket) ssl.getSocketFactory().createSocket(InetAddress.getByName(RemoteHost), portNumber);
             socket.startHandshake();
 
+
 //OLD NON CRYPT
             login_to_server(jObj);
 
@@ -162,6 +168,7 @@ public class Client {
             e.printStackTrace();
             isConnected = false;
             status_login = e.getMessage().toString();
+            AlertUser.error("GRESKA", e.getMessage());
             try {
                 if (!socket.isClosed()) {
                     socket.close();
@@ -197,6 +204,7 @@ public class Client {
                 runOnce = false;
             } else if (jObj.getString("Message").equals("LOGIN_FAILED")) {
                 status_login = "Pogrešno korisničko ime ili lozinka";
+                AlertUser.error("GRESKA", "Pogrešno korisničko ime ili lozinka!");
                 isConnected = false;
             }
         } else {
