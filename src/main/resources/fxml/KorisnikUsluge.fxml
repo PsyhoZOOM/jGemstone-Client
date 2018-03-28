@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -28,9 +29,24 @@
                                     <children>
                                         <HBox alignment="CENTER_RIGHT" spacing="5.0" GridPane.rowIndex="1">
                                             <children>
-                                                <Button fx:id="bDeleteService" mnemonicParsing="false" onAction="#deleteUserService" text="Obriši" />
-                                                <Button fx:id="bIzmeniServis" mnemonicParsing="false" text="Izmeni" />
-                                                <Button fx:id="bActivateService" minWidth="100.0" mnemonicParsing="false" onAction="#activateService" prefWidth="100.0" text="Aktiviraj" />
+                                                <Button fx:id="bDeleteService" mnemonicParsing="false"
+                                                        onAction="#deleteUserService" text="Obriši">
+                                                    <graphic>
+                                                        <FontAwesomeIconView fill="WHITE" glyphName="REMOVE"/>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="bIzmeniServis" mnemonicParsing="false" text="Izmeni">
+                                                    <graphic>
+                                                        <FontAwesomeIconView fill="WHITE" glyphName="EDIT"/>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="bActivateService" minWidth="100.0"
+                                                        mnemonicParsing="false" onAction="#activateService"
+                                                        prefWidth="100.0" text="Aktiviraj">
+                                                    <graphic>
+                                                        <FontAwesomeIconView fill="WHITE" glyphName="CHECK_CIRCLE"/>
+                                                    </graphic>
+                                                </Button>
                                             </children>
                                         </HBox>
                                         <TreeTableView fx:id="tblServices" tableMenuButtonVisible="true">
@@ -107,8 +123,12 @@
                                         <CheckBox fx:id="chkRacunBOX" mnemonicParsing="false" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                                         <TextArea fx:id="tOpisBox" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                                         <Button fx:id="bSnimiBox" mnemonicParsing="false" onAction="#addServiceBox"
-                                                text="Dodaj uslugu" GridPane.columnIndex="1" GridPane.halignment="RIGHT"
-                                                GridPane.rowIndex="11"/>
+                                                text="Dodaj uslugu" GridPane.columnIndex="1" GridPane.halignment="LEFT"
+                                                GridPane.rowIndex="11">
+                                            <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                                            </graphic>
+                                        </Button>
                                         <Label text="Obračun:" GridPane.rowIndex="9" />
                                     </children>
                                     <padding>
@@ -147,7 +167,13 @@
                                         <CheckBox fx:id="chkRacunDTV" mnemonicParsing="false" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                         <ComboBox fx:id="cmbUgovorDTV" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
                                         <TextArea fx:id="tOpisDTV" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                        <Button fx:id="bAddServiceDTV" mnemonicParsing="false" onAction="#addServiceDTV" text="Dodaj uslugu" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+                                        <Button fx:id="bAddServiceDTV" mnemonicParsing="false" onAction="#addServiceDTV"
+                                                text="Dodaj uslugu" GridPane.columnIndex="1" GridPane.halignment="LEFT"
+                                                GridPane.rowIndex="7">
+                                            <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                                            </graphic>
+                                        </Button>
                                         <Label text="Naziv paketa:" />
                                         <Label text="Popust %:" GridPane.rowIndex="1" />
                                         <Label text="Kartica broj" GridPane.rowIndex="2"/>
@@ -196,7 +222,14 @@
                                         <ComboBox fx:id="cmbUgovorInternet" GridPane.columnIndex="1"
                                                   GridPane.rowIndex="7"/>
                                         <TextArea fx:id="tOpisInternet" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                                        <Button fx:id="bAddServiceInternet" mnemonicParsing="false" onAction="#addServiceInternet" text="Dodaj uslugu" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="9" />
+                                        <Button fx:id="bAddServiceInternet" mnemonicParsing="false"
+                                                onAction="#addServiceInternet" text="Dodaj uslugu"
+                                                GridPane.columnIndex="1" GridPane.halignment="LEFT"
+                                                GridPane.rowIndex="9">
+                                            <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                                            </graphic>
+                                        </Button>
                                         <Label text="Paket:" />
                                         <Label text="Korisničko ime:" GridPane.rowIndex="2" />
                                         <Label text="Lozinka:" GridPane.rowIndex="3" />
@@ -245,7 +278,13 @@
                                 <CheckBox fx:id="chkFixStampaObracun" mnemonicParsing="false" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                 <ComboBox fx:id="cmbFixBrojUgovora" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
                                 <TextArea fx:id="tFixOpis" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                <Button fx:id="bFixDodajUslugu" mnemonicParsing="false" onAction="#addFixUslugu" text="Dodaj uslugu" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+                                <Button fx:id="bFixDodajUslugu" mnemonicParsing="false" onAction="#addFixUslugu"
+                                        text="Dodaj uslugu" GridPane.columnIndex="1" GridPane.halignment="LEFT"
+                                        GridPane.rowIndex="6">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                                    </graphic>
+                                </Button>
                             </children>
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -292,7 +331,11 @@
                                         <CheckBox fx:id="cmbObracunIPTV" mnemonicParsing="false" selected="true" text="Obračun i štampa računa" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                                         <Button fx:id="bSnimiIPTVUsluguIPTV" mnemonicParsing="false"
                                                 onAction="#addServiceIPTV" text="Dodaj uslugu" GridPane.columnIndex="1"
-                                                GridPane.rowIndex="9"/>
+                                                GridPane.rowIndex="9">
+                                            <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                                            </graphic>
+                                        </Button>
                                         <Label text="Popust %:" GridPane.rowIndex="1"/>
                                         <Label text="Ugovor:" GridPane.rowIndex="6" />
                                         <Label text="STB MAC:" GridPane.rowIndex="5" />
@@ -344,8 +387,12 @@
                                                   GridPane.rowIndex="6" GridPane.valignment="TOP"/>
                                         <Button fx:id="bSnimiOstalo" mnemonicParsing="false"
                                                 onAction="#addServiceOstalo" text="Dodaj uslugu"
-                                                GridPane.columnIndex="1" GridPane.halignment="RIGHT"
-                                                GridPane.rowIndex="7"/>
+                                                GridPane.columnIndex="1" GridPane.halignment="LEFT"
+                                                GridPane.rowIndex="7">
+                                            <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                                            </graphic>
+                                        </Button>
                                         <Label text="Obračun:" GridPane.rowIndex="5"/>
                                         <CheckBox fx:id="chkProduzenjeOstalo" mnemonicParsing="false" selected="true"
                                                   text="CheckBox" GridPane.columnIndex="1" GridPane.rowIndex="5"/>

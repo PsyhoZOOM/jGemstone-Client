@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/9"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.FiksnaTelefonijaPaket">
     <children>
         <VBox layoutX="5.0" layoutY="-75.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -11,10 +12,26 @@
             <children>
                 <HBox alignment="CENTER_LEFT" spacing="5.0">
                     <children>
-                        <Button fx:id="bDelete" disable="true" mnemonicParsing="false" text="Izbriši"/>
-                        <Button fx:id="bNov" mnemonicParsing="false" onAction="#newPaket" text="Nov"/>
-                        <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#editPaket" text="Izmeni"/>
-                        <Button fx:id="bOsvezi" mnemonicParsing="false" onAction="#osveziTable" text="Osveži"/>
+                        <Button fx:id="bDelete" disable="true" mnemonicParsing="false" text="Izbriši">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="REMOVE"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="bNov" mnemonicParsing="false" onAction="#newPaket" text="Nov">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#editPaket" text="Izmeni">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="EDIT"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="bOsvezi" mnemonicParsing="false" onAction="#osveziTable" text="Osveži">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="REFRESH"/>
+                            </graphic>
+                        </Button>
                     </children>
                 </HBox>
                 <TableView fx:id="tblPaketi" minWidth="600.0" VBox.vgrow="ALWAYS">

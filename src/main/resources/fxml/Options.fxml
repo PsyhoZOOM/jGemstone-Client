@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.141"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.OptionsController">
     <children>
         <VBox spacing="10.0">
@@ -47,7 +48,11 @@
                 </TabPane>
                 <HBox alignment="TOP_RIGHT" spacing="10.0">
                     <children>
-                        <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#bSnimi_options" text="Snimi"/>
+                        <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#bSnimi_options" text="Snimi">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="SAVE"/>
+                            </graphic>
+                        </Button>
                     </children>
                 </HBox>
             </children>

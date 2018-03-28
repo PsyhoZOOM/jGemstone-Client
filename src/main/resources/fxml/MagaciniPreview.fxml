@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" spacing="5.0" stylesheets="@../css/Main.css"
-      xmlns="http://javafx.com/javafx/8.0.121"
+      xmlns="http://javafx.com/javafx/8.0.162"
       fx:controller="net.yuvideo.jgemstone.client.Controllers.MagacinPreviewController">
     <children>
         <Label text="Samo jedan glavni magacin(true) mora biti (zbog razduzivanja)!!!"/>
@@ -24,9 +25,21 @@
         </TableView>
         <HBox alignment="CENTER_RIGHT" spacing="5.0">
             <children>
-                <Button fx:id="bNov" mnemonicParsing="false" onAction="#nov" text="Nov"/>
-                <Button fx:id="bIzmena" mnemonicParsing="false" onAction="#izmena" text="Izmena"/>
-                <Button fx:id="bIzbrisi" mnemonicParsing="false" onAction="#izbrisi" text="Izbriši"/>
+                <Button fx:id="bNov" mnemonicParsing="false" onAction="#nov" text="Nov">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="bIzmena" mnemonicParsing="false" onAction="#izmena" text="Izmena">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="EDIT"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="bIzbrisi" mnemonicParsing="false" onAction="#izbrisi" text="Izbriši">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="REMOVE"/>
+                    </graphic>
+                </Button>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

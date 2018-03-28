@@ -1,5 +1,7 @@
 package net.yuvideo.jgemstone.client.classes;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import org.json.JSONObject;
 
 import javax.net.SocketFactory;
@@ -43,6 +45,10 @@ public class Client {
     private boolean runOnce = true;
     private long result;
 
+    public IntegerProperty ss = new SimpleIntegerProperty();
+    public IntegerProperty rs = new SimpleIntegerProperty();
+    private int sendSize;
+    private int recivedSize;
 
     public JSONObject send_object(JSONObject rObj) {
 
@@ -60,6 +66,7 @@ public class Client {
 
             try {
                 Bfw.write(rObj.toString());
+                ss.setValue(rObj.toString().getBytes().length);
                 Bfw.newLine();
                 Bfw.flush();
                 rObj = get_object();
@@ -91,6 +98,7 @@ public class Client {
 
         try {
             jObj = new JSONObject(Bfr.readLine());
+            rs.setValue(jObj.toString().getBytes().length);
         } catch (IOException e1) {
             status_login = e1.getMessage();
             LOGGER.info("E1_MESSAGE" + e1.getMessage());
@@ -247,11 +255,28 @@ public class Client {
     public String checkLatency() {
         if (result == -1) {
             return status_login;
-        } else return String.format("%dms", result);
+        } else return String.format("%d", result);
     }
 
     public Boolean get_connection_state() {
         return isConnected;
     }
+
+    public int get_byte_sent() {
+        int sz = sendSize;
+        sendSize = 0;
+        return sz;
+    }
+
+    public int get_byte_recived() {
+        int sz = recivedSize;
+        recivedSize = 0;
+        return sz;
+    }
+
+    public Boolean getConnected() {
+        return isConnected;
+    }
+
 
 }

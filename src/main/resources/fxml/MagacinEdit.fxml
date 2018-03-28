@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" prefWidth="640.0" spacing="5.0" stylesheets="@../css/Main.css"
-      xmlns="http://javafx.com/javafx/8.0.121"
+      xmlns="http://javafx.com/javafx/8.0.162"
       fx:controller="net.yuvideo.jgemstone.client.Controllers.MagacinEditController">
     <children>
         <GridPane hgap="5.0" vgap="5.0" VBox.vgrow="ALWAYS">
@@ -23,7 +24,11 @@
                 <TextField fx:id="tNaziv" GridPane.columnIndex="1"/>
                 <TextArea fx:id="taOpis" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                 <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#snimiMagacin" text="Snimi"
-                        GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2"/>
+                        GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SAVE"/>
+                    </graphic>
+                </Button>
                 <CheckBox fx:id="chkGlavni" mnemonicParsing="false" text="Glavni magacin" GridPane.columnIndex="1"
                           GridPane.rowIndex="2"/>
             </children>

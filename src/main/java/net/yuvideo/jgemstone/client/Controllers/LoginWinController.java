@@ -56,6 +56,7 @@ public class LoginWinController implements Initializable {
                 rootMainWindow = fxmlLoader.load();
                 MainWindowController mainCtrl = fxmlLoader.getController();
                 mainCtrl.client = client;
+                mainCtrl.checkData();
                 Scene scene = bLogin.getScene();
                 //scene = new Scene(rootMainWindow);
                 scene.setRoot(rootMainWindow);

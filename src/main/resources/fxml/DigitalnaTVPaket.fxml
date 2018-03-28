@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-            stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
+            stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.DigitalniTVPaketController">
     <children>
         <VBox layoutX="162.0" layoutY="69.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -12,8 +13,16 @@
             <children>
                 <HBox alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
                     <children>
-                        <Button fx:id="bNov" mnemonicParsing="false" onAction="#nov" text="Nov"/>
-                        <Button fx:id="bEdit" mnemonicParsing="false" onAction="#edit" text="Promeni"/>
+                        <Button fx:id="bNov" mnemonicParsing="false" onAction="#nov" text="Nov">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="bEdit" mnemonicParsing="false" onAction="#edit" text="Promeni">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="EDIT"/>
+                            </graphic>
+                        </Button>
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

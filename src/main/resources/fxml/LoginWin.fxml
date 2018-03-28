@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.DropShadow?>
@@ -7,8 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0"
-            minWidth="300.0"
-            stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/9"
+            minWidth="300.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.LoginWinController">
     <children>
         <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -32,10 +32,16 @@
                 <Button fx:id="bLogin" onAction="#clientLogin" text="Login">
                     <VBox.margin>
                     </VBox.margin>
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="CHECK"/>
+                    </graphic>
                 </Button>
                 <Separator prefWidth="200.0"/>
-                <Button fx:id="bOpcije" contentDisplay="CENTER" onAction="#openOptions" text="Opcije"
-                        VBox.vgrow="NEVER"/>
+                <Button fx:id="bOpcije" onAction="#openOptions" text="Opcije" VBox.vgrow="NEVER">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="GEAR"/>
+                    </graphic>
+                </Button>
                 <Separator prefWidth="200.0"/>
             </children>
             <padding>

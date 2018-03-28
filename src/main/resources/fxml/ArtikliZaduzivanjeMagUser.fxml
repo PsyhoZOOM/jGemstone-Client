@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="net.yuvideo.jgemstone.client.Controllers.ArtikliZaduzivanjeMagUserController"
-            maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
-            prefWidth="1280.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.141">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/Main.css"
+            xmlns="http://javafx.com/javafx/8.0.162"
+            fx:controller="net.yuvideo.jgemstone.client.Controllers.ArtikliZaduzivanjeMagUserController">
     <children>
         <VBox spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
               AnchorPane.topAnchor="0.0">
@@ -28,13 +28,29 @@
                         <Spinner GridPane.columnIndex="1"/>
                         <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <children>
-                                <Button fx:id="bZaduzi" mnemonicParsing="false" text="Zaduži" onAction="#zaduzi"/>
-                                <Button fx:id="bZaduziNov" mnemonicParsing="false" text="Zaduži nov"
-                                        onAction="#zaduziNov"/>
+                                <Button fx:id="bZaduzi" mnemonicParsing="false" onAction="#zaduzi" text="Zaduži">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="EXCHANGE"/>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="bZaduziNov" mnemonicParsing="false" onAction="#zaduziNov"
+                                        text="Zaduži nov">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="EXCHANGE"/>
+                                    </graphic>
+                                </Button>
                                 <Pane prefWidth="200.0" HBox.hgrow="ALWAYS"/>
-                                <Button fx:id="bInfo" mnemonicParsing="false" text="Info" onAction="#showInfo"/>
+                                <Button fx:id="bInfo" mnemonicParsing="false" onAction="#showInfo" text="Info">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="INFO"/>
+                                    </graphic>
+                                </Button>
                                 <TextField fx:id="tTrazi"/>
-                                <Button fx:id="bTrazi" mnemonicParsing="false" text="Traži" onAction="#searchArtikl"/>
+                                <Button fx:id="bTrazi" mnemonicParsing="false" onAction="#searchArtikl" text="Traži">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="SEARCH"/>
+                                    </graphic>
+                                </Button>
                             </children>
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -66,8 +82,8 @@
                     <contextMenu>
                         <ContextMenu>
                             <items>
-                                <MenuItem fx:id="mInfo" mnemonicParsing="false" text="Informacije"
-                                          onAction="#showInfo"/>
+                                <MenuItem fx:id="mInfo" mnemonicParsing="false" onAction="#showInfo"
+                                          text="Informacije"/>
                             </items>
                         </ContextMenu>
                     </contextMenu>

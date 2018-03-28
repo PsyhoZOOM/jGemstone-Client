@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/9"
+            minWidth="-Infinity" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.BoxPaketController">
     <children>
         <VBox layoutX="5.0" layoutY="-112.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -12,9 +13,21 @@
             <children>
                 <HBox spacing="5.0">
                     <children>
-                        <Button fx:id="bNov" mnemonicParsing="false" onAction="#novBox" text="Nov"/>
-                        <Button fx:id="bIzmeni" mnemonicParsing="false" onAction="#izmeniBox" text="Izmeni"/>
-                        <Button fx:id="bIzbrisi" disable="true" mnemonicParsing="false" text="Izbriši"/>
+                        <Button fx:id="bNov" mnemonicParsing="false" onAction="#novBox" text="Nov">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="bIzmeni" mnemonicParsing="false" onAction="#izmeniBox" text="Izmeni">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="EDIT"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="bIzbrisi" disable="true" mnemonicParsing="false" text="Izbriši">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="REMOVE"/>
+                            </graphic>
+                        </Button>
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

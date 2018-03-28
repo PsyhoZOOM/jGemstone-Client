@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-            minHeight="480.0" minWidth="640.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.65"
+            minHeight="480.0" minWidth="640.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.MestaController">
     <children>
         <HBox layoutX="5.0" layoutY="4.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
@@ -37,7 +38,11 @@
                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                                     </padding>
                                 </VBox>
-                                <Button fx:id="bAddMesto" onAction="#dodajMesto" text="Dodaj mesto"/>
+                                <Button fx:id="bAddMesto" onAction="#dodajMesto" text="Dodaj mesto">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                                    </graphic>
+                                </Button>
                             </children>
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -56,8 +61,16 @@
                         </TableView>
                         <HBox alignment="CENTER_RIGHT" spacing="20.0">
                             <children>
-                                <Button fx:id="bMestoDelete" onAction="#izbrisiMesto" text="Izbriši mesto"/>
-                                <Button fx:id="bMestoRefresh" onAction="#osveziMesto" text="Osveži"/>
+                                <Button fx:id="bMestoDelete" onAction="#izbrisiMesto" text="Izbriši mesto">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="TIMES_CIRCLE"/>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="bMestoRefresh" onAction="#osveziMesto" text="Osveži">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="REFRESH"/>
+                                    </graphic>
+                                </Button>
                             </children>
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -99,7 +112,11 @@
                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                                     </padding>
                                 </VBox>
-                                <Button fx:id="bAddAdress" onAction="#dodajAdresu" text="Dodaj adresu"/>
+                                <Button fx:id="bAddAdress" onAction="#dodajAdresu" text="Dodaj adresu">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                                    </graphic>
+                                </Button>
                             </children>
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -121,8 +138,16 @@
                         </TableView>
                         <HBox alignment="CENTER_RIGHT" spacing="20.0">
                             <children>
-                                <Button fx:id="bAdresaDelete" onAction="#izbrisiAdresu" text="Izbriši adresu"/>
-                                <Button fx:id="bAdresaRefresh" onAction="#osveziAdresu" text="Osveži"/>
+                                <Button fx:id="bAdresaDelete" onAction="#izbrisiAdresu" text="Izbriši adresu">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="TIMES_CIRCLE"/>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="bAdresaRefresh" onAction="#osveziAdresu" text="Osveži">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="REFRESH"/>
+                                    </graphic>
+                                </Button>
                             </children>
                             <padding>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" spacing="5.0" stylesheets="@../css/Main.css"
-      xmlns="http://javafx.com/javafx/8.0.141"
+      xmlns="http://javafx.com/javafx/8.0.162"
       fx:controller="net.yuvideo.jgemstone.client.Controllers.ArtikliMainController">
     <children>
         <TitledPane collapsible="false" prefHeight="200.0" prefWidth="200.0" text="Pretraga">
@@ -70,11 +71,27 @@
         <HBox alignment="CENTER_LEFT">
             <children>
                 <Button fx:id="bTrazi" minWidth="80.0" mnemonicParsing="false" onAction="#traziArtikal" prefWidth="80.0"
-                        text="Trazi"/>
-                <Button fx:id="bOcisti" minWidth="80.0" mnemonicParsing="false" onAction="#clearText" text="Očisti"/>
+                        text="Trazi">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SEARCH"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="bOcisti" minWidth="80.0" mnemonicParsing="false" onAction="#clearText" text="Očisti">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="REFRESH"/>
+                    </graphic>
+                </Button>
                 <Pane prefWidth="200.0" HBox.hgrow="NEVER"/>
-                <Button fx:id="bZaduzi" mnemonicParsing="false" onAction="#zaduziArtikl" text="Zaduživanje"/>
-                <Button fx:id="bInfo" mnemonicParsing="false" onAction="#showInfoArtikl" prefWidth="70.0" text="Info"/>
+                <Button fx:id="bZaduzi" mnemonicParsing="false" onAction="#zaduziArtikl" text="Zaduživanje">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="EXCHANGE"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="bInfo" mnemonicParsing="false" onAction="#showInfoArtikl" prefWidth="70.0" text="Info">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="INFO_CIRCLE"/>
+                    </graphic>
+                </Button>
                 <Pane prefWidth="200.0" HBox.hgrow="ALWAYS"/>
                 <Button fx:id="bNov" mnemonicParsing="false" onAction="#addArtikal" prefWidth="80.0" text="Nov"/>
                 <Button fx:id="bIzmeni" mnemonicParsing="false" onAction="#IzmeniArtikal" prefWidth="80.0"

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308"
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308"
       maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0"
-      spacing="5.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.141"
+      spacing="5.0" stylesheets="@../css/Main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.162"
       fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUgovoriController">
     <children>
         <VBox VBox.vgrow="NEVER">
@@ -30,7 +31,11 @@
                 <TextArea fx:id="tOPis"/>
                 <ButtonBar prefWidth="200.0">
                     <buttons>
-                        <Button fx:id="bDodaj" mnemonicParsing="false" onAction="#addNewUgovorShow" text="Dodaj"/>
+                        <Button fx:id="bDodaj" mnemonicParsing="false" onAction="#addNewUgovorShow" text="Dodaj">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                            </graphic>
+                        </Button>
                     </buttons>
                 </ButtonBar>
                 <Label text="UGOVORI" underline="true">
@@ -63,9 +68,22 @@
         </VBox>
         <HBox alignment="CENTER_RIGHT" spacing="5.0" VBox.vgrow="NEVER">
             <children>
-                <Button fx:id="stampaUgovora" mnemonicParsing="false" onAction="#stampajUgovor" text="Štampa"/>
-                <Button fx:id="bObrisi" mnemonicParsing="false" text="Obriši"/>
-                <Button fx:id="bIzmeni" mnemonicParsing="false" onAction="#izmeniUgovor" text="Izmeni"/>
+                <Button fx:id="stampaUgovora" mnemonicParsing="false" onAction="#stampajUgovor" text="Štampa">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PRINT"/>
+                    </graphic>
+                </Button>
+                <Pane prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+                <Button fx:id="bObrisi" mnemonicParsing="false" text="Obriši">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="REMOVE"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="bIzmeni" mnemonicParsing="false" onAction="#izmeniUgovor" text="Izmeni">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="EDIT"/>
+                    </graphic>
+                </Button>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

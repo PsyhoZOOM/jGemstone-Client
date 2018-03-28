@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.print.PrinterJob;
 import javafx.scene.web.WebView;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.Users;
 import net.yuvideo.jgemstone.client.classes.ugovori_types;
@@ -54,11 +55,14 @@ public class UgovorStampaController implements Initializable {
         //printerJob.getJobSettings().setPageLayout(pageLayout);
 
         PrinterJob printerJob = PrinterJob.createPrinterJob();
-        if (!printerJob.showPrintDialog(browser.getScene().getWindow())) {
-            System.out.println(browser.getEngine().getDocument().getTextContent());
-            browser.getEngine().print(printerJob);
-            printerJob.endJob();
+        if (printerJob == null) {
+            AlertUser.error("GRESKA", "NEMA ŠTAMPAČA");
+            return;
         }
+        printerJob.showPrintDialog(browser.getScene().getWindow());
+        browser.getEngine().print(printerJob);
+        printerJob.endJob();
+
     }
 
     public void scaleDown(ActionEvent

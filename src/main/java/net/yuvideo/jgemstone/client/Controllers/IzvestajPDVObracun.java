@@ -165,6 +165,10 @@ public class IzvestajPDVObracun implements Initializable {
     }
 
     private void setData(JSONObject jsonObject) {
+        tblPDV.refresh();
+        ukupnaOsnovica = 0.00;
+        ukupnoPDV = 0.00;
+        ukupanIznos = 0.00;
         if (jsonObject.has("ERROR")) {
             AlertUser.error("GRESKA", jsonObject.getString("ERROR"));
             return;
@@ -186,6 +190,7 @@ public class IzvestajPDVObracun implements Initializable {
         }
 
         ObservableList data = FXCollections.observableArrayList(pdvObracunArrayList);
+
 
         tblPDV.setItems(data);
         lOsnovica.setText(df.format(ukupnaOsnovica));

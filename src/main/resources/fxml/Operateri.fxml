@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.141"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.OperaterController">
     <children>
         <VBox layoutX="200.0" layoutY="111.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -12,7 +13,11 @@
             <children>
                 <ToolBar prefHeight="40.0" VBox.vgrow="NEVER">
                     <items>
-                        <Button fx:id="bClose" mnemonicParsing="false" onAction="#closeWindow" text="Zatvori"/>
+                        <Button fx:id="bClose" mnemonicParsing="false" onAction="#closeWindow" text="Zatvori">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="CLOSE"/>
+                            </graphic>
+                        </Button>
                     </items>
                 </ToolBar>
                 <GridPane hgap="5.0" minWidth="600.0" vgap="5.0">
@@ -90,11 +95,23 @@
                                   text="Napravi novog operatera" wrapText="true" GridPane.columnIndex="3"
                                   GridPane.rowIndex="3"/>
                         <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#snimiOper" prefHeight="26.0"
-                                prefWidth="130.0" text="Snimi" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
+                                prefWidth="130.0" text="Snimi" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="SAVE"/>
+                            </graphic>
+                        </Button>
                         <Button fx:id="bDelete" mnemonicParsing="false" onAction="#deleteOper" prefWidth="130.0"
-                                text="Obrisi" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
+                                text="Obrisi" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="REMOVE"/>
+                            </graphic>
+                        </Button>
                         <Button fx:id="bDozvole" mnemonicParsing="false" onAction="#showDozvoleOper" prefWidth="130.0"
-                                text="Dozvole" GridPane.columnIndex="3" GridPane.rowIndex="7"/>
+                                text="Dozvole" GridPane.columnIndex="3" GridPane.rowIndex="7">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="FLASH"/>
+                            </graphic>
+                        </Button>
                         <ComboBox fx:id="cmbTypeOperater" prefWidth="150.0" GridPane.columnIndex="1"
                                   GridPane.rowIndex="1"/>
                         <Label text="Vrsta:" GridPane.rowIndex="1"/>

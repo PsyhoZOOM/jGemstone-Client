@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.DropShadow?>
@@ -116,14 +117,25 @@
                             <children>
                                 <Button fx:id="bShowKorisniciSearch" minHeight="50.0" minWidth="100.0"
                                         mnemonicParsing="false" onAction="#showKorisnici" prefHeight="50.0"
-                                        prefWidth="100.0" styleClass="first" text="KORISNICI" textAlignment="CENTER"
-                                        wrapText="true"/>
-                                <Button fx:id="bInternet" maxHeight="50.0" maxWidth="100.0" minHeight="50.0"
-                                        minWidth="100.0" mnemonicParsing="false" onAction="#showInternetMain"
-                                        prefHeight="50.0" prefWidth="100.0" styleClass="last" text="INTERNET"/>
-                                <Button fx:id="bArtikli" maxHeight="50.0" maxWidth="100.0" minHeight="50.0"
-                                        minWidth="100.0" mnemonicParsing="false" onAction="#showArtikli"
-                                        prefHeight="50.0" prefWidth="100.0" text="Artikli"/>
+                                        styleClass="first" text="KORISNICI" textAlignment="CENTER" wrapText="true">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="USERS" size="25"/>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="bInternet" maxHeight="50.0" minHeight="50.0" minWidth="100.0"
+                                        mnemonicParsing="false" onAction="#showInternetMain" prefHeight="50.0"
+                                        styleClass="last" text="INTERNET">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="GLOBE" size="25"/>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="bArtikli" maxHeight="50.0" minHeight="50.0" minWidth="100.0"
+                                        mnemonicParsing="false" onAction="#showArtikli" prefHeight="50.0"
+                                        text="Artikli">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="CUBES" size="25"/>
+                                    </graphic>
+                                </Button>
                                 <Separator orientation="VERTICAL" />
                             </children>
                             <padding>

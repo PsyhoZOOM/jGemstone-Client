@@ -8,6 +8,9 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +42,8 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
+
+import static javafx.application.Platform.exit;
 
 public class MainWindowController implements Initializable {
     public static boolean appExit = false;
@@ -90,9 +95,103 @@ public class MainWindowController implements Initializable {
 
     }
 
-    private void checkPing() {
-        Platform.runLater(() -> lStatusConnection.setText((client.checkLatency())));
+
+    public void checkData() {
+        final int[] sendDt = new int[1];
+        final int[] recivDt = new int[1];
+        client.ss.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                sendDt[0] = (int) newValue;
+                setStatus(sendDt[0], recivDt[0]);
+            }
+        });
+        client.rs.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                recivDt[0] = (int) newValue;
+                setStatus(sendDt[0], recivDt[0]);
+            }
+        });
+        setStatus(sendDt[0], recivDt[0]);
+
     }
+
+    private void setStatus(int sendDt, int recivDt) {
+        int sendBytes = sendDt;
+        int receivedBytes = recivDt;
+        String sendByte;
+        String receivedByte;
+
+        if (sendBytes > 1000 && sendBytes < 1000000) {
+            sendByte = String.format("%dKb/s", sendBytes / 1000);
+        } else if (sendBytes > 1000000) {
+            sendByte = String.format("%dMb/s", sendBytes / 1000 / 1000);
+
+        } else {
+            sendByte = String.format("%db/s", sendBytes);
+        }
+        if (receivedBytes > 1000 && receivedBytes < 1000000) {
+            receivedByte = String.format("%dKb/s", receivedBytes / 1000);
+        } else if (receivedBytes > 1000000) {
+            receivedByte = String.format("%dMb/s", receivedBytes / 1000 / 1000);
+        } else {
+            receivedByte = String.format("%db/s", receivedBytes);
+        }
+
+        String isAlive;
+        if (client.get_connection_state()) {
+            isAlive = "OK";
+        } else {
+            isAlive = "Disconnected";
+        }
+
+        Task task = new Task() {
+            @Override
+            protected Object call() throws Exception {
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        lStatusConnection.setText(String.format("Server: %s, Latency: %s/ms SendBytes: %s ReceivedBytes: %s ",
+                                isAlive, client.checkLatency(), sendByte, receivedByte));
+                    }
+                });
+
+                Thread.sleep(1000);
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        client.ss.set(0);
+                        client.rs.set(0);
+                        //                       lStatusConnection.setText(String.format("Server: %s, Latency: %s/ms SendBytes: %s ReceivedBytes: %s ",
+                        //                             isAlive, client.checkLatency(), "0", "0"));
+                    }
+                });
+
+                return null;
+            }
+        };
+        new Thread(task).start();
+
+    }
+
+
+    private void checkPing() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                lStatusConnection.setText(client.checkLatency());
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 
     private void exitApp() {
 
@@ -105,7 +204,7 @@ public class MainWindowController implements Initializable {
                 disconnect = true;
                 if (threadCheckAlive != null)
                     threadCheckAlive.interrupt();
-                Platform.exit();
+                exit();
                 System.exit(0);
             }
 
@@ -394,5 +493,6 @@ public class MainWindowController implements Initializable {
 
 
 }
+
 
 

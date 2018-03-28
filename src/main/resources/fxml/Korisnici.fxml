@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -11,13 +12,32 @@
             <children>
                 <HBox accessibleRole="TOOL_BAR" alignment="CENTER" spacing="5.0" VBox.vgrow="NEVER">
                     <children>
-                        <Button fx:id="bNovKorisnik" alignment="BOTTOM_CENTER" onAction="#newUser" text="Nov"/>
-                        <Button fx:id="bIzmeni" onAction="#bEditUser" text="Izmeni"/>
-                        <Button fx:id="bUplate" mnemonicParsing="false" onAction="#showUplate" text="Uplate"/>
-                        <Button fx:id="bFakture" mnemonicParsing="false" onAction="#showFakture" text="Fakture"/>
+                        <Button fx:id="bNovKorisnik" alignment="BOTTOM_CENTER" onAction="#newUser" text="Nov">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="bIzmeni" onAction="#bEditUser" text="Izmeni">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="EDIT"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="bUplate" mnemonicParsing="false" onAction="#showUplate" text="Uplate">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="MONEY"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="bFakture" mnemonicParsing="false" onAction="#showFakture" text="Fakture">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="LIST_ALT"/>
+                            </graphic>
+                        </Button>
                         <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS"/>
                         <TextField fx:id="tUserSearch" promptText="Ime, Korisnik, Broj" HBox.hgrow="SOMETIMES"/>
                         <Button fx:id="bUserSearch" onAction="#bUserSearchAction" text="Traži">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="SEARCH"/>
+                            </graphic>
                         </Button>
                     </children>
                     <VBox.margin>

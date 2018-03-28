@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -10,7 +11,11 @@
     <children>
         <ToolBar VBox.vgrow="NEVER">
             <items>
-                <Button fx:id="bClose" mnemonicParsing="false" text="Zatvori"/>
+                <Button fx:id="bClose" mnemonicParsing="false" text="Zatvori">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="CLOSE"/>
+                    </graphic>
+                </Button>
             </items>
         </ToolBar>
         <TextField fx:id="tNazivUgovora"/>
@@ -119,7 +124,11 @@
                     VBox.vgrow="ALWAYS"/>
         <HBox alignment="CENTER_RIGHT" spacing="5.0" VBox.vgrow="NEVER">
             <children>
-                <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#snimiUgovor" text="Snimi"/>
+                <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#snimiUgovor" text="Snimi">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SAVE"/>
+                    </graphic>
+                </Button>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

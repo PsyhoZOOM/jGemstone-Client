@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.141"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.NovKorisnikController">
     <children>
         <VBox spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -16,10 +17,18 @@
                     <children>
                         <ToolBar HBox.hgrow="ALWAYS">
                             <items>
-                                <Button fx:id="bClose" mnemonicParsing="false" text="Zatvori"/>
+                                <Button fx:id="bClose" mnemonicParsing="false" text="Zatvori">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="CLOSE"/>
+                                    </graphic>
+                                </Button>
                                 <Pane HBox.hgrow="ALWAYS"/>
                                 <Button fx:id="bSave" alignment="CENTER_RIGHT" contentDisplay="RIGHT"
-                                        mnemonicParsing="false" onAction="#bSaveUser" text="Dodaj korisnika"/>
+                                        mnemonicParsing="false" onAction="#bSaveUser" text="Dodaj korisnika">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                                    </graphic>
+                                </Button>
                             </items>
                         </ToolBar>
                     </children>
@@ -75,7 +84,11 @@
                         <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <children>
                                 <ComboBox fx:id="cmbCardReader" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
-                                <Button fx:id="bReadCardReader" mnemonicParsing="false" text="Čitaj"/>
+                                <Button fx:id="bReadCardReader" mnemonicParsing="false" text="Čitaj">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="DOWNLOAD"/>
+                                    </graphic>
+                                </Button>
                             </children>
                         </HBox>
                         <TextField fx:id="tFullName" GridPane.columnIndex="1" GridPane.rowIndex="9"/>

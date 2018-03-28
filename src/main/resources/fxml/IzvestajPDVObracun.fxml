@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -69,7 +70,11 @@
                                 <DatePicker fx:id="dtpDo"/>
                                 <HBox alignment="CENTER" HBox.hgrow="NEVER">
                                     <children>
-                                        <Button mnemonicParsing="false" onAction="#obracunaj" text="Obračunaj"/>
+                                        <Button mnemonicParsing="false" onAction="#obracunaj" text="Obračunaj">
+                                            <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="CALCULATOR"/>
+                                            </graphic>
+                                        </Button>
                                     </children>
                                 </HBox>
                             </children>

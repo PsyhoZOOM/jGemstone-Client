@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-            prefWidth="800.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/9"
+            prefWidth="800.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.InternetPaketController">
     <children>
         <VBox layoutX="67.0" layoutY="32.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -12,8 +13,16 @@
             <children>
                 <HBox alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
                     <children>
-                        <Button fx:id="bNov" mnemonicParsing="false" onAction="#pNovAction" text="Nov"/>
-                        <Button fx:id="bPromeni" mnemonicParsing="false" onAction="#bPromeni" text="Promeni"/>
+                        <Button fx:id="bNov" mnemonicParsing="false" onAction="#pNovAction" text="Nov">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="bPromeni" mnemonicParsing="false" onAction="#bPromeni" text="Izmene">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="EDIT"/>
+                            </graphic>
+                        </Button>
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

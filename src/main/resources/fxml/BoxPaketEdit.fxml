@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-            stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/9"
+            stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.BoxPaketEditController">
     <children>
         <VBox fillWidth="false" layoutX="83.0" layoutY="-18.0" spacing="5.0" AnchorPane.bottomAnchor="0.0"
@@ -37,7 +38,11 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </padding>
                 </HBox>
-                <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#saveBox" text="Snimi"/>
+                <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#saveBox" text="Snimi">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SAVE"/>
+                    </graphic>
+                </Button>
             </children>
         </VBox>
     </children>

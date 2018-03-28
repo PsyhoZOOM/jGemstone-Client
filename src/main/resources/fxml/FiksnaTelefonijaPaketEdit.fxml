@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" stylesheets="@../css/Main.css"
-            xmlns="http://javafx.com/javafx/9"
+            xmlns="http://javafx.com/javafx/8.0.162"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.FiksnaTelefonijaPaketEditController">
     <children>
         <VBox layoutX="200.0" layoutY="67.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -47,7 +48,11 @@
                 </HBox>
                 <Label text="Besplatni minuti fiksna:"/>
                 <Spinner fx:id="spnBesplatniMinuti"/>
-                <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#savePaket" text="Snimi"/>
+                <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#savePaket" text="Snimi">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SAVE"/>
+                    </graphic>
+                </Button>
             </children>
         </VBox>
     </children>

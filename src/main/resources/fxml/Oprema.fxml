@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
             minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/Main.css"
-            xmlns="http://javafx.com/javafx/8.0.65"
+            xmlns="http://javafx.com/javafx/8.0.162"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.OpremaController">
     <children>
         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="5.0"
@@ -20,7 +21,11 @@
                 </TextField>
                 <Label text="Model"/>
                 <TextField fx:id="tModel" maxWidth="200.0" promptText="Model"/>
-                <Button fx:id="bSnimi" onAction="#snimiData" text="Snimi"/>
+                <Button fx:id="bSnimi" onAction="#snimiData" text="Snimi">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SAVE"/>
+                    </graphic>
+                </Button>
                 <TableView fx:id="tblOprema" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
                            VBox.vgrow="ALWAYS">
                     <columns>
@@ -31,7 +36,11 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                     </columnResizePolicy>
                 </TableView>
-                <Button fx:id="bIzbrisi" onAction="#deleteData" text="Izbrisi"/>
+                <Button fx:id="bIzbrisi" onAction="#deleteData" text="Izbrisi">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="REMOVE"/>
+                    </graphic>
+                </Button>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

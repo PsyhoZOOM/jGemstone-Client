@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity"
-            prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Main.css"
-            xmlns="http://javafx.com/javafx/9"
+            minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Main.css"
+            xmlns="http://javafx.com/javafx/8.0.162"
             fx:controller="net.yuvideo.jgemstone.client.Controllers.FakturePrikazController">
     <children>
         <VBox layoutX="115.0" layoutY="72.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0"
@@ -25,9 +25,17 @@
                 <HBox alignment="CENTER_RIGHT" fillHeight="false" prefWidth="200.0" spacing="5.0">
                     <children>
                         <DatePicker/>
-                        <Button mnemonicParsing="false" text="Nova"/>
+                        <Button mnemonicParsing="false" text="Nova">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                            </graphic>
+                        </Button>
                         <Button fx:id="bPrikaziFakturu" mnemonicParsing="false" onAction="#prikaziFakturu"
-                                text="Prikaži"/>
+                                text="Prikaži">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="LIST_OL"/>
+                            </graphic>
+                        </Button>
                     </children>
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

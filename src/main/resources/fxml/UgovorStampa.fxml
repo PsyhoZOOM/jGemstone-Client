@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -20,7 +21,11 @@
                 </ScrollPane>
                 <HBox spacing="5.0">
                     <children>
-                        <Button fx:id="bPrint" mnemonicParsing="false" onAction="#printContent" text="Štampa"/>
+                        <Button fx:id="bPrint" mnemonicParsing="false" onAction="#printContent" text="Štampa">
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="PRINT"/>
+                            </graphic>
+                        </Button>
                         <Button fx:id="bScaleDown" mnemonicParsing="false" onAction="#scaleDown" text="-"/>
                         <Button fx:id="BscaleUp" mnemonicParsing="false" onAction="#scaleUp" text="+"/>
                         <Button fx:id="bScaleFull" mnemonicParsing="false" onAction="#scaleFull" text="[A4]"/>
