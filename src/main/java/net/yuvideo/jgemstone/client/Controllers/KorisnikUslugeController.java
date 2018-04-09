@@ -124,6 +124,10 @@ public class KorisnikUslugeController implements Initializable {
     public TextField tInternetPrekoracenje;
     public TextField tIPTVPrekoracenje;
     public PasswordField tPasswordIPTVCheck;
+    public TextArea tOpisIPTV;
+
+
+
     Calendar firstDateInMonth = Calendar.getInstance();
     private ResourceBundle resources;
     private URL location;
@@ -621,7 +625,9 @@ public class KorisnikUslugeController implements Initializable {
 
         for (int i = 0; i < jObj.length(); i++) {
             service = new ServicesUser();
-            serviceObj = (JSONObject) jObj.get(String.valueOf(i));
+            serviceObj = jObj.getJSONObject(String.valueOf(i));
+            System.out.println("LINKED: " + serviceObj);
+            System.out.println("LINKED: " + serviceObj.getString("paketType"));
             service.setId(serviceObj.getInt("id"));
             service.setUserID(serviceObj.getInt("userID"));
             service.setId_Service(serviceObj.getInt("id_service"));
@@ -632,7 +638,6 @@ public class KorisnikUslugeController implements Initializable {
             service.setPdv(serviceObj.getDouble("pdv"));
             service.setNazivPaketa(serviceObj.getString("nazivPaketa"));
             service.setLinkedService(serviceObj.getBoolean("linkedService"));
-            service.setPaketType(serviceObj.getString("paketType"));
             service.setNewService(serviceObj.getBoolean("newService"));
             if (serviceObj.has("endDate"))
                 service.setEndDate(serviceObj.getString("endDate"));
@@ -662,6 +667,8 @@ public class KorisnikUslugeController implements Initializable {
                 service.setFIKSNA_TEL(serviceObj.getString("FIKSNA_TEL"));
                 service.setIdUniqueName(serviceObj.getString("FIKSNA_TEL"));
             }
+
+            service.setPaketType(serviceObj.getString("paketType"));
 
 
             servicesUsersArr.add(service);
@@ -728,7 +735,13 @@ public class KorisnikUslugeController implements Initializable {
                 //               service.setIPTV_EXT_ID(serviceObj.getString("external_id"));
             }
 
+            if (serviceObj.has("idDTVCard")) {
+                service.setIdDTVCard(serviceObj.getString("idDTVCard"));
+            }
+
+
             service.setPaketType(serviceObj.getString("paketType"));
+            System.out.println(serviceObj.getString("paketType"));
             service.setCena(serviceObj.getDouble("cena"));
             service.setBox(serviceObj.getBoolean("box"));
             service.setLinkedService(serviceObj.getBoolean("linkedService"));
@@ -863,6 +876,7 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("produzenje", Integer.valueOf(tInternetPrekoracenje.getText()));
         jObj.put("groupName", cmbPaketInternet.getValue().getNaziv());
         jObj.put("pdv", cmbPaketInternet.getValue().getPdv());
+        jObj.put("komentar", tOpisInternet.getText().trim());
 
 
         jObj = client.send_object(jObj);
@@ -932,7 +946,7 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("idUniqueName", tKarticaDTV.getText());
         jObj.put("packetID", cmbPaketDTV.getValue().getPaketID());
         jObj.put("produzenje", Integer.valueOf(tDTVPrekoracenje.getText()));
-        jObj.put("opis", tOpisDTV.getText());
+        jObj.put("komentar", tOpisDTV.getText());
         jObj.put("pdv", cmbPaketDTV.getValue().getPdv());
         firstDateInMonth.set(Calendar.DAY_OF_MONTH, 1);
         firstDateInMonth.add(Calendar.MONTH, cmbPaketDTV.getValue().getProduzenje());
@@ -1002,7 +1016,7 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("popust", Double.valueOf(tPopustBox.getText()));
         jObj.put("cena", Double.valueOf(cmbPaketBOX.getValue().getCena()));
         jObj.put("pdv", cmbPaketBOX.getValue().getPdv());
-        jObj.put("opis", tOpisBox.getText());
+        jObj.put("komentar", tOpisBox.getText());
 
         if (!tUserNameBox.getText().isEmpty())
             jObj.put("userName", tUserNameBox.getText());
@@ -1148,6 +1162,7 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("obracun", chkFixStampaObracun.isSelected());
         jObj.put("brojUgovora", cmbFixBrojUgovora.getValue().getBr());
         jObj.put("brojTel", tFixBrojTel.getText());
+        jObj.put("komentar", tFixOpis.getText().trim());
 
         jObj.put("action", "addFixUslugu");
         jObj = client.send_object(jObj);
@@ -1252,6 +1267,7 @@ public class KorisnikUslugeController implements Initializable {
         jObj.put("produzenje", Integer.valueOf(tIPTVPrekoracenje.getText()));
         jObj.put("brojUgovora", cmbUgovorIPTV.getValue().getBr());
         jObj.put("STB_MAC", tStbMACIPTV.getText().trim());
+        jObj.put("komentar", tOpisIPTV.getText().trim());
         if (cmbObracunIPTV.isSelected()) {
             jObj.put("obracun", true);
         } else {
@@ -1279,7 +1295,7 @@ public class KorisnikUslugeController implements Initializable {
         jsonObject.put("pdv", cmbNazivUslugeOstalo.getValue().getPdv());
         jsonObject.put("popust", tPopustOstalo.getText());
         jsonObject.put("obracun", chkProduzenjeOstalo.isSelected());
-        jsonObject.put("komentar", taKomentarOstalo.getText());
+        jsonObject.put("komentar", taKomentarOstalo.getText().trim());
         if (cmbUgovorOstalo.getSelectionModel().isEmpty()) {
             jsonObject.put("brojUgovora", "0");
         } else {
@@ -1296,4 +1312,18 @@ public class KorisnikUslugeController implements Initializable {
         setData();
     }
 
+    public void showIzmeniServis(ActionEvent actionEvent) {
+        if (tblServices.getSelectionModel().getSelectedIndex() == -1) {
+            AlertUser.info("NIJE IZABRANA USLUGA", "Izaberite usluge za izmene");
+            return;
+        }
+        NewInterface korisnikUslugeEditInterface = new NewInterface("fxml/KorisnikUslugeIzmene.fxml", "Izmene servisa", resources);
+        KorisnikUslugeEditController korisnikUslugeEditController = korisnikUslugeEditInterface.getLoader().getController();
+        ServicesUser servicesUser = tblServices.getSelectionModel().getSelectedItem().getValue();
+        korisnikUslugeEditController.setServicesUser(servicesUser);
+        korisnikUslugeEditController.setClient(this.client);
+        korisnikUslugeEditController.setData();
+        korisnikUslugeEditInterface.getStage().showAndWait();
+        this.setData();
+    }
 }

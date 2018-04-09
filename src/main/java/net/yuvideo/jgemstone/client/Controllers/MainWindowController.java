@@ -27,6 +27,7 @@ import javafx.scene.web.HTMLEditor;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.Controllers.TEST.progressBarTest;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
@@ -99,25 +100,33 @@ public class MainWindowController implements Initializable {
     public void checkData() {
         final int[] sendDt = new int[1];
         final int[] recivDt = new int[1];
+        final long[] latency = {0};
+
         client.ss.addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 sendDt[0] = (int) newValue;
-                setStatus(sendDt[0], recivDt[0]);
+                setStatus(latency[0], sendDt[0], recivDt[0]);
             }
         });
         client.rs.addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 recivDt[0] = (int) newValue;
-                setStatus(sendDt[0], recivDt[0]);
+                setStatus(latency[0], sendDt[0], recivDt[0]);
             }
         });
-        setStatus(sendDt[0], recivDt[0]);
+        client.result.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                latency[0] = (long) newValue;
+                setStatus(latency[0], sendDt[0], recivDt[0]);
+            }
+        });
 
     }
 
-    private void setStatus(int sendDt, int recivDt) {
+    private void setStatus(long latency, int sendDt, int recivDt) {
         int sendBytes = sendDt;
         int receivedBytes = recivDt;
         String sendByte;
@@ -148,49 +157,27 @@ public class MainWindowController implements Initializable {
 
         Task task = new Task() {
             @Override
-            protected Object call() throws Exception {
+            protected Object call() {
 
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
                         lStatusConnection.setText(String.format("Server: %s, Latency: %s/ms SendBytes: %s ReceivedBytes: %s ",
-                                isAlive, client.checkLatency(), sendByte, receivedByte));
+                                isAlive, latency, sendByte, receivedByte));
                     }
                 });
 
-                Thread.sleep(1000);
 
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        client.ss.set(0);
-                        client.rs.set(0);
-                        //                       lStatusConnection.setText(String.format("Server: %s, Latency: %s/ms SendBytes: %s ReceivedBytes: %s ",
-                        //                             isAlive, client.checkLatency(), "0", "0"));
-                    }
-                });
 
                 return null;
             }
         };
-        new Thread(task).start();
+        Thread thread = new Thread(task);
+        thread.start();
 
     }
 
 
-    private void checkPing() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                lStatusConnection.setText(client.checkLatency());
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 
 
     private void exitApp() {
@@ -375,6 +362,14 @@ public class MainWindowController implements Initializable {
 
         JSONObject jObj = client.send_object(jfileObj);
 
+
+        /*
+        NewInterface progressInd = new NewInterface("fxml/CSVStatusImport.fxml", "IMPORT CSV", this.resource);
+        CSVStatusImportController csvStatusImportController =  progressInd.getLoader().getController();
+        csvStatusImportController.CSVStatusImportController(client);
+        progressInd.getStage().showAndWait();
+        */
+
         if (jObj.has("ERROR")) {
             AlertUser.error("GESKA", jObj.getString("ERROR"));
         } else {
@@ -492,6 +487,12 @@ public class MainWindowController implements Initializable {
     }
 
 
+    public void showProgressTest(ActionEvent actionEvent) {
+        NewInterface progressTest = new NewInterface("fxml/testForms/progressBarTest.fxml", "PROGRESS", this.resource);
+        progressBarTest progressTest1 = progressTest.getLoader().getController();
+        progressTest.getStage().showAndWait();
+
+    }
 }
 
 

@@ -1,7 +1,9 @@
 package net.yuvideo.jgemstone.client.classes;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import org.json.JSONObject;
 
 import javax.net.SocketFactory;
@@ -43,7 +45,10 @@ public class Client {
     private Boolean isConnected = false;
     private Boolean manualLogin = false;
     private boolean runOnce = true;
-    private long result;
+
+
+    public LongProperty result = new SimpleLongProperty();
+
 
     public IntegerProperty ss = new SimpleIntegerProperty();
     public IntegerProperty rs = new SimpleIntegerProperty();
@@ -66,10 +71,25 @@ public class Client {
 
             try {
                 Bfw.write(rObj.toString());
+
+                //send bytes
                 ss.setValue(rObj.toString().getBytes().length);
                 Bfw.newLine();
                 Bfw.flush();
+
+
+                //latency
+                long localPING = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+
                 rObj = get_object();
+
+                //recieve bytes
+                rs.setValue(rObj.toString().getBytes().length);
+
+                long remotePONG = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+
+                result.setValue(remotePONG - localPING);
+
             } catch (IOException e) {
                 status_login = e.getMessage();
                 AlertUser.error("GRESKA", e.getMessage());
@@ -83,6 +103,11 @@ public class Client {
             e.printStackTrace();
         }
         return rObj;
+    }
+
+    public JSONObject getjObj() {
+
+        return get_object();
     }
 
     private JSONObject get_object() {
@@ -221,39 +246,15 @@ public class Client {
     }
 
     private void checkAlive() {
-        new Thread(() -> {
-            JSONObject pingCheck = new JSONObject();
-
-            while (true) {
+        JSONObject pingCheck = new JSONObject();
                 pingCheck.put("action", "checkPing");
-                long localPING = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-                pingCheck = send_object(pingCheck);
-                if (pingCheck.has("PONG") && isConnected) {
-                    long remotePONG = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
 
-                    result = remotePONG - localPING;
-                    System.out.println(String.format("Konektovan lat: %dms", result));
-                } else {
-                    System.out.println("Diskonektovan");
-                    result = -1;
-                }
-                try {
-                    if (isConnected) {
-                        Thread.sleep(1000);
-                    } else {
-                        Thread.sleep(10000);
-                    }
 
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }).start();
     }
 
     public String checkLatency() {
-        if (result == -1) {
+
+        if (result.get() == -1) {
             return status_login;
         } else return String.format("%d", result);
     }

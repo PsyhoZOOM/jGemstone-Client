@@ -5,18 +5,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.HTMLEditor;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.NewInterface;
-import net.yuvideo.jgemstone.client.classes.NotifyUser;
-import net.yuvideo.jgemstone.client.classes.ugovori_types;
+import net.yuvideo.jgemstone.client.classes.*;
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -79,6 +78,10 @@ public class UgovoriController implements Initializable {
             NotifyUser.NotifyUser("Upozorenje", "Izaberite ugovor", 1);
             return;
         }
+
+        Optional<ButtonType> brisanje_ugovora = AlertUser.yesNo("Brisanje ugovora", "Da li ste sigurni da želite da izbrišete template ugovora?");
+        if (brisanje_ugovora.get().equals(AlertUser.NE)) return;
+
         ugovori_types ug;
         ug = tblUgovori.getSelectionModel().getSelectedItem();
 

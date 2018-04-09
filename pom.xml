@@ -8,7 +8,7 @@
     <version>SNAPSHOT-0.1</version>
     <packaging>jar</packaging>
 
-    <name>jGemston-Client</name>
+    <name>jGemstone-Client</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

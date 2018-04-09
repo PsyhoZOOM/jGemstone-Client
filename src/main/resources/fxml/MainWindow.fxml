@@ -101,6 +101,8 @@
                         <MenuItem fx:id="barCodeReader" mnemonicParsing="false" onAction="#mOpenQrScanner" text="QR Scanner" />
                         <MenuItem fx:id="pdfPreview" mnemonicParsing="false" onAction="#mOpenPDFPreview"
                                   text="PDF Preview"/>
+                        <MenuItem fx:id="mProgressTest" mnemonicParsing="false" onAction="#showProgressTest"
+                                  text="Progress"/>
                     </items>
                 </Menu>
             </menus>

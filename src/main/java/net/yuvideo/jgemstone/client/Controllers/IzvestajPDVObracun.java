@@ -83,6 +83,9 @@ public class IzvestajPDVObracun implements Initializable {
         tOdBrojaUser.setText("0");
         tDoBrojaUser.setText("1000");
 
+        dtpOd.setValue(LocalDate.now().minusMonths(3).withDayOfMonth(1));
+        dtpDo.setValue(LocalDate.now().withDayOfMonth(1));
+
         cKorisnik.setCellValueFactory(new PropertyValueFactory<pdvObracun, String>("korisnik"));
         cOsnovica.setCellValueFactory(new PropertyValueFactory<pdvObracun, Double>("osnovica"));
         cPDV.setCellValueFactory(new PropertyValueFactory<pdvObracun, Double>("pdv"));
