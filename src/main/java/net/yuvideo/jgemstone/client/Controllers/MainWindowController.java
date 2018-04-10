@@ -493,6 +493,14 @@ public class MainWindowController implements Initializable {
         progressTest.getStage().showAndWait();
 
     }
+
+    public void showStampaRacuna(ActionEvent actionEvent) {
+        NewInterface stampaRacunaInterface = new NewInterface("fxml/Racuni/StampaRacuna.fxml", "ŠTAMPA RAČUNA", this.resource);
+        StampaRacuna stampaRacunaController = stampaRacunaInterface.getLoader().getController();
+        stampaRacunaController.client = this.client;
+        stampaRacunaController.setData();
+        stampaRacunaInterface.getStage().showAndWait();
+    }
 }
 
 
