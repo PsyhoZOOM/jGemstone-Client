@@ -3,6 +3,8 @@ package net.yuvideo.jgemstone.client.classes;
 import javafx.scene.image.Image;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class Racun {
     String zaMesec;
     String nazivUsluge;
@@ -32,6 +34,9 @@ public class Racun {
     double prethodniDug;
     double ukupanDug;
 
+    ArrayList<Racun> racunArrayList;
+    ArrayList<Racun> racunArrayListTmp;
+
 
     int userID;
     Client client;
@@ -57,6 +62,13 @@ public class Racun {
             System.out.println(jsonObject.getString(String.valueOf(i)));
         }
 
+    }
+
+    private ArrayList<Racun> addKolicina(ArrayList<Racun> racuni) {
+        ArrayList<Racun> racuns = new ArrayList<>();
+
+
+        return racuns;
     }
     
     public void getPages(){
