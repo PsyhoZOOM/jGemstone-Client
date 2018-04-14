@@ -844,6 +844,12 @@ public class KorisnikUplateController implements Initializable {
     }
 
     public void prikaziRacun(ActionEvent actionEvent) {
-        Racun userRacun = new Racun(this.user.getId(), tblZaduzenja.getSelectionModel().getSelectedItem().getValue().getZaMesec(), this.client);
+        if (tblZaduzenja.getSelectionModel().getSelectedIndex() == -1) {
+            AlertUser.warrning("Nije izabran mesec", "Izaberite zaMesec iz table");
+            return;
+        }
+        //Racun userRacun = new Racun(this.user.getId(), tblZaduzenja.getSelectionModel().getSelectedItem().getValue().getZaMesec(), this.client);
+        Racun userRacun = new Racun();
+        userRacun.initRacun(this.user.getId(), tblZaduzenja.getSelectionModel().getSelectedItem().getValue().getZaMesec(), this.client);
     }
 }
