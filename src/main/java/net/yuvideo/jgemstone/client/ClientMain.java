@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import net.yuvideo.jgemstone.client.Controllers.LoginWinController;
@@ -56,7 +55,6 @@ public class ClientMain extends Application {
 
         bundle = ResourceBundle.getBundle("lang", new Locale("sr", "RS"), new EncodingControl("utf-8"));
 
-        Font.loadFont(getClass().getResourceAsStream("font.roboto/Roboto-Black.ttf"), 9);
         Locale.setDefault(new Locale("sr_latin", "RS"));
         System.setProperty("file.encoding", "UTF-8");
         Charset.defaultCharset();

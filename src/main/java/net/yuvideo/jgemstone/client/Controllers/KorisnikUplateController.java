@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import net.yuvideo.jgemstone.client.classes.*;
+import net.yuvideo.jgemstone.client.classes.Printing.PrintRacun;
 import org.controlsfx.control.spreadsheet.StringConverterWithFormat;
 import org.json.JSONObject;
 
@@ -58,6 +59,7 @@ public class KorisnikUplateController implements Initializable {
     public Label lImePrezime;
     public Label lCustomCena;
     public ComboBox cmbTypeUplate;
+    public Button bPrikaziRacun;
     @FXML
     private TreeTableView<Uplate> tblZaduzenja;
     @FXML
@@ -851,5 +853,8 @@ public class KorisnikUplateController implements Initializable {
         //Racun userRacun = new Racun(this.user.getId(), tblZaduzenja.getSelectionModel().getSelectedItem().getValue().getZaMesec(), this.client);
         Racun userRacun = new Racun();
         userRacun.initRacun(this.user.getId(), tblZaduzenja.getSelectionModel().getSelectedItem().getValue().getZaMesec(), this.client);
+        PrintRacun printRacun = new PrintRacun(this.bPrikaziRacun.getScene().getWindow());
+        printRacun.userRacun = userRacun.getRacunArrayList();
+        printRacun.setPageSize();
     }
 }

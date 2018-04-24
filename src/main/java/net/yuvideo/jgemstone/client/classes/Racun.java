@@ -15,14 +15,17 @@ public class Racun {
     String datumPrometa;
     String rokZaPlacanje;
     String adresaUsluge;
+    String mestoRacuna;
     String adresaRacuna;
     String zaPeriod;
     String ime;
+    String adresaKorisnika;
 
     Image qrCode;
 
     int kolicina;
     double iznos;
+    double cena;
     double popust;
     double osnovica;
     double osnovicaUkupno;
@@ -58,12 +61,47 @@ public class Racun {
         jsonObject.put("zaMesec", this.zaMesec);
 
         jsonObject = client.send_object(jsonObject);
-        for (int i = 0; i < jsonObject.length(); i++) {
+        int i = 0;
+        racunArrayList = new ArrayList<>();
+        for (i = 0; i < jsonObject.length() - 1; i++) {
             System.out.println(jsonObject.getJSONObject(String.valueOf(i)));
+            JSONObject rac = jsonObject.getJSONObject(String.valueOf(i));
+            Racun racun = new Racun();
+            racun.setNazivUsluge(rac.getString("nazivUsluge"));
+            racun.setOsnovica(rac.getDouble("osnovica"));
+            racun.setKolicina(rac.getInt("kolicina"));
+            racun.setPopust(rac.getInt("popust"));
+            racun.setCena(rac.getDouble("cena"));
+            racun.setStopaPDV(rac.getDouble("stopaPDV"));
+            racun.setPdv(rac.getDouble("pdv"));
+            racun.setUkupno(rac.getDouble("ukupno"));
+            racunArrayList.add(racun);
+
+
         }
+
+        Racun racun = new Racun();
+        JSONObject rac = jsonObject.getJSONObject(String.valueOf(i));
+        System.out.println(jsonObject.getJSONObject(String.valueOf(i)));
+        racun.setIme(rac.getString("imePrezime"));
+        racun.setSifraKorisnika(rac.getString("sifraKorisnika"));
+        racun.setZaMesec(rac.getString("zaMesec"));
+        racun.setAdresaRacuna(rac.getString("adresaRacuna"));
+        racun.setMestoRacuna(rac.getString("mestoRacuna"));
+        racun.setAdresaKorisnika(rac.getString("adresaKorisnika"));
+        racun.setOsnovicaUkupno(rac.getDouble("ukupnoOsnovica"));
+        racun.setPdvUkupno(rac.getDouble("ukupnoPDV"));
+        racun.setUkupnoUkupno(rac.getDouble("zaduzenjeZaObrPeriod"));
+        racun.setPrethodniDug(rac.getDouble("prethodniDug"));
+        racun.setUkupanDug(rac.getDouble("ukupnoZaUplatu"));
+        racun.setZaPeriod(rac.getString("zaMesec"));
+        racunArrayList.add(racun);
 
     }
 
+    public ArrayList<Racun> getRacunArrayList() {
+        return racunArrayList;
+    }
 
     public void getPages(){
         createPages();
@@ -272,5 +310,29 @@ public class Racun {
 
     public void setQrCode(Image qrCode) {
         this.qrCode = qrCode;
+    }
+
+    public double getCena() {
+        return cena;
+    }
+
+    public void setCena(double cena) {
+        this.cena = cena;
+    }
+
+    public String getAdresaKorisnika() {
+        return adresaKorisnika;
+    }
+
+    public void setAdresaKorisnika(String adresaKorisnika) {
+        this.adresaKorisnika = adresaKorisnika;
+    }
+
+    public String getMestoRacuna() {
+        return mestoRacuna;
+    }
+
+    public void setMestoRacuna(String mestoRacuna) {
+        this.mestoRacuna = mestoRacuna;
     }
 }
