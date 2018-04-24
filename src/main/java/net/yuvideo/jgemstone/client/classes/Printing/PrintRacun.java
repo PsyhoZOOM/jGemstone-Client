@@ -519,7 +519,7 @@ public class PrintRacun {
         AnchorPane.setLeftAnchor(svrhaUplateR, 70.0);
         //svrhaUplateRight
         AnchorPane.setTopAnchor(svrhaUplateR2, 623.0);
-        AnchorPane.setLeftAnchor(svrhaUplateR2, 385.0);
+        AnchorPane.setLeftAnchor(svrhaUplateR2, 396.0);
         //zaPeriodLeft
         AnchorPane.setTopAnchor(zaPeriodR, 625.0);
         AnchorPane.setLeftAnchor(zaPeriodR, 160.0);
