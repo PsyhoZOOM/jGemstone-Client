@@ -1,6 +1,5 @@
 package net.yuvideo.jgemstone.client;
 
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -20,87 +19,75 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
-
-
 public class ClientMain extends Application {
-    public static final Logger LOGGER = Logger.getLogger("CLIENT_MAIN");
-    public static ResourceBundle bundle;
-    Client client;
-    LoginWinController loginCtrl;
-    Parent rootMainWindow;
-    FXMLLoader fxmlLoader;
-    Stage stage;
-    Scene scene;
+  public static final Logger LOGGER = Logger.getLogger("CLIENT_MAIN");
+  public static ResourceBundle bundle;
+  Client client;
+  LoginWinController loginCtrl;
+  Parent rootMainWindow;
+  FXMLLoader fxmlLoader;
+  Stage stage;
+  Scene scene;
 
+  public static void main(String[] args) {
+    launch(args);
+  }
 
-    public static void main(String[] args) {
-        launch(args);
+  public void init() throws Exception {
+    super.init();
+  }
 
+  @Override
+  public void start(final Stage primaryStage) {
 
-    }
+    // locale_sr = "RS";
+    // locale = new Locale(locale_sr)
+    // System.setProperty("javafx.userAgentStylesheetUrl", STYLESHEET_CASPIAN);
+    Locale locale = new Locale("sr");
 
-    public void init() throws Exception {
-        super.init();
+    
+    bundle = ResourceBundle.getBundle("lang", new Locale("sr", "RS"), new EncodingControl("utf-8"));
 
+    Locale.setDefault(new Locale("sr_latin", "RS"));
+    System.setProperty("file.encoding", "UTF-8");
+    Charset.defaultCharset();
 
-    }
+    /// SET ICON
+    primaryStage
+        .getIcons()
+        .add(new Image(ClassLoader.getSystemResourceAsStream("images/YuVideoLogo.png")));
 
-    @Override
-    public void start(final Stage primaryStage) {
+    this.stage = primaryStage;
 
-        //locale_sr = "RS";
-        //locale = new Locale(locale_sr)
-        //System.setProperty("javafx.userAgentStylesheetUrl", STYLESHEET_CASPIAN);
-        Locale locale = new Locale("sr");
+    primaryStage.setTitle("JGemstone");
 
-        bundle = ResourceBundle.getBundle("lang", new Locale("sr", "RS"), new EncodingControl("utf-8"));
+    setUserAgentStylesheet(STYLESHEET_MODENA);
 
-        Locale.setDefault(new Locale("sr_latin", "RS"));
-        System.setProperty("file.encoding", "UTF-8");
-        Charset.defaultCharset();
-
-
-
-        ///SET ICON
-        primaryStage.getIcons().add(new Image(ClassLoader.getSystemResourceAsStream("images/YuVideoLogo.png")));
-
-        this.stage = primaryStage;
-
-        primaryStage.setTitle("JGemstone");
-
-
-        setUserAgentStylesheet(STYLESHEET_MODENA);
-
-        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                Platform.exit();
-                System.exit(0);
-            }
+    primaryStage.setOnCloseRequest(
+        new EventHandler<WindowEvent>() {
+          @Override
+          public void handle(WindowEvent event) {
+            Platform.exit();
+            System.exit(0);
+          }
         });
 
+    show_login_screen();
+  }
 
-        show_login_screen();
+  private void show_login_screen() {
+    fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("fxml/LoginWin.fxml"), bundle);
+    try {
+      rootMainWindow = fxmlLoader.load();
+      loginCtrl = fxmlLoader.getController();
+      loginCtrl.stage = this.stage;
+      scene = new Scene(rootMainWindow);
+      stage.setScene(scene);
+      stage.setResizable(false);
+      stage.setTitle("YUVideo LOGIN");
+      stage.show();
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
     }
-
-    private void show_login_screen() {
-        fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("fxml/LoginWin.fxml"), bundle);
-        try {
-            rootMainWindow = fxmlLoader.load();
-            loginCtrl = fxmlLoader.getController();
-            loginCtrl.stage = this.stage;
-            scene = new Scene(rootMainWindow);
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.setTitle("YUVideo LOGIN");
-            stage.show();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-
-    }
-
-
+  }
 }
-
-
