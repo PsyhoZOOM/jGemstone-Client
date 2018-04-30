@@ -18,6 +18,7 @@ import net.yuvideo.jgemstone.client.classes.*;
 import net.yuvideo.jgemstone.client.classes.Printing.PrintRacun;
 import org.controlsfx.control.spreadsheet.StringConverterWithFormat;
 import org.json.JSONObject;
+import net.glxn.qrgen.QRCode;
 
 import java.io.File;
 import java.net.URL;
@@ -529,7 +530,8 @@ public class KorisnikUplateController implements Initializable {
 
 
     private void setQrCode() {
-        File fImg = net.glxn.qrgen.javase.QRCode.from(user.getJbroj()).withCharset("CP1250").file();
+      //File fImg = net.glxn.qrgen.javase.QRCode.from(user.getJbroj()).withCharset("CP1250").file();
+      File fImg = QRCode.from(user.getJbroj()).withCharset("CP1250").file();
 
         //imgQR.setImage(img);
         Image img = new Image(fImg.toURI().toString());
