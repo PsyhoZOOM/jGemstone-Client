@@ -79,6 +79,7 @@ public class PrintRacun {
         Font fontMini = Font.loadFont(getClass().getResource("/font/roboto/Roboto-Thin.ttf").toExternalForm(), 6);
         Font fontBold = Font.loadFont(getClass().getResource("/font/roboto/Roboto-Bold.ttf").toExternalForm(), 10);
         Font fontADRESA = Font.loadFont(getClass().getResource("/font/roboto/Roboto-Bold.ttf").toExternalForm(), 12);
+        Font fontRacunDole = Font.loadFont(getClass().getResource("/font/roboto/Roboto-Bold.ttf").toExternalForm(), 8);
 
 
         VBox table = new VBox();
@@ -351,7 +352,7 @@ public class PrintRacun {
         racunPodaci.getChildren().add(row);
 
         row = new HBox();
-        Label adresaKorisnika = new Label(String.format("Adresa korisnika: \n %s ", racun.getAdresaKorisnika()));
+        Label adresaKorisnika = new Label(String.format("Adresa korisnika: \n %s ", racun.getAdresaRacuna()));
         adresaKorisnika.setFont(font);
         cell = new HBox(adresaKorisnika);
         row.getChildren().add(cell);
@@ -424,7 +425,7 @@ public class PrintRacun {
 
         String svrhaUplate = "189";
 
-        String adresaNaRacunu = String.format("%s %s", racun.getAdresaKorisnika(), racun.getMestoRacuna());
+        String adresaNaRacunu = String.format("%s %s", racun.getAdresaRacuna(), racun.getMestoRacuna());
 
         String zaPerioRacun = String.format("%s-%s.%s", stDate, lstDate, zaPrDate.format(DateTimeFormatter.ofPattern("yy")));
 
@@ -435,38 +436,38 @@ public class PrintRacun {
         String ukupnoZaUplatuRacun = df.format(racun.getUkupnoUkupno());
 
 
-        Text imeR = new Text(ime);
-        imeR.setFont(font);
-        Text imeR2 = new Text(ime);
-        imeR2.setFont(font);
+        Text imeR = new Text(ime.toUpperCase());
+        imeR.setFont(fontRacunDole);
+        Text imeR2 = new Text(ime.toUpperCase());
+        imeR2.setFont(fontRacunDole);
 
         Text svrhaUplateR = new Text(svrhaUplate);
-        svrhaUplateR.setFont(font);
+        svrhaUplateR.setFont(fontBold);
         Text svrhaUplateR2 = new Text(svrhaUplate);
-        svrhaUplateR2.setFont(font);
+        svrhaUplateR2.setFont(fontBold);
 
-        Text adresaNaRacunuR = new Text(adresaNaRacunu);
-        adresaNaRacunuR.setFont(font);
-        Text adresaNaRacunuR2 = new Text(adresaNaRacunu);
-        adresaNaRacunuR2.setFont(font);
+        Text adresaNaRacunuR = new Text(adresaNaRacunu.toUpperCase());
+        adresaNaRacunuR.setFont(fontRacunDole);
+        Text adresaNaRacunuR2 = new Text(adresaNaRacunu.toUpperCase());
+        adresaNaRacunuR2.setFont(fontRacunDole);
 
         Text zaPeriodR = new Text(zaPerioRacun);
-        zaPeriodR.setFont(fontSmall);
+        zaPeriodR.setFont(fontRacunDole);
         Text zaPeriodR2 = new Text(zaPerioRacun);
-        zaPeriodR2.setFont(fontSmall);
+        zaPeriodR2.setFont(fontRacunDole);
 
         Text rokZaPLacanjeRacunR = new Text(rokZaPlacanjeRacun);
-        rokZaPLacanjeRacunR.setFont(fontSmall);
+        rokZaPLacanjeRacunR.setFont(fontRacunDole);
 
         Text pozivNabrojR = new Text(pozivNaBroj);
-        pozivNabrojR.setFont(font);
+        pozivNabrojR.setFont(fontBold);
         Text pozivNaBrojR2 = new Text(pozivNaBroj);
-        pozivNaBrojR2.setFont(font);
+        pozivNaBrojR2.setFont(fontBold);
 
         Text ukupnoZaUplatuR = new Text(ukupnoZaUplatuRacun);
-        ukupnoZaUplatuR.setFont(font);
+        ukupnoZaUplatuR.setFont(fontBold);
         Text ukupnoZaUplatuR2 = new Text(ukupnoZaUplatuRacun);
-        ukupnoZaUplatuR2.setFont(font);
+        ukupnoZaUplatuR2.setFont(fontBold);
 
         //KONTAKT
         String kontakt = String.format("KONTAKT:\n" +
@@ -507,22 +508,22 @@ public class PrintRacun {
         AnchorPane.setLeftAnchor(imeR, 53.0);
         //ImeRight
         AnchorPane.setTopAnchor(imeR2, 603.0);
-        AnchorPane.setLeftAnchor(imeR2, 378.0);
+        AnchorPane.setLeftAnchor(imeR2, 375.0);
         //adresaLeft
         AnchorPane.setTopAnchor(adresaNaRacunuR, 613.0);
-        AnchorPane.setLeftAnchor(adresaNaRacunuR, 50.0);
+        AnchorPane.setLeftAnchor(adresaNaRacunuR, 49.0);
         //adresaRight
         AnchorPane.setTopAnchor(adresaNaRacunuR2, 613.0);
-        AnchorPane.setLeftAnchor(adresaNaRacunuR2, 376.0);
+        AnchorPane.setLeftAnchor(adresaNaRacunuR2, 370.0);
         //svrhaUplateLeft
         AnchorPane.setTopAnchor(svrhaUplateR, 623.0);
         AnchorPane.setLeftAnchor(svrhaUplateR, 70.0);
         //svrhaUplateRight
         AnchorPane.setTopAnchor(svrhaUplateR2, 623.0);
-        AnchorPane.setLeftAnchor(svrhaUplateR2, 396.0);
+        AnchorPane.setLeftAnchor(svrhaUplateR2, 393.0);
         //zaPeriodLeft
         AnchorPane.setTopAnchor(zaPeriodR, 625.0);
-        AnchorPane.setLeftAnchor(zaPeriodR, 160.0);
+        AnchorPane.setLeftAnchor(zaPeriodR, 157.0);
         //zaPeriodRight
         AnchorPane.setTopAnchor(zaPeriodR2, 625.0);
         AnchorPane.setLeftAnchor(zaPeriodR2, 494.0);
