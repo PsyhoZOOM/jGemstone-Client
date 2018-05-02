@@ -31,32 +31,26 @@ public class PrintRacun {
   DecimalFormat df = new DecimalFormat("###,###,###,###,##0.00");
   private PrinterJob printerJob;
   private Printer printer;
+  private Paper paper;
 
-  public PrintRacun(Window window) {
-    this.window = window;
-  }
 
-  private void setPrinter(Printer printer) {
+  public void setPrinterData(JobSettings js, Printer printer) {
+    this.printerJob = PrinterJob.createPrinterJob();
     this.printer = printer;
+    this.pageLayout = js.getPageLayout();
+    Paper paper = pageLayout.getPaper();
+    PageOrientation pageOrientation = pageLayout.getPageOrientation();
+    this.pageLayout = this.printer.createPageLayout(paper, pageOrientation, Printer.MarginType.HARDWARE_MINIMUM);
+    this.paper =paper;
+
+    printerJob.setPrinter(this.printer);
+    
   }
 
-  public void setPageSize() {
 
-    printRacun();
-  }
 
   public void printRacun() {
 
-    printerJob = PrinterJob.createPrinterJob();
-    boolean b = printerJob.showPrintDialog(window);
-
-    pageLayout = printerJob.getJobSettings().getPageLayout();
-    Paper paper = pageLayout.getPaper();
-    PageOrientation pageOrientation = pageLayout.getPageOrientation();
-    pageLayout =
-        printerJob
-            .getPrinter()
-            .createPageLayout(paper, pageOrientation, Printer.MarginType.HARDWARE_MINIMUM);
 
     final double WIDTH = pageLayout.getPrintableWidth();
     final double HEIGHT = pageLayout.getPrintableHeight();
@@ -604,14 +598,12 @@ public class PrintRacun {
         new Scene(anchorPane, pageLayout.getPrintableWidth(), pageLayout.getPrintableHeight());
     Stage stage = new Stage();
     stage.setScene(scene);
-    stage.showAndWait();
+    //stage.showAndWait();
 
-    if (printerJob != null && b) {
       boolean succ = printerJob.printPage(pageLayout, anchorPane);
-      if (succ) {
+      if(succ){
         printerJob.endJob();
       }
-    }
   }
 
   private void createPage() {}

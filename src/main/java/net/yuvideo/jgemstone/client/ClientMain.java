@@ -45,10 +45,11 @@ public class ClientMain extends Application {
     // System.setProperty("javafx.userAgentStylesheetUrl", STYLESHEET_CASPIAN);
     Locale locale = new Locale("sr");
 
+    System.out.println(ClassLoader.getSystemResource("./").toString());
     
-    bundle = ResourceBundle.getBundle("lang", new Locale("sr", "RS"), new EncodingControl("utf-8"));
+    bundle = ResourceBundle.getBundle("lang", new Locale("sr"), new EncodingControl("utf-8"));
 
-    Locale.setDefault(new Locale("sr_latin", "RS"));
+    Locale.setDefault(new Locale("en"));
     System.setProperty("file.encoding", "UTF-8");
     Charset.defaultCharset();
 

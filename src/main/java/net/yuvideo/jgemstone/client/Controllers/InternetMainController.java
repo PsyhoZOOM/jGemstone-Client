@@ -26,7 +26,6 @@ public class InternetMainController implements Initializable {
     private ResourceBundle resources;
     private URL location;
 
-    private TableView tableView;
     private PropertySheet propertySheet;
 
     @Override
@@ -35,9 +34,7 @@ public class InternetMainController implements Initializable {
         this.resources = resources;
 
         propertySheet = new PropertySheet();
-        tableView = new TableView();
         masterDP.setDetailNode(propertySheet);
-        masterDP.setMasterNode(tableView);
         masterDP.setDetailSide(Side.BOTTOM);
         masterDP.setShowDetailNode(true);
 
