@@ -33,24 +33,20 @@ public class PrintRacun {
   private Printer printer;
   private Paper paper;
 
-
   public void setPrinterData(JobSettings js, Printer printer) {
     this.printerJob = PrinterJob.createPrinterJob();
     this.printer = printer;
     this.pageLayout = js.getPageLayout();
     Paper paper = pageLayout.getPaper();
     PageOrientation pageOrientation = pageLayout.getPageOrientation();
-    this.pageLayout = this.printer.createPageLayout(paper, pageOrientation, Printer.MarginType.HARDWARE_MINIMUM);
-    this.paper =paper;
+    this.pageLayout =
+        this.printer.createPageLayout(paper, pageOrientation, Printer.MarginType.HARDWARE_MINIMUM);
+    this.paper = paper;
 
     printerJob.setPrinter(this.printer);
-    
   }
 
-
-
   public void printRacun() {
-
 
     final double WIDTH = pageLayout.getPrintableWidth();
     final double HEIGHT = pageLayout.getPrintableHeight();
@@ -385,7 +381,6 @@ public class PrintRacun {
     // net.glxn.qrgen.javase.QRCode.from(racun.getSifraKorisnika()).withCharset("CP1250").file();
 
     File fImg = QRCode.from(racun.getSifraKorisnika()).withCharset("CP1250").file();
-    
 
     Image img = new Image(fImg.toURI().toString());
 
@@ -598,12 +593,12 @@ public class PrintRacun {
         new Scene(anchorPane, pageLayout.getPrintableWidth(), pageLayout.getPrintableHeight());
     Stage stage = new Stage();
     stage.setScene(scene);
-    //stage.showAndWait();
+    // stage.showAndWait();
 
-      boolean succ = printerJob.printPage(pageLayout, anchorPane);
-      if(succ){
-        printerJob.endJob();
-      }
+    boolean succ = printerJob.printPage(pageLayout, anchorPane);
+    if (succ) {
+      printerJob.endJob();
+    }
   }
 
   private void createPage() {}

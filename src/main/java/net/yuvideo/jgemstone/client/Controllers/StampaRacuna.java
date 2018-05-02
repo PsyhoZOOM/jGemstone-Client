@@ -153,7 +153,6 @@ public class StampaRacuna implements Initializable {
     boolean b = printerJob.showPrintDialog(wind);
     JobSettings printerSettngs = printerJob.getJobSettings();
 
-    
     if (!b) {
       return;
     }
