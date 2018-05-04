@@ -6,36 +6,37 @@ import java.io.Serializable;
  * Created by zoom on 1/13/17.
  */
 public class Oprema implements Serializable {
-    String naziv;
-    String model;
-    int id;
 
-    public String getNaziv() {
-        return naziv;
-    }
+  String naziv;
+  String model;
+  int id;
 
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
-    }
+  public String getNaziv() {
+    return naziv;
+  }
 
-    public String getModel() {
-        return model;
-    }
+  public void setNaziv(String naziv) {
+    this.naziv = naziv;
+  }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
+  public String getModel() {
+    return model;
+  }
 
-    public int getId() {
-        return id;
-    }
+  public void setModel(String model) {
+    this.model = model;
+  }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  public int getId() {
+    return id;
+  }
 
-    @Override
-    public String toString() {
-        return naziv;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  @Override
+  public String toString() {
+    return naziv;
+  }
 }

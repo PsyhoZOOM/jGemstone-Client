@@ -6,267 +6,264 @@ import java.io.Serializable;
  * Created by zoom on 2/24/17.
  */
 public class BoxPaket implements Serializable {
-    int id;
-    String naziv;
-    int DTVPaketID;
-    int IPTVPaketID;
-    int NETPaketID;
-    int FIXPaketID;
-    String opis;
-    String username;
-    String password;
-    String iptvmac;
-    int popust;
-    int ugovorid;
-    int produzenje;
-    double cena;
-    double pdv;
-    double cenaPDV;
-    int obracune;
-    String paketType;
 
-    public double getCenaPDV() {
-        return cenaPDV;
-    }
+  int id;
+  String naziv;
+  int DTVPaketID;
+  int IPTVPaketID;
+  int NETPaketID;
+  int FIXPaketID;
+  String opis;
+  String username;
+  String password;
+  String iptvmac;
+  int popust;
+  int ugovorid;
+  int produzenje;
+  double cena;
+  double pdv;
+  double cenaPDV;
+  int obracune;
+  String paketType;
+  private int DTV;
+  private String DTV_naziv;
+  private int IPTV;
+  private String IPTV_naziv;
+  private int NET;
+  private String NET_naziv;
+  private int FIKSNA;
+  private String FIKSNA_naziv;
+  private String tariff_plan;
+  private String external_id;
 
-    public void setCenaPDV(double cenaPDV) {
-        this.cenaPDV = cenaPDV;
-    }
+  public double getCenaPDV() {
+    return cenaPDV;
+  }
 
+  public void setCenaPDV(double cenaPDV) {
+    this.cenaPDV = cenaPDV;
+  }
 
-    public double getPdv() {
-        return pdv;
-    }
+  public double getPdv() {
+    return pdv;
+  }
 
-    public void setPdv(double pdv) {
-        this.pdv = pdv;
-    }
+  public void setPdv(double pdv) {
+    this.pdv = pdv;
+  }
 
-    private int DTV;
-    private String DTV_naziv;
-    private int IPTV;
-    private String IPTV_naziv;
-    private int NET;
-    private String NET_naziv;
-    private int FIKSNA;
-    private String FIKSNA_naziv;
+  public String getTariff_plan() {
+    return tariff_plan;
+  }
 
-    private String tariff_plan;
-    private String external_id;
+  public void setTariff_plan(String tariff_plan) {
+    this.tariff_plan = tariff_plan;
+  }
 
+  public String getExternal_id() {
+    return external_id;
+  }
 
-    public String getTariff_plan() {
-        return tariff_plan;
-    }
+  public void setExternal_id(String external_id) {
+    this.external_id = external_id;
+  }
 
-    public void setTariff_plan(String tariff_plan) {
-        this.tariff_plan = tariff_plan;
-    }
+  public String getPaketType() {
+    return paketType;
+  }
 
-    public String getExternal_id() {
-        return external_id;
-    }
+  public void setPaketType(String paketType) {
+    this.paketType = paketType;
+  }
 
-    public void setExternal_id(String external_id) {
-        this.external_id = external_id;
-    }
+  public int getDTV() {
+    return DTV;
+  }
 
-    public String getPaketType() {
-        return paketType;
-    }
+  public void setDTV(int DTV) {
+    this.DTV = DTV;
+  }
 
-    public void setPaketType(String paketType) {
-        this.paketType = paketType;
-    }
+  public String getDTV_naziv() {
+    return DTV_naziv;
+  }
 
-    public int getDTV() {
-        return DTV;
-    }
+  public void setDTV_naziv(String DTV_naziv) {
+    this.DTV_naziv = DTV_naziv;
+  }
 
-    public void setDTV(int DTV) {
-        this.DTV = DTV;
-    }
+  public int getIPTV() {
+    return IPTV;
+  }
 
-    public String getDTV_naziv() {
-        return DTV_naziv;
-    }
+  public void setIPTV(int IPTV) {
+    this.IPTV = IPTV;
+  }
 
-    public void setDTV_naziv(String DTV_naziv) {
-        this.DTV_naziv = DTV_naziv;
-    }
+  public String getIPTV_naziv() {
+    return IPTV_naziv;
+  }
 
-    public int getIPTV() {
-        return IPTV;
-    }
+  public void setIPTV_naziv(String IPTV_naziv) {
+    this.IPTV_naziv = IPTV_naziv;
+  }
 
-    public void setIPTV(int IPTV) {
-        this.IPTV = IPTV;
-    }
+  public int getNET() {
+    return NET;
+  }
 
-    public String getIPTV_naziv() {
-        return IPTV_naziv;
-    }
+  public void setNET(int NET) {
+    this.NET = NET;
+  }
 
-    public void setIPTV_naziv(String IPTV_naziv) {
-        this.IPTV_naziv = IPTV_naziv;
-    }
+  public String getNET_naziv() {
+    return NET_naziv;
+  }
 
-    public int getNET() {
-        return NET;
-    }
+  public void setNET_naziv(String NET_naziv) {
+    this.NET_naziv = NET_naziv;
+  }
 
-    public void setNET(int NET) {
-        this.NET = NET;
-    }
+  public int getFIKSNA() {
+    return FIKSNA;
+  }
 
-    public String getNET_naziv() {
-        return NET_naziv;
-    }
+  public void setFIKSNA(int FIKSNA) {
+    this.FIKSNA = FIKSNA;
+  }
 
-    public void setNET_naziv(String NET_naziv) {
-        this.NET_naziv = NET_naziv;
-    }
+  public String getFIKSNA_naziv() {
+    return FIKSNA_naziv;
+  }
 
-    public int getFIKSNA() {
-        return FIKSNA;
-    }
+  public void setFIKSNA_naziv(String FIKSNA_naziv) {
+    this.FIKSNA_naziv = FIKSNA_naziv;
+  }
 
-    public void setFIKSNA(int FIKSNA) {
-        this.FIKSNA = FIKSNA;
-    }
+  public double getCena() {
+    return cena;
+  }
 
-    public String getFIKSNA_naziv() {
-        return FIKSNA_naziv;
-    }
+  public void setCena(double cena) {
+    this.cena = cena;
+  }
 
-    public void setFIKSNA_naziv(String FIKSNA_naziv) {
-        this.FIKSNA_naziv = FIKSNA_naziv;
-    }
+  public int getObracune() {
+    return obracune;
+  }
 
-    public double getCena() {
-        return cena;
-    }
+  public void setObracune(int obracune) {
+    this.obracune = obracune;
+  }
 
-    public void setCena(double cena) {
-        this.cena = cena;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public int getObracune() {
-        return obracune;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public void setObracune(int obracune) {
-        this.obracune = obracune;
-    }
+  public String getNaziv() {
+    return naziv;
+  }
 
-    public int getId() {
-        return id;
-    }
+  public void setNaziv(String naziv) {
+    this.naziv = naziv;
+  }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  public int getDTVPaketID() {
+    return DTVPaketID;
+  }
 
-    public String getNaziv() {
-        return naziv;
-    }
+  public void setDTVPaketID(int DTVPaketID) {
+    this.DTVPaketID = DTVPaketID;
+  }
 
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
-    }
+  public int getIPTVPaketID() {
+    return IPTVPaketID;
+  }
 
-    public int getDTVPaketID() {
-        return DTVPaketID;
-    }
+  public void setIPTVPaketID(int IPTVPaketID) {
+    this.IPTVPaketID = IPTVPaketID;
+  }
 
-    public void setDTVPaketID(int DTVPaketID) {
-        this.DTVPaketID = DTVPaketID;
-    }
+  public int getNETPaketID() {
+    return NETPaketID;
+  }
 
-    public int getIPTVPaketID() {
-        return IPTVPaketID;
-    }
-
-    public void setIPTVPaketID(int IPTVPaketID) {
-        this.IPTVPaketID = IPTVPaketID;
-    }
-
-    public int getNETPaketID() {
-        return NETPaketID;
-    }
-
-    public void setNETPaketID(int NETPaketID) {
-        this.NETPaketID = NETPaketID;
-    }
+  public void setNETPaketID(int NETPaketID) {
+    this.NETPaketID = NETPaketID;
+  }
 
 
-    public int getFIXPaketID() {
-        return FIXPaketID;
-    }
+  public int getFIXPaketID() {
+    return FIXPaketID;
+  }
 
-    public void setFIXPaketID(int FIXPaketID) {
-        this.FIXPaketID = FIXPaketID;
-    }
+  public void setFIXPaketID(int FIXPaketID) {
+    this.FIXPaketID = FIXPaketID;
+  }
 
-    public String getOpis() {
-        return opis;
-    }
+  public String getOpis() {
+    return opis;
+  }
 
-    public void setOpis(String opis) {
-        this.opis = opis;
-    }
+  public void setOpis(String opis) {
+    this.opis = opis;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public String getIptvmac() {
-        return iptvmac;
-    }
+  public String getIptvmac() {
+    return iptvmac;
+  }
 
-    public void setIptvmac(String iptvmac) {
-        this.iptvmac = iptvmac;
-    }
+  public void setIptvmac(String iptvmac) {
+    this.iptvmac = iptvmac;
+  }
 
-    public int getPopust() {
-        return popust;
-    }
+  public int getPopust() {
+    return popust;
+  }
 
-    public void setPopust(int popust) {
-        this.popust = popust;
-    }
+  public void setPopust(int popust) {
+    this.popust = popust;
+  }
 
-    public int getUgovorid() {
-        return ugovorid;
-    }
+  public int getUgovorid() {
+    return ugovorid;
+  }
 
-    public void setUgovorid(int ugovorid) {
-        this.ugovorid = ugovorid;
-    }
+  public void setUgovorid(int ugovorid) {
+    this.ugovorid = ugovorid;
+  }
 
-    public int getProduzenje() {
-        return produzenje;
-    }
+  public int getProduzenje() {
+    return produzenje;
+  }
 
-    public void setProduzenje(int produzenje) {
-        this.produzenje = produzenje;
-    }
+  public void setProduzenje(int produzenje) {
+    this.produzenje = produzenje;
+  }
 
-    @Override
-    public String toString() {
-        return naziv;
-    }
+  @Override
+  public String toString() {
+    return naziv;
+  }
 
 }

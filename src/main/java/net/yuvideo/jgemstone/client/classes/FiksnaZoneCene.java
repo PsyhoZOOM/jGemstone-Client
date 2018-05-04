@@ -6,94 +6,95 @@ import java.io.Serializable;
  * Created by PsyhoZOOM@gmail.com on 5/29/17.
  */
 public class FiksnaZoneCene implements Serializable {
-    int id;
-    String vrstaUsluge;
-    double providerCena;
-    double providerPDV;
-    double providerUkupno;
-    double cena;
-    double PDV;
-    double cenaPDV;
-    double competitionCena;
-    double razlika;
 
-    public int getId() {
-        return id;
-    }
+  int id;
+  String vrstaUsluge;
+  double providerCena;
+  double providerPDV;
+  double providerUkupno;
+  double cena;
+  double PDV;
+  double cenaPDV;
+  double competitionCena;
+  double razlika;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public String getVrstaUsluge() {
-        return vrstaUsluge;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public void setVrstaUsluge(String vrstaUsluge) {
-        this.vrstaUsluge = vrstaUsluge;
-    }
+  public String getVrstaUsluge() {
+    return vrstaUsluge;
+  }
 
-    public double getProviderCena() {
-        return providerCena;
-    }
+  public void setVrstaUsluge(String vrstaUsluge) {
+    this.vrstaUsluge = vrstaUsluge;
+  }
 
-    public void setProviderCena(double providerCena) {
-        this.providerCena = providerCena;
-    }
+  public double getProviderCena() {
+    return providerCena;
+  }
 
-    public double getProviderPDV() {
-        return providerPDV;
-    }
+  public void setProviderCena(double providerCena) {
+    this.providerCena = providerCena;
+  }
 
-    public void setProviderPDV(double providerPDV) {
-        this.providerPDV = providerPDV;
-    }
+  public double getProviderPDV() {
+    return providerPDV;
+  }
 
-    public double getProviderUkupno() {
-        return providerUkupno;
-    }
+  public void setProviderPDV(double providerPDV) {
+    this.providerPDV = providerPDV;
+  }
 
-    public void setProviderUkupno(double providerUkupno) {
-        this.providerUkupno = providerUkupno;
-    }
+  public double getProviderUkupno() {
+    return providerUkupno;
+  }
 
-    public double getCena() {
-        return cena;
-    }
+  public void setProviderUkupno(double providerUkupno) {
+    this.providerUkupno = providerUkupno;
+  }
 
-    public void setCena(double cena) {
-        this.cena = cena;
-    }
+  public double getCena() {
+    return cena;
+  }
 
-    public double getPDV() {
-        return PDV;
-    }
+  public void setCena(double cena) {
+    this.cena = cena;
+  }
 
-    public void setPDV(double PDV) {
-        this.PDV = PDV;
-    }
+  public double getPDV() {
+    return PDV;
+  }
 
-    public double getCompetitionCena() {
-        return competitionCena;
-    }
+  public void setPDV(double PDV) {
+    this.PDV = PDV;
+  }
 
-    public void setCompetitionCena(double competitionCena) {
-        this.competitionCena = competitionCena;
-    }
+  public double getCompetitionCena() {
+    return competitionCena;
+  }
 
-    public double getRazlika() {
-        return razlika;
-    }
+  public void setCompetitionCena(double competitionCena) {
+    this.competitionCena = competitionCena;
+  }
 
-    public void setRazlika(double razlika) {
-        this.razlika = razlika;
-    }
+  public double getRazlika() {
+    return razlika;
+  }
 
-    public double getCenaPDV() {
-        return cenaPDV;
-    }
+  public void setRazlika(double razlika) {
+    this.razlika = razlika;
+  }
 
-    public void setCenaPDV(double cenaPDV) {
-        this.cenaPDV = cenaPDV;
-    }
+  public double getCenaPDV() {
+    return cenaPDV;
+  }
+
+  public void setCenaPDV(double cenaPDV) {
+    this.cenaPDV = cenaPDV;
+  }
 }

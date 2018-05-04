@@ -4,37 +4,41 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.web.HTMLEditor?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
-            fx:controller="net.yuvideo.jgemstone.client.Controllers.UgovoriPreviewController">
-    <children>
-        <ToolBar layoutY="13.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                 AnchorPane.topAnchor="0.0">
-            <items>
-                <Button fx:id="bClose" mnemonicParsing="false" onAction="#closeUgovor" text="Zatvori">
-                    <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="CLOSE"/>
-                    </graphic>
-                </Button>
-                <Pane HBox.hgrow="ALWAYS"/>
-                <Button fx:id="bPrintUgovor" mnemonicParsing="false" onAction="#printUgovor" text="Štampa">
-                    <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="PRINT"/>
-                    </graphic>
-                </Button>
-                <Button fx:id="bSnimiUgovor" mnemonicParsing="false" onAction="#snimiUgovor" text="Snimi">
-                    <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="SAVE"/>
-                    </graphic>
-                </Button>
-            </items>
-        </ToolBar>
-        <HTMLEditor fx:id="htmlEditUgovor"
-                    htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;"
-                    layoutY="13.0" prefHeight="200.0" prefWidth="506.0"/>
-    </children>
-    <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-    </padding>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css"
+  xmlns="http://javafx.com/javafx/8.0.162"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.UgovoriPreviewController">
+  <children>
+    <ToolBar AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+      AnchorPane.topAnchor="0.0"
+      layoutY="13.0">
+      <items>
+        <Button mnemonicParsing="false" onAction="#closeUgovor" text="Zatvori" fx:id="bClose">
+          <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE"/>
+          </graphic>
+        </Button>
+        <Pane HBox.hgrow="ALWAYS"/>
+        <Button mnemonicParsing="false" onAction="#printUgovor" text="Štampa" fx:id="bPrintUgovor">
+          <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="PRINT"/>
+          </graphic>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#snimiUgovor" text="Snimi" fx:id="bSnimiUgovor">
+          <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="SAVE"/>
+          </graphic>
+        </Button>
+      </items>
+    </ToolBar>
+    <HTMLEditor htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;"
+      layoutY="13.0"
+      prefHeight="200.0" prefWidth="506.0" fx:id="htmlEditUgovor"/>
+  </children>
+  <padding>
+    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+  </padding>
 </AnchorPane>

@@ -2,150 +2,166 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
-            fx:controller="net.yuvideo.jgemstone.client.Controllers.NovKorisnikController">
-    <children>
-        <VBox spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="0.0">
-            <children>
-                <HBox VBox.vgrow="NEVER">
-                    <children>
-                        <ToolBar HBox.hgrow="ALWAYS">
-                            <items>
-                                <Button fx:id="bClose" mnemonicParsing="false" text="Zatvori">
-                                    <graphic>
-                                        <FontAwesomeIconView fill="WHITE" glyphName="CLOSE"/>
-                                    </graphic>
-                                </Button>
-                                <Pane HBox.hgrow="ALWAYS"/>
-                                <Button fx:id="bSave" alignment="CENTER_RIGHT" contentDisplay="RIGHT"
-                                        mnemonicParsing="false" onAction="#bSaveUser" text="Dodaj korisnika">
-                                    <graphic>
-                                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
-                                    </graphic>
-                                </Button>
-                            </items>
-                        </ToolBar>
-                    </children>
-                </HBox>
-                <GridPane fx:id="gridPane" hgap="5.0" vgap="5.0" VBox.vgrow="ALWAYS">
-                    <columnConstraints>
-                        <ColumnConstraints halignment="RIGHT"/>
-                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS"/>
-                        <ColumnConstraints halignment="CENTER" maxWidth="1.7976931348623157E308"/>
-                        <ColumnConstraints halignment="RIGHT"/>
-                        <ColumnConstraints fillWidth="false"/>
-                        <ColumnConstraints halignment="CENTER" hgrow="NEVER"/>
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints fillHeight="false" valignment="CENTER" vgrow="NEVER"/>
-                        <RowConstraints valignment="CENTER"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"/>
-                        <RowConstraints valignment="CENTER"/>
-                        <RowConstraints valignment="CENTER"/>
-                        <RowConstraints valignment="CENTER"/>
-                        <RowConstraints valignment="CENTER"/>
-                        <RowConstraints valignment="CENTER"/>
-                        <RowConstraints/>
-                        <RowConstraints/>
-                        <RowConstraints/>
-                    </rowConstraints>
-                    <children>
-                        <Label text="KORISNIČKI PODACI" underline="true" GridPane.columnSpan="2147483647"
-                               GridPane.halignment="LEFT" GridPane.rowIndex="8">
-                            <font>
-                                <Font name="System Bold" size="13.0"/>
-                            </font>
-                        </Label>
-                        <Label text="Čitač:" GridPane.rowIndex="2"/>
-                        <Label text="PHOTO:" underline="true" GridPane.rowIndex="3">
-                            <font>
-                                <Font name="System Bold" size="13.0"/>
-                            </font>
-                        </Label>
-                        <Label text="Ime i prezime:" GridPane.rowIndex="9"/>
-                        <Label text="Dratum rođenja:" GridPane.rowIndex="10"/>
-                        <Label text="Mesto:" GridPane.rowIndex="11"/>
-                        <Label text="Adresa:" GridPane.rowIndex="12"/>
-                        <Label text="Poštanski broj:" GridPane.rowIndex="13"/>
-                        <Label text="Broj lične karte:" GridPane.rowIndex="14"/>
-                        <Label text="JMBG:" GridPane.rowIndex="15"/>
-                        <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                            <children>
-                                <ComboBox fx:id="cmbCardReader" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
-                                <Button fx:id="bReadCardReader" mnemonicParsing="false" text="Čitaj">
-                                    <graphic>
-                                        <FontAwesomeIconView fill="WHITE" glyphName="DOWNLOAD"/>
-                                    </graphic>
-                                </Button>
-                            </children>
-                        </HBox>
-                        <TextField fx:id="tFullName" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
-                        <DatePicker fx:id="tDatumRodjenja" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
-                        <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.rowSpan="3">
-                            <GridPane.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </GridPane.margin>
-                        </BorderPane>
-                        <TextField fx:id="tPostBr" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
-                        <TextField fx:id="tBrLk" GridPane.columnIndex="1" GridPane.rowIndex="14"/>
-                        <TextField fx:id="tJMBG" GridPane.columnIndex="1" GridPane.rowIndex="15"/>
-                        <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="2"
-                                   GridPane.rowIndex="1" GridPane.rowSpan="2147483647">
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </padding>
-                        </Separator>
-                        <Label text="Brojevi telefona:" underline="true" GridPane.columnIndex="3"
-                               GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1">
-                            <font>
-                                <Font name="System Bold" size="13.0"/>
-                            </font>
-                        </Label>
-                        <Label text="Fiksni:" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
-                        <Label text="Mobilni:" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
-                        <Label text="OSTALO:" underline="true" GridPane.columnIndex="3" GridPane.columnSpan="2"
-                               GridPane.halignment="LEFT" GridPane.rowIndex="4">
-                            <font>
-                                <Font name="System Bold" size="13.0"/>
-                            </font>
-                        </Label>
-                        <Label text="Komentar:" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
-                        <TextField fx:id="tFiksni" GridPane.columnIndex="4" GridPane.rowIndex="2"/>
-                        <TextField fx:id="tMobilni" GridPane.columnIndex="4" GridPane.rowIndex="3"/>
-                        <TextArea fx:id="tKomentar" prefHeight="65.0" prefWidth="229.0" wrapText="true"
-                                  GridPane.columnIndex="4" GridPane.rowIndex="5" GridPane.rowSpan="2"/>
-                        <ImageView fx:id="imgUserPhoto" fitHeight="150.0" fitWidth="160.0" pickOnBounds="true"
-                                   preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                                   GridPane.rowIndex="3" GridPane.rowSpan="4" GridPane.valignment="TOP">
-                            <image>
-                                <Image url="@../images/Unknown-person.gif"/>
-                            </image>
-                        </ImageView>
-                        <Label text="ČITAČ LIČNE KARTE" underline="true" GridPane.rowIndex="1">
-                            <font>
-                                <Font name="System Bold" size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="tMesto" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
-                        <TextField fx:id="tAdresa" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
-                    </children>
-                    <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </VBox.margin>
-                </GridPane>
-            </children>
-        </VBox>
-    </children>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css"
+  xmlns="http://javafx.com/javafx/8.0.162"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.NovKorisnikController">
+  <children>
+    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+      AnchorPane.topAnchor="0.0"
+      spacing="5.0">
+      <children>
+        <HBox VBox.vgrow="NEVER">
+          <children>
+            <ToolBar HBox.hgrow="ALWAYS">
+              <items>
+                <Button mnemonicParsing="false" text="Zatvori" fx:id="bClose">
+                  <graphic>
+                    <FontAwesomeIconView fill="WHITE" glyphName="CLOSE"/>
+                  </graphic>
+                </Button>
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false"
+                  onAction="#bSaveUser" text="Dodaj korisnika" fx:id="bSave">
+                  <graphic>
+                    <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                  </graphic>
+                </Button>
+              </items>
+            </ToolBar>
+          </children>
+        </HBox>
+        <GridPane VBox.vgrow="ALWAYS" hgap="5.0" vgap="5.0" fx:id="gridPane">
+          <columnConstraints>
+            <ColumnConstraints halignment="RIGHT"/>
+            <ColumnConstraints halignment="LEFT" hgrow="ALWAYS"/>
+            <ColumnConstraints halignment="CENTER" maxWidth="1.7976931348623157E308"/>
+            <ColumnConstraints halignment="RIGHT"/>
+            <ColumnConstraints fillWidth="false"/>
+            <ColumnConstraints halignment="CENTER" hgrow="NEVER"/>
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints fillHeight="false" valignment="CENTER" vgrow="NEVER"/>
+            <RowConstraints valignment="CENTER"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER"/>
+            <RowConstraints valignment="CENTER"/>
+            <RowConstraints valignment="CENTER"/>
+            <RowConstraints valignment="CENTER"/>
+            <RowConstraints valignment="CENTER"/>
+            <RowConstraints valignment="CENTER"/>
+            <RowConstraints/>
+            <RowConstraints/>
+            <RowConstraints/>
+          </rowConstraints>
+          <children>
+            <Label GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.rowIndex="8"
+              text="KORISNIČKI PODACI" underline="true">
+              <font>
+                <Font name="System Bold" size="13.0"/>
+              </font>
+            </Label>
+            <Label GridPane.rowIndex="2" text="Čitač:"/>
+            <Label GridPane.rowIndex="3" text="PHOTO:" underline="true">
+              <font>
+                <Font name="System Bold" size="13.0"/>
+              </font>
+            </Label>
+            <Label GridPane.rowIndex="9" text="Ime i prezime:"/>
+            <Label GridPane.rowIndex="10" text="Dratum rođenja:"/>
+            <Label GridPane.rowIndex="11" text="Mesto:"/>
+            <Label GridPane.rowIndex="12" text="Adresa:"/>
+            <Label GridPane.rowIndex="13" text="Poštanski broj:"/>
+            <Label GridPane.rowIndex="14" text="Broj lične karte:"/>
+            <Label GridPane.rowIndex="15" text="JMBG:"/>
+            <HBox GridPane.columnIndex="1" GridPane.rowIndex="2" spacing="5.0">
+              <children>
+                <ComboBox HBox.hgrow="ALWAYS" prefWidth="200.0" fx:id="cmbCardReader"/>
+                <Button mnemonicParsing="false" text="Čitaj" fx:id="bReadCardReader">
+                  <graphic>
+                    <FontAwesomeIconView fill="WHITE" glyphName="DOWNLOAD"/>
+                  </graphic>
+                </Button>
+              </children>
+            </HBox>
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="9" fx:id="tFullName"/>
+            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="10" fx:id="tDatumRodjenja"/>
+            <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.rowSpan="3">
+              <GridPane.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+              </GridPane.margin>
+            </BorderPane>
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="13" fx:id="tPostBr"/>
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="14" fx:id="tBrLk"/>
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="15" fx:id="tJMBG"/>
+            <Separator GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2147483647"
+              orientation="VERTICAL" prefHeight="200.0">
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+              </padding>
+            </Separator>
+            <Label GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="LEFT"
+              GridPane.rowIndex="1" text="Brojevi telefona:" underline="true">
+              <font>
+                <Font name="System Bold" size="13.0"/>
+              </font>
+            </Label>
+            <Label GridPane.columnIndex="3" GridPane.rowIndex="2" text="Fiksni:"/>
+            <Label GridPane.columnIndex="3" GridPane.rowIndex="3" text="Mobilni:"/>
+            <Label GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="4"
+              text="OSTALO:" underline="true">
+              <font>
+                <Font name="System Bold" size="13.0"/>
+              </font>
+            </Label>
+            <Label GridPane.columnIndex="3" GridPane.rowIndex="5" text="Komentar:"/>
+            <TextField GridPane.columnIndex="4" GridPane.rowIndex="2" fx:id="tFiksni"/>
+            <TextField GridPane.columnIndex="4" GridPane.rowIndex="3" fx:id="tMobilni"/>
+            <TextArea GridPane.columnIndex="4" GridPane.rowIndex="5" GridPane.rowSpan="2" prefHeight="65.0"
+              prefWidth="229.0" wrapText="true" fx:id="tKomentar"/>
+            <ImageView GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.rowSpan="4"
+              GridPane.valignment="TOP" fitHeight="150.0" fitWidth="160.0"
+              pickOnBounds="true" preserveRatio="true" fx:id="imgUserPhoto">
+              <image>
+                <Image url="@../images/Unknown-person.gif"/>
+              </image>
+            </ImageView>
+            <Label GridPane.rowIndex="1" text="ČITAČ LIČNE KARTE" underline="true">
+              <font>
+                <Font name="System Bold" size="13.0"/>
+              </font>
+            </Label>
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="11" fx:id="tMesto"/>
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="12" fx:id="tAdresa"/>
+          </children>
+          <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+          </VBox.margin>
+        </GridPane>
+      </children>
+    </VBox>
+  </children>
 </AnchorPane>

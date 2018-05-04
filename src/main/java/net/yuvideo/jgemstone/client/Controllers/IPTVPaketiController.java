@@ -1,5 +1,9 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import java.net.URL;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,195 +23,200 @@ import net.yuvideo.jgemstone.client.classes.NewInterface;
 import net.yuvideo.jgemstone.client.classes.valueToPercent;
 import org.json.JSONObject;
 
-import java.net.URL;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-
 /**
  * Created by PsyhoZOOM@gmail.com on 8/15/17.
  */
 public class IPTVPaketiController implements Initializable {
-    public Button bIzbrisi;
-    public Button bIzmeni;
-    public Button bNov;
-    public TableView<IPTVPaketi> tblPaketiIPTV;
-    public TableColumn<IPTVPaketi, String> cNaziv;
-    public TableColumn<IPTVPaketi, String> cOpis;
-    public TableColumn<IPTVPaketi, Integer> cID;
-    public TableColumn<IPTVPaketi, Integer> cExternalID;
-    public TableColumn<IPTVPaketi, Double> cCena;
-    public TableColumn<IPTVPaketi, Integer> cIPTVID;
-    DecimalFormat df = new DecimalFormat("0.00");
-    @FXML
-    private TableColumn<IPTVPaketi, Double> cPDV;
 
-    public Client client;
-    private URL location;
-    private ResourceBundle resources;
-    @FXML
-    private TableColumn<IPTVPaketi, Double> cCenaPDV;
+  public Button bIzbrisi;
+  public Button bIzmeni;
+  public Button bNov;
+  public TableView<IPTVPaketi> tblPaketiIPTV;
+  public TableColumn<IPTVPaketi, String> cNaziv;
+  public TableColumn<IPTVPaketi, String> cOpis;
+  public TableColumn<IPTVPaketi, Integer> cID;
+  public TableColumn<IPTVPaketi, Integer> cExternalID;
+  public TableColumn<IPTVPaketi, Double> cCena;
+  public TableColumn<IPTVPaketi, Integer> cIPTVID;
+  public Client client;
+  DecimalFormat df = new DecimalFormat("0.00");
+  @FXML
+  private TableColumn<IPTVPaketi, Double> cPDV;
+  private URL location;
+  private ResourceBundle resources;
+  @FXML
+  private TableColumn<IPTVPaketi, Double> cCenaPDV;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        this.location = location;
-        this.resources = resources;
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    this.location = location;
+    this.resources = resources;
 
-        cNaziv.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, String>("name"));
-        cOpis.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, String>("description"));
-        cID.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Integer>("id"));
-        cExternalID.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Integer>("external_id"));
-        cCena.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Double>("cena"));
-        cIPTVID.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Integer>("iptv_id"));
-        cPDV.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Double>("pdv"));
-        cCenaPDV.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Double>("cenaPDV"));
+    cNaziv.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, String>("name"));
+    cOpis.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, String>("description"));
+    cID.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Integer>("id"));
+    cExternalID.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Integer>("external_id"));
+    cCena.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Double>("cena"));
+    cIPTVID.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Integer>("iptv_id"));
+    cPDV.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Double>("pdv"));
+    cCenaPDV.setCellValueFactory(new PropertyValueFactory<IPTVPaketi, Double>("cenaPDV"));
 
-        cCena.setCellFactory(new Callback<TableColumn<IPTVPaketi, Double>, TableCell<IPTVPaketi, Double>>() {
-            @Override
-            public TableCell<IPTVPaketi, Double> call(TableColumn<IPTVPaketi, Double> param) {
-                return new TableCell<IPTVPaketi, Double>() {
-                    @Override
-                    protected void updateItem(Double item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setText("");
-                        } else {
-                            setText(df.format(item));
-                        }
-                    }
-                };
-            }
-        });
-
-        cPDV.setCellFactory(new Callback<TableColumn<IPTVPaketi, Double>, TableCell<IPTVPaketi, Double>>() {
-            @Override
-            public TableCell<IPTVPaketi, Double> call(TableColumn<IPTVPaketi, Double> param) {
-                return new TableCell<IPTVPaketi, Double>() {
-                    @Override
-                    protected void updateItem(Double item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setText("");
-                        } else {
-                            setText(df.format(item));
-                        }
-                    }
-
-                };
-            }
-        });
-
-        cCenaPDV.setCellFactory(new Callback<TableColumn<IPTVPaketi, Double>, TableCell<IPTVPaketi, Double>>() {
-            @Override
-            public TableCell<IPTVPaketi, Double> call(TableColumn<IPTVPaketi, Double> param) {
-                return new TableCell<IPTVPaketi, Double>() {
-                    @Override
-                    protected void updateItem(Double item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setText("");
-                        } else {
-                            setText(df.format(item));
-                        }
-                    }
-
-                };
-            }
-        });
-
-
-        tblPaketiIPTV.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IPTVPaketi>() {
-            @Override
-            public void changed(ObservableValue<? extends IPTVPaketi> observable, IPTVPaketi oldValue, IPTVPaketi newValue) {
-                if (tblPaketiIPTV.getSelectionModel().getSelectedIndex() == -1)
-                    return;
-                if (newValue.getId() == 0) {
-                    bIzmeni.setDisable(true);
+    cCena.setCellFactory(
+        new Callback<TableColumn<IPTVPaketi, Double>, TableCell<IPTVPaketi, Double>>() {
+          @Override
+          public TableCell<IPTVPaketi, Double> call(TableColumn<IPTVPaketi, Double> param) {
+            return new TableCell<IPTVPaketi, Double>() {
+              @Override
+              protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                  setText("");
+                } else {
+                  setText(df.format(item));
                 }
-            }
+              }
+            };
+          }
         });
 
+    cPDV.setCellFactory(
+        new Callback<TableColumn<IPTVPaketi, Double>, TableCell<IPTVPaketi, Double>>() {
+          @Override
+          public TableCell<IPTVPaketi, Double> call(TableColumn<IPTVPaketi, Double> param) {
+            return new TableCell<IPTVPaketi, Double>() {
+              @Override
+              protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                  setText("");
+                } else {
+                  setText(df.format(item));
+                }
+              }
+
+            };
+          }
+        });
+
+    cCenaPDV.setCellFactory(
+        new Callback<TableColumn<IPTVPaketi, Double>, TableCell<IPTVPaketi, Double>>() {
+          @Override
+          public TableCell<IPTVPaketi, Double> call(TableColumn<IPTVPaketi, Double> param) {
+            return new TableCell<IPTVPaketi, Double>() {
+              @Override
+              protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                  setText("");
+                } else {
+                  setText(df.format(item));
+                }
+              }
+
+            };
+          }
+        });
+
+    tblPaketiIPTV.getSelectionModel().selectedItemProperty()
+        .addListener(new ChangeListener<IPTVPaketi>() {
+          @Override
+          public void changed(ObservableValue<? extends IPTVPaketi> observable, IPTVPaketi oldValue,
+              IPTVPaketi newValue) {
+            if (tblPaketiIPTV.getSelectionModel().getSelectedIndex() == -1) {
+              return;
+            }
+            if (newValue.getId() == 0) {
+              bIzmeni.setDisable(true);
+            }
+          }
+        });
+
+  }
+
+  public void izmeniIPTVPaket(ActionEvent actionEvent) {
+    String resourceFXML = "fxml/IPTVPaketEdit.fxml";
+    NewInterface iptvPaketEditInterface = new NewInterface(resourceFXML, "Izmena IPTV Paketa",
+        resources);
+    IPTVPaketiEditController iptvPaketEditController = iptvPaketEditInterface.getLoader()
+        .getController();
+
+    iptvPaketEditController.client = this.client;
+    iptvPaketEditController.edit = true;
+    iptvPaketEditController.paket = tblPaketiIPTV.getSelectionModel().getSelectedItem();
+    iptvPaketEditController.paketEditID = tblPaketiIPTV.getSelectionModel().getSelectedItem()
+        .getId();
+    iptvPaketEditController.setItemsEdit();
+    iptvPaketEditInterface.getStage().showAndWait();
+    showPaketiTable();
+
+
+  }
+
+  public void novIPTVPaket(ActionEvent actionEvent) {
+    String resourceFXML = "fxml/IPTVPaketEdit.fxml";
+    NewInterface iptvPaketNewInterface = new NewInterface(resourceFXML, "Nov IPTV Paket",
+        resources);
+    IPTVPaketiEditController iptvPaketiNewControoler = iptvPaketNewInterface.getLoader()
+        .getController();
+    iptvPaketiNewControoler.client = this.client;
+    iptvPaketiNewControoler.edit = false;
+    iptvPaketiNewControoler.setData();
+    iptvPaketNewInterface.getStage().showAndWait();
+    showPaketiTable();
+
+  }
+
+  public void showPaketiTable() {
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("action", "getIPTVDataLocal");
+    jsonObject = client.send_object(jsonObject);
+
+    ArrayList<IPTVPaketi> iptvPaketiArrayList = new ArrayList<>();
+
+    System.out.println(jsonObject);
+
+    for (int i = 0; i < jsonObject.length(); i++) {
+      JSONObject pakobj = (JSONObject) jsonObject.get(String.valueOf(i));
+      IPTVPaketi paketi = new IPTVPaketi();
+      paketi.setName(pakobj.getString("name"));
+      paketi.setId(pakobj.getInt("id"));
+      paketi.setExternal_id(pakobj.getString("external_id"));
+      paketi.setCena(pakobj.getDouble("cena"));
+      paketi.setDescription(pakobj.getString("opis"));
+      paketi.setIptv_id(pakobj.getInt("IPTV_id"));
+      paketi.setPdv(pakobj.getDouble("pdv"));
+      Double cenaPDV = valueToPercent.getDiffValue(pakobj.getDouble("cena"),
+          pakobj.getDouble("pdv"));
+      paketi.setCenaPDV(Double.valueOf(df.format(cenaPDV + pakobj.getDouble("cena"))));
+
+      iptvPaketiArrayList.add(paketi);
+
     }
+    ObservableList paketi = FXCollections.observableArrayList(iptvPaketiArrayList);
+    tblPaketiIPTV.setItems(paketi);
+  }
 
-    public void izmeniIPTVPaket(ActionEvent actionEvent) {
-        String resourceFXML = "fxml/IPTVPaketEdit.fxml";
-        NewInterface iptvPaketEditInterface = new NewInterface(resourceFXML, "Izmena IPTV Paketa", resources);
-        IPTVPaketiEditController iptvPaketEditController = iptvPaketEditInterface.getLoader().getController();
+  private IPTVPaketi getPaketLocalData(int external_id) {
+    IPTVPaketi paket;
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("action", "getIPTVData");
+    jsonObject.put("external_id", external_id);
+    jsonObject = client.send_object(jsonObject);
+    paket = new IPTVPaketi();
 
-        iptvPaketEditController.client = this.client;
-        iptvPaketEditController.edit = true;
-        iptvPaketEditController.paket = tblPaketiIPTV.getSelectionModel().getSelectedItem();
-        iptvPaketEditController.paketEditID = tblPaketiIPTV.getSelectionModel().getSelectedItem().getId();
-        iptvPaketEditController.setItemsEdit();
-        iptvPaketEditInterface.getStage().showAndWait();
-        showPaketiTable();
-
-
+    //ako ne postoji u bazi preskociti;
+    if (!jsonObject.has("id")) {
+      return paket;
     }
+    paket.setId(jsonObject.getInt("id"));
+    paket.setName(jsonObject.getString("name"));
+    paket.setIptv_id(jsonObject.getInt("IPTV_id"));
+    paket.setExternal_id(jsonObject.getString("external_id"));
+    paket.setDescription(jsonObject.getString("opis"));
+    paket.setCena(jsonObject.getDouble("cena"));
 
-    public void novIPTVPaket(ActionEvent actionEvent) {
-        String resourceFXML = "fxml/IPTVPaketEdit.fxml";
-        NewInterface iptvPaketNewInterface = new NewInterface(resourceFXML, "Nov IPTV Paket", resources);
-        IPTVPaketiEditController iptvPaketiNewControoler = iptvPaketNewInterface.getLoader().getController();
-        iptvPaketiNewControoler.client = this.client;
-        iptvPaketiNewControoler.edit = false;
-        iptvPaketiNewControoler.setData();
-        iptvPaketNewInterface.getStage().showAndWait();
-        showPaketiTable();
-
-    }
-
-    public void showPaketiTable() {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("action", "getIPTVDataLocal");
-        jsonObject = client.send_object(jsonObject);
-
-
-        ArrayList<IPTVPaketi> iptvPaketiArrayList = new ArrayList<>();
-
-        System.out.println(jsonObject);
-
-        for (int i = 0; i < jsonObject.length(); i++) {
-            JSONObject pakobj = (JSONObject) jsonObject.get(String.valueOf(i));
-            IPTVPaketi paketi = new IPTVPaketi();
-            paketi.setName(pakobj.getString("name"));
-            paketi.setId(pakobj.getInt("id"));
-            paketi.setExternal_id(pakobj.getString("external_id"));
-            paketi.setCena(pakobj.getDouble("cena"));
-            paketi.setDescription(pakobj.getString("opis"));
-            paketi.setIptv_id(pakobj.getInt("IPTV_id"));
-            paketi.setPdv(pakobj.getDouble("pdv"));
-            Double cenaPDV = valueToPercent.getDiffValue(pakobj.getDouble("cena"),
-                    pakobj.getDouble("pdv"));
-            paketi.setCenaPDV(Double.valueOf(df.format(cenaPDV + pakobj.getDouble("cena"))));
-
-            iptvPaketiArrayList.add(paketi);
-
-        }
-        ObservableList paketi = FXCollections.observableArrayList(iptvPaketiArrayList);
-        tblPaketiIPTV.setItems(paketi);
-    }
-
-    private IPTVPaketi getPaketLocalData(int external_id) {
-        IPTVPaketi paket;
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("action", "getIPTVData");
-        jsonObject.put("external_id", external_id);
-        jsonObject = client.send_object(jsonObject);
-        paket = new IPTVPaketi();
-
-        //ako ne postoji u bazi preskociti;
-        if (!jsonObject.has("id"))
-            return paket;
-        paket.setId(jsonObject.getInt("id"));
-        paket.setName(jsonObject.getString("name"));
-        paket.setIptv_id(jsonObject.getInt("IPTV_id"));
-        paket.setExternal_id(jsonObject.getString("external_id"));
-        paket.setDescription(jsonObject.getString("opis"));
-        paket.setCena(jsonObject.getDouble("cena"));
-
-        return paket;
-    }
+    return paket;
+  }
 
 
 }

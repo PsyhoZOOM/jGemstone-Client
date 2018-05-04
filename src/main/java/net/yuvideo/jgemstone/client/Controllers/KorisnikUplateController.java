@@ -1,28 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.TreeItemPropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-import javafx.util.StringConverter;
-import net.yuvideo.jgemstone.client.classes.*;
-import net.yuvideo.jgemstone.client.classes.Printing.PrintRacun;
-import org.controlsfx.control.spreadsheet.StringConverterWithFormat;
-import org.json.JSONObject;
-import net.glxn.qrgen.QRCode;
-import java.util.Locale;
-import java.text.NumberFormat;
-import javafx.print.PrinterJob;
-
 import java.io.File;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -31,10 +8,52 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.ResourceBundle; 
+import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.print.PrinterJob;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableCell;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableRow;
+import javafx.scene.control.TreeTableView;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.StringConverter;
+import net.glxn.qrgen.QRCode;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
+import net.yuvideo.jgemstone.client.classes.CenaFormatter;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.NewInterface;
+import net.yuvideo.jgemstone.client.classes.Printing.PrintRacun;
+import net.yuvideo.jgemstone.client.classes.Racun;
+import net.yuvideo.jgemstone.client.classes.ServicesUser;
+import net.yuvideo.jgemstone.client.classes.Uplate;
+import net.yuvideo.jgemstone.client.classes.Users;
+import net.yuvideo.jgemstone.client.classes.valueToPercent;
+import org.controlsfx.control.spreadsheet.StringConverterWithFormat;
+import org.json.JSONObject;
 
-/** Created by zoom on 9/7/16. */
+/**
+ * Created by zoom on 9/7/16.
+ */
 public class KorisnikUplateController implements Initializable {
 
   public Button bClose;
@@ -63,27 +82,36 @@ public class KorisnikUplateController implements Initializable {
   public Label lCustomCena;
   public ComboBox cmbTypeUplate;
   public Button bPrikaziRacun;
-  @FXML private TreeTableView<Uplate> tblZaduzenja;
-  @FXML private TreeTableColumn<Uplate, String> cDatumZaduzenja;
-  @FXML private TreeTableColumn<Uplate, String> cZaMesec;
-  @FXML private TreeTableColumn<Uplate, Double> cPopust;
-  @FXML private TreeTableColumn<Uplate, Double> cPDV;
-  @FXML private TreeTableColumn<Uplate, Double> cZaUplatu;
-  @FXML private TreeTableColumn<Uplate, Double> cCena;
-  @FXML private TreeTableColumn<Uplate, Double> cUplaceno;
-  @FXML private TreeTableColumn<Uplate, String> cNazivServisa;
-  @FXML private TreeTableColumn<Uplate, String> cZaduzio;
-  @FXML private TreeTableColumn<Uplate, String> cRazduzio;
-  @FXML ImageView imgQR;
-
-
+  @FXML
+  ImageView imgQR;
   DecimalFormat df = new DecimalFormat("0.00");
-  
   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
   DateTimeFormatter formatterBack = DateTimeFormatter.ofPattern("yyyy-MM-dd");
   DateTimeFormatter formatMonthYear = DateTimeFormatter.ofPattern("yyyy-MM");
-
-  @FXML private Label lIdentifikacija;
+  @FXML
+  private TreeTableView<Uplate> tblZaduzenja;
+  @FXML
+  private TreeTableColumn<Uplate, String> cDatumZaduzenja;
+  @FXML
+  private TreeTableColumn<Uplate, String> cZaMesec;
+  @FXML
+  private TreeTableColumn<Uplate, Double> cPopust;
+  @FXML
+  private TreeTableColumn<Uplate, Double> cPDV;
+  @FXML
+  private TreeTableColumn<Uplate, Double> cZaUplatu;
+  @FXML
+  private TreeTableColumn<Uplate, Double> cCena;
+  @FXML
+  private TreeTableColumn<Uplate, Double> cUplaceno;
+  @FXML
+  private TreeTableColumn<Uplate, String> cNazivServisa;
+  @FXML
+  private TreeTableColumn<Uplate, String> cZaduzio;
+  @FXML
+  private TreeTableColumn<Uplate, String> cRazduzio;
+  @FXML
+  private Label lIdentifikacija;
   private ResourceBundle resource;
   private URL url;
   private JSONObject jObj;
@@ -169,9 +197,10 @@ public class KorisnikUplateController implements Initializable {
                     return;
                   }
                   //COMMENT
-                  System.out.println("UPLACENO: "+uplate.getUplaceno());
-                  System.out.println("UPLACENO FORMATED: "+df.format(uplate.getUplaceno()));
-                  System.out.println("UPLACENO DOUBLE FORMATED: "+Double.valueOf(df.format(uplate.getUplaceno())));
+                  System.out.println("UPLACENO: " + uplate.getUplaceno());
+                  System.out.println("UPLACENO FORMATED: " + df.format(uplate.getUplaceno()));
+                  System.out.println("UPLACENO DOUBLE FORMATED: " + Double
+                      .valueOf(df.format(uplate.getUplaceno())));
                   double upl = Double.valueOf(df.format(uplate.getUplaceno()));
                   double dug = Double.valueOf(df.format(uplate.getDug()));
                   setText(df.format(uplaceno));
@@ -382,7 +411,9 @@ public class KorisnikUplateController implements Initializable {
               @Override
               public void changed(
                   ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (newValue == null || newValue.isEmpty()) return;
+                if (newValue == null || newValue.isEmpty()) {
+                  return;
+                }
                 calculateCenaPDV(tCenaCustom.getText(), tPDVCustom.getText());
               }
             });
@@ -394,7 +425,9 @@ public class KorisnikUplateController implements Initializable {
               @Override
               public void changed(
                   ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (newValue == null || newValue.isEmpty()) return;
+                if (newValue == null || newValue.isEmpty()) {
+                  return;
+                }
                 calculateCenaPDV(tCenaCustom.getText(), tPDVCustom.getText());
               }
             });
@@ -410,7 +443,9 @@ public class KorisnikUplateController implements Initializable {
 
   public void filter_data() {
     show_data();
-    if (chkSveUplate.isSelected()) return;
+    if (chkSveUplate.isSelected()) {
+      return;
+    }
 
     TreeItem<Uplate> root = tblZaduzenja.getRoot();
     TreeItem<Uplate> root_tmp = new TreeItem<>();
@@ -590,7 +625,7 @@ public class KorisnikUplateController implements Initializable {
 
     for (int i = 0; i < jObj.length(); i++) {
       uplataObj = (JSONObject) jObj.get(String.valueOf(i));
-      
+
       //COMMMENT
       System.out.println(uplataObj.toString());
 
@@ -839,7 +874,9 @@ public class KorisnikUplateController implements Initializable {
     jsonObject.put("account", account);
     jsonObject.put("zaMesec", zaMesec);
     jsonObject = client.send_object(jsonObject);
-    if (!jsonObject.has("id")) return null;
+    if (!jsonObject.has("id")) {
+      return null;
+    }
     Uplate uplata;
     if (jsonObject.has("ERROR") || jsonObject == null) {
       AlertUser.error("GRESKA", jsonObject.getString("ERROR"));
@@ -893,11 +930,15 @@ public class KorisnikUplateController implements Initializable {
         tblZaduzenja.getSelectionModel().getSelectedItem().getValue().getZaMesec(),
         this.client);
     PrintRacun printRacun = new PrintRacun();
+    printRacun.showPreview = true;
     PrinterJob printerJob = PrinterJob.createPrinterJob();
     Window win = bPrikaziRacun.getScene().getWindow();
     boolean b = printerJob.showPrintDialog(win);
-    if(!b) return;
+    if (!b) {
+      return;
+    }
     printRacun.userRacun = userRacun.getRacunArrayList();
+    printRacun.setPrinterData(printerJob.getJobSettings(), printerJob.getPrinter());
     printRacun.printRacun();
   }
 }

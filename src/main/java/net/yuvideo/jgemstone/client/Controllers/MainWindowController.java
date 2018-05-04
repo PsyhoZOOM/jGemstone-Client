@@ -1,5 +1,19 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import static javafx.application.Platform.exit;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.Timer;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -16,7 +30,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.web.HTMLEditor;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -26,20 +39,8 @@ import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
 import org.json.JSONObject;
 
-import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Timer;
-
-import static javafx.application.Platform.exit;
-
 public class MainWindowController implements Initializable {
+
   public static boolean appExit = false;
   public MenuItem mExit;
   public ImageView iStatusServer;
@@ -62,7 +63,8 @@ public class MainWindowController implements Initializable {
   private KorisniciController korctrl;
   private boolean disconnect = false;
 
-  public MainWindowController() {}
+  public MainWindowController() {
+  }
 
   @Override
   public void initialize(URL location, final ResourceBundle resources) {
@@ -180,7 +182,9 @@ public class MainWindowController implements Initializable {
             appExit = true;
             anchorMainWindow.getScene().getWindow().hide();
             disconnect = true;
-            if (threadCheckAlive != null) threadCheckAlive.interrupt();
+            if (threadCheckAlive != null) {
+              threadCheckAlive.interrupt();
+            }
             exit();
             System.exit(0);
           }
@@ -257,7 +261,8 @@ public class MainWindowController implements Initializable {
     digitalniTVPaketInterface.getStage().showAndWait();
   }
 
-  public void showUgovoriTemplate(ActionEvent actionEvent) {}
+  public void showUgovoriTemplate(ActionEvent actionEvent) {
+  }
 
   public void showUgovori(ActionEvent actionEvent) {
     NewInterface ugovoriInterface = new NewInterface("fxml/Ugovori.fxml", "Ugovori", resource);
@@ -339,7 +344,9 @@ public class MainWindowController implements Initializable {
 
     JSONObject jfileObj = new JSONObject();
     jfileObj.put("action", "add_CSV_FIX_Telefonija");
-    if (lf == null) return;
+    if (lf == null) {
+      return;
+    }
 
     for (File file : lf) {
       try {
@@ -402,7 +409,8 @@ public class MainWindowController implements Initializable {
     magacinInterface.getStage().showAndWait();
   }
 
-  public void mOpenPDFPreview(ActionEvent actionEvent) {}
+  public void mOpenPDFPreview(ActionEvent actionEvent) {
+  }
 
   public void MagacinShow(ActionEvent actionEvent) {
     NewInterface addMagacinInt =

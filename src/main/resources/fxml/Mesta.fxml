@@ -1,170 +1,185 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-            minHeight="480.0" minWidth="640.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
-            fx:controller="net.yuvideo.jgemstone.client.Controllers.MestaController">
-    <children>
-        <HBox layoutX="5.0" layoutY="4.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-              spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="0.0">
-            <children>
-                <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                      spacing="5.0" HBox.hgrow="ALWAYS">
-                    <children>
-                        <HBox alignment="CENTER_LEFT" spacing="20.0" VBox.vgrow="NEVER">
-                            <children>
-                                <VBox spacing="5.0">
-                                    <HBox.margin>
-                                        <Insets/>
-                                    </HBox.margin>
-                                    <children>
-                                        <Label text="Mesto:"/>
-                                        <TextField fx:id="tMestoNaziv" promptText="Mesto"/>
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                                    </padding>
-                                </VBox>
-                                <VBox spacing="5.0">
-                                    <children>
-                                        <Label text="Broj:"/>
-                                        <TextField fx:id="tMestoBroj" promptText="Broj"/>
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                                    </padding>
-                                </VBox>
-                                <Button fx:id="bAddMesto" onAction="#dodajMesto" text="Dodaj mesto">
-                                    <graphic>
-                                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
-                                    </graphic>
-                                </Button>
-                            </children>
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </padding>
-                        </HBox>
-                        <TableView fx:id="tblMesto" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                   VBox.vgrow="ALWAYS">
-                            <columns>
-                                <TableColumn fx:id="colMesto" minWidth="200.0" prefWidth="300.0" text="Mesto"/>
-                                <TableColumn fx:id="colMestoBroj" maxWidth="200.0" minWidth="200.0" prefWidth="200.0"
-                                             text="Broj"/>
-                            </columns>
-                            <columnResizePolicy>
-                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                            </columnResizePolicy>
-                        </TableView>
-                        <HBox alignment="CENTER_RIGHT" spacing="20.0">
-                            <children>
-                                <Button fx:id="bMestoDelete" onAction="#izbrisiMesto" text="Izbriši mesto">
-                                    <graphic>
-                                        <FontAwesomeIconView fill="WHITE" glyphName="TIMES_CIRCLE"/>
-                                    </graphic>
-                                </Button>
-                                <Button fx:id="bMestoRefresh" onAction="#osveziMesto" text="Osveži">
-                                    <graphic>
-                                        <FontAwesomeIconView fill="WHITE" glyphName="REFRESH"/>
-                                    </graphic>
-                                </Button>
-                            </children>
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </padding>
-                        </HBox>
-                    </children>
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </padding>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308"
+  maxWidth="1.7976931348623157E308"
+  minHeight="480.0" minWidth="640.0" stylesheets="@../css/Main.css"
+  xmlns="http://javafx.com/javafx/8.0.162"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.MestaController">
+  <children>
+    <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+      AnchorPane.topAnchor="0.0"
+      layoutX="5.0" layoutY="4.0" maxHeight="1.7976931348623157E308"
+      maxWidth="1.7976931348623157E308"
+      spacing="5.0">
+      <children>
+        <VBox HBox.hgrow="ALWAYS" alignment="TOP_CENTER"
+          maxHeight="1.7976931348623157E308"
+          maxWidth="1.7976931348623157E308" spacing="5.0">
+          <children>
+            <HBox VBox.vgrow="NEVER" alignment="CENTER_LEFT" spacing="20.0">
+              <children>
+                <VBox spacing="5.0">
+                  <HBox.margin>
+                    <Insets/>
+                  </HBox.margin>
+                  <children>
+                    <Label text="Mesto:"/>
+                    <TextField promptText="Mesto" fx:id="tMestoNaziv"/>
+                  </children>
+                  <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  </padding>
                 </VBox>
-                <Separator orientation="VERTICAL" prefHeight="200.0"/>
-                <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="5.0"
-                      HBox.hgrow="ALWAYS">
-                    <children>
-                        <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308"
-                              maxWidth="1.7976931348623157E308" spacing="20.0" VBox.vgrow="NEVER">
-                            <children>
-                                <VBox spacing="5.0">
-                                    <HBox.margin>
-                                        <Insets/>
-                                    </HBox.margin>
-                                    <children>
-                                        <Label text="Adresa:"/>
-                                        <TextField fx:id="tAdresaNaziv" promptText="Adresa"/>
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                                    </padding>
-                                </VBox>
-                                <VBox spacing="5.0">
-                                    <HBox.margin>
-                                        <Insets/>
-                                    </HBox.margin>
-                                    <children>
-                                        <Label text="Broj:"/>
-                                        <TextField fx:id="tAdresaBroj" promptText="Broj"/>
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                                    </padding>
-                                </VBox>
-                                <Button fx:id="bAddAdress" onAction="#dodajAdresu" text="Dodaj adresu">
-                                    <graphic>
-                                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
-                                    </graphic>
-                                </Button>
-                            </children>
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </padding>
-                            <VBox.margin>
-                                <Insets/>
-                            </VBox.margin>
-                        </HBox>
-                        <TableView fx:id="tblAdrese" maxHeight="1.7976931348623157E308"
-                                   maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-                            <columns>
-                                <TableColumn fx:id="colAdresa" prefWidth="75.0" text="Adresa"/>
-                                <TableColumn fx:id="colAdresaBroj" maxWidth="200.0" minWidth="200.0" prefWidth="200.0"
-                                             text="Broj"/>
-                            </columns>
-                            <columnResizePolicy>
-                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                            </columnResizePolicy>
-                        </TableView>
-                        <HBox alignment="CENTER_RIGHT" spacing="20.0">
-                            <children>
-                                <Button fx:id="bAdresaDelete" onAction="#izbrisiAdresu" text="Izbriši adresu">
-                                    <graphic>
-                                        <FontAwesomeIconView fill="WHITE" glyphName="TIMES_CIRCLE"/>
-                                    </graphic>
-                                </Button>
-                                <Button fx:id="bAdresaRefresh" onAction="#osveziAdresu" text="Osveži">
-                                    <graphic>
-                                        <FontAwesomeIconView fill="WHITE" glyphName="REFRESH"/>
-                                    </graphic>
-                                </Button>
-                            </children>
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </padding>
-                        </HBox>
-                    </children>
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                    </padding>
+                <VBox spacing="5.0">
+                  <children>
+                    <Label text="Broj:"/>
+                    <TextField promptText="Broj" fx:id="tMestoBroj"/>
+                  </children>
+                  <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  </padding>
                 </VBox>
-            </children>
-            <padding>
+                <Button onAction="#dodajMesto" text="Dodaj mesto" fx:id="bAddMesto">
+                  <graphic>
+                    <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                  </graphic>
+                </Button>
+              </children>
+              <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-            </padding>
-        </HBox>
-    </children>
-    <padding>
+              </padding>
+            </HBox>
+            <TableView VBox.vgrow="ALWAYS" maxHeight="1.7976931348623157E308"
+              maxWidth="1.7976931348623157E308"
+              fx:id="tblMesto">
+              <columns>
+                <TableColumn minWidth="200.0" prefWidth="300.0" text="Mesto" fx:id="colMesto"/>
+                <TableColumn maxWidth="200.0" minWidth="200.0" prefWidth="200.0"
+                  text="Broj"
+                  fx:id="colMestoBroj"/>
+              </columns>
+              <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+              </columnResizePolicy>
+            </TableView>
+            <HBox alignment="CENTER_RIGHT" spacing="20.0">
+              <children>
+                <Button onAction="#izbrisiMesto" text="Izbriši mesto" fx:id="bMestoDelete">
+                  <graphic>
+                    <FontAwesomeIconView fill="WHITE" glyphName="TIMES_CIRCLE"/>
+                  </graphic>
+                </Button>
+                <Button onAction="#osveziMesto" text="Osveži" fx:id="bMestoRefresh">
+                  <graphic>
+                    <FontAwesomeIconView fill="WHITE" glyphName="REFRESH"/>
+                  </graphic>
+                </Button>
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+              </padding>
+            </HBox>
+          </children>
+          <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+          </padding>
+        </VBox>
+        <Separator orientation="VERTICAL" prefHeight="200.0"/>
+        <VBox HBox.hgrow="ALWAYS" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+          spacing="5.0">
+          <children>
+            <HBox VBox.vgrow="NEVER" alignment="CENTER_LEFT"
+              maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0">
+              <children>
+                <VBox spacing="5.0">
+                  <HBox.margin>
+                    <Insets/>
+                  </HBox.margin>
+                  <children>
+                    <Label text="Adresa:"/>
+                    <TextField promptText="Adresa" fx:id="tAdresaNaziv"/>
+                  </children>
+                  <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  </padding>
+                </VBox>
+                <VBox spacing="5.0">
+                  <HBox.margin>
+                    <Insets/>
+                  </HBox.margin>
+                  <children>
+                    <Label text="Broj:"/>
+                    <TextField promptText="Broj" fx:id="tAdresaBroj"/>
+                  </children>
+                  <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  </padding>
+                </VBox>
+                <Button onAction="#dodajAdresu" text="Dodaj adresu" fx:id="bAddAdress">
+                  <graphic>
+                    <FontAwesomeIconView fill="WHITE" glyphName="PLUS_CIRCLE"/>
+                  </graphic>
+                </Button>
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+              </padding>
+              <VBox.margin>
+                <Insets/>
+              </VBox.margin>
+            </HBox>
+            <TableView VBox.vgrow="ALWAYS" maxHeight="1.7976931348623157E308"
+              maxWidth="1.7976931348623157E308" fx:id="tblAdrese">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Adresa" fx:id="colAdresa"/>
+                <TableColumn maxWidth="200.0" minWidth="200.0" prefWidth="200.0"
+                  text="Broj"
+                  fx:id="colAdresaBroj"/>
+              </columns>
+              <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+              </columnResizePolicy>
+            </TableView>
+            <HBox alignment="CENTER_RIGHT" spacing="20.0">
+              <children>
+                <Button onAction="#izbrisiAdresu" text="Izbriši adresu" fx:id="bAdresaDelete">
+                  <graphic>
+                    <FontAwesomeIconView fill="WHITE" glyphName="TIMES_CIRCLE"/>
+                  </graphic>
+                </Button>
+                <Button onAction="#osveziAdresu" text="Osveži" fx:id="bAdresaRefresh">
+                  <graphic>
+                    <FontAwesomeIconView fill="WHITE" glyphName="REFRESH"/>
+                  </graphic>
+                </Button>
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+              </padding>
+            </HBox>
+          </children>
+          <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+          </padding>
+        </VBox>
+      </children>
+      <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-    </padding>
+      </padding>
+    </HBox>
+  </children>
+  <padding>
+    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+  </padding>
 </AnchorPane>

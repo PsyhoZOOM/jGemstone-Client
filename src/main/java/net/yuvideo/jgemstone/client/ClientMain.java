@@ -1,5 +1,10 @@
 package net.yuvideo.jgemstone.client;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -13,13 +18,8 @@ import net.yuvideo.jgemstone.client.Controllers.LoginWinController;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.EncodingControl;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.logging.Logger;
-
 public class ClientMain extends Application {
+
   public static final Logger LOGGER = Logger.getLogger("CLIENT_MAIN");
   public static ResourceBundle bundle;
   Client client;
@@ -46,7 +46,7 @@ public class ClientMain extends Application {
     Locale locale = new Locale("sr");
 
     System.out.println(ClassLoader.getSystemResource("./").toString());
-    
+
     bundle = ResourceBundle.getBundle("lang", new Locale("sr"), new EncodingControl("utf-8"));
 
     Locale.setDefault(new Locale("en"));

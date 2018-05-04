@@ -5,24 +5,27 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
-            fx:controller="net.yuvideo.jgemstone.client.Controllers.CSVStatusImportController">
-    <children>
-        <VBox alignment="CENTER" layoutX="52.0" layoutY="72.0" spacing="5.0" AnchorPane.bottomAnchor="0.0"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <Label fx:id="lImportCSV" text="Import CSV"/>
-                <ProgressBar fx:id="pProgress" prefHeight="20.0" prefWidth="514.0" progress="0.0">
-                    <VBox.margin>
-                        <Insets left="15.0" right="15.0"/>
-                    </VBox.margin>
-                </ProgressBar>
-                <Button fx:id="bClose" mnemonicParsing="false" onAction="#zatvori" text="Zatvori"/>
-            </children>
-            <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-            </padding>
-        </VBox>
-    </children>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css"
+  xmlns="http://javafx.com/javafx/8.0.162"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.CSVStatusImportController">
+  <children>
+    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+      alignment="CENTER"
+      layoutX="52.0" layoutY="72.0" spacing="5.0">
+      <children>
+        <Label text="Import CSV" fx:id="lImportCSV"/>
+        <ProgressBar prefHeight="20.0" prefWidth="514.0" progress="0.0" fx:id="pProgress">
+          <VBox.margin>
+            <Insets left="15.0" right="15.0"/>
+          </VBox.margin>
+        </ProgressBar>
+        <Button mnemonicParsing="false" onAction="#zatvori" text="Zatvori" fx:id="bClose"/>
+      </children>
+      <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+      </padding>
+    </VBox>
+  </children>
 </AnchorPane>

@@ -2,62 +2,72 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
-            fx:controller="net.yuvideo.jgemstone.client.Controllers.ArtikliNovController">
-    <children>
-        <GridPane hgap="5.0" layoutX="174.0" layoutY="200.0" vgap="5.0" AnchorPane.bottomAnchor="0.0"
-                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
-                <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS"/>
-                <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
-                <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            </rowConstraints>
-            <children>
-                <Label text="Magacin:"/>
-                <Label text="Naziv:" GridPane.rowIndex="1"/>
-                <Label text="Model:" GridPane.rowIndex="2"/>
-                <Label text="Serijski:" GridPane.rowIndex="3"/>
-                <Label text="PSerijski:" GridPane.rowIndex="4"/>
-                <Label text="MAC:" GridPane.rowIndex="5"/>
-                <Label text="Dobavljač:" GridPane.columnIndex="2"/>
-                <Label text="Br.Dok.:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-                <Label text="Nabavna cena:" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-                <Label text="J.Mere:" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
-                <ComboBox prefWidth="150.0" GridPane.columnIndex="1"/>
-                <TextField GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                <TextField GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                <TextField GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                <TextField GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                <TextField GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                <Label text="Opis:" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
-                <TextField GridPane.columnIndex="3"/>
-                <TextField GridPane.columnIndex="3" GridPane.rowIndex="1"/>
-                <TextField GridPane.columnIndex="3" GridPane.rowIndex="2"/>
-                <ComboBox prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
-                <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4"
-                          GridPane.rowSpan="2"/>
-                <Button mnemonicParsing="false" text="Snimi" GridPane.columnIndex="3" GridPane.halignment="RIGHT"
-                        GridPane.rowIndex="6">
-                    <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="SAVE"/>
-                    </graphic>
-                </Button>
-            </children>
-            <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-            </padding>
-        </GridPane>
-    </children>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css"
+  xmlns="http://javafx.com/javafx/8.0.162"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.ArtikliNovController">
+  <children>
+    <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" hgap="5.0"
+      layoutX="174.0" layoutY="200.0" vgap="5.0">
+      <columnConstraints>
+        <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
+        <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS"/>
+        <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
+        <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS"/>
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+      </rowConstraints>
+      <children>
+        <Label text="Magacin:"/>
+        <Label GridPane.rowIndex="1" text="Naziv:"/>
+        <Label GridPane.rowIndex="2" text="Model:"/>
+        <Label GridPane.rowIndex="3" text="Serijski:"/>
+        <Label GridPane.rowIndex="4" text="PSerijski:"/>
+        <Label GridPane.rowIndex="5" text="MAC:"/>
+        <Label GridPane.columnIndex="2" text="Dobavljač:"/>
+        <Label GridPane.columnIndex="2" GridPane.rowIndex="1" text="Br.Dok.:"/>
+        <Label GridPane.columnIndex="2" GridPane.rowIndex="2" text="Nabavna cena:"/>
+        <Label GridPane.columnIndex="2" GridPane.rowIndex="3" text="J.Mere:"/>
+        <ComboBox GridPane.columnIndex="1" prefWidth="150.0"/>
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+        <Label GridPane.columnIndex="2" GridPane.rowIndex="4" text="Opis:"/>
+        <TextField GridPane.columnIndex="3"/>
+        <TextField GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+        <TextField GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+        <ComboBox GridPane.columnIndex="3" GridPane.rowIndex="3" prefWidth="150.0"/>
+        <TextArea GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.rowSpan="2"
+          prefHeight="200.0"
+          prefWidth="200.0"/>
+        <Button GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="6"
+          mnemonicParsing="false"
+          text="Snimi">
+          <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="SAVE"/>
+          </graphic>
+        </Button>
+      </children>
+      <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+      </padding>
+    </GridPane>
+  </children>
 </AnchorPane>

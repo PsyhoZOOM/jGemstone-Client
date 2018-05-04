@@ -6,88 +6,89 @@ import java.io.Serializable;
  * Created by PsyhoZOOM@gmail.com on 8/14/17.
  */
 public class IPTVPaketi implements Serializable {
-    int id;
-    int iptv_id;
-    String external_id;
-    String name;
-    String user_default;
-    String description;
-    Double cena;
-    Double pdv;
-    Double cenaPDV;
 
-    public Double getCenaPDV() {
-        return cenaPDV;
-    }
+  int id;
+  int iptv_id;
+  String external_id;
+  String name;
+  String user_default;
+  String description;
+  Double cena;
+  Double pdv;
+  Double cenaPDV;
 
-    public void setCenaPDV(Double cenaPDV) {
-        this.cenaPDV = cenaPDV;
-    }
+  public Double getCenaPDV() {
+    return cenaPDV;
+  }
+
+  public void setCenaPDV(Double cenaPDV) {
+    this.cenaPDV = cenaPDV;
+  }
 
 
-    public Double getPdv() {
-        return pdv;
-    }
+  public Double getPdv() {
+    return pdv;
+  }
 
-    public void setPdv(Double pdv) {
-        this.pdv = pdv;
-    }
+  public void setPdv(Double pdv) {
+    this.pdv = pdv;
+  }
 
-    public int getId() {
-        return id;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public String getExternal_id() {
-        return external_id;
-    }
+  public String getExternal_id() {
+    return external_id;
+  }
 
-    public void setExternal_id(String external_id) {
-        this.external_id = external_id;
-    }
+  public void setExternal_id(String external_id) {
+    this.external_id = external_id;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getUser_default() {
-        return user_default;
-    }
+  public String getUser_default() {
+    return user_default;
+  }
 
-    public void setUser_default(String user_default) {
-        this.user_default = user_default;
-    }
+  public void setUser_default(String user_default) {
+    this.user_default = user_default;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public Double getCena() {
-        return cena;
-    }
+  public Double getCena() {
+    return cena;
+  }
 
-    public void setCena(Double cena) {
-        this.cena = cena;
-    }
+  public void setCena(Double cena) {
+    this.cena = cena;
+  }
 
-    public int getIptv_id() {
-        return iptv_id;
-    }
+  public int getIptv_id() {
+    return iptv_id;
+  }
 
-    public void setIptv_id(int iptv_id) {
-        this.iptv_id = iptv_id;
-    }
+  public void setIptv_id(int iptv_id) {
+    this.iptv_id = iptv_id;
+  }
 
 
 }

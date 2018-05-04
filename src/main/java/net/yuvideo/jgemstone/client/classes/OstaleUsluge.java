@@ -3,67 +3,68 @@ package net.yuvideo.jgemstone.client.classes;
 import java.io.Serializable;
 
 public class OstaleUsluge implements Serializable {
-    int id;
-    String nazivUsluge;
-    String komentar;
-    double cena;
-    double pdv;
-    double popust;
-    double cenaPDV;
 
-    public double getCenaPDV() {
-        return cenaPDV;
-    }
+  int id;
+  String nazivUsluge;
+  String komentar;
+  double cena;
+  double pdv;
+  double popust;
+  double cenaPDV;
 
-    public void setCenaPDV(double cenaPDV) {
-        this.cenaPDV = cenaPDV;
-    }
+  public double getCenaPDV() {
+    return cenaPDV;
+  }
 
-    public int getId() {
-        return id;
-    }
+  public void setCenaPDV(double cenaPDV) {
+    this.cenaPDV = cenaPDV;
+  }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public String getNazivUsluge() {
-        return nazivUsluge;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public void setNazivUsluge(String nazivUsluge) {
-        this.nazivUsluge = nazivUsluge;
-    }
+  public String getNazivUsluge() {
+    return nazivUsluge;
+  }
 
-    public String getKomentar() {
-        return komentar;
-    }
+  public void setNazivUsluge(String nazivUsluge) {
+    this.nazivUsluge = nazivUsluge;
+  }
 
-    public void setKomentar(String komentar) {
-        this.komentar = komentar;
-    }
+  public String getKomentar() {
+    return komentar;
+  }
 
-    public double getCena() {
-        return cena;
-    }
+  public void setKomentar(String komentar) {
+    this.komentar = komentar;
+  }
 
-    public void setCena(double cena) {
-        this.cena = cena;
-    }
+  public double getCena() {
+    return cena;
+  }
 
-    public double getPdv() {
-        return pdv;
-    }
+  public void setCena(double cena) {
+    this.cena = cena;
+  }
 
-    public void setPdv(double pdv) {
-        this.pdv = pdv;
-    }
+  public double getPdv() {
+    return pdv;
+  }
 
-    public double getPopust() {
-        return popust;
-    }
+  public void setPdv(double pdv) {
+    this.pdv = pdv;
+  }
 
-    public void setPopust(double popust) {
-        this.popust = popust;
-    }
+  public double getPopust() {
+    return popust;
+  }
+
+  public void setPopust(double popust) {
+    this.popust = popust;
+  }
 }

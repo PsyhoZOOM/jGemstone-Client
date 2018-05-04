@@ -1,31 +1,39 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.StringConverter;
-import javafx.stage.Window;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.Mesta;
-import net.yuvideo.jgemstone.client.classes.Users;
-import net.yuvideo.jgemstone.client.classes.Racun;
-import net.yuvideo.jgemstone.client.classes.Printing.PrintRacun;
-import net.yuvideo.jgemstone.client.classes.AlertUser;
-import org.json.JSONObject;
-import javafx.print.PrinterJob;
-import javafx.print.JobSettings;
-
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
+import javafx.print.JobSettings;
+import javafx.print.PrinterJob;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Window;
+import javafx.util.StringConverter;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
+import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.Mesta;
+import net.yuvideo.jgemstone.client.classes.Printing.PrintFaktura;
+import net.yuvideo.jgemstone.client.classes.Printing.PrintRacun;
+import net.yuvideo.jgemstone.client.classes.Racun;
+import net.yuvideo.jgemstone.client.classes.Users;
+import org.json.JSONObject;
 
 public class StampaRacuna implements Initializable {
+
   public TextField idOd;
   public TextField idDo;
   public Button bIdShow;
@@ -38,6 +46,7 @@ public class StampaRacuna implements Initializable {
   public Button bPregled;
   public Button bStampa;
   public DatePicker dtpZaMesec;
+  public CheckBox chkFaktura;
   public Client client;
   SimpleDateFormat df = new SimpleDateFormat("MM-yyyy");
   private ResourceBundle resources;
@@ -113,9 +122,17 @@ public class StampaRacuna implements Initializable {
     Users users = new Users();
     ArrayList<Users> usersArrayList = users.getUsers(client);
     ArrayList<Users> tmp = new ArrayList<>();
+    boolean fakture = chkFaktura.isSelected();
     for (int i = 0; i < usersArrayList.size(); i++) {
+      boolean firma = usersArrayList.get(i).isFirma();
       if (usersArrayList.get(i).getId() >= odId && usersArrayList.get(i).getId() <= doId) {
-        tmp.add(usersArrayList.get(i));
+        if (fakture) {
+          if (firma) {
+            tmp.add(usersArrayList.get(i));
+          }
+        } else {
+          tmp.add(usersArrayList.get(i));
+        }
       }
     }
 
@@ -130,10 +147,14 @@ public class StampaRacuna implements Initializable {
     Users users = new Users();
     ArrayList<Users> usersArrayList = users.getUsers(client);
     ArrayList<Users> tmp = new ArrayList<>();
+    boolean fakture = chkFaktura.isSelected();
     for (int i = 0; i < usersArrayList.size(); i++) {
-      System.out.println(
-          String.format("jmesto:%s, brMesta: %s", usersArrayList.get(i).getjMesto(), brMesta));
-      if (usersArrayList.get(i).getjMesto().equals(brMesta)) {
+      boolean firma = usersArrayList.get(i).isFirma();
+      if (fakture) {
+        if (firma && usersArrayList.get(i).getjMesto().equals(brMesta)) {
+          tmp.add(usersArrayList.get(i));
+        }
+      } else if (usersArrayList.get(i).getjMesto().equals(brMesta)) {
         tmp.add(usersArrayList.get(i));
       }
     }
@@ -160,26 +181,35 @@ public class StampaRacuna implements Initializable {
     for (int i = 0; i < selectedItems.size(); i++) {
       Racun racun = new Racun();
       Users user = selectedItems.get(i);
-      PrintRacun printRacun = new PrintRacun();
-      printRacun.setPrinterData(printerSettngs, printerJob.getPrinter());
+      PrintRacun printRacun;
+      PrintFaktura printFaktura;
 
-      racun.initRacun(
-          user.getId(),
-          dtpZaMesec.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM")),
-          this.client);
-      printRacun.userRacun = racun.getRacunArrayList();
-      printRacun.printRacun();
+      if (chkFaktura.isSelected()) {
+        printFaktura = new PrintFaktura();
+        printFaktura.setPrinterData(printerSettngs, printerJob.getPrinter());
+        racun.initRacun(
+            user.getId(),
+            dtpZaMesec.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM")),
+            this.client);
+        printFaktura.userRacun = racun.getRacunArrayList();
+        printFaktura.printFaktura();
 
-      System.out.println(
-          String.format(
-              "Stampam id: %s, ime: %s dug: %f",
-              selectedItems.get(i).getId(),
-              selectedItems.get(i).getIme(),
-              selectedItems.get(i).getDug()));
+      } else {
+        printRacun = new PrintRacun();
+        printRacun.setPrinterData(printerSettngs, printerJob.getPrinter());
+
+        racun.initRacun(
+            user.getId(),
+            dtpZaMesec.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM")),
+            this.client);
+        printRacun.userRacun = racun.getRacunArrayList();
+        printRacun.printRacun();
+      }
     }
   }
 
-  public void showPregled(ActionEvent actionEvent) {}
+  public void showPregled(ActionEvent actionEvent) {
+  }
 
   public void setData() {
     setDataMesta();

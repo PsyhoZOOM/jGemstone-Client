@@ -1,7 +1,17 @@
 package net.yuvideo.jgemstone.client.classes.Printing;
 
+import java.io.File;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import javafx.geometry.Pos;
-import javafx.print.*;
+import javafx.print.JobSettings;
+import javafx.print.PageLayout;
+import javafx.print.PageOrientation;
+import javafx.print.Paper;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,18 +25,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import net.yuvideo.jgemstone.client.classes.Racun;
 import net.glxn.qrgen.QRCode;
-
-import java.io.File;
-import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import net.yuvideo.jgemstone.client.classes.Racun;
 
 public class PrintRacun {
+
   public ArrayList<Racun> userRacun;
   public Window window;
+  public boolean showPreview = false;
   PageLayout pageLayout;
   DecimalFormat df = new DecimalFormat("###,###,###,###,##0.00");
   private PrinterJob printerJob;
@@ -436,7 +442,7 @@ public class PrintRacun {
     Text adresaRacunaKorisnika =
         new Text(
             String.format(
-                    "%s\n%s\n%s", racun.getIme(), racun.getAdresaRacuna(), racun.getMestoRacuna())
+                "%s\n%s\n%s", racun.getIme(), racun.getAdresaRacuna(), racun.getMestoRacuna())
                 .toUpperCase());
     adresaRacunaKorisnika.setFont(fontADRESA);
 
@@ -461,7 +467,7 @@ public class PrintRacun {
             LocalDate.parse(racun.getZaPeriod() + "-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                 .format(DateTimeFormatter.ofPattern("MM")));
 
-    String ukupnoZaUplatuRacun = df.format(racun.getUkupnoUkupno());
+    String ukupnoZaUplatuRacun = df.format(racun.getUkupanDug());
 
     Text imeR = new Text(ime.toUpperCase());
     imeR.setFont(fontRacunDole);
@@ -593,7 +599,9 @@ public class PrintRacun {
         new Scene(anchorPane, pageLayout.getPrintableWidth(), pageLayout.getPrintableHeight());
     Stage stage = new Stage();
     stage.setScene(scene);
-    // stage.showAndWait();
+    if (showPreview) {
+      stage.showAndWait();
+    }
 
     boolean succ = printerJob.printPage(pageLayout, anchorPane);
     if (succ) {
@@ -601,5 +609,6 @@ public class PrintRacun {
     }
   }
 
-  private void createPage() {}
+  private void createPage() {
+  }
 }

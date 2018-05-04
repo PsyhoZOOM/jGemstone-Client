@@ -1,46 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/Main.css"
-            xmlns="http://javafx.com/javafx/8.0.121"
-            fx:controller="net.yuvideo.jgemstone.client.Controllers.ArtikliTrackingController">
-    <children>
-        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="0.0">
-            <children>
-                <ScrollPane prefHeight="200.0" prefWidth="200.0">
-                    <content>
-                        <AnchorPane>
-                            <children>
-                                <Label fx:id="lInfo" layoutX="14.0" layoutY="19.0" maxHeight="1.7976931348623157E308"
-                                       maxWidth="800.0" wrapText="true" AnchorPane.bottomAnchor="0.0"
-                                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                       AnchorPane.topAnchor="0.0"/>
-                            </children>
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </padding>
-                        </AnchorPane>
-                    </content>
-                </ScrollPane>
-                <TableView fx:id="tblArtTracking" VBox.vgrow="ALWAYS">
-                    <columns>
-                        <TableColumn fx:id="cArtikal" prefWidth="75.0" text="Artikal"/>
-                        <TableColumn fx:id="cKol" prefWidth="75.0" text="Kolicina"/>
-                        <TableColumn fx:id="cIzMagacina" prefWidth="75.0" text="Iz Magacina"/>
-                        <TableColumn fx:id="cUmagacin" prefWidth="75.0" text="U Magacin"/>
-                        <TableColumn fx:id="cDatum" prefWidth="75.0" text="Datum"/>
-                        <TableColumn fx:id="cOperater" prefWidth="75.0" text="Operater"/>
-                        <TableColumn fx:id="cOpis" prefWidth="75.0" text="Opis"/>
-                    </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                    </columnResizePolicy>
-                </TableView>
-            </children>
-        </VBox>
-    </children>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
+  minHeight="-Infinity"
+  minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/Main.css"
+  xmlns="http://javafx.com/javafx/8.0.121"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.ArtikliTrackingController">
+  <children>
+    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+      AnchorPane.topAnchor="0.0">
+      <children>
+        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+          <content>
+            <AnchorPane>
+              <children>
+                <Label AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                  AnchorPane.topAnchor="0.0"
+                  layoutX="14.0" layoutY="19.0" maxHeight="1.7976931348623157E308"
+                  maxWidth="800.0" wrapText="true"
+                  fx:id="lInfo"/>
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+              </padding>
+            </AnchorPane>
+          </content>
+        </ScrollPane>
+        <TableView VBox.vgrow="ALWAYS" fx:id="tblArtTracking">
+          <columns>
+            <TableColumn prefWidth="75.0" text="Artikal" fx:id="cArtikal"/>
+            <TableColumn prefWidth="75.0" text="Kolicina" fx:id="cKol"/>
+            <TableColumn prefWidth="75.0" text="Iz Magacina" fx:id="cIzMagacina"/>
+            <TableColumn prefWidth="75.0" text="U Magacin" fx:id="cUmagacin"/>
+            <TableColumn prefWidth="75.0" text="Datum" fx:id="cDatum"/>
+            <TableColumn prefWidth="75.0" text="Operater" fx:id="cOperater"/>
+            <TableColumn prefWidth="75.0" text="Opis" fx:id="cOpis"/>
+          </columns>
+          <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+          </columnResizePolicy>
+        </TableView>
+      </children>
+    </VBox>
+  </children>
 </AnchorPane>

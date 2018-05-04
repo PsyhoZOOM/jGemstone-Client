@@ -6,109 +6,110 @@ import java.io.Serializable;
  * Created by zoom on 11/9/16.
  */
 public class ugovori_types implements Serializable {
-    private int id;
-    private String br;
-    private String Naziv;
-    private String Vrsta;
-    private String textUgovora;
-    private String Komentar;
-    private String pocetakUgovora;
-    private String krajUgovora;
-    private int userID;
-    private int serviceID;
-    private String trajanje;
 
-    public String getTrajanje() {
-        return trajanje;
-    }
+  private int id;
+  private String br;
+  private String Naziv;
+  private String Vrsta;
+  private String textUgovora;
+  private String Komentar;
+  private String pocetakUgovora;
+  private String krajUgovora;
+  private int userID;
+  private int serviceID;
+  private String trajanje;
 
-    public void setTrajanje(String trajanje) {
-        this.trajanje = trajanje;
-    }
+  public String getTrajanje() {
+    return trajanje;
+  }
 
-    public int getId() {
-        return id;
-    }
+  public void setTrajanje(String trajanje) {
+    this.trajanje = trajanje;
+  }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public String getBr() {
-        return br;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public void setBr(String br) {
-        this.br = br;
-    }
+  public String getBr() {
+    return br;
+  }
 
-    public String getNaziv() {
-        return Naziv;
-    }
+  public void setBr(String br) {
+    this.br = br;
+  }
 
-    public void setNaziv(String naziv) {
-        Naziv = naziv;
-    }
+  public String getNaziv() {
+    return Naziv;
+  }
 
-    public String getVrsta() {
-        return Vrsta;
-    }
+  public void setNaziv(String naziv) {
+    Naziv = naziv;
+  }
 
-    public void setVrsta(String vrsta) {
-        Vrsta = vrsta;
-    }
+  public String getVrsta() {
+    return Vrsta;
+  }
 
-    public String getTextUgovora() {
-        return textUgovora;
-    }
+  public void setVrsta(String vrsta) {
+    Vrsta = vrsta;
+  }
 
-    public void setTextUgovora(String textUgovora) {
-        this.textUgovora = textUgovora;
-    }
+  public String getTextUgovora() {
+    return textUgovora;
+  }
 
-    public String toString() {
-        return Naziv;
-    }
+  public void setTextUgovora(String textUgovora) {
+    this.textUgovora = textUgovora;
+  }
 
-
-    public String getKomentar() {
-        return Komentar;
-    }
-
-    public void setKomentar(String komentar) {
-        Komentar = komentar;
-    }
+  public String toString() {
+    return Naziv;
+  }
 
 
-    public String getPocetakUgovora() {
-        return pocetakUgovora;
-    }
+  public String getKomentar() {
+    return Komentar;
+  }
 
-    public void setPocetakUgovora(String pocetakUgovora) {
-        this.pocetakUgovora = pocetakUgovora;
-    }
+  public void setKomentar(String komentar) {
+    Komentar = komentar;
+  }
 
-    public String getKrajUgovora() {
-        return krajUgovora;
-    }
 
-    public void setKrajUgovora(String krajUgovora) {
-        this.krajUgovora = krajUgovora;
-    }
+  public String getPocetakUgovora() {
+    return pocetakUgovora;
+  }
 
-    public int getUserID() {
-        return userID;
-    }
+  public void setPocetakUgovora(String pocetakUgovora) {
+    this.pocetakUgovora = pocetakUgovora;
+  }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
+  public String getKrajUgovora() {
+    return krajUgovora;
+  }
 
-    public int getServiceID() {
-        return serviceID;
-    }
+  public void setKrajUgovora(String krajUgovora) {
+    this.krajUgovora = krajUgovora;
+  }
 
-    public void setServiceID(int serviceID) {
-        this.serviceID = serviceID;
-    }
+  public int getUserID() {
+    return userID;
+  }
+
+  public void setUserID(int userID) {
+    this.userID = userID;
+  }
+
+  public int getServiceID() {
+    return serviceID;
+  }
+
+  public void setServiceID(int serviceID) {
+    this.serviceID = serviceID;
+  }
 }

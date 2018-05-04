@@ -17,62 +17,64 @@ import java.util.ResourceBundle;
  * Created by zoom on 8/2/16.
  */
 public class EncodingControl extends ResourceBundle.Control {
-    private String encoding;
 
-    public EncodingControl(String encoding) {
-        this.encoding = encoding;
+  private String encoding;
+
+  public EncodingControl(String encoding) {
+    this.encoding = encoding;
+  }
+
+  @Override
+  public ResourceBundle newBundle(String baseName, Locale locale, String format, ClassLoader loader,
+      boolean reload)
+      throws IllegalAccessException, InstantiationException, IOException {
+    if (!format.equals("java.properties")) {
+      return super.newBundle(baseName, locale, format, loader, reload);
     }
-
-    @Override
-    public ResourceBundle newBundle(String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
-            throws IllegalAccessException, InstantiationException, IOException {
-        if (!format.equals("java.properties")) {
-            return super.newBundle(baseName, locale, format, loader, reload);
-        }
-        String bundleName = toBundleName(baseName, locale);
-        ResourceBundle bundle = null;
-        // code below copied from Sun's/Oracle's code; that's their indentation, not mine ;)
-        final String resourceName = toResourceName(bundleName, "properties");
-        final ClassLoader classLoader = loader;
-        final boolean reloadFlag = reload;
-        InputStream stream = null;
-        try {
-            stream = AccessController.doPrivileged(
-                    new PrivilegedExceptionAction<InputStream>() {
-                        public InputStream run() throws IOException {
-                            InputStream is = null;
-                            if (reloadFlag) {
-                                URL url = classLoader.getResource(resourceName);
-                                if (url != null) {
-                                    URLConnection connection = url.openConnection();
-                                    if (connection != null) {
-                                        // Disable caches to get fresh data for
-                                        // reloading.
-                                        connection.setUseCaches(false);
-                                        is = connection.getInputStream();
-                                    }
-                                }
-                            } else {
-                                is = classLoader.getResourceAsStream(resourceName);
-                            }
-                            return is;
-                        }
-                    });
-        } catch (PrivilegedActionException e) {
-            throw (IOException) e.getException();
-        }
-        if (stream != null) {
-            try {
+    String bundleName = toBundleName(baseName, locale);
+    ResourceBundle bundle = null;
+    // code below copied from Sun's/Oracle's code; that's their indentation, not mine ;)
+    final String resourceName = toResourceName(bundleName, "properties");
+    final ClassLoader classLoader = loader;
+    final boolean reloadFlag = reload;
+    InputStream stream = null;
+    try {
+      stream = AccessController.doPrivileged(
+          new PrivilegedExceptionAction<InputStream>() {
+            public InputStream run() throws IOException {
+              InputStream is = null;
+              if (reloadFlag) {
+                URL url = classLoader.getResource(resourceName);
+                if (url != null) {
+                  URLConnection connection = url.openConnection();
+                  if (connection != null) {
+                    // Disable caches to get fresh data for
+                    // reloading.
+                    connection.setUseCaches(false);
+                    is = connection.getInputStream();
+                  }
+                }
+              } else {
+                is = classLoader.getResourceAsStream(resourceName);
+              }
+              return is;
+            }
+          });
+    } catch (PrivilegedActionException e) {
+      throw (IOException) e.getException();
+    }
+    if (stream != null) {
+      try {
 // CHANGE HERE
 //          bundle = new PropertyResourceBundle(stream);
-                Reader reader = new InputStreamReader(stream, encoding);
-                bundle = new PropertyResourceBundle(reader);
+        Reader reader = new InputStreamReader(stream, encoding);
+        bundle = new PropertyResourceBundle(reader);
 // END CHANGE
-            } finally {
-                stream.close();
-            }
-        }
-        // and to finish it off
-        return bundle;
+      } finally {
+        stream.close();
+      }
     }
+    // and to finish it off
+    return bundle;
+  }
 }
