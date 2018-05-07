@@ -59,7 +59,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Ostale usluge" fx:id="mOstaleusluge">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#showOstaleUsluige" text="Ostale usluge"
+                <MenuItem mnemonicParsing="false" onAction="#showOstaleUsluge" text="Ostale usluge"
                   fx:id="OstaleUsluge"/>
               </items>
             </Menu>

@@ -22,8 +22,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -31,8 +29,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import net.yuvideo.jgemstone.client.Controllers.TEST.progressBarTest;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
@@ -191,18 +187,16 @@ public class MainWindowController implements Initializable {
         });
   }
 
-  public void mOpenSetup(ActionEvent actionEvent) throws IOException {
+  public void mOpenSetup(ActionEvent actionEvent) {
 
-    Stage stage = new Stage();
-    Parent root = null;
-    root = FXMLLoader.load(ClassLoader.getSystemResource("fxml/Options.fxml"));
+    NewInterface optionsInterface = new NewInterface("fxml/Options.fxml", "PODESŠAVANJA", resource);
+    OptionsController optionsController = optionsInterface.getLoader().getController();
+    optionsController.client = client;
+    optionsController.saveFIRMA = true;
+    optionsController.setDataFirma();
+    optionsController.enableTabs();
+    optionsInterface.getStage().showAndWait();
 
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.setTitle("Podešavanja");
-    stage.initModality(Modality.WINDOW_MODAL);
-
-    stage.showAndWait();
   }
 
   public void showKorisnici(ActionEvent actionEvent) {
@@ -391,7 +385,7 @@ public class MainWindowController implements Initializable {
     showQrScanner.getStage().showAndWait();
   }
 
-  public void showOstaleUsluige(ActionEvent actionEvent) {
+  public void showOstaleUsluge(ActionEvent actionEvent) {
     NewInterface showOstaleUsluge =
         new NewInterface("fxml/OstaleUsluge.fxml", "Ostale Usluge", this.resource);
     OstaleUslugeController ostaleUslugeController = showOstaleUsluge.getLoader().getController();
