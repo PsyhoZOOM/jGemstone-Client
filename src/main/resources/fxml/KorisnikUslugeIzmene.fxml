@@ -16,7 +16,8 @@
   xmlns="http://javafx.com/javafx/8.0.162"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUslugeEditController">
   <children>
-    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+      AnchorPane.topAnchor="0.0"
       layoutX="221.0"
       layoutY="69.0" spacing="5.0">
       <children>

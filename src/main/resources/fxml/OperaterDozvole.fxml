@@ -16,13 +16,15 @@
   xmlns="http://javafx.com/javafx/8.0.65"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.OperaterDozvoleController">
   <children>
-    <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+    <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+      AnchorPane.rightAnchor="0.0"
       AnchorPane.topAnchor="0.0"
       layoutX="141.0" layoutY="87.0">
       <content>
         <AnchorPane prefHeight="342.0" prefWidth="526.0">
           <children>
-            <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+            <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
               hgap="5.0" prefHeight="343.0" prefWidth="527.0"
               vgap="5.0">
               <columnConstraints>
@@ -41,7 +43,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
               </rowConstraints>
               <children>
-                <Label GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" text="Korisnici dozvole"
+                <Label GridPane.columnSpan="2147483647" GridPane.halignment="LEFT"
+                  text="Korisnici dozvole"
                   underline="true">
                   <font>
                     <Font name="System Bold" size="13.0"/>

@@ -4,12 +4,14 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
+  minHeight="-Infinity"
   minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0"
   stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.UplatePregledController">
   <children>
-    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+      AnchorPane.topAnchor="0.0"
       layoutX="121.0" layoutY="46.0" prefHeight="400.0"
       prefWidth="600.0">
       <children>

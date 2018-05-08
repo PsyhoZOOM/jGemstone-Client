@@ -191,10 +191,5 @@ public class Fakture implements Serializable {
     this.vrednostSaPDV = vrednostSaPDV;
   }
 
-    /*
-    public String toString() {
-        return getGodina();
-    }
-*/
 
 }

@@ -20,7 +20,8 @@
           <content>
             <AnchorPane>
               <children>
-                <Label AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                <Label AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0"
                   AnchorPane.topAnchor="0.0"
                   layoutX="14.0" layoutY="19.0" maxHeight="1.7976931348623157E308"
                   maxWidth="800.0" wrapText="true"

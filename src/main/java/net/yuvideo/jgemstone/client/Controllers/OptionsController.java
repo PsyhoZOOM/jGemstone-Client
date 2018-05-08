@@ -35,6 +35,8 @@ public class OptionsController implements Initializable {
   public Tab tabRacunFaktura;
   public Tab tabFirma;
   public JFXTextField tPEPDV;
+  public Client client;
+  public boolean saveFIRMA = false;
   @FXML
   private TextField tHostnameIp;
   @FXML
@@ -42,8 +44,6 @@ public class OptionsController implements Initializable {
   @FXML
   private Button bSnimi;
   private db_connection db_conn;
-  public Client client;
-  public boolean saveFIRMA = false;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {

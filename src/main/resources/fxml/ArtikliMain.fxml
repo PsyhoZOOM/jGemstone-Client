@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -67,7 +66,8 @@
               fx:id="cmbJMere"/>
             <Spinner GridPane.columnIndex="6" GridPane.rowIndex="5" editable="true"
               fx:id="spnKolicina"/>
-            <TextArea GridPane.columnIndex="8" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" prefHeight="100.0"
+            <TextArea GridPane.columnIndex="8" GridPane.rowIndex="1" GridPane.rowSpan="2147483647"
+              prefHeight="100.0"
               prefWidth="356.0" fx:id="tOpis"/>
             <Label GridPane.columnIndex="3" GridPane.rowIndex="1" text="Naziv:"/>
             <Label GridPane.columnIndex="3" GridPane.rowIndex="3" text="Model:"/>

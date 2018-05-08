@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -11,7 +10,8 @@
   xmlns="http://javafx.com/javafx/8.0.162"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.EditKorisnikController">
   <children>
-    <TabPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+    <TabPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+      AnchorPane.topAnchor="0.0"
       id="tabpane"
       layoutX="112.0" layoutY="107.0" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE"
       tabMaxHeight="50.0" tabMinHeight="50.0" tabMinWidth="100.0"

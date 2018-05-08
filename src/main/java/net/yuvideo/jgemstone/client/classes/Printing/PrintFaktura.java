@@ -76,7 +76,6 @@ public class PrintFaktura {
     String thickFull = "-fx-border-style: solid; -fx-border-color: black; -fx-border-width: 1 1 1 1;";
     String thickDown = "-fx-border-style: solid; -fx-border-color: black; -fx-border-width: 0.5 0.5 1 0.5;";
 
-
     AnchorPane anchorPane = new AnchorPane();
 
     VBox table = new VBox();
@@ -86,7 +85,7 @@ public class PrintFaktura {
     HBox cell;
 
     row = new HBox();
-    row.setStyle("-fx-border-style: solid; -fx-border-color: black; -fx-border-width: 1 1 1 1;");
+    //row.setStyle("-fx-border-style: solid; -fx-border-color: black; -fx-border-width: 1 1 1 1;");
     // NAZIV USLUGE
     Label naziv = new Label("VRSTA-NAZIV DOBARA-USLUGA");
     naziv.setFont(fontBold);
@@ -237,6 +236,103 @@ public class PrintFaktura {
 
     //table
     table.getChildren().add(row);
+
+    int i = 0;
+
+    for (i = 0; i < userRacun.size() - 1; i++) {
+      row = new HBox();
+      Racun racun = userRacun.get(i);
+      Label nazivUsluge = new Label(racun.getNazivUsluge());
+      naziv.setFont(font);
+      cell = new HBox(nazivUsluge);
+      cell.setMinWidth(_C_NAZIV);
+      cell.setMaxWidth(_C_NAZIV);
+      cell.setAlignment(Pos.CENTER);
+      row.getChildren().add(cell);
+
+      Label cena = new Label(df.format(racun.getCena()));
+      cena.setFont(font);
+      cell = new HBox(cena);
+      cell.setAlignment(Pos.CENTER);
+      cell.setMinWidth(_C_CENA);
+      cell.setMaxWidth(_C_CENA);
+      row.getChildren().add(cell);
+
+      Label popust = new Label(df.format(racun.getPopust()) + "%");
+      popust.setFont(font);
+      cell = new HBox(popust);
+      cell.setAlignment(Pos.CENTER);
+      cell.setMinWidth(_C_STOPA_POPUST);
+      cell.setMaxWidth(_C_STOPA_POPUST);
+      row.getChildren().add(cell);
+
+      Label osnovica = new Label(df.format(racun.getOsnovica()));
+      osnovica.setFont(font);
+      cell = new HBox(osnovica);
+      cell.setAlignment(Pos.CENTER);
+      cell.setMinWidth(_C_OSNOVICA);
+      cell.setMaxWidth(_C_OSNOVICA);
+      row.getChildren().add(cell);
+
+      Label _l_pdv = new Label(df.format(racun.getPdv()));
+      _l_pdv.setFont(font);
+      cell = new HBox(osnovica);
+      cell.setAlignment(Pos.CENTER);
+      cell.setMinWidth(_C_PDV);
+      cell.setMaxWidth(_C_PDV);
+      row.getChildren().add(cell);
+
+      Label _l_ukupno = new Label(df.format(racun.getUkupno()));
+      _l_ukupno.setFont(font);
+      cell = new HBox(_l_ukupno);
+      cell.setAlignment(Pos.CENTER);
+      cell.setMinWidth(_C_UKUPNO);
+      cell.setMaxWidth(_C_UKUPNO);
+      row.getChildren().add(cell);
+
+      table.getChildren().add(row);
+    }
+
+    //UKUPNO zaduzenje / poslednji row
+    Racun racun = userRacun.get(i);
+    row = new HBox();
+    Label ukupno = new Label("Ukupno:");
+    ukupno.setFont(font);
+    cell = new HBox(ukupno);
+    cell.setMinWidth(_C_NAZIV + _C_KOLICINA + _C_CENA + _C_STOPA_POPUST + _C_STOPA_PDV);
+    cell.setAlignment(Pos.CENTER_RIGHT);
+    row.getChildren().add(cell);
+
+    //ukupno pdv osnovica
+    Label l_ukupnoOsnovica = new Label(df.format(racun.getOsnovicaUkupno()));
+    l_ukupnoOsnovica.setFont(font);
+    cell = new HBox(l_ukupnoOsnovica);
+    cell.setMinWidth(_C_OSNOVICA);
+    cell.setMaxWidth(_C_OSNOVICA);
+    cell.setAlignment(Pos.CENTER_RIGHT);
+    row.getChildren().add(cell);
+
+    //UKUPNO PDV
+    Label l_ukupnoPDV = new Label(df.format(racun.getPdvUkupno()));
+    l_ukupnoPDV.setFont(font);
+    cell = new HBox(l_ukupnoPDV);
+    cell.setAlignment(Pos.CENTER_RIGHT);
+    cell.setMinWidth(_C_PDV);
+    cell.setMaxWidth(_C_PDV);
+    row.getChildren().add(cell);
+
+    //UKUPNO
+    Label l_ukupno = new Label(df.format(racun.getUkupnoUkupno()));
+    l_ukupno.setFont(font);
+    cell = new HBox(l_ukupno);
+    cell.setAlignment(Pos.CENTER_RIGHT);
+    cell.setMinWidth(_C_UKUPNO);
+    cell.setMaxWidth(_C_UKUPNO);
+    row.getChildren().add(cell);
+
+    table.getChildren().add(row);
+
+    //SPECIFIKACIJA POREZA
 
     anchorPane.setMinSize(MAX_WIDTH, MAX_HEIGHT);
     anchorPane.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
