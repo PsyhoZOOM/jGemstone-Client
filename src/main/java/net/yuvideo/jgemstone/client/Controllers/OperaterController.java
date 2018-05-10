@@ -19,9 +19,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
-import net.yuvideo.jgemstone.client.classes.NotifyUser;
 import net.yuvideo.jgemstone.client.classes.Operaters;
 import net.yuvideo.jgemstone.client.classes.md5_digiest;
 import org.json.JSONObject;
@@ -127,13 +127,13 @@ public class OperaterController implements Initializable {
 
   private void updateOperater(int operID) {
     if (tblOperaters.getSelectionModel().getSelectedIndex() == -1) {
-      NotifyUser.NotifyUser("Greška", "Nije izabran ni jedan operater", 2);
+      AlertUser.warrning("GRESKA", "Nije izabran ni jeda operater");
       return;
     }
     String pass = null;
     if (!tPass.getText().isEmpty()) {
       if (!tPass.getText().equals(tPassC.getText())) {
-        NotifyUser.NotifyUser("Upozorenje", "Lozinke nisu identične", 2);
+        AlertUser.warrning("UPOZORENJE", "Lozinke nisu identične");
         return;
       } else {
         pass = new md5_digiest(tPass.getText()).get_hash();

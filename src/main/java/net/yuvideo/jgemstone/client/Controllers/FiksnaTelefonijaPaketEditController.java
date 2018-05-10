@@ -20,7 +20,6 @@ import javafx.scene.control.TextField;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.FiksnaPaketi;
-import net.yuvideo.jgemstone.client.classes.NotifyUser;
 import net.yuvideo.jgemstone.client.classes.valueToPercent;
 import org.json.JSONObject;
 
@@ -103,10 +102,9 @@ public class FiksnaTelefonijaPaketEditController implements Initializable {
     jObj.put("besplatniMinutiFiksna", Integer.valueOf(spnBesplatniMinuti.getEditor().getText()));
     client.send_object(jObj);
     if (jObj.has("Error")) {
-      NotifyUser.NotifyUser("Greska", jObj.getString("Error"), 3);
+      AlertUser.error("GRESKA", jObj.getString("Error"));
     } else {
-      NotifyUser
-          .NotifyUser("Paket snimljen", String.format("Paket %s je snimljen", tNaziv.getText()), 1);
+      AlertUser.info("PAKET SNIMLJEN", String.format("Paket %s je snimljen", tNaziv.getText()));
     }
 
   }

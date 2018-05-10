@@ -44,6 +44,7 @@ public class Users implements Serializable {
   String tekuciRacuna;
   String fax;
   String adresaFirme;
+  String email;
 
   ArrayList<Users> usersArrayList;
 
@@ -391,5 +392,13 @@ public class Users implements Serializable {
   @Override
   public String toString() {
     return this.getIme();
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 }

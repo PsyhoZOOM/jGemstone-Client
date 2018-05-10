@@ -16,6 +16,7 @@ public class Uplate implements Serializable, Cloneable {
   double popust;
   String paketType;
   double cena;
+  int kolicina;
   double uplaceno;
   double zaUplatu;
   String datumUplate;
@@ -237,6 +238,14 @@ public class Uplate implements Serializable, Cloneable {
 
   public void setSkipProduzenje(boolean skipProduzenje) {
     this.skipProduzenje = skipProduzenje;
+  }
+
+  public int getKolicina() {
+    return kolicina;
+  }
+
+  public void setKolicina(int kolicina) {
+    this.kolicina = kolicina;
   }
 }
 

@@ -162,7 +162,11 @@ public class StampaRacuna implements Initializable {
     tblKorisnici.setItems(FXCollections.observableArrayList(tmp));
   }
 
-  public void showStampa(ActionEvent actionEvent) {
+  public void showStampa(ActionEvent actionEvent){
+    printRacun(false);
+  }
+
+  public void printRacun(boolean onlyPreview) {
     if (tblKorisnici.getSelectionModel().getSelectedIndex() == -1) {
       AlertUser.error("GREŠKA", "Nije izabran korisnik za štampu");
       return;
@@ -186,6 +190,7 @@ public class StampaRacuna implements Initializable {
 
       if (chkFaktura.isSelected()) {
         printFaktura = new PrintFaktura();
+        printFaktura.showPreview=onlyPreview;
         printFaktura.setPrinterData(printerSettngs, printerJob.getPrinter());
         racun.initRacun(
             user.getId(),
@@ -196,6 +201,7 @@ public class StampaRacuna implements Initializable {
 
       } else {
         printRacun = new PrintRacun();
+        printRacun.showPreview=onlyPreview;
         printRacun.setPrinterData(printerSettngs, printerJob.getPrinter());
 
         racun.initRacun(
@@ -209,6 +215,7 @@ public class StampaRacuna implements Initializable {
   }
 
   public void showPregled(ActionEvent actionEvent) {
+    printRacun(true);
   }
 
   public void setData() {

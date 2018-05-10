@@ -24,7 +24,6 @@ import net.yuvideo.jgemstone.client.classes.Adrese;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.Mesta;
-import net.yuvideo.jgemstone.client.classes.NotifyUser;
 import net.yuvideo.jgemstone.client.classes.Users;
 import org.json.JSONObject;
 
@@ -63,6 +62,7 @@ public class KorisnikPodaciController implements Initializable {
   public TextField tAdresaFirme;
   public TextField tKontaktOsobaTel;
   public TextField tTekuciRacun;
+  public TextField tEmail;
   private ResourceBundle resource;
   private URL location;
   private JSONObject jObj;
@@ -267,6 +267,7 @@ public class KorisnikPodaciController implements Initializable {
     userData.setjAdresa(jObj.getString("jAdresa"));
     userData.setjAdresaBroj(jObj.getString("jAdresaBroj"));
     userData.setJbroj(jObj.getString("jBroj"));
+    userData.setEmail(jObj.getString("email"));
 
     //FIRMA
     userData.setFirma(jObj.getBoolean("firma"));
@@ -395,11 +396,12 @@ public class KorisnikPodaciController implements Initializable {
     jObj.put("maticniBroj", tMaticniBroj.getText());
     jObj.put("fax", tFAX.getText());
     jObj.put("adresaFirme", tAdresaFirme.getText());
+    jObj.put("email", tEmail.getText());
 
     jObj = client.send_object(jObj);
 
     if (jObj.has("Error")) {
-      NotifyUser.NotifyUser("Greška", jObj.getString("Error"), 3);
+      AlertUser.warrning("GRESKA", jObj.getString("Error"));
     } else {
       AlertUser.info("Informacija", "Korisnik izmene snimljene!");
     }

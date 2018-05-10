@@ -17,7 +17,6 @@ import javafx.scene.web.HTMLEditor;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
-import net.yuvideo.jgemstone.client.classes.NotifyUser;
 import net.yuvideo.jgemstone.client.classes.ugovori_types;
 import org.json.JSONObject;
 
@@ -80,7 +79,7 @@ public class UgovoriController implements Initializable {
 
   public void deleteUgovor(ActionEvent actionEvent) {
     if (tblUgovori.getSelectionModel().getSelectedIndex() == -1) {
-      NotifyUser.NotifyUser("Upozorenje", "Izaberite ugovor", 1);
+      AlertUser.info("UPOZORENJE", "Izaberite ugovor");
       return;
     }
 
@@ -115,7 +114,7 @@ public class UgovoriController implements Initializable {
 
     if (type == 2) {
       if (tblUgovori.getSelectionModel().getSelectedIndex() == -1) {
-        NotifyUser.NotifyUser("Upozorenje", "Izaberite ugovor", 1);
+        AlertUser.info("UPOZORENJE", "Izaberite ugovor");
         return;
       }
     }

@@ -15,9 +15,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.Oprema;
-import org.controlsfx.control.Notifications;
 import org.json.JSONObject;
 
 
@@ -51,12 +51,7 @@ public class OpremaController implements Initializable {
 
   public void snimiData(ActionEvent actionEvent) {
     if (tModel.getText().isEmpty() || tNaziv.getText().isEmpty()) {
-      Notifications.create()
-          .title("Upozorenje")
-          .text("Naziv ili Model polja ne mogu biti prazna")
-          .position(Pos.BOTTOM_RIGHT)
-          .hideAfter(Duration.seconds(6))
-          .showWarning();
+      AlertUser.warrning("UPOZORENJE", "Naziv ili Model polja ne mogu biti prazna");
       return;
     }
     jObj = new JSONObject();
@@ -71,12 +66,7 @@ public class OpremaController implements Initializable {
 
   public void deleteData(ActionEvent actionEvent) {
     if (tblOprema.getSelectionModel().getSelectedIndex() == -1) {
-      Notifications.create()
-          .title("Upozorenje")
-          .text("Nije izabran nijedan podatak za brisanje!")
-          .hideAfter(Duration.seconds(6))
-          .position(Pos.BOTTOM_RIGHT)
-          .showWarning();
+      AlertUser.warrning("UPOZORENJE", "Nije izabran ni jedan podatak za brisanje!");
       return;
     }
     oprema = (Oprema) tblOprema.getSelectionModel().getSelectedItem();

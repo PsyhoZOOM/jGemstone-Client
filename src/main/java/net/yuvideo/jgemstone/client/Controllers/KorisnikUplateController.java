@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -48,7 +49,6 @@ import net.yuvideo.jgemstone.client.classes.ServicesUser;
 import net.yuvideo.jgemstone.client.classes.Uplate;
 import net.yuvideo.jgemstone.client.classes.Users;
 import net.yuvideo.jgemstone.client.classes.valueToPercent;
-import org.controlsfx.control.spreadsheet.StringConverterWithFormat;
 import org.json.JSONObject;
 
 /**
@@ -82,6 +82,8 @@ public class KorisnikUplateController implements Initializable {
   public Label lCustomCena;
   public ComboBox cmbTypeUplate;
   public Button bPrikaziRacun;
+  public TextField tKolicina;
+  public ComboBox cmbJMere;
   @FXML
   ImageView imgQR;
   DecimalFormat df = new DecimalFormat("0.00");
@@ -103,6 +105,8 @@ public class KorisnikUplateController implements Initializable {
   @FXML
   private TreeTableColumn<Uplate, Double> cCena;
   @FXML
+  private TreeTableColumn<Uplate, Integer> cKolicina;
+  @FXML
   private TreeTableColumn<Uplate, Double> cUplaceno;
   @FXML
   private TreeTableColumn<Uplate, String> cNazivServisa;
@@ -117,11 +121,20 @@ public class KorisnikUplateController implements Initializable {
   private JSONObject jObj;
   private Double zaUplatu = 0.00;
   private Double ukupno_uplaceno = 0.00;
+  private Double _DUG = 0.00;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.resource = resources;
-    this.url = url;
+    this.url = location;
+
+    ObservableList<String> jmereItems = FXCollections.observableArrayList("kom.", "m.","l.");
+    cmbJMere.setItems(jmereItems);
+    cmbJMere.getSelectionModel().select(0);
+    tKolicina.setText("1");
+
+
+
 
     dtpDatumZaNaplatu.setValue(LocalDate.now());
     dtpDatumZaNaplatuCustom.setValue(LocalDate.now());
@@ -140,7 +153,7 @@ public class KorisnikUplateController implements Initializable {
         });
 
     dtpDatumZaNaplatuCustom.setConverter(
-        new StringConverterWithFormat<LocalDate>() {
+        new StringConverter<LocalDate>() {
           @Override
           public String toString(LocalDate object) {
             return object.format(formatter);
@@ -175,6 +188,7 @@ public class KorisnikUplateController implements Initializable {
     cNazivServisa.setCellValueFactory(
         new TreeItemPropertyValueFactory<Uplate, String>("nazivPaket"));
     cCena.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, Double>("cena"));
+    cKolicina.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, Integer>("kolicina"));
     cPopust.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, Double>("popust"));
     cZaUplatu.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, Double>("dug"));
     cZaMesec.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, String>("zaMesec"));
@@ -461,13 +475,16 @@ public class KorisnikUplateController implements Initializable {
   }
 
   private String calculateCenaPDV(String cenaT, String pdvT) {
+    DecimalFormat df = new DecimalFormat("#.00");
     double cena = Double.valueOf(cenaT);
     double pdv = Double.valueOf(pdvT);
     double perc = valueToPercent.getValueOfPercentSub(cena, pdv);
     System.out.println(perc);
-    lCustomCena.setText(df.format(cena - perc));
 
-    return df.format(cena - perc);
+    _DUG  = cena - perc;
+    lCustomCena.setText(df.format(_DUG));
+
+    return String.valueOf(_DUG);
   }
 
   private String get_datum_isteka_servicsa(int id) {
@@ -563,6 +580,9 @@ public class KorisnikUplateController implements Initializable {
         TreeItem<Uplate> rootTree = new TreeItem<>(uplata);
         rootNode.getChildren().add(rootTree);
       }
+
+
+
     }
 
     cmbTypeUplate.getItems().removeAll();
@@ -639,6 +659,7 @@ public class KorisnikUplateController implements Initializable {
       uplata.setPaketType(uplataObj.getString("paketType"));
       uplata.setCena(uplataObj.getDouble("cena"));
       uplata.setDatumUplate(uplataObj.getString("datumUplate"));
+      uplata.setKolicina(uplataObj.getInt("kolicina"));
       uplata.setDug(uplataObj.getDouble("dug"));
       uplata.setPdv(uplataObj.getDouble("pdv"));
       uplata.setPopust(uplataObj.getDouble("popust"));
@@ -757,13 +778,15 @@ public class KorisnikUplateController implements Initializable {
 
     jObj.put("action", "zaduzi_servis_manual");
     jObj.put("nazivPaketa", tNazivUslugeCustom.getText());
-    jObj.put("cena", Double.valueOf(lCustomCena.getText()));
+    jObj.put("cena", _DUG);
     jObj.put("pdv", tPDVCustom.getText());
     jObj.put("uplaceno", false);
     jObj.put("zaMesec", formatMonthYear.format(datumZaMesec));
     jObj.put("paketType", "CUSTOM");
     jObj.put("userID", user.getId());
     jObj.put("rate", Integer.valueOf(tRate.getText()));
+    jObj.put("kolicina", Integer.valueOf(tKolicina.getText()));
+    jObj.put("jMere", cmbJMere.getValue().toString());
 
     jObj = client.send_object(jObj);
     if (jObj.has("Error")) {

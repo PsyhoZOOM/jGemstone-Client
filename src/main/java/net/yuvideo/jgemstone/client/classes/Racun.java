@@ -20,6 +20,7 @@ public class Racun {
   String zaPeriod;
   String ime;
   String adresaKorisnika;
+  String jMere;
 
   Image qrCode;
 
@@ -29,6 +30,7 @@ public class Racun {
   double popust;
   double osnovica;
   double osnovicaUkupno;
+  double vrednostBezPDV;
   double stopaPDV;
   double pdv;
   double pdvUkupno;
@@ -70,10 +72,12 @@ public class Racun {
       racun.setNazivUsluge(rac.getString("nazivUsluge"));
       racun.setOsnovica(rac.getDouble("osnovica"));
       racun.setKolicina(rac.getInt("kolicina"));
+      racun.setjMere(rac.getString("jMere"));
       racun.setPopust(rac.getInt("popust"));
       racun.setCena(rac.getDouble("cena"));
       racun.setStopaPDV(rac.getDouble("stopaPDV"));
       racun.setPdv(rac.getDouble("pdv"));
+      racun.setVrednostBezPDV(rac.getDouble("vrednostBezPDV"));
       racun.setUkupno(rac.getDouble("ukupno"));
       racunArrayList.add(racun);
 
@@ -334,5 +338,21 @@ public class Racun {
 
   public void setMestoRacuna(String mestoRacuna) {
     this.mestoRacuna = mestoRacuna;
+  }
+
+  public String getjMere() {
+    return jMere;
+  }
+
+  public void setjMere(String jMere) {
+    this.jMere = jMere;
+  }
+
+  public double getVrednostBezPDV() {
+    return vrednostBezPDV;
+  }
+
+  public void setVrednostBezPDV(double vrednostBezPDV) {
+    this.vrednostBezPDV = vrednostBezPDV;
   }
 }

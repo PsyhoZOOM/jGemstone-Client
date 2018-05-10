@@ -601,11 +601,12 @@ public class PrintRacun {
     stage.setScene(scene);
     if (showPreview) {
       stage.showAndWait();
-    }
+    }else {
 
-    boolean succ = printerJob.printPage(pageLayout, anchorPane);
-    if (succ) {
-      printerJob.endJob();
+      boolean succ = printerJob.printPage(pageLayout, anchorPane);
+      if (succ) {
+        printerJob.endJob();
+      }
     }
   }
 

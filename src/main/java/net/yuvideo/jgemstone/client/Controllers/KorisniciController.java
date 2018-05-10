@@ -34,7 +34,6 @@ import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
 import net.yuvideo.jgemstone.client.classes.Users;
 import net.yuvideo.jgemstone.client.classes.messageS;
-import org.controlsfx.control.textfield.TextFields;
 import org.json.JSONObject;
 
 /**
@@ -175,7 +174,6 @@ public class KorisniciController implements Initializable {
       users.add(user);
     }
 
-    TextFields.bindAutoCompletion(tUserSearch, users);
 
     return users;
   }

@@ -15,10 +15,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.InternetPaketi;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
-import net.yuvideo.jgemstone.client.classes.NotifyUser;
 import net.yuvideo.jgemstone.client.classes.valueToPercent;
 import org.json.JSONObject;
 
@@ -113,7 +113,7 @@ public class InternetPaketController implements Initializable {
   public void bPromeni(ActionEvent actionEvent) {
 
     if (tblInternetPaket.getSelectionModel().getSelectedIndex() == -1) {
-      NotifyUser.NotifyUser("UPOZORENJE", "Nije izabran paket!", 1);
+      AlertUser.info("UPOZORENJE", "Nije izabran paket!");
       return;
     }
     InternetPaketi paket = (InternetPaketi) tblInternetPaket.getSelectionModel().getSelectedItem();

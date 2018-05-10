@@ -25,7 +25,6 @@ import net.yuvideo.jgemstone.client.classes.Adrese;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.Mesta;
-import org.controlsfx.control.Notifications;
 import org.json.JSONObject;
 
 /**
@@ -92,12 +91,7 @@ public class MestaController implements Initializable {
 
   public void izbrisiMesto(ActionEvent actionEvent) {
     if (tblMesto.getSelectionModel().getSelectedIndex() == -1) {
-      Notifications.create()
-          .title("Greska")
-          .text("Nije izabrano mesto za brisanje")
-          .hideAfter(Duration.seconds(6))
-          .position(Pos.BOTTOM_RIGHT)
-          .showWarning();
+      AlertUser.warrning("Greska", "Nije izabrano mesto za brisanje");
       return;
     }
 
@@ -184,12 +178,7 @@ public class MestaController implements Initializable {
   public void dodajAdresu(ActionEvent actionEvent) {
 
     if (tblMesto.getSelectionModel().getSelectedIndex() == -1) {
-      Notifications.create()
-          .title("Greska")
-          .text("Morate izabrati mesto kome pripada adresa!")
-          .hideAfter(Duration.seconds(6))
-          .position(Pos.BOTTOM_RIGHT)
-          .showWarning();
+      AlertUser.warrning("GRESKA", "MOrate izabrati mesto kome pripada adresa!");
       return;
     }
 
@@ -212,12 +201,7 @@ public class MestaController implements Initializable {
   public void izbrisiAdresu(ActionEvent actionEvent) {
 
     if (tblAdrese.getSelectionModel().getSelectedIndex() == -1) {
-      Notifications.create()
-          .title("Greska")
-          .text("Morate izabrati adresu za brisanje!")
-          .hideAfter(Duration.seconds(6))
-          .position(Pos.BOTTOM_RIGHT)
-          .showWarning();
+      AlertUser.warrning("GRESKA", "Morate izabrati adresa za brisanje");
       return;
     }
 
@@ -244,12 +228,7 @@ public class MestaController implements Initializable {
 
   public void osveziAdresu(ActionEvent actionEvent) {
     if (tblMesto.getSelectionModel().getSelectedIndex() == -1) {
-      Notifications.create()
-          .title("Greska")
-          .text("Morate izabrati mesto za prikaz adresa!")
-          .hideAfter(Duration.seconds(6))
-          .position(Pos.BOTTOM_RIGHT)
-          .showWarning();
+      AlertUser.warrning("GRESKA", "Morate izabrati mesto za prikaz adresa");
       return;
     }
 

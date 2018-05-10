@@ -50,11 +50,10 @@ public class PrintFaktura {
     final double MAX_HEIGHT = paper.getHeight();
 
     final double _C_NAZIV = 130;
-    final double _C_JMERE = 45;
-    final double _C_KOLICINA = 60;
+    final double _C_JMERE = 30;
+    final double _C_KOLICINA = 50;
     final double _C_CENA = 60;
-    final double _C_STOPA_POPUST = 45;
-    final double _C_STOPA_PDV = 45;
+    final double _C_STOPA = 30;
     final double _C_OSNOVICA = 60;
     final double _C_PDV = 60;
     final double _C_UKUPNO = 75;
@@ -161,12 +160,12 @@ public class PrintFaktura {
     rabat.setStyle(thickFull);
     rabat.setAlignment(Pos.CENTER);
     rabat.setTextAlignment(TextAlignment.CENTER);
-    rabat.setPrefSize(40, 20);
-    rabat.setMinSize(40, 20);
+    rabat.setPrefSize(40, _C_STOPA);
+    rabat.setMinSize(40, _C_STOPA);
     cell = new HBox(rabat);
     cell.setStyle(thickFull);
-    cell.setMinSize(20, 40);
-    cell.setMaxSize(20, 40);
+    cell.setMinSize(_C_STOPA, 40);
+    cell.setMaxSize(_C_STOPA, 40);
     cell.setFillHeight(true);
     cell.setAlignment(Pos.CENTER);
     row.getChildren().add(cell);
@@ -190,11 +189,11 @@ public class PrintFaktura {
     stopaPDV.setWrapText(true);
     stopaPDV.setRotate(90);
     stopaPDV.setAlignment(Pos.CENTER);
-    stopaPDV.setPrefSize(40, 20);
-    stopaPDV.setMinSize(40, 20);
+    stopaPDV.setPrefSize(40, _C_STOPA);
+    stopaPDV.setMinSize(40, _C_STOPA);
     cell = new HBox(stopaPDV);
-    cell.setMinSize(20, 40);
-    cell.setMaxSize(20, 40);
+    cell.setMinSize(_C_STOPA, 40);
+    cell.setMaxSize(_C_STOPA, 40);
     cell.setStyle("-fx-border-style: solid; -fx-border-color: black; -fx-border-width: 1 1 1 1;");
     cell.setAlignment(Pos.CENTER);
     cell.setStyle(thickFull);
@@ -250,44 +249,98 @@ public class PrintFaktura {
       cell.setAlignment(Pos.CENTER);
       row.getChildren().add(cell);
 
-      Label cena = new Label(df.format(racun.getCena()));
-      cena.setFont(font);
-      cell = new HBox(cena);
+      Label  l_jMere = new Label(racun.getjMere());
+      l_jMere.setFont(font);
+      cell = new HBox(l_jMere);
       cell.setAlignment(Pos.CENTER);
+      cell.setMinWidth(_C_JMERE);
+      cell.setMaxWidth(_C_JMERE);
+      row.getChildren().add(cell);
+
+      Label l_kolicina = new Label(String.valueOf(racun.getKolicina()));
+      l_kolicina.setFont(font);
+      l_kolicina.setMinWidth(_C_KOLICINA);
+      l_kolicina.setMaxWidth(_C_KOLICINA);
+      l_kolicina.setAlignment(Pos.CENTER);
+      cell = new HBox(l_kolicina);
+      cell.setAlignment(Pos.CENTER);
+      cell.setMinWidth(_C_KOLICINA);
+      cell.setMaxWidth(_C_KOLICINA);
+      row.getChildren().add(l_kolicina);
+
+
+      Label l_cenaBezPDV = new Label(df.format(racun.getCena()));
+      l_cenaBezPDV.setFont(font);
+      cell = new HBox(l_cenaBezPDV);
+      cell.setAlignment(Pos.CENTER_RIGHT);
       cell.setMinWidth(_C_CENA);
       cell.setMaxWidth(_C_CENA);
       row.getChildren().add(cell);
 
+      Label l_vrednostBezPDV = new Label(df.format(racun.getVrednostBezPDV()));
+      l_vrednostBezPDV.setFont(font);
+      cell = new HBox(l_vrednostBezPDV);
+      cell.setAlignment(Pos.CENTER_RIGHT);
+      cell.setMinWidth(_C_CENA);
+      cell.setMaxWidth(_C_CENA);
+      cell.setStyle(thickFull);
+      row.getChildren().add(cell);
+
       Label popust = new Label(df.format(racun.getPopust()) + "%");
-      popust.setFont(font);
+      popust.setFont(fontSmall);
+      popust.setAlignment(Pos.CENTER);
+      popust.setMinWidth(_C_STOPA);
+      popust.setMaxWidth(_C_STOPA);
       cell = new HBox(popust);
       cell.setAlignment(Pos.CENTER);
-      cell.setMinWidth(_C_STOPA_POPUST);
-      cell.setMaxWidth(_C_STOPA_POPUST);
+      cell.setMinWidth(_C_STOPA);
+      cell.setMaxWidth(_C_STOPA);
+      cell.setStyle(thickFull);
       row.getChildren().add(cell);
 
       Label osnovica = new Label(df.format(racun.getOsnovica()));
       osnovica.setFont(font);
+      osnovica.setMinWidth(_C_OSNOVICA);
+      osnovica.setAlignment(Pos.CENTER_RIGHT);
       cell = new HBox(osnovica);
-      cell.setAlignment(Pos.CENTER);
+      cell.setAlignment(Pos.CENTER_RIGHT);
       cell.setMinWidth(_C_OSNOVICA);
       cell.setMaxWidth(_C_OSNOVICA);
+      cell.setStyle(thickFull);
       row.getChildren().add(cell);
+
+
+      Label _lStopaPDV = new Label(df.format(racun.getStopaPDV())+ "%");
+      _lStopaPDV.setFont(fontSmall);
+      _lStopaPDV.setAlignment(Pos.CENTER);
+      _lStopaPDV.setMinWidth(_C_STOPA);
+      cell = new HBox(_lStopaPDV);
+      cell.setAlignment(Pos.CENTER);
+      cell.setMinWidth(_C_STOPA);
+      cell.setMaxWidth(_C_STOPA);
+      cell.setStyle(thickFull);
+      row.getChildren().add(cell);
+
 
       Label _l_pdv = new Label(df.format(racun.getPdv()));
       _l_pdv.setFont(font);
-      cell = new HBox(osnovica);
-      cell.setAlignment(Pos.CENTER);
+      _l_pdv.setMinWidth(_C_PDV);
+      _l_pdv.setMaxWidth(_C_PDV);
+      _l_pdv.setAlignment(Pos.CENTER_RIGHT);
+      cell = new HBox(_l_pdv);
+      cell.setAlignment(Pos.CENTER_RIGHT);
       cell.setMinWidth(_C_PDV);
       cell.setMaxWidth(_C_PDV);
+      cell.setStyle(thickFull);
       row.getChildren().add(cell);
 
       Label _l_ukupno = new Label(df.format(racun.getUkupno()));
       _l_ukupno.setFont(font);
       cell = new HBox(_l_ukupno);
-      cell.setAlignment(Pos.CENTER);
+      cell.setAlignment(Pos.CENTER_RIGHT);
       cell.setMinWidth(_C_UKUPNO);
       cell.setMaxWidth(_C_UKUPNO);
+      cell.setStyle(thickFull);
       row.getChildren().add(cell);
 
       table.getChildren().add(row);
@@ -299,7 +352,7 @@ public class PrintFaktura {
     Label ukupno = new Label("Ukupno:");
     ukupno.setFont(font);
     cell = new HBox(ukupno);
-    cell.setMinWidth(_C_NAZIV + _C_KOLICINA + _C_CENA + _C_STOPA_POPUST + _C_STOPA_PDV);
+    cell.setMinWidth(_C_NAZIV + _C_JMERE + _C_KOLICINA + _C_CENA + _C_CENA) ;
     cell.setAlignment(Pos.CENTER_RIGHT);
     row.getChildren().add(cell);
 
@@ -307,8 +360,8 @@ public class PrintFaktura {
     Label l_ukupnoOsnovica = new Label(df.format(racun.getOsnovicaUkupno()));
     l_ukupnoOsnovica.setFont(font);
     cell = new HBox(l_ukupnoOsnovica);
-    cell.setMinWidth(_C_OSNOVICA);
-    cell.setMaxWidth(_C_OSNOVICA);
+    cell.setMinWidth(_C_OSNOVICA+_C_STOPA);
+    cell.setMaxWidth(_C_OSNOVICA+_C_STOPA);
     cell.setAlignment(Pos.CENTER_RIGHT);
     row.getChildren().add(cell);
 
@@ -317,8 +370,8 @@ public class PrintFaktura {
     l_ukupnoPDV.setFont(font);
     cell = new HBox(l_ukupnoPDV);
     cell.setAlignment(Pos.CENTER_RIGHT);
-    cell.setMinWidth(_C_PDV);
-    cell.setMaxWidth(_C_PDV);
+    cell.setMinWidth(_C_PDV + _C_STOPA);
+    cell.setMaxWidth(_C_PDV + _C_STOPA);
     row.getChildren().add(cell);
 
     //UKUPNO
@@ -343,11 +396,15 @@ public class PrintFaktura {
         pageLayout.getPrintableHeight());
     Stage stage = new Stage();
     stage.setScene(scene);
-    stage.showAndWait();
 
-    boolean succ = printerJob.printPage(pageLayout, anchorPane);
-    if (succ) {
-      printerJob.endJob();
+    if(showPreview) {
+      stage.showAndWait();
+    }else {
+
+      boolean succ = printerJob.printPage(pageLayout, anchorPane);
+      if (succ) {
+        printerJob.endJob();
+      }
     }
 
 
