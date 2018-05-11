@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import net.glxn.qrgen.QRCode;
 import net.yuvideo.jgemstone.client.classes.Racun;
+import org.json.JSONObject;
 
 public class PrintRacun {
 
@@ -38,6 +39,7 @@ public class PrintRacun {
   private PrinterJob printerJob;
   private Printer printer;
   private Paper paper;
+  public JSONObject firmaData;
 
   public void setPrinterData(JobSettings js, Printer printer) {
     this.printerJob = PrinterJob.createPrinterJob();

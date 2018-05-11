@@ -25,6 +25,7 @@ import javafx.stage.Window;
 import javafx.util.StringConverter;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.FirmaSettings;
 import net.yuvideo.jgemstone.client.classes.Mesta;
 import net.yuvideo.jgemstone.client.classes.Printing.PrintFaktura;
 import net.yuvideo.jgemstone.client.classes.Printing.PrintRacun;
@@ -185,12 +186,14 @@ public class StampaRacuna implements Initializable {
     for (int i = 0; i < selectedItems.size(); i++) {
       Racun racun = new Racun();
       Users user = selectedItems.get(i);
+      FirmaSettings firmaSettings = new FirmaSettings(client);
       PrintRacun printRacun;
       PrintFaktura printFaktura;
 
       if (chkFaktura.isSelected()) {
         printFaktura = new PrintFaktura();
         printFaktura.showPreview=onlyPreview;
+        printFaktura.firmaData = firmaSettings.getJsonObject();
         printFaktura.setPrinterData(printerSettngs, printerJob.getPrinter());
         racun.initRacun(
             user.getId(),
@@ -202,6 +205,7 @@ public class StampaRacuna implements Initializable {
       } else {
         printRacun = new PrintRacun();
         printRacun.showPreview=onlyPreview;
+        printRacun.firmaData = firmaSettings.getJsonObject();
         printRacun.setPrinterData(printerSettngs, printerJob.getPrinter());
 
         racun.initRacun(
