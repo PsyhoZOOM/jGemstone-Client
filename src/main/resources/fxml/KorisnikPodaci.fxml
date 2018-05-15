@@ -39,6 +39,7 @@
         <RowConstraints valignment="CENTER" vgrow="NEVER" />
         <RowConstraints valignment="CENTER" vgrow="NEVER" />
         <RowConstraints valignment="CENTER" vgrow="NEVER" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER"/>
         <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
@@ -60,12 +61,13 @@
         <Label text="Poštanski broj:" GridPane.rowIndex="7" />
         <Label text="Telefon mobilni:" GridPane.rowIndex="8" />
         <Label text="Telefon fiksni:" GridPane.rowIndex="9" />
-        <Label text="OSTALO" underline="true" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.rowIndex="10">
+        <Label GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.rowIndex="11"
+          text="OSTALO" underline="true">
           <font>
             <Font name="System Bold" size="13.0" />
           </font>
         </Label>
-        <Label text="Komentar:" GridPane.rowIndex="12" />
+        <Label GridPane.rowIndex="13" text="Komentar:"/>
         <TextField fx:id="tFullName" promptText="Ime i Prezime" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <DatePicker fx:id="tdDatumRodjenja" editable="false" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="50.0" promptText="Datum rodjenja" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <TextField fx:id="tBrLk" promptText="Broj lične karte" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -98,8 +100,10 @@
         <TextField fx:id="tAdresaUslugeBroj" maxWidth="80.0" promptText="000" GridPane.columnIndex="4" GridPane.rowIndex="4" />
         <TextField fx:id="tMestoRacuna" promptText="12000 Petrovac na Mlavi" GridPane.columnIndex="4" GridPane.rowIndex="7" />
         <TextField fx:id="tAdresaRacuna" promptText="Bate Bulic 22/8" GridPane.columnIndex="4" GridPane.rowIndex="8" />
-        <TextArea fx:id="taKomentar" promptText="Komentar" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="12" GridPane.rowSpan="2" />
-        <Button fx:id="bSnimi" mnemonicParsing="false" onAction="#bSaveUser" text="Sačuvaj promene" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="14">
+        <TextArea GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="13"
+          GridPane.rowSpan="2" promptText="Komentar" wrapText="true" fx:id="taKomentar"/>
+        <Button GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="15"
+          mnemonicParsing="false" onAction="#bSaveUser" text="Sačuvaj promene" fx:id="bSnimi">
                <graphic>
                   <FontIcon fill="WHITE" iconLiteral="mdi-content-save" />
                </graphic>
@@ -129,8 +133,11 @@
         <TextField fx:id="tKontaktOsobaTel" promptText="Telefon kontakt osobe" GridPane.columnIndex="6" GridPane.rowIndex="3" />
         <Label text="Tekući račun:" GridPane.columnIndex="5" GridPane.rowIndex="5" />
         <TextField fx:id="tTekuciRacun" promptText="Tekući račun" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-            <Label text="E-Mail" GridPane.rowIndex="11" />
-            <TextField fx:id="tEmail" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+        <Label GridPane.rowIndex="12" text="E-Mail"/>
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="12" fx:id="tEmail"/>
+        <Label GridPane.columnIndex="5" GridPane.rowIndex="10" text="Mesto firme:"/>
+        <TextField GridPane.columnIndex="6" GridPane.rowIndex="10" promptText="Mesto Firme"
+          fx:id="tMestoFirme"/>
       </children>
       <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

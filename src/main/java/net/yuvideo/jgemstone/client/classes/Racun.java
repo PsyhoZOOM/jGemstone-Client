@@ -19,8 +19,17 @@ public class Racun {
   String adresaRacuna;
   String zaPeriod;
   String ime;
+  String nazivFirme;
+  String adresaFirme;
+  String MestoFirme;
   String adresaKorisnika;
   String jMere;
+  String PIB;
+  String maticniBrojFirme;
+  String KontakOsobaFirme;
+  String tekuciRacunFirme;
+  String FAX;
+
 
   Image qrCode;
 
@@ -39,6 +48,7 @@ public class Racun {
 
   double prethodniDug;
   double ukupanDug;
+
 
   ArrayList<Racun> racunArrayList;
   ArrayList<Racun> racunArrayListTmp;
@@ -66,7 +76,6 @@ public class Racun {
     int i = 0;
     racunArrayList = new ArrayList<>();
     for (i = 0; i < jsonObject.length() - 1; i++) {
-      System.out.println(jsonObject.getJSONObject(String.valueOf(i)));
       JSONObject rac = jsonObject.getJSONObject(String.valueOf(i));
       Racun racun = new Racun();
       racun.setNazivUsluge(rac.getString("nazivUsluge"));
@@ -88,9 +97,12 @@ public class Racun {
     JSONObject rac = jsonObject.getJSONObject(String.valueOf(i));
     System.out.println(jsonObject.getJSONObject(String.valueOf(i)));
     racun.setIme(rac.getString("imePrezime"));
+    racun.setNazivFirme(rac.getString("nazivFirme"));
     racun.setSifraKorisnika(rac.getString("sifraKorisnika"));
     racun.setZaMesec(rac.getString("zaMesec"));
     racun.setAdresaRacuna(rac.getString("adresaRacuna"));
+    racun.setAdresaFirme(rac.getString("adresaFirme"));
+    racun.setMestoFirme(rac.getString("mestoFirme"));
     racun.setMestoRacuna(rac.getString("mestoRacuna"));
     racun.setAdresaKorisnika(rac.getString("adresaKorisnika"));
     racun.setOsnovicaUkupno(rac.getDouble("ukupnoOsnovica"));
@@ -99,6 +111,12 @@ public class Racun {
     racun.setPrethodniDug(rac.getDouble("prethodniDug"));
     racun.setUkupanDug(rac.getDouble("ukupnoZaUplatu"));
     racun.setZaPeriod(rac.getString("zaMesec"));
+    racun.setPIB(rac.getString("PIB"));
+    racun.setMaticniBrojFirme(rac.getString("maticniBroj"));
+    racun.setKontakOsobaFirme(rac.getString("kontaktOsobaTel"));
+    racun.setFAX(rac.getString("fax"));
+    racun.setTekuciRacunFirme(rac.getString("tekuciRacun"));
+
     racunArrayList.add(racun);
 
   }
@@ -115,6 +133,62 @@ public class Racun {
 
   }
 
+
+  public String getPIB() {
+    return PIB;
+  }
+
+  public void setPIB(String PIB) {
+    this.PIB = PIB;
+  }
+
+  public String getMestoFirme() {
+    return MestoFirme;
+  }
+
+  public void setMestoFirme(String mestoFirme) {
+    MestoFirme = mestoFirme;
+  }
+
+  public String getNazivFirme() {
+    return nazivFirme;
+  }
+
+  public void setNazivFirme(String nazivFirme) {
+    this.nazivFirme = nazivFirme;
+  }
+
+  public String getMaticniBrojFirme() {
+    return maticniBrojFirme;
+  }
+
+  public void setMaticniBrojFirme(String maticniBrojFirme) {
+    this.maticniBrojFirme = maticniBrojFirme;
+  }
+
+  public String getKontakOsobaFirme() {
+    return KontakOsobaFirme;
+  }
+
+  public void setKontakOsobaFirme(String kontakOsobaFirme) {
+    KontakOsobaFirme = kontakOsobaFirme;
+  }
+
+  public String getFAX() {
+    return FAX;
+  }
+
+  public void setFAX(String FAX) {
+    this.FAX = FAX;
+  }
+
+  public String getTekuciRacunFirme() {
+    return tekuciRacunFirme;
+  }
+
+  public void setTekuciRacunFirme(String tekuciRacunFirme) {
+    this.tekuciRacunFirme = tekuciRacunFirme;
+  }
 
   public String getZaMesec() {
     return zaMesec;
@@ -354,5 +428,13 @@ public class Racun {
 
   public void setVrednostBezPDV(double vrednostBezPDV) {
     this.vrednostBezPDV = vrednostBezPDV;
+  }
+
+  public String getAdresaFirme() {
+    return adresaFirme;
+  }
+
+  public void setAdresaFirme(String adresaFirme) {
+    this.adresaFirme = adresaFirme;
   }
 }

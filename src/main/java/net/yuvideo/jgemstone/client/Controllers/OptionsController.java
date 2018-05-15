@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.db_connection;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -37,6 +38,11 @@ public class OptionsController implements Initializable {
   public JFXTextField tPEPDV;
   public Client client;
   public boolean saveFIRMA = false;
+  public JFXTextField tNacinPlacanjaFaktura;
+  public JFXTextField tRokPlacanjaFaktura;
+  public JFXTextField tRokPlacanjaRacun;
+  public JFXTextField tMestoIzdravanjaRacuna;
+  public JFXTextField tMestoIzdavanjeDobara;
   @FXML
   private TextField tHostnameIp;
   @FXML
@@ -107,7 +113,12 @@ public class OptionsController implements Initializable {
     data.put("FIRMA_SERVIS_TELEFON", tTelServis.getText());
     data.put("FIRMA_SERVIS_EMAIL", tEmailServis.getText());
     data.put("FIRMA_WEBPAGE", tInternetStranica.getText());
-    data.put(("FIRMA_FAKTURA_PEPDV"), tPEPDV.getText());
+    data.put("FIRMA_FAKTURA_PEPDV", tPEPDV.getText());
+    data.put("FIRMA_MESTO_IZDAVANJA_RACUNA", tMestoIzdravanjaRacuna.getText());
+    data.put("FIRMA_MESTO_PROMETA_DOBARA", tMestoIzdavanjeDobara.getText());
+    data.put("FIRMA_NACIN_PLACANJA_FAKTURA", tNacinPlacanjaFaktura.getText());
+    data.put("FIRMA_ROK_PLACANJA_RACUN", tRokPlacanjaRacun.getText());
+    data.put("FIRMA_ROK_PLACANJA_FAKTURA", tRokPlacanjaFaktura.getText());
 
     data = client.send_object(data);
     return !data.has("ERROR");
@@ -122,16 +133,28 @@ public class OptionsController implements Initializable {
       AlertUser.error("GRESKA", "Došlo je do greške pri dobijanju informacija o firmi");
       return;
     }
-    tPEPDV.setText(obj.getString("FIRMA_FAKTURA_PEPDV"));
-    tNazivFirme.setText(obj.getString("FIRMA_NAZIV"));
-    tAdresaFirme.setText(obj.getString("FIRMA_ADRESA"));
-    tPIB.setText(obj.getString("FIRMA_PIB"));
-    tMaticniBroj.setText(obj.getString("FIRMA_MBR"));
-    tTekuciRacun.setText(obj.getString("FIRMA_TEKUCIRACUN"));
-    tTelefon.setText(obj.getString("FIRMA_TELEFON"));
-    tFAX.setText(obj.getString("FIRMA_FAX"));
-    tTelServis.setText(obj.getString("FIRMA_SERVIS_TELEFON"));
-    tEmailServis.setText(obj.getString("FIRMA_SERVIS_EMAIL"));
-    tInternetStranica.setText(obj.getString("FIRMA_WEBPAGE"));
+    try {
+      tPEPDV.setText(obj.getString("FIRMA_FAKTURA_PEPDV"));
+      tNazivFirme.setText(obj.getString("FIRMA_NAZIV"));
+      tAdresaFirme.setText(obj.getString("FIRMA_ADRESA"));
+      tPIB.setText(obj.getString("FIRMA_PIB"));
+      tMaticniBroj.setText(obj.getString("FIRMA_MBR"));
+      tTekuciRacun.setText(obj.getString("FIRMA_TEKUCIRACUN"));
+      tTelefon.setText(obj.getString("FIRMA_TELEFON"));
+      tFAX.setText(obj.getString("FIRMA_FAX"));
+      tTelServis.setText(obj.getString("FIRMA_SERVIS_TELEFON"));
+      tEmailServis.setText(obj.getString("FIRMA_SERVIS_EMAIL"));
+      tInternetStranica.setText(obj.getString("FIRMA_WEBPAGE"));
+      tNacinPlacanjaFaktura.setText(obj.getString("FIRMA_NACIN_PLACANJA_FAKTURA"));
+      tRokPlacanjaFaktura.setText(obj.getString("FIRMA_ROK_PLACANJA_FAKTURA"));
+      tRokPlacanjaRacun.setText(obj.getString("FIRMA_ROK_PLACANJA_RACUN"));
+      tMestoIzdravanjaRacuna.setText(obj.getString("FIRMA_MESTO_IZDAVANJA_RACUNA"));
+      tMestoIzdavanjeDobara.setText(obj.getString("FIRMA_MESTO_PROMETA_DOBARA"));
+    } catch (JSONException e) {
+      System.out.println(e.getMessage());
+      e.printStackTrace();
+    }
+
+
   }
 }

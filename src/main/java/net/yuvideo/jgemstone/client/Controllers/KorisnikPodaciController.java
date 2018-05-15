@@ -63,6 +63,7 @@ public class KorisnikPodaciController implements Initializable {
   public TextField tKontaktOsobaTel;
   public TextField tTekuciRacun;
   public TextField tEmail;
+  public TextField tMestoFirme;
   private ResourceBundle resource;
   private URL location;
   private JSONObject jObj;
@@ -280,6 +281,7 @@ public class KorisnikPodaciController implements Initializable {
     userData.setMaticniBroj(jObj.getString("maticniBroj"));
     userData.setFax(jObj.getString("fax"));
     userData.setAdresaFirme(jObj.getString("adresaFirme"));
+    userData.setMestoFirme(jObj.getString("mestoFirme"));
 
     return userData;
   }
@@ -328,6 +330,7 @@ public class KorisnikPodaciController implements Initializable {
     tPostBr.setText(user.getPostanski_broj());
     tTelMob.setText(user.getMobilni());
     tTelFix.setText(user.getFiksni());
+    tMestoFirme.setText(user.getMestoFirme());
 
     cmbMestoUsluge.setValue(userMesto);
     cmbAdresaUsluge.setValue(userAdresa);
@@ -349,6 +352,7 @@ public class KorisnikPodaciController implements Initializable {
     tMaticniBroj.setText(user.getMaticniBroj());
     tFAX.setText(user.getFax());
     tAdresaFirme.setText(user.getAdresaFirme());
+    tMestoFirme.setText(user.getMestoFirme());
 
 
   }
@@ -396,6 +400,7 @@ public class KorisnikPodaciController implements Initializable {
     jObj.put("maticniBroj", tMaticniBroj.getText());
     jObj.put("fax", tFAX.getText());
     jObj.put("adresaFirme", tAdresaFirme.getText());
+    jObj.put("mestoFirme", tMestoFirme.getText());
     jObj.put("email", tEmail.getText());
 
     jObj = client.send_object(jObj);

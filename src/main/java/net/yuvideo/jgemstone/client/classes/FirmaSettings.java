@@ -16,6 +16,11 @@ public class FirmaSettings implements Serializable{
   String FIRMA_FAKTURA_PEPDV;
   String FIRMA_SERVIS_EMAIL;
   String FIRMA_PIB;
+  String FIRMA_MESTO_IZDAVANJA_RACUNA;
+  String FIRMA_MESTO_PROMETA_DOBARA;
+  String FIRMA_NACIN_PLACANJA_FAKTURA;
+  String FIRMA_ROK_PLACANJA_RACUN;
+  String FIRMA_ROK_PLACANJA_FAKTURA;
 
 
   public FirmaSettings(Client client) {
@@ -35,9 +40,14 @@ public class FirmaSettings implements Serializable{
     this.FIRMA_NAZIV = jsonObject.getString("FIRMA_NAZIV");
     this.FIRMA_SERVIS_TELEFON = jsonObject.getString("FIRMA_SERVIS_TELEFON");
     this.FIRMA_TEKUCIRACUN = jsonObject.getString("FIRMA_TEKUCIRACUN");
-    this.FIRMA_FAKTURA_PEPDV = jsonObject.getString("FIRMA_FAKTURA_PEPEDV");
+    this.FIRMA_FAKTURA_PEPDV = jsonObject.getString("FIRMA_FAKTURA_PEPDV");
     this.FIRMA_SERVIS_EMAIL = jsonObject.getString("FIRMA_SERVIS_EMAIL");
     this.FIRMA_PIB = jsonObject.getString("FIRMA_PIB");
+    this.FIRMA_MESTO_IZDAVANJA_RACUNA = jsonObject.getString("FIRMA_MESTO_IZDAVANJA_RACUNA");
+    this.FIRMA_MESTO_PROMETA_DOBARA = jsonObject.getString("FIRMA_MESTO_PROMETA_DOBARA");
+    this.FIRMA_NACIN_PLACANJA_FAKTURA = jsonObject.getString("FIRMA_NACIN_PLACANJA_FAKTURA");
+    this.FIRMA_ROK_PLACANJA_FAKTURA = jsonObject.getString("FIRMA_ROK_PLACANJA_FAKTURA");
+    this.FIRMA_ROK_PLACANJA_RACUN = jsonObject.getString("FIRMA_ROK_PLACANJA_RACUN");
 
   }
 
@@ -131,5 +141,45 @@ public class FirmaSettings implements Serializable{
 
   public void setFIRMA_PIB(String FIRMA_PIB) {
     this.FIRMA_PIB = FIRMA_PIB;
+  }
+
+  public String getFIRMA_MESTO_IZDAVANJA_RACUNA() {
+    return FIRMA_MESTO_IZDAVANJA_RACUNA;
+  }
+
+  public void setFIRMA_MESTO_IZDAVANJA_RACUNA(String FIRMA_MESTO_IZDAVANJA_RACUNA) {
+    this.FIRMA_MESTO_IZDAVANJA_RACUNA = FIRMA_MESTO_IZDAVANJA_RACUNA;
+  }
+
+  public String getFIRMA_MESTO_PROMETA_DOBARA() {
+    return FIRMA_MESTO_PROMETA_DOBARA;
+  }
+
+  public void setFIRMA_MESTO_PROMETA_DOBARA(String FIRMA_MESTO_PROMETA_DOBARA) {
+    this.FIRMA_MESTO_PROMETA_DOBARA = FIRMA_MESTO_PROMETA_DOBARA;
+  }
+
+  public String getFIRMA_NACIN_PLACANJA_FAKTURA() {
+    return FIRMA_NACIN_PLACANJA_FAKTURA;
+  }
+
+  public void setFIRMA_NACIN_PLACANJA_FAKTURA(String FIRMA_NACIN_PLACANJA_FAKTURA) {
+    this.FIRMA_NACIN_PLACANJA_FAKTURA = FIRMA_NACIN_PLACANJA_FAKTURA;
+  }
+
+  public String getFIRMA_ROK_PLACANJA_RACUN() {
+    return FIRMA_ROK_PLACANJA_RACUN;
+  }
+
+  public void setFIRMA_ROK_PLACANJA_RACUN(String FIRMA_ROK_PLACANJA_RACUN) {
+    this.FIRMA_ROK_PLACANJA_RACUN = FIRMA_ROK_PLACANJA_RACUN;
+  }
+
+  public String getFIRMA_ROK_PLACANJA_FAKTURA() {
+    return FIRMA_ROK_PLACANJA_FAKTURA;
+  }
+
+  public void setFIRMA_ROK_PLACANJA_FAKTURA(String FIRMA_ROK_PLACANJA_FAKTURA) {
+    this.FIRMA_ROK_PLACANJA_FAKTURA = FIRMA_ROK_PLACANJA_FAKTURA;
   }
 }

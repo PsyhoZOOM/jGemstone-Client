@@ -44,6 +44,7 @@ public class Users implements Serializable {
   String tekuciRacuna;
   String fax;
   String adresaFirme;
+  String mestoFirme;
   String email;
 
   ArrayList<Users> usersArrayList;
@@ -111,6 +112,7 @@ public class Users implements Serializable {
     user.setTekuciRacuna(object.getString("tekuciRacun"));
     user.setFax(object.getString("fax"));
     user.setAdresaFirme(object.getString("adresaFirme"));
+    user.setMestoFirme(object.getString("mestoFirme"));
 
     return user;
   }
@@ -400,5 +402,13 @@ public class Users implements Serializable {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public String getMestoFirme() {
+    return mestoFirme;
+  }
+
+  public void setMestoFirme(String mestoFirme) {
+    this.mestoFirme = mestoFirme;
   }
 }

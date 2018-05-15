@@ -44,7 +44,7 @@ public class UserData {
   String tekuciRacuna;
   String fax;
   String adresaFirme;
-
+  String mestoFirme;
   Client client;
 
 
@@ -94,6 +94,7 @@ public class UserData {
     setMaticniBroj(obj.getString("maticniBroj"));
     setFax(obj.getString("fax"));
     setAdresaFirme(obj.getString("adresaFirme"));
+    setMestoFirme(obj.getString("mestoFirme"));
 
   }
 
@@ -402,5 +403,13 @@ public class UserData {
 
   public void setjAdresaBroj(String jAdresaBroj) {
     this.jAdresaBroj = jAdresaBroj;
+  }
+
+  public String getMestoFirme() {
+    return mestoFirme;
+  }
+
+  public void setMestoFirme(String mestoFirme) {
+    this.mestoFirme = mestoFirme;
   }
 }

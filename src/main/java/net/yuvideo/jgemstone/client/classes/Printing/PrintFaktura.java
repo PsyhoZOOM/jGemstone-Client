@@ -1,7 +1,12 @@
 package net.yuvideo.jgemstone.client.classes.Printing;
 
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLBoundOperation.ANONYMOUS;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.print.JobSettings;
 import javafx.print.PageLayout;
@@ -18,7 +23,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import net.yuvideo.jgemstone.client.classes.FirmaSettings;
 import net.yuvideo.jgemstone.client.classes.Racun;
 import net.yuvideo.jgemstone.client.classes.css.cssStyleProperty;
 import org.json.JSONObject;
@@ -398,19 +402,151 @@ public class PrintFaktura {
 
 
     //TOP DATA
-    Text firmaTopData = new Text();
 
-    String izdavalacRacun = "Izdavalac računa:";
-    String nazivFirme = firmaData.getString("FIRMA_NAZIV");
-    String adresaFirma = firmaData.getString("FIRMA_ADRESA");
-    String pibFirma = firmaData.getString("FIRMA_PIB");
-    String mbrFirma = firmaData.getString("FIRMA_MBR");
-    String pepdvFirma = firmaData.getString("FIRMA_FAKTURA_PEPDV");
-    String tekuciRacunFirma = firmaData.getString("FIRMA_TEKUCIRACUN");
-    String telefonFirma = firmaData.getString("FIRMA_TELEFON");
-    String faxFirma = firmaData.getString("FIRMA_FAX");
-    String emailFirma =firmaData.getString("FIRMA_SERVIS_EMAIL");
+    VBox tableTopRacun = new VBox();
 
+    Text tIzdavalacRacuna = new Text("Izdavalac računa:");
+    tIzdavalacRacuna.setFont(font);
+    tableTopRacun.getChildren().add(tIzdavalacRacuna);
+
+    Text tNazivFirme = new Text(firmaData.getString("FIRMA_NAZIV"));
+    tNazivFirme.setFont(fontBold);
+    tNazivFirme.setText(tNazivFirme.getText().toUpperCase());
+    tableTopRacun.getChildren().add(tNazivFirme);
+
+    Text tAdresaFime = new Text(firmaData.getString("FIRMA_ADRESA"));
+    tAdresaFime.setFont(fontBold);
+    tableTopRacun.getChildren().add(tAdresaFime);
+
+    Text tPIB = new Text("PIB: ");
+    tPIB.setFont(font);
+    Text tFIMRMA_PIB = new Text(firmaData.getString("FIRMA_PIB"));
+    tFIMRMA_PIB.setFont(fontBold);
+    Text tMatBr = new Text("Matični broj: ");
+    tMatBr.setFont(font);
+    Text tFirmaMATBr = new Text(firmaData.getString("FIRMA_MBR"));
+    tFirmaMATBr.setFont(fontBold);
+    Text tPEPEDV = new Text("\tPEPEDV: ");
+    tPEPEDV.setFont(font);
+    Text tFirmaPEPDV = new Text(firmaData.getString("FIRMA_FAKTURA_PEPDV"));
+    tFirmaPEPDV.setFont(fontBold);
+    HBox row1 = new HBox();
+    row1.getChildren().add(tPIB);
+    row1.getChildren().add(tFIMRMA_PIB);
+    row1.getChildren().add(tPEPEDV);
+    row1.getChildren().add(tFirmaPEPDV);
+    tableTopRacun.getChildren().add(row1);
+
+    Text tTekuciRacun = new Text("Tekući račun: ");
+    tTekuciRacun.setFont(font);
+    Text tTekuciRacunFirma = new Text(firmaData.getString("FIRMA_TEKUCIRACUN"));
+    tTekuciRacunFirma.setFont(fontBold);
+    HBox row2 = new HBox();
+    row2.getChildren().add(tTekuciRacun);
+    row2.getChildren().add(tTekuciRacunFirma);
+    tableTopRacun.getChildren().add(row2);
+
+    Text tTelefon = new Text("Telefon: ");
+    tTelefon.setFont(font);
+    Text tTelefonFirme = new Text(firmaData.getString("FIRMA_TELEFON"));
+    tTelefonFirme.setFont(fontBold);
+    Text tFax = new Text("\tFAX: ");
+    tFax.setFont(font);
+    Text tFaxFirma = new Text(firmaData.getString("FIRMA_FAX"));
+    tFaxFirma.setFont(fontBold);
+    Text tEmail = new Text("\tE-mail: ");
+    tEmail.setFont(font);
+    Text tEmailFirma = new Text(firmaData.getString("FIRMA_SERVIS_EMAIL"));
+    tEmailFirma.setFont(fontBold);
+    HBox row3 = new HBox();
+    row3.getChildren().addAll(tTelefon, tTelefonFirme, tFax, tFaxFirma, tEmail, tEmailFirma);
+    tableTopRacun.getChildren().add(row3);
+
+    Text tIzdavalacRacunaNapomena = new Text(
+        "* izdavalac računa se nalazi u registru PDV obveznika");
+    tIzdavalacRacunaNapomena.setFont(fontSmall);
+    tableTopRacun.getChildren().add(tIzdavalacRacunaNapomena);
+
+    //RACUN DATA
+    LocalDate ldateDatumPrometa = LocalDate
+        .parse(racun.getZaPeriod() + "-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    String mesecPrometa = String.valueOf(ldateDatumPrometa.getMonthValue());
+    String godinaPrometa = String
+        .valueOf(ldateDatumPrometa.format(DateTimeFormatter.ofPattern("yy")));
+
+    Text tRacunPodaci = new Text(String.format(
+        "RAČUN broj: %s\n"
+            + "Datum izdavanja računa: %s\n"
+            + "Mesto izdavanja računa: %s\n"
+            + "Datum prometa dobara i usluga: %s\n"
+            + "Mesto prometa dobara i usluge: %s\n"
+            + "Rok plaćanja: %s dana\n"
+            + "Način plaćanja: %s Fiskalni isečak BI: -",
+        racun.getSifraKorisnika() + "/" + mesecPrometa + "/" + godinaPrometa,
+        LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
+        firmaData.getString("FIRMA_MESTO_IZDAVANJA_RACUNA"),
+        ldateDatumPrometa.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
+        firmaData.getString("FIRMA_MESTO_PROMETA_DOBARA"),
+        firmaData.getString("FIRMA_ROK_PLACANJA_FAKTURA"),
+        firmaData.getString("FIRMA_NACIN_PLACANJA_FAKTURA")
+    ));
+    tRacunPodaci.setFont(font);
+
+//ADRESA POSILJKE
+    VBox adresaPosiljke = new VBox();
+    adresaPosiljke.setStyle(cssStyleProperty.getBorder(0.5, 0.5, 0.5, 0.5));
+    adresaPosiljke.setMinWidth(200);
+    adresaPosiljke.setFillWidth(true);
+
+    Text tNazivFirmeAdresa = new Text(racun.getNazivFirme());
+    tNazivFirmeAdresa.setFont(fontADRESA);
+    tNazivFirmeAdresa.minHeight(40);
+    Text tAdresaFirme = new Text(racun.getAdresaFirme());
+    tAdresaFirme.setFont(fontADRESA);
+    Text tMestoFirme = new Text(racun.getMestoFirme());
+    tMestoFirme.setFont(fontADRESA);
+    Text tPIBFirme = new Text(racun.getPIB());
+    tPIBFirme.setFont(fontBold);
+    Text tMatFirme = new Text(racun.getMaticniBrojFirme());
+    tMatFirme.setFont(fontBold);
+    Text tTelFirme = new Text(racun.getKontakOsobaFirme());
+    tTelFirme.setFont(fontBold);
+    Text tFaxFirme = new Text(racun.getFAX());
+    tFaxFirme.setFont(fontBold);
+    Text tTekuciRacunFirme = new Text(racun.getTekuciRacunFirme());
+    tTekuciRacunFirme.setFont(fontBold);
+    Text tdokumDown = new Text(
+        "Dokument izdat po Zakonu o porezu na dodatu vrednost i ostalim propisima");
+    tdokumDown.setFont(fontBold);
+
+    Text textPIB = new Text("PIB: ");
+    textPIB.setFont(font);
+    Text textMAT = new Text("\tMat: ");
+    textMAT.setFont(font);
+    Text textTelefon = new Text("Telefon: ");
+    textTelefon.setFont(font);
+    Text textFAX = new Text("\tFax: ");
+    textFAX.setFont(font);
+
+    Text textTekRacun = new Text("Tekući račun: ");
+    textTekRacun.setFont(font);
+
+    HBox rowPBMAT = new HBox();
+    rowPBMAT.getChildren().addAll(textPIB, tPIBFirme, textMAT, tMatFirme);
+
+    HBox rowTELFAX = new HBox();
+    rowTELFAX.getChildren().addAll(textTelefon, tTelFirme, textFAX, tFaxFirme);
+
+    HBox rowTekuciRacun = new HBox();
+    rowTekuciRacun.getChildren().addAll(textTekRacun, tTekuciRacunFirme);
+
+    adresaPosiljke.getChildren().add(tNazivFirmeAdresa);
+    adresaPosiljke.getChildren().add(tAdresaFirme);
+    adresaPosiljke.getChildren().add(tMestoFirme);
+    adresaPosiljke.getChildren().addAll(rowPBMAT, rowTELFAX, rowTekuciRacun);
+    adresaPosiljke.setPadding(new Insets(5, 5, 5, 5));
+    adresaPosiljke.setAlignment(Pos.CENTER);
+    adresaPosiljke.setFillWidth(true);
 
 
 
@@ -420,7 +556,17 @@ public class PrintFaktura {
     anchorPane.setMinSize(MAX_WIDTH, MAX_HEIGHT);
     anchorPane.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
     anchorPane.setPrefSize(MAX_WIDTH, MAX_HEIGHT);
+    anchorPane.getChildren().add(tableTopRacun);
+
+    anchorPane.getChildren().add(tRacunPodaci);
+    anchorPane.getChildren().add(adresaPosiljke);
     anchorPane.getChildren().add(table);
+
+    AnchorPane.setTopAnchor(tableTopRacun, 20.0);
+    AnchorPane.setTopAnchor(tRacunPodaci, 120.0);
+    AnchorPane.setTopAnchor(adresaPosiljke, 120.0);
+    AnchorPane.setLeftAnchor(adresaPosiljke, 340.0);
+    AnchorPane.setTopAnchor(table, 240.00);
 
     Scene scene = new Scene(anchorPane, pageLayout.getPrintableWidth(),
         pageLayout.getPrintableHeight());
