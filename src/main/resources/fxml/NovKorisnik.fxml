@@ -101,9 +101,6 @@
               <children>
                 <ComboBox HBox.hgrow="ALWAYS" prefWidth="200.0" fx:id="cmbCardReader"/>
                 <Button mnemonicParsing="false" text="Čitaj" fx:id="bReadCardReader">
-                  <graphic>
-                    <FontAwesomeIconView fill="WHITE" glyphName="DOWNLOAD"/>
-                  </graphic>
                 </Button>
               </children>
             </HBox>
