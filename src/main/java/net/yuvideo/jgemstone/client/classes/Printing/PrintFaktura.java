@@ -1,11 +1,9 @@
 package net.yuvideo.jgemstone.client.classes.Printing;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLBoundOperation.ANONYMOUS;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.print.JobSettings;
@@ -480,8 +478,7 @@ public class PrintFaktura {
             + "Mesto izdavanja računa: %s\n"
             + "Datum prometa dobara i usluga: %s\n"
             + "Mesto prometa dobara i usluge: %s\n"
-            + "Rok plaćanja: %s dana\n"
-            + "Način plaćanja: %s Fiskalni isečak BI: -",
+            + "Rok plaćanja: %s dana\n",
         racun.getSifraKorisnika() + "/" + mesecPrometa + "/" + godinaPrometa,
         LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
         firmaData.getString("FIRMA_MESTO_IZDAVANJA_RACUNA"),
@@ -548,7 +545,69 @@ public class PrintFaktura {
     adresaPosiljke.setAlignment(Pos.CENTER);
     adresaPosiljke.setFillWidth(true);
 
+    //SPECIFIKACIJA POREZA
+    //COD
+    ArrayList<Racun> arrPorRacun = new ArrayList<>();
 
+    for (int n = 0; n < userRacun.size() - 1; n++) {
+      Racun racunSpecPoreza = new Racun();
+      Racun racunN = userRacun.get(n);
+      for (int z = n + 1; z < userRacun.size(); z++) {
+        Racun racunZ = userRacun.get(z);
+        if (racunN.getStopaPDV() == racunZ.getStopaPDV()) {
+          racunSpecPoreza.setStopaPDV(racunZ.getStopaPDV());
+          racunSpecPoreza.setOsnovica(racunZ.getOsnovica() + racunSpecPoreza.getOsnovica());
+          racunSpecPoreza.setPdv(racunSpecPoreza.getPdv() + racunZ.getPdv());
+          racunSpecPoreza
+              .setUkupno(racunSpecPoreza.getUkupno() + racunZ.getPdv() + racunZ.getOsnovica());
+          userRacun.remove(z);
+        } else {
+          racunSpecPoreza.setStopaPDV(racunN.getStopaPDV());
+          racunSpecPoreza.setOsnovica(racunN.getOsnovica());
+          racunSpecPoreza.setPdv(racunN.getPdv());
+          racunSpecPoreza.setUkupno(racunN.getPdv() + racunN.getOsnovica());
+        }
+
+
+      }
+      arrPorRacun.add(racunSpecPoreza);
+    }
+
+    VBox rowSpecPoreze = new VBox();
+    Text specPorezaTitle = new Text("Specifikacija poreza: ");
+    specPorezaTitle.setFont(fontBold);
+    rowSpecPoreze.getChildren().add(specPorezaTitle);
+
+    double ukupnoOsno = 0.00;
+    double ukupnoPDV = 0.00;
+    double ukupnoOsnovUkupno = 0.00;
+
+    for (int l = 0; l < arrPorRacun.size(); l++) {
+      String strPor = String
+          .format("OSNOVICA za PDV: \t %f + PDV %f %% : \t%f = vrednost sa PDV: %f",
+              arrPorRacun.get(l).getOsnovica(), arrPorRacun.get(l).getStopaPDV(),
+              arrPorRacun.get(l).getPdv(), arrPorRacun.get(l).getUkupno());
+      ukupnoOsno += arrPorRacun.get(l).getOsnovica();
+      ukupnoPDV += arrPorRacun.get(l).getPdv();
+      ukupnoOsnovUkupno += arrPorRacun.get(l).getUkupno();
+      Text textPor = new Text(strPor);
+      textPor.setFont(font);
+      rowSpecPoreze.getChildren().add(textPor);
+    }
+    Text textUkupnoAll = new Text(
+        String.format("Ukupno osnovica: \t %f \t ukupno pdv: \t %f \t UKUPNO: \t %f",
+            ukupnoOsno, ukupnoPDV, ukupnoOsnovUkupno
+        ));
+    textUkupnoAll.setFont(font);
+    rowSpecPoreze.getChildren().add(textUkupnoAll);
+
+    for (int a = 0; a < arrPorRacun.size(); a++) {
+      System.out
+          .println(String.format("OSNOVICA za PDV: \t %f + PDV %f %% : \t%f = vrednost sA PDV: %f",
+              arrPorRacun.get(a).getOsnovica(), arrPorRacun.get(a).getStopaPDV(),
+              arrPorRacun.get(a).getPdv(), arrPorRacun.get(a).getUkupno()));
+
+    }
 
 
 
@@ -561,12 +620,14 @@ public class PrintFaktura {
     anchorPane.getChildren().add(tRacunPodaci);
     anchorPane.getChildren().add(adresaPosiljke);
     anchorPane.getChildren().add(table);
+    anchorPane.getChildren().add(rowSpecPoreze);
 
     AnchorPane.setTopAnchor(tableTopRacun, 20.0);
     AnchorPane.setTopAnchor(tRacunPodaci, 120.0);
     AnchorPane.setTopAnchor(adresaPosiljke, 120.0);
     AnchorPane.setLeftAnchor(adresaPosiljke, 340.0);
     AnchorPane.setTopAnchor(table, 240.00);
+    anchorPane.setTopAnchor(rowSpecPoreze, 700.0);
 
     Scene scene = new Scene(anchorPane, pageLayout.getPrintableWidth(),
         pageLayout.getPrintableHeight());
