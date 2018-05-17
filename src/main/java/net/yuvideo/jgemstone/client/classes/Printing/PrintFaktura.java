@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -472,6 +473,9 @@ public class PrintFaktura {
     String godinaPrometa = String
         .valueOf(ldateDatumPrometa.format(DateTimeFormatter.ofPattern("yy")));
 
+    String racunKorisnika = racun.getSifraKorisnika() + "/" + mesecPrometa + "/" + godinaPrometa;
+    System.out.println(racunKorisnika);
+
     Text tRacunPodaci = new Text(String.format(
         "RAČUN broj: %s\n"
             + "Datum izdavanja računa: %s\n"
@@ -547,34 +551,31 @@ public class PrintFaktura {
 
     //SPECIFIKACIJA POREZA
     //COD
-    ArrayList<Racun> arrPorRacun = new ArrayList<>();
+    ArrayList<Racun> arrPorRacun = userRacun;
+    //last index is info not a values of debt, so we need to remove it
+    int size = userRacun.size();
+    userRacun.remove(size - 1);
 
-    for (int n = 0; n < userRacun.size() - 1; n++) {
-      Racun racunSpecPoreza = new Racun();
-      Racun racunN = userRacun.get(n);
-      for (int z = n + 1; z < userRacun.size(); z++) {
-        Racun racunZ = userRacun.get(z);
+    for (int n = 0; n < arrPorRacun.size(); n++) {
+      Racun racunN = arrPorRacun.get(n);
+      for (int z = n + 1; z < arrPorRacun.size(); z++) {
+        Racun racunZ = arrPorRacun.get(z);
         if (racunN.getStopaPDV() == racunZ.getStopaPDV()) {
-          racunSpecPoreza.setStopaPDV(racunZ.getStopaPDV());
-          racunSpecPoreza.setOsnovica(racunZ.getOsnovica() + racunSpecPoreza.getOsnovica());
-          racunSpecPoreza.setPdv(racunSpecPoreza.getPdv() + racunZ.getPdv());
-          racunSpecPoreza
-              .setUkupno(racunSpecPoreza.getUkupno() + racunZ.getPdv() + racunZ.getOsnovica());
-          userRacun.remove(z);
-        } else {
-          racunSpecPoreza.setStopaPDV(racunN.getStopaPDV());
-          racunSpecPoreza.setOsnovica(racunN.getOsnovica());
-          racunSpecPoreza.setPdv(racunN.getPdv());
-          racunSpecPoreza.setUkupno(racunN.getPdv() + racunN.getOsnovica());
+          arrPorRacun.get(n).setStopaPDV(racunZ.getStopaPDV());
+          arrPorRacun.get(n).setPdv(racunN.getPdv() + racunZ.getPdv());
+          arrPorRacun.get(n).setOsnovica(racunN.getOsnovica() + racunZ.getOsnovica());
+          arrPorRacun.get(n).setUkupno(racunN.getUkupno() + racunZ.getOsnovica() + racunZ.getPdv());
+          arrPorRacun.remove(z);
+          z--;
         }
-
-
       }
-      arrPorRacun.add(racunSpecPoreza);
     }
 
     VBox rowSpecPoreze = new VBox();
-    Text specPorezaTitle = new Text("Specifikacija poreza: ");
+    HBox cellPor = new HBox();
+    rowSpecPoreze.minWidth(WIDTH);
+    rowSpecPoreze.setFillWidth(true);
+    Text specPorezaTitle = new Text("Specifikacija poreza:");
     specPorezaTitle.setFont(fontBold);
     rowSpecPoreze.getChildren().add(specPorezaTitle);
 
@@ -582,33 +583,193 @@ public class PrintFaktura {
     double ukupnoPDV = 0.00;
     double ukupnoOsnovUkupno = 0.00;
 
+    HBox rowOsnovicaZaPDV;
     for (int l = 0; l < arrPorRacun.size(); l++) {
-      String strPor = String
-          .format("OSNOVICA za PDV: \t %f + PDV %f %% : \t%f = vrednost sa PDV: %f",
-              arrPorRacun.get(l).getOsnovica(), arrPorRacun.get(l).getStopaPDV(),
-              arrPorRacun.get(l).getPdv(), arrPorRacun.get(l).getUkupno());
+      rowOsnovicaZaPDV = new HBox();
+      rowOsnovicaZaPDV.setMinWidth(WIDTH);
+
+      Text osnovZaPDVLabel = new Text("Osnovica za PDV:");
+      Text osnovZaPDVCENA = new Text(df.format(arrPorRacun.get(l).getOsnovica()));
+      osnovZaPDVCENA.setFont(font);
+      osnovZaPDVLabel.setFont(font);
+      cellPor = new HBox(osnovZaPDVLabel);
+      cellPor.setMinWidth(80);
+      cellPor.setMaxWidth(80);
+      cellPor.setAlignment(Pos.CENTER_RIGHT);
+      rowOsnovicaZaPDV.getChildren().add(cellPor);
+      cellPor = new HBox(osnovZaPDVCENA);
+      cellPor.setMinWidth(80);
+      cellPor.setMaxWidth(80);
+      cellPor.setAlignment(Pos.CENTER_RIGHT);
+      rowOsnovicaZaPDV.getChildren().add(cellPor);
+
+      Text osnovPDVStopa = new Text(
+          String.format("+ PDV ", df.format(arrPorRacun.get(l).getStopaPDV())));
+      Text osnoPDVStopCena = new Text(df.format(arrPorRacun.get(l).getStopaPDV()) + " %:");
+      osnoPDVStopCena.setFont(font);
+      osnovPDVStopa.setFont(font);
+
+      cellPor = new HBox(osnovPDVStopa);
+      cellPor.setMinWidth(50);
+      cellPor.setMaxWidth(50);
+      cellPor.setAlignment(Pos.CENTER);
+      rowOsnovicaZaPDV.getChildren().add(cellPor);
+      cellPor = new HBox(osnoPDVStopCena);
+      cellPor.setMinWidth(50);
+      cellPor.setMaxWidth(50);
+      cellPor.setAlignment(Pos.CENTER_RIGHT);
+      rowOsnovicaZaPDV.getChildren().add(cellPor);
+
+      Text osnovPDV = new Text(String.format(df.format(arrPorRacun.get(l).getPdv())));
+      osnovPDV.setFont(font);
+      cellPor = new HBox(osnovPDV);
+      cellPor.setMinWidth(80);
+      cellPor.setMaxWidth(80);
+      cellPor.setAlignment(Pos.CENTER_RIGHT);
+      rowOsnovicaZaPDV.getChildren().add(cellPor);
+      Text osnovVrednostSaPDV = new Text(" = vrednost sa PDV:");
+      Text osnovVrednostSaPDVCena = new Text(df.format(arrPorRacun.get(l).getUkupno()));
+      osnovVrednostSaPDVCena.setFont(font);
+      osnovVrednostSaPDV.setFont(font);
+      cellPor = new HBox(osnovVrednostSaPDV);
+      cellPor.setMinWidth(80);
+      cellPor.setMaxWidth(80);
+      cellPor.setAlignment(Pos.CENTER_RIGHT);
+      rowOsnovicaZaPDV.getChildren().add(cellPor);
+      cellPor = new HBox(osnovVrednostSaPDVCena);
+      cellPor.setMinWidth(80);
+      cellPor.setMaxWidth(80);
+      cellPor.setAlignment(Pos.CENTER_RIGHT);
+      rowOsnovicaZaPDV.getChildren().add(cellPor);
+
+      rowSpecPoreze.getChildren().add(rowOsnovicaZaPDV);
+
+
+
       ukupnoOsno += arrPorRacun.get(l).getOsnovica();
       ukupnoPDV += arrPorRacun.get(l).getPdv();
       ukupnoOsnovUkupno += arrPorRacun.get(l).getUkupno();
-      Text textPor = new Text(strPor);
-      textPor.setFont(font);
-      rowSpecPoreze.getChildren().add(textPor);
-    }
-    Text textUkupnoAll = new Text(
-        String.format("Ukupno osnovica: \t %f \t ukupno pdv: \t %f \t UKUPNO: \t %f",
-            ukupnoOsno, ukupnoPDV, ukupnoOsnovUkupno
-        ));
-    textUkupnoAll.setFont(font);
-    rowSpecPoreze.getChildren().add(textUkupnoAll);
-
-    for (int a = 0; a < arrPorRacun.size(); a++) {
-      System.out
-          .println(String.format("OSNOVICA za PDV: \t %f + PDV %f %% : \t%f = vrednost sA PDV: %f",
-              arrPorRacun.get(a).getOsnovica(), arrPorRacun.get(a).getStopaPDV(),
-              arrPorRacun.get(a).getPdv(), arrPorRacun.get(a).getUkupno()));
-
+      //rowSpecPoreze.getChildren().add(textPor);
     }
 
+    rowOsnovicaZaPDV = new HBox();
+
+    Text osnoUkupnoOsno = new Text("Ukupno:");
+    Text osnoUkupnoOsnoCena = new Text(df.format(ukupnoOsno));
+    osnoUkupnoOsnoCena.setFont(font);
+    osnoUkupnoOsno.setFont(font);
+    cellPor = new HBox(osnoUkupnoOsno);
+    cellPor.setMinWidth(80);
+    cellPor.setMaxWidth(80);
+    cellPor.setAlignment(Pos.CENTER_RIGHT);
+    rowOsnovicaZaPDV.getChildren().add(cellPor);
+    cellPor = new HBox(osnoUkupnoOsnoCena);
+    cellPor.setMinWidth(80);
+    cellPor.setMaxWidth(80);
+    cellPor.setAlignment(Pos.CENTER_RIGHT);
+    rowOsnovicaZaPDV.getChildren().add(cellPor);
+
+    Text osnoUkupnoPDV = new Text("ukupno:");
+    Text osnoUkupnoPDVCena = new Text(df.format(ukupnoPDV));
+    osnoUkupnoPDVCena.setFont(font);
+    osnoUkupnoPDV.setFont(font);
+    cellPor = new HBox(osnoUkupnoPDV);
+    cellPor.setAlignment(Pos.CENTER_RIGHT);
+    cellPor.setMinWidth(100);
+    cellPor.setMaxWidth(100);
+    rowOsnovicaZaPDV.getChildren().add(cellPor);
+    cellPor = new HBox(osnoUkupnoPDVCena);
+    cellPor.setAlignment(Pos.CENTER_RIGHT);
+    cellPor.setMinWidth(80);
+    cellPor.setMaxWidth(80);
+    rowOsnovicaZaPDV.getChildren().add(cellPor);
+
+    Text osnoUkupnoSve = new Text("ukupno:");
+    Text osnoUkupnoSveCena = new Text(df.format(ukupnoOsnovUkupno));
+    osnoUkupnoSveCena.setFont(fontBold);
+    osnoUkupnoSve.setFont(font);
+    cellPor = new HBox(osnoUkupnoSve);
+    cellPor.setAlignment(Pos.CENTER_RIGHT);
+    cellPor.setMinWidth(80);
+    cellPor.setMaxWidth(80);
+    rowOsnovicaZaPDV.getChildren().add(cellPor);
+    cellPor = new HBox(osnoUkupnoSveCena);
+    cellPor.setAlignment(Pos.CENTER_RIGHT);
+    cellPor.setMinWidth(80);
+    cellPor.setMaxWidth(80);
+    rowOsnovicaZaPDV.getChildren().add(cellPor);
+    rowSpecPoreze.getChildren().add(rowOsnovicaZaPDV);
+
+    rowOsnovicaZaPDV = new HBox();
+    rowOsnovicaZaPDV.setAlignment(Pos.CENTER_RIGHT);
+
+    Text ukpnaVrednostSaPDV = new Text("UKUPNA VREDNOST sa PDV: ");
+    Text ukpnaVrednostSaPDVCena = new Text(df.format(ukupnoOsnovUkupno));
+    ukpnaVrednostSaPDV.setFont(fontBold);
+    ukpnaVrednostSaPDVCena.setFont(fontADRESA);
+    cellPor = new HBox(ukpnaVrednostSaPDV);
+    cellPor.setAlignment(Pos.CENTER_RIGHT);
+    rowOsnovicaZaPDV.getChildren().add(cellPor);
+    cellPor = new HBox(ukpnaVrednostSaPDVCena);
+    cellPor.setAlignment(Pos.CENTER_RIGHT);
+    rowOsnovicaZaPDV.getChildren().add(cellPor);
+    rowSpecPoreze.getChildren().add(rowOsnovicaZaPDV);
+
+    Text podaciOOdgLicu = new Text("Podaci o odgovornom licu:");
+    podaciOOdgLicu.setFont(fontBold);
+
+    Text potipisOdgLica = new Text("_______________________________\npotpis odgovornog lica");
+    potipisOdgLica.setFont(fontSmall);
+    potipisOdgLica.setTextAlignment(TextAlignment.CENTER);
+
+    Text mp1 = new Text("M.P");
+    Text mp2 = new Text("M.P");
+    mp1.setFont(fontSmall);
+    mp2.setFont(fontSmall);
+
+    Text imePrezimeOdgLica = new Text(
+        "_______________________________\nime i prezime odgovornog lica");
+    imePrezimeOdgLica.setFont(fontSmall);
+    imePrezimeOdgLica.setTextAlignment(TextAlignment.CENTER);
+
+    Text adresabrTel = new Text("_______________________________\nadresa i broj telefona odg.lica");
+    adresabrTel.setFont(fontSmall);
+    adresabrTel.setTextAlignment(TextAlignment.CENTER);
+
+    Text napomenaOporOs = new Text("napomena o poreskom oslobođenju: ");
+    napomenaOporOs.setFont(fontSmall);
+
+    Text podaciOprimaocu = new Text("Podaci o primaocu dobara:");
+    podaciOprimaocu.setFont(fontBold);
+
+    Text primioIkontr = new Text("_______________________________\nprimio i kontrolisao");
+    primioIkontr.setFont(fontSmall);
+    primioIkontr.setTextAlignment(TextAlignment.CENTER);
+
+    Text napomenaFin = new Text(String.format(
+        "Prilikom uplate upisati broj računa u poziv na broj odobrenja na nalogu za prenos: %s",
+        racunKorisnika));
+    napomenaFin.setFont(fontBold);
+
+    VBox rowFin = new VBox();
+    rowFin.setMinWidth(WIDTH - 100);
+    rowFin.setMaxWidth(WIDTH - 100);
+    rowFin.setFillWidth(true);
+    rowFin.setSpacing(10);
+    rowFin.setPadding(new Insets(5, 20, 20, 5));
+    rowFin.getChildren().add(podaciOOdgLicu);
+    HBox hBoxFin = new HBox();
+    hBoxFin.setAlignment(Pos.BOTTOM_CENTER);
+    hBoxFin.setSpacing(10);
+    hBoxFin.getChildren().addAll(potipisOdgLica, mp1, imePrezimeOdgLica, adresabrTel);
+    rowFin.getChildren().add(hBoxFin);
+    rowFin.getChildren().add(napomenaOporOs);
+    rowFin.getChildren().add(podaciOprimaocu);
+    hBoxFin = new HBox();
+    hBoxFin.setSpacing(10);
+    hBoxFin.getChildren().addAll(primioIkontr, mp2);
+    rowFin.getChildren().add(hBoxFin);
+    rowFin.getChildren().add(napomenaFin);
 
 
 
@@ -621,13 +782,15 @@ public class PrintFaktura {
     anchorPane.getChildren().add(adresaPosiljke);
     anchorPane.getChildren().add(table);
     anchorPane.getChildren().add(rowSpecPoreze);
+    anchorPane.getChildren().add(rowFin);
 
     AnchorPane.setTopAnchor(tableTopRacun, 20.0);
     AnchorPane.setTopAnchor(tRacunPodaci, 120.0);
     AnchorPane.setTopAnchor(adresaPosiljke, 120.0);
     AnchorPane.setLeftAnchor(adresaPosiljke, 340.0);
     AnchorPane.setTopAnchor(table, 240.00);
-    anchorPane.setTopAnchor(rowSpecPoreze, 700.0);
+    AnchorPane.setTopAnchor(rowSpecPoreze, 620.0);
+    AnchorPane.setTopAnchor(rowFin, 680.0);
 
     Scene scene = new Scene(anchorPane, pageLayout.getPrintableWidth(),
         pageLayout.getPrintableHeight());
