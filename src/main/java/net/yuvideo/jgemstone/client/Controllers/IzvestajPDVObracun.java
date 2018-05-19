@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -48,7 +47,6 @@ public class IzvestajPDVObracun implements Initializable {
 
 
   private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-  private DecimalFormat df = new DecimalFormat("#,##0.00");
 
 
   @Override
@@ -120,7 +118,7 @@ public class IzvestajPDVObracun implements Initializable {
                 if (empty) {
                   return;
                 }
-                setText(df.format(item));
+                setText(String.valueOf(item));
               }
             };
           }
@@ -137,7 +135,7 @@ public class IzvestajPDVObracun implements Initializable {
                 if (empty) {
                   return;
                 }
-                setText(df.format(item));
+                setText(String.valueOf(item));
               }
             };
           }
@@ -154,7 +152,7 @@ public class IzvestajPDVObracun implements Initializable {
                 if (empty) {
                   return;
                 }
-                setText(df.format(item));
+                setText(String.valueOf(item));
               }
             };
           }
@@ -171,7 +169,7 @@ public class IzvestajPDVObracun implements Initializable {
                 if (empty) {
                   return;
                 }
-                setText(df.format(item));
+                setText(String.valueOf(item));
               }
             };
           }
@@ -219,9 +217,9 @@ public class IzvestajPDVObracun implements Initializable {
     ObservableList data = FXCollections.observableArrayList(pdvObracunArrayList);
 
     tblPDV.setItems(data);
-    lOsnovica.setText(df.format(ukupnaOsnovica));
-    lPDV.setText(df.format(ukupnoPDV));
-    lUkupno.setText(df.format(ukupanIznos));
+    lOsnovica.setText(String.valueOf(ukupnaOsnovica));
+    lPDV.setText(String.valueOf(ukupnoPDV));
+    lUkupno.setText(String.valueOf(ukupanIznos));
 
 
   }

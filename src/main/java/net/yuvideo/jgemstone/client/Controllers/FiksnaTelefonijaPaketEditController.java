@@ -6,7 +6,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -51,7 +50,6 @@ public class FiksnaTelefonijaPaketEditController implements Initializable {
   private TextField tNaziv;
   @FXML
   private Label lCenaPaketa;
-  private DecimalFormat df = new DecimalFormat("0.00");
   private JSONObject jObj;
 
   /**
@@ -134,13 +132,13 @@ public class FiksnaTelefonijaPaketEditController implements Initializable {
     Double cena = Double.valueOf(spnPretplata.getEditor().getText());
     Double pdv = Double.valueOf(spnPDV.getEditor().getText());
     Double value = valueToPercent.getValueOfPercentSub(cena, pdv);
-    lCenaPaketa.setText(df.format(cena - value));
+    lCenaPaketa.setText(String.valueOf(cena - value));
   }
 
   void set_data() {
     tNaziv.setText(paketEdit.getNaziv());
     spnBesplatniMinuti.getEditor().setText(String.valueOf(paketEdit.getBesplatniMinutiFiksna()));
-    spnPDV.getEditor().setText(df.format(paketEdit.getPdv()));
-    spnPretplata.getEditor().setText(df.format(paketEdit.getPretplata()));
+    spnPDV.getEditor().setText(String.valueOf(paketEdit.getPdv()));
+    spnPretplata.getEditor().setText(String.valueOf(paketEdit.getPretplata()));
   }
 }

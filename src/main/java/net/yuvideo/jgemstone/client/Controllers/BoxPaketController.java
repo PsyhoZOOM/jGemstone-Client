@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -41,7 +40,6 @@ public class BoxPaketController implements Initializable {
   TableColumn<BoxPaket, Double> cPDV;
   @FXML
   TableColumn<BoxPaket, Double> cCenaPDV;
-  DecimalFormat df = new DecimalFormat("#.00");
   SpinnerValueFactory.DoubleSpinnerValueFactory spinnerValueFactoryCena = new SpinnerValueFactory.DoubleSpinnerValueFactory(
       0.00, Double.MAX_VALUE, 0.00);
   SpinnerValueFactory.DoubleSpinnerValueFactory spinnerValueFactoryPDV = new SpinnerValueFactory.DoubleSpinnerValueFactory(
@@ -75,7 +73,7 @@ public class BoxPaketController implements Initializable {
                 if (empty) {
                   setText("");
                 } else {
-                  setText(df.format(item));
+                  setText(String.valueOf(item));
                 }
               }
 
@@ -93,7 +91,7 @@ public class BoxPaketController implements Initializable {
             if (empty) {
               setText("");
             } else {
-              setText(df.format(item));
+              setText(String.valueOf(item));
             }
           }
 
@@ -112,7 +110,7 @@ public class BoxPaketController implements Initializable {
                 if (empty) {
                   setText("");
                 } else {
-                  setText(df.format(item));
+                  setText(String.valueOf(item));
                 }
               }
 
@@ -163,8 +161,12 @@ public class BoxPaketController implements Initializable {
       }
       paketBox.setCena(paketObj.getDouble("cena"));
       paketBox.setPdv(paketObj.getDouble("pdv"));
+      System.out.println(paketObj.getDouble("cena"));
+      System.out.println(paketObj.getDouble("pdv"));
+      System.out
+          .println(valueToPercent.getValue(paketObj.getDouble("cena"), paketObj.getDouble("pdv")));
       paketBox.setCenaPDV(paketObj.getDouble("cena") + valueToPercent
-          .getDiffValue(paketObj.getDouble("cena"), paketObj.getDouble("pdv")));
+          .getValueOfPercentAdd(paketObj.getDouble("cena"), paketObj.getDouble("pdv")));
       paketBoxesArr.add(paketBox);
     }
     return paketBoxesArr;

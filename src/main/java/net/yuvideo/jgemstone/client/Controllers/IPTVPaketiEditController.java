@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -48,7 +47,6 @@ public class IPTVPaketiEditController implements Initializable {
       0.00, Double.MAX_VALUE, 0.00);
   private URL location;
   private ResourceBundle resources;
-  private DecimalFormat df = new DecimalFormat("#.00");
   @FXML
   private Label lCenaPaketa;
 
@@ -213,7 +211,7 @@ public class IPTVPaketiEditController implements Initializable {
     double cena = Double.valueOf(spnCena.getEditor().getText());
     double pdv = Double.valueOf(spnPDV.getEditor().getText());
     double value = valueToPercent.getValueOfPercentSub(cena, pdv);
-    lCenaPaketa.setText(df.format(cena - value));
+    lCenaPaketa.setText(String.valueOf(cena - value));
   }
 
 

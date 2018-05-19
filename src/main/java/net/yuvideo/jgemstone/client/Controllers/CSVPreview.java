@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -40,7 +39,6 @@ public class CSVPreview implements Initializable {
   private URL location;
   private ResourceBundle resources;
   private JSONObject jObj;
-  private DecimalFormat df = new DecimalFormat("#,##0.00");
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -73,7 +71,7 @@ public class CSVPreview implements Initializable {
         if (empty) {
           setText(null);
         } else {
-          setText(df.format(item));
+          setText(String.valueOf(item));
         }
       }
     });

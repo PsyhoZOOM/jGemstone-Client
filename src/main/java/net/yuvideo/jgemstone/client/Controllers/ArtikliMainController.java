@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -38,7 +37,6 @@ import org.json.JSONObject;
  */
 public class ArtikliMainController implements Initializable {
 
-  private final DecimalFormat df = new DecimalFormat("#.##");
   public TextField tNaziv;
   public TextField tModel;
   public TextField tSerijski;
@@ -136,7 +134,7 @@ public class ArtikliMainController implements Initializable {
                 if (empty) {
                   setText("");
                 } else {
-                  setText(df.format(item));
+                  setText(String.valueOf(item));
                 }
               }
             };

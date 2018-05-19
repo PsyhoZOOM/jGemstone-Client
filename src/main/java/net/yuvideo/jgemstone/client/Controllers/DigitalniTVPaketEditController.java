@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
@@ -47,7 +46,6 @@ public class DigitalniTVPaketEditController implements Initializable {
   SpinnerValueFactory.DoubleSpinnerValueFactory dblSpnFactoryPDV = new SpinnerValueFactory.DoubleSpinnerValueFactory(
       0.00, Double.MAX_VALUE, 0.00);
 
-  DecimalFormat df = new DecimalFormat("#.00");
 
 
   @Override
@@ -151,7 +149,7 @@ public class DigitalniTVPaketEditController implements Initializable {
     Double pdv = Double.valueOf(spnPDV.getEditor().getText());
     Double value = valueToPercent.getValueOfPercentSub(cena, pdv);
 
-    lCenaPaketa.setText(df.format(cena - value));
+    lCenaPaketa.setText(String.valueOf(cena - value));
   }
 
 

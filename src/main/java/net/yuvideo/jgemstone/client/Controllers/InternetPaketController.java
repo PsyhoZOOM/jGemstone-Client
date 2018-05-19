@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -39,8 +38,6 @@ public class InternetPaketController implements Initializable {
   TableColumn cPDV;
   @FXML
   TableColumn cCenaPDV;
-  DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
-  DecimalFormat df = new DecimalFormat("0.00");
   private ResourceBundle resource;
   private URL location;
   private JSONObject jObj;
@@ -66,7 +63,6 @@ public class InternetPaketController implements Initializable {
         if (bool) {
           setText(null);
         } else {
-          setText(decimalFormat.format(dbl));
         }
       }
     });
@@ -78,7 +74,7 @@ public class InternetPaketController implements Initializable {
         if (empty) {
           setText("");
         } else {
-          setText(df.format(item));
+          setText(String.valueOf(item));
         }
       }
 
@@ -91,7 +87,7 @@ public class InternetPaketController implements Initializable {
         if (empty) {
           setText("");
         } else {
-          setText(df.format(item));
+          setText(String.valueOf(item));
         }
       }
 

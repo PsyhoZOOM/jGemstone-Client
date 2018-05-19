@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -26,7 +25,6 @@ import org.json.JSONObject;
  */
 public class FakturePrikazController implements Initializable {
 
-  private final DecimalFormat df = new DecimalFormat("0.00");
   public Client client;
   public Users user;
   public Button bPrikaziFakturu;

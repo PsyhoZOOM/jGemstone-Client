@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -30,7 +29,6 @@ public class OstaleUslugeController implements Initializable {
   public TableColumn<OstaleUsluge, String> cOpis;
   public TableColumn<OstaleUsluge, Double> cCenaPDV;
   public Client client;
-  DecimalFormat df = new DecimalFormat("0.00");
   private ResourceBundle resources;
   private URL location;
 
@@ -56,7 +54,7 @@ public class OstaleUslugeController implements Initializable {
                 if (empty) {
                   setText(null);
                 } else {
-                  setText(df.format(item));
+                  setText(String.valueOf(item));
                 }
               }
             };
@@ -74,7 +72,7 @@ public class OstaleUslugeController implements Initializable {
                 if (empty) {
                   setText(null);
                 } else {
-                  setText(df.format(item));
+                  setText(String.valueOf(item));
                 }
               }
             };

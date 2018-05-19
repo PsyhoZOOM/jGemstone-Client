@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -142,7 +141,6 @@ public class KorisnikUslugeController implements Initializable {
   private ResourceBundle resources;
   private URL location;
   private JSONObject jObj;
-  private DecimalFormat df = new DecimalFormat("#,##0.00");
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -421,7 +419,7 @@ public class KorisnikUslugeController implements Initializable {
         if (empty) {
           setText(null);
         } else {
-          setText(df.format(item));
+          setText(String.valueOf(item));
         }
       }
 
@@ -434,7 +432,7 @@ public class KorisnikUslugeController implements Initializable {
         if (empty || item == null) {
           setText(null);
         } else {
-          setText(df.format(item));
+          setText(String.valueOf(item));
         }
       }
 
@@ -446,7 +444,7 @@ public class KorisnikUslugeController implements Initializable {
         if (bool) {
           setText(null);
         } else {
-          setText(df.format(cena));
+          setText(String.valueOf(cena));
         }
       }
     });
@@ -457,7 +455,7 @@ public class KorisnikUslugeController implements Initializable {
         if (bool) {
           setText(null);
         } else {
-          setText(df.format(popust) + "%");
+          setText(String.valueOf(popust) + "%");
         }
       }
     });

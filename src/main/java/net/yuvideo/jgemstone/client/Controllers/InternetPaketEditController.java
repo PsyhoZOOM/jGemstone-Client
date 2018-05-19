@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -25,7 +24,6 @@ import org.json.JSONObject;
  */
 public class InternetPaketEditController implements Initializable {
 
-  private final DecimalFormat df = new DecimalFormat("#.00");
   public TextField tNaziv;
   public TextField tBrzina;
   public TextArea tOpis;
@@ -146,6 +144,6 @@ public class InternetPaketEditController implements Initializable {
     Double cena = Double.valueOf(spnCena.getEditor().getText());
     Double pdv = Double.valueOf(spnPDV.getEditor().getText());
     Double value = valueToPercent.getValueOfPercentSub(cena, pdv);
-    lCenaNet.setText(df.format(cena - value));
+    lCenaNet.setText(String.valueOf(cena - value));
   }
 }

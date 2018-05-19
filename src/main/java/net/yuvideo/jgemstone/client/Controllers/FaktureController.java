@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
@@ -56,7 +55,6 @@ public class FaktureController implements Initializable {
   public Label lBrFakture;
   public Label lUkupnoPDV;
   public Label lUkupno;
-  DecimalFormat decFormat = new DecimalFormat("#,##0.00");
   Stage stage;
   Fakture faktura;
   Users user;
@@ -99,7 +97,7 @@ public class FaktureController implements Initializable {
         if (empty || value == null) {
           setText(null);
         } else {
-          setText(decFormat.format(value.doubleValue()));
+          setText(String.valueOf(value));
         }
       }
     });
@@ -113,7 +111,7 @@ public class FaktureController implements Initializable {
         if (empty) {
           setText(null);
         } else {
-          setText(decFormat.format(value.doubleValue()));
+          setText(String.valueOf(value));
         }
       }
     });
@@ -126,7 +124,7 @@ public class FaktureController implements Initializable {
         if (empty) {
           setText(null);
         } else {
-          setText(decFormat.format(value.doubleValue()));
+          setText(String.valueOf(value));
         }
       }
     });
@@ -139,7 +137,7 @@ public class FaktureController implements Initializable {
         if (empty) {
           setText(null);
         } else {
-          setText(decFormat.format(value));
+          setText(String.valueOf(value));
         }
       }
     });
@@ -153,7 +151,7 @@ public class FaktureController implements Initializable {
           if (empty) {
             setText(null);
           } else {
-            setText(decFormat.format(Value.doubleValue()));
+            setText(String.valueOf(Value));
           }
         }
       }
@@ -167,7 +165,7 @@ public class FaktureController implements Initializable {
         if (empty) {
           setText(null);
         } else {
-          setText(decFormat.format(Value.doubleValue()));
+          setText(String.valueOf(Value));
         }
       }
     });
@@ -220,12 +218,12 @@ public class FaktureController implements Initializable {
       ukupnoPDV = +ukupnoPDV + fakture.getIznosPDV();
       ukpnoOsnovicaSaPDV = ukupno + ukupnoPDV;
 
-      lOsnovicaZaPDV.setText(String.valueOf(decFormat.format(ukupno)));
-      lIznosPDVZbir.setText(String.valueOf(decFormat.format(ukupnoPDV)));
-      lvrednostSaPDVZbir.setText(String.valueOf(decFormat.format(ukupno + ukupnoPDV)));
-      lUkupnoOsnovicaZaPDV.setText(String.valueOf(decFormat.format(ukupno)));
-      lUkupnoPDV.setText(String.valueOf(decFormat.format(ukupnoPDV)));
-      lUkupno.setText(String.valueOf(decFormat.format(ukpnoOsnovicaSaPDV)));
+      lOsnovicaZaPDV.setText(String.valueOf(ukupno));
+      lIznosPDVZbir.setText(String.valueOf(ukupnoPDV));
+      lvrednostSaPDVZbir.setText(String.valueOf(ukupno + ukupnoPDV));
+      lUkupnoOsnovicaZaPDV.setText(String.valueOf(ukupno));
+      lUkupnoPDV.setText(String.valueOf(ukupnoPDV));
+      lUkupno.setText(String.valueOf(ukpnoOsnovicaSaPDV));
 
       faktureArray.add(fakture);
 

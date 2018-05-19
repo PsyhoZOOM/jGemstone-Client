@@ -6,7 +6,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -66,7 +65,6 @@ public class BoxPaketEditController implements Initializable {
       new SpinnerValueFactory.DoubleSpinnerValueFactory(0, Double.MAX_VALUE, 0.00);
   SpinnerValueFactory.DoubleSpinnerValueFactory spinnerValueFactoryPDV =
       new SpinnerValueFactory.DoubleSpinnerValueFactory(0, Double.MAX_VALUE, 0.00);
-  DecimalFormat df = new DecimalFormat("#.00");
   private URL url;
   private ResourceBundle rb;
   private JSONObject jObj;
@@ -173,8 +171,9 @@ public class BoxPaketEditController implements Initializable {
 
     if (editPaket) {
       tNazivPaketa.setText(boxPaket.getNaziv());
-      spnCena.getEditor().setText(df.format(boxPaket.getCena()));
-      spnPDV.getEditor().setText(df.format(boxPaket.getPdv()));
+      spnCena.getEditor().setText(String.valueOf(boxPaket.getCena() + valueToPercent
+          .getValueOfPercentAdd(boxPaket.getCena(), boxPaket.getPdv())));
+      spnPDV.getEditor().setText(String.valueOf(boxPaket.getPdv()));
       for (InternetPaketi iPaket : cmbInternet.getItems()) {
         if (boxPaket.getNET() == iPaket.getId()) {
           cmbInternet.getSelectionModel().select(iPaket);
@@ -348,10 +347,12 @@ public class BoxPaketEditController implements Initializable {
   }
 
   private void setCenaPDV() {
-    Double cena = Double.valueOf(spnCena.getEditor().getText());
-    Double pdv = Double.valueOf(spnPDV.getEditor().getText());
-    Double value = valueToPercent.getValueOfPercentSub(cena, pdv);
-    lCenaPaketa.setText(df.format(cena - value));
+    double cena = Double.valueOf(spnCena.getEditor().getText());
+    double pdv = Double.valueOf(spnPDV.getEditor().getText());
+    double value = valueToPercent.getValueOfPercentAdd(cena, pdv);
+    System.out.println(value);
+    double res = cena - value;
+    lCenaPaketa.setText(String.valueOf(res));
   }
 
 

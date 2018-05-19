@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -34,7 +33,6 @@ public class OstaleUslugeEditController implements Initializable {
   private URL localtion;
   private ResourceBundle resources;
 
-  private DecimalFormat df = new DecimalFormat("#.00");
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -71,7 +69,7 @@ public class OstaleUslugeEditController implements Initializable {
     Double cena = Double.valueOf(tCena.getText());
     Double pdv = Double.valueOf(tPDV.getText());
     Double value = valueToPercent.getValueOfPercentSub(cena, pdv);
-    lCenaPaketa.setText(df.format(cena - value));
+    lCenaPaketa.setText(String.valueOf(cena - value));
   }
 
   public void saveUslugu(ActionEvent actionEvent) {

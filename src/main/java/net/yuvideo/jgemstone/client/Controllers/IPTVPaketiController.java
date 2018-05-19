@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -39,7 +38,6 @@ public class IPTVPaketiController implements Initializable {
   public TableColumn<IPTVPaketi, Double> cCena;
   public TableColumn<IPTVPaketi, Integer> cIPTVID;
   public Client client;
-  DecimalFormat df = new DecimalFormat("0.00");
   @FXML
   private TableColumn<IPTVPaketi, Double> cPDV;
   private URL location;
@@ -72,7 +70,7 @@ public class IPTVPaketiController implements Initializable {
                 if (empty) {
                   setText("");
                 } else {
-                  setText(df.format(item));
+                  setText(String.valueOf(item));
                 }
               }
             };
@@ -90,7 +88,7 @@ public class IPTVPaketiController implements Initializable {
                 if (empty) {
                   setText("");
                 } else {
-                  setText(df.format(item));
+                  setText(String.valueOf(item));
                 }
               }
 
@@ -109,7 +107,7 @@ public class IPTVPaketiController implements Initializable {
                 if (empty) {
                   setText("");
                 } else {
-                  setText(df.format(item));
+                  setText(String.valueOf(item));
                 }
               }
 
@@ -187,7 +185,7 @@ public class IPTVPaketiController implements Initializable {
       paketi.setPdv(pakobj.getDouble("pdv"));
       Double cenaPDV = valueToPercent.getDiffValue(pakobj.getDouble("cena"),
           pakobj.getDouble("pdv"));
-      paketi.setCenaPDV(Double.valueOf(df.format(cenaPDV + pakobj.getDouble("cena"))));
+      paketi.setCenaPDV(Double.valueOf(cenaPDV + pakobj.getDouble("cena")));
 
       iptvPaketiArrayList.add(paketi);
 

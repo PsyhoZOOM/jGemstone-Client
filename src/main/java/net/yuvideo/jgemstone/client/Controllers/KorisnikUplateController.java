@@ -2,7 +2,6 @@ package net.yuvideo.jgemstone.client.Controllers;
 
 import java.io.File;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -86,7 +85,6 @@ public class KorisnikUplateController implements Initializable {
   public ComboBox cmbJMere;
   @FXML
   ImageView imgQR;
-  DecimalFormat df = new DecimalFormat("0.00");
   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
   DateTimeFormatter formatterBack = DateTimeFormatter.ofPattern("yyyy-MM-dd");
   DateTimeFormatter formatMonthYear = DateTimeFormatter.ofPattern("yyyy-MM");
@@ -210,14 +208,9 @@ public class KorisnikUplateController implements Initializable {
                   if (uplate == null) {
                     return;
                   }
-                  //COMMENT
-                  System.out.println("UPLACENO: " + uplate.getUplaceno());
-                  System.out.println("UPLACENO FORMATED: " + df.format(uplate.getUplaceno()));
-                  System.out.println("UPLACENO DOUBLE FORMATED: " + Double
-                      .valueOf(df.format(uplate.getUplaceno())));
-                  double upl = Double.valueOf(df.format(uplate.getUplaceno()));
-                  double dug = Double.valueOf(df.format(uplate.getDug()));
-                  setText(df.format(uplaceno));
+                  double upl = uplate.getUplaceno();
+                  double dug = uplate.getDug();
+                  setText(String.valueOf(uplaceno));
                   if (upl == 0) {
                     currentRow.setStyle(
                         ""
@@ -256,7 +249,7 @@ public class KorisnikUplateController implements Initializable {
                 if (empty) {
                   setText(null);
                 } else {
-                  setText(df.format(item));
+                  setText(String.valueOf(item));
                 }
               }
             });
@@ -269,7 +262,7 @@ public class KorisnikUplateController implements Initializable {
                 if (bool || uplata == null) {
                   setText(null);
                 } else {
-                  setText(df.format(uplata));
+                  setText(String.valueOf(uplata));
                 }
               }
             });
@@ -282,7 +275,7 @@ public class KorisnikUplateController implements Initializable {
                 if (bool || uplata == null) {
                   setText(null);
                 } else {
-                  setText(df.format(uplata) + "%");
+                  setText(String.valueOf(uplata) + "%");
                 }
               }
             });
@@ -295,7 +288,7 @@ public class KorisnikUplateController implements Initializable {
                 if (bool || zaUplatu == null) {
                   setText(null);
                 } else {
-                  setText(df.format(zaUplatu));
+                  setText(String.valueOf(zaUplatu));
                 }
               }
             });
@@ -321,27 +314,22 @@ public class KorisnikUplateController implements Initializable {
                 TreeItem<Uplate> selectedItem = tblZaduzenja.getSelectionModel().getSelectedItem();
                 if (selectedItem.getChildren().size() > 0) {
                   for (TreeItem<Uplate> uplateTreeItem : selectedItem.getChildren()) {
-                    uplaceno += Double.valueOf(df.format(uplateTreeItem.getValue().getUplaceno()));
+                    uplaceno += Double.valueOf(uplateTreeItem.getValue().getUplaceno());
                   }
                 } else {
-                  uplaceno = Double.valueOf(df.format(selectedItem.getValue().getUplaceno()));
+                  uplaceno = Double.valueOf(selectedItem.getValue().getUplaceno());
                 }
 
-                dug =
-                    Double.valueOf(
-                        df.format(
-                            tblZaduzenja
+                dug = tblZaduzenja
                                 .getSelectionModel()
                                 .getSelectedItem()
                                 .getValue()
-                                .getDug()));
+                    .getDug();
 
                 // BUTTON DISABLE UPLATE
-                zaUplatutxt = Double.valueOf(df.format(dug - uplaceno));
-                cmbZaUplatu.getEditor().setText(df.format(zaUplatutxt));
-                System.out.println(
-                    String.format(
-                        "Dug: %f, Uplaceno: %f, zaUplatu: %f", dug, uplaceno, zaUplatutxt));
+                zaUplatutxt = dug - uplaceno;
+                cmbZaUplatu.getEditor().setText(String.valueOf(zaUplatutxt));
+
                 if (newValue.getValue().getDug() <= 0) {
                   bUplatiServis.setDisable(true);
                 } else {
@@ -475,14 +463,13 @@ public class KorisnikUplateController implements Initializable {
   }
 
   private String calculateCenaPDV(String cenaT, String pdvT) {
-    DecimalFormat df = new DecimalFormat("#.00");
     double cena = Double.valueOf(cenaT);
     double pdv = Double.valueOf(pdvT);
     double perc = valueToPercent.getValueOfPercentSub(cena, pdv);
     System.out.println(perc);
 
     _DUG  = cena - perc;
-    lCustomCena.setText(df.format(_DUG));
+    lCustomCena.setText(String.valueOf(_DUG));
 
     return String.valueOf(_DUG);
   }
@@ -530,7 +517,7 @@ public class KorisnikUplateController implements Initializable {
               uplataRoot.setUplaceno(uplataSaobracaj.getUplaceno() + uplata.getUplaceno());
             }
 
-            uplataRoot.setDug(Double.valueOf(df.format(uplataRoot.getDug())));
+            uplataRoot.setDug(uplataRoot.getDug());
 
             // set TreeItems
             TreeItem<Uplate> rootTree = new TreeItem<>(uplataRoot);
@@ -561,7 +548,7 @@ public class KorisnikUplateController implements Initializable {
             uplataRoot.setDug(uplataSaobracaj.getDug() + uplata.getDug());
             uplataRoot.setUplaceno(uplataSaobracaj.getUplaceno() + uplata.getUplaceno());
           }
-          uplataRoot.setDug(Double.valueOf(df.format(uplataRoot.getDug())));
+          uplataRoot.setDug(uplataRoot.getDug());
 
           // set TreeItems
           TreeItem<Uplate> rootTree = new TreeItem<>(uplataRoot);
@@ -611,7 +598,7 @@ public class KorisnikUplateController implements Initializable {
     jsonObject.put("userID", id);
 
     jsonObject = client.send_object(jsonObject);
-    lDugZaduzenja.setText(df.format(jsonObject.getDouble("ukupanDug")));
+    lDugZaduzenja.setText(String.valueOf(jsonObject.getDouble("ukupanDug")));
   }
 
   private void setQrCode() {
@@ -726,11 +713,7 @@ public class KorisnikUplateController implements Initializable {
     Double numbUplaceno = null;
     numbZauplatu = uplata.getDug();
     numbUplaceno = uplata.getUplaceno();
-    try {
-      numbUplacenoNov = df.parse(cmbZaUplatu.getEditor().getText()).doubleValue();
-    } catch (ParseException e) {
-      e.printStackTrace();
-    }
+    numbUplacenoNov = Double.valueOf(cmbZaUplatu.getEditor().getText());
 
     Double ukupnoUplaceno = numbUplaceno.doubleValue() + numbUplacenoNov.doubleValue();
 
