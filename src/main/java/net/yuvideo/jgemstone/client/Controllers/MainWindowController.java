@@ -29,7 +29,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
-import net.yuvideo.jgemstone.client.Controllers.TEST.progressBarTest;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
@@ -425,10 +424,6 @@ public class MainWindowController implements Initializable {
   }
 
   public void showProgressTest(ActionEvent actionEvent) {
-    NewInterface progressTest =
-        new NewInterface("fxml/testForms/progressBarTest.fxml", "PROGRESS", this.resource);
-    progressBarTest progressTest1 = progressTest.getLoader().getController();
-    progressTest.getStage().showAndWait();
   }
 
   public void showStampaRacuna(ActionEvent actionEvent) {

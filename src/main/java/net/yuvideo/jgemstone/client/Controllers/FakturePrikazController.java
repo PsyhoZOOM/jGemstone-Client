@@ -89,7 +89,7 @@ public class FakturePrikazController implements Initializable {
       fakture.setKolicina(faktureObj.getInt("kolicina"));
       double cenaBezPDV = faktureObj.getDouble("cenaBezPDV");
       double pdv = faktureObj.getDouble("pdv");
-      double cenaSaPDV = cenaBezPDV + valueToPercent.getDiffValue(cenaBezPDV, pdv);
+      double cenaSaPDV = cenaBezPDV + valueToPercent.getPDVOfValue(cenaBezPDV, pdv);
       fakture.setVrednostBezPDV(cenaBezPDV);
       fakture.setIznosPDV(pdv);
       fakture.setVrednostSaPDV(cenaSaPDV);

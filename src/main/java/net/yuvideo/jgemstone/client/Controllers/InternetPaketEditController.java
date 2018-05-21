@@ -143,7 +143,7 @@ public class InternetPaketEditController implements Initializable {
   private void setCenaSaPDV() {
     Double cena = Double.valueOf(spnCena.getEditor().getText());
     Double pdv = Double.valueOf(spnPDV.getEditor().getText());
-    Double value = valueToPercent.getValueOfPercentSub(cena, pdv);
+    Double value = valueToPercent.getPDVOfSum(cena, pdv);
     lCenaNet.setText(String.valueOf(cena - value));
   }
 }

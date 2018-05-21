@@ -183,7 +183,7 @@ public class IPTVPaketiController implements Initializable {
       paketi.setDescription(pakobj.getString("opis"));
       paketi.setIptv_id(pakobj.getInt("IPTV_id"));
       paketi.setPdv(pakobj.getDouble("pdv"));
-      Double cenaPDV = valueToPercent.getDiffValue(pakobj.getDouble("cena"),
+      Double cenaPDV = valueToPercent.getPDVOfValue(pakobj.getDouble("cena"),
           pakobj.getDouble("pdv"));
       paketi.setCenaPDV(Double.valueOf(cenaPDV + pakobj.getDouble("cena")));
 

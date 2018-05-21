@@ -465,7 +465,7 @@ public class KorisnikUplateController implements Initializable {
   private String calculateCenaPDV(String cenaT, String pdvT) {
     double cena = Double.valueOf(cenaT);
     double pdv = Double.valueOf(pdvT);
-    double perc = valueToPercent.getValueOfPercentSub(cena, pdv);
+    double perc = valueToPercent.getPDVOfSum(cena, pdv);
     System.out.println(perc);
 
     _DUG  = cena - perc;

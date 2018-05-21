@@ -161,12 +161,8 @@ public class BoxPaketController implements Initializable {
       }
       paketBox.setCena(paketObj.getDouble("cena"));
       paketBox.setPdv(paketObj.getDouble("pdv"));
-      System.out.println(paketObj.getDouble("cena"));
-      System.out.println(paketObj.getDouble("pdv"));
-      System.out
-          .println(valueToPercent.getValue(paketObj.getDouble("cena"), paketObj.getDouble("pdv")));
       paketBox.setCenaPDV(paketObj.getDouble("cena") + valueToPercent
-          .getValueOfPercentAdd(paketObj.getDouble("cena"), paketObj.getDouble("pdv")));
+          .getPDVOfValue(paketObj.getDouble("cena"), paketObj.getDouble("pdv")));
       paketBoxesArr.add(paketBox);
     }
     return paketBoxesArr;

@@ -147,7 +147,7 @@ public class DigitalniTVPaketEditController implements Initializable {
   private void setCenaPDV() {
     Double cena = Double.valueOf(spnCena.getEditor().getText());
     Double pdv = Double.valueOf(spnPDV.getEditor().getText());
-    Double value = valueToPercent.getValueOfPercentSub(cena, pdv);
+    Double value = valueToPercent.getPDVOfSum(cena, pdv);
 
     lCenaPaketa.setText(String.valueOf(cena - value));
   }

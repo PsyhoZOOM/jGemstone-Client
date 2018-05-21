@@ -68,7 +68,7 @@ public class OstaleUslugeEditController implements Initializable {
   private void setCenaPDV() {
     Double cena = Double.valueOf(tCena.getText());
     Double pdv = Double.valueOf(tPDV.getText());
-    Double value = valueToPercent.getValueOfPercentSub(cena, pdv);
+    Double value = valueToPercent.getPDVOfSum(cena, pdv);
     lCenaPaketa.setText(String.valueOf(cena - value));
   }
 

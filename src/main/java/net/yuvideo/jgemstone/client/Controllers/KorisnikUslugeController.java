@@ -722,9 +722,9 @@ public class KorisnikUslugeController implements Initializable {
       double cena = serviceObj.getDouble("cena");
       double popust = serviceObj.getDouble("popust");
       double pdv = serviceObj.getDouble("pdv");
-      double zaUplatu = cena + valueToPercent.getDiffValue(cena, pdv);
+      double zaUplatu = cena - valueToPercent.getPDVOfSum(cena, popust);
+      zaUplatu = zaUplatu + valueToPercent.getPDVOfValue(zaUplatu, pdv);
 
-      zaUplatu = zaUplatu - valueToPercent.getDiffValue(zaUplatu, popust);
 
       service.setCena(cena);
       service.setPopust(popust);

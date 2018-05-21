@@ -131,7 +131,7 @@ public class FiksnaTelefonijaPaketEditController implements Initializable {
   private void setCenaSaPDV() {
     Double cena = Double.valueOf(spnPretplata.getEditor().getText());
     Double pdv = Double.valueOf(spnPDV.getEditor().getText());
-    Double value = valueToPercent.getValueOfPercentSub(cena, pdv);
+    Double value = valueToPercent.getPDVOfSum(cena, pdv);
     lCenaPaketa.setText(String.valueOf(cena - value));
   }
 

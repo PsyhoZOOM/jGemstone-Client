@@ -172,7 +172,7 @@ public class BoxPaketEditController implements Initializable {
     if (editPaket) {
       tNazivPaketa.setText(boxPaket.getNaziv());
       spnCena.getEditor().setText(String.valueOf(boxPaket.getCena() + valueToPercent
-          .getValueOfPercentAdd(boxPaket.getCena(), boxPaket.getPdv())));
+          .getPDVOfValue(boxPaket.getCena(), boxPaket.getPdv())));
       spnPDV.getEditor().setText(String.valueOf(boxPaket.getPdv()));
       for (InternetPaketi iPaket : cmbInternet.getItems()) {
         if (boxPaket.getNET() == iPaket.getId()) {
@@ -349,8 +349,7 @@ public class BoxPaketEditController implements Initializable {
   private void setCenaPDV() {
     double cena = Double.valueOf(spnCena.getEditor().getText());
     double pdv = Double.valueOf(spnPDV.getEditor().getText());
-    double value = valueToPercent.getValueOfPercentAdd(cena, pdv);
-    System.out.println(value);
+    double value = valueToPercent.getPDVOfSum(cena, pdv);
     double res = cena - value;
     lCenaPaketa.setText(String.valueOf(res));
   }

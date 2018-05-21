@@ -130,7 +130,7 @@ public class FiksnaTelefonijaPaket implements Initializable {
       paketi.setBesplatniMinutiFiksna(paketiObj.getInt("besplatniMinutiFiksna"));
       paketi.setPdv(paketiObj.getDouble("pdv"));
       paketi.setCenaPDV(paketiObj.getDouble("pretplata") + valueToPercent
-          .getDiffValue(paketiObj.getDouble("pretplata"), paketiObj.getDouble("pdv")));
+          .getPDVOfValue(paketiObj.getDouble("pretplata"), paketiObj.getDouble("pdv")));
       paketis.add(paketi);
     }
 
