@@ -6,6 +6,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -16,6 +17,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.FiksnaPaketi;
@@ -51,6 +53,8 @@ public class FiksnaTelefonijaPaketEditController implements Initializable {
   @FXML
   private Label lCenaPaketa;
   private JSONObject jObj;
+  private DecimalFormat df = new DecimalFormat("###,###,###,##0.00");
+  private double _CENA;
 
   /**
    * Initializes the controller class.
@@ -95,7 +99,7 @@ public class FiksnaTelefonijaPaketEditController implements Initializable {
     jObj = new JSONObject();
     jObj.put("action", "add_fixTel_paket");
     jObj.put("naziv", tNaziv.getText());
-    jObj.put("pretplata", Double.valueOf(lCenaPaketa.getText()));
+    jObj.put("pretplata", _CENA);
     jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
     jObj.put("besplatniMinutiFiksna", Integer.valueOf(spnBesplatniMinuti.getEditor().getText()));
     client.send_object(jObj);
@@ -104,6 +108,8 @@ public class FiksnaTelefonijaPaketEditController implements Initializable {
     } else {
       AlertUser.info("PAKET SNIMLJEN", String.format("Paket %s je snimljen", tNaziv.getText()));
     }
+    Stage stage = (Stage) lCenaPaketa.getScene().getWindow();
+    stage.close();
 
   }
 
@@ -113,7 +119,7 @@ public class FiksnaTelefonijaPaketEditController implements Initializable {
 
     jObj.put("naziv", tNaziv.getText());
     jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
-    jObj.put("pretplata", Double.valueOf(lCenaPaketa.getText()));
+    jObj.put("pretplata", _CENA);
     jObj.put("besplatniMinutiFiksna", Integer.valueOf(spnBesplatniMinuti.getEditor().getText()));
     jObj.put("id", paketEdit.getId());
 
@@ -125,20 +131,25 @@ public class FiksnaTelefonijaPaketEditController implements Initializable {
       AlertUser.info("INFO", String.format("Paket %s je izmenjen", tNaziv.getText()));
     }
 
+    Stage stage = (Stage) lCenaPaketa.getScene().getWindow();
+    stage.close();
+
   }
 
 
   private void setCenaSaPDV() {
     Double cena = Double.valueOf(spnPretplata.getEditor().getText());
     Double pdv = Double.valueOf(spnPDV.getEditor().getText());
-    Double value = valueToPercent.getPDVOfSum(cena, pdv);
-    lCenaPaketa.setText(String.valueOf(cena - value));
+    _CENA = cena - valueToPercent.getPDVOfSum(cena, pdv);
+    lCenaPaketa.setText(df.format(_CENA));
   }
 
   void set_data() {
     tNaziv.setText(paketEdit.getNaziv());
     spnBesplatniMinuti.getEditor().setText(String.valueOf(paketEdit.getBesplatniMinutiFiksna()));
     spnPDV.getEditor().setText(String.valueOf(paketEdit.getPdv()));
-    spnPretplata.getEditor().setText(String.valueOf(paketEdit.getPretplata()));
+    spnPretplata.getEditor().setText(String.valueOf(
+        paketEdit.getPretplata() + valueToPercent
+            .getPDVOfValue(paketEdit.getPretplata(), paketEdit.getPdv())));
   }
 }

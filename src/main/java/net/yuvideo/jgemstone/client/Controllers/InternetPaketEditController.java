@@ -1,6 +1,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -45,6 +46,9 @@ public class InternetPaketEditController implements Initializable {
   private SpinnerValueFactory.DoubleSpinnerValueFactory doubleSpinnerValueFactoryPDV = new SpinnerValueFactory.DoubleSpinnerValueFactory(
       0.00, Double.MAX_VALUE, 0.00);
 
+  private DecimalFormat df = new DecimalFormat("###,###,###,##0.00");
+  private double _CENA;
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.resource = resources;
@@ -85,7 +89,7 @@ public class InternetPaketEditController implements Initializable {
     jObj.put("action", "snimi_internet_paket");
     jObj.put("naziv", tNaziv.getText());
     jObj.put("brzina", tBrzina.getText());
-    jObj.put("cena", Double.valueOf(lCenaNet.getText()));
+    jObj.put("cena", _CENA);
     jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
     jObj.put("opis", tOpis.getText());
     jObj.put("idleTimeout", spnIdleTimeout.getEditor().getText());
@@ -107,7 +111,7 @@ public class InternetPaketEditController implements Initializable {
     jObj.put("idPaket", paket.getId());
     jObj.put("naziv", paket.getNaziv());
     jObj.put("brzina", tBrzina.getText());
-    jObj.put("cena", Double.valueOf(lCenaNet.getText()));
+    jObj.put("cena", _CENA);
     jObj.put("idleTimeout", spnIdleTimeout.getEditor().getText());
     jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
     jObj.put("opis", tOpis.getText());
@@ -128,11 +132,11 @@ public class InternetPaketEditController implements Initializable {
   }
 
   public void show_data() {
-    System.out.println("PDV:" + paket.getPdv());
     tNaziv.setEditable(false);
     tNaziv.setText(paket.getNaziv());
     tBrzina.setText(paket.getBrzina());
-    spnCena.getEditor().setText(String.valueOf(paket.getCena()));
+    spnCena.getEditor().setText(String
+        .valueOf(paket.getCena() + valueToPercent.getPDVOfValue(paket.getCena(), paket.getPdv())));
     spnIdleTimeout.getEditor().setText(paket.getIdleTimeout());
     spnPDV.getEditor().setText(String.valueOf(paket.getPdv()));
     tOpis.setText(paket.getOpis());
@@ -143,7 +147,8 @@ public class InternetPaketEditController implements Initializable {
   private void setCenaSaPDV() {
     Double cena = Double.valueOf(spnCena.getEditor().getText());
     Double pdv = Double.valueOf(spnPDV.getEditor().getText());
-    Double value = valueToPercent.getPDVOfSum(cena, pdv);
-    lCenaNet.setText(String.valueOf(cena - value));
+    _CENA = cena - valueToPercent.getPDVOfSum(cena, pdv);
+    lCenaNet.setText(df.format(_CENA));
+
   }
 }

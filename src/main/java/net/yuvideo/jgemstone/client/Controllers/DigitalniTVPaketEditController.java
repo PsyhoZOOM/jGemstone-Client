@@ -1,6 +1,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
@@ -40,6 +41,8 @@ public class DigitalniTVPaketEditController implements Initializable {
   boolean edit = false;
   JSONObject jObj;
   Logger LOGGER = Logger.getLogger("DTV_EDIT");
+  DecimalFormat df = new DecimalFormat("###,###,###,##0.00");
+  private double _CENA;
 
   SpinnerValueFactory.DoubleSpinnerValueFactory dblSngFactoryCena = new SpinnerValueFactory.DoubleSpinnerValueFactory(
       0.00, Double.MAX_VALUE, 0.00);
@@ -91,7 +94,7 @@ public class DigitalniTVPaketEditController implements Initializable {
     jObj = new JSONObject();
     jObj.put("action", "add_dtv_paket");
     jObj.put("naziv", tNaziv.getText());
-    jObj.put("cena", Double.valueOf(lCenaPaketa.getText()));
+    jObj.put("cena", _CENA);
     jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
     jObj.put("opis", tOpis.getText());
     jObj.put("idPaket", Integer.valueOf(tPaketID.getText()));
@@ -115,7 +118,7 @@ public class DigitalniTVPaketEditController implements Initializable {
     jObj.put("action", "edit_dtv_paket");
     jObj.put("id", dtvPaket.getId());
     jObj.put("naziv", tNaziv.getText());
-    jObj.put("cena", Double.valueOf(lCenaPaketa.getText()));
+    jObj.put("cena", _CENA);
     jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
     jObj.put("opis", tOpis.getText());
     jObj.put("idPaket", Integer.valueOf(tPaketID.getText()));
@@ -134,7 +137,8 @@ public class DigitalniTVPaketEditController implements Initializable {
 
   public void show_data() {
     tNaziv.setText(dtvPaket.getNaziv());
-    spnCena.getEditor().setText(String.valueOf(dtvPaket.getCena()));
+    spnCena.getEditor().setText(String.valueOf(
+        dtvPaket.getCena() + valueToPercent.getPDVOfValue(dtvPaket.getCena(), dtvPaket.getPdv())));
     spnPDV.getEditor().setText(String.valueOf(dtvPaket.getPdv()));
     tOpis.setText(dtvPaket.getOpis());
     tPaketID.setText(String.valueOf(dtvPaket.getPaketID()));
@@ -145,11 +149,12 @@ public class DigitalniTVPaketEditController implements Initializable {
 
 
   private void setCenaPDV() {
-    Double cena = Double.valueOf(spnCena.getEditor().getText());
-    Double pdv = Double.valueOf(spnPDV.getEditor().getText());
-    Double value = valueToPercent.getPDVOfSum(cena, pdv);
+    double cena = Double.valueOf(spnCena.getEditor().getText());
+    double pdv = Double.valueOf(spnPDV.getEditor().getText());
+    double value = valueToPercent.getPDVOfSum(cena, pdv);
+    _CENA = cena - value;
 
-    lCenaPaketa.setText(String.valueOf(cena - value));
+    lCenaPaketa.setText(df.format(_CENA));
   }
 
 

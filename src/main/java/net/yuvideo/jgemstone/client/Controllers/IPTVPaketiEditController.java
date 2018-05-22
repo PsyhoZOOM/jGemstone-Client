@@ -1,6 +1,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -49,6 +50,9 @@ public class IPTVPaketiEditController implements Initializable {
   private ResourceBundle resources;
   @FXML
   private Label lCenaPaketa;
+
+  double _CENA;
+  private DecimalFormat df = new DecimalFormat("###,###,###,##0.00");
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -128,7 +132,9 @@ public class IPTVPaketiEditController implements Initializable {
           break;
         }
       }
-      spnCena.getEditor().setText(String.valueOf(paket.getCena()));
+      spnCena.getEditor().setText(String
+          .valueOf(
+              paket.getCena() + valueToPercent.getPDVOfValue(paket.getCena(), paket.getPdv())));
       spnPDV.getEditor().setText(String.valueOf(paket.getPdv()));
       tNaziv.setText(paket.getName());
       tOpis.setText(paket.getDescription());
@@ -164,7 +170,7 @@ public class IPTVPaketiEditController implements Initializable {
     jsonObject.put("external_id", cmbIPTVPakets.getValue().getExternal_id());
     jsonObject.put("iptv_id", cmbIPTVPakets.getValue().getIptv_id());
     jsonObject.put("name", cmbIPTVPakets.getValue().getName());
-    jsonObject.put("cena", Double.valueOf(lCenaPaketa.getText()));
+    jsonObject.put("cena", _CENA);
     jsonObject.put("opis", tOpis.getText());
     jsonObject.put("pdv", spnPDV.getEditor().getText());
 
@@ -186,7 +192,7 @@ public class IPTVPaketiEditController implements Initializable {
     jsonObject.put("iptv_id", cmbIPTVPakets.getValue().getIptv_id());
 
     try {
-      jsonObject.put("cena", Double.valueOf(lCenaPaketa.getText()));
+      jsonObject.put("cena", _CENA);
     } catch (NumberFormatException e) {
       AlertUser.error("GRESKA", "Pogresan unos cene");
     }
@@ -210,8 +216,8 @@ public class IPTVPaketiEditController implements Initializable {
   private void setCenaPDV() {
     double cena = Double.valueOf(spnCena.getEditor().getText());
     double pdv = Double.valueOf(spnPDV.getEditor().getText());
-    double value = valueToPercent.getPDVOfSum(cena, pdv);
-    lCenaPaketa.setText(String.valueOf(cena - value));
+    _CENA = cena - valueToPercent.getPDVOfSum(cena, pdv);
+    lCenaPaketa.setText(df.format(_CENA));
   }
 
 

@@ -1,6 +1,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.OstaleUsluge;
@@ -32,19 +34,13 @@ public class OstaleUslugeEditController implements Initializable {
   public Label lCenaPaketa;
   private URL localtion;
   private ResourceBundle resources;
-
+  double _CENA;
+  private DecimalFormat df = new DecimalFormat("###,###,###,##0.00");
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.localtion = location;
     this.resources = resources;
-  }
-
-  public void setData() {
-    this.tNaziv.setText(ostaleUsluge.getNazivUsluge());
-    this.tCena.setText(String.valueOf(ostaleUsluge.getCena()));
-    this.tPDV.setText(String.valueOf(ostaleUsluge.getPdv()));
-    this.tKomentar.setText(ostaleUsluge.getKomentar());
 
     tPDV.textProperty().addListener(new ChangeListener<String>() {
       @Override
@@ -61,6 +57,14 @@ public class OstaleUslugeEditController implements Initializable {
         setCenaPDV();
       }
     });
+  }
+
+  public void setData() {
+    this.tNaziv.setText(ostaleUsluge.getNazivUsluge());
+    this.tCena.setText(String.valueOf(ostaleUsluge.getCena() + valueToPercent
+        .getPDVOfValue(ostaleUsluge.getCena(), ostaleUsluge.getPdv())));
+    this.tPDV.setText(String.valueOf(ostaleUsluge.getPdv()));
+    this.tKomentar.setText(ostaleUsluge.getKomentar());
 
 
   }
@@ -68,8 +72,8 @@ public class OstaleUslugeEditController implements Initializable {
   private void setCenaPDV() {
     Double cena = Double.valueOf(tCena.getText());
     Double pdv = Double.valueOf(tPDV.getText());
-    Double value = valueToPercent.getPDVOfSum(cena, pdv);
-    lCenaPaketa.setText(String.valueOf(cena - value));
+    _CENA = cena - valueToPercent.getPDVOfSum(cena, pdv);
+    lCenaPaketa.setText(df.format(_CENA));
   }
 
   public void saveUslugu(ActionEvent actionEvent) {
@@ -80,7 +84,7 @@ public class OstaleUslugeEditController implements Initializable {
       jsonObject.put("action", "snimiOstaleUslugu");
     }
     jsonObject.put("naziv", tNaziv.getText());
-    jsonObject.put("cena", Double.valueOf(lCenaPaketa.getText()));
+    jsonObject.put("cena", _CENA);
     jsonObject.put("pdv", tPDV.getText());
     jsonObject.put("opis", tKomentar.getText());
     if (ostaleUsluge != null) {
@@ -92,6 +96,9 @@ public class OstaleUslugeEditController implements Initializable {
     } else {
       AlertUser.info("USLUGA SNIMLJENA", String.format("Usluga %s je izmenjena", tNaziv.getText()));
     }
+
+    Stage stage = (Stage) bSnimi.getScene().getWindow();
+    stage.close();
 
 
   }

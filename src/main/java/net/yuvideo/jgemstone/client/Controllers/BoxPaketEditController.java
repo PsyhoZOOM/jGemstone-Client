@@ -6,6 +6,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -68,6 +69,8 @@ public class BoxPaketEditController implements Initializable {
   private URL url;
   private ResourceBundle rb;
   private JSONObject jObj;
+  DecimalFormat df = new DecimalFormat("###,###,###,##0.00");
+  private double _CENA;
 
   /**
    * Initializes the controller class.
@@ -350,8 +353,8 @@ public class BoxPaketEditController implements Initializable {
     double cena = Double.valueOf(spnCena.getEditor().getText());
     double pdv = Double.valueOf(spnPDV.getEditor().getText());
     double value = valueToPercent.getPDVOfSum(cena, pdv);
-    double res = cena - value;
-    lCenaPaketa.setText(String.valueOf(res));
+    _CENA = cena - value;
+    lCenaPaketa.setText(df.format(_CENA));
   }
 
 
@@ -385,8 +388,8 @@ public class BoxPaketEditController implements Initializable {
       jObj.put("FIX_id", cmbFiks.getValue().getId());
       jObj.put("FIX_naziv", cmbFiks.getValue().getNaziv());
     }
-    jObj.put("cena", Double.valueOf(lCenaPaketa.getText()));
-    jObj.put("pdv", spnPDV.getEditor().getText());
+    jObj.put("cena", _CENA);
+    jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
 
     jObj = client.send_object(jObj);
     if (jObj.has("ERROR")) {

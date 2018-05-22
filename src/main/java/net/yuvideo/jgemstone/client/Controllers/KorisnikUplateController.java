@@ -2,6 +2,7 @@ package net.yuvideo.jgemstone.client.Controllers;
 
 import java.io.File;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -121,6 +122,8 @@ public class KorisnikUplateController implements Initializable {
   private Double ukupno_uplaceno = 0.00;
   private Double _DUG = 0.00;
 
+  private DecimalFormat df = new DecimalFormat("###,###,###,##0.00");
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.resource = resources;
@@ -210,7 +213,7 @@ public class KorisnikUplateController implements Initializable {
                   }
                   double upl = uplate.getUplaceno();
                   double dug = uplate.getDug();
-                  setText(String.valueOf(uplaceno));
+                  setText(df.format(uplaceno));
                   if (upl == 0) {
                     currentRow.setStyle(
                         ""
@@ -262,7 +265,7 @@ public class KorisnikUplateController implements Initializable {
                 if (bool || uplata == null) {
                   setText(null);
                 } else {
-                  setText(String.valueOf(uplata));
+                  setText(df.format(uplata));
                 }
               }
             });
@@ -275,7 +278,7 @@ public class KorisnikUplateController implements Initializable {
                 if (bool || uplata == null) {
                   setText(null);
                 } else {
-                  setText(String.valueOf(uplata) + "%");
+                  setText(df.format(uplata) + "%");
                 }
               }
             });
@@ -288,7 +291,7 @@ public class KorisnikUplateController implements Initializable {
                 if (bool || zaUplatu == null) {
                   setText(null);
                 } else {
-                  setText(String.valueOf(zaUplatu));
+                  setText(df.format(zaUplatu));
                 }
               }
             });
