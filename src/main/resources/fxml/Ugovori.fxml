@@ -45,7 +45,7 @@
             <Button layoutX="544.0" layoutY="15.0" mnemonicParsing="false" onAction="#gotoEditorNov"
               text="Nov" fx:id="bNovUgovor">
               <graphic>
-                <FontIcon fill="white" iconLiteral="eli-plus-signe" />
+                <FontIcon fill="white" iconLiteral="eli-plus-sign"/>
               </graphic>
             </Button>
           </children>
