@@ -3,6 +3,7 @@ package net.yuvideo.jgemstone.client.Controllers;
 import static javafx.scene.control.ButtonType.OK;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -16,25 +17,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
 import net.yuvideo.jgemstone.client.classes.Users;
 import net.yuvideo.jgemstone.client.classes.messageS;
 import org.json.JSONObject;
+
+import javax.jws.soap.SOAPBinding;
 
 /**
  * Created by zoom on 8/3/16.
@@ -54,7 +50,7 @@ public class KorisniciController implements Initializable {
   public MenuItem cmIzbrisi;
   public Button bUserSearch;
   public Client client;
-  public TableColumn cDug;
+  public TableColumn<Users, Double> cDug;
   public MenuItem cmUplate;
   public TableColumn cFIrma;
   @FXML
@@ -70,6 +66,7 @@ public class KorisniciController implements Initializable {
   private int getSelectedId;
   private ResourceBundle resources;
   private messageS mess;
+  private DecimalFormat df = new DecimalFormat("###,###,###,##0.00");
 
   @Override
   public void initialize(URL location, final ResourceBundle resources) {
@@ -113,6 +110,23 @@ public class KorisniciController implements Initializable {
         } else {
           bFakture.setDisable(true);
         }
+      }
+    });
+
+    cDug.setCellFactory(new Callback<TableColumn<Users, Double>, TableCell<Users, Double>>() {
+      @Override
+      public TableCell<Users, Double> call(TableColumn<Users, Double> param) {
+        return new TableCell<Users, Double>(){
+          @Override
+          protected void updateItem(Double item, boolean empty) {
+            super.updateItem(item, empty);
+            if(empty || item == null){
+              setText(null);
+            }else{
+              setText(df.format(item));
+            }
+          }
+        };
       }
     });
 
