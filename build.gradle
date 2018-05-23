@@ -27,6 +27,7 @@ dependencies {
     compile group: 'org.kordamp.ikonli', name: 'ikonli-javafx', version: '2.1.1'
     compile 'org.kordamp.ikonli:ikonli-materialdesign-pack:2.1.1'
     compile 'org.kordamp.ikonli:ikonli-elusive-pack:2.1.1'
+    compile group: 'com.lynden', name: 'GMapsFX', version: '2.12.0'
 
 
 

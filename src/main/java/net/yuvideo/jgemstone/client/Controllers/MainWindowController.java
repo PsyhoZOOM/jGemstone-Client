@@ -29,6 +29,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import net.yuvideo.jgemstone.client.Controllers.Mape.MainMapController;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
@@ -433,5 +434,13 @@ public class MainWindowController implements Initializable {
     stampaRacunaController.client = this.client;
     stampaRacunaController.setData();
     stampaRacunaInterface.getStage().showAndWait();
+  }
+
+  public void showMape(ActionEvent actionEvent) {
+    NewInterface mapeInterface = new NewInterface("fxml/Maps/MainMaps.fxml", "MPE", this.resource);
+    MainMapController mainMapController = mapeInterface.getLoader().getController();
+    mainMapController.client = this.client;
+    mainMapController.setData();
+    mapeInterface.getStage().showAndWait();
   }
 }
