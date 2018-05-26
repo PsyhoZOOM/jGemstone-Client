@@ -1,26 +1,26 @@
 package net.yuvideo.jgemstone.client.Controllers.Mape;
 
 import com.lynden.gmapsfx.GoogleMapView;
+import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.GMapMouseEvent;
 import com.lynden.gmapsfx.javascript.event.MouseEventHandler;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
-import com.lynden.gmapsfx.javascript.object.Animation;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
-import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.object.LatLong;
+import com.lynden.gmapsfx.javascript.object.MVCArray;
 import com.lynden.gmapsfx.javascript.object.MapOptions;
+import com.lynden.gmapsfx.javascript.object.MapShape;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
-import com.lynden.gmapsfx.javascript.object.Marker;
-import com.lynden.gmapsfx.javascript.object.MarkerOptions;
+import com.lynden.gmapsfx.shapes.Circle;
+import com.lynden.gmapsfx.shapes.CircleOptions;
+import com.lynden.gmapsfx.shapes.MapShapeOptions;
+import com.lynden.gmapsfx.shapes.Polyline;
+import com.lynden.gmapsfx.shapes.PolylineOptions;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.scene.input.MouseEvent;
-import javax.swing.plaf.basic.BasicTreeUI.MouseHandler;
 import net.yuvideo.jgemstone.client.classes.Client;
+import netscape.javascript.JSObject;
 
 public class MainMapController implements Initializable, MapComponentInitializedListener {
 
@@ -29,36 +29,31 @@ public class MainMapController implements Initializable, MapComponentInitialized
   private URL location;
   private GoogleMap map;
   private MapOptions mapOptions;
+  LatLong latLong;
+  LatLong latLong1;
+  LatLong latLong2;
+  int clickTimes = 0;
+  MVCArray mvcArray;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.location = location;
     this.location = location;
-    gMapView.addMapInializedListener(() -> cofigureMap());
+    gMapView.setDisableDoubleClick(true);
+    gMapView.addMapInializedListener(this);
+
+
   }
 
   @Override
   public void mapInitialized() {
 
-    map.clearMarkers();
-    gMapView.onMouseClickedProperty().addListener(
-        new ChangeListener<EventHandler<? super MouseEvent>>() {
-          @Override
-          public void changed(
-              ObservableValue<? extends EventHandler<? super MouseEvent>> observable,
-              EventHandler<? super MouseEvent> oldValue,
-              EventHandler<? super MouseEvent> newValue) {
-            System.out.println(newValue);
-          }
-        });
+    mvcArray = new MVCArray();
 
-
-  }
-
-  private void cofigureMap() {
+    latLong = new LatLong(44.378789, 21.417001);
     mapOptions = new MapOptions();
-    mapOptions.center(new LatLong(44.378789, 21.417001))
-        .mapType(MapTypeIdEnum.ROADMAP)
+    mapOptions.center(latLong)
+        .mapType(MapTypeIdEnum.TERRAIN)
         .mapTypeControl(true)
         .overviewMapControl(true)
         .panControl(true)
@@ -68,29 +63,42 @@ public class MainMapController implements Initializable, MapComponentInitialized
 
     map = gMapView.createMap(mapOptions);
 
-    map.addMouseEventHandler(UIEventType.click, new MouseEventHandler() {
+    map.addMouseEventHandler(UIEventType.mouseup, new MouseEventHandler() {
       @Override
       public void handle(GMapMouseEvent mouseEvent) {
-        System.out.println(mouseEvent.getLatLong());
-        map.addMarker(new Marker(new MarkerOptions().position(mouseEvent.getLatLong())));
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(mouseEvent.getLatLong());
-        markerOptions.label("Marker :)");
-        markerOptions.title("TITLE: ");
-        markerOptions.icon(
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Disc_Plain_red.svg/32px-Disc_Plain_red.svg.png");
-        markerOptions.visible(true);
-        Animation animation = Animation.BOUNCE;
-        markerOptions.animation(animation);
-        Marker marker = new Marker(markerOptions);
-        marker.setOptions(markerOptions);
-        marker.setTitle("TIEL@");
-        map.removeMarker(marker);
-        marker.setOptions(markerOptions);
+        System.out.println(clickTimes);
+        if (clickTimes == 0) {
+          latLong1 = mouseEvent.getLatLong();
+        }
+        if (clickTimes == 1) {
+          latLong2 = mouseEvent.getLatLong();
+          addLine();
+          latLong1 = mouseEvent.getLatLong();
+          System.out.println("line added " + latLong1 + " " + latLong2);
+          clickTimes = 0;
+          setData();
+
+        }
+        System.out.println("Lat1: " + latLong1);
+        System.out.println("Lat2: " + latLong2);
+        clickTimes++;
       }
+
     });
   }
 
-  public void setData() {
+
+  private void addLine() {
+    mvcArray.push(new LatLong(latLong1.getLatitude(), latLong1.getLongitude()));
+    mvcArray.push(new LatLong(latLong2.getLatitude(), latLong2.getLongitude()));
+    map.addMapShape(new Polyline(new PolylineOptions().draggable(true).editable(true).path(mvcArray)
+        .strokeColor("#fc4c02")));
   }
+
+  public void setData() {
+    for (int i = 0; i < mvcArray.getLength(); i++) {
+      System.out.println(mvcArray.getAt(i));
+    }
+  }
+
 }

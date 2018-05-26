@@ -440,7 +440,6 @@ public class MainWindowController implements Initializable {
     NewInterface mapeInterface = new NewInterface("fxml/Maps/MainMaps.fxml", "MPE", this.resource);
     MainMapController mainMapController = mapeInterface.getLoader().getController();
     mainMapController.client = this.client;
-    mainMapController.setData();
     mapeInterface.getStage().showAndWait();
   }
 }
