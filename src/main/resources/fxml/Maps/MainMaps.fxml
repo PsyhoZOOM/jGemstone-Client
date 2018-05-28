@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.lynden.gmapsfx.*?>
+<?import com.lynden.gmapsfx.GoogleMapView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
   minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0"
@@ -15,6 +17,17 @@
       <center>
         <GoogleMapView BorderPane.alignment="CENTER" fx:id="gMapView"/>
       </center>
+      <left>
+        <VBox BorderPane.alignment="CENTER" alignment="TOP_CENTER" prefHeight="200.0"
+          prefWidth="100.0" spacing="5.0">
+          <children>
+            <Button mnemonicParsing="false" onAction="#reloadData" text="Reload" fx:id="bReload"/>
+          </children>
+          <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+          </padding>
+        </VBox>
+      </left>
     </BorderPane>
   </children>
 </AnchorPane>

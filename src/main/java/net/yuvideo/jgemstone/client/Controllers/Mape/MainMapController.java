@@ -11,6 +11,8 @@ import com.lynden.gmapsfx.javascript.object.MVCArray;
 import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.MapShape;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
+import com.lynden.gmapsfx.javascript.object.Marker;
+import com.lynden.gmapsfx.javascript.object.MarkerOptions;
 import com.lynden.gmapsfx.shapes.Circle;
 import com.lynden.gmapsfx.shapes.CircleOptions;
 import com.lynden.gmapsfx.shapes.MapShapeOptions;
@@ -18,9 +20,14 @@ import com.lynden.gmapsfx.shapes.Polyline;
 import com.lynden.gmapsfx.shapes.PolylineOptions;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import jdk.nashorn.internal.runtime.regexp.JoniRegExp;
 import net.yuvideo.jgemstone.client.classes.Client;
 import netscape.javascript.JSObject;
+import org.json.JSONObject;
 
 public class MainMapController implements Initializable, MapComponentInitializedListener {
 
@@ -99,6 +106,27 @@ public class MainMapController implements Initializable, MapComponentInitialized
     for (int i = 0; i < mvcArray.getLength(); i++) {
       System.out.println(mvcArray.getAt(i));
     }
+
   }
 
+
+  public void reloadData(ActionEvent actionEvent) {
+    map.clearMarkers();
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("action", "getAllClientsLocations");
+    jsonObject = client.send_object(jsonObject);
+    for (int i = 0; i < jsonObject.length(); i++) {
+      JSONObject obj = jsonObject.getJSONObject(String.valueOf(i));
+      MarkerOptions markerOptions = new MarkerOptions();
+      LatLong latLong = new LatLong(obj.getDouble("latitude"), obj.getDouble("longitude"));
+
+      markerOptions.position(latLong);
+      markerOptions.label(obj.getString("identification"));
+      markerOptions.title(obj.getString("identification") + " " + obj.getString("lastUpdateTime"));
+      Marker marker = new Marker(markerOptions);
+      map.addMarker(marker);
+    }
+
+
+  }
 }
