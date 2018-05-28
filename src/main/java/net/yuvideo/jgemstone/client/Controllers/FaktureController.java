@@ -289,7 +289,7 @@ public class FaktureController implements Initializable {
     user.setJbroj(jUser.getString("jBroj"));
     user.setFirma(jUser.getBoolean("firma"));
     if (!jUser.getString("jBroj").isEmpty()) {
-      user.setBr(Integer.valueOf(jUser.getString("jBroj")));
+      user.setBr(jUser.getString("jBroj"));
     }
 
     return user;

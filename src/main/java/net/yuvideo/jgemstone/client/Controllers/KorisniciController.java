@@ -174,7 +174,7 @@ public class KorisniciController implements Initializable {
       user.setFirma(jUser.getBoolean("firma"));
       user.setDug(jUser.getDouble("dug"));
       if (!jUser.getString("jBroj").isEmpty()) {
-        user.setBr(Integer.valueOf(jUser.getString("jBroj")));
+        user.setBr(jUser.getString("jBroj"));
       }
       user.setNazivFirme(jUser.getString("nazivFirme"));
       user.setKontaktOsoba(jUser.getString("kontaktOsoba"));

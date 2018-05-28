@@ -10,7 +10,7 @@ import org.json.JSONObject;
  */
 public class Users implements Serializable {
 
-  int br;
+  String br;
   int id;
   String username;
   String ime;
@@ -285,11 +285,11 @@ public class Users implements Serializable {
     this.services = services;
   }
 
-  public int getBr() {
+  public String getBr() {
     return br;
   }
 
-  public void setBr(int br) {
+  public void setBr(String br) {
     this.br = br;
   }
 
