@@ -322,7 +322,8 @@ public class KorisnikPodaciController implements Initializable {
     }
 
     tFullName.setText(user.getIme());
-    tdDatumRodjenja.setValue(LocalDate.parse(user.getDatum_rodjenja(), dateBirthFormat));
+    if (!user.getDatum_rodjenja().trim().isEmpty())
+      tdDatumRodjenja.setValue(LocalDate.parse(user.getDatum_rodjenja(), dateBirthFormat));
     tBrLk.setText(user.getBr_lk());
     tJMBG.setText(user.getJMBG());
     tMesto.setText(user.getMesto());
@@ -418,6 +419,7 @@ public class KorisnikPodaciController implements Initializable {
   public void bSaveUser(ActionEvent actionEvent) {
     updateUserData();
     userData = getUserData(userData.getId());
+
 
   }
 

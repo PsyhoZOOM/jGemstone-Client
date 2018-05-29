@@ -100,7 +100,7 @@ public class NewInterface {
       root = (Parent) loader.load();
       scene = new Scene(root);
       stage = new Stage();
-      stage.initModality(Modality.APPLICATION_MODAL);
+      stage.initModality(Modality.WINDOW_MODAL);
       stage.initStyle(StageStyle.DECORATED);
       stage.setResizable(true);
 
