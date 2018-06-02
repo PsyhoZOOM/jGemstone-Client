@@ -9,15 +9,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
+
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
-  minHeight="-Infinity"
-  minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Main.css"
-  xmlns="http://javafx.com/javafx/8.0.162"
+  minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+  stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.172"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.FakturePrikazController">
   <children>
     <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-      AnchorPane.topAnchor="0.0" layoutX="115.0"
-      layoutY="72.0" prefHeight="200.0" prefWidth="100.0"
+      AnchorPane.topAnchor="0.0" layoutX="115.0" layoutY="72.0" prefHeight="200.0" prefWidth="100.0"
       spacing="5.0">
       <children>
         <TableView VBox.vgrow="ALWAYS" prefWidth="200.0" fx:id="tblFakture">
@@ -31,7 +30,7 @@
         </TableView>
         <HBox alignment="CENTER_RIGHT" fillHeight="false" prefWidth="200.0" spacing="5.0">
           <children>
-            <DatePicker/>
+            <DatePicker editable="false"/>
             <Button mnemonicParsing="false" text="Nova">
               <graphic>
                 <FontIcon fill="white" iconLiteral="eli-plus-sign" />
@@ -40,7 +39,7 @@
             <Button mnemonicParsing="false" onAction="#prikaziFakturu" text="Prikaži"
               fx:id="bPrikaziFakturu">
               <graphic>
-                <FontIcon iconLiteral="eli-list" fill="white" />
+                <FontIcon fill="white" iconLiteral="eli-list"/>
               </graphic>
             </Button>
           </children>

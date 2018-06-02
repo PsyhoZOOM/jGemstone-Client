@@ -18,8 +18,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import javax.smartcardio.CardException;
 import javax.smartcardio.CardTerminal;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
@@ -50,6 +52,7 @@ public class NovKorisnikController implements Initializable {
   public TextField tMesto;
   public TextField tAdresa;
   public int freeID;
+  public Button bSave;
   SmartCardReader sr;
   //JSON
   JSONObject jObj;
@@ -65,6 +68,7 @@ public class NovKorisnikController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
 
     tDatumRodjenja.setValue(LocalDate.now());
+    bSave.setDisable(true);
 
     bClose.setOnAction(new EventHandler<ActionEvent>() {
       @Override
@@ -92,6 +96,25 @@ public class NovKorisnikController implements Initializable {
       public void handle(ActionEvent event) {
         Image img1 = new Image(ClassLoader.getSystemResource("images/YuVideoLogo.png").toString());
         imgUserPhoto.setImage(img1);
+        if (cmbCardReader.getValue() == null) {
+          AlertUser.error("GRESKA", "NIJE PRONADJEN ČITAČ KARTICA");
+          return;
+        }
+        try {
+          cmbCardReader.getValue().waitForCardPresent(10000);
+        } catch (CardException e) {
+          e.printStackTrace();
+        }
+        try {
+          if (!cmbCardReader.getValue().isCardPresent()) {
+            AlertUser.info("NEMA KARTICE", String.format("Molim Vas ubacite karticu u uređaj: %s",
+                cmbCardReader.getValue().getName()));
+            return;
+          }
+        } catch (CardException e) {
+          e.printStackTrace();
+        }
+
         sr.scan(cmbCardReader.getValue());
         Users user = sr.getUserData();
         tFullName.setText(CyrToLatin.CirilicaToLatinica(user.getIme()));
@@ -108,6 +131,17 @@ public class NovKorisnikController implements Initializable {
       }
     });
 
+    tFullName.setOnKeyPressed(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        if (tFullName.getText().trim().isEmpty()) {
+          bSave.setDisable(true);
+        } else {
+          bSave.setDisable(false);
+        }
+      }
+    });
+
   }
 
   public void setClient(Client client) {
@@ -121,6 +155,10 @@ public class NovKorisnikController implements Initializable {
   }
 
   public void bSaveUser(ActionEvent actionEvent) {
+    if (tFullName.getText().trim().isEmpty()) {
+      AlertUser.warrning("GRESKA", "Korisnik nije snimljen!!!");
+      return;
+    }
 
     String formatedUserJbroj = String.format("%05d", freeID);
     jObj = new JSONObject();
@@ -175,29 +213,6 @@ public class NovKorisnikController implements Initializable {
     objMesta.put("action", "getMesta");
     objAdrese.put("action", "getAllAdrese");
     ////TODO autokomplete mesta and adrese
-        /*
-        //objMesta = client.send_object(objMesta);
-        //objAdrese = client.send_object(objAdrese);
-
-        ArrayList<Mesta> mestaArr = new ArrayList<>();
-        for(int i =0; i< objMesta.length(); i++){
-            JSONObject mestaObj = new JSONObject();
-            Mesta mesta = new Mesta();
-            mestaObj = objMesta.getJSONObject(String.valueOf(i));
-            mesta.setId(mestaObj.getInt("id"));
-            mesta.setBrojMesta(mestaObj.getString("brojMesta"));
-            mesta.setNazivMesta(mestaObj.getString("nazivMesta"));
-            mestaArr.add(mesta);
-        }
-
-        AutoCompletionBinding<Mesta> mestaAutoCompletionBinding = TextFields.bindAutoCompletion(tMesto, FXCollections.observableArrayList(mestaArr));
-        mestaAutoCompletionBinding.setOnAutoCompleted(new EventHandler<AutoCompletionBinding.AutoCompletionEvent<Mesta>>() {
-            @Override
-            public void handle(AutoCompletionBinding.AutoCompletionEvent<Mesta> event) {
-                String valuefromAutoCompletetion = event.getCompletion().getNazivMesta();
-            }
-        });
-        */
 
   }
 }

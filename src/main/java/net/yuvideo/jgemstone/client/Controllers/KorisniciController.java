@@ -258,10 +258,6 @@ public class KorisniciController implements Initializable {
       alert.setHeaderText("GREŠKA!");
       alert.initOwner(stage);
       alert.showAndWait();
-      System.out.println(alert.getButtonTypes());
-      if (alert.getResult() == ButtonType.YES) {
-        //do stuff
-      }
       return;
     }
     Users user = tUsers.getSelectionModel().getSelectedItem();

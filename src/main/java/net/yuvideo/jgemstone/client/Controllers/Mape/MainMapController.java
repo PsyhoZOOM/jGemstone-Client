@@ -6,32 +6,31 @@ import com.lynden.gmapsfx.javascript.event.GMapMouseEvent;
 import com.lynden.gmapsfx.javascript.event.MouseEventHandler;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
+import com.lynden.gmapsfx.javascript.object.InfoWindow;
+import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
 import com.lynden.gmapsfx.javascript.object.LatLong;
 import com.lynden.gmapsfx.javascript.object.MVCArray;
 import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
-import com.lynden.gmapsfx.service.directions.DirectionsService;
 import com.lynden.gmapsfx.shapes.Polyline;
 import com.lynden.gmapsfx.shapes.PolylineOptions;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import net.yuvideo.jgemstone.client.classes.Client;
 import netscape.javascript.JSObject;
@@ -53,6 +52,13 @@ public class MainMapController implements Initializable, MapComponentInitialized
   MVCArray mvcArray;
   boolean removeMarker = false;
   ArrayList<Marker> markerList = new ArrayList<>();
+  Model model = new Model();
+  private InfoWindow infoWindow;
+  private InfoWindowOptions infoWindowOptions;
+  private Map<String, Integer> mMarkers = new HashMap<String, Integer>();
+
+
+
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -88,6 +94,14 @@ public class MainMapController implements Initializable, MapComponentInitialized
           MarkerOptions markerOptions;
 
           Marker selectedItem = lView.getSelectionModel().getSelectedItem();
+          String position = String.valueOf(selectedItem.getJSObject().getMember("latLong"));
+          System.out.println(String.format("mOptions: %s, latLong: %s",
+              selectedItem.getJSObject().getMember("markerOptions"),
+              position
+          ));
+
+          JSObject jsObject = selectedItem.getJSObject();
+          System.out.println(jsObject.toString());
 
         }
       }
@@ -96,10 +110,14 @@ public class MainMapController implements Initializable, MapComponentInitialized
 
   }
 
+
+
   @Override
   public void mapInitialized() {
 
     mvcArray = new MVCArray();
+
+    infoWindow = new InfoWindow();
 
     latLong = new LatLong(44.378789, 21.417001);
     mapOptions = new MapOptions();
@@ -139,7 +157,21 @@ public class MainMapController implements Initializable, MapComponentInitialized
 
     });
 
-    runInBack();
+    if (model.isAlive()) {
+      model.interrupt();
+    }
+    model.start();
+
+    Stage window = (Stage) gMapView.getScene().getWindow();
+    window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+      @Override
+      public void handle(WindowEvent event) {
+        if (!model.isInterrupted()) {
+          model.shutDown();
+        }
+      }
+    });
+
   }
 
 
@@ -175,44 +207,32 @@ public class MainMapController implements Initializable, MapComponentInitialized
       Marker marker = new Marker(markerOptions);
       map.addMarker(marker);
       markerList.add(marker);
+      JSObject jsObject = markerOptions.getJSObject();
+      System.out.println(
+          String.format("Title: %s, Label: %s, Lat: %s, Long: %s, latLng: %s"
+              , jsObject.getMember("title")
+              , jsObject.getMember("label")
+              , jsObject.getMember("latitude")
+              , jsObject.getMember("longitude")
+              , jsObject.getMember("position"))
+      );
 
       map.addUIEventHandler(marker, UIEventType.click, (JSObject objec) -> {
         LatLong latLong3 = new LatLong((JSObject) objec.getMember("latLng"));
-        System.out.println(latLong.toString() + "JSOBje");
-        MarkerOptions markerOptions1 = new MarkerOptions();
-        markerOptions1.position(latLong3);
-        Marker mar = new Marker(markerOptions1);
         if (removeMarker) {
           map.removeMarker(marker);
         }
+        infoWindowOptions = new InfoWindowOptions();
+        infoWindowOptions.content(latLong3.toString());
+
+        infoWindow.open(map, marker);
+        infoWindow.setOptions(infoWindowOptions);
       });
     }
+
+
   }
 
-  public void runInBack() {
-    Task<Void> task = new Task<Void>() {
-      @Override
-      protected Void call() throws Exception {
-        while (true) {
-          Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-              reloadData(null);
-              System.out.println("UPDATED");
-              try {
-                Thread.sleep(1000);
-              } catch (InterruptedException e) {
-                e.printStackTrace();
-              }
-            }
-          });
-          return null;
-        }
-      }
-    };
-
-    task.run();
-  }
 
 
   public void showList(ActionEvent actionEvent) {
@@ -226,6 +246,36 @@ public class MainMapController implements Initializable, MapComponentInitialized
       removeMarker = true;
     } else {
       removeMarker = false;
+    }
+  }
+
+  public class Model extends Thread {
+
+    boolean run = true;
+
+    public Model() {
+      setDaemon(true);
+    }
+
+    public void shutDown() {
+      this.run = false;
+    }
+
+    @Override
+    public void run() {
+      while (run) {
+        Platform.runLater(new Runnable() {
+          @Override
+          public void run() {
+            reloadData(null);
+          }
+        });
+        try {
+          Thread.sleep(10000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
     }
   }
 }

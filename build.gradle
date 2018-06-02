@@ -6,21 +6,18 @@ mainClassName = 'net.yuvideo.jgemstone.client.ClientMain'
 
 repositories {
     mavenCentral()
-    flatDir {
-        dirs 'libs'
-    }
-            maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 
 }
 
 
-
+configurations(){
+    extraLibs
+}
 
 
 dependencies {
     compile group: 'net.sourceforge.javacsv', name: 'javacsv', version: '2.0'
     compile group: 'org.json', name: 'json', version: '20180130'
-    compile name: 'jfreesteel-1.0-20170108.172821-1'
     compile group: 'net.glxn', name: 'qrgen', version: '1.4'
     compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.8.11.2'
     compile group: 'com.jfoenix', name: 'jfoenix', version: '8.0.4'
@@ -28,7 +25,7 @@ dependencies {
     compile 'org.kordamp.ikonli:ikonli-materialdesign-pack:2.1.1'
     compile 'org.kordamp.ikonli:ikonli-elusive-pack:2.1.1'
     compile group: 'com.lynden', name: 'GMapsFX', version: '2.12.0'
-
+    configurations.compile.extendsFrom(configurations.extraLibs)
 
 
 
@@ -36,11 +33,8 @@ dependencies {
 
 
 jar{
-    configurations.compile.collect { it.isDirectory() ? it: zipTree(it)}
-    from(configurations.compile) {
-    }
-    manifest{
-        attributes("Main-Class": 'net.yuvideo.jgemstone.client.ClientMain')
+    from {
+        configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 
@@ -55,46 +49,11 @@ sourceSets {
     }
 }
 
-task fatJar(type: Jar) {
-    baseName = project.name + '-all'
-
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-buildscript {
-    dependencies {
-        classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.8.2'
-
-    }
-    repositories {
-        mavenLocal()
-        mavenCentral()
-
-    }
-}
-
-apply plugin: 'javafx-gradle-plugin'
-
-
-jfx {
-    // minimal requirement for jfxJar-task
-    verbose = true
-        jfxMainAppJarName = "jGemstone-Client.jar"
-    libFolderName = "lib"
-    vendor = "PsyhoZOOM"
-    appName = "jGemstone-Client"
-    mainClass = 'net.yuvideo.jgemstone.client.ClientMain'
-    deployDir = 'src/main/deploy'
-    needShortcut = true
 
 
 
-        libFolderName = "lib"
-    nativeOutputDir = "build/jfx/native"
-bundler = "linux.app"
 
-}
+
 
 
 

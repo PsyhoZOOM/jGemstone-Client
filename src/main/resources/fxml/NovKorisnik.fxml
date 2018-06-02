@@ -21,13 +21,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
+
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css"
-  xmlns="http://javafx.com/javafx/8.0.162"
+  xmlns="http://javafx.com/javafx/8.0.172"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.NovKorisnikController">
   <children>
     <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-      AnchorPane.topAnchor="0.0"
-      spacing="5.0">
+      AnchorPane.topAnchor="0.0" spacing="5.0">
       <children>
         <HBox VBox.vgrow="NEVER">
           <children>
@@ -35,7 +35,7 @@
               <items>
                 <Button mnemonicParsing="false" text="Zatvori" fx:id="bClose">
                   <graphic>
-                    <FontIcon iconLiteral="mdi-close" fill="white"/>
+                    <FontIcon fill="white" iconLiteral="mdi-close"/>
                   </graphic>
                 </Button>
                 <Pane HBox.hgrow="ALWAYS"/>
@@ -91,7 +91,7 @@
               </font>
             </Label>
             <Label GridPane.rowIndex="9" text="Ime i prezime:"/>
-            <Label GridPane.rowIndex="10" text="Dratum rođenja:"/>
+            <Label GridPane.rowIndex="10" text="Datum rođenja:"/>
             <Label GridPane.rowIndex="11" text="Mesto:"/>
             <Label GridPane.rowIndex="12" text="Adresa:"/>
             <Label GridPane.rowIndex="13" text="Poštanski broj:"/>
@@ -104,13 +104,16 @@
                 </Button>
               </children>
             </HBox>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="9" fx:id="tFullName"/>
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="10" fx:id="tDatumRodjenja"/>
             <BorderPane GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.rowSpan="3">
               <GridPane.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
               </GridPane.margin>
             </BorderPane>
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="9" fx:id="tFullName"/>
+            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="10" editable="false"
+              fx:id="tDatumRodjenja"/>
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="11" fx:id="tMesto"/>
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="12" fx:id="tAdresa"/>
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="13" fx:id="tPostBr"/>
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="14" fx:id="tBrLk"/>
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="15" fx:id="tJMBG"/>
@@ -129,8 +132,7 @@
             <Label GridPane.columnIndex="3" GridPane.rowIndex="2" text="Fiksni:"/>
             <Label GridPane.columnIndex="3" GridPane.rowIndex="3" text="Mobilni:"/>
             <Label GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="LEFT"
-              GridPane.rowIndex="4"
-              text="OSTALO:" underline="true">
+              GridPane.rowIndex="4" text="OSTALO:" underline="true">
               <font>
                 <Font name="System Bold" size="13.0"/>
               </font>
@@ -139,11 +141,9 @@
             <TextField GridPane.columnIndex="4" GridPane.rowIndex="2" fx:id="tFiksni"/>
             <TextField GridPane.columnIndex="4" GridPane.rowIndex="3" fx:id="tMobilni"/>
             <TextArea GridPane.columnIndex="4" GridPane.rowIndex="5" GridPane.rowSpan="2"
-              prefHeight="65.0"
-              prefWidth="229.0" wrapText="true" fx:id="tKomentar"/>
+              prefHeight="65.0" prefWidth="229.0" wrapText="true" fx:id="tKomentar"/>
             <ImageView GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3"
-              GridPane.rowSpan="4"
-              GridPane.valignment="TOP" fitHeight="150.0" fitWidth="160.0"
+              GridPane.rowSpan="4" GridPane.valignment="TOP" fitHeight="150.0" fitWidth="160.0"
               pickOnBounds="true" preserveRatio="true" fx:id="imgUserPhoto">
               <image>
                 <Image url="@../images/Unknown-person.gif"/>
@@ -154,8 +154,6 @@
                 <Font name="System Bold" size="13.0"/>
               </font>
             </Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="11" fx:id="tMesto"/>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="12" fx:id="tAdresa"/>
           </children>
           <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

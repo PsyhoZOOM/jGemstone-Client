@@ -3,6 +3,7 @@ package net.yuvideo.jgemstone.client.Controllers;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -10,6 +11,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+
+
+import javax.security.cert.CertificateException;
+import javax.security.cert.X509Certificate;
 import javax.smartcardio.ATR;
 import javax.smartcardio.Card;
 import javax.smartcardio.CardChannel;
@@ -40,6 +55,7 @@ public class QrScannerController implements Initializable {
   }
 
   public void scann(ActionEvent event) throws CardException {
+    /*
     System.setProperty("sun.security.smartcardio.library", "libpcsclite.so.1");
 
     lnfo.setText("");
@@ -87,6 +103,7 @@ public class QrScannerController implements Initializable {
     }
 
     card.disconnect(false);
+    */
 
   }
 
@@ -104,5 +121,7 @@ public class QrScannerController implements Initializable {
 
 
   }
+
+
 }
 
