@@ -8,29 +8,28 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
+
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
-  minHeight="-Infinity"
-  minWidth="-Infinity" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
+  minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/Main.css"
+  xmlns="http://javafx.com/javafx/8.0.172"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.BoxPaketController">
   <children>
     <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-      AnchorPane.topAnchor="0.0"
-      layoutX="5.0"
-      layoutY="-112.0" spacing="5.0">
+      AnchorPane.topAnchor="0.0" layoutX="5.0" layoutY="-112.0" spacing="5.0">
       <children>
         <HBox spacing="5.0">
           <children>
             <Button mnemonicParsing="false" onAction="#novBox" text="Nov" fx:id="bNov">
               <graphic>
-                <FontIcon iconLiteral="mdi-folder-plus" fill="white" />
+                <FontIcon fill="white" iconLiteral="mdi-folder-plus"/>
               </graphic>
             </Button>
             <Button mnemonicParsing="false" onAction="#izmeniBox" text="Izmeni" fx:id="bIzmeni">
               <graphic>
-                <FontIcon iconLiteral="eli-edit" fill="white" />
+                <FontIcon fill="white" iconLiteral="eli-edit"/>
               </graphic>
             </Button>
-            <Button disable="true" mnemonicParsing="false" text="Izbriši" fx:id="bIzbrisi">
+            <Button mnemonicParsing="false" onAction="#deletePaket" text="Izbriši" fx:id="bIzbrisi">
               <graphic>
                 <FontIcon fill="white" iconLiteral="eli-remove-circle" />
               </graphic>

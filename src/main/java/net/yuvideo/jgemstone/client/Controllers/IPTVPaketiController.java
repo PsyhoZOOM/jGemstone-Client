@@ -16,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.IPTVPaketi;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
@@ -217,4 +218,22 @@ public class IPTVPaketiController implements Initializable {
   }
 
 
+  public void deletePaket(ActionEvent actionEvent) {
+    if (tblPaketiIPTV.getSelectionModel().getSelectedIndex() == -1) {
+      return;
+    }
+
+    JSONObject obj = new JSONObject();
+    obj.put("action", "delete_IPTV_paket");
+    obj.put("id", tblPaketiIPTV.getSelectionModel().getSelectedItem().getId());
+    obj = client.send_object(obj);
+    if (obj.has("ERROR")) {
+      AlertUser.error("GRESKA", obj.getString("ERROR"));
+    } else {
+      AlertUser.info("PAKET IZBRISA", String.format("Paket %s je izbrisan!",
+          tblPaketiIPTV.getSelectionModel().getSelectedItem().getName()));
+      tblPaketiIPTV.getItems().remove(tblPaketiIPTV.getSelectionModel().getSelectedItem());
+    }
+
+  }
 }

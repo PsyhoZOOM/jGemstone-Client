@@ -86,12 +86,10 @@ public class MagacinPreviewController implements Initializable {
       return;
     }
 
-    Optional<ButtonType> alertUser = AlertUser.yesNo("BRISANJE MAGACINA",
+    if (AlertUser.yesNo("BRISANJE MAGACINA",
         String.format(
             "Svi Artikli iz magacina %s ce biti obrisani!!! \n Da li ste sigurni da želite da izbrišete magacin?",
-            tblMagacini.getSelectionModel().getSelectedItem().getNaziv()));
-
-    if (AlertUser.NE == alertUser.get()) {
+            tblMagacini.getSelectionModel().getSelectedItem().getNaziv()))) {
       return;
     }
 

@@ -205,9 +205,7 @@ public class MestaController implements Initializable {
       return;
     }
 
-    Optional<ButtonType> areYouSure = AlertUser
-        .yesNo("BRISANJE ADERSE", "Da li ste sigurni da želite da izbrišete adresu?");
-    if (AlertUser.NE == areYouSure.get()) {
+    if (!AlertUser.yesNo("BRISANJE ADERSE", "Da li ste sigurni da želite da izbrišete adresu?")) {
       return;
     }
 

@@ -340,11 +340,9 @@ public class ArtikliMainController implements Initializable {
       return;
     }
 
-    Optional<ButtonType> upozorenje = AlertUser
-        .yesNo("UPOZORENJE", String.format("Da li ste sigurni da zelite da izbrisete Artikal %s",
-            tblArtikli.getSelectionModel().getSelectedItem().getNaziv()));
-
-    if (AlertUser.NE == upozorenje.get()) {
+    if (!AlertUser
+        .yesNo("UPOZORENJE", String.format("Da li ste sigurni da želite da izbrišete artikal %s",
+            tblArtikli.getSelectionModel().getSelectedItem().getNaziv()))) {
       return;
     }
 

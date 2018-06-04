@@ -83,9 +83,8 @@ public class UgovoriController implements Initializable {
       return;
     }
 
-    Optional<ButtonType> brisanje_ugovora = AlertUser
-        .yesNo("Brisanje ugovora", "Da li ste sigurni da želite da izbrišete template ugovora?");
-    if (brisanje_ugovora.get().equals(AlertUser.NE)) {
+    if (!AlertUser
+        .yesNo("Brisanje ugovora", "Da li ste sigurni da želite da izbrišete template ugovora?")) {
       return;
     }
 

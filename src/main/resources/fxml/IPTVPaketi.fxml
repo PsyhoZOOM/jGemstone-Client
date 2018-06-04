@@ -19,7 +19,7 @@
       <children>
         <HBox VBox.vgrow="NEVER" alignment="CENTER_RIGHT" spacing="5.0">
           <children>
-            <Button disable="true" mnemonicParsing="false" text="Izbrisi" fx:id="bIzbrisi">
+            <Button mnemonicParsing="false" onAction="#deletePaket" text="Izbrisi" fx:id="bIzbrisi">
               <graphic>
                 <FontIcon iconLiteral="eli-remove-circle" fill="white" />
               </graphic>

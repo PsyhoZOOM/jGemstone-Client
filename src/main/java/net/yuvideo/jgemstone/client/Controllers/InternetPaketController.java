@@ -26,7 +26,7 @@ import org.json.JSONObject;
  */
 public class InternetPaketController implements Initializable {
 
-  public TableView tblInternetPaket;
+  public TableView<InternetPaketi> tblInternetPaket;
   public TableColumn cNaziv;
   public TableColumn cBrzina;
   public TableColumn cCena;
@@ -167,4 +167,22 @@ public class InternetPaketController implements Initializable {
 
   }
 
+  public void izbrisiPaket(ActionEvent actionEvent) {
+    if (tblInternetPaket.getSelectionModel().getSelectedIndex() == -1) {
+      return;
+    }
+
+    JSONObject obj = new JSONObject();
+    obj.put("action", "delete_internet_paket");
+    obj.put("id", tblInternetPaket.getSelectionModel().getSelectedItem().getId());
+    obj = client.send_object(obj);
+    if (obj.has("ERROR")) {
+      AlertUser.error("GRESKA", obj.getString("ERROR"));
+    } else {
+      AlertUser.info("PAKET IZBRISAN", String.format("Paket %s je izbrisan!",
+          tblInternetPaket.getSelectionModel().getSelectedItem().getNaziv()));
+      tblInternetPaket.getItems().remove(tblInternetPaket.getSelectionModel().getSelectedItem());
+    }
+
+  }
 }

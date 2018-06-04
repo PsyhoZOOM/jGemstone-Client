@@ -46,7 +46,7 @@ public class AlertUser {
 
   }
 
-  public static Optional<ButtonType> yesNo(String title, String content) {
+  public static boolean yesNo(String title, String content) {
     alert = new Alert(Alert.AlertType.WARNING, content, NE, DA);
     alert.setHeaderText(title);
     alert.setContentText(content);
@@ -55,7 +55,12 @@ public class AlertUser {
         .add(ClassLoader.getSystemResource("css/Main.css").toExternalForm());
 
     Optional<ButtonType> result = alert.showAndWait();
-    return result;
+
+    if (result.isPresent() && result.get() == AlertUser.DA) {
+      return true;
+    }
+
+    return false;
 
   }
 }

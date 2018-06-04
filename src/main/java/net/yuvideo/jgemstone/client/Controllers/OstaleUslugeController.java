@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
 import net.yuvideo.jgemstone.client.classes.OstaleUsluge;
@@ -130,5 +131,27 @@ public class OstaleUslugeController implements Initializable {
     editServiceController.setData();
     editInTerface.getStage().showAndWait();
     setData();
+  }
+
+  public void deletePaket(ActionEvent actionEvent) {
+    if (tblOstaleUsluge.getSelectionModel().getSelectedIndex() == -1) {
+      return;
+    }
+    if (!AlertUser.yesNo("BRISANJE PAKETA", "Da li ste sigurni da želite da izbrištete?")) {
+      return;
+    }
+
+    JSONObject obj = new JSONObject();
+    obj.put("action", "delete_OstaleUsluge_paket");
+    obj.put("id", tblOstaleUsluge.getSelectionModel().getSelectedItem().getId());
+    obj = client.send_object(obj);
+    if (obj.has("ERROR")) {
+      AlertUser.error("GRESKA", obj.getString("ERROR"));
+    } else {
+      AlertUser.info("PAKET IZBRISAN", String.format("Paket %s je izbrisan!",
+          tblOstaleUsluge.getSelectionModel().getSelectedItem().getNazivUsluge()));
+      tblOstaleUsluge.getItems().remove(tblOstaleUsluge.getSelectionModel().getSelectedItem());
+    }
+
   }
 }

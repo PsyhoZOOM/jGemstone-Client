@@ -12,6 +12,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
 import net.yuvideo.jgemstone.client.classes.digitalniTVPaket;
@@ -24,7 +25,7 @@ import org.json.JSONObject;
 public class DigitalniTVPaketController implements Initializable {
 
   public Client client;
-  public TableView tblDTV;
+  public TableView<digitalniTVPaket> tblDTV;
   public TableColumn cNaziv;
   public TableColumn cPaket;
   public TableColumn cCena;
@@ -154,5 +155,22 @@ public class DigitalniTVPaketController implements Initializable {
     editDtvController.show_data();
     editDtvInterface.getStage().showAndWait();
     showData();
+  }
+
+  public void izbrisiPaket(ActionEvent actionEvent) {
+    if (tblDTV.getSelectionModel().getSelectedIndex() == -1) {
+      return;
+    }
+    JSONObject obj = new JSONObject();
+    obj.put("action", "delete_dtv_paket");
+    obj.put("id", tblDTV.getSelectionModel().getSelectedItem().getId());
+    obj = client.send_object(obj);
+    if (obj.has("ERROR")) {
+      AlertUser.error("GRESKA", obj.getString("ERROR"));
+    } else {
+      AlertUser.info("PAKET IZBRISAN", String.format("Paket %s je izbrisan!",
+          tblDTV.getSelectionModel().getSelectedItem().getNaziv()));
+      tblDTV.getItems().remove(tblDTV.getSelectionModel().getSelectedItem());
+    }
   }
 }

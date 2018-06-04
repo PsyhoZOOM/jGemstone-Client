@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -205,4 +206,21 @@ public class BoxPaketController implements Initializable {
     set_data();
   }
 
+  public void deletePaket(ActionEvent actionEvent) {
+    if (tblBox.getSelectionModel().getSelectedIndex() == -1) {
+      return;
+    }
+    JSONObject object = new JSONObject();
+    object.put("action", "delete_box_paket");
+    object.put("id", tblBox.getSelectionModel().getSelectedItem().getId());
+    object = client.send_object(object);
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA", object.getString("ERROR"));
+    } else {
+      AlertUser.info("PAKET IZBRISAN", String.format("Paket %s je izbrisan!",
+          tblBox.getSelectionModel().getSelectedItem().getNaziv()));
+      tblBox.getItems().remove(tblBox.getSelectionModel().getSelectedItem());
+
+    }
+  }
 }

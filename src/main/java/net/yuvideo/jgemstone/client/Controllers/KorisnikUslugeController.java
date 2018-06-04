@@ -1145,10 +1145,9 @@ public class KorisnikUslugeController implements Initializable {
       jObj.put(String.valueOf(i), srvObj);
     }
 
-    Optional<ButtonType> btype = AlertUser.yesNo("BRISANJE USLUGE KORISNIKA",
+    if (!AlertUser.yesNo("BRISANJE USLUGE KORISNIKA",
         "Da li ste sigurni da želite da izbrišite uslugu" + tblServices.getSelectionModel()
-            .getSelectedItem().getValue().getNaziv());
-    if (btype.isPresent() && btype.get() == AlertUser.NE) {
+            .getSelectedItem().getValue().getNaziv())) {
       return;
     }
 

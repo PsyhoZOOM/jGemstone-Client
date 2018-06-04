@@ -1,6 +1,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -167,4 +168,21 @@ public class FiksnaTelefonijaPaket implements Initializable {
     setTable();
   }
 
+  public void deletePaket(ActionEvent actionEvent) {
+    if (tblPaketi.getSelectionModel().getSelectedIndex() == -1) {
+      return;
+    }
+
+    JSONObject obj = new JSONObject();
+    obj.put("action", "delete_fiksna_paket");
+    obj.put("id", tblPaketi.getSelectionModel().getSelectedItem().getId());
+    obj = client.send_object(obj);
+    if (obj.has("ERROR")) {
+      AlertUser.error("GRESKA", obj.getString("ERROR"));
+    } else {
+      AlertUser.info("PAKET IZBRISAN", String.format("Paket %s je izbrisan",
+          tblPaketi.getSelectionModel().getSelectedItem().getNaziv()));
+      tblPaketi.getItems().remove(tblPaketi.getSelectionModel().getSelectedItem());
+    }
+  }
 }
