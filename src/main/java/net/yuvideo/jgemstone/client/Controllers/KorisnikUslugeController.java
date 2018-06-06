@@ -1073,8 +1073,8 @@ public class KorisnikUslugeController implements Initializable {
       jObj.put("tariff_plan", cmbPaketBOX.getValue().getIPTV_naziv());
       jObj.put("password", tPasswordBox.getText());
       jObj.put("IPTV_Service_ID", cmbPaketBOX.getValue().getIPTV());
-      jObj.put("opis", tOpisBox.getText());
     }
+    jObj.put("opis", tOpisBox.getText());
 
     jObj = client.send_object(jObj);
 

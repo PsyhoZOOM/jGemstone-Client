@@ -203,32 +203,16 @@ public class KorisniciController implements Initializable {
   }
 
   public void mIzbrisiKorisnika(ActionEvent actionEvent) {
-    Alert alert;
     if (tUsers.getSelectionModel().getSelectedIndex() == -1) {
       //Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete " + "no UserData selected" + " ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-      alert = new Alert(Alert.AlertType.WARNING, "Nije izabran ni jedan korisnik", ButtonType.OK);
-      alert.setTitle("Upozorenje");
-      alert.setHeaderText("GREŠKA!");
-      alert.initOwner(stage);
-      alert.showAndWait();
-      System.out.println(alert.getButtonTypes());
-      if (alert.getResult() == ButtonType.YES) {
-        //do stuff
-      }
+      AlertUser.warrning("UPOZORENJE", "Nije izabran ni jedan korisnik!");
       return;
     } else {
-      ButtonType bYES = new ButtonType("Da", ButtonBar.ButtonData.YES);
-      ButtonType bNO = new ButtonType("NE", ButtonBar.ButtonData.NO);
 
-      alert = new Alert(Alert.AlertType.CONFIRMATION,
-          "Da li ste sigurni da zelite da izbrišete korisnika? \n" +
-              "Svi podaci, servisi, uplate, oprema, fakture, ", bYES, bNO);
-      alert.setTitle("Upozorenje");
-      alert.setHeaderText("Brisanje korisnika!");
-      alert.initOwner(stage);
-      alert.showAndWait();
-      System.out.println(alert.getButtonTypes());
-      if (alert.getResult() == bNO) {
+      boolean potvrda_brisanja = AlertUser
+          .yesNo("POTVRDA BRISANJA", "Da li ste sigurni da želite da izbrišete koriznika? \n"
+              + " i svi podaci, servisi, uplate, oprema, fakture.. ko je pripadaju korisniku? ");
+      if (!potvrda_brisanja) {
         return;
       }
     }
@@ -315,15 +299,7 @@ public class KorisniciController implements Initializable {
 
   public void showUplate(ActionEvent actionEvent) {
     if (tUsers.getSelectionModel().getSelectedIndex() == -1) {
-      Alert alert = new Alert(Alert.AlertType.WARNING, "Nije izabran ni jedan korisnik za uplate",
-          OK);
-      alert.setTitle("Upozorenje");
-      alert.setHeaderText("GREŠKA!");
-      alert.initOwner(stage);
-      alert.showAndWait();
-      if (alert.getResult() == ButtonType.YES) {
-        //do stuff
-      }
+      AlertUser.warrning("UPOZORENJE", "Nije izabran ni jedan korisnik za uplate!");
       return;
     }
     Users user = tUsers.getSelectionModel().getSelectedItem();
@@ -341,12 +317,7 @@ public class KorisniciController implements Initializable {
 
   public void showFakture(ActionEvent actionEvent) {
     if (tUsers.getSelectionModel().getSelectedIndex() == -1) {
-      Alert alert = new Alert(Alert.AlertType.WARNING, "Nije izabran ni jedan korisnik za fakture",
-          OK);
-      alert.setTitle("Upozorenje");
-      alert.setHeaderText("GREŠKA!");
-      alert.initOwner(stage);
-      alert.showAndWait();
+      AlertUser.warrning("GRESKA", "Nije izabran ni jedan korisnik za fakture!");
       return;
     }
     Users user = tUsers.getSelectionModel().getSelectedItem();

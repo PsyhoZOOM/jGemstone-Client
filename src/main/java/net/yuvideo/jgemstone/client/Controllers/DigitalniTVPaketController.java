@@ -1,6 +1,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -34,6 +35,7 @@ public class DigitalniTVPaketController implements Initializable {
   public Button bEdit;
   public TableColumn cPDV;
   public TableColumn cCenaPDV;
+  private final DecimalFormat df = new DecimalFormat("#,###,###,##0.00");
   URL location;
   ResourceBundle resources;
 
@@ -57,9 +59,9 @@ public class DigitalniTVPaketController implements Initializable {
       protected void updateItem(Double dbl, boolean bool) {
         super.updateItem(dbl, bool);
         if (bool) {
-          setText(null);
+          setText("");
         } else {
-          setText(String.valueOf(dbl));
+          setText(df.format(dbl));
         }
       }
     });
@@ -71,7 +73,7 @@ public class DigitalniTVPaketController implements Initializable {
         if (empty || item == null) {
           setText("");
         } else {
-          setText(String.valueOf(item));
+          setText(df.format(item));
         }
       }
     });
@@ -83,7 +85,7 @@ public class DigitalniTVPaketController implements Initializable {
         if (empty || item == null) {
           setText("");
         } else {
-          setText(String.valueOf(item));
+          setText(df.format(item));
         }
       }
     });

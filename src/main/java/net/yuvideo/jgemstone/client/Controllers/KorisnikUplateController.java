@@ -1,5 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import java.io.DataOutput;
 import java.io.File;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -9,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ResourceBundle;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -97,6 +99,8 @@ public class KorisnikUplateController implements Initializable {
   private TreeTableColumn<Uplate, String> cZaMesec;
   @FXML
   private TreeTableColumn<Uplate, Double> cPopust;
+  @FXML
+  public TreeTableColumn<Uplate, Double> cOsnovica;
   @FXML
   private TreeTableColumn<Uplate, Double> cPDV;
   @FXML
@@ -197,6 +201,7 @@ public class KorisnikUplateController implements Initializable {
     cZaduzio.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, String>("zaduzenOd"));
     cRazduzio.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, String>("operater"));
     cPDV.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, Double>("pdv"));
+    cOsnovica.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, Double>("osnovica"));
 
     cUplaceno.setCellFactory(
         tc ->
@@ -204,7 +209,7 @@ public class KorisnikUplateController implements Initializable {
               protected void updateItem(Double uplaceno, boolean bool) {
                 super.updateItem(uplaceno, bool);
                 if (bool || uplaceno == null) {
-                  setText(null);
+                  setText("");
                 } else {
                   TreeTableRow<Uplate> currentRow = getTreeTableRow();
                   Uplate uplate = currentRow.getItem();
@@ -212,8 +217,9 @@ public class KorisnikUplateController implements Initializable {
                     return;
                   }
                   double upl = uplate.getUplaceno();
-                  double dug = uplate.getDug();
+                  double dug = uplate.getZaUplatu();
                   setText(df.format(uplaceno));
+                  System.out.println(String.format("Uplaceno: %f, ZaUplatu: %f", upl, dug));
                   if (upl == 0) {
                     currentRow.setStyle(
                         ""
@@ -250,7 +256,7 @@ public class KorisnikUplateController implements Initializable {
                 super.updateItem(item, empty);
 
                 if (empty) {
-                  setText(null);
+                  setText("");
                 } else {
                   setText(String.valueOf(item));
                 }
@@ -263,7 +269,7 @@ public class KorisnikUplateController implements Initializable {
               protected void updateItem(Double uplata, boolean bool) {
                 super.updateItem(uplata, bool);
                 if (bool || uplata == null) {
-                  setText(null);
+                  setText("");
                 } else {
                   setText(df.format(uplata));
                 }
@@ -282,6 +288,18 @@ public class KorisnikUplateController implements Initializable {
                 }
               }
             });
+    cOsnovica.setCellFactory(
+        tc -> new TreeTableCell<Uplate, Double>() {
+          protected void updateItem(Double uplata, boolean bool) {
+            super.updateItem(uplata, bool);
+            if (bool || uplata == null) {
+              setText("");
+            } else {
+              setText(df.format(uplata));
+            }
+          }
+
+        });
 
     cZaUplatu.setCellFactory(
         tc ->
@@ -289,7 +307,7 @@ public class KorisnikUplateController implements Initializable {
               protected void updateItem(Double zaUplatu, boolean bool) {
                 super.updateItem(zaUplatu, bool);
                 if (bool || zaUplatu == null) {
-                  setText(null);
+                  setText("");
                 } else {
                   setText(df.format(zaUplatu));
                 }
@@ -408,6 +426,17 @@ public class KorisnikUplateController implements Initializable {
                 }
               }
             });
+
+    tKolicina.textProperty().addListener(new ChangeListener<String>() {
+      @Override
+      public void changed(ObservableValue<? extends String> observable, String oldValue,
+          String newValue) {
+        if (newValue == null || newValue.isEmpty()) {
+          return;
+        }
+        calculateCenaPDV(tCenaCustom.getText(), tPDVCustom.getText());
+      }
+    });
 
     tCenaCustom
         .textProperty()
@@ -650,18 +679,19 @@ public class KorisnikUplateController implements Initializable {
       uplata.setCena(uplataObj.getDouble("cena"));
       uplata.setDatumUplate(uplataObj.getString("datumUplate"));
       uplata.setKolicina(uplataObj.getInt("kolicina"));
+      uplata.setOsnovica(uplataObj.getDouble("osnovica"));
       uplata.setDug(uplataObj.getDouble("dug"));
       uplata.setPdv(uplataObj.getDouble("pdv"));
       uplata.setPopust(uplataObj.getDouble("popust"));
       dug = dug + uplataObj.getDouble("dug");
       uplata.setUplaceno(uplataObj.getDouble("uplaceno"));
-      dug = dug - uplataObj.getDouble("uplaceno");
       uplata.setOperater(uplataObj.getString("operater"));
       uplata.setZaMesec(uplataObj.getString("zaMesec"));
       uplata.setZaduzenOd(uplataObj.getString("zaduzenOd"));
       uplata.setSkipProduzenje(uplataObj.getBoolean("skipProduzenje"));
       uplata.setIdentification(uplataObj.getString("identification"));
       uplata.setHaveFIX(uplataObj.getBoolean("haveFIX"));
+      uplata.setZaUplatu(uplataObj.getDouble("zaUplatu"));
       uplate.add(uplata);
     }
     return uplate;
@@ -942,7 +972,16 @@ public class KorisnikUplateController implements Initializable {
     printRacun.showPreview = true;
     PrinterJob printerJob = PrinterJob.createPrinterJob();
     Window win = bPrikaziRacun.getScene().getWindow();
-    boolean b = printerJob.showPrintDialog(win);
+    boolean b = false;
+    try {
+      b = printerJob.showPrintDialog(win);
+    } catch (NullPointerException e) {
+      if (printerJob == null) {
+        AlertUser.error("GRESKA", "Nema štampača");
+      }
+      e.printStackTrace();
+    }
+
     if (!b) {
       return;
     }

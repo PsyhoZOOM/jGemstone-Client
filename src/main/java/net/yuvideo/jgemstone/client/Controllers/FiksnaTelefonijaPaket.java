@@ -2,6 +2,7 @@ package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
 import java.nio.file.Path;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -41,6 +42,7 @@ public class FiksnaTelefonijaPaket implements Initializable {
   private ResourceBundle resources;
   private URL location;
   private JSONObject jObj;
+  private static DecimalFormat df = new DecimalFormat("#,###,###,##0.00");
 
 
   @Override
@@ -62,9 +64,9 @@ public class FiksnaTelefonijaPaket implements Initializable {
               protected void updateItem(Double item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) {
-                  setText(null);
+                  setText("");
                 } else {
-                  setText(String.valueOf(item));
+                  setText(df.format(item));
                 }
 
               }
@@ -81,9 +83,9 @@ public class FiksnaTelefonijaPaket implements Initializable {
               protected void updateItem(Double item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) {
-                  setText(null);
+                  setText("");
                 } else {
-                  setText(String.valueOf(item));
+                  setText(df.format(item));
                 }
               }
             };
@@ -101,7 +103,7 @@ public class FiksnaTelefonijaPaket implements Initializable {
                 if (empty) {
                   setText("");
                 } else {
-                  setText(String.valueOf(item));
+                  setText(df.format(item));
                 }
               }
             };

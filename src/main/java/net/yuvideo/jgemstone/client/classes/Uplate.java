@@ -24,6 +24,7 @@ public class Uplate implements Serializable, Cloneable {
   double dug;
   String zaMesec;
   double pdv;
+  double osnovica;
   String mestoUplate;
   String zaduzenOd;
   String napomena;
@@ -246,6 +247,14 @@ public class Uplate implements Serializable, Cloneable {
 
   public void setKolicina(int kolicina) {
     this.kolicina = kolicina;
+  }
+
+  public double getOsnovica() {
+    return osnovica;
+  }
+
+  public void setOsnovica(double osnovica) {
+    this.osnovica = osnovica;
   }
 }
 

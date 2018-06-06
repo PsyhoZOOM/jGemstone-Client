@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -16,7 +17,7 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
   minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0"
-  stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.171"
+  stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.172"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.OptionsController">
   <children>
     <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -187,6 +188,51 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                       </padding>
                     </HBox>
+                  </children>
+                </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="DTV Crypt" fx:id="tabDTV">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" fillWidth="false"
+                      layoutX="290.0" layoutY="102.0" prefHeight="717.0" prefWidth="1260.0"
+                      spacing="20.0">
+                      <children>
+                        <JFXTextField labelFloat="true" promptText="UDP send timeout"
+                          fx:id="tUDPTimeout"/>
+                        <JFXTextField labelFloat="true" promptText="HOST/IP" fx:id="tDTVCryptHOST"/>
+                        <JFXTextField labelFloat="true" promptText="PORT" fx:id="tDTVCryptPORT"/>
+                      </children>
+                      <padding>
+                        <Insets bottom="5.0" left="20.0" right="5.0" top="20.0"/>
+                      </padding>
+                    </VBox>
+                  </children>
+                </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Salker/Ministra" fx:id="tabStalMin">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" fillWidth="false"
+                      layoutX="239.0" layoutY="179.0" prefHeight="717.0" prefWidth="1260.0"
+                      spacing="20.0">
+                      <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                      </padding>
+                      <children>
+                        <JFXTextField labelFloat="true" prefWidth="300.0" promptText="API URL"
+                          fx:id="tStalkerApiUrl"/>
+                        <JFXTextField labelFloat="true" prefWidth="300.0" promptText="API UserName"
+                          fx:id="tStalkerApiUserName"/>
+                        <JFXPasswordField promptText="API Password" fx:id="tStalkerApiPass"/>
+                      </children>
+                    </VBox>
                   </children>
                 </AnchorPane>
               </content>

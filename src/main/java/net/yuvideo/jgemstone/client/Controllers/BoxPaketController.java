@@ -1,6 +1,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -48,6 +49,7 @@ public class BoxPaketController implements Initializable {
   private URL location;
   private ResourceBundle resource;
   private JSONObject jObj;
+  private DecimalFormat df = new DecimalFormat("###,###,###,##0.00");
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -63,6 +65,7 @@ public class BoxPaketController implements Initializable {
     cPDV.setCellValueFactory(new PropertyValueFactory<BoxPaket, Double>("pdv"));
     cCenaPDV.setCellValueFactory(new PropertyValueFactory<BoxPaket, Double>("cenaPDV"));
 
+
     cCena
         .setCellFactory(new Callback<TableColumn<BoxPaket, Double>, TableCell<BoxPaket, Double>>() {
           @Override
@@ -74,7 +77,7 @@ public class BoxPaketController implements Initializable {
                 if (empty) {
                   setText("");
                 } else {
-                  setText(String.valueOf(item));
+                  setText(df.format(item));
                 }
               }
 
@@ -92,7 +95,7 @@ public class BoxPaketController implements Initializable {
             if (empty) {
               setText("");
             } else {
-              setText(String.valueOf(item));
+              setText(df.format(item));
             }
           }
 
@@ -111,7 +114,7 @@ public class BoxPaketController implements Initializable {
                 if (empty) {
                   setText("");
                 } else {
-                  setText(String.valueOf(item));
+                  setText(df.format(item));
                 }
               }
 

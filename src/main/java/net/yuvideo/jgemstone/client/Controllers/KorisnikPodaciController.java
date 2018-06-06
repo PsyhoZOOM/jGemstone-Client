@@ -342,6 +342,8 @@ public class KorisnikPodaciController implements Initializable {
     tAdresaRacuna.setText(user.getAdresaRacuna());
     taKomentar.setText(user.getKomentar());
 
+    tEmail.setText(user.getEmail());
+
     //FIRMA
     chkFirma.setSelected(user.isFirma());
     tNazivFirme.setText(user.getNazivFirme());

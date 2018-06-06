@@ -16,7 +16,10 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikPodaciController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
+  minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0"
+  stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.172"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikPodaciController">
   <children>
     <GridPane hgap="5.0" stylesheets="@../css/Main.css" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <columnConstraints>
@@ -54,7 +57,7 @@
         </Label>
         <Label text="Ime i Prezime: " GridPane.rowIndex="1" />
         <Label text="Datum rođenja:" GridPane.rowIndex="2" />
-        <Label text="Broj lične karte:" GridPane.rowIndex="3" />
+        <Label GridPane.rowIndex="3" text="Broj lične karte/Identifikacija:"/>
         <Label text="JMBG:" GridPane.rowIndex="4" />
         <Label text="Mesto:" GridPane.rowIndex="5" />
         <Label text="Adresa:" GridPane.rowIndex="6" />
@@ -100,6 +103,7 @@
         <TextField fx:id="tAdresaUslugeBroj" maxWidth="80.0" promptText="000" GridPane.columnIndex="4" GridPane.rowIndex="4" />
         <TextField fx:id="tMestoRacuna" promptText="12000 Petrovac na Mlavi" GridPane.columnIndex="4" GridPane.rowIndex="7" />
         <TextField fx:id="tAdresaRacuna" promptText="Bate Bulic 22/8" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="12" fx:id="tEmail"/>
         <TextArea GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="13"
           GridPane.rowSpan="2" promptText="Komentar" wrapText="true" fx:id="taKomentar"/>
         <Button GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="15"
@@ -124,20 +128,21 @@
         <Label text="Adresa firme:" GridPane.columnIndex="5" GridPane.rowIndex="9" />
         <TextField fx:id="tNazivFirme" promptText="Naziv firme" GridPane.columnIndex="6" GridPane.rowIndex="1" />
         <TextField fx:id="tKontaktOsoba" promptText="Kontakt osoba" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+        <TextField GridPane.columnIndex="6" GridPane.rowIndex="3" promptText="Telefon kontakt osobe"
+          fx:id="tKontaktOsobaTel"/>
         <TextField fx:id="tKodBanke" promptText="kodBanke" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+        <TextField GridPane.columnIndex="6" GridPane.rowIndex="5" promptText="Tekući račun"
+          fx:id="tTekuciRacun"/>
         <TextField fx:id="tPIB" promptText="PIB" GridPane.columnIndex="6" GridPane.rowIndex="6" />
         <TextField fx:id="tMaticniBroj" promptText="Matični broj" GridPane.columnIndex="6" GridPane.rowIndex="7" />
         <TextField fx:id="tFAX" promptText="Fax" GridPane.columnIndex="6" GridPane.rowIndex="8" />
         <TextField fx:id="tAdresaFirme" promptText="Adresa Firme" GridPane.columnIndex="6" GridPane.rowIndex="9" />
-        <Label text="Tel. Kontakt osobe:" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-        <TextField fx:id="tKontaktOsobaTel" promptText="Telefon kontakt osobe" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-        <Label text="Tekući račun:" GridPane.columnIndex="5" GridPane.rowIndex="5" />
-        <TextField fx:id="tTekuciRacun" promptText="Tekući račun" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-        <Label GridPane.rowIndex="12" text="E-Mail"/>
-        <TextField GridPane.columnIndex="1" GridPane.rowIndex="12" fx:id="tEmail"/>
-        <Label GridPane.columnIndex="5" GridPane.rowIndex="10" text="Mesto firme:"/>
         <TextField GridPane.columnIndex="6" GridPane.rowIndex="10" promptText="Mesto Firme"
           fx:id="tMestoFirme"/>
+        <Label text="Tel. Kontakt osobe:" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+        <Label text="Tekući račun:" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+        <Label GridPane.rowIndex="12" text="E-Mail"/>
+        <Label GridPane.columnIndex="5" GridPane.rowIndex="10" text="Mesto firme:"/>
       </children>
       <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

@@ -25,7 +25,7 @@ public class FirmaSettings implements Serializable{
 
   public FirmaSettings(Client client) {
     jsonObject = new JSONObject();
-    jsonObject.put("action", "get_FIRMA_OPTIONS");
+    jsonObject.put("action", "GET_OPTIONS");
     jsonObject = client.send_object(jsonObject);
     if(jsonObject.has("ERROR")){
       AlertUser.error("GRESKA", jsonObject.getString("ERROR"));

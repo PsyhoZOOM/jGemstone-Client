@@ -26,6 +26,14 @@ public class NewInterface {
   private String resourceFXML;
   private ResourceBundle resources;
 
+  public NewInterface(String title, boolean decorated, String resourceFXML,
+      ResourceBundle resources) {
+    this.title = title;
+    this.decorated = decorated;
+    this.resourceFXML = resourceFXML;
+    this.resources = resources;
+  }
+
   public NewInterface(String resourceFXML, String title, ResourceBundle resources) {
     this.width = width;
     this.height = height;
@@ -100,7 +108,7 @@ public class NewInterface {
       root = (Parent) loader.load();
       scene = new Scene(root);
       stage = new Stage();
-      stage.initModality(Modality.WINDOW_MODAL);
+      stage.initModality(Modality.APPLICATION_MODAL);
       stage.initStyle(StageStyle.DECORATED);
       stage.setResizable(true);
 

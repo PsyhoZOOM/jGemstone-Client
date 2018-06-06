@@ -1,9 +1,11 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.beans.property.IntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,11 +40,20 @@ public class OptionsController implements Initializable {
   public JFXTextField tPEPDV;
   public Client client;
   public boolean saveFIRMA = false;
+  public boolean saveStralkerMinistraApiPass = false;
   public JFXTextField tNacinPlacanjaFaktura;
   public JFXTextField tRokPlacanjaFaktura;
   public JFXTextField tRokPlacanjaRacun;
   public JFXTextField tMestoIzdravanjaRacuna;
   public JFXTextField tMestoIzdavanjeDobara;
+  public JFXTextField tUDPTimeout;
+  public JFXTextField tDTVCryptHOST;
+  public JFXTextField tDTVCryptPORT;
+  public JFXTextField tStalkerApiUrl;
+  public JFXTextField tStalkerApiUserName;
+  public JFXPasswordField tStalkerApiPass;
+  public Tab tabStalMin;
+  public Tab tabDTV;
   @FXML
   private TextField tHostnameIp;
   @FXML
@@ -56,6 +67,9 @@ public class OptionsController implements Initializable {
     if (!saveFIRMA) {
       tabFirma.setDisable(true);
       tabRacunFaktura.setDisable(true);
+      tabStalMin.setDisable(true);
+      tabDTV.setDisable(true);
+
     }
     db_conn = new db_connection();
     db_conn.init_database();
@@ -67,6 +81,8 @@ public class OptionsController implements Initializable {
   public void enableTabs() {
     tabFirma.setDisable(false);
     tabRacunFaktura.setDisable(false);
+    tabDTV.setDisable(false);
+    tabStalMin.setDisable(false);
   }
 
   public void bSnimi_options(ActionEvent actionEvent) {
@@ -87,7 +103,7 @@ public class OptionsController implements Initializable {
     db_conn.close_db();
 
     if (saveFIRMA) {
-      firmaIsSaved = save_FirmaData();
+      firmaIsSaved = save_Data();
       if (!firmaIsSaved) {
         AlertUser.error("GREŠKA", "Došlo je do greške prilikom snimljana podataka firme!");
       }
@@ -100,9 +116,9 @@ public class OptionsController implements Initializable {
 
   }
 
-  private boolean save_FirmaData() {
+  private boolean save_Data() {
     JSONObject data = new JSONObject();
-    data.put("action", "FIRMA_OPTIONS_SAVE");
+    data.put("action", "OPTIONS_SAVE");
     data.put("FIRMA_NAZIV", tNazivFirme.getText());
     data.put("FIRMA_ADRESA", tAdresaFirme.getText());
     data.put("FIRMA_PIB", tPIB.getText());
@@ -119,6 +135,12 @@ public class OptionsController implements Initializable {
     data.put("FIRMA_NACIN_PLACANJA_FAKTURA", tNacinPlacanjaFaktura.getText());
     data.put("FIRMA_ROK_PLACANJA_RACUN", tRokPlacanjaRacun.getText());
     data.put("FIRMA_ROK_PLACANJA_FAKTURA", tRokPlacanjaFaktura.getText());
+    data.put("MINISTRA_API_URL", tStalkerApiUrl.getText());
+    data.put("MINISTRA_API_USER", tStalkerApiUserName.getText());
+    data.put("MINISTRA_API_PASS", tStalkerApiPass.getText());
+    data.put("DTV_UDP_TIMEOUT", tUDPTimeout.getText());
+    data.put("DTV_EMM_HOST", tDTVCryptHOST.getText());
+    data.put("DTV_EMM_PORT", tDTVCryptPORT.getText());
 
     data = client.send_object(data);
     return !data.has("ERROR");
@@ -127,7 +149,7 @@ public class OptionsController implements Initializable {
 
   public void setDataFirma() {
     JSONObject obj = new JSONObject();
-    obj.put("action", "get_FIRMA_OPTIONS");
+    obj.put("action", "GET_OPTIONS");
     obj = client.send_object(obj);
     if (obj.has("ERROR")) {
       AlertUser.error("GRESKA", "Došlo je do greške pri dobijanju informacija o firmi");
@@ -150,6 +172,12 @@ public class OptionsController implements Initializable {
       tRokPlacanjaRacun.setText(obj.getString("FIRMA_ROK_PLACANJA_RACUN"));
       tMestoIzdravanjaRacuna.setText(obj.getString("FIRMA_MESTO_IZDAVANJA_RACUNA"));
       tMestoIzdavanjeDobara.setText(obj.getString("FIRMA_MESTO_PROMETA_DOBARA"));
+      tStalkerApiUrl.setText(obj.getString("MINISTRA_API_URL"));
+      tStalkerApiPass.setText(obj.getString("MINISTRA_API_PASS"));
+      tDTVCryptHOST.setText(obj.getString("DTV_EMM_HOST"));
+      tDTVCryptPORT.setText(obj.getString("DTV_EMM_PORT"));
+      tUDPTimeout.setText(obj.getString("DTV_UDP_TIMEOUT"));
+      tStalkerApiUserName.setText(obj.getString("MINISTRA_API_USER"));
     } catch (JSONException e) {
       System.out.println(e.getMessage());
       e.printStackTrace();
