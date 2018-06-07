@@ -26,12 +26,13 @@ public class NewInterface {
   private String resourceFXML;
   private ResourceBundle resources;
 
-  public NewInterface(String title, boolean decorated, String resourceFXML,
-      ResourceBundle resources) {
+  public NewInterface(String resourceFXML, String title, ResourceBundle resources,
+      boolean decorated) {
     this.title = title;
     this.decorated = decorated;
     this.resourceFXML = resourceFXML;
     this.resources = resources;
+    set_interface();
   }
 
   public NewInterface(String resourceFXML, String title, ResourceBundle resources) {
@@ -109,7 +110,11 @@ public class NewInterface {
       scene = new Scene(root);
       stage = new Stage();
       stage.initModality(Modality.APPLICATION_MODAL);
-      stage.initStyle(StageStyle.DECORATED);
+      if (decorated) {
+        stage.initStyle(StageStyle.DECORATED);
+      } else {
+        stage.initStyle(StageStyle.UNDECORATED);
+      }
       stage.setResizable(true);
 
       stage.setScene(scene);

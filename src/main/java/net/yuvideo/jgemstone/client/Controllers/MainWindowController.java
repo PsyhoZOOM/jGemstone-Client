@@ -336,37 +336,18 @@ public class MainWindowController implements Initializable {
 
     List<File> lf = fileChooser.showOpenMultipleDialog(anchorMainWindow.getScene().getWindow());
 
-    JSONObject jfileObj = new JSONObject();
-    jfileObj.put("action", "add_CSV_FIX_Telefonija");
-    if (lf == null) {
-      return;
-    }
-
-    for (File file : lf) {
-      try {
-        String content = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
-        jfileObj.put(file.getAbsoluteFile().getName(), content);
-      } catch (FileNotFoundException e) {
-        e.printStackTrace();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-
-    JSONObject jObj = client.send_object(jfileObj);
-
-    /*
-    NewInterface progressInd = new NewInterface("fxml/CSVStatusImport.fxml", "IMPORT CSV", this.resource);
-    CSVStatusImportController csvStatusImportController =  progressInd.getLoader().getController();
+    NewInterface progressInd = new NewInterface("fxml/CSVStatusImport.fxml", "CSV IMPORT",
+        resource, false);
+    CSVStatusImportController csvStatusImportController = progressInd.getLoader()
+        .getController();
     csvStatusImportController.CSVStatusImportController(client);
-    progressInd.getStage().showAndWait();
-    */
 
-    if (jObj.has("ERROR")) {
-      AlertUser.error("GESKA", jObj.getString("ERROR"));
-    } else {
-      AlertUser.info("Import CSV fajla", "Importovanje CSV fajla je uspesno zavrseno!");
-    }
+//             client.send_object(jfileObj);
+    csvStatusImportController.setLf(lf);
+
+    progressInd.getStage().showAndWait();
+
+
   }
 
   public void showPregledCSV(ActionEvent actionEvent) {

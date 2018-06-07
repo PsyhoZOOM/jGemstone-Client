@@ -635,6 +635,10 @@ public class KorisnikUplateController implements Initializable {
 
   private void setQrCode() {
     // File fImg = net.glxn.qrgen.javase.QRCode.from(user.getJbroj()).withCharset("CP1250").file();
+    if (user.getJbroj().isEmpty()) {
+      AlertUser.warrning("INFO", "Korisnik nema ID!");
+      return;
+    }
     File fImg = QRCode.from(user.getJbroj()).withCharset("CP1250").file();
 
     // imgQR.setImage(img);

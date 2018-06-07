@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/Main.css"
-  xmlns="http://javafx.com/javafx/8.0.162"
+  xmlns="http://javafx.com/javafx/8.0.172"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.CSVStatusImportController">
   <children>
     <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-      AnchorPane.topAnchor="0.0"
-      alignment="CENTER"
-      layoutX="52.0" layoutY="72.0" spacing="5.0">
+      AnchorPane.topAnchor="0.0" alignment="CENTER" layoutX="52.0" layoutY="72.0" spacing="5.0">
       <children>
         <Label text="Import CSV" fx:id="lImportCSV"/>
-        <ProgressBar prefHeight="20.0" prefWidth="514.0" progress="0.0" fx:id="pProgress">
+        <StackPane>
           <VBox.margin>
             <Insets left="15.0" right="15.0"/>
           </VBox.margin>
-        </ProgressBar>
+          <children>
+            <ProgressBar prefHeight="20.0" prefWidth="514.0" progress="0.0" fx:id="pProgress"/>
+            <Label text="0%" fx:id="lPerc"/>
+          </children>
+        </StackPane>
         <Button mnemonicParsing="false" onAction="#zatvori" text="Zatvori" fx:id="bClose"/>
       </children>
       <padding>

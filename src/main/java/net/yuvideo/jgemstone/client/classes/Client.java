@@ -16,6 +16,7 @@ import java.security.cert.CertificateException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -43,13 +44,10 @@ public class Client {
   public IntegerProperty rs = new SimpleIntegerProperty();
   //Socket socket;
   SSLSocket socket;
-  SocketFactory ssf = SSLSocketFactory.getDefault();
   InputStreamReader Isr;
   OutputStreamWriter Osw;
   BufferedReader Bfr;
   BufferedWriter Bfw;
-  messageS checkLive = new messageS();
-  messageS mess = new messageS();
   Logger LOGGER = Logger.getLogger("CLIENT");
   //JSON
   JSONObject jObj = new JSONObject();
@@ -87,7 +85,6 @@ public class Client {
         //latency
         long localPING = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()
             .toEpochMilli();
-
         rObj = get_object();
 
         //recieve bytes
@@ -124,8 +121,8 @@ public class Client {
         Isr = new InputStreamReader(socket.getInputStream(), "UTF-8");
         Bfr = new BufferedReader(Isr);
       } catch (IOException e) {
-        e.printStackTrace();
         isConnected = false;
+        e.printStackTrace();
       }
     }
 
