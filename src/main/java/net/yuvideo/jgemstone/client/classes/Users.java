@@ -46,6 +46,7 @@ public class Users implements Serializable {
   String adresaFirme;
   String mestoFirme;
   String email;
+  String datumKreiranja;
 
   ArrayList<Users> usersArrayList;
 
@@ -113,6 +114,8 @@ public class Users implements Serializable {
     user.setFax(object.getString("fax"));
     user.setAdresaFirme(object.getString("adresaFirme"));
     user.setMestoFirme(object.getString("mestoFirme"));
+    user.setEmail(object.getString("email"));
+    user.setDatumKreiranja(object.getString("datumKreiranja"));
 
     return user;
   }
@@ -410,5 +413,13 @@ public class Users implements Serializable {
 
   public void setMestoFirme(String mestoFirme) {
     this.mestoFirme = mestoFirme;
+  }
+
+  public String getDatumKreiranja() {
+    return datumKreiranja;
+  }
+
+  public void setDatumKreiranja(String datumKreiranja) {
+    this.datumKreiranja = datumKreiranja;
   }
 }

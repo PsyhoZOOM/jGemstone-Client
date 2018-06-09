@@ -1,5 +1,6 @@
 package net.yuvideo.jgemstone.client.classes;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,7 @@ public class NewInterface {
   private int height;
   private String title;
   private boolean decorated = true;
+  private boolean application = true;
 
   private String resourceFXML;
   private ResourceBundle resources;
@@ -44,6 +46,17 @@ public class NewInterface {
     set_interface();
   }
 
+  public NewInterface(String resourceFXML, String title, ResourceBundle resources,
+      boolean decorated, boolean application) {
+    this.width = width;
+    this.height = height;
+    this.resourceFXML = resourceFXML;
+    this.title = title;
+    this.resources = resources;
+    this.decorated = decorated;
+    this.application = application;
+    set_interface();
+  }
 
   public int getWidth() {
     return width;
@@ -109,7 +122,11 @@ public class NewInterface {
       root = (Parent) loader.load();
       scene = new Scene(root);
       stage = new Stage();
-      stage.initModality(Modality.APPLICATION_MODAL);
+      if (application) {
+        stage.initModality(Modality.APPLICATION_MODAL);
+      } else {
+        stage.initModality(Modality.WINDOW_MODAL);
+      }
       if (decorated) {
         stage.initStyle(StageStyle.DECORATED);
       } else {

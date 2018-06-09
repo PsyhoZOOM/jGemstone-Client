@@ -31,36 +31,4 @@ public class InternetMainController implements Initializable {
   }
 
 
-  public void setTreeItems() {
-    //root item
-    TreeItem root = new TreeItem("ADMINISTRATION");
-    //korisnici tree
-    TreeItem Korisnici = new TreeItem("KORISNICI");
-    TreeItem PretragaKorisnika = new TreeItem("Pretraga");
-    Korisnici.getChildren().add(PretragaKorisnika);
-
-    //group item
-    TreeItem Grupe = new TreeItem("GRUPE");
-    TreeItem GrupeIzmena = new TreeItem("Izmena");
-    Grupe.getChildren().add(GrupeIzmena);
-
-    //NAS-Routers-AP-Switch Pristupne tacke
-    TreeItem PristupneTacke = new TreeItem("PRISTUPNE TAČKE");
-    TreeItem PretragaWiFi = new TreeItem("WiFi-Tracker ;)");
-    TreeItem PristupnaTacka = new TreeItem("Pristupna tačka");
-
-    PristupneTacke.getChildren().add(PretragaWiFi);
-    PristupneTacke.getChildren().add(PristupnaTacka);
-
-    //NETWORK
-    TreeItem Network = new TreeItem("MREŽA");
-
-    root.getChildren().add(Korisnici);
-    root.getChildren().add(Grupe);
-    root.getChildren().add(PristupneTacke);
-    root.getChildren().add(Network);
-
-    tTreeViewMain.setShowRoot(false);
-    tTreeViewMain.setRoot(root);
-  }
 }

@@ -1,6 +1,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -141,6 +142,7 @@ public class KorisnikUslugeController implements Initializable {
   private ResourceBundle resources;
   private URL location;
   private JSONObject jObj;
+  private DecimalFormat df = new DecimalFormat("###,###,###,##0.00");
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -177,7 +179,7 @@ public class KorisnikUslugeController implements Initializable {
       protected void updateItem(OstaleUsluge item, boolean empty) {
         super.updateItem(item, empty);
         if (empty) {
-          setText(null);
+          setText("");
         } else {
           setText(item.getNazivUsluge());
         }
@@ -417,9 +419,9 @@ public class KorisnikUslugeController implements Initializable {
       protected void updateItem(Double item, boolean empty) {
         super.updateItem(item, empty);
         if (empty) {
-          setText(null);
+          setText("");
         } else {
-          setText(String.valueOf(item));
+          setText(df.format(item));
         }
       }
 
@@ -430,9 +432,9 @@ public class KorisnikUslugeController implements Initializable {
       protected void updateItem(Double item, boolean empty) {
         super.updateItem(item, empty);
         if (empty || item == null) {
-          setText(null);
+          setText("");
         } else {
-          setText(String.valueOf(item));
+          setText(df.format(item));
         }
       }
 
@@ -442,9 +444,9 @@ public class KorisnikUslugeController implements Initializable {
       protected void updateItem(Double cena, boolean bool) {
         super.updateItem(cena, bool);
         if (bool) {
-          setText(null);
+          setText("");
         } else {
-          setText(String.valueOf(cena));
+          setText(df.format(cena));
         }
       }
     });
@@ -453,9 +455,9 @@ public class KorisnikUslugeController implements Initializable {
       protected void updateItem(Double popust, boolean bool) {
         super.updateItem(popust, bool);
         if (bool) {
-          setText(null);
+          setText("");
         } else {
-          setText(String.valueOf(popust) + "%");
+          setText(df.format(popust) + "%");
         }
       }
     });
@@ -464,7 +466,7 @@ public class KorisnikUslugeController implements Initializable {
       protected void updateItem(String date, boolean bool) {
         super.updateItem(date, bool);
         if (bool) {
-          setText(null);
+          setText("");
         } else {
           setText(date);
         }

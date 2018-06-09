@@ -56,6 +56,7 @@ public class InternetPaketEditController implements Initializable {
 
     spnPDV.setValueFactory(doubleSpinnerValueFactoryPDV);
     spnCena.setValueFactory(doubleSpinnerValueFactoryCena);
+    spnIdleTimeout.getEditor().setText("600");
 
     spnCena.getEditor().textProperty().addListener(new ChangeListener<String>() {
       @Override

@@ -53,6 +53,14 @@ public class KorisniciController implements Initializable {
   public TableColumn<Users, Double> cDug;
   public MenuItem cmUplate;
   public TableColumn cFIrma;
+  public Button bFilteri;
+  public TableColumn cDatumRodjenja;
+  public TableColumn cEmail;
+  public TableColumn cMestoUsluge;
+  public TableColumn cTelFiksni;
+  public TableColumn cTelMob;
+  public TableColumn cDatumKreiranja;
+  public CheckBox chkNaprednaPretraga;
   @FXML
   Button bNovKorisnik;
   FXMLLoader resoruceFXML;
@@ -85,6 +93,12 @@ public class KorisniciController implements Initializable {
     cAddress.setCellValueFactory(new PropertyValueFactory<Users, String>("adresa"));
     cPlace.setCellValueFactory(new PropertyValueFactory<Users, String>("mesto"));
     cAdressUsluge.setCellValueFactory(new PropertyValueFactory<Users, String>("adresaUsluge"));
+    cDatumRodjenja.setCellValueFactory(new PropertyValueFactory<Users, String>("datum_rodjenja"));
+    cDatumKreiranja.setCellValueFactory(new PropertyValueFactory<Users, String>("datumKreiranja"));
+    cEmail.setCellValueFactory(new PropertyValueFactory<Users, String>("email"));
+    cMestoUsluge.setCellValueFactory(new PropertyValueFactory<Users, String>("mestoUsluge"));
+    cTelFiksni.setCellValueFactory(new PropertyValueFactory<Users, String>("fiksni"));
+    cTelMob.setCellValueFactory(new PropertyValueFactory<Users, String>("mobilni"));
     cDug.setCellValueFactory(new PropertyValueFactory<Users, Double>("dug"));
     tUsers.setRowFactory(tv -> {
       TableRow<Users> row = new TableRow<Users>();
@@ -184,6 +198,8 @@ public class KorisniciController implements Initializable {
       user.setTekuciRacuna(jUser.getString("tekuciRacun"));
       user.setFax(jUser.getString("fax"));
       user.setAdresaFirme(jUser.getString("adresaFirme"));
+      user.setDatumKreiranja(jUser.getString("datumKreiranja"));
+      user.setEmail(jUser.getString("email"));
 
       users.add(user);
     }
@@ -333,5 +349,14 @@ public class KorisniciController implements Initializable {
 
   public void mUplate(ActionEvent event) {
     showUplate(null);
+  }
+
+  public void showFiltere(ActionEvent actionEvent) {
+    NewInterface filteriInterface = new NewInterface("fxml/FilteriSearch.fxml", "Filteri Pretrage",
+        this.resources, false);
+    FilteriSearch filteriSearchController = filteriInterface.getLoader().getController();
+    filteriInterface.getStage().showAndWait();
+
+
   }
 }

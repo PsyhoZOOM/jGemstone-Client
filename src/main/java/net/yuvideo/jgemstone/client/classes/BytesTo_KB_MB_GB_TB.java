@@ -27,7 +27,7 @@ public class BytesTo_KB_MB_GB_TB {
       unit = "Tb";
       bytes = 1;
     }
-    return format("%d%", bytes, unit);
+    return format("%d%s", bytes, unit);
   }
 
 }

@@ -29,6 +29,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import javafx.stage.WindowEvent;
 import net.yuvideo.jgemstone.client.Controllers.Mape.MainMapController;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
@@ -58,6 +59,7 @@ public class MainWindowController implements Initializable {
   // CONTROLLERS
   private KorisniciController korctrl;
   private boolean disconnect = false;
+  private boolean internetIsShowing = false;
 
   public MainWindowController() {
   }
@@ -275,13 +277,24 @@ public class MainWindowController implements Initializable {
   }
 
   public void showInternetMain(ActionEvent actionEvent) {
+    if (internetIsShowing) {
+      return;
+    }
     NewInterface internetMainInterface =
-        new NewInterface("fxml/Administration/InternetMain.fxml", "INTERNET", resource);
+        new NewInterface("fxml/Administration/InternetMain.fxml", "INTERNET", resource, true,
+            false);
     InternetMainController internetMainController =
         internetMainInterface.getLoader().getController();
     internetMainController.client = client;
-    internetMainController.setTreeItems();
-    internetMainInterface.getStage().showAndWait();
+    internetMainInterface.getStage().show();
+    this.internetIsShowing = true;
+    internetMainInterface.getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
+      @Override
+      public void handle(WindowEvent event) {
+        internetIsShowing = false;
+        internetMainInterface.getStage().close();
+      }
+    });
   }
 
   public void showFisknaTelefonijaPaket(ActionEvent actionEvent) {

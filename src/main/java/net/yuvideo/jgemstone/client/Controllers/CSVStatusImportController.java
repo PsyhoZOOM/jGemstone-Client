@@ -46,9 +46,18 @@ public class CSVStatusImportController implements Initializable {
     bClose.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        startProgress(lf);
+        if (bClose.getText().equals("ZATVORI")) {
+          exit();
+        } else {
+          startProgress(lf);
+        }
       }
     });
+  }
+
+  private void exit() {
+    Stage stage = (Stage) bClose.getScene().getWindow();
+    stage.close();
   }
 
   public void CSVStatusImportController(Client client) {
@@ -59,10 +68,7 @@ public class CSVStatusImportController implements Initializable {
     this.lf = lf;
   }
 
-  public void zatvori(ActionEvent actionEvent) {
-    Stage stage = (Stage) bClose.getScene().getWindow();
-    stage.close();
-  }
+
 
   public void startProgress(List<File> lf) {
 
@@ -126,10 +132,10 @@ public class CSVStatusImportController implements Initializable {
             @Override
             public void run() {
               lPerc.setText("IMPORT CSV-a USPEŠAN");
+              bClose.setText("ZATVORI");
+              bClose.setDisable(false);
             }
           });
-          bClose.setDisable(false);
-          bClose.setText("ZATVORI");
         }
 
         return null;
