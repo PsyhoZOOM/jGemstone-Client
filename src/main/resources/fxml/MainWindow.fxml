@@ -80,18 +80,6 @@
             <MenuItem mnemonicParsing="false" onAction="#showUgovori" text="Ugovori/Template"/>
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Operateri">
-          <items>
-            <MenuItem mnemonicParsing="false" onAction="#showOperaterList" text="Izmene"
-              fx:id="operaterList"/>
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Opcije">
-          <items>
-            <MenuItem mnemonicParsing="false" onAction="#mOpenSetup" text="Podešavanja"
-              fx:id="mSetup"/>
-          </items>
-        </Menu>
         <Menu mnemonicParsing="false" text="Fiksna Telefonija">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#importCSV" text="Import CSV Fajl"
@@ -118,9 +106,27 @@
               fx:id="mStampaRacuna"/>
           </items>
         </Menu>
+        <Menu mnemonicParsing="false" text="Mreža" fx:id="mMreza">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#showUredjaji" text="Uređaji"
+              fx:id="mUredjaji"/>
+          </items>
+        </Menu>
         <Menu mnemonicParsing="false" text="Mape">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#showMape" text="Mape" fx:id="mMape"/>
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Operateri">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#showOperaterList" text="Izmene"
+              fx:id="operaterList"/>
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Opcije">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#mOpenSetup" text="Podešavanja"
+              fx:id="mSetup"/>
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help" fx:id="help">

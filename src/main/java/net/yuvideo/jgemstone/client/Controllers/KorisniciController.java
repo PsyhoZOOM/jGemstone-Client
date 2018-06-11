@@ -149,8 +149,10 @@ public class KorisniciController implements Initializable {
 
 
   private void show_table(String username) {
+    tUsers.getItems().clear();
     ObservableList data = FXCollections.observableArrayList(get_user_table_list(username));
-    tUsers.setItems(data);
+    if (data.size() > 0)
+      tUsers.setItems(data);
   }
 
 
@@ -251,13 +253,7 @@ public class KorisniciController implements Initializable {
 
   public void bEditUser(ActionEvent actionEvent) {
     if (tUsers.getSelectionModel().getSelectedIndex() == -1) {
-      //Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete " + "no UserData selected" + " ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-      Alert alert = new Alert(Alert.AlertType.WARNING, "Nije izabran ni jedan korisnik za izmenu",
-          OK);
-      alert.setTitle("Upozorenje");
-      alert.setHeaderText("GREŠKA!");
-      alert.initOwner(stage);
-      alert.showAndWait();
+      AlertUser.warrning("NIJE IZABRAN NI JE DAN KORISNIK", "Izaberite korisnika za izmene!");
       return;
     }
     Users user = tUsers.getSelectionModel().getSelectedItem();

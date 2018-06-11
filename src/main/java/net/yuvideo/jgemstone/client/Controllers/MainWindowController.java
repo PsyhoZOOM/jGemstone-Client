@@ -30,6 +30,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.WindowEvent;
+import net.yuvideo.jgemstone.client.Controllers.Administration.Devices;
 import net.yuvideo.jgemstone.client.Controllers.Mape.MainMapController;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
@@ -278,6 +279,7 @@ public class MainWindowController implements Initializable {
 
   public void showInternetMain(ActionEvent actionEvent) {
     if (internetIsShowing) {
+
       return;
     }
     NewInterface internetMainInterface =
@@ -286,6 +288,7 @@ public class MainWindowController implements Initializable {
     InternetMainController internetMainController =
         internetMainInterface.getLoader().getController();
     internetMainController.client = client;
+    internetMainController.setItems();
     internetMainInterface.getStage().show();
     this.internetIsShowing = true;
     internetMainInterface.getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -435,5 +438,14 @@ public class MainWindowController implements Initializable {
     MainMapController mainMapController = mapeInterface.getLoader().getController();
     mainMapController.client = this.client;
     mapeInterface.getStage().showAndWait();
+  }
+
+  public void showUredjaji(ActionEvent actionEvent) {
+    NewInterface devicesInterface = new NewInterface("fxml/Administration/Devices.fxml", "UREĐAJI",
+        this.resource);
+    Devices devicesController = devicesInterface.getLoader().getController();
+    devicesController.client = this.client;
+    devicesController.setItems();
+    devicesInterface.getStage().showAndWait();
   }
 }
