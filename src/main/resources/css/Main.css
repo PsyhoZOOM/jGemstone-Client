@@ -13,20 +13,11 @@
 }
 
 .root {
-    -fx-base: #083045;
-    -fx-background: -fx-base;
     -fx-font-family: "Roboto Regular";
 }
 
+.jfx-decorator {
+  -fx-decorator-color: #083045;
+  -fx-background-color: #083045;
+  }
 
-.button:hover {
-      -fx-background-color: linear-gradient(#2A5058, #61a2b1);
-
-}
-
-.jfx-text-field{
-
-  -fx-prompt-text-fill: #4059a9;
-  -fx-text-fill: white;
-
-}

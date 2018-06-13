@@ -48,6 +48,8 @@ public class EditKorisnikController implements Initializable {
   }
 
 
+
+
   public void loadKorisnikData() {
     FXMLLoader fxmlLoader = new FXMLLoader(
         ClassLoader.getSystemResource("fxml/KorisnikPodaci.fxml"), resource);

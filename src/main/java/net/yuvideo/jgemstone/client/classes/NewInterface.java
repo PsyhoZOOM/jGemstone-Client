@@ -1,5 +1,7 @@
 package net.yuvideo.jgemstone.client.classes;
 
+import com.jfoenix.controls.JFXDecorator;
+import com.sun.crypto.provider.DESCipher;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -114,14 +116,29 @@ public class NewInterface {
     this.decorated = true;
   }
 
+  public Scene getScene() {
+    return scene;
+  }
+
+  public void setScene(Scene scene) {
+    this.scene = scene;
+  }
+
+  public void setStage(Stage stage) {
+    this.stage = stage;
+  }
 
   public void set_interface() {
     loader = new FXMLLoader(ClassLoader.getSystemResource(resourceFXML), resources);
 
     try {
-      root = (Parent) loader.load();
-      scene = new Scene(root);
+      root = loader.load();
       stage = new Stage();
+      JFXDecorator decorator = new JFXDecorator(stage, root);
+      scene = new Scene(decorator);
+      scene.getStylesheets()
+          .add(ClassLoader.getSystemResource("css/MainOrig.css").toExternalForm());
+      decorator.setFillWidth(true);
       if (application) {
         stage.initModality(Modality.APPLICATION_MODAL);
       } else {
@@ -132,6 +149,8 @@ public class NewInterface {
       } else {
         stage.initStyle(StageStyle.UNDECORATED);
       }
+      //JFX
+      stage.initStyle(StageStyle.UNDECORATED);
       stage.setResizable(true);
 
       stage.setScene(scene);

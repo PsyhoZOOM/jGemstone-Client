@@ -1,5 +1,6 @@
 package net.yuvideo.jgemstone.client;
 
+import com.jfoenix.controls.JFXDecorator;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Locale;
@@ -81,10 +82,22 @@ public class ClientMain extends Application {
       rootMainWindow = fxmlLoader.load();
       loginCtrl = fxmlLoader.getController();
       loginCtrl.stage = this.stage;
-      scene = new Scene(rootMainWindow);
+
+      //     scene = new Scene(rootMainWindow);
+      JFXDecorator decorator = new JFXDecorator(stage, rootMainWindow);
+//      scene = new Scene(new JFXDecorator(stage, rootMainWindow));
+      decorator.setCustomMaximize(true);
+//      stage.setScene(scene);
+      //     stage.setResizable(false);
+      //    stage.setTitle("YUVideo LOGIN");
+      //    stage.show();
+      scene = new Scene(decorator);
+      scene.getStylesheets()
+          .add(ClassLoader.getSystemResource("css/MainOrig.css").toExternalForm());
       stage.setScene(scene);
-      stage.setResizable(false);
-      stage.setTitle("YUVideo LOGIN");
+      loginCtrl.scene = scene;
+      loginCtrl.stage = stage;
+      loginCtrl.decorator = decorator;
       stage.show();
     } catch (IOException e) {
       System.out.println(e.getMessage());

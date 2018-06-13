@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -7,7 +9,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeTableColumn?>
@@ -17,62 +18,27 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
+
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0.0"
-  AnchorPane.leftAnchor="0.0"
-  AnchorPane.rightAnchor="0.0"
-  AnchorPane.topAnchor="0.0" prefHeight="768.0" prefWidth="1151.0"
-  stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
+  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+  prefHeight="768.0" prefWidth="1151.0" stylesheets="@../css/Main.css"
+  xmlns="http://javafx.com/javafx/8.0.172"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUslugeController"
   fx:id="anchorPane">
   <children>
-    <TabPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-      AnchorPane.topAnchor="0.0" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE"
-      tabMinHeight="30.0" tabMinWidth="100.0">
+    <JFXTabPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <tabs>
         <Tab closable="false" text="Usluge" fx:id="usluge">
           <content>
             <AnchorPane>
               <children>
-                <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" depthTest="DISABLE"
-                  hgap="5.0" layoutX="59.0"
-                  layoutY="144.0" vgap="5.0">
-                  <columnConstraints>
-                    <ColumnConstraints hgrow="ALWAYS"/>
-                  </columnConstraints>
-                  <rowConstraints>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS"/>
-                    <RowConstraints vgrow="NEVER"/>
-                  </rowConstraints>
-                  <padding>
-                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                  </padding>
+                <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <children>
-                    <HBox GridPane.rowIndex="1" alignment="CENTER_RIGHT" spacing="5.0">
-                      <children>
-                        <Button mnemonicParsing="false" onAction="#deleteUserService"
-                          text="Obriši" fx:id="bDeleteService">
-                          <graphic>
-                            <FontIcon fill="white" iconLiteral="eli-remove-sign" />
-                          </graphic>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#showIzmeniServis"
-                          text="Izmeni" fx:id="bIzmeniServis">
-                          <graphic>
-                            <FontIcon fill="white" iconLiteral="eli-edit" />
-                          </graphic>
-                        </Button>
-                        <Button minWidth="100.0" mnemonicParsing="false"
-                          onAction="#activateService" prefWidth="100.0"
-                          text="Aktiviraj" fx:id="bActivateService">
-                          <graphic>
-                            <FontIcon fill="white" iconLiteral="eli-check" />
-                          </graphic>
-                        </Button>
-                      </children>
-                    </HBox>
-                    <TreeTableView tableMenuButtonVisible="true" fx:id="tblServices">
+                    <JFXTreeTableView VBox.vgrow="ALWAYS" fx:id="tblServices">
                       <columns>
                         <TreeTableColumn prefWidth="75.0" text="Naziv" fx:id="cServicesNaziv"/>
                         <TreeTableColumn prefWidth="75.0" text="Identifikacija"
@@ -95,9 +61,31 @@
                       <columnResizePolicy>
                         <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                       </columnResizePolicy>
-                    </TreeTableView>
+                    </JFXTreeTableView>
+                    <HBox alignment="CENTER_RIGHT" spacing="5.0">
+                      <children>
+                        <Button mnemonicParsing="false" onAction="#deleteUserService" text="Obriši"
+                          fx:id="bDeleteService">
+                          <graphic>
+                            <FontIcon fill="white" iconLiteral="eli-remove-sign" />
+                          </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#showIzmeniServis" text="Izmeni"
+                          fx:id="bIzmeniServis">
+                          <graphic>
+                            <FontIcon fill="white" iconLiteral="eli-edit" />
+                          </graphic>
+                        </Button>
+                        <Button minWidth="100.0" mnemonicParsing="false" onAction="#activateService"
+                          prefWidth="100.0" text="Aktiviraj" fx:id="bActivateService">
+                          <graphic>
+                            <FontIcon fill="white" iconLiteral="eli-check" />
+                          </graphic>
+                        </Button>
+                      </children>
+                    </HBox>
                   </children>
-                </GridPane>
+                </VBox>
               </children>
             </AnchorPane>
           </content>
@@ -107,10 +95,8 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
                 <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-                  hgap="5.0" layoutX="169.0" layoutY="190.0"
-                  prefHeight="768.0" prefWidth="1118.0"
-                  vgap="5.0">
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" hgap="5.0" layoutX="169.0"
+                  layoutY="190.0" prefHeight="768.0" prefWidth="1118.0" vgap="5.0">
                   <columnConstraints>
                     <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
                     <ColumnConstraints fillWidth="false" hgrow="NEVER"/>
@@ -142,8 +128,7 @@
                     <Label GridPane.rowIndex="10" text="Opis:"/>
                     <ComboBox GridPane.columnIndex="1" fx:id="cmbPaketBOX"/>
                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="1"
-                      promptText="10 brojeva"
-                      fx:id="tKarticaBox"/>
+                      promptText="10 brojeva" fx:id="tKarticaBox"/>
                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="tUserNameBox"/>
                     <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="3"
                       fx:id="tPasswordBox"/>
@@ -160,11 +145,10 @@
                       selected="true" fx:id="chkRacunBOX"/>
                     <TextArea GridPane.columnIndex="1" GridPane.rowIndex="10" fx:id="tOpisBox"/>
                     <Button GridPane.columnIndex="1" GridPane.halignment="RIGHT"
-                      GridPane.rowIndex="11"
-                      mnemonicParsing="false" onAction="#addServiceBox" text="Dodaj uslugu"
-                      fx:id="bSnimiBox">
+                      GridPane.rowIndex="11" mnemonicParsing="false" onAction="#addServiceBox"
+                      text="Dodaj uslugu" fx:id="bSnimiBox">
                       <graphic>
-                        <FontIcon iconLiteral="eli-plus-sign" fill="white" />
+                        <FontIcon fill="white" iconLiteral="eli-plus-sign"/>
                       </graphic>
                     </Button>
                     <Label GridPane.rowIndex="9" text="Obračun:"/>
@@ -182,8 +166,7 @@
             <AnchorPane>
               <children>
                 <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-                  hgap="5.0" layoutX="33.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" hgap="5.0" layoutX="33.0"
                   layoutY="155.0" vgap="5.0">
                   <columnConstraints>
                     <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
@@ -204,8 +187,7 @@
                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" text="0"
                       fx:id="tPopustDTV"/>
                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="2"
-                      promptText="10 brojeva"
-                      fx:id="tKarticaDTV"/>
+                      promptText="10 brojeva" fx:id="tKarticaDTV"/>
                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" text="2"
                       fx:id="tDTVPrekoracenje"/>
                     <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="4" mnemonicParsing="false"
@@ -213,9 +195,8 @@
                     <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="5" fx:id="cmbUgovorDTV"/>
                     <TextArea GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="tOpisDTV"/>
                     <Button GridPane.columnIndex="1" GridPane.halignment="RIGHT"
-                      GridPane.rowIndex="7"
-                      mnemonicParsing="false" onAction="#addServiceDTV" text="Dodaj uslugu"
-                      fx:id="bAddServiceDTV">
+                      GridPane.rowIndex="7" mnemonicParsing="false" onAction="#addServiceDTV"
+                      text="Dodaj uslugu" fx:id="bAddServiceDTV">
                       <graphic>
                         <FontIcon fill="white" iconLiteral="eli-plus-sign" />
                       </graphic>
@@ -241,9 +222,7 @@
             <AnchorPane>
               <children>
                 <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                  AnchorPane.rightAnchor="0.0"
-                  AnchorPane.topAnchor="0.0" hgap="5.0"
-                  vgap="5.0">
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" hgap="5.0" vgap="5.0">
                   <columnConstraints>
                     <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
                     <ColumnConstraints fillWidth="false" hgrow="NEVER"/>
@@ -279,9 +258,8 @@
                       fx:id="cmbUgovorInternet"/>
                     <TextArea GridPane.columnIndex="1" GridPane.rowIndex="8" fx:id="tOpisInternet"/>
                     <Button GridPane.columnIndex="1" GridPane.halignment="LEFT"
-                      GridPane.rowIndex="9" mnemonicParsing="false"
-                      onAction="#addServiceInternet" text="Dodaj uslugu"
-                      fx:id="bAddServiceInternet">
+                      GridPane.rowIndex="9" mnemonicParsing="false" onAction="#addServiceInternet"
+                      text="Dodaj uslugu" fx:id="bAddServiceInternet">
                       <graphic>
                         <FontIcon fill="white" iconLiteral="eli-plus-sign" />
                       </graphic>
@@ -331,8 +309,7 @@
                 <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" text="0"
                   fx:id="tFixPopust"/>
                 <TextField GridPane.columnIndex="1" GridPane.rowIndex="2"
-                  promptText="format 38112440430"
-                  fx:id="tFixBrojTel"/>
+                  promptText="format 38112440430" fx:id="tFixBrojTel"/>
                 <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="3" mnemonicParsing="false"
                   selected="true" fx:id="chkFixStampaObracun"/>
                 <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="cmbFixBrojUgovora"/>
@@ -356,8 +333,7 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
                 <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-                  hgap="5.0" layoutX="364.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" hgap="5.0" layoutX="364.0"
                   layoutY="198.0" vgap="5.0">
                   <columnConstraints>
                     <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
@@ -396,8 +372,7 @@
                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" text="2"
                       fx:id="tIPTVPrekoracenje"/>
                     <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="8" mnemonicParsing="false"
-                      selected="true" text="Obračun i štampa računa"
-                      fx:id="cmbObracunIPTV"/>
+                      selected="true" text="Obračun i štampa računa" fx:id="cmbObracunIPTV"/>
                     <Button GridPane.columnIndex="1" GridPane.halignment="RIGHT"
                       GridPane.rowIndex="10" mnemonicParsing="false" onAction="#addServiceIPTV"
                       text="Dodaj uslugu" fx:id="bSnimiIPTVUsluguIPTV">
@@ -426,8 +401,7 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
                 <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-                  hgap="5.0" layoutX="5.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" hgap="5.0" layoutX="5.0"
                   layoutY="5.0" vgap="5.0">
                   <columnConstraints>
                     <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0"/>
@@ -467,9 +441,8 @@
                     <TextArea GridPane.columnIndex="1" GridPane.rowIndex="6"
                       GridPane.valignment="TOP" fx:id="taKomentarOstalo"/>
                     <Button GridPane.columnIndex="1" GridPane.halignment="LEFT"
-                      GridPane.rowIndex="7" mnemonicParsing="false"
-                      onAction="#addServiceOstalo" text="Dodaj uslugu"
-                      fx:id="bSnimiOstalo">
+                      GridPane.rowIndex="7" mnemonicParsing="false" onAction="#addServiceOstalo"
+                      text="Dodaj uslugu" fx:id="bSnimiOstalo">
                       <graphic>
                         <FontIcon fill="white" iconLiteral="eli-plus-sign" />
                       </graphic>
@@ -490,9 +463,6 @@
           </content>
         </Tab>
       </tabs>
-      <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-      </padding>
-    </TabPane>
+    </JFXTabPane>
   </children>
 </AnchorPane>

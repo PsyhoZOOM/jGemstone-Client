@@ -75,6 +75,9 @@ public class KorisniciController implements Initializable {
   private ResourceBundle resources;
   private messageS mess;
   private DecimalFormat df = new DecimalFormat("###,###,###,##0.00");
+  FilteriSearch filteriSearchController;
+  NewInterface filteriInterface;
+  private String advancedSearch;
 
   @Override
   public void initialize(URL location, final ResourceBundle resources) {
@@ -147,8 +150,12 @@ public class KorisniciController implements Initializable {
 
   }
 
-
   private void show_table(String username) {
+    if (!chkNaprednaPretraga.isSelected()) {
+      if (username.trim().length() < 4) {
+        return;
+      }
+    }
     tUsers.getItems().clear();
     ObservableList data = FXCollections.observableArrayList(get_user_table_list(username));
     if (data.size() > 0)
@@ -161,6 +168,10 @@ public class KorisniciController implements Initializable {
     jObj = new JSONObject();
     jObj.put("action", "get_users");
     jObj.put("username", search_user);
+    if (chkNaprednaPretraga.isSelected()) {
+      jObj.put("advancedSearch", this.advancedSearch);
+    }
+
 
     jObj = client.send_object(jObj);
     ArrayList<Users> users = new ArrayList();
@@ -278,6 +289,8 @@ public class KorisniciController implements Initializable {
     editUserController.loadKorisnikOprema();
 
     editKorisnikInterface.getStage().showAndWait();
+    //   stage.setScene(editKorisnikInterface.getScene());
+
 
   }
 
@@ -348,11 +361,19 @@ public class KorisniciController implements Initializable {
   }
 
   public void showFiltere(ActionEvent actionEvent) {
-    NewInterface filteriInterface = new NewInterface("fxml/FilteriSearch.fxml", "Filteri Pretrage",
-        this.resources, false);
-    FilteriSearch filteriSearchController = filteriInterface.getLoader().getController();
+    if (filteriInterface == null)
+      filteriInterface = new NewInterface("fxml/FilteriSearch.fxml", "Filteri Pretrage",
+          this.resources, false);
+    if (filteriSearchController == null) {
+      filteriSearchController = filteriInterface.getLoader().getController();
+    }
     filteriInterface.getStage().showAndWait();
+    this.advancedSearch = filteriSearchController.query;
 
 
+  }
+
+  public void setStage(Stage stage) {
+    this.stage = stage;
   }
 }

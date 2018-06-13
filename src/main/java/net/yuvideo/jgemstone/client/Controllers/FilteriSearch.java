@@ -30,6 +30,7 @@ public class FilteriSearch implements Initializable {
   public Button bOK;
   private URL location;
   private ResourceBundle resources;
+  String query;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -47,7 +48,33 @@ public class FilteriSearch implements Initializable {
 
 
   public void saveFilters(ActionEvent actionEvent) {
+    stringBuilder();
     Stage stage = (Stage) bOK.getScene().getWindow();
     stage.close();
+  }
+
+  private void stringBuilder() {
+    query = String.format("SELECT * FROM users WHERE ime LIKE '%s%%'", tIme.getText());
+    if (chkNazivFirme.isSelected()) {
+      query = String.format("%s AND nazivFirme LIKE '%s%%'", query, tNazivFirme.getText());
+    }
+    if (chkMesto.isSelected()) {
+      query = String
+          .format("%s AND mesto LIKE '%s%%' OR mestoRacuna LIKE '%s%%'", query, tMesto.getText(),
+              tMesto.getText());
+    }
+    if (chkAdresa.isSelected()) {
+      query = String
+          .format("%s AND adresa LIKE '%s%%' OR adresaRacuna LIKE '%s%%'", query, tAdresa.getText(),
+              tAdresa.getText());
+    }
+    if (chkTel.isSelected()) {
+      query = String.format("%s AND telMobilni LIKE '%s%%' OR telFiksni LIKE '%s%%'", query,
+          tTelefon.getText(), tTelefon.getText());
+    }
+    if (chkEmail.isSelected()) {
+      query = String.format("%s AND email LIKE '%s%%'", query, tMesto.getText());
+    }
+
   }
 }

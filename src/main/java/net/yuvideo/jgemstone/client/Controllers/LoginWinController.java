@@ -1,5 +1,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import com.jfoenix.controls.JFXDecorator;
+import com.jfoenix.controls.events.JFXDialogEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,6 +35,8 @@ public class LoginWinController implements Initializable {
   URL location;
   FXMLLoader fxmlLoader;
   Parent rootMainWindow;
+  public Scene scene;
+  public JFXDecorator decorator;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -55,15 +59,18 @@ public class LoginWinController implements Initializable {
       try {
         rootMainWindow = fxmlLoader.load();
         MainWindowController mainCtrl = fxmlLoader.getController();
+        mainCtrl.setStage(stage);
         mainCtrl.client = client;
         mainCtrl.checkData();
-        Scene scene = bLogin.getScene();
-        //scene = new Scene(rootMainWindow);
-        scene.setRoot(rootMainWindow);
+        //    Scene scene = bLogin.getScene();
+        //      scene = new Scene(rootMainWindow);
+        decorator.setContent(rootMainWindow);
+        scene.setRoot(decorator);
+        decorator.setMaximized(true);
+        decorator.setFillWidth(true);
+//       scene.setRoot(rootMainWindow);
         stage.setScene(scene);
-        stage.setResizable(true);
         stage.setTitle("YUVIDEO");
-        stage.setMaximized(true);
 
       } catch (IOException e) {
         e.printStackTrace();

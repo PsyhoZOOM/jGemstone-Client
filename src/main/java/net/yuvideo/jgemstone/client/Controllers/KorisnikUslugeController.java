@@ -1,5 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import com.jfoenix.controls.JFXTreeTableView;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -39,12 +40,14 @@ import net.yuvideo.jgemstone.client.classes.IPTVPaketi;
 import net.yuvideo.jgemstone.client.classes.InternetPaketi;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
 import net.yuvideo.jgemstone.client.classes.OstaleUsluge;
+import net.yuvideo.jgemstone.client.classes.Services;
 import net.yuvideo.jgemstone.client.classes.ServicesUser;
 import net.yuvideo.jgemstone.client.classes.Users;
 import net.yuvideo.jgemstone.client.classes.digitalniTVPaket;
 import net.yuvideo.jgemstone.client.classes.ugovori_types;
 import net.yuvideo.jgemstone.client.classes.valueToPercent;
 import org.json.JSONObject;
+import sun.reflect.generics.tree.Tree;
 
 /**
  * Created by zoom on 2/2/17.
@@ -53,7 +56,7 @@ public class KorisnikUslugeController implements Initializable {
 
 
   //list services
-  public TreeTableView<ServicesUser> tblServices;
+  public JFXTreeTableView tblServices;
   public TreeTableColumn cServicesNaziv;
   public TreeTableColumn cServicesDatum;
   public TreeTableColumn cDatumIsteka;
@@ -157,7 +160,8 @@ public class KorisnikUslugeController implements Initializable {
             if (tblServices.getSelectionModel().getSelectedIndex() == -1) {
               return;
             }
-            ServicesUser srvusr = tblServices.getSelectionModel().getSelectedItem().getValue();
+            ServicesUser srvusr = newValue
+                .getValue();// tblServices.getSelectionModel().getSelectedItem().getValue();
 
             if (srvusr.getLinkedService()) {
               bActivateService.setDisable(true);
@@ -1106,7 +1110,9 @@ public class KorisnikUslugeController implements Initializable {
       return;
     }
 
-    ServicesUser servicesUser = tblServices.getSelectionModel().getSelectedItem().getValue();
+    ServicesUser servicesUser = (ServicesUser) tblServices.getSelectionModel().getSelectedItem();
+
+    //   ServicesUser servicesUser = tblServices.getSelectionModel().getSelectedItem().getValue();
     boolean aktivan = false;
     servicesUser.getAktivan();
 
@@ -1131,25 +1137,28 @@ public class KorisnikUslugeController implements Initializable {
     JSONObject srvObj = new JSONObject();
     jObj.put("action", "delete_service_user");
     jObj.put("userID", userID);
-    ServicesUser srvUser = tblServices.getSelectionModel().getSelectedItem().getValue();
-
+    //   ServicesUser srvUser = (ServicesUser) tblServices.getSelectionModel().getSelectedItem();
+    TreeItem<ServicesUser> srvUser = (TreeItem<ServicesUser>) tblServices.getSelectionModel()
+        .getSelectedItem();
     int i = 0;
-    srvObj.put("id", srvUser.getId());
-    srvObj.put("paketType", srvUser.getPaketType());
+    srvObj.put("id", srvUser.getValue().getId());
+    srvObj.put("paketType", srvUser.getValue().getPaketType());
     jObj.put(String.valueOf(i), srvObj);
 
-    for (TreeItem<ServicesUser> servicesUser : tblServices.getSelectionModel().getSelectedItem()
-        .getChildren()) {
+    for (TreeItem<ServicesUser> sr : srvUser.getChildren()) {
       i++;
-      srvObj = new JSONObject();
-      srvObj.put("id", servicesUser.getValue().getId());
-      srvObj.put("paketType", servicesUser.getValue().getPaketType());
+      System.out.println(sr.getValue().getNazivPaketa());
+
+      srvObj.put("id", sr.getValue().getId());
+      srvObj.put("paketType", sr.getValue().getPaketType());
       jObj.put(String.valueOf(i), srvObj);
+
+
     }
+    System.out.println(jObj);
 
     if (!AlertUser.yesNo("BRISANJE USLUGE KORISNIKA",
-        "Da li ste sigurni da želite da izbrišite uslugu" + tblServices.getSelectionModel()
-            .getSelectedItem().getValue().getNaziv())) {
+        "Da li ste sigurni da želite da izbrišite uslugu" + srvUser.getValue().getNaziv())) {
       return;
     }
 
@@ -1353,7 +1362,9 @@ public class KorisnikUslugeController implements Initializable {
         "Izmene servisa", resources);
     KorisnikUslugeEditController korisnikUslugeEditController = korisnikUslugeEditInterface
         .getLoader().getController();
-    ServicesUser servicesUser = tblServices.getSelectionModel().getSelectedItem().getValue();
+    TreeItem<ServicesUser> srvu = (TreeItem<ServicesUser>) tblServices.getSelectionModel()
+        .getSelectedItem();
+    ServicesUser servicesUser = srvu.getValue();
     korisnikUslugeEditController.setServicesUser(servicesUser);
     korisnikUslugeEditController.setClient(this.client);
     korisnikUslugeEditController.setData();

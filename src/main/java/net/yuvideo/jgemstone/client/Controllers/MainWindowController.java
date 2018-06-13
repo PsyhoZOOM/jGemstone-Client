@@ -29,6 +29,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Devices;
 import net.yuvideo.jgemstone.client.Controllers.Mape.MainMapController;
@@ -61,6 +62,7 @@ public class MainWindowController implements Initializable {
   private KorisniciController korctrl;
   private boolean disconnect = false;
   private boolean internetIsShowing = false;
+  private Stage stage;
 
   public MainWindowController() {
   }
@@ -211,6 +213,7 @@ public class MainWindowController implements Initializable {
     }
 
     korctrl = fxmloader.getController();
+    korctrl.setStage(stage);
     korctrl.client = client;
   }
 
@@ -447,5 +450,9 @@ public class MainWindowController implements Initializable {
     devicesController.client = this.client;
     devicesController.setItems();
     devicesInterface.getStage().showAndWait();
+  }
+
+  public void setStage(Stage stage) {
+    this.stage = stage;
   }
 }

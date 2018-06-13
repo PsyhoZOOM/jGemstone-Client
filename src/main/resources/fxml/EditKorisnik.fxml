@@ -1,80 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
-  minHeight="-Infinity"
-  minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/Main.css"
-  xmlns="http://javafx.com/javafx/8.0.162"
-  fx:controller="net.yuvideo.jgemstone.client.Controllers.EditKorisnikController">
-  <children>
-    <TabPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-      AnchorPane.topAnchor="0.0"
-      id="tabpane"
-      layoutX="112.0" layoutY="107.0" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE"
-      tabMaxHeight="50.0" tabMinHeight="50.0" tabMinWidth="100.0"
-      fx:id="tabKorisnikEdit">
-      <tabs>
-        <Tab closable="false" text="Korisnički podaci" fx:id="tabKorisnickiPodaci">
-          <content>
-            <AnchorPane maxHeight="1.7976931348623157E308" fx:id="anchroKorsinikPodaci">
-              <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-              </padding>
-            </AnchorPane>
-          </content>
-          <graphic>
-            <FontIcon iconLiteral="eli-user" fill="white" iconSize="25" />
-          </graphic>
-        </Tab>
-        <Tab closable="false" onSelectionChanged="#refreshUgovori" text="Ugovori"
-          fx:id="tabKorisnikUgovori">
-          <content>
-            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-              fx:id="anchorKorisnikUgovori">
-              <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-              </padding>
-            </AnchorPane>
-          </content>
-          <graphic>
-            <FontIcon fill="white" iconLiteral="eli-list" iconSize="25" />
-          </graphic>
-        </Tab>
-        <Tab closable="false" onSelectionChanged="#refreshUgovori" text="Servisi"
-          fx:id="tabKorisnikUsluge">
-          <content>
-            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-              fx:id="anchorKorisnikUsluge">
-              <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-              </padding>
-            </AnchorPane>
-          </content>
-          <graphic>
-            <FontIcon fill="white" iconLiteral="eli-list" iconSize="25" />
-          </graphic>
-        </Tab>
-        <Tab closable="false" text="Oprema" fx:id="tabOprema">
-          <content>
-            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-              fx:id="anchorKorisnikOprema">
-              <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-              </padding>
-            </AnchorPane>
-          </content>
-          <graphic>
-            <FontIcon fill="white" iconSize="25" iconLiteral="mdi-settings" />
-          </graphic>
-        </Tab>
-      </tabs>
-    </TabPane>
-  </children>
-  <padding>
-    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-  </padding>
-</AnchorPane>
+
+
+<JFXTabPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.172"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.EditKorisnikController"
+  fx:id="tabKorisnikEdit">
+  <tabs>
+    <Tab closable="false" text="Korisnički podaci" fx:id="tabKorisnickiPodaci">
+      <content>
+        <AnchorPane fx:id="anchroKorsinikPodaci">
+          <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+          </padding>
+        </AnchorPane>
+      </content>
+      <graphic>
+        <FontIcon fill="white" iconLiteral="eli-user" iconSize="25"/>
+      </graphic>
+    </Tab>
+    <Tab closable="false" onSelectionChanged="#refreshUgovori" text="Ugovori"
+      fx:id="tabKorisnikUgovori">
+      <content>
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+          fx:id="anchorKorisnikUgovori">
+          <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+          </padding>
+        </AnchorPane>
+      </content>
+      <graphic>
+        <FontIcon fill="white" iconLiteral="eli-list" iconSize="25"/>
+      </graphic>
+    </Tab>
+    <Tab closable="false" onSelectionChanged="#refreshUgovori" text="Servisi"
+      fx:id="tabKorisnikUsluge">
+      <content>
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+          fx:id="anchorKorisnikUsluge">
+          <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+          </padding>
+        </AnchorPane>
+      </content>
+      <graphic>
+        <FontIcon fill="white" iconLiteral="eli-list" iconSize="25"/>
+      </graphic>
+    </Tab>
+    <Tab closable="false" text="Oprema" fx:id="tabOprema">
+      <content>
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+          fx:id="anchorKorisnikOprema">
+          <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+          </padding>
+        </AnchorPane>
+      </content>
+      <graphic>
+        <FontIcon fill="white" iconLiteral="mdi-settings" iconSize="25"/>
+      </graphic>
+    </Tab>
+  </tabs>
+</JFXTabPane>
