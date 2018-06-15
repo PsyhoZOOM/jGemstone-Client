@@ -63,7 +63,6 @@ public class MainMapController implements Initializable, MapComponentInitialized
   public void initialize(URL location, ResourceBundle resources) {
     this.location = location;
     this.location = location;
-    this.client = new Client(LocalSettings);
     gMapView.setDisableDoubleClick(true);
     gMapView.addMapInializedListener(this);
 
@@ -247,6 +246,10 @@ public class MainMapController implements Initializable, MapComponentInitialized
     } else {
       removeMarker = false;
     }
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 
   public class Model extends Thread {

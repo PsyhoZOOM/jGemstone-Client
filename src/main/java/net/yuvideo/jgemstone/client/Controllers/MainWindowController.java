@@ -216,6 +216,7 @@ public class MainWindowController implements Initializable {
         new NewInterface("fxml/FiksnaObracun.fxml", "FIKSNA TELEFONIJA OBRAČUN", resource);
     FiksnaMesecniObracuni fiksnaMesecniObracuniController =
         mesecniObracunInterface.getLoader().getController();
+    fiksnaMesecniObracuniController.setClient(new Client(LocalSettings));
     fiksnaMesecniObracuniController.check_if_obracun_postoji(
         LocalDate.now()
             .minusMonths(1)
@@ -332,7 +333,7 @@ public class MainWindowController implements Initializable {
   public void showMape(ActionEvent actionEvent) {
     NewInterface mapeInterface = new NewInterface("fxml/Maps/MainMaps.fxml", "MPE", this.resource);
     MainMapController mainMapController = mapeInterface.getLoader().getController();
-    mainMapController.LocalSettings = LocalSettings;
+    mainMapController.setClient(new Client(LocalSettings));
     mapeInterface.getStage().showAndWait();
   }
 

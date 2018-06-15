@@ -100,4 +100,8 @@ public class FiksnaMesecniObracuni implements Initializable {
     }
 
   }
+
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

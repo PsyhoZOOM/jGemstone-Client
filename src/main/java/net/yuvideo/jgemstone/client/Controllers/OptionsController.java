@@ -73,8 +73,12 @@ public class OptionsController implements Initializable {
       tabDTV.setDisable(true);
 
     }
-    tHostnameIp.setText(LocalSettings.getREMOTE_HOST());
-    tPort.setText(String.valueOf(LocalSettings.getREMOTE_PORT()));
+    if(LocalSettings== null) {
+      db_connection db  = new db_connection();
+      LocalSettings = db.getLocal_settings();
+    }
+      tHostnameIp.setText(LocalSettings.getREMOTE_HOST());
+      tPort.setText(String.valueOf(LocalSettings.getREMOTE_PORT()));
   }
 
   public void enableTabs() {

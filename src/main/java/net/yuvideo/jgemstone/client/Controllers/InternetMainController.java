@@ -324,7 +324,7 @@ public class InternetMainController implements Initializable {
 
   public void customCMD(ActionEvent actionEvent) {
     JSONObject object = new JSONObject();
-    String cmd = "/interface/monitor-traffic interface='<pppoe-profyno1>' once return tx-bits-per-second,rx-bits-per-second";
+    String cmd = "/interface/monitor-traffic interface='<pppoe-zlatnik>' once return tx-bits-per-second,rx-bits-per-second";
     object.put("action", "customMTAPICommand");
     object.put("cmd", cmd);
     object.put("nasIP", "10.1.20.2");

@@ -24,6 +24,8 @@ public class db_connection {
   private String DB_URL = "jdbc:sqlite:.JGemstone.db";
 
   public db_connection() {
+    init_database();
+    create_dataTable();
     get_settings();
   }
 
@@ -84,7 +86,10 @@ public class db_connection {
 
   public void set_settings() {
     init_database();
-    md5_digiest md5_digiest = new md5_digiest(local_settings.getLocalPassword());
+    md5_digiest md5_digiest = new md5_digiest("");
+    if(local_settings.getLocalPassword() != null) {
+      md5_digiest = new md5_digiest(local_settings.getLocalPassword());
+    }
     query = String.format("UPDATE Settings SET " +
             "REMOTE_HOST='%s', " +
             "REMOTE_PORT='%d', USERNAME='%s' , PASSWORD='%s'",
