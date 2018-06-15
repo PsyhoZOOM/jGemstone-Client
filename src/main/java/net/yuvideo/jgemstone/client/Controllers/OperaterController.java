@@ -38,7 +38,7 @@ public class OperaterController implements Initializable {
   public PasswordField tPass;
   public PasswordField tPassC;
 
-  public Client client;
+  private Client client;
   public TableView tblOperaters;
   public TableColumn cKorisnickoIme;
   public TableColumn cImeIPrezime;
@@ -220,7 +220,7 @@ public class OperaterController implements Initializable {
         "Dozvole  Operatera", resource);
     OperaterDozvoleController operaterDozvoleController = operaterDozvoleInterface.getLoader()
         .getController();
-    operaterDozvoleController.client = this.client;
+    operaterDozvoleController.setClient(new Client(client.getLocal_settings()));
     operaterDozvoleController.operaterID = operEdit.getId();
     operaterDozvoleController.show_data();
     operaterDozvoleInterface.getStage().showAndWait();

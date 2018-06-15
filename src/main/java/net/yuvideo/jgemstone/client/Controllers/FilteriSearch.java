@@ -41,7 +41,6 @@ public class FilteriSearch implements Initializable {
       @Override
       public void changed(ObservableValue<? extends EventHandler<ActionEvent>> observable,
           EventHandler<ActionEvent> oldValue, EventHandler<ActionEvent> newValue) {
-        System.out.println(newValue);
       }
     });
   }

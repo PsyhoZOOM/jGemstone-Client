@@ -22,7 +22,7 @@ import org.json.JSONObject;
  */
 public class UgovoriEditController implements Initializable {
 
-  public Client client;
+  private Client client;
   public ResourceBundle resource;
   public HTMLEditor htmlUgovor;
   public Button bSnimi;
@@ -128,5 +128,9 @@ public class UgovoriEditController implements Initializable {
     if (mouseEvent.isSecondaryButtonDown()) {
 
     }
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

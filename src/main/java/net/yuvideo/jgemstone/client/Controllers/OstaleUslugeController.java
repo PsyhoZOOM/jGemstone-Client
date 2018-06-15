@@ -32,7 +32,7 @@ public class OstaleUslugeController implements Initializable {
   public TableView<OstaleUsluge> tblOstaleUsluge;
   public TableColumn<OstaleUsluge, String> cOpis;
   public TableColumn<OstaleUsluge, Double> cCenaPDV;
-  public Client client;
+  private Client client;
   private ResourceBundle resources;
   private URL location;
   private final DecimalFormat df = new DecimalFormat("#,###,###,##0.00");
@@ -139,7 +139,7 @@ public class OstaleUslugeController implements Initializable {
     OstaleUslugeEditController novServiceController = novServiceInterface.getLoader()
         .getController();
     novServiceController.edit = false;
-    novServiceController.client = this.client;
+    novServiceController.setClient(new Client(client.getLocal_settings()));
     novServiceInterface.getStage().showAndWait();
     setData();
   }
@@ -148,7 +148,7 @@ public class OstaleUslugeController implements Initializable {
     NewInterface editInTerface = new NewInterface("fxml/OstaleUslugeEdit.fxml", "Izmena usluge",
         resources);
     OstaleUslugeEditController editServiceController = editInTerface.getLoader().getController();
-    editServiceController.client = this.client;
+    editServiceController.setClient(new Client(client.getLocal_settings()));
     editServiceController.edit = true;
     editServiceController.ostaleUsluge = tblOstaleUsluge.getSelectionModel().getSelectedItem();
     editServiceController.setData();
@@ -176,5 +176,9 @@ public class OstaleUslugeController implements Initializable {
       tblOstaleUsluge.getItems().remove(tblOstaleUsluge.getSelectionModel().getSelectedItem());
     }
 
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

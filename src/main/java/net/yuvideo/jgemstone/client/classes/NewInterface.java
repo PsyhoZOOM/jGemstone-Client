@@ -1,8 +1,6 @@
 package net.yuvideo.jgemstone.client.classes;
 
 import com.jfoenix.controls.JFXDecorator;
-import com.sun.crypto.provider.DESCipher;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;

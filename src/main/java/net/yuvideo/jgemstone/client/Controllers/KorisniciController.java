@@ -26,6 +26,7 @@ import javafx.util.Callback;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
+import net.yuvideo.jgemstone.client.classes.Settings;
 import net.yuvideo.jgemstone.client.classes.Users;
 import net.yuvideo.jgemstone.client.classes.messageS;
 import org.json.JSONObject;
@@ -49,7 +50,6 @@ public class KorisniciController implements Initializable {
   public MenuItem cmIzmeni;
   public MenuItem cmIzbrisi;
   public Button bUserSearch;
-  public Client client;
   public TableColumn<Users, Double> cDug;
   public MenuItem cmUplate;
   public TableColumn cFIrma;
@@ -71,6 +71,7 @@ public class KorisniciController implements Initializable {
 
   //JSON
   JSONObject jObj;
+  private Client client;
   private int getSelectedId;
   private ResourceBundle resources;
   private messageS mess;
@@ -78,10 +79,12 @@ public class KorisniciController implements Initializable {
   FilteriSearch filteriSearchController;
   NewInterface filteriInterface;
   private String advancedSearch;
+  private URL location;
 
   @Override
   public void initialize(URL location, final ResourceBundle resources) {
     this.resources = resources;
+    this.location = location;
     tUserSearch.setOnKeyReleased(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent event) {
@@ -280,7 +283,7 @@ public class KorisniciController implements Initializable {
         "Izmena korisnik", resources);
     EditKorisnikController editUserController = editKorisnikInterface.getLoader().getController();
 
-    editUserController.client = client;
+    editUserController.setClient(new Client(client.getLocal_settings()));
     editUserController.userEdit = tUsers.getSelectionModel().getSelectedItem();
     editUserController.userID = UserID;
     editUserController.loadKorisnikData();
@@ -332,7 +335,7 @@ public class KorisniciController implements Initializable {
     final NewInterface uplateKorisnik = new NewInterface("fxml/KorisnikUplate.fxml", "Uplate",
         resources);
     KorisnikUplateController uplateKorisnikController = uplateKorisnik.getLoader().getController();
-    uplateKorisnikController.client = client;
+    uplateKorisnikController.setClient(new Client(client.getLocal_settings()));
     uplateKorisnikController.user = user;
     uplateKorisnikController.filter_data();
     uplateKorisnik.getStage().showAndWait();
@@ -350,7 +353,7 @@ public class KorisniciController implements Initializable {
     NewInterface faktureInterface = new NewInterface("fxml/FakturePrikaz.fxml", "Fakture",
         resources);
     FakturePrikazController fakturePrikazController = faktureInterface.getLoader().getController();
-    fakturePrikazController.client = client;
+    fakturePrikazController.setClient(new Client(client.getLocal_settings()));
     fakturePrikazController.user = user;
     fakturePrikazController.set_data();
     faktureInterface.getStage().showAndWait();
@@ -375,5 +378,9 @@ public class KorisniciController implements Initializable {
 
   public void setStage(Stage stage) {
     this.stage = stage;
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

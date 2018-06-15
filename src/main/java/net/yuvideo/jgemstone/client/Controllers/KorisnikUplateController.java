@@ -64,7 +64,7 @@ public class KorisnikUplateController implements Initializable {
   public DatePicker dtpDatumZaNaplatu;
   public Button bZaduzi;
   public Button bUplatiServis;
-  public Client client;
+  private Client client;
   public Users user;
   public Label lStatusDatumIsteka;
   public Label lStatusZaduzenOd;
@@ -219,7 +219,6 @@ public class KorisnikUplateController implements Initializable {
                   double upl = uplate.getUplaceno();
                   double dug = uplate.getZaUplatu();
                   setText(df.format(uplaceno));
-                  System.out.println(String.format("Uplaceno: %f, ZaUplatu: %f", upl, dug));
                   if (upl == 0) {
                     currentRow.setStyle(
                         ""
@@ -421,8 +420,8 @@ public class KorisnikUplateController implements Initializable {
                   double meseciRate = Double.parseDouble(newValue);
                   tRate.setText(newValue);
                 } catch (Exception e) {
-                  System.out.println(e.getMessage());
                   tRate.setText(oldValue);
+                  e.printStackTrace();
                 }
               }
             });
@@ -498,7 +497,6 @@ public class KorisnikUplateController implements Initializable {
     double cena = Double.valueOf(cenaT);
     double pdv = Double.valueOf(pdvT);
     double perc = valueToPercent.getPDVOfSum(cena, pdv);
-    System.out.println(perc);
 
     _DUG  = cena - perc;
     lCustomCena.setText(String.valueOf(_DUG));
@@ -670,7 +668,6 @@ public class KorisnikUplateController implements Initializable {
       uplataObj = (JSONObject) jObj.get(String.valueOf(i));
 
       //COMMMENT
-      System.out.println(uplataObj.toString());
 
       uplata = new Uplate();
       uplata.setId(uplataObj.getInt("id"));
@@ -955,7 +952,7 @@ public class KorisnikUplateController implements Initializable {
     UplatePregledController uplatePregledController =
         allUplateInterface.getLoader().getController();
     uplatePregledController.user = this.user;
-    uplatePregledController.client = this.client;
+    uplatePregledController.setClient(new Client(client.getLocal_settings()));
     uplatePregledController.setData();
     allUplateInterface.getStage().showAndWait();
   }
@@ -992,5 +989,9 @@ public class KorisnikUplateController implements Initializable {
     printRacun.userRacun = userRacun.getRacunArrayList();
     printRacun.setPrinterData(printerJob.getJobSettings(), printerJob.getPrinter());
     printRacun.printRacun();
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

@@ -36,7 +36,7 @@ public class FiksnaTelefonijaPaket implements Initializable {
   public Button bNov;
   public Button bSnimi;
   public Button bOsvezi;
-  public Client client;
+  private Client client;
   @FXML
   TableColumn cCenaPDV;
   private ResourceBundle resources;
@@ -151,7 +151,7 @@ public class FiksnaTelefonijaPaket implements Initializable {
         "Izmene paketa " + paket.getNaziv(), resources);
     FiksnaTelefonijaPaketEditController ediPaketFiksna = editFiksPaketInterface.getLoader()
         .getController();
-    ediPaketFiksna.client = client;
+    ediPaketFiksna.setClient(new Client(client.getLocal_settings()));
     ediPaketFiksna.edit = true;
     ediPaketFiksna.paketEdit = paket;
     ediPaketFiksna.set_data();
@@ -164,7 +164,7 @@ public class FiksnaTelefonijaPaket implements Initializable {
     NewInterface editInterface = new NewInterface("fxml/FiksnaTelefonijaPaketEdit.fxml",
         "Nov Paket Fiksne telefonije", resources);
     FiksnaTelefonijaPaketEditController paketController = editInterface.getLoader().getController();
-    paketController.client = client;
+    paketController.setClient(new Client(client.getLocal_settings()));
     paketController.edit = false;
     editInterface.getStage().showAndWait();
     setTable();

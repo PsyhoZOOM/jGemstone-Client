@@ -20,7 +20,7 @@ import org.json.JSONObject;
 public class UserSearch implements Initializable {
 
   public JFXTreeTableView treeTableUsers;
-  public Client client;
+  private Client client;
   JFXTreeTableColumn<UsersOnline, String> cIdentification;
   JFXTreeTableColumn<UsersOnline, String> cIme;
   JFXTreeTableColumn<UsersOnline, String> cAdresa;
@@ -56,7 +56,6 @@ public class UserSearch implements Initializable {
   }
 
   private void showTab(TreeItem<UsersOnline> newValue) {
-    System.out.println(newValue.toString());
   }
 
   public void searchUser(ActionEvent actionEvent) {

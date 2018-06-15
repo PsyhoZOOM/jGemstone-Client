@@ -24,7 +24,7 @@ public class FiksnaMesecniObracuni implements Initializable {
   public Button bObracunaj;
   public Label lMessage;
   public DatePicker dtpObracunZaMesec;
-  public Client client;
+  private Client client;
   private URL location;
   private ResourceBundle resources;
   private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM");

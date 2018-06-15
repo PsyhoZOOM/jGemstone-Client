@@ -35,7 +35,7 @@ public class CSVPreview implements Initializable {
   public TableColumn cServiceUnit;
   public TableColumn cCustomerID;
   public TableColumn cFileName;
-  public Client client;
+  private Client client;
   private URL location;
   private ResourceBundle resources;
   private JSONObject jObj;

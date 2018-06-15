@@ -47,7 +47,6 @@ public class SmartCardReader {
       user.setAdresa(eidInfo.getStreet() + " " + eidInfo.getHouseNumber());
       user.setBr_lk(eidInfo.getDocRegNo());
 
-      System.out.println(eidInfo.getIssuingAuthority());
       this.userImage = eidCard.readEidPhoto();
 
     } catch (CardException ex) {

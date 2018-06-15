@@ -33,7 +33,7 @@ public class UgovoriController implements Initializable {
   public Button bDeleteUgovor;
   public Button bEditUgovor;
   public Button bNovUgovor;
-  public Client client;
+  private Client client;
   private ResourceBundle resources;
   private URL location;
   private JSONObject jObj;
@@ -128,7 +128,7 @@ public class UgovoriController implements Initializable {
     NewInterface ugovoriEditInterface = new NewInterface("fxml/UgovoriEdit.fxml", EditorType,
         resources);
     UgovoriEditController ugovoriEditController = ugovoriEditInterface.getLoader().getController();
-    ugovoriEditController.client = this.client;
+    ugovoriEditController.setClient(new Client(client.getLocal_settings()));
     ugovoriEditController.Ugovor = tblUgovori.getSelectionModel().getSelectedItem();
     ugovoriEditController.type = type;
     if (type == 2) {

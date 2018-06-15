@@ -14,11 +14,20 @@ public class UsersOnline extends RecursiveTreeObject<UsersOnline> {
   String ip;
   String nasIP;
   String sessionID;
+  String NASName;
 
 
   int broj;
   int id;
 
+
+  public String getNASName() {
+    return NASName;
+  }
+
+  public void setNASName(String NASName) {
+    this.NASName = NASName;
+  }
 
   public String getSessionID() {
     return sessionID;

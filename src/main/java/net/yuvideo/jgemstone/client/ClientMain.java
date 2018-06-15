@@ -21,9 +21,7 @@ import net.yuvideo.jgemstone.client.classes.EncodingControl;
 
 public class ClientMain extends Application {
 
-  public static final Logger LOGGER = Logger.getLogger("CLIENT_MAIN");
   public static ResourceBundle bundle;
-  Client client;
   LoginWinController loginCtrl;
   Parent rootMainWindow;
   FXMLLoader fxmlLoader;
@@ -100,7 +98,7 @@ public class ClientMain extends Application {
       loginCtrl.decorator = decorator;
       stage.show();
     } catch (IOException e) {
-      System.out.println(e.getMessage());
+      e.printStackTrace();
     }
   }
 }

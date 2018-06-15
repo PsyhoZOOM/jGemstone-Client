@@ -18,7 +18,7 @@ import org.json.JSONObject;
 public class UgovorStampaController implements Initializable {
 
   public WebView browser;
-  public Client client;
+  private Client client;
   public ugovori_types ugovor;
   JSONObject jObj;
   URL location;
@@ -80,5 +80,9 @@ public class UgovorStampaController implements Initializable {
   public void scaleFull(ActionEvent actionEvent) {
     browser.setScaleX(1);
     browser.setScaleY(1);
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

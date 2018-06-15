@@ -39,7 +39,7 @@ public class IPTVPaketiController implements Initializable {
   public TableColumn<IPTVPaketi, Integer> cExternalID;
   public TableColumn<IPTVPaketi, Double> cCena;
   public TableColumn<IPTVPaketi, Integer> cIPTVID;
-  public Client client;
+  private Client client;
   @FXML
   private TableColumn<IPTVPaketi, Double> cPDV;
   private URL location;
@@ -142,7 +142,7 @@ public class IPTVPaketiController implements Initializable {
     IPTVPaketiEditController iptvPaketEditController = iptvPaketEditInterface.getLoader()
         .getController();
 
-    iptvPaketEditController.client = this.client;
+    iptvPaketEditController.setClient(new Client(client.getLocal_settings()));
     iptvPaketEditController.edit = true;
     iptvPaketEditController.paket = tblPaketiIPTV.getSelectionModel().getSelectedItem();
     iptvPaketEditController.paketEditID = tblPaketiIPTV.getSelectionModel().getSelectedItem()
@@ -160,7 +160,7 @@ public class IPTVPaketiController implements Initializable {
         resources);
     IPTVPaketiEditController iptvPaketiNewControoler = iptvPaketNewInterface.getLoader()
         .getController();
-    iptvPaketiNewControoler.client = this.client;
+    iptvPaketiNewControoler.setClient(new Client(client.getLocal_settings()));
     iptvPaketiNewControoler.edit = false;
     iptvPaketiNewControoler.setData();
     iptvPaketNewInterface.getStage().showAndWait();
@@ -175,7 +175,6 @@ public class IPTVPaketiController implements Initializable {
 
     ArrayList<IPTVPaketi> iptvPaketiArrayList = new ArrayList<>();
 
-    System.out.println(jsonObject);
 
     for (int i = 0; i < jsonObject.length(); i++) {
       JSONObject pakobj = (JSONObject) jsonObject.get(String.valueOf(i));

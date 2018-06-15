@@ -35,7 +35,7 @@ public class IPTVPaketiEditController implements Initializable {
   public Button bSnimi;
   public TextArea tOpis;
   public ComboBox<IPTVPaketi> cmbIPTVPakets;
-  public Client client;
+  private Client client;
   public IPTVPaketi paket;
   public int paketEditID;
   public boolean edit;
@@ -125,7 +125,6 @@ public class IPTVPaketiEditController implements Initializable {
     cmbIPTVPakets.setItems(items);
     if (edit) {
       for (IPTVPaketi paketi : cmbIPTVPakets.getItems()) {
-        System.out.println("paket.getId()=" + paket.getId() + "paketi.getId()=" + paketi.getId());
         if (paket.getIptv_id() == paketi.getIptv_id()) {
           cmbIPTVPakets.getSelectionModel().select(paketi);
           cmbIPTVPakets.setValue(paketi);
@@ -162,8 +161,6 @@ public class IPTVPaketiEditController implements Initializable {
   }
 
   private void editIPTVPaket() {
-    System.out
-        .println("SELECTEDPAKET: " + cmbIPTVPakets.getSelectionModel().getSelectedItem().getName());
     JSONObject jsonObject = new JSONObject();
     jsonObject.put("action", "snimiEditIPTVPaket");
     jsonObject.put("id", paketEditID);
@@ -221,4 +218,7 @@ public class IPTVPaketiEditController implements Initializable {
   }
 
 
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import com.jfoenix.controls.JFXDecorator;
-import com.jfoenix.controls.events.JFXDialogEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,6 +17,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.Settings;
+import net.yuvideo.jgemstone.client.classes.db_connection;
 
 /**
  * Created by zoom on 1/3/17.
@@ -29,7 +30,6 @@ public class LoginWinController implements Initializable {
   public PasswordField tPass;
   public Label lMessage;
   public Button bLogin;
-  public Client client;
   public Stage stage;
   ResourceBundle resource;
   URL location;
@@ -48,27 +48,32 @@ public class LoginWinController implements Initializable {
 
 
   public void clientLogin(ActionEvent actionEvent) {
+    db_connection db = new db_connection();
+    db.get_settings();
+    Settings LocalSettings = db.getLocal_settings();
+    LocalSettings.setLocalUser(tUserName.getText());
+    LocalSettings.setLocalPassword(tPass.getText());
+    db.setLocal_settings(LocalSettings);
+    db.set_settings();
+    db.get_settings();
 
-    client = new Client();
-    client.user_pass_manual(tUserName.getText(), tPass.getText());
+    System.out.println(db.getLocal_settings().getLocalPassword());
+
+    Client client = new Client(db.getLocal_settings());
     client.main_run();
+    client.login_to_server();
     lMessage.setText(client.status_login);
-    if (client.get_connection_state()) {
-      //           tUserName.getScene().getWindow().hide();
+    if (client.isConnected()) {
       fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("fxml/MainWindow.fxml"), resource);
       try {
         rootMainWindow = fxmlLoader.load();
         MainWindowController mainCtrl = fxmlLoader.getController();
         mainCtrl.setStage(stage);
-        mainCtrl.client = client;
-        mainCtrl.checkData();
-        //    Scene scene = bLogin.getScene();
-        //      scene = new Scene(rootMainWindow);
+        mainCtrl.LocalSettings = client.getLocal_settings();
         decorator.setContent(rootMainWindow);
         scene.setRoot(decorator);
         decorator.setMaximized(true);
         decorator.setFillWidth(true);
-//       scene.setRoot(rootMainWindow);
         stage.setScene(scene);
         stage.setTitle("YUVIDEO");
 
@@ -88,7 +93,6 @@ public class LoginWinController implements Initializable {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    OptionsController optionsController = fxmlLoader.getController();
     Stage stageOptions = new Stage();
 
     stageOptions.setScene(scene);

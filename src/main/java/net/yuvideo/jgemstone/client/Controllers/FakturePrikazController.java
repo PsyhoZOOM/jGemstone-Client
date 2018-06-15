@@ -25,7 +25,7 @@ import org.json.JSONObject;
  */
 public class FakturePrikazController implements Initializable {
 
-  public Client client;
+  private Client client;
   public Users user;
   public Button bPrikaziFakturu;
   @FXML
@@ -51,7 +51,7 @@ public class FakturePrikazController implements Initializable {
     NewInterface faktureInterface = new NewInterface("fxml/Fakture.fxml",
         "FAKTURE: " + user.getIme(), resources);
     FaktureController faktureController = faktureInterface.getLoader().getController();
-    faktureController.client = this.client;
+    faktureController.setClient(new Client(client.getLocal_settings()));
     faktureController.userData = user;
     faktureController.faktura = tblFakture.getSelectionModel().getSelectedItem();
     faktureController.setData();
@@ -103,5 +103,9 @@ public class FakturePrikazController implements Initializable {
 
     return faktureArr;
 
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

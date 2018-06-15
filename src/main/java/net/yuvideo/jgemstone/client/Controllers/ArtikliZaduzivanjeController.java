@@ -50,7 +50,7 @@ public class ArtikliZaduzivanjeController implements Initializable {
   public TableColumn cUserAdresa;
   public TableColumn cUserMesto;
   public TableView<Users> tblUsers;
-  public Client client;
+  private Client client;
   public Artikli artikal;
   public Label lProizvodjac;
   public TextField tKolicina;
@@ -185,5 +185,9 @@ public class ArtikliZaduzivanjeController implements Initializable {
       stage.close();
     }
 
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

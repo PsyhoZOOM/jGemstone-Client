@@ -45,7 +45,6 @@ public class CyrToLatin {
     string = string.replace(".", ".");
     string = string.replace("-", "-");
 
-    System.out.println(string);
     return string;
   }
 }

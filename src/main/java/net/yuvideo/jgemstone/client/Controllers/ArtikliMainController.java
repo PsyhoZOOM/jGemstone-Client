@@ -30,6 +30,7 @@ import net.yuvideo.jgemstone.client.classes.Artikli;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.Magacin;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
+import net.yuvideo.jgemstone.client.classes.Settings;
 import org.json.JSONObject;
 
 /**
@@ -66,7 +67,6 @@ public class ArtikliMainController implements Initializable {
   public TableColumn<Artikli, String> cJMere;
   public TableColumn<Artikli, Integer> cKolicina;
   public TableColumn<Artikli, String> cOpis;
-  public Client client;
   public Menu zaduziMagacin;
   public MenuItem showArtInfo;
   public Button bNovMagacin;
@@ -83,12 +83,14 @@ public class ArtikliMainController implements Initializable {
   private boolean editArtikl = false;
   private boolean searchArtikl = false;
   private boolean addArtikl = false;
-
+  public Settings LocalSettings;
+  private Client client;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.location = location;
     this.resources = resources;
+
 
     cMagacin.setCellValueFactory(new PropertyValueFactory<>("nazivMagacina"));
     cNaziv.setCellValueFactory(new PropertyValueFactory<>("naziv"));
@@ -201,7 +203,7 @@ public class ArtikliMainController implements Initializable {
 
   private ArrayList<Magacin> getMagacini() {
     Magacin magacin = new Magacin();
-    return magacin.getMagaciniArr(client);
+    return magacin.getMagaciniArr(this.client);
 
   }
 
@@ -392,7 +394,6 @@ public class ArtikliMainController implements Initializable {
     if (artikal == null) {
       return;
     }
-    System.out.println(artikal.toString());
   }
 
 
@@ -410,7 +411,7 @@ public class ArtikliMainController implements Initializable {
         "ZADUŽIVANJE ARTIKLA", resources);
     ArtikliZaduzivanjeController artikliZaduzivanjeController = artikliZaduzivanje.getLoader()
         .getController();
-    artikliZaduzivanjeController.client = this.client;
+    artikliZaduzivanjeController.setClient(new Client(client.getLocal_settings()));
     artikliZaduzivanjeController.artikal = artikli;
     artikliZaduzivanjeController.artikal
         .setIdMagacin(tblArtikli.getSelectionModel().getSelectedItem().getIdMagacin());
@@ -427,7 +428,7 @@ public class ArtikliMainController implements Initializable {
         resources);
     ArtikliTrackingController artikliTrackingController = artInfoInterface.getLoader()
         .getController();
-    artikliTrackingController.client = this.client;
+    artikliTrackingController.setClient(new Client(client.getLocal_settings()));
     artikliTrackingController.artID = artID;
     artikliTrackingController.magID = magId;
     artikliTrackingController.uniqueID = uniqueID;
@@ -435,5 +436,9 @@ public class ArtikliMainController implements Initializable {
     artInfoInterface.getStage().showAndWait();
     ;
 
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

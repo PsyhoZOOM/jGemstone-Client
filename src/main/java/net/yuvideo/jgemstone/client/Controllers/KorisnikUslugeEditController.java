@@ -55,8 +55,6 @@ public class KorisnikUslugeEditController implements Initializable {
 
 
   public void setData() {
-    System.out
-        .println("ID: " + servicesUser.getId() + " PAKET TYPE:" + servicesUser.getPaketType());
     lNazivUsluge.setText(servicesUser.getNazivPaketa());
     if (servicesUser.getPaketType().equals("IPTV") || servicesUser.getPaketType()
         .equals("LINKED_IPTV")) {
@@ -73,7 +71,6 @@ public class KorisnikUslugeEditController implements Initializable {
     } else {
       cmbObracun.setSelected(false);
     }
-    System.out.println(servicesUser.getEndDate());
     if (servicesUser.getEndDate() != null) {
       LocalDate date = LocalDate
           .parse(servicesUser.getEndDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));

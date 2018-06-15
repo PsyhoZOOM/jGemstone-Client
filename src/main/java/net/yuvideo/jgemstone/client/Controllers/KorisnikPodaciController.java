@@ -44,7 +44,7 @@ public class KorisnikPodaciController implements Initializable {
   public TextField tTelFix;
   public Label lUserID;
   public TextArea taKomentar;
-  public Client client;
+  private Client client;
   public int userEditID;
   public Button bSnimi;
   public ComboBox<Mesta> cmbMestoUsluge;
@@ -428,5 +428,9 @@ public class KorisnikPodaciController implements Initializable {
   public void copyToAdresaRacun(ActionEvent actionEvent) {
     tAdresaRacuna.setText(tAdresa.getText());
     tMestoRacuna.setText(String.format("%s %s", tPostBr.getText(), tMesto.getText()));
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

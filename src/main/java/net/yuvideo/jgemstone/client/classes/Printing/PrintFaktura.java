@@ -474,7 +474,6 @@ public class PrintFaktura {
         .valueOf(ldateDatumPrometa.format(DateTimeFormatter.ofPattern("yy")));
 
     String racunKorisnika = racun.getSifraKorisnika() + "/" + mesecPrometa + "/" + godinaPrometa;
-    System.out.println(racunKorisnika);
 
     Text tRacunPodaci = new Text(String.format(
         "RAČUN broj: %s\n"

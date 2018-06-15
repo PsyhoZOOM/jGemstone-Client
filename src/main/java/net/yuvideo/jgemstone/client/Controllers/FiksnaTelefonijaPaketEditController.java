@@ -31,7 +31,7 @@ import org.json.JSONObject;
  */
 public class FiksnaTelefonijaPaketEditController implements Initializable {
 
-  public Client client;
+  private Client client;
   public FiksnaPaketi paketEdit;
   public boolean edit;
   SpinnerValueFactory.DoubleSpinnerValueFactory spnPDVFac
@@ -151,5 +151,9 @@ public class FiksnaTelefonijaPaketEditController implements Initializable {
     spnPretplata.getEditor().setText(String.valueOf(
         paketEdit.getPretplata() + valueToPercent
             .getPDVOfValue(paketEdit.getPretplata(), paketEdit.getPdv())));
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

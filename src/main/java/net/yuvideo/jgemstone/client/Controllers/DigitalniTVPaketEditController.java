@@ -31,7 +31,7 @@ public class DigitalniTVPaketEditController implements Initializable {
   public TextField tPaketID;
   public TextArea tOpis;
   public Button bSnimi;
-  public Client client;
+  private Client client;
   public digitalniTVPaket dtvPaket;
   public Spinner spnCena;
   public Spinner spnPDV;
@@ -158,4 +158,7 @@ public class DigitalniTVPaketEditController implements Initializable {
   }
 
 
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

@@ -3,6 +3,7 @@ package net.yuvideo.jgemstone.client.Controllers;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -30,6 +31,7 @@ import net.yuvideo.jgemstone.client.classes.Mesta;
 import net.yuvideo.jgemstone.client.classes.Printing.PrintFaktura;
 import net.yuvideo.jgemstone.client.classes.Printing.PrintRacun;
 import net.yuvideo.jgemstone.client.classes.Racun;
+import net.yuvideo.jgemstone.client.classes.Settings;
 import net.yuvideo.jgemstone.client.classes.Users;
 import org.json.JSONObject;
 
@@ -48,15 +50,17 @@ public class StampaRacuna implements Initializable {
   public Button bStampa;
   public DatePicker dtpZaMesec;
   public CheckBox chkFaktura;
-  public Client client;
+  public Settings LocalSettings;
   SimpleDateFormat df = new SimpleDateFormat("MM-yyyy");
   private ResourceBundle resources;
   private URL location;
+  private Client client;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.location = location;
     this.resources = resources;
+    this.client = new Client(LocalSettings);
 
     cID.setCellValueFactory(new PropertyValueFactory<>("jbroj"));
     cIME.setCellValueFactory(new PropertyValueFactory<>("ime"));

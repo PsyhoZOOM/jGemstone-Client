@@ -25,6 +25,7 @@ import net.yuvideo.jgemstone.client.classes.Adrese;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.Mesta;
+import net.yuvideo.jgemstone.client.classes.Settings;
 import org.json.JSONObject;
 
 /**
@@ -32,7 +33,7 @@ import org.json.JSONObject;
  */
 public class MestaController implements Initializable {
 
-  public Client client;
+  public Settings LocalSettings;
 
   public TextField tMestoNaziv;
   public TextField tMestoBroj;
@@ -56,10 +57,11 @@ public class MestaController implements Initializable {
   private ArrayList<Mesta> arrMesta;
   private ArrayList<Adrese> arrAdrese;
   private Alert alert;
-
+  private Client client;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    this.client = new Client(LocalSettings);
     colAdresa.setCellValueFactory(new PropertyValueFactory<Adrese, String>("nazivAdrese"));
     colAdresaBroj.setCellValueFactory(new PropertyValueFactory<Adrese, Integer>("brojAdrese"));
     colMesto.setCellValueFactory(new PropertyValueFactory<Mesta, String>("nazivMesta"));

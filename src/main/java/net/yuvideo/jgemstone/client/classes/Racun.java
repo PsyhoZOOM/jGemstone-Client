@@ -95,7 +95,6 @@ public class Racun {
 
     Racun racun = new Racun();
     JSONObject rac = jsonObject.getJSONObject(String.valueOf(i));
-    System.out.println(jsonObject.getJSONObject(String.valueOf(i)));
     racun.setIme(rac.getString("imePrezime"));
     racun.setNazivFirme(rac.getString("nazivFirme"));
     racun.setSifraKorisnika(rac.getString("sifraKorisnika"));

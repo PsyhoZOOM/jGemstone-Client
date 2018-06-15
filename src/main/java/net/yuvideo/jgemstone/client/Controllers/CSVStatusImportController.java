@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.BytesTo_KB_MB_GB_TB;
 import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.Settings;
 import org.json.JSONObject;
 
 public class CSVStatusImportController implements Initializable {
@@ -37,11 +38,13 @@ public class CSVStatusImportController implements Initializable {
   private long curPos = 0;
   private boolean taskDone = false;
   private List<File> lf;
+  public Settings LocalSettings;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.location = location;
     this.resources = resources;
+    this.client = new Client(this.LocalSettings);
     bClose.setText("IMPORT");
     bClose.setOnAction(new EventHandler<ActionEvent>() {
       @Override
@@ -109,7 +112,7 @@ public class CSVStatusImportController implements Initializable {
                 public void run() {
                   updateProgress((double) curPos, (double) maxPos);
                   lImportCSV.setText(String.format("Naziv: %s, Veličina: %s", file.getName(),
-                      BytesTo_KB_MB_GB_TB.getFormatedString(content.getBytes().length)));
+                      BytesTo_KB_MB_GB_TB.getFormatedString((long) content.getBytes().length)));
                   lPerc.setText(String.format("%s%%", df.format(pProgress.getProgress() * 100)));
                 }
               });

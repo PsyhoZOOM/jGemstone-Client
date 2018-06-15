@@ -28,7 +28,7 @@ public class KorisnikOpremaController implements Initializable {
   public TableColumn<Artikli, String> cPON;
   public TableColumn<Artikli, String> cOpis;
   public Label lInfo;
-  public Client client;
+  private Client client;
   public UserData user;
   private URL location;
   private ResourceBundle resources;
@@ -64,4 +64,7 @@ public class KorisnikOpremaController implements Initializable {
   }
 
 
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

@@ -49,7 +49,7 @@ public class FaktureController implements Initializable {
   public Label lvrednostSaPDVZbir;
   public Label lUkupnoOsnovicaZaPDV;
   public Label lIznosPDVZbir;
-  public Client client;
+  private Client client;
   public Users userData;
   public ResourceBundle resource;
   public Label lBrFakture;
@@ -294,5 +294,9 @@ public class FaktureController implements Initializable {
 
     return user;
 
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

@@ -33,13 +33,14 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.Settings;
 import netscape.javascript.JSObject;
 import org.json.JSONObject;
 
 public class MainMapController implements Initializable, MapComponentInitializedListener {
 
   public GoogleMapView gMapView;
-  public Client client;
+  public Settings LocalSettings;
   public ListView<Marker> lView;
   public ToggleButton bRemoveMarker;
   private URL location;
@@ -56,14 +57,13 @@ public class MainMapController implements Initializable, MapComponentInitialized
   private InfoWindow infoWindow;
   private InfoWindowOptions infoWindowOptions;
   private Map<String, Integer> mMarkers = new HashMap<String, Integer>();
-
-
-
+  private Client client;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.location = location;
     this.location = location;
+    this.client = new Client(LocalSettings);
     gMapView.setDisableDoubleClick(true);
     gMapView.addMapInializedListener(this);
 

@@ -29,7 +29,7 @@ public class InternetPaketEditController implements Initializable {
   public TextField tBrzina;
   public TextArea tOpis;
   public Button bSnimi;
-  public Client client;
+  private Client client;
   public boolean edit = false;
   public int idRad;
   public int idPaket;
@@ -151,5 +151,9 @@ public class InternetPaketEditController implements Initializable {
     _CENA = cena - valueToPercent.getPDVOfSum(cena, pdv);
     lCenaNet.setText(df.format(_CENA));
 
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

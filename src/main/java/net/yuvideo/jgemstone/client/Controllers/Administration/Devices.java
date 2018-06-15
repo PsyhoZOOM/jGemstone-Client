@@ -21,6 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NetworkDevices;
+import net.yuvideo.jgemstone.client.classes.Settings;
 import org.json.JSONObject;
 
 public class Devices implements Initializable {
@@ -47,14 +48,16 @@ public class Devices implements Initializable {
   public JFXButton bOsvezi;
   public CheckBox chkNas;
   public JFXComboBox cmbAccessType;
-  public Client client;
+  public Settings LocalSettings;
   private URL location;
   private ResourceBundle resources;
+  private Client client;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.location = location;
     this.resources = resources;
+    this.client = new Client(LocalSettings);
 
     cNaziv.setCellValueFactory(new PropertyValueFactory<NetworkDevices, String>("name"));
     cVrsta.setCellValueFactory(new PropertyValueFactory<NetworkDevices, String>("type"));
@@ -118,7 +121,6 @@ public class Devices implements Initializable {
                 cmbType.getSelectionModel().select(0);
               }
 
-              System.out.println(newValue.getType());
             }
           }
         });
@@ -157,7 +159,7 @@ public class Devices implements Initializable {
     obj.put("ip", tIpHost.getText());
     obj.put("hostName", tHostName.getText());
     obj.put("type", cmbType.getValue());
-    System.out.println(cmbType.getValue());
+    obj.put("userName", tUserName.getText());
     obj.put("pass", tPass.getText());
     obj.put("url", tURL.getText());
     obj.put("opis", tOpis.getText());

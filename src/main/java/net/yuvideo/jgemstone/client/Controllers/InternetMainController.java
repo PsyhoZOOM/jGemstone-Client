@@ -42,16 +42,20 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
+import net.yuvideo.jgemstone.client.classes.BytesTo_KB_MB_GB_TB;
 import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.Settings;
 import net.yuvideo.jgemstone.client.classes.UsersOnline;
 import org.json.JSONObject;
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 /**
  * Created by zoom on 4/7/17.
  */
 public class InternetMainController implements Initializable {
 
-  public Client client;
+  public Settings LocalSettings;
   public Stage stage;
   public JFXButton bOsveziOnline;
   public JFXTreeView<UsersOnline> treSearch;
@@ -68,6 +72,8 @@ public class InternetMainController implements Initializable {
   public Label lNASIP;
   private ResourceBundle resources;
   private URL location;
+  private Client client;
+  private JFXSnackbar snackbar;
 
 
   @Override
@@ -96,21 +102,44 @@ public class InternetMainController implements Initializable {
 
           }
         });
-        object = client.send_object(object);
+        Client clientO = new Client(client.getLocal_settings());
+        object = clientO.send_object(object);
 
         JSONObject finalObject1 = object;
         Platform.runLater(new Runnable() {
           @Override
           public void run() {
+            Image img;
+            if (finalObject1.has("ERROR") || finalObject1.has("USER_OFFLINE")) {
+              snackbar = new JFXSnackbar(bPane);
+              if (finalObject1.has("ERROR")) {
+                snackbar.show(finalObject1.getString("ERROR"), 5000);
+              }
+              img = new Image(ClassLoader.getSystemResourceAsStream("icons/red-light.png"));
+              imgOnline.setImage(img);
+              ltxByte.setText("");
+              lrxByte.setText("");
+              lLinkUp.setText("");
+              ltxError.setText("");
+              lrxError.setText("");
+              lInterfaceName.setText(userData.getValue().getIdentification() + " oFFlInE");
+              lNASIP.setText("");
+              return;
+            }
 
-            ltxByte.setText(finalObject1.getString("txByte"));
-            lrxByte.setText(finalObject1.getString("rxByte"));
+            String tx = BytesTo_KB_MB_GB_TB
+                .getFormatedString(Long.parseLong(finalObject1.getString("txByte")));
+            String rx = BytesTo_KB_MB_GB_TB
+                .getFormatedString(Long.parseLong(finalObject1.getString("rxByte")));
+
+            ltxByte.setText(String.format("%s (%s)", finalObject1.getString("txByte"), tx));
+            lrxByte.setText(String.format("%s (%s)", finalObject1.getString("rxByte"), rx));
             lLinkUp.setText(finalObject1.getString("linkUp"));
             ltxError.setText(finalObject1.getString("txError"));
             lrxError.setText(finalObject1.getString("rxError"));
             lInterfaceName.setText(finalObject1.getString("name"));
             lNASIP.setText(finalObject1.getString("NAS"));
-            Image img = new Image(ClassLoader.getSystemResourceAsStream("icons/green-light.png"));
+            img = new Image(ClassLoader.getSystemResourceAsStream("icons/green-light.png"));
             imgOnline.setImage(img);
 
           }
@@ -145,11 +174,16 @@ public class InternetMainController implements Initializable {
       protected Void call() throws Exception {
         JSONObject object = new JSONObject();
         object.put("action", "getOnlineUsers");
-        object = client.send_object(object);
+        Client clientO = new Client(client.getLocal_settings());
+        object = clientO.send_object(object);
         JSONObject finalObject = object;
         Platform.runLater(new Runnable() {
           @Override
           public void run() {
+            if (finalObject.has("ERROR")) {
+              JFXSnackbar snackbar1 = new JFXSnackbar();
+              snackbar1.show(finalObject.getString("ERROR"), 10);
+            }
             setTable(finalObject);
 
           }
@@ -204,9 +238,10 @@ public class InternetMainController implements Initializable {
     });
 
     JFXTreeTableColumn<UsersOnline, Integer> cBroj = new JFXTreeTableColumn<>("br.");
-    JFXTreeTableColumn<UsersOnline, String> cName = new JFXTreeTableColumn<>("Name");
+    JFXTreeTableColumn<UsersOnline, String> cName = new JFXTreeTableColumn<>("Korisničko ime");
     JFXTreeTableColumn<UsersOnline, String> cMac = new JFXTreeTableColumn<>("MAC");
     JFXTreeTableColumn<UsersOnline, String> cIP = new JFXTreeTableColumn<>("IP");
+    JFXTreeTableColumn<UsersOnline, String> cNASName = new JFXTreeTableColumn<>("NAS");
     JFXTreeTableColumn<UsersOnline, String> cUptime = new JFXTreeTableColumn<>("UpTime");
     JFXTreeTableColumn<UsersOnline, String> cService = new JFXTreeTableColumn<>("Service");
     JFXTreeTableColumn<UsersOnline, String> cSessionID = new JFXTreeTableColumn<>("Session ID");
@@ -215,13 +250,16 @@ public class InternetMainController implements Initializable {
     cName.setCellValueFactory(
         new TreeItemPropertyValueFactory<UsersOnline, String>("identification"));
     cIP.setCellValueFactory(new TreeItemPropertyValueFactory<UsersOnline, String>("ip"));
+    cNASName.setCellValueFactory(new TreeItemPropertyValueFactory<UsersOnline, String>("NASName"));
+
     cMac.setCellValueFactory(new TreeItemPropertyValueFactory<UsersOnline, String>("mac"));
     cUptime.setCellValueFactory(new TreeItemPropertyValueFactory<UsersOnline, String>("uptime"));
     cService.setCellValueFactory(new TreeItemPropertyValueFactory<UsersOnline, String>("service"));
     cSessionID
         .setCellValueFactory(new TreeItemPropertyValueFactory<UsersOnline, String>("sessionID"));
 
-    tblOnlineUSers.getColumns().addAll(cBroj, cName, cMac, cIP, cUptime, cService, cSessionID);
+    tblOnlineUSers.getColumns()
+        .addAll(cBroj, cName, cMac, cIP, cNASName, cUptime, cService, cSessionID);
     TreeItem<UsersOnline> root;
     ObservableList<UsersOnline> users = FXCollections.observableArrayList();
     for (int i = 0; i < object.length(); i++) {
@@ -234,6 +272,7 @@ public class InternetMainController implements Initializable {
       usersOnline.setUptime(object.getJSONObject(String.valueOf(i)).getString("uptime"));
       usersOnline.setService(object.getJSONObject(String.valueOf(i)).getString("service"));
       usersOnline.setIp(object.getJSONObject(String.valueOf(i)).getString("ip"));
+      usersOnline.setNASName(object.getJSONObject(String.valueOf(i)).getString("NASName"));
       usersOnline.setNasIP(object.getJSONObject(String.valueOf(i)).getString("nasIP"));
       usersOnline.setSessionID(object.getJSONObject(String.valueOf(i)).getString("sessionID"));
       users.add(usersOnline);
@@ -281,5 +320,23 @@ public class InternetMainController implements Initializable {
     tabMiddle.getSelectionModel().select(tabUsers);
 
 
+  }
+
+  public void customCMD(ActionEvent actionEvent) {
+    JSONObject object = new JSONObject();
+    String cmd = "/interface/monitor-traffic interface='<pppoe-profyno1>' once return tx-bits-per-second,rx-bits-per-second";
+    object.put("action", "customMTAPICommand");
+    object.put("cmd", cmd);
+    object.put("nasIP", "10.1.20.2");
+    object.put("user", "apiUser");
+    object.put("pass", "apiPass");
+    object = client.send_object(object);
+    for (int i = 0; i < object.length(); i++) {
+      System.out.println(object.getJSONObject(String.valueOf(i)));
+    }
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

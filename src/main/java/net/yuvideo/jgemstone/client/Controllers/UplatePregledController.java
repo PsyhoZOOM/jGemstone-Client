@@ -24,7 +24,7 @@ public class UplatePregledController implements Initializable {
   public TableColumn<Uplate, Double> cUplaceno;
   public TableColumn cZaMesec;
   public Users user;
-  public Client client;
+  private Client client;
   private URL location;
   private ResourceBundle resources;
 
@@ -71,5 +71,9 @@ public class UplatePregledController implements Initializable {
     tblUplate.setItems(FXCollections.observableArrayList(uplateArrayList));
 
 
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

@@ -40,14 +40,12 @@ import net.yuvideo.jgemstone.client.classes.IPTVPaketi;
 import net.yuvideo.jgemstone.client.classes.InternetPaketi;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
 import net.yuvideo.jgemstone.client.classes.OstaleUsluge;
-import net.yuvideo.jgemstone.client.classes.Services;
 import net.yuvideo.jgemstone.client.classes.ServicesUser;
 import net.yuvideo.jgemstone.client.classes.Users;
 import net.yuvideo.jgemstone.client.classes.digitalniTVPaket;
 import net.yuvideo.jgemstone.client.classes.ugovori_types;
 import net.yuvideo.jgemstone.client.classes.valueToPercent;
 import org.json.JSONObject;
-import sun.reflect.generics.tree.Tree;
 
 /**
  * Created by zoom on 2/2/17.
@@ -120,7 +118,7 @@ public class KorisnikUslugeController implements Initializable {
   public TextArea tFixOpis;
   public Button bFixDodajUslugu;
   //IPTV PAKETI
-  public Client client;
+  private Client client;
   public int userID;
   public ComboBox<IPTVPaketi> cmbIPTVPaket;
   public TextField tUserNameIPTV;
@@ -658,8 +656,6 @@ public class KorisnikUslugeController implements Initializable {
     for (int i = 0; i < jObj.length(); i++) {
       service = new ServicesUser();
       serviceObj = jObj.getJSONObject(String.valueOf(i));
-      System.out.println("LINKED: " + serviceObj);
-      System.out.println("LINKED: " + serviceObj.getString("paketType"));
       service.setId(serviceObj.getInt("id"));
       service.setUserID(serviceObj.getInt("userID"));
       service.setId_Service(serviceObj.getInt("id_service"));
@@ -774,7 +770,6 @@ public class KorisnikUslugeController implements Initializable {
       }
 
       service.setPaketType(serviceObj.getString("paketType"));
-      System.out.println(serviceObj.getString("paketType"));
       service.setCena(serviceObj.getDouble("cena"));
       service.setBox(serviceObj.getBoolean("box"));
       service.setLinkedService(serviceObj.getBoolean("linkedService"));
@@ -1147,7 +1142,6 @@ public class KorisnikUslugeController implements Initializable {
 
     for (TreeItem<ServicesUser> sr : srvUser.getChildren()) {
       i++;
-      System.out.println(sr.getValue().getNazivPaketa());
 
       srvObj.put("id", sr.getValue().getId());
       srvObj.put("paketType", sr.getValue().getPaketType());
@@ -1155,7 +1149,6 @@ public class KorisnikUslugeController implements Initializable {
 
 
     }
-    System.out.println(jObj);
 
     if (!AlertUser.yesNo("BRISANJE USLUGE KORISNIKA",
         "Da li ste sigurni da želite da izbrišite uslugu" + srvUser.getValue().getNaziv())) {
@@ -1370,5 +1363,9 @@ public class KorisnikUslugeController implements Initializable {
     korisnikUslugeEditController.setData();
     korisnikUslugeEditInterface.getStage().showAndWait();
     this.setData();
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

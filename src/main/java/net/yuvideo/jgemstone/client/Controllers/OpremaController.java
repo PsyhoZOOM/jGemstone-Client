@@ -18,6 +18,7 @@ import javafx.util.Duration;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.Oprema;
+import net.yuvideo.jgemstone.client.classes.Settings;
 import org.json.JSONObject;
 
 
@@ -34,16 +35,18 @@ public class OpremaController implements Initializable {
   public TableColumn colModel;
   public Button bIzbrisi;
   public Button bClose;
-  public Client client;
+  public Settings LocalSettings;
   private ResourceBundle resource;
   private URL location;
   private JSONObject jObj;
   private Oprema oprema;
+  private Client client;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.resource = resources;
     this.location = location;
+    this.client = new Client(LocalSettings);
 
     colModel.setCellValueFactory(new PropertyValueFactory<Oprema, String>("model"));
     colNaziv.setCellValueFactory(new PropertyValueFactory<Oprema, String>("naziv"));

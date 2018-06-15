@@ -16,6 +16,7 @@ import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.Magacin;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
+import net.yuvideo.jgemstone.client.classes.Settings;
 import org.json.JSONObject;
 
 /**
@@ -33,16 +34,18 @@ public class MagacinPreviewController implements Initializable {
   public Button bIzbrisi;
 
 
-  public Client client;
+  public Settings LocalSettings;
 
 
   private URL location;
   private ResourceBundle resources;
+  private Client client;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.location = location;
     this.resources = resources;
+    this.client = new Client(this.LocalSettings);
 
     cID.setCellValueFactory(new PropertyValueFactory<>("id"));
     cNaziv.setCellValueFactory(new PropertyValueFactory<>("naziv"));
@@ -63,7 +66,7 @@ public class MagacinPreviewController implements Initializable {
     NewInterface newMagacin = new NewInterface("fxml/MagacinEdit.fxml", "Nov Magacin",
         this.resources);
     MagacinEditController magacinEditController = newMagacin.getLoader().getController();
-    magacinEditController.client = this.client;
+    magacinEditController.setClient(new Client(client.getLocal_settings()));
     magacinEditController.edit = false;
     newMagacin.getStage().showAndWait();
     showData();
@@ -74,7 +77,7 @@ public class MagacinPreviewController implements Initializable {
     NewInterface newMagacin = new NewInterface("fxml/MagacinEdit.fxml", "Nov Magacin",
         this.resources);
     MagacinEditController magacinEditController = newMagacin.getLoader().getController();
-    magacinEditController.client = this.client;
+    magacinEditController.setClient(new Client(client.getLocal_settings()));
     magacinEditController.edit = true;
     magacinEditController.setData(tblMagacini.getSelectionModel().getSelectedItem());
     newMagacin.getStage().showAndWait();

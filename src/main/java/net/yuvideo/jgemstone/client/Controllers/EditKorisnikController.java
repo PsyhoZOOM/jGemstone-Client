@@ -28,7 +28,7 @@ public class EditKorisnikController implements Initializable {
   public AnchorPane anchorKorisnikUgovori;
   public AnchorPane anchorKorisnikOprema;
   public Tab tabKorisnikUsluge;
-  public Client client;
+  private Client client;
   public Users userEdit;
   Logger LOGGER = Logger.getLogger("EDIT_USERS");
   JSONObject jObj;
@@ -63,7 +63,7 @@ public class EditKorisnikController implements Initializable {
     }
 
     KorisnikPodaciController = fxmlLoader.getController();
-    KorisnikPodaciController.client = client;
+    KorisnikPodaciController.setClient(new Client(client.getLocal_settings()));
     KorisnikPodaciController.userEditID = userID;
     KorisnikPodaciController.setData();
 
@@ -81,7 +81,7 @@ public class EditKorisnikController implements Initializable {
     }
 
     korisnikUslugeController = fxmlLoader.getController();
-    korisnikUslugeController.client = client;
+    korisnikUslugeController.setClient(new Client(client.getLocal_settings()));
     korisnikUslugeController.userID = userID;
     korisnikUslugeController.userEdit = userEdit;
     korisnikUslugeController.setData();
@@ -102,7 +102,7 @@ public class EditKorisnikController implements Initializable {
     }
 
     korisnikUgovoriController = fxmlLoader.getController();
-    korisnikUgovoriController.client = client;
+    korisnikUgovoriController.setClient(new Client(client.getLocal_settings()));
     korisnikUgovoriController.userID = userID;
     korisnikUgovoriController.user = new UserData(client, userID);
     korisnikUgovoriController.set_data();
@@ -123,7 +123,7 @@ public class EditKorisnikController implements Initializable {
     }
 
     korisnikOpremaController = fxmlLoader.getController();
-    korisnikOpremaController.client = client;
+    korisnikOpremaController.setClient(new Client(client.getLocal_settings()));
     korisnikOpremaController.user = new UserData(client, userID);
     korisnikOpremaController.setData();
 
@@ -134,6 +134,10 @@ public class EditKorisnikController implements Initializable {
 
     korisnikUslugeController.refreshUgovori();
     korisnikUgovoriController.set_data();
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }
 

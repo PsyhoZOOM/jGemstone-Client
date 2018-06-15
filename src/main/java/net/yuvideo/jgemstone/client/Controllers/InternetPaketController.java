@@ -34,7 +34,7 @@ public class InternetPaketController implements Initializable {
   public TableColumn cOpis;
   public Button bClose;
   public TableColumn cIdleTimeout;
-  public Client client;
+  private Client client;
   @FXML
   TableColumn cPDV;
   @FXML
@@ -103,7 +103,7 @@ public class InternetPaketController implements Initializable {
         "Nov Internet Paket", resource);
     InternetPaketEditController internetPaketEditController = internetPaketEditInterface.getLoader()
         .getController();
-    internetPaketEditController.client = this.client;
+    internetPaketEditController.setClient(new Client(client.getLocal_settings()));
     internetPaketEditController.edit = false;
     internetPaketEditInterface.getStage().showAndWait();
     showData();
@@ -121,7 +121,7 @@ public class InternetPaketController implements Initializable {
         "Izmena Internet Paketa", resource);
     InternetPaketEditController internetPaketEditController = internetPaketEditInterface.getLoader()
         .getController();
-    internetPaketEditController.client = this.client;
+    internetPaketEditController.setClient(new Client(client.getLocal_settings()));
     internetPaketEditController.edit = true;
     internetPaketEditController.paket = paket;
     internetPaketEditController.show_data();
@@ -187,5 +187,9 @@ public class InternetPaketController implements Initializable {
       tblInternetPaket.getItems().remove(tblInternetPaket.getSelectionModel().getSelectedItem());
     }
 
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

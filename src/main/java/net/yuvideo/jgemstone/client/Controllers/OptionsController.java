@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import javafx.beans.property.IntegerProperty;
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.Settings;
 import net.yuvideo.jgemstone.client.classes.db_connection;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +40,7 @@ public class OptionsController implements Initializable {
   public Tab tabRacunFaktura;
   public Tab tabFirma;
   public JFXTextField tPEPDV;
-  public Client client;
+  public Settings LocalSettings;
   public boolean saveFIRMA = false;
   public boolean saveStralkerMinistraApiPass = false;
   public JFXTextField tNacinPlacanjaFaktura;
@@ -60,7 +62,7 @@ public class OptionsController implements Initializable {
   private TextField tPort;
   @FXML
   private Button bSnimi;
-  private db_connection db_conn;
+  private Client client;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -71,11 +73,8 @@ public class OptionsController implements Initializable {
       tabDTV.setDisable(true);
 
     }
-    db_conn = new db_connection();
-    db_conn.init_database();
-    tHostnameIp.setText(db_conn.local_settings.getREMOTE_HOST());
-    tPort.setText(String.valueOf(db_conn.local_settings.getREMOTE_PORT()));
-    db_conn.close_db();
+    tHostnameIp.setText(LocalSettings.getREMOTE_HOST());
+    tPort.setText(String.valueOf(LocalSettings.getREMOTE_PORT()));
   }
 
   public void enableTabs() {
@@ -88,19 +87,15 @@ public class OptionsController implements Initializable {
   public void bSnimi_options(ActionEvent actionEvent) {
     boolean firmaIsSaved = true;
 
-    db_conn.init_database();
     if (!tPort.getText().isEmpty()) {
-      db_conn.local_settings.setREMOTE_PORT(Integer.parseInt(tPort.getText()));
+      LocalSettings.setREMOTE_PORT(Integer.parseInt(tPort.getText()));
     }
     if (!tHostnameIp.getText().isEmpty()) {
-      db_conn.local_settings.setREMOTE_HOST(tHostnameIp.getText());
+      LocalSettings.setREMOTE_HOST(tHostnameIp.getText());
     }
-    try {
-      db_conn.set_settings();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    db_conn.close_db();
+    db_connection db_conn = new db_connection();
+    db_conn.setLocal_settings(LocalSettings);
+    db_conn.set_settings();
 
     if (saveFIRMA) {
       firmaIsSaved = save_Data();
@@ -112,7 +107,6 @@ public class OptionsController implements Initializable {
     AlertUser.info("IZMENE SNIMLJENE", "Izmene uspešno snimljene ;)");
     Stage stage = (Stage) bSnimi.getScene().getWindow();
     stage.close();
-
 
   }
 
@@ -179,7 +173,6 @@ public class OptionsController implements Initializable {
       tUDPTimeout.setText(obj.getString("DTV_UDP_TIMEOUT"));
       tStalkerApiUserName.setText(obj.getString("MINISTRA_API_USER"));
     } catch (JSONException e) {
-      System.out.println(e.getMessage());
       e.printStackTrace();
     }
 

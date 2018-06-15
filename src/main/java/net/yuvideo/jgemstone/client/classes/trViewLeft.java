@@ -33,9 +33,6 @@ public class trViewLeft {
           public void changed(ObservableValue<? extends TreeItem<tiProperty>> observable,
               TreeItem<tiProperty> oldValue, TreeItem<tiProperty> newValue) {
 
-            System.out.println(String
-                .format("Value je: %s Naziv je: %s", newValue.getValue().getValue(),
-                    newValue.getValue().getNaziv()));
 
             if (newValue.getValue().getNaziv().equals("useri")) {
               apCenter.getChildren().setAll(iNoviKorisnik(resources));

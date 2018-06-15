@@ -45,7 +45,7 @@ public class KorisnikUgovoriController implements Initializable {
   public TableColumn cOpis;
   public Button bObrisi;
   public Button bIzmeni;
-  public Client client;
+  private Client client;
   public int userID;
   public Button stampaUgovora;
   public UserData user;
@@ -217,7 +217,7 @@ public class KorisnikUgovoriController implements Initializable {
     KorisnikUgovorEditController korisnikUgovorEditController = ugovoriEditInterface.getLoader()
         .getController();
     korisnikUgovorEditController.ugovor = ugovor;
-    korisnikUgovorEditController.client = client;
+    korisnikUgovorEditController.setClient(new Client(client.getLocal_settings()));
     korisnikUgovorEditController.replaceCode = true;
     UserData user = new UserData(client, userID);
     korisnikUgovorEditController.user = user;
@@ -245,7 +245,7 @@ public class KorisnikUgovoriController implements Initializable {
         .getController();
     korisnikUgovorEditController.ugovor = ugovor;
     korisnikUgovorEditController.editUgovor = true;
-    korisnikUgovorEditController.client = client;
+    korisnikUgovorEditController.setClient(new Client(client.getLocal_settings()));
     korisnikUgovorEditController.replaceCode = false;
     UserData user = new UserData(client, userID);
     korisnikUgovorEditController.user = user;
@@ -259,12 +259,16 @@ public class KorisnikUgovoriController implements Initializable {
         "Stampa Ugovora", resources);
     UgovorStampaController ugovorStampaController = ugovorStampaInterface.getLoader()
         .getController();
-    ugovorStampaController.client = client;
+    ugovorStampaController.setClient(new Client(client.getLocal_settings()));
     ugovorStampaController.ugovor = (ugovori_types) tblUgovori.getSelectionModel()
         .getSelectedItem();
     ugovorStampaController.show_data();
     ugovorStampaInterface.getStage().showAndWait();
 
 
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

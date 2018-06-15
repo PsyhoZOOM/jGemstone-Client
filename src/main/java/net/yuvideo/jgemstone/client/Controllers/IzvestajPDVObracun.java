@@ -20,12 +20,13 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.Settings;
 import net.yuvideo.jgemstone.client.classes.pdvObracun;
 import org.json.JSONObject;
 
 public class IzvestajPDVObracun implements Initializable {
 
-  public Client client;
+  public Settings LocalSettings;
   public TextField tOdBrojaUser;
   public TextField tDoBrojaUser;
   public DatePicker dtpOd;
@@ -47,10 +48,11 @@ public class IzvestajPDVObracun implements Initializable {
 
 
   private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
+  private Client client;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    this.client = new Client(LocalSettings);
 
     dtpOd.setConverter(new StringConverter<LocalDate>() {
       @Override

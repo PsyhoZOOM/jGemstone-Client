@@ -15,7 +15,7 @@ import org.json.JSONObject;
  */
 public class OperaterDozvoleController implements Initializable {
 
-  public Client client;
+  private Client client;
 
   public CheckBox cUserSearch;
   public CheckBox cNewUser;
@@ -134,4 +134,7 @@ public class OperaterDozvoleController implements Initializable {
   }
 
 
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

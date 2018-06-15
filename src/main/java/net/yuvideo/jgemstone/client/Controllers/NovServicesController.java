@@ -23,7 +23,7 @@ public class NovServicesController implements Initializable {
   public TextField tCena;
   public TextField tOpis;
 
-  public Client client;
+  private Client client;
   //JSON
   JSONObject jObj;
   private Services service;

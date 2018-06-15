@@ -41,7 +41,7 @@ import org.json.JSONObject;
  */
 public class BoxPaketEditController implements Initializable {
 
-  public Client client;
+  private Client client;
   public boolean editPaket;
   public BoxPaket boxPaket;
   @FXML
@@ -400,5 +400,9 @@ public class BoxPaketEditController implements Initializable {
     Stage window = (Stage) bSnimi.getScene().getWindow();
     window.close();
 
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

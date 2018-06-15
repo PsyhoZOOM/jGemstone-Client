@@ -26,7 +26,7 @@ public class ArtikliTrackingController implements Initializable {
   public TableColumn<ArtikliTracking, String> cDatum;
   public TableColumn<ArtikliTracking, String> cOperater;
   public TableColumn<ArtikliTracking, String> cOpis;
-  public Client client;
+  private Client client;
   public int artID;
   public int magID;
   public Label lInfo;
@@ -69,4 +69,7 @@ public class ArtikliTrackingController implements Initializable {
   }
 
 
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

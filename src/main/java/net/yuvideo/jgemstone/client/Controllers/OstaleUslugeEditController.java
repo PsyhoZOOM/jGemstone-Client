@@ -29,7 +29,7 @@ public class OstaleUslugeEditController implements Initializable {
   public TextArea tKomentar;
   public Button bSnimi;
   public boolean edit;
-  public Client client;
+  private Client client;
   public OstaleUsluge ostaleUsluge;
   public Label lCenaPaketa;
   private URL localtion;
@@ -103,4 +103,7 @@ public class OstaleUslugeEditController implements Initializable {
 
   }
 
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

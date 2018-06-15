@@ -20,7 +20,7 @@ public class MagacinEditController implements Initializable {
   public TextField tNaziv;
   public TextArea taOpis;
   public boolean edit = false;
-  public Client client;
+  private Client client;
   public CheckBox chkGlavni;
   private URL location;
   private ResourceBundle resource;
@@ -62,5 +62,9 @@ public class MagacinEditController implements Initializable {
     } else {
       AlertUser.info("INFO", String.format("Magacin %s je snimljen", tNaziv.getText()));
     }
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

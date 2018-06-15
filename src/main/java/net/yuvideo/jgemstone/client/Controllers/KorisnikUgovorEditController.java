@@ -30,7 +30,7 @@ public class KorisnikUgovorEditController implements Initializable {
   public Label lOpis;
   public boolean editUgovor = false;
   public ugovori_types ugovor;
-  public Client client;
+  private Client client;
   public Label lTrajanje;
   public UserData user;
   public boolean replaceCode;
@@ -175,4 +175,7 @@ public class KorisnikUgovorEditController implements Initializable {
     stage.close();
   }
 
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

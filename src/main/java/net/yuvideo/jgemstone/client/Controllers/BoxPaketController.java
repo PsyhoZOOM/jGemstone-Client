@@ -35,7 +35,7 @@ public class BoxPaketController implements Initializable {
   public TableColumn cNET;
   public TableColumn cIPTV;
   public TableColumn cFiksna;
-  public Client client;
+  private Client client;
   @FXML
   TableColumn<BoxPaket, Double> cCena;
   @FXML
@@ -187,7 +187,7 @@ public class BoxPaketController implements Initializable {
     BoxPaketEditController paketBoxEditController = paketBoxEditInterface.getLoader()
         .getController();
 
-    paketBoxEditController.client = client;
+    paketBoxEditController.setClient(new Client(client.getLocal_settings()));
     paketBoxEditController.editPaket = true;
     paketBoxEditController.boxPaket = paket;
     paketBoxEditController.set_data();
@@ -202,7 +202,7 @@ public class BoxPaketController implements Initializable {
     NewInterface paketBoxNewInterface = new NewInterface("fxml/BoxPaketEdit.fxml", "BOX Paket",
         resource);
     BoxPaketEditController paketBoxNewController = paketBoxNewInterface.getLoader().getController();
-    paketBoxNewController.client = client;
+    paketBoxNewController.setClient(new Client(client.getLocal_settings()));
     paketBoxNewController.editPaket = false;
     paketBoxNewController.set_data();
     paketBoxNewInterface.getStage().showAndWait();
@@ -225,5 +225,9 @@ public class BoxPaketController implements Initializable {
       tblBox.getItems().remove(tblBox.getSelectionModel().getSelectedItem());
 
     }
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

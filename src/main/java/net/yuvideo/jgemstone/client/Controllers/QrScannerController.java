@@ -109,9 +109,7 @@ public class QrScannerController implements Initializable {
 
 
   public void keyRelease(KeyEvent event) {
-    System.out.println(event.getCode().getName());
     if (event.getCode().equals(KeyCode.ENTER)) {
-      System.out.println("DONE");
     } else {
 
       codeString.append(event.getText());
