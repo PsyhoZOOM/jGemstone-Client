@@ -17,7 +17,7 @@ import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.UsersOnline;
 import org.json.JSONObject;
 
-public class UserSearch implements Initializable {
+public class UserOnlineSearch implements Initializable {
 
   public JFXTreeTableView treeTableUsers;
   private Client client;

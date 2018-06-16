@@ -187,4 +187,8 @@ public class FiksnaTelefonijaPaket implements Initializable {
       tblPaketi.getItems().remove(tblPaketi.getSelectionModel().getSelectedItem());
     }
   }
+
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

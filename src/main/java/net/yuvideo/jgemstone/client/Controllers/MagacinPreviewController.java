@@ -34,7 +34,6 @@ public class MagacinPreviewController implements Initializable {
   public Button bIzbrisi;
 
 
-  public Settings LocalSettings;
 
 
   private URL location;
@@ -45,7 +44,6 @@ public class MagacinPreviewController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     this.location = location;
     this.resources = resources;
-    this.client = new Client(this.LocalSettings);
 
     cID.setCellValueFactory(new PropertyValueFactory<>("id"));
     cNaziv.setCellValueFactory(new PropertyValueFactory<>("naziv"));
@@ -111,5 +109,9 @@ public class MagacinPreviewController implements Initializable {
     showData();
 
 
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

@@ -138,4 +138,8 @@ public class UgovoriController implements Initializable {
     set_datas();
 
   }
+
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

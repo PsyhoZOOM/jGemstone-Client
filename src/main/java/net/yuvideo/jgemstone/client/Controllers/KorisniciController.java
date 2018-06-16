@@ -85,6 +85,10 @@ public class KorisniciController implements Initializable {
   public void initialize(URL location, final ResourceBundle resources) {
     this.resources = resources;
     this.location = location;
+    tUsers.getItems().removeAll();
+    tUsers.getItems().clear();
+
+
     tUserSearch.setOnKeyReleased(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent event) {
@@ -110,7 +114,6 @@ public class KorisniciController implements Initializable {
       TableRow<Users> row = new TableRow<Users>();
       row.setOnMouseClicked(event -> {
         if (event.getClickCount() == 2 && (!row.isEmpty())) {
-          Users rowData = row.getItem();
           bEditUser(null);
         }
       });

@@ -182,4 +182,8 @@ public class OptionsController implements Initializable {
 
 
   }
+
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

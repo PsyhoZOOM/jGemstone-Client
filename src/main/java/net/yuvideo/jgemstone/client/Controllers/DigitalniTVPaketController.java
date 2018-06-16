@@ -175,4 +175,8 @@ public class DigitalniTVPaketController implements Initializable {
       tblDTV.getItems().remove(tblDTV.getSelectionModel().getSelectedItem());
     }
   }
+
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

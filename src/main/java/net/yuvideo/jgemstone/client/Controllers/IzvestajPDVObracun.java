@@ -52,7 +52,6 @@ public class IzvestajPDVObracun implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    this.client = new Client(LocalSettings);
 
     dtpOd.setConverter(new StringConverter<LocalDate>() {
       @Override
@@ -224,5 +223,9 @@ public class IzvestajPDVObracun implements Initializable {
     lUkupno.setText(String.valueOf(ukupanIznos));
 
 
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

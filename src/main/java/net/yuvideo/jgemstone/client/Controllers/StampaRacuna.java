@@ -50,7 +50,6 @@ public class StampaRacuna implements Initializable {
   public Button bStampa;
   public DatePicker dtpZaMesec;
   public CheckBox chkFaktura;
-  public Settings LocalSettings;
   SimpleDateFormat df = new SimpleDateFormat("MM-yyyy");
   private ResourceBundle resources;
   private URL location;
@@ -60,7 +59,6 @@ public class StampaRacuna implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     this.location = location;
     this.resources = resources;
-    this.client = new Client(LocalSettings);
 
     cID.setCellValueFactory(new PropertyValueFactory<>("jbroj"));
     cIME.setCellValueFactory(new PropertyValueFactory<>("ime"));
@@ -232,5 +230,9 @@ public class StampaRacuna implements Initializable {
 
   public void izaberiSve(ActionEvent actionEvent) {
     tblKorisnici.getSelectionModel().selectAll();
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

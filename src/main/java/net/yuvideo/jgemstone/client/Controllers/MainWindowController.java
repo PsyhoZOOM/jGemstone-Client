@@ -30,6 +30,7 @@ import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
 import net.yuvideo.jgemstone.client.classes.Settings;
 import net.yuvideo.jgemstone.client.classes.db_connection;
+import org.json.CookieList;
 import org.json.JSONObject;
 
 public class MainWindowController implements Initializable {
@@ -99,7 +100,7 @@ public class MainWindowController implements Initializable {
     NewInterface optionsInterface = new NewInterface("fxml/Options.fxml", "PODESŠAVANJA", resource);
     OptionsController optionsController = optionsInterface.getLoader().getController();
     optionsController.saveFIRMA = true;
-    optionsController.LocalSettings = LocalSettings;
+    optionsController.setClient(new Client(LocalSettings));
     optionsController.setDataFirma();
     optionsController.enableTabs();
     optionsInterface.getStage().showAndWait();
@@ -122,7 +123,7 @@ public class MainWindowController implements Initializable {
   public void showMesta(ActionEvent actionEvent) {
     NewInterface mestaInterface = new NewInterface("fxml/Mesta.fxml", "Mesta", resource);
     MestaController mestaController = mestaInterface.getLoader().getController();
-    mestaController.LocalSettings = LocalSettings;
+    mestaController.setClient(new Client(LocalSettings));
     mestaController.osveziMesto(null);
     mestaInterface.getStage().showAndWait();
   }
@@ -130,7 +131,7 @@ public class MainWindowController implements Initializable {
   public void showOprema(ActionEvent actionEvent) {
     NewInterface opremaInterface = new NewInterface("fxml/Oprema.fxml", "Oprema", resource);
     OpremaController opremaController = opremaInterface.getLoader().getController();
-    opremaController.LocalSettings = LocalSettings;
+    opremaController.setClient(new Client(LocalSettings));
     opremaController.refresh_table();
     opremaInterface.getStage().showAndWait();
   }
@@ -138,6 +139,7 @@ public class MainWindowController implements Initializable {
   public void showOperaterList(ActionEvent actionEvent) {
     NewInterface operatersEdit = new NewInterface("fxml/Operateri.fxml", "Operateri", resource);
     OperaterController operaterController = operatersEdit.getLoader().getController();
+    operaterController.setClient(new Client(LocalSettings));
     operaterController.show_data();
     operatersEdit.getStage().showAndWait();
   }
@@ -157,6 +159,7 @@ public class MainWindowController implements Initializable {
         new NewInterface("fxml/DigitalnaTVPaket.fxml", "Digitalni TV Paketi", resource);
     DigitalniTVPaketController digitalniTVPaketController =
         digitalniTVPaketInterface.getLoader().getController();
+    digitalniTVPaketController.setClient(new Client(LocalSettings));
     digitalniTVPaketController.showData();
     digitalniTVPaketInterface.getStage().showAndWait();
   }
@@ -167,6 +170,7 @@ public class MainWindowController implements Initializable {
   public void showUgovori(ActionEvent actionEvent) {
     NewInterface ugovoriInterface = new NewInterface("fxml/Ugovori.fxml", "Ugovori", resource);
     UgovoriController ugovoriController = ugovoriInterface.getLoader().getController();
+    ugovoriController.setClient(new Client(LocalSettings));
     ugovoriController.set_datas();
     ugovoriInterface.getStage().showAndWait();
   }
@@ -207,6 +211,7 @@ public class MainWindowController implements Initializable {
         new NewInterface("fxml/FiksnaTelefonijaPaket.fxml", "FIKSNA TELEFONIJA", resource);
     FiksnaTelefonijaPaket fiksnaTelefonijaPaketController =
         fiksnaTelefonijaInterface.getLoader().getController();
+    fiksnaTelefonijaPaketController.setClient(new Client(LocalSettings));
     fiksnaTelefonijaPaketController.setTable();
     fiksnaTelefonijaInterface.getStage().showAndWait();
   }
@@ -237,6 +242,7 @@ public class MainWindowController implements Initializable {
     NewInterface IPTVPaketInterface =
         new NewInterface("fxml/IPTVPaketi.fxml", "IPTV _Paketi", resource);
     IPTVPaketiController iptvPaketiController = IPTVPaketInterface.getLoader().getController();
+    iptvPaketiController.setClient(new Client(LocalSettings));
     iptvPaketiController.showPaketiTable();
     IPTVPaketInterface.getStage().showAndWait();
   }
@@ -255,7 +261,7 @@ public class MainWindowController implements Initializable {
         resource, false);
     CSVStatusImportController csvStatusImportController = progressInd.getLoader()
         .getController();
-    csvStatusImportController.LocalSettings = LocalSettings;
+    csvStatusImportController.setClient(new Client(LocalSettings));
 
     csvStatusImportController.setLf(lf);
 
@@ -268,6 +274,7 @@ public class MainWindowController implements Initializable {
     NewInterface showPregledCSVInterface =
         new NewInterface("fxml/CSVPreview.fxml", "Pregled CSV-a", this.resource);
     CSVPreview csvPreviewController = showPregledCSVInterface.getLoader().getController();
+    csvPreviewController.setClient(new Client(LocalSettings));
     csvPreviewController.setData();
     showPregledCSVInterface.getStage().showAndWait();
   }
@@ -304,7 +311,7 @@ public class MainWindowController implements Initializable {
     NewInterface addMagacinInt =
         new NewInterface("fxml/MagaciniPreview.fxml", "KREIRANJE MAGACINA", this.resource);
     MagacinPreviewController magacinEditController = addMagacinInt.getLoader().getController();
-    magacinEditController.LocalSettings = LocalSettings;
+    magacinEditController.setClient(new Client(LocalSettings));
     magacinEditController.showData();
     addMagacinInt.getStage().showAndWait();
   }
@@ -314,7 +321,7 @@ public class MainWindowController implements Initializable {
         new NewInterface("fxml/IzvestajPDVObracun.fxml", "OBRAČUN PDV", this.resource);
     IzvestajPDVObracun izvestajPDVObracunController =
         izvestajPDVObracunInteface.getLoader().getController();
-    izvestajPDVObracunController.LocalSettings = LocalSettings;
+    izvestajPDVObracunController.setClient(new Client(LocalSettings));
     izvestajPDVObracunInteface.getStage().showAndWait();
   }
 
@@ -325,7 +332,7 @@ public class MainWindowController implements Initializable {
     NewInterface stampaRacunaInterface =
         new NewInterface("fxml/Racuni/StampaRacuna.fxml", "ŠTAMPA RAČUNA", this.resource);
     StampaRacuna stampaRacunaController = stampaRacunaInterface.getLoader().getController();
-    stampaRacunaController.LocalSettings = LocalSettings;
+    stampaRacunaController.setClient(new Client(LocalSettings));
     stampaRacunaController.setData();
     stampaRacunaInterface.getStage().showAndWait();
   }
@@ -341,7 +348,7 @@ public class MainWindowController implements Initializable {
     NewInterface devicesInterface = new NewInterface("fxml/Administration/Devices.fxml", "UREĐAJI",
         this.resource);
     Devices devicesController = devicesInterface.getLoader().getController();
-    devicesController.LocalSettings = LocalSettings;
+    devicesController.setClient(new Client(LocalSettings));
     devicesController.setItems();
     devicesInterface.getStage().showAndWait();
   }

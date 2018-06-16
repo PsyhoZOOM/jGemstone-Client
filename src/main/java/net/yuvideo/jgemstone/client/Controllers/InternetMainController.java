@@ -8,8 +8,10 @@ import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.JFXTreeView;
 import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.cells.editors.IntegerTextFieldEditorBuilder;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import javafx.application.Platform;
@@ -25,7 +27,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane.TabClosingPolicy;
-import javafx.scene.control.TablePosition;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTablePosition;
@@ -37,18 +40,20 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import net.yuvideo.jgemstone.client.classes.Administration.RadiusUsers;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.BytesTo_KB_MB_GB_TB;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.Settings;
 import net.yuvideo.jgemstone.client.classes.UsersOnline;
 import org.json.JSONObject;
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 /**
  * Created by zoom on 4/7/17.
@@ -58,7 +63,7 @@ public class InternetMainController implements Initializable {
   public Settings LocalSettings;
   public Stage stage;
   public JFXButton bOsveziOnline;
-  public JFXTreeView<UsersOnline> treSearch;
+  public JFXTreeView<String> treSearch;
   public Label lOnlineUsers;
   public JFXTabPane tabMiddle;
   public BorderPane bPane;
@@ -84,15 +89,15 @@ public class InternetMainController implements Initializable {
 
   }
 
-  private void setUserInfoData(TreeItem<UsersOnline> userData) {
+  private void setUserInfoData(UsersOnline userData) {
     Task<Void> task = new Task<Void>() {
       @Override
       protected Void call() throws Exception {
         JSONObject object = new JSONObject();
         object.put("action", "getUsersOnlineStat");
-        object.put("interfaceName", userData.getValue().getIdentification());
-        object.put("nasIP", userData.getValue().getNasIP());
-        object.put("ip", userData.getValue().getIp());
+        object.put("interfaceName", userData.getIdentification());
+        object.put("nasIP", userData.getNasIP());
+        object.put("ip", userData.getIp());
 
         Platform.runLater(new Runnable() {
           @Override
@@ -122,7 +127,7 @@ public class InternetMainController implements Initializable {
               lLinkUp.setText("");
               ltxError.setText("");
               lrxError.setText("");
-              lInterfaceName.setText(userData.getValue().getIdentification() + " oFFlInE");
+              lInterfaceName.setText(userData.getIdentification() + " oFFlInE");
               lNASIP.setText("");
               return;
             }
@@ -162,6 +167,132 @@ public class InternetMainController implements Initializable {
     root.setExpanded(true);
     treSearch.setRoot(root);
     treSearch.setShowRoot(false);
+
+    treSearch.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+          //TO-DO
+          if (treSearch.getSelectionModel().getSelectedItem().getValue().equals("Internet")) {
+            ;
+          }
+        }
+
+      }
+    });
+
+  }
+
+
+  private void showTabInternetSearch() {
+    Tab tabInternet = new Tab("Pretraga korisicko ime");
+    VBox vBox = new VBox();
+    HBox hBox = new HBox();
+    JFXTreeTableView<RadiusUsers> tblRadiusUser = new JFXTreeTableView();
+    JFXButton bSearchRadius = new JFXButton("Traži");
+    JFXTextField tSerachBox = new JFXTextField();
+    JFXTreeTableColumn<RadiusUsers, Integer> cBr = new JFXTreeTableColumn<>("br");
+    JFXTreeTableColumn<RadiusUsers, Integer> cID = new JFXTreeTableColumn<>("ID");
+    JFXTreeTableColumn<RadiusUsers, String> cUsername = new JFXTreeTableColumn<>("USERNAME");
+    JFXTreeTableColumn cAction = new JFXTreeTableColumn("AKCIJE");
+    Callback<TreeTableColumn<RadiusUsers, String>, TableCell<RadiusUsers, String>> cellFactor =
+        new Callback<TreeTableColumn<RadiusUsers, String>, TableCell<RadiusUsers, String>>() {
+          @Override
+          public TableCell<RadiusUsers, String> call(TreeTableColumn<RadiusUsers, String> param) {
+            final TableCell<RadiusUsers, String> cell = new TableCell<RadiusUsers, String>() {
+              final JFXButton butAct = new JFXButton("Prikaži Online");
+
+              @Override
+              protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                  setGraphic(null);
+                  setText(null);
+                } else {
+                  butAct.setOnAction(event -> {
+                    RadiusUsers user = tblRadiusUser.getSelectionModel().getSelectedItem()
+                        .getValue();
+                    showTabInternetSearch();
+                  });
+                }
+              }
+            };
+            return null;
+          }
+        };
+
+    cBr.setCellValueFactory(new TreeItemPropertyValueFactory<>("br"));
+    cBr.setMinWidth(20);
+    cBr.setPrefWidth(40);
+    cBr.setMaxWidth(40);
+    cID.setMinWidth(20);
+    cID.setPrefWidth(40);
+    cID.setMaxWidth(40);
+    cID.setCellValueFactory(new TreeItemPropertyValueFactory<>("id"));
+    cUsername
+        .setCellValueFactory(new TreeItemPropertyValueFactory<RadiusUsers, String>("username"));
+    tblRadiusUser.getColumns().addAll(cBr, cID, cUsername);
+    tblRadiusUser.setColumnResizePolicy(TreeTableView.CONSTRAINED_RESIZE_POLICY);
+
+    tSerachBox.textProperty().addListener(new ChangeListener<String>() {
+      @Override
+      public void changed(ObservableValue<? extends String> observable, String oldValue,
+          String newValue) {
+        tblRadiusUser.setPredicate(new Predicate<TreeItem<RadiusUsers>>() {
+          @Override
+          public boolean test(TreeItem<RadiusUsers> radiusUsersTreeItem) {
+            boolean flag = radiusUsersTreeItem.getValue().getUsername().contains(newValue);
+            return flag;
+          }
+        });
+      }
+    });
+
+    bSearchRadius.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        showRadReplyUsers(tblRadiusUser, tSerachBox.getText());
+      }
+    });
+
+    hBox.getChildren().addAll(tSerachBox, bSearchRadius);
+    vBox.getChildren().addAll(hBox, tblRadiusUser);
+
+    tabInternet.setContent(vBox);
+    tabMiddle.getTabs().add(tabInternet);
+    tabMiddle.getSelectionModel().select(tabInternet);
+  }
+
+  private void showRadReplyUsers(JFXTreeTableView<RadiusUsers> tblRadiusUser, String userSearch) {
+    JSONObject object = new JSONObject();
+    object.put("action", "getRadReplyUsers");
+    object.put("userSearch", userSearch);
+    object = client.send_object(object);
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA", object.getString("ERROR"));
+      return;
+    }
+    TreeItem<RadiusUsers> root;
+    ArrayList<RadiusUsers> radiusUsers = new ArrayList<>();
+    for (int i = 0; i < object.length(); i++) {
+      JSONObject user = object.getJSONObject(String.valueOf(i));
+      RadiusUsers radUser = new RadiusUsers();
+      radUser.setBr(i + 1);
+      radUser.setId(user.getInt("id"));
+      radUser.setAttribute(user.getString("attribute"));
+      radUser.setUsername(user.getString("username"));
+      radUser.setValue(user.getString("value"));
+      radiusUsers.add(radUser);
+    }
+    ObservableList<RadiusUsers> userOb = FXCollections.observableArrayList(radiusUsers);
+    root = new RecursiveTreeItem<>(userOb, RecursiveTreeObject::getChildren);
+    for (RadiusUsers user : radiusUsers) {
+      TreeItem<RadiusUsers> treeItem = new TreeItem<>(user);
+      root.getChildren().add(treeItem);
+    }
+    tblRadiusUser.setRoot(root);
+    tblRadiusUser.setShowRoot(false);
+
   }
 
 
@@ -207,7 +338,7 @@ public class InternetMainController implements Initializable {
           public void changed(ObservableValue<? extends TreeItem<UsersOnline>> observable,
               TreeItem<UsersOnline> oldValue, TreeItem<UsersOnline> newValue) {
 
-            setUserInfoData(newValue);
+            setUserInfoData(newValue.getValue());
 
 
           }

@@ -33,7 +33,6 @@ import org.json.JSONObject;
  */
 public class MestaController implements Initializable {
 
-  public Settings LocalSettings;
 
   public TextField tMestoNaziv;
   public TextField tMestoBroj;
@@ -61,7 +60,6 @@ public class MestaController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    this.client = new Client(LocalSettings);
     colAdresa.setCellValueFactory(new PropertyValueFactory<Adrese, String>("nazivAdrese"));
     colAdresaBroj.setCellValueFactory(new PropertyValueFactory<Adrese, Integer>("brojAdrese"));
     colMesto.setCellValueFactory(new PropertyValueFactory<Mesta, String>("nazivMesta"));
@@ -239,4 +237,7 @@ public class MestaController implements Initializable {
     tblAdrese.setItems(observableListAdrese);
   }
 
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

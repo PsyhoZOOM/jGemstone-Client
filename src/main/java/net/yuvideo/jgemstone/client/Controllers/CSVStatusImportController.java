@@ -38,13 +38,11 @@ public class CSVStatusImportController implements Initializable {
   private long curPos = 0;
   private boolean taskDone = false;
   private List<File> lf;
-  public Settings LocalSettings;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.location = location;
     this.resources = resources;
-    this.client = new Client(this.LocalSettings);
     bClose.setText("IMPORT");
     bClose.setOnAction(new EventHandler<ActionEvent>() {
       @Override
@@ -147,4 +145,7 @@ public class CSVStatusImportController implements Initializable {
     return progressTask;
   }
 
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

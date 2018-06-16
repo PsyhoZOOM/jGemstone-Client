@@ -38,9 +38,19 @@
 
 }
 
+.tree-table-row-cell:selected {
+    -fx-text-background-color:black;
+    -fx-background-color: purple;
+    -fx-border-color: black;
+    -fx-table-cell-border-color:black;
+    }
 
-
-
+.table-row-cell:selected {
+    -fx-text-background-color:black;
+    -fx-background-color: purple;
+    -fx-border-color: black;
+    -fx-table-cell-border-color:black;
+    }
 
 /* Button */
 .button {
@@ -1068,9 +1078,6 @@
     -fx-text-fill: BLACK;
 }
 
-.tree-table-view:focused .tree-table-row-cell:selected .tree-table-cell {
-    -fx-text-fill: BLACK;
-}
 
 .tree-table-view .jfx-rippler {
     -jfx-rippler-fill: -fx-tree-table-rippler-color;
@@ -1261,3 +1268,10 @@
 .jfx-scroll-pane .condensed-header {
     -fx-background-image: url("../bg4.jpg");
 }
+
+.tree-table-row-cell:selected > .tree-table-cell{
+     -fx-text-background-color:black;
+    -fx-background-color: purple;
+    -fx-border-color: black;
+    -fx-table-cell-border-color:black;
+    }

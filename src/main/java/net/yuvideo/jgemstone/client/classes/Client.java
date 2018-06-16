@@ -206,7 +206,7 @@ public class Client {
       } else if (jObj.getString("Message").equals("LOGIN_FAILED")) {
         connected = false;
         AlertUser.error("GRESKA", "Pogrešno korisničko ime ili lozinka!");
-        status_login = "Pogrešno kosrisničko ime ili lozinka";
+        status_login = "Pogrešno korisničko ime ili lozinka";
       } else {
         connected = false;
         AlertUser.error("GRESKA", jObj.getString("Message"));

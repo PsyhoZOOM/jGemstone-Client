@@ -35,7 +35,6 @@ public class OpremaController implements Initializable {
   public TableColumn colModel;
   public Button bIzbrisi;
   public Button bClose;
-  public Settings LocalSettings;
   private ResourceBundle resource;
   private URL location;
   private JSONObject jObj;
@@ -46,7 +45,6 @@ public class OpremaController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     this.resource = resources;
     this.location = location;
-    this.client = new Client(LocalSettings);
 
     colModel.setCellValueFactory(new PropertyValueFactory<Oprema, String>("model"));
     colNaziv.setCellValueFactory(new PropertyValueFactory<Oprema, String>("naziv"));
@@ -119,4 +117,7 @@ public class OpremaController implements Initializable {
   }
 
 
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

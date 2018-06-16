@@ -57,7 +57,6 @@ public class Devices implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     this.location = location;
     this.resources = resources;
-    this.client = new Client(LocalSettings);
 
     cNaziv.setCellValueFactory(new PropertyValueFactory<NetworkDevices, String>("name"));
     cVrsta.setCellValueFactory(new PropertyValueFactory<NetworkDevices, String>("type"));
@@ -176,5 +175,9 @@ public class Devices implements Initializable {
 
   public void refresh(ActionEvent actionEvent) {
     setItems();
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

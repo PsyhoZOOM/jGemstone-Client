@@ -117,4 +117,8 @@ public class CSVPreview implements Initializable {
 
   public void refreshTable(ActionEvent actionEvent) {
   }
+
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

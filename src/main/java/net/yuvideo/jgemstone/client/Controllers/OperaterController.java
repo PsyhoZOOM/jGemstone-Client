@@ -226,4 +226,8 @@ public class OperaterController implements Initializable {
     operaterDozvoleInterface.getStage().showAndWait();
 
   }
+
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }

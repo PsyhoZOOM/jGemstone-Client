@@ -238,4 +238,8 @@ public class IPTVPaketiController implements Initializable {
     }
 
   }
+
+  public void setClient(Client client) {
+    this.client = client;
+  }
 }
