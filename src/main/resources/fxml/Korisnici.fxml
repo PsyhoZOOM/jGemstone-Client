@@ -44,10 +44,13 @@
               </graphic>
             </Button>
             <Pane HBox.hgrow="ALWAYS"/>
-            <Button mnemonicParsing="false" onAction="#showFiltere" text="Filteri"
-              fx:id="bFilteri"/>
             <CheckBox mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT"
-              text="Pretraga sa filterom" fx:id="chkNaprednaPretraga"/>
+              fx:id="chkNaprednaPretraga">
+              <graphic>
+                <Button mnemonicParsing="false" onAction="#showFiltere" text="Filteri"
+                  fx:id="bFilteri"/>
+              </graphic>
+            </CheckBox>
             <TextField HBox.hgrow="SOMETIMES" promptText="Ime, Korisnik, Broj" fx:id="tUserSearch"/>
             <Button onAction="#bUserSearchAction" text="Traži" fx:id="bUserSearch">
               <graphic>
@@ -91,6 +94,8 @@
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#mUplate" text="Uplate"
                   fx:id="cmUplate"/>
+                <MenuItem mnemonicParsing="false" onAction="#showServices" text="Servisi"
+                  fx:id="cmServisi"/>
                 <MenuItem mnemonicParsing="false" onAction="#mIzmenKorisnika" text="Izmeni"
                   fx:id="cmIzmeni">
                 </MenuItem>
