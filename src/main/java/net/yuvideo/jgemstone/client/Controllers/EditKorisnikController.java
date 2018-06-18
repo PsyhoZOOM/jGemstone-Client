@@ -63,7 +63,7 @@ public class EditKorisnikController implements Initializable {
     }
 
     KorisnikPodaciController = fxmlLoader.getController();
-    KorisnikPodaciController.setClient(new Client(client.getLocal_settings()));
+    KorisnikPodaciController.setClient(this.client);
     KorisnikPodaciController.userEditID = userID;
     KorisnikPodaciController.setData();
 
@@ -81,7 +81,7 @@ public class EditKorisnikController implements Initializable {
     }
 
     korisnikUslugeController = fxmlLoader.getController();
-    korisnikUslugeController.setClient(new Client(client.getLocal_settings()));
+    korisnikUslugeController.setClient(this.client);
     korisnikUslugeController.userID = userID;
     korisnikUslugeController.userEdit = userEdit;
     korisnikUslugeController.setData();
@@ -102,7 +102,7 @@ public class EditKorisnikController implements Initializable {
     }
 
     korisnikUgovoriController = fxmlLoader.getController();
-    korisnikUgovoriController.setClient(new Client(client.getLocal_settings()));
+    korisnikUgovoriController.setClient(this.client);
     korisnikUgovoriController.userID = userID;
     korisnikUgovoriController.user = new UserData(client, userID);
     korisnikUgovoriController.set_data();
@@ -123,7 +123,7 @@ public class EditKorisnikController implements Initializable {
     }
 
     korisnikOpremaController = fxmlLoader.getController();
-    korisnikOpremaController.setClient(new Client(client.getLocal_settings()));
+    korisnikOpremaController.setClient(this.client);
     korisnikOpremaController.user = new UserData(client, userID);
     korisnikOpremaController.setData();
 

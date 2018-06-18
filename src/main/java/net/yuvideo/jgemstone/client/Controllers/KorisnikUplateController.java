@@ -952,7 +952,7 @@ public class KorisnikUplateController implements Initializable {
     UplatePregledController uplatePregledController =
         allUplateInterface.getLoader().getController();
     uplatePregledController.user = this.user;
-    uplatePregledController.setClient(new Client(client.getLocal_settings()));
+    uplatePregledController.setClient(this.client);
     uplatePregledController.setData();
     allUplateInterface.getStage().showAndWait();
   }

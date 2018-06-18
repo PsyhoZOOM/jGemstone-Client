@@ -42,6 +42,7 @@ public class Client {
   OutputStreamWriter Osw;
   BufferedReader Bfr;
   BufferedWriter Bfw;
+
   //JSON
   JSONObject jObj = new JSONObject();
   private String userName;
@@ -49,8 +50,16 @@ public class Client {
   private Settings local_settings;
   public String status_login;
   boolean connected = false;
+  private boolean newClient = true;
 
   public Client(Settings local_settings) {
+    this.local_settings = local_settings;
+    this.password = local_settings.getLocalPassword();
+    this.userName = local_settings.getLocalUser();
+  }
+
+  public Client(Settings local_settings, boolean newClient) {
+    this.newClient = newClient;
     this.local_settings = local_settings;
     this.password = local_settings.getLocalPassword();
     this.userName = local_settings.getLocalUser();
@@ -59,13 +68,19 @@ public class Client {
   public JSONObject send_object(JSONObject rObj) {
     rObj.put("userNameLogin", this.userName);
     rObj.put("userPassLogin", this.password);
-    main_run();
+    if (newClient) {
+      main_run();
+    } else {
+      rObj.put("keepAlive", true);
+    }
 
     try {
 
       try {
-        Osw = new OutputStreamWriter(socket.getOutputStream(), "UTF-8");
-        Bfw = new BufferedWriter(Osw);
+        if (Osw == null || Bfw == null) {
+          Osw = new OutputStreamWriter(socket.getOutputStream(), "UTF-8");
+          Bfw = new BufferedWriter(Osw);
+        }
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -105,8 +120,10 @@ public class Client {
 
   public JSONObject getjObj() {
     try {
-      Isr = new InputStreamReader(socket.getInputStream(), "UTF-8");
-      Bfr = new BufferedReader(Isr);
+      if (Isr == null || Bfr == null) {
+        Isr = new InputStreamReader(socket.getInputStream(), "UTF-8");
+        Bfr = new BufferedReader(Isr);
+      }
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -122,7 +139,9 @@ public class Client {
       e.printStackTrace();
     }
 
-    close();
+    if (newClient)
+      close();
+
     return jObj;
   }
 

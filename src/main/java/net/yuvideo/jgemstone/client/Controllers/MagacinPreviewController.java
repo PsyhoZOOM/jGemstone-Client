@@ -64,7 +64,7 @@ public class MagacinPreviewController implements Initializable {
     NewInterface newMagacin = new NewInterface("fxml/MagacinEdit.fxml", "Nov Magacin",
         this.resources);
     MagacinEditController magacinEditController = newMagacin.getLoader().getController();
-    magacinEditController.setClient(new Client(client.getLocal_settings()));
+    magacinEditController.setClient(this.client);
     magacinEditController.edit = false;
     newMagacin.getStage().showAndWait();
     showData();
@@ -75,7 +75,7 @@ public class MagacinPreviewController implements Initializable {
     NewInterface newMagacin = new NewInterface("fxml/MagacinEdit.fxml", "Nov Magacin",
         this.resources);
     MagacinEditController magacinEditController = newMagacin.getLoader().getController();
-    magacinEditController.setClient(new Client(client.getLocal_settings()));
+    magacinEditController.setClient(this.client);
     magacinEditController.edit = true;
     magacinEditController.setData(tblMagacini.getSelectionModel().getSelectedItem());
     newMagacin.getStage().showAndWait();

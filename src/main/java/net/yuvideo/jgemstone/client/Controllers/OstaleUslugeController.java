@@ -139,7 +139,7 @@ public class OstaleUslugeController implements Initializable {
     OstaleUslugeEditController novServiceController = novServiceInterface.getLoader()
         .getController();
     novServiceController.edit = false;
-    novServiceController.setClient(new Client(client.getLocal_settings()));
+    novServiceController.setClient(this.client);
     novServiceInterface.getStage().showAndWait();
     setData();
   }
@@ -148,7 +148,7 @@ public class OstaleUslugeController implements Initializable {
     NewInterface editInTerface = new NewInterface("fxml/OstaleUslugeEdit.fxml", "Izmena usluge",
         resources);
     OstaleUslugeEditController editServiceController = editInTerface.getLoader().getController();
-    editServiceController.setClient(new Client(client.getLocal_settings()));
+    editServiceController.setClient(this.client);
     editServiceController.edit = true;
     editServiceController.ostaleUsluge = tblOstaleUsluge.getSelectionModel().getSelectedItem();
     editServiceController.setData();

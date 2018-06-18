@@ -103,7 +103,7 @@ public class InternetPaketController implements Initializable {
         "Nov Internet Paket", resource);
     InternetPaketEditController internetPaketEditController = internetPaketEditInterface.getLoader()
         .getController();
-    internetPaketEditController.setClient(new Client(client.getLocal_settings()));
+    internetPaketEditController.setClient(this.client);
     internetPaketEditController.edit = false;
     internetPaketEditInterface.getStage().showAndWait();
     showData();
@@ -121,7 +121,7 @@ public class InternetPaketController implements Initializable {
         "Izmena Internet Paketa", resource);
     InternetPaketEditController internetPaketEditController = internetPaketEditInterface.getLoader()
         .getController();
-    internetPaketEditController.setClient(new Client(client.getLocal_settings()));
+    internetPaketEditController.setClient(this.client);
     internetPaketEditController.edit = true;
     internetPaketEditController.paket = paket;
     internetPaketEditController.show_data();

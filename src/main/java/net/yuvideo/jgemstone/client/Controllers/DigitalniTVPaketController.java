@@ -141,7 +141,7 @@ public class DigitalniTVPaketController implements Initializable {
     NewInterface novDtvInterface = new NewInterface("fxml/DigitalnaTVPaketEdit.fxml",
         "Nov Digitalni TV Paket", resources);
     DigitalniTVPaketEditController novDtvController = novDtvInterface.getLoader().getController();
-    novDtvController.setClient(new Client(client.getLocal_settings()));
+    novDtvController.setClient(this.client);
     novDtvInterface.getStage().showAndWait();
     showData();
 
@@ -151,7 +151,7 @@ public class DigitalniTVPaketController implements Initializable {
     NewInterface editDtvInterface = new NewInterface("fxml/DigitalnaTVPaketEdit.fxml",
         "Izmena Digitalnog TV Paketa", resources);
     DigitalniTVPaketEditController editDtvController = editDtvInterface.getLoader().getController();
-    editDtvController.setClient(new Client(client.getLocal_settings()));
+    editDtvController.setClient(this.client);
     editDtvController.edit = true;
     editDtvController.dtvPaket = (digitalniTVPaket) tblDTV.getSelectionModel().getSelectedItem();
     editDtvController.show_data();

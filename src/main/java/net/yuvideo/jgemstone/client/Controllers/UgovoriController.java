@@ -128,7 +128,7 @@ public class UgovoriController implements Initializable {
     NewInterface ugovoriEditInterface = new NewInterface("fxml/UgovoriEdit.fxml", EditorType,
         resources);
     UgovoriEditController ugovoriEditController = ugovoriEditInterface.getLoader().getController();
-    ugovoriEditController.setClient(new Client(client.getLocal_settings()));
+    ugovoriEditController.setClient(this.client);
     ugovoriEditController.Ugovor = tblUgovori.getSelectionModel().getSelectedItem();
     ugovoriEditController.type = type;
     if (type == 2) {

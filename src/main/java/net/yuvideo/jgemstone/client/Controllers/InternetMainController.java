@@ -91,6 +91,7 @@ public class InternetMainController implements Initializable {
 
   private void setUserInfoData(UsersOnline userData) {
     Task<Void> task = new Task<Void>() {
+
       @Override
       protected Void call() throws Exception {
         JSONObject object = new JSONObject();
@@ -127,7 +128,12 @@ public class InternetMainController implements Initializable {
               lLinkUp.setText("");
               ltxError.setText("");
               lrxError.setText("");
-              lInterfaceName.setText(userData.getIdentification() + " oFFlInE");
+              if (finalObject1.has("USER_OFFLINE")) {
+                lInterfaceName.setText(userData.getIdentification() + " oFFlInE");
+              } else {
+                lInterfaceName
+                    .setText(userData.getIdentification() + "\n" + finalObject1.getString("ERROR"));
+              }
               lNASIP.setText("");
               return;
             }
@@ -314,6 +320,7 @@ public class InternetMainController implements Initializable {
             if (finalObject.has("ERROR")) {
               JFXSnackbar snackbar1 = new JFXSnackbar();
               snackbar1.show(finalObject.getString("ERROR"), 10);
+
             }
             setTable(finalObject);
 
@@ -468,6 +475,6 @@ public class InternetMainController implements Initializable {
   }
 
   public void setClient(Client client) {
-    this.client = client;
+    this.client = new Client(client.getLocal_settings());
   }
 }

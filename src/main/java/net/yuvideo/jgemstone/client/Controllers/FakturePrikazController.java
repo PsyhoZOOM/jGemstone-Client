@@ -51,7 +51,7 @@ public class FakturePrikazController implements Initializable {
     NewInterface faktureInterface = new NewInterface("fxml/Fakture.fxml",
         "FAKTURE: " + user.getIme(), resources);
     FaktureController faktureController = faktureInterface.getLoader().getController();
-    faktureController.setClient(new Client(client.getLocal_settings()));
+    faktureController.setClient(this.client);
     faktureController.userData = user;
     faktureController.faktura = tblFakture.getSelectionModel().getSelectedItem();
     faktureController.setData();

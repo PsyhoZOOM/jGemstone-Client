@@ -59,7 +59,7 @@ public class LoginWinController implements Initializable {
 
     System.out.println(db.getLocal_settings().getLocalPassword());
 
-    Client client = new Client(db.getLocal_settings());
+    Client client = new Client(db.getLocal_settings(), false);
     client.main_run();
     client.login_to_server();
     lMessage.setText(client.status_login);
@@ -68,6 +68,7 @@ public class LoginWinController implements Initializable {
       try {
         rootMainWindow = fxmlLoader.load();
         MainWindowController mainCtrl = fxmlLoader.getController();
+        mainCtrl.setClient(client);
         mainCtrl.setStage(stage);
         mainCtrl.LocalSettings = client.getLocal_settings();
         decorator.setContent(rootMainWindow);

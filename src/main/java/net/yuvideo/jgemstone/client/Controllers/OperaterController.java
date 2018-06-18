@@ -220,7 +220,7 @@ public class OperaterController implements Initializable {
         "Dozvole  Operatera", resource);
     OperaterDozvoleController operaterDozvoleController = operaterDozvoleInterface.getLoader()
         .getController();
-    operaterDozvoleController.setClient(new Client(client.getLocal_settings()));
+    operaterDozvoleController.setClient(this.client);
     operaterDozvoleController.operaterID = operEdit.getId();
     operaterDozvoleController.show_data();
     operaterDozvoleInterface.getStage().showAndWait();

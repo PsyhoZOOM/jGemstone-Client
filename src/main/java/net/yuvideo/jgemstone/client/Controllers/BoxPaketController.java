@@ -187,7 +187,7 @@ public class BoxPaketController implements Initializable {
     BoxPaketEditController paketBoxEditController = paketBoxEditInterface.getLoader()
         .getController();
 
-    paketBoxEditController.setClient(new Client(client.getLocal_settings()));
+    paketBoxEditController.setClient(this.client);
     paketBoxEditController.editPaket = true;
     paketBoxEditController.boxPaket = paket;
     paketBoxEditController.set_data();
@@ -202,7 +202,7 @@ public class BoxPaketController implements Initializable {
     NewInterface paketBoxNewInterface = new NewInterface("fxml/BoxPaketEdit.fxml", "BOX Paket",
         resource);
     BoxPaketEditController paketBoxNewController = paketBoxNewInterface.getLoader().getController();
-    paketBoxNewController.setClient(new Client(client.getLocal_settings()));
+    paketBoxNewController.setClient(this.client);
     paketBoxNewController.editPaket = false;
     paketBoxNewController.set_data();
     paketBoxNewInterface.getStage().showAndWait();

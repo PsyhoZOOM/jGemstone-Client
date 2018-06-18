@@ -151,7 +151,7 @@ public class FiksnaTelefonijaPaket implements Initializable {
         "Izmene paketa " + paket.getNaziv(), resources);
     FiksnaTelefonijaPaketEditController ediPaketFiksna = editFiksPaketInterface.getLoader()
         .getController();
-    ediPaketFiksna.setClient(new Client(client.getLocal_settings()));
+    ediPaketFiksna.setClient(this.client);
     ediPaketFiksna.edit = true;
     ediPaketFiksna.paketEdit = paket;
     ediPaketFiksna.set_data();
@@ -164,7 +164,7 @@ public class FiksnaTelefonijaPaket implements Initializable {
     NewInterface editInterface = new NewInterface("fxml/FiksnaTelefonijaPaketEdit.fxml",
         "Nov Paket Fiksne telefonije", resources);
     FiksnaTelefonijaPaketEditController paketController = editInterface.getLoader().getController();
-    paketController.setClient(new Client(client.getLocal_settings()));
+    paketController.setClient(this.client);
     paketController.edit = false;
     editInterface.getStage().showAndWait();
     setTable();

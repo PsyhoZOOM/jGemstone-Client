@@ -142,7 +142,7 @@ public class IPTVPaketiController implements Initializable {
     IPTVPaketiEditController iptvPaketEditController = iptvPaketEditInterface.getLoader()
         .getController();
 
-    iptvPaketEditController.setClient(new Client(client.getLocal_settings()));
+    iptvPaketEditController.setClient(this.client);
     iptvPaketEditController.edit = true;
     iptvPaketEditController.paket = tblPaketiIPTV.getSelectionModel().getSelectedItem();
     iptvPaketEditController.paketEditID = tblPaketiIPTV.getSelectionModel().getSelectedItem()
@@ -160,7 +160,7 @@ public class IPTVPaketiController implements Initializable {
         resources);
     IPTVPaketiEditController iptvPaketiNewControoler = iptvPaketNewInterface.getLoader()
         .getController();
-    iptvPaketiNewControoler.setClient(new Client(client.getLocal_settings()));
+    iptvPaketiNewControoler.setClient(this.client);
     iptvPaketiNewControoler.edit = false;
     iptvPaketiNewControoler.setData();
     iptvPaketNewInterface.getStage().showAndWait();

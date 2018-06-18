@@ -217,7 +217,7 @@ public class KorisnikUgovoriController implements Initializable {
     KorisnikUgovorEditController korisnikUgovorEditController = ugovoriEditInterface.getLoader()
         .getController();
     korisnikUgovorEditController.ugovor = ugovor;
-    korisnikUgovorEditController.setClient(new Client(client.getLocal_settings()));
+    korisnikUgovorEditController.setClient(this.client);
     korisnikUgovorEditController.replaceCode = true;
     UserData user = new UserData(client, userID);
     korisnikUgovorEditController.user = user;
@@ -245,7 +245,7 @@ public class KorisnikUgovoriController implements Initializable {
         .getController();
     korisnikUgovorEditController.ugovor = ugovor;
     korisnikUgovorEditController.editUgovor = true;
-    korisnikUgovorEditController.setClient(new Client(client.getLocal_settings()));
+    korisnikUgovorEditController.setClient(this.client);
     korisnikUgovorEditController.replaceCode = false;
     UserData user = new UserData(client, userID);
     korisnikUgovorEditController.user = user;
@@ -259,7 +259,7 @@ public class KorisnikUgovoriController implements Initializable {
         "Stampa Ugovora", resources);
     UgovorStampaController ugovorStampaController = ugovorStampaInterface.getLoader()
         .getController();
-    ugovorStampaController.setClient(new Client(client.getLocal_settings()));
+    ugovorStampaController.setClient(this.client);
     ugovorStampaController.ugovor = (ugovori_types) tblUgovori.getSelectionModel()
         .getSelectedItem();
     ugovorStampaController.show_data();

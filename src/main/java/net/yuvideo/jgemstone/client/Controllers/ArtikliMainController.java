@@ -411,7 +411,7 @@ public class ArtikliMainController implements Initializable {
         "ZADUŽIVANJE ARTIKLA", resources);
     ArtikliZaduzivanjeController artikliZaduzivanjeController = artikliZaduzivanje.getLoader()
         .getController();
-    artikliZaduzivanjeController.setClient(new Client(client.getLocal_settings()));
+    artikliZaduzivanjeController.setClient(this.client);
     artikliZaduzivanjeController.artikal = artikli;
     artikliZaduzivanjeController.artikal
         .setIdMagacin(tblArtikli.getSelectionModel().getSelectedItem().getIdMagacin());
@@ -428,7 +428,7 @@ public class ArtikliMainController implements Initializable {
         resources);
     ArtikliTrackingController artikliTrackingController = artInfoInterface.getLoader()
         .getController();
-    artikliTrackingController.setClient(new Client(client.getLocal_settings()));
+    artikliTrackingController.setClient(this.client);
     artikliTrackingController.artID = artID;
     artikliTrackingController.magID = magId;
     artikliTrackingController.uniqueID = uniqueID;

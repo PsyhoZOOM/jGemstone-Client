@@ -287,7 +287,7 @@ public class KorisniciController implements Initializable {
         "Izmena korisnik", resources);
     EditKorisnikController editUserController = editKorisnikInterface.getLoader().getController();
 
-    editUserController.setClient(new Client(client.getLocal_settings()));
+    editUserController.setClient(this.client);
     editUserController.userEdit = tUsers.getSelectionModel().getSelectedItem();
     editUserController.userID = UserID;
     editUserController.loadKorisnikData();
@@ -339,7 +339,7 @@ public class KorisniciController implements Initializable {
     final NewInterface uplateKorisnik = new NewInterface("fxml/KorisnikUplate.fxml", "Uplate",
         resources);
     KorisnikUplateController uplateKorisnikController = uplateKorisnik.getLoader().getController();
-    uplateKorisnikController.setClient(new Client(client.getLocal_settings()));
+    uplateKorisnikController.setClient(this.client);
     uplateKorisnikController.user = user;
     uplateKorisnikController.filter_data();
     uplateKorisnik.getStage().showAndWait();
@@ -357,7 +357,7 @@ public class KorisniciController implements Initializable {
     NewInterface faktureInterface = new NewInterface("fxml/FakturePrikaz.fxml", "Fakture",
         resources);
     FakturePrikazController fakturePrikazController = faktureInterface.getLoader().getController();
-    fakturePrikazController.setClient(new Client(client.getLocal_settings()));
+    fakturePrikazController.setClient(this.client);
     fakturePrikazController.user = user;
     fakturePrikazController.set_data();
     faktureInterface.getStage().showAndWait();
