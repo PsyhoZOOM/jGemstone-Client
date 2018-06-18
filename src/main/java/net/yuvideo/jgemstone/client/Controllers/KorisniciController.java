@@ -49,6 +49,7 @@ public class KorisniciController implements Initializable {
   public Button bFakture;
   public MenuItem cmIzmeni;
   public MenuItem cmIzbrisi;
+  public MenuItem cmServisi;
   public Button bUserSearch;
   public TableColumn<Users, Double> cDug;
   public MenuItem cmUplate;
@@ -385,5 +386,8 @@ public class KorisniciController implements Initializable {
 
   public void setClient(Client client) {
     this.client = client;
+  }
+
+  public void showServices(ActionEvent actionEvent) {
   }
 }
