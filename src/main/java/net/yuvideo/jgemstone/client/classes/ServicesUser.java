@@ -1,6 +1,8 @@
 package net.yuvideo.jgemstone.client.classes;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import org.json.JSONObject;
 
 /**
  * Created by zoom on 2/9/17.
@@ -40,6 +42,104 @@ public class ServicesUser implements Serializable {
   String IPTV_EXT_ID;
   private String nazivIPTV;
   private String endDate;
+  private ArrayList<ServicesUser> boxServices;
+
+
+  public ArrayList<ServicesUser> getUserServiceArr(int userID, Client client) {
+
+    JSONObject jObj = new JSONObject();
+    jObj.put("action", "get_user_services");
+    jObj.put("userID", userID);
+    jObj = client.send_object(jObj);
+
+    JSONObject userServiceObj;
+    ArrayList<ServicesUser> userServiceArr = new ArrayList();
+    ServicesUser userService;
+
+    for (int i = 0; i < jObj.length(); i++) {
+      userServiceObj = (JSONObject) jObj.get(String.valueOf(i));
+      userService = new ServicesUser();
+      userService.setId(userServiceObj.getInt("id"));
+      userService.setUserID(userServiceObj.getInt("userID"));
+      userService.setBrUgovora(userServiceObj.getString("brojUgovora"));
+      userService.setCena(userServiceObj.getDouble("cena"));
+      userService.setPopust(userServiceObj.getDouble("popust"));
+      userService.setOperater(userServiceObj.getString("operName"));
+      userService.setDatum(userServiceObj.getString("date_added"));
+      userService.setNazivPaketa(userServiceObj.getString("nazivPaketa"));
+      userService.setNaziv(userServiceObj.getString("nazivPaketa"));
+      userService.setAktivan(userServiceObj.getBoolean("aktivan"));
+      if (userServiceObj.has("idUniqueName")) {
+        userService.setIdDTVCard(userServiceObj.getString("idUniqueName"));
+      }
+      userService.setObracun(userServiceObj.getBoolean("obracun"));
+      userService.setAktivan(userServiceObj.getBoolean("aktivan"));
+      userService.setProduzenje(userServiceObj.getInt("produzenje"));
+      if (userServiceObj.has("id_service")) {
+        userService.setId_Service(userServiceObj.getInt("id_service"));
+      }
+      if (userServiceObj.has("box")) {
+        userService.setBox(userServiceObj.getBoolean("box"));
+      } else {
+        userService.setBox(false);
+      }
+      if (userServiceObj.has("box_id")) {
+        userService.setBox_id(userServiceObj.getInt("box_id"));
+      }
+      if (userService.getBox()) {
+        userService.setBoxServices(addBoxServices(userServiceObj.getInt("id"), userID, client));
+      }
+      userService.setPaketType(userServiceObj.getString("paketType"));
+      System.out.println(userService.getPaketType());
+      userService.setLinkedService(userServiceObj.getBoolean("linkedService"));
+      userService.setNewService(userServiceObj.getBoolean("newService"));
+      userService.setDTVPaketID(userServiceObj.getInt("DTVPaketID"));
+      userService.setPopust(userServiceObj.getDouble("popust"));
+      userService.setPdv(userServiceObj.getDouble("pdv"));
+      userServiceArr.add(userService);
+    }
+
+    return userServiceArr;
+  }
+
+  private ArrayList<ServicesUser> addBoxServices(int box_id, int userID, Client client) {
+    ArrayList<ServicesUser> servicesBox = new ArrayList<>();
+    JSONObject object = new JSONObject();
+    object.put("action", "get_user_linked_services");
+    object.put("box_ID", box_id);
+    object.put("userID", userID);
+    object = client.send_object(object);
+    for (int i = 0; i < object.length(); i++) {
+      JSONObject servObj = object.getJSONObject(String.valueOf(i));
+      ServicesUser servicesUser = new ServicesUser();
+      servicesUser.setId(servObj.getInt("id"));
+      servicesUser.setUserID(servObj.getInt("userID"));
+      servicesUser.setId_Service(servObj.getInt("id_service"));
+      servicesUser.setBox_id(servObj.getInt("box_ID"));
+      servicesUser.setNazivPaketa(servObj.getString("nazivPaketa"));
+      servicesUser.setNaziv(servObj.getString("naziv"));
+      servicesUser.setProduzenje(servObj.getInt("produzenje"));
+      servicesUser.setGroupName(servObj.getString("groupName"));
+      servicesUser.setUserName(servObj.getString("userName"));
+      servicesUser.setIdDTVCard(servObj.getString("idDTVCard"));
+      servicesUser.setIPTV_MAC(servObj.getString("IPTV_MAC"));
+      servicesUser.setSTB_MAC(servObj.getString("STB_MAC"));
+      servicesUser.setFIKSNA_TEL(servObj.getString("FIKSNA_TEL"));
+      servicesUser.setPopust(servObj.getDouble("popust"));
+      servicesUser.setCena(servObj.getDouble("cena"));
+      servicesUser.setPdv(servObj.getDouble("pdv"));
+      servicesUser.setLinkedService(servObj.getBoolean("linkedService"));
+      servicesUser.setAktivan(servObj.getBoolean("aktivan"));
+      servicesUser.setEndDate(servObj.getString("endDate"));
+      servicesUser.setPaketType(servObj.getString("paketType"));
+      servicesUser.setNewService(servObj.getBoolean("newService"));
+      servicesBox.add(servicesUser);
+
+    }
+    return servicesBox;
+
+  }
+
 
   public Double getZaUplatu() {
     return zaUplatu;
@@ -316,5 +416,13 @@ public class ServicesUser implements Serializable {
 
   public void setNazivIPTV(String nazivIPTV) {
     this.nazivIPTV = nazivIPTV;
+  }
+
+  public ArrayList<ServicesUser> getBoxServices() {
+    return boxServices;
+  }
+
+  public void setBoxServices(ArrayList<ServicesUser> boxServices) {
+    this.boxServices = boxServices;
   }
 }

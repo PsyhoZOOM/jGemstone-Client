@@ -23,6 +23,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import net.yuvideo.jgemstone.client.Controllers.Administration.UserServices.TabUserServices;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
@@ -389,5 +390,14 @@ public class KorisniciController implements Initializable {
   }
 
   public void showServices(ActionEvent actionEvent) {
+    NewInterface userServicesInterface = new NewInterface(
+        "fxml/Administration/UserServices/TabUserServices.fxml", "KORISNIČKI SERVISI",
+        this.resources, true, true);
+    TabUserServices tabUserServicesController = userServicesInterface.getLoader().getController();
+    tabUserServicesController.setUserID(tUsers.getSelectionModel().getSelectedItem().getId());
+    tabUserServicesController.setClient(this.client);
+    tabUserServicesController.init();
+    userServicesInterface.getStage().show();
+
   }
 }

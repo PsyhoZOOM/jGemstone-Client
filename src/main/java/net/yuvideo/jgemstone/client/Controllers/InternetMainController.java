@@ -339,26 +339,20 @@ public class InternetMainController implements Initializable {
     lOnlineUsers.setText(String.valueOf(object.length()));
     JFXTreeTableView<UsersOnline> tblOnlineUSers = new JFXTreeTableView<>();
 
-    tblOnlineUSers.getSelectionModel().selectedItemProperty().addListener(
-        new ChangeListener<TreeItem<UsersOnline>>() {
-          @Override
-          public void changed(ObservableValue<? extends TreeItem<UsersOnline>> observable,
-              TreeItem<UsersOnline> oldValue, TreeItem<UsersOnline> newValue) {
 
-            setUserInfoData(newValue.getValue());
-
-
-          }
-        });
     tblOnlineUSers.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+          setUserInfoData(tblOnlineUSers.getSelectionModel().getSelectedItem().getValue());
+        }
         if (event.getButton() == MouseButton.SECONDARY) {
           if (tblOnlineUSers.getSelectionModel().getSelectedIndex() == -1) {
             return;
           }
 
           TreeTablePosition pos = tblOnlineUSers.getSelectionModel().getSelectedCells().get(0);
+
           int row = pos.getRow();
           TreeTableColumn col = pos.getTableColumn();
           if (col == null) {
