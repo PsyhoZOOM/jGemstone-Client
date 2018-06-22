@@ -71,7 +71,8 @@ public class KorisnikUslugeEditController implements Initializable {
     } else {
       cmbObracun.setSelected(false);
     }
-    if (servicesUser.getEndDate() != null) {
+    System.out.println("DUZINA" + servicesUser.getEndDate().length());
+    if (servicesUser.getEndDate().length() > 4) {
       LocalDate date = LocalDate
           .parse(servicesUser.getEndDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
       dtpDatumIsteka.setValue(date);

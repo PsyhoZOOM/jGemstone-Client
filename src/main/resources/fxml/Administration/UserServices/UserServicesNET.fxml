@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.172"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.Administration.UserServices.UserServicesNET"
+  fx:id="vBoxMain">
+  <children>
+    <HBox>
+      <children>
+        <VBox spacing="20.0">
+          <children>
+            <HBox spacing="5.0">
+              <children>
+                <Label text="Naziv Paketa:"/>
+                <Label HBox.hgrow="ALWAYS" fx:id="lNazivPaketa"/>
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+              </padding>
+            </HBox>
+            <HBox spacing="5.0">
+              <children>
+                <Label text="Vrsta:"/>
+                <Label HBox.hgrow="ALWAYS" fx:id="lVrstaPaketa"/>
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+              </padding>
+            </HBox>
+            <HBox spacing="5.0">
+              <children>
+                <Label text="Datum isteka Servisa:"/>
+                <Label HBox.hgrow="ALWAYS" fx:id="lServiceEndDate"/>
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+              </padding>
+            </HBox>
+            <JFXTextField labelFloat="true" prefHeight="25.0" prefWidth="200.0"
+              promptText="Username" fx:id="tUserName"/>
+            <HBox>
+              <children>
+                <JFXPasswordField labelFloat="true" prefWidth="200.0" promptText="password"
+                  fx:id="tPass"/>
+                <JFXButton buttonType="RAISED" onAction="#izmeniPass" text="Izmeni"
+                  fx:id="bIzmeniPass"/>
+              </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
+              <children>
+                <Label text="Datum isteka:"/>
+                <JFXDatePicker editable="false" prefHeight="25.0" prefWidth="199.0"
+                  promptText="Datum isteka" fx:id="dtpEndDate"/>
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+              </padding>
+            </HBox>
+            <JFXTextField labelFloat="true" prefWidth="200.0" promptText="up(1M)/down(5m)"
+              fx:id="tUpDown"/>
+            <JFXTextField labelFloat="true" prefWidth="200.0" promptText="IP Addresa" fx:id="tIP"/>
+            <JFXTextField labelFloat="true" prefWidth="200.0" promptText="IP POOL" fx:id="tIpPool"/>
+            <JFXTextField labelFloat="true" prefWidth="200.0" promptText="Filter-ID"
+              fx:id="tFilterID"/>
+            <JFXTextArea VBox.vgrow="ALWAYS" labelFloat="true" promptText="Komentar"
+              fx:id="tKomentar"/>
+            <JFXCheckBox text="Reject" fx:id="chkReject"/>
+            <HBox alignment="CENTER_RIGHT">
+              <children>
+                <JFXButton buttonType="RAISED" contentDisplay="CENTER" onAction="#changeRadiusData"
+                  text="Izmeni" fx:id="bIzmeni"/>
+              </children>
+            </HBox>
+          </children>
+          <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+          </padding>
+        </VBox>
+        <Separator orientation="VERTICAL" prefHeight="200.0"/>
+        <VBox prefHeight="200.0" prefWidth="100.0">
+          <children>
+            <Label text="Online: "/>
+          </children>
+        </VBox>
+      </children>
+    </HBox>
+  </children>
+  <padding>
+    <Insets bottom="5.0" left="5.0" right="5.0" top="20.0"/>
+  </padding>
+</VBox>

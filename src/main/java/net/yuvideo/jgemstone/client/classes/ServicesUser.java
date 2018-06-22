@@ -1,5 +1,6 @@
 package net.yuvideo.jgemstone.client.classes;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.json.JSONObject;
@@ -7,7 +8,7 @@ import org.json.JSONObject;
 /**
  * Created by zoom on 2/9/17.
  */
-public class ServicesUser implements Serializable {
+public class ServicesUser extends RecursiveTreeObject<ServicesUser> implements Serializable {
 
   int id;
   String naziv;
@@ -43,6 +44,8 @@ public class ServicesUser implements Serializable {
   private String nazivIPTV;
   private String endDate;
   private ArrayList<ServicesUser> boxServices;
+  private String komentar;
+  private String opis;
 
 
   public ArrayList<ServicesUser> getUserServiceArr(int userID, Client client) {
@@ -90,12 +93,14 @@ public class ServicesUser implements Serializable {
         userService.setBoxServices(addBoxServices(userServiceObj.getInt("id"), userID, client));
       }
       userService.setPaketType(userServiceObj.getString("paketType"));
-      System.out.println(userService.getPaketType());
       userService.setLinkedService(userServiceObj.getBoolean("linkedService"));
       userService.setNewService(userServiceObj.getBoolean("newService"));
       userService.setDTVPaketID(userServiceObj.getInt("DTVPaketID"));
       userService.setPopust(userServiceObj.getDouble("popust"));
       userService.setPdv(userServiceObj.getDouble("pdv"));
+      userService.setKomentar(userServiceObj.getString("komentar"));
+      userService.setOpis(userServiceObj.getString("opis"));
+      userService.setUserName(userServiceObj.getString("userName"));
       userServiceArr.add(userService);
     }
 
@@ -133,6 +138,9 @@ public class ServicesUser implements Serializable {
       servicesUser.setEndDate(servObj.getString("endDate"));
       servicesUser.setPaketType(servObj.getString("paketType"));
       servicesUser.setNewService(servObj.getBoolean("newService"));
+      servicesUser.setKomentar(servObj.getString("komentar"));
+      servicesUser.setOpis(servObj.getString("opis"));
+      servicesUser.setUserName(servObj.getString("userName"));
       servicesBox.add(servicesUser);
 
     }
@@ -424,5 +432,44 @@ public class ServicesUser implements Serializable {
 
   public void setBoxServices(ArrayList<ServicesUser> boxServices) {
     this.boxServices = boxServices;
+  }
+
+  @Override
+  public String toString() {
+    String paketType = null;
+    if (this.paketType.contains("DTV")) {
+      paketType = "DTV";
+    }
+    if (this.paketType.contains("NET")) {
+      paketType = "NET";
+    }
+    if (this.paketType.contains("BOX")) {
+      paketType = "BOX";
+    }
+    if (this.paketType.contains("IPTV")) {
+      paketType = "IPTV";
+    }
+    if (this.paketType.contains("FIX")) {
+      paketType = "FIKSNA TEL.";
+    }
+
+    return String.format("%s (%s)", this.naziv, paketType);
+  }
+
+  public String getKomentar() {
+    return komentar;
+  }
+
+  public void setKomentar(String komentar) {
+    this.komentar = komentar;
+  }
+
+
+  public String getOpis() {
+    return opis;
+  }
+
+  public void setOpis(String opis) {
+    this.opis = opis;
   }
 }

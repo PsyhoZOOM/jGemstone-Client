@@ -54,7 +54,7 @@ public class KorisnikUslugeController implements Initializable {
 
 
   //list services
-  public JFXTreeTableView tblServices;
+  public JFXTreeTableView<ServicesUser> tblServices;
   public TreeTableColumn cServicesNaziv;
   public TreeTableColumn cServicesDatum;
   public TreeTableColumn cDatumIsteka;
@@ -1105,7 +1105,7 @@ public class KorisnikUslugeController implements Initializable {
       return;
     }
 
-    ServicesUser servicesUser = (ServicesUser) tblServices.getSelectionModel().getSelectedItem();
+    ServicesUser servicesUser = tblServices.getSelectionModel().getSelectedItem().getValue();
 
     //   ServicesUser servicesUser = tblServices.getSelectionModel().getSelectedItem().getValue();
     boolean aktivan = false;
@@ -1201,7 +1201,7 @@ public class KorisnikUslugeController implements Initializable {
     jObj = client.send_object(jObj);
 
     if (jObj.getString("Message").equals("SERVICE_ADDED")) {
-      AlertUser.info("Servis je dodan", String.format("Servis %s je dodan",
+      AlertUser.info("Servis je dodan", String.format("Servis %s je dodan ",
           cmbFixPaket.getValue().getNaziv()));
       setData();
     } else {

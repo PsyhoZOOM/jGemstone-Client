@@ -1,7 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import static javafx.scene.control.ButtonType.OK;
-
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -23,16 +21,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import net.yuvideo.jgemstone.client.Controllers.Administration.UserServices.TabUserServices;
+import net.yuvideo.jgemstone.client.Controllers.Administration.UserServices.UserServicesViewController;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
-import net.yuvideo.jgemstone.client.classes.Settings;
 import net.yuvideo.jgemstone.client.classes.Users;
 import net.yuvideo.jgemstone.client.classes.messageS;
 import org.json.JSONObject;
-
-import javax.jws.soap.SOAPBinding;
 
 /**
  * Created by zoom on 8/3/16.
@@ -391,12 +386,16 @@ public class KorisniciController implements Initializable {
 
   public void showServices(ActionEvent actionEvent) {
     NewInterface userServicesInterface = new NewInterface(
-        "fxml/Administration/UserServices/TabUserServices.fxml", "KORISNIČKI SERVISI",
+        "fxml/Administration/UserServices/UserServicesView.fxml",
+        String.format("KORISNIČKI SERVISI - %s - %s",
+            tUsers.getSelectionModel().getSelectedItem().getIme(),
+            tUsers.getSelectionModel().getSelectedItem().getJbroj()),
         this.resources, true, true);
-    TabUserServices tabUserServicesController = userServicesInterface.getLoader().getController();
-    tabUserServicesController.setUserID(tUsers.getSelectionModel().getSelectedItem().getId());
-    tabUserServicesController.setClient(this.client);
-    tabUserServicesController.init();
+    UserServicesViewController userServicesController = userServicesInterface.getLoader()
+        .getController();
+    userServicesController.setUserID(tUsers.getSelectionModel().getSelectedItem().getId());
+    userServicesController.setClient(this.client);
+    userServicesController.init();
     userServicesInterface.getStage().show();
 
   }

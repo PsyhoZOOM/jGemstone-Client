@@ -61,9 +61,6 @@ public class CSVStatusImportController implements Initializable {
     stage.close();
   }
 
-  public void CSVStatusImportController(Client client) {
-    this.client = client;
-  }
 
   public void setLf(List<File> lf) {
     this.lf = lf;
