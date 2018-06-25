@@ -261,19 +261,19 @@ public class KorisniciController implements Initializable {
       AlertUser.error("GRESKA", jObj.getString("ERROR"));
     } else {
       AlertUser.info("KORISNIK OBRISAN", String.format("Korisnik %s je obrisan!", user.getIme()));
+      tUsers.getItems().remove(user);
     }
 
   }
 
   public void bEditUser(ActionEvent actionEvent) {
     if (tUsers.getSelectionModel().getSelectedIndex() == -1) {
-      AlertUser.warrning("NIJE IZABRAN NI JE DAN KORISNIK", "Izaberite korisnika za izmene!");
+      AlertUser.warrning("NIJE IZABRAN KORISNIK", "Izaberite korisnika za izmene!");
       return;
     }
     Users user = tUsers.getSelectionModel().getSelectedItem();
     int userId = user.getId();
     EditUser(userId);
-    show_table(tUserSearch.getText());
 
   }
 

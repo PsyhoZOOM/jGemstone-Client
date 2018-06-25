@@ -178,12 +178,15 @@ public class StampaRacuna implements Initializable {
     Window wind = bStampa.getScene().getWindow();
 
     PrinterJob printerJob = PrinterJob.createPrinterJob();
-    boolean b = printerJob.showPrintDialog(wind);
-    JobSettings printerSettngs = printerJob.getJobSettings();
-
-    if (!b) {
+    JobSettings printerSettngs = null;
+    if(printerJob == null){
+      AlertUser.warrning("UPOZORENJE", "Nije pronadjen stampac");
       return;
+    }else {
+      boolean b = printerJob.showPrintDialog(wind);
+      printerSettngs = printerJob.getJobSettings();
     }
+
 
     for (int i = 0; i < selectedItems.size(); i++) {
       Racun racun = new Racun();
@@ -208,6 +211,7 @@ public class StampaRacuna implements Initializable {
         printRacun = new PrintRacun();
         printRacun.showPreview=onlyPreview;
         printRacun.firmaData = firmaSettings.getJsonObject();
+        //ako je samo preview nema potrebe za stampacem
         printRacun.setPrinterData(printerSettngs, printerJob.getPrinter());
 
         racun.initRacun(
