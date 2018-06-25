@@ -51,6 +51,7 @@ public class Client {
   public String status_login;
   boolean connected = false;
   private boolean newClient = true;
+  private static String C_VERSION = "0.100";
 
   public Client(Settings local_settings) {
     this.local_settings = local_settings;
@@ -68,6 +69,7 @@ public class Client {
   public JSONObject send_object(JSONObject rObj) {
     rObj.put("userNameLogin", this.userName);
     rObj.put("userPassLogin", this.password);
+    rObj.put("C_VERSION", this.C_VERSION);
     if (newClient) {
       main_run();
     } else {
@@ -226,6 +228,10 @@ public class Client {
         connected = false;
         AlertUser.error("GRESKA", "Pogrešno korisničko ime ili lozinka!");
         status_login = "Pogrešno korisničko ime ili lozinka";
+      }else if(jObj.getString("Message").equals("WRONG_VERSION")){
+        connected = false;
+        AlertUser.error("GRESKA!", "OVA VERZIJA KLIJENTA NIJE KOMPATIBILNA");
+
       } else {
         connected = false;
         AlertUser.error("GRESKA", jObj.getString("Message"));

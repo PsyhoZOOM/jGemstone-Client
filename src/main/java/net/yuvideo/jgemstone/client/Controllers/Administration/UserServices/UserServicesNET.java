@@ -99,8 +99,7 @@ public class UserServicesNET implements Initializable {
 
     if (object.has("WISPR-Session-Terminate-Time")) {
       String WISPRTermTime = object.getString("WISPR-Session-Terminate-Time");
-      System.out.println("TIME: " + WISPRTermTime);
-      dtpEndDate.setValue(LocalDate.parse(WISPRTermTime, dtf));
+      dtpEndDate.setValue(LocalDate.parse(WISPRTermTime, dtfRad));
     } else {
       dtpEndDate.setValue(LocalDate.parse(object.getString("endDateService"), dtf));
     }
