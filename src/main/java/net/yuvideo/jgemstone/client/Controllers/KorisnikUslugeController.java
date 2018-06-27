@@ -388,7 +388,16 @@ public class KorisnikUslugeController implements Initializable {
           tMACIPTVBox.setDisable(true);
         } else {
           tMACIPTVBox.setDisable(false);
+          checkIPTVServerIsAlive();
         }
+      }
+    });
+
+    cmbIPTVPaket.valueProperty().addListener(new ChangeListener<IPTVPaketi>() {
+      @Override
+      public void changed(ObservableValue<? extends IPTVPaketi> observable, IPTVPaketi oldValue,
+          IPTVPaketi newValue) {
+        checkIPTVServerIsAlive();
       }
     });
 
@@ -569,6 +578,16 @@ public class KorisnikUslugeController implements Initializable {
     });
 
 
+  }
+
+  private void checkIPTVServerIsAlive() {
+    JSONObject object = new JSONObject();
+    object.put("action", "check_iptv_is_alive");
+    object = client.send_object(object);
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA",
+          "IPTV Server nije dostupan, uslugu koju dodajete korisniku nece biti funkionalna");
+    }
   }
 
   public void setData() {
@@ -971,6 +990,7 @@ public class KorisnikUslugeController implements Initializable {
     jObj.put("idPaket", cmbPaketDTV.getValue().getPaketID());
     jObj.put("brojUgovora", cmbUgovorDTV.getValue().getBr());
     jObj.put("idUniqueName", tKarticaDTV.getText());
+    jObj.put("DTVKarticaID", Integer.valueOf(tKarticaDTV.getText()));
     jObj.put("packetID", cmbPaketDTV.getValue().getPaketID());
     jObj.put("produzenje", Integer.valueOf(tDTVPrekoracenje.getText()));
     jObj.put("komentar", tOpisDTV.getText());
@@ -1205,7 +1225,7 @@ public class KorisnikUslugeController implements Initializable {
           cmbFixPaket.getValue().getNaziv()));
       setData();
     } else {
-      AlertUser.error("Greska", jObj.getString("Message"));
+      AlertUser.error("Greska", jObj.getString("ERROR"));
     }
 
 

@@ -78,7 +78,8 @@
                   <children>
                     <JFXButton onAction="#refresh" text="Osveži" fx:id="bOsvezi"/>
                     <JFXButton buttonType="RAISED" contentDisplay="TOP" onAction="#saveDevice"
-                      text="Snimi" fx:id="bSnimi"/>
+                      text="Snimi nov" fx:id="bSnimi"/>
+                    <JFXButton onAction="#editDevice" text="Izmeni" fx:id="bIzmeni"/>
                   </children>
                 </HBox>
               </children>

@@ -67,6 +67,7 @@ public class EditKorisnikController implements Initializable {
     KorisnikPodaciController.userEditID = userID;
     KorisnikPodaciController.setData();
 
+
   }
 
   public void loadKorisnikServices() {

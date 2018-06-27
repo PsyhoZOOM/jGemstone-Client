@@ -151,8 +151,9 @@ public class KorisnikPodaciController implements Initializable {
       @Override
       public void changed(ObservableValue<? extends String> observable, String oldValue,
           String newValue) {
-        if (newValue.matches("[0-9]*")) {
-          tTelFix.setText(newValue);
+        if (newValue.matches("\\d*")) {
+          tTelMob.setText(newValue.replaceAll("[^\\d]", "").trim());
+
         }
       }
     });
@@ -160,11 +161,12 @@ public class KorisnikPodaciController implements Initializable {
       @Override
       public void changed(ObservableValue<? extends String> observable, String oldValue,
           String newValue) {
-        if (newValue.matches("[0-9]*")) {
-          tTelMob.setText(newValue);
+        if (!newValue.matches("\\d*")) {
+          tTelMob.setText(newValue.replaceAll("[^\\d]", "").trim());
         }
       }
     });
+
   }
 
 

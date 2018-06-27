@@ -107,11 +107,12 @@ public class KorisniciController implements Initializable {
     cTelFiksni.setCellValueFactory(new PropertyValueFactory<Users, String>("fiksni"));
     cTelMob.setCellValueFactory(new PropertyValueFactory<Users, String>("mobilni"));
     cDug.setCellValueFactory(new PropertyValueFactory<Users, Double>("dug"));
+
     tUsers.setRowFactory(tv -> {
       TableRow<Users> row = new TableRow<Users>();
       row.setOnMouseClicked(event -> {
         if (event.getClickCount() == 2 && (!row.isEmpty())) {
-          bEditUser(null);
+          showUplate(null);
         }
       });
       return row;

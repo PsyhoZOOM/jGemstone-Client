@@ -994,4 +994,28 @@ public class KorisnikUplateController implements Initializable {
   public void setClient(Client client) {
     this.client = client;
   }
+
+  public void deleteZaduzenje(ActionEvent actionEvent) {
+    TreeItem<Uplate> selectedItem = tblZaduzenja.getSelectionModel().getSelectedItem();
+    if (selectedItem == null) {
+      return;
+    }
+    boolean brisanje_zaduženja_korisnika = AlertUser.yesNo("BRISANJE ZADUŽENJA KORISNIKA",
+        String.format("Da li ste sigurni da želite da izbrišete %s zaduženje?",
+            selectedItem.getValue().getNazivPaket()));
+    if (brisanje_zaduženja_korisnika) {
+      JSONObject object = new JSONObject();
+      object.put("action", "DELETE_USER_DEBT");
+      object.put("idDebt", selectedItem.getValue().getId());
+      object = client.send_object(object);
+      if (object.has("ERROR")) {
+        AlertUser.error("GRESKA", object.getString("ERROR"));
+      } else {
+        AlertUser.info("UPLATA IZBRISANA",
+            String.format("Uplata %s je izbrisana", selectedItem.getValue().getNazivPaket()));
+        tblZaduzenja.getRoot().getChildren().remove(selectedItem);
+      }
+
+    }
+  }
 }

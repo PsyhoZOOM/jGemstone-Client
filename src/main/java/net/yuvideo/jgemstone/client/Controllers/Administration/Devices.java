@@ -101,9 +101,10 @@ public class Devices implements Initializable {
 
             tNaziv.setText(newValue.getName());
             tUserName.setText(newValue.getUserName());
-            tIpHost.setText(newValue.getHostName());
+            tIpHost.setText(newValue.getIp());
             tURL.setText(newValue.getUrl());
             tOpis.setText(newValue.getOpis());
+            tHostName.setText(newValue.getHostName());
             if (newValue.isNas()) {
               chkNas.setSelected(true);
             } else {
@@ -179,5 +180,29 @@ public class Devices implements Initializable {
 
   public void setClient(Client client) {
     this.client = client;
+  }
+
+  public void editDevice(ActionEvent actionEvent) {
+    JSONObject object = new JSONObject();
+    object.put("action", "editNetworkDevice");
+    object.put("name", tNaziv.getText());
+    object.put("ip", tIpHost.getText());
+    object.put("hostName", tHostName.getText());
+    object.put("type", cmbType.getValue());
+    object.put("userName", tUserName.getText());
+    object.put("pass", tPass.getText());
+    object.put("url", tURL.getText());
+    object.put("opis", tOpis.getText());
+    object.put("nas", chkNas.isSelected());
+    object.put("accessType", cmbAccessType.getValue());
+    object.put("id", tblDevices.getSelectionModel().getSelectedItem().getId());
+    object = client.send_object(object);
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA", object.getString("ERROR"));
+      return;
+    }
+
+    AlertUser.info("INFO", "Uređaj je snimljen!");
+
   }
 }
