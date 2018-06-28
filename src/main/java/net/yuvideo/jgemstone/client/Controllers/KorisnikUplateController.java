@@ -772,7 +772,8 @@ public class KorisnikUplateController implements Initializable {
       AlertUser.info("UPLACENO", "Uplata izvrsena");
     }
 
-    show_data();
+    //   show_data();
+    filter_data();
   }
 
   public void zaduziCustomService(ActionEvent actionEvent) {
@@ -812,7 +813,8 @@ public class KorisnikUplateController implements Initializable {
       AlertUser.info("KORISNIK ZADUZEN", "Korisnik zaduzenje izvrseno");
     }
 
-    show_data();
+    filter_data();
+    //show_data();
   }
 
   public ArrayList<ServicesUser> get_user_services() {
@@ -890,7 +892,8 @@ public class KorisnikUplateController implements Initializable {
       AlertUser.info("USLUGA ZADUZENA", jObj.getString("Message"));
     }
 
-    show_data();
+    filter_data();
+//    show_data();
   }
 
   private String getIdentity(int id_service) {

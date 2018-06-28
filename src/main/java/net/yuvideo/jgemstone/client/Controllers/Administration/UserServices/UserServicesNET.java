@@ -51,7 +51,7 @@ public class UserServicesNET implements Initializable {
   private JFXSnackbar snackBar;
 
   private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-  private DateTimeFormatter dtfRad = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'hh:mm:ss");
+  private DateTimeFormatter dtfRad = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {

@@ -1,5 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
@@ -56,6 +57,7 @@ public class OptionsController implements Initializable {
   public JFXPasswordField tStalkerApiPass;
   public Tab tabStalMin;
   public Tab tabDTV;
+  public JFXCheckBox chkDtvService;
   @FXML
   private TextField tHostnameIp;
   @FXML
@@ -139,6 +141,7 @@ public class OptionsController implements Initializable {
     data.put("DTV_UDP_TIMEOUT", tUDPTimeout.getText());
     data.put("DTV_EMM_HOST", tDTVCryptHOST.getText());
     data.put("DTV_EMM_PORT", tDTVCryptPORT.getText());
+    data.put("DTV_SERVICE", chkDtvService.isSelected());
 
     data = client.send_object(data);
     return !data.has("ERROR");
@@ -154,28 +157,53 @@ public class OptionsController implements Initializable {
       return;
     }
     try {
-      tPEPDV.setText(obj.getString("FIRMA_FAKTURA_PEPDV"));
-      tNazivFirme.setText(obj.getString("FIRMA_NAZIV"));
-      tAdresaFirme.setText(obj.getString("FIRMA_ADRESA"));
-      tPIB.setText(obj.getString("FIRMA_PIB"));
-      tMaticniBroj.setText(obj.getString("FIRMA_MBR"));
-      tTekuciRacun.setText(obj.getString("FIRMA_TEKUCIRACUN"));
-      tTelefon.setText(obj.getString("FIRMA_TELEFON"));
-      tFAX.setText(obj.getString("FIRMA_FAX"));
-      tTelServis.setText(obj.getString("FIRMA_SERVIS_TELEFON"));
-      tEmailServis.setText(obj.getString("FIRMA_SERVIS_EMAIL"));
-      tInternetStranica.setText(obj.getString("FIRMA_WEBPAGE"));
-      tNacinPlacanjaFaktura.setText(obj.getString("FIRMA_NACIN_PLACANJA_FAKTURA"));
-      tRokPlacanjaFaktura.setText(obj.getString("FIRMA_ROK_PLACANJA_FAKTURA"));
-      tRokPlacanjaRacun.setText(obj.getString("FIRMA_ROK_PLACANJA_RACUN"));
-      tMestoIzdravanjaRacuna.setText(obj.getString("FIRMA_MESTO_IZDAVANJA_RACUNA"));
-      tMestoIzdavanjeDobara.setText(obj.getString("FIRMA_MESTO_PROMETA_DOBARA"));
-      tStalkerApiUrl.setText(obj.getString("MINISTRA_API_URL"));
-      tStalkerApiPass.setText(obj.getString("MINISTRA_API_PASS"));
-      tDTVCryptHOST.setText(obj.getString("DTV_EMM_HOST"));
-      tDTVCryptPORT.setText(obj.getString("DTV_EMM_PORT"));
-      tUDPTimeout.setText(obj.getString("DTV_UDP_TIMEOUT"));
-      tStalkerApiUserName.setText(obj.getString("MINISTRA_API_USER"));
+      if (obj.has("FIRMA_FAKTURA_PEPDV"))
+        tPEPDV.setText(obj.getString("FIRMA_FAKTURA_PEPDV"));
+      if (obj.has("FIRMA_NAZIV"))
+        tNazivFirme.setText(obj.getString("FIRMA_NAZIV"));
+      if (obj.has("FIRMA_ADRESA"))
+        tAdresaFirme.setText(obj.getString("FIRMA_ADRESA"));
+      if (obj.has("FIRMA_PIB"))
+        tPIB.setText(obj.getString("FIRMA_PIB"));
+      if (obj.has("FIRMA_MBR"))
+        tMaticniBroj.setText(obj.getString("FIRMA_MBR"));
+      if (obj.has("FIRMA_TEKUCIRACUN"))
+        tTekuciRacun.setText(obj.getString("FIRMA_TEKUCIRACUN"));
+      if (obj.has("FIRMA_TELEFON"))
+        tTelefon.setText(obj.getString("FIRMA_TELEFON"));
+      if (obj.has("FIRMA_FAX"))
+        tFAX.setText(obj.getString("FIRMA_FAX"));
+      if (obj.has("FIRMA_SERVIS_TELEFON"))
+        tTelServis.setText(obj.getString("FIRMA_SERVIS_TELEFON"));
+      if (obj.has("FIRMA_SERVIS_EMAIL"))
+        tEmailServis.setText(obj.getString("FIRMA_SERVIS_EMAIL"));
+      if (obj.has("FIRMWA_WEBPAGE"))
+        tInternetStranica.setText(obj.getString("FIRMA_WEBPAGE"));
+      if (obj.has("FIRMA_NACIN_PLACANJA_FAKTURA"))
+        tNacinPlacanjaFaktura.setText(obj.getString("FIRMA_NACIN_PLACANJA_FAKTURA"));
+      if (obj.has("FIRMA_ROK_PLAVANJA_FAKTURA"))
+        tRokPlacanjaFaktura.setText(obj.getString("FIRMA_ROK_PLACANJA_FAKTURA"));
+      if (obj.has("FIRMA_ROK_PLACANJA_RACUN"))
+        tRokPlacanjaRacun.setText(obj.getString("FIRMA_ROK_PLACANJA_RACUN"));
+      if (obj.has("FIRMA_MESTO_IZDAVANJA_RACUNA"))
+        tMestoIzdravanjaRacuna.setText(obj.getString("FIRMA_MESTO_IZDAVANJA_RACUNA"));
+      if (obj.has("FIRMA_MESTO_PROMETA_DOBARA"))
+        tMestoIzdavanjeDobara.setText(obj.getString("FIRMA_MESTO_PROMETA_DOBARA"));
+      if (obj.has("MINISTRA_API_URL"))
+        tStalkerApiUrl.setText(obj.getString("MINISTRA_API_URL"));
+      if (obj.has("MINISTRA_API_PASS"))
+        tStalkerApiPass.setText(obj.getString("MINISTRA_API_PASS"));
+      if (obj.has("DTV_EMM_HOST"))
+        tDTVCryptHOST.setText(obj.getString("DTV_EMM_HOST"));
+      if (obj.has("DTV_EMM_PORT"))
+        tDTVCryptPORT.setText(obj.getString("DTV_EMM_PORT"));
+      if (obj.has("DTV_UDP_TIMEOUT"))
+        tUDPTimeout.setText(obj.getString("DTV_UDP_TIMEOUT"));
+      if (obj.has("DTV_SERVICE")) {
+        chkDtvService.setSelected(obj.getBoolean("DTV_SERVICE"));
+      }
+      if (obj.has("MINISTRA_API_USER"))
+        tStalkerApiUserName.setText(obj.getString("MINISTRA_API_USER"));
     } catch (JSONException e) {
       e.printStackTrace();
     }

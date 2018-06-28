@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -205,6 +206,7 @@
                           fx:id="tUDPTimeout"/>
                         <JFXTextField labelFloat="true" promptText="HOST/IP" fx:id="tDTVCryptHOST"/>
                         <JFXTextField labelFloat="true" promptText="PORT" fx:id="tDTVCryptPORT"/>
+                        <JFXCheckBox text="Startuj servis u pozadini" fx:id="chkDtvService"/>
                       </children>
                       <padding>
                         <Insets bottom="5.0" left="20.0" right="5.0" top="20.0"/>
