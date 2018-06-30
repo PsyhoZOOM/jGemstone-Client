@@ -11,6 +11,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.172"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.Administration.UserServices.UserServicesNET"
@@ -67,6 +68,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
               </padding>
             </HBox>
+            <JFXTextField labelFloat="true" promptText="Maksimalno konekcija" fx:id="tMaxConn"/>
             <JFXTextField labelFloat="true" prefWidth="200.0" promptText="up(1M)/down(5m)"
               fx:id="tUpDown"/>
             <JFXTextField labelFloat="true" prefWidth="200.0" promptText="IP Addresa" fx:id="tIP"/>
@@ -88,10 +90,22 @@
           </padding>
         </VBox>
         <Separator orientation="VERTICAL" prefHeight="200.0"/>
-        <VBox prefHeight="200.0" prefWidth="100.0">
+        <VBox spacing="5.0">
           <children>
-            <Label text="Online: "/>
+            <JFXButton buttonType="RAISED" onAction="#showStatus" fx:id="bRefres">
+              <graphic>
+                <FontIcon fill="WHITE" iconLiteral="eli-refresh"/>
+              </graphic>
+            </JFXButton>
+            <VBox prefHeight="200.0" prefWidth="100.0" fx:id="vBoxStatus">
+              <children>
+                <Label text="Online: "/>
+              </children>
+            </VBox>
           </children>
+          <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+          </padding>
         </VBox>
       </children>
     </HBox>

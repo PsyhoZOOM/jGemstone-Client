@@ -63,7 +63,9 @@ public class UserData {
     obj.put("action", "get_user_data");
     obj.put("userId", this.id);
 
+
     obj = client.send_object(obj);
+    System.out.println(obj);
 
     setId(obj.getInt("id"));
     setIme(obj.getString("fullName"));

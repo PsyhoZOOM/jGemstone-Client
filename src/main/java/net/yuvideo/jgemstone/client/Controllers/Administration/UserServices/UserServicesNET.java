@@ -44,6 +44,9 @@ public class UserServicesNET implements Initializable {
   public Label lVrstaPaketa;
   public JFXCheckBox chkReject;
   public Label lServiceEndDate;
+  public JFXTextField tMaxConn;
+  public VBox vBoxStatus;
+  public JFXButton bRefres;
   private URL location;
   private ResourceBundle resources;
   private Client client;
@@ -57,6 +60,7 @@ public class UserServicesNET implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     this.location = location;
     this.resources = resources;
+    vBoxMain.setVisible(true);
 
     dtpEndDate.setConverter(new StringConverter<LocalDate>() {
       @Override
@@ -102,6 +106,9 @@ public class UserServicesNET implements Initializable {
       dtpEndDate.setValue(LocalDate.parse(WISPRTermTime, dtfRad));
     } else {
       dtpEndDate.setValue(LocalDate.parse(object.getString("endDateService"), dtf));
+    }
+    if (object.has("Simultaneous-Use")) {
+      tMaxConn.setText(object.getString("Simultaneous-Use"));
     }
     lServiceEndDate.setText(object.getString("endDateService"));
     if (object.has("Mikrotik-Rate-Limit")) {
@@ -152,6 +159,7 @@ public class UserServicesNET implements Initializable {
     object.put("komentar", tKomentar.getText());
     object.put("serviceID", service.getId());
     object.put("Mikrotik-Rate-Limit", tUpDown.getText());
+    object.put("Simultaneous-Use", tMaxConn.getText());
     object.put("Reject", chkReject.isSelected());
 
     object = client.send_object(object);
@@ -185,5 +193,8 @@ public class UserServicesNET implements Initializable {
           String.format("Password za korisnicko ime: %s je promenjeno!", service.getUserName()),
           3000);
     }
+  }
+
+  public void showStatus(ActionEvent actionEvent) {
   }
 }

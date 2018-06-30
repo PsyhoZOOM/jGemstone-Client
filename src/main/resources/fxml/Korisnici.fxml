@@ -38,11 +38,6 @@
                 <FontIcon fill="white" iconLiteral="eli-eur"/>
               </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#showFakture" text="Fakture" fx:id="bFakture">
-              <graphic>
-                <FontIcon fill="white" iconLiteral="eli-list-alt"/>
-              </graphic>
-            </Button>
             <Pane HBox.hgrow="ALWAYS"/>
             <CheckBox mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT"
               fx:id="chkNaprednaPretraga">

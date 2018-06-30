@@ -42,7 +42,6 @@ public class KorisniciController implements Initializable {
   public TableColumn cAdressUsluge;
   public TextField tUserSearch;
   public Button bUplate;
-  public Button bFakture;
   public MenuItem cmIzmeni;
   public MenuItem cmIzbrisi;
   public MenuItem cmServisi;
@@ -118,21 +117,6 @@ public class KorisniciController implements Initializable {
       return row;
     });
 
-    tUsers.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Users>() {
-      @Override
-      public void changed(ObservableValue<? extends Users> observable, Users oldValue,
-          Users newValue) {
-        if (newValue == null) {
-          return;
-        }
-        //ako korisnik nema firmau disable fakture;
-        if (newValue.isFirma()) {
-          bFakture.setDisable(false);
-        } else {
-          bFakture.setDisable(true);
-        }
-      }
-    });
 
     cDug.setCellFactory(new Callback<TableColumn<Users, Double>, TableCell<Users, Double>>() {
       @Override
@@ -344,21 +328,6 @@ public class KorisniciController implements Initializable {
   }
 
 
-  public void showFakture(ActionEvent actionEvent) {
-    if (tUsers.getSelectionModel().getSelectedIndex() == -1) {
-      AlertUser.warrning("GRESKA", "Nije izabran ni jedan korisnik za fakture!");
-      return;
-    }
-    Users user = tUsers.getSelectionModel().getSelectedItem();
-
-    NewInterface faktureInterface = new NewInterface("fxml/FakturePrikaz.fxml", "Fakture",
-        resources);
-    FakturePrikazController fakturePrikazController = faktureInterface.getLoader().getController();
-    fakturePrikazController.setClient(this.client);
-    fakturePrikazController.user = user;
-    fakturePrikazController.set_data();
-    faktureInterface.getStage().showAndWait();
-  }
 
   public void mUplate(ActionEvent event) {
     showUplate(null);

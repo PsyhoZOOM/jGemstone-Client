@@ -684,6 +684,7 @@ public class KorisnikUslugeController implements Initializable {
       service.setPopust(serviceObj.getDouble("popust"));
       service.setPdv(serviceObj.getDouble("pdv"));
       service.setNazivPaketa(serviceObj.getString("nazivPaketa"));
+      service.setNaziv(serviceObj.getString("nazivPaketa"));
       service.setLinkedService(serviceObj.getBoolean("linkedService"));
       service.setNewService(serviceObj.getBoolean("newService"));
       if (serviceObj.has("endDate")) {
@@ -769,6 +770,7 @@ public class KorisnikUslugeController implements Initializable {
       }
 
       service.setNazivPaketa(serviceObj.getString("nazivPaketa"));
+      service.setNaziv(serviceObj.getString("nazivPaketa"));
 
       if (serviceObj.has("idUniqueName")) {
         service.setIdUniqueName(serviceObj.getString("idUniqueName"));
@@ -1138,10 +1140,13 @@ public class KorisnikUslugeController implements Initializable {
     }
 
     jObj = new JSONObject();
-    jObj.put("action", "activate_service");
+    jObj.put("action", "activate_new_service");
     jObj.put("service_id", servicesUser.getId());
 
     jObj = client.send_object(jObj);
+    if (jObj.has("ERROR")) {
+      AlertUser.error("GRESKA", jObj.getString("ERROR"));
+    }
 
     setData();
 
@@ -1155,29 +1160,16 @@ public class KorisnikUslugeController implements Initializable {
     //   ServicesUser srvUser = (ServicesUser) tblServices.getSelectionModel().getSelectedItem();
     TreeItem<ServicesUser> srvUser = (TreeItem<ServicesUser>) tblServices.getSelectionModel()
         .getSelectedItem();
-    int i = 0;
-    srvObj.put("id", srvUser.getValue().getId());
-    srvObj.put("paketType", srvUser.getValue().getPaketType());
-    jObj.put(String.valueOf(i), srvObj);
-
-    for (TreeItem<ServicesUser> sr : srvUser.getChildren()) {
-      i++;
-
-      srvObj.put("id", sr.getValue().getId());
-      srvObj.put("paketType", sr.getValue().getPaketType());
-      jObj.put(String.valueOf(i), srvObj);
-
-
-    }
 
     if (!AlertUser.yesNo("BRISANJE USLUGE KORISNIKA",
-        "Da li ste sigurni da želite da izbrišite uslugu" + srvUser.getValue().getNaziv())) {
+        "Da li ste sigurni da želite da izbrišite uslugu " + srvUser.getValue().getNaziv())) {
       return;
     }
+    jObj.put("serviceID", srvUser.getValue().getId());
 
     jObj = client.send_object(jObj);
 
-    if (jObj.has("Error")) {
+    if (jObj.has("ERROR")) {
       AlertUser.error("GRESKA", jObj.getString("Error"));
     } else {
       AlertUser.info("SERVIS", "Usluga izbrisana");
