@@ -2,6 +2,7 @@ package net.yuvideo.jgemstone.client.Controllers.Administration.UserServices;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXSnackbar;
@@ -19,12 +20,18 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
+import net.yuvideo.jgemstone.client.Controllers.Administration.Search.UserOnlineSearch;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.ServicesUser;
+import net.yuvideo.jgemstone.client.classes.UsersOnline;
 import net.yuvideo.jgemstone.client.classes.md5_digiest;
 import org.json.JSONObject;
 
@@ -47,6 +54,21 @@ public class UserServicesNET implements Initializable {
   public JFXTextField tMaxConn;
   public VBox vBoxStatus;
   public JFXButton bRefres;
+  public JFXButton bIzmeniPass;
+  public JFXButton bIzmeni;
+  public ImageView imgOnline;
+  public Label lNAS;
+  public Label lInterface;
+  public Label lIP;
+  public Label lMAC;
+  public Label lCalledID;
+  public Label lLinkUP;
+  public TextField tSpeed;
+  public JFXButton bChangeSpeed;
+  public JFXButton bPotrosnja;
+  public JFXButton bPING;
+  public JFXButton bMonitor;
+  public JFXComboBox<UsersOnline> cmbUsers;
   private URL location;
   private ResourceBundle resources;
   private Client client;
@@ -55,6 +77,10 @@ public class UserServicesNET implements Initializable {
 
   private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
   private DateTimeFormatter dtfRad = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+
+  private Image imgOn = new Image(
+      ClassLoader.getSystemResource("icons/green-light.png").toString());
+  private Image imgOff = new Image(ClassLoader.getSystemResource("icons/red-light.png").toString());
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -79,6 +105,39 @@ public class UserServicesNET implements Initializable {
       }
     });
 
+    cmbUsers.setConverter(new StringConverter<UsersOnline>() {
+      @Override
+      public String toString(UsersOnline object) {
+        return String
+            .format("%s<%s> NAS: %s<%s>", object.getUserName(), object.getIp(), object.getNASName(),
+                object.getNasIP());
+      }
+
+      @Override
+      public UsersOnline fromString(String string) {
+        return cmbUsers.getSelectionModel().getSelectedItem();
+      }
+    });
+
+    cmbUsers.getSelectionModel().selectedItemProperty().addListener(
+        new ChangeListener<UsersOnline>() {
+          @Override
+          public void changed(ObservableValue<? extends UsersOnline> observable,
+              UsersOnline oldValue,
+              UsersOnline newValue) {
+            System.out.println(newValue.getUserName());
+            setUserDataStatus(newValue);
+          }
+        });
+
+
+  }
+
+  private void setUserDataStatus(UsersOnline userData) {
+    lNAS.setText(String.format("%s <%s>", userData.getNASName(), userData.getNasIP()));
+    lIP.setText(userData.getIp());
+    lLinkUP.setText(userData.getUptime());
+    lMAC.setText(userData.getMac());
   }
 
 
@@ -131,6 +190,40 @@ public class UserServicesNET implements Initializable {
       }
     }
     tKomentar.setText(service.getKomentar());
+
+    //DESNO
+    object = new JSONObject();
+    object.put("action", "checkUsersOnline");
+    object.put("username", service.getUserName());
+    object = client.send_object(object);
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA", object.getString("ERROR"));
+      return;
+    }
+
+    for (String key : object.keySet()) {
+      JSONObject userObj = new JSONObject();
+      UsersOnline userOnline = new UsersOnline();
+      userObj = object.getJSONObject(key);
+      userOnline.setUserName(userObj.getString("userName"));
+      userOnline.setService(userObj.getString("service"));
+      userOnline.setMac(userObj.getString("callerID"));
+      userOnline.setIp(userObj.getString("address"));
+      userOnline.setUptime(userObj.getString("uptime"));
+      userOnline.setSessionID(userObj.getString("sessionID"));
+      userOnline.setNasIP(userObj.getString("NASIP"));
+      userOnline.setNASName(userObj.getString("NASName"));
+      userOnline.setIdentification(userObj.getString("identification"));
+      cmbUsers.getItems().add(userOnline);
+    }
+    if (cmbUsers.getItems().size() > 0) {
+      imgOnline.setImage(imgOn);
+      cmbUsers.getSelectionModel().select(0);
+    } else {
+      imgOnline.setImage(imgOff);
+      bRefres.setDisable(true);
+    }
+
 
 
   }
@@ -196,5 +289,22 @@ public class UserServicesNET implements Initializable {
   }
 
   public void showStatus(ActionEvent actionEvent) {
+    System.out.println(cmbUsers.getItems().size());
+
+    System.out.println(cmbUsers.getValue().getUserName());
+
+
+  }
+
+  public void changeSpeed(ActionEvent actionEvent) {
+  }
+
+  public void showPotrosnja(ActionEvent actionEvent) {
+  }
+
+  public void showPing(ActionEvent actionEvent) {
+  }
+
+  public void showBWMonitor(ActionEvent actionEvent) {
   }
 }

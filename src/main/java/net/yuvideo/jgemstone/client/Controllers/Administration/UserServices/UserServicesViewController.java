@@ -89,6 +89,24 @@ public class UserServicesViewController implements Initializable {
   }
 
   private void showIPTV(ServicesUser selectedItem, String iptv) {
+    FXMLLoader fxmlLoader = null;
+    fxmlLoader = new FXMLLoader(
+        ClassLoader.getSystemResource("fxml/Administration/UserServices/UserServicesIPTV.fxml"));
+    try {
+      fxmlLoader.load();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    UserServicesIPTV iptvInterfaceController = fxmlLoader.getController();
+    iptvInterfaceController.setClient(this.client);
+    iptvInterfaceController.setService(selectedItem);
+    iptvInterfaceController.setSnackBar(this.jfxSnackbar);
+    iptvInterfaceController.initData();
+    Tab tabIPTV = new Tab(String.format("%s - (%s)", selectedItem.getNaziv(), iptv));
+    tabIPTV.setContent(iptvInterfaceController.getBoxMain());
+    tabServices.getTabs().add(tabIPTV);
+    tabServices.getSelectionModel().select(tabIPTV);
   }
 
   private void showNET(ServicesUser selectedItem, String net) {

@@ -31,6 +31,16 @@ public class Uplate implements Serializable, Cloneable {
   String identification;
   boolean haveFIX;
   String vrstaUplate;
+  String fiksnTel;
+
+  public String getFiksnTel() {
+    return fiksnTel;
+  }
+
+  public void setFiksnTel(String fiksnTel) {
+    this.fiksnTel = fiksnTel;
+  }
+
   private boolean skipProduzenje;
 
   public void setPopust(double popust) {

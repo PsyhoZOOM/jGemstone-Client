@@ -1,6 +1,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class IzvestajPDVObracun implements Initializable {
 
 
   private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+  private DecimalFormat df = new DecimalFormat("###,###,###,###,##0.00");
   private Client client;
 
   @Override
@@ -119,7 +121,7 @@ public class IzvestajPDVObracun implements Initializable {
                 if (empty) {
                   return;
                 }
-                setText(String.valueOf(item));
+                setText(df.format(item));
               }
             };
           }
@@ -136,7 +138,7 @@ public class IzvestajPDVObracun implements Initializable {
                 if (empty) {
                   return;
                 }
-                setText(String.valueOf(item));
+                setText(df.format(item));
               }
             };
           }
@@ -153,7 +155,7 @@ public class IzvestajPDVObracun implements Initializable {
                 if (empty) {
                   return;
                 }
-                setText(String.valueOf(item));
+                setText(df.format(item));
               }
             };
           }
@@ -170,7 +172,7 @@ public class IzvestajPDVObracun implements Initializable {
                 if (empty) {
                   return;
                 }
-                setText(String.valueOf(item));
+                setText(df.format(item));
               }
             };
           }
@@ -218,9 +220,10 @@ public class IzvestajPDVObracun implements Initializable {
     ObservableList data = FXCollections.observableArrayList(pdvObracunArrayList);
 
     tblPDV.setItems(data);
-    lOsnovica.setText(String.valueOf(ukupnaOsnovica));
-    lPDV.setText(String.valueOf(ukupnoPDV));
-    lUkupno.setText(String.valueOf(ukupanIznos));
+    lOsnovica.setText(
+        String.format("%s (%s)", df.format(ukupnaOsnovica), String.valueOf(ukupnaOsnovica)));
+    lPDV.setText(String.format("%s (%s)", df.format(ukupnoPDV), String.valueOf(ukupnoPDV)));
+    lUkupno.setText(String.format("%s (%s)", df.format(ukupanIznos), String.valueOf(ukupanIznos)));
 
 
   }

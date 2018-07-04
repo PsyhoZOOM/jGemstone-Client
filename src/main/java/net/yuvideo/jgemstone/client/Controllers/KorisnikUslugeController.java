@@ -680,6 +680,8 @@ public class KorisnikUslugeController implements Initializable {
       service.setId_Service(serviceObj.getInt("id_service"));
       service.setBox_id(serviceObj.getInt("box_ID"));
       service.setProduzenje(serviceObj.getInt("produzenje"));
+      service.setAktivan(serviceObj.getBoolean("aktivan"));
+      service.setObracun(serviceObj.getBoolean("obracun"));
       service.setCena(serviceObj.getDouble("cena"));
       service.setPopust(serviceObj.getDouble("popust"));
       service.setPdv(serviceObj.getDouble("pdv"));
@@ -695,9 +697,9 @@ public class KorisnikUslugeController implements Initializable {
         service.setGroupName(serviceObj.getString("groupName"));
       }
 
-      if (serviceObj.has("userName")) {
-        service.setUserName(serviceObj.getString("userName"));
-        service.setIdUniqueName(serviceObj.getString("userName"));
+      if (serviceObj.has("UserName")) {
+        service.setUserName(serviceObj.getString("UserName"));
+        service.setIdUniqueName(serviceObj.getString("UserName"));
       }
 
       if (serviceObj.has("idDTVCard")) {

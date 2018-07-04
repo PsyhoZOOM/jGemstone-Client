@@ -72,7 +72,7 @@ public class ServicesUser extends RecursiveTreeObject<ServicesUser> implements S
       userService.setNazivPaketa(userServiceObj.getString("nazivPaketa"));
       userService.setNaziv(userServiceObj.getString("nazivPaketa"));
       userService.setAktivan(userServiceObj.getBoolean("aktivan"));
-      if (userServiceObj.has("idUniqueName")) {
+      if (userServiceObj.has("idDTVCard")) {
         userService.setIdDTVCard(userServiceObj.getString("idUniqueName"));
       }
       userService.setObracun(userServiceObj.getBoolean("obracun"));
@@ -91,6 +91,10 @@ public class ServicesUser extends RecursiveTreeObject<ServicesUser> implements S
       }
       if (userService.getBox()) {
         userService.setBoxServices(addBoxServices(userServiceObj.getInt("id"), userID, client));
+      }
+      if (userServiceObj.has("IPTV_MAC")) {
+        userService.setIPTV_MAC(userServiceObj.getString("IPTV_MAC"));
+        userService.setSTB_MAC(userServiceObj.getString("IPTV_MAC"));
       }
       userService.setPaketType(userServiceObj.getString("paketType"));
       userService.setLinkedService(userServiceObj.getBoolean("linkedService"));

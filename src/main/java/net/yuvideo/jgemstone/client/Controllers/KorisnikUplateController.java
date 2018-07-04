@@ -539,7 +539,7 @@ public class KorisnikUplateController implements Initializable {
           try {
             Uplate uplataRoot = uplata.CopyUplate();
             Uplate uplataSaobracaj =
-                getFixSaobracaj(uplata.getIdentification(), uplata.getZaMesec());
+                getFixSaobracaj(uplata.getFiksnTel(), uplata.getZaMesec());
 
             // ako postji saobracaj izracunati i dodeliti root tree drugacije ne prikazati saobracaj
             if (uplataSaobracaj != null) {
@@ -571,7 +571,7 @@ public class KorisnikUplateController implements Initializable {
       } else if (uplata.getPaketType().equals("FIX")) {
         try {
           Uplate uplataRoot = uplata.CopyUplate();
-          Uplate uplataSaobracaj = getFixSaobracaj(uplata.getIdentification(), uplata.getZaMesec());
+          Uplate uplataSaobracaj = getFixSaobracaj(uplata.getFiksnTel(), uplata.getZaMesec());
 
           // ako postoji saobracaj izracunati i dodati root tree inace ne prikazivate saobracaj
           if (uplataSaobracaj != null) {
@@ -692,6 +692,9 @@ public class KorisnikUplateController implements Initializable {
       uplata.setSkipProduzenje(uplataObj.getBoolean("skipProduzenje"));
       uplata.setIdentification(uplataObj.getString("identification"));
       uplata.setHaveFIX(uplataObj.getBoolean("haveFIX"));
+      if (uplata.isHaveFIX()) {
+        uplata.setFiksnTel(uplataObj.getString("fiksnaTel"));
+      }
       uplata.setZaUplatu(uplataObj.getDouble("zaUplatu"));
       uplate.add(uplata);
     }
