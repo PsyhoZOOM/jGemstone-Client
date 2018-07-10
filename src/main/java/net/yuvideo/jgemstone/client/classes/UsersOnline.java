@@ -16,11 +16,77 @@ public class UsersOnline extends RecursiveTreeObject<UsersOnline> {
   String sessionID;
   String NASName;
   String userName;
+  String calledID;
+  String interfaceName;
+  String linkUP;
+  String rxByte;
+  String txByte;
+  String rxError;
+  String txError;
+
+
+
 
 
   int broj;
   int id;
 
+
+  public String getInterfaceName() {
+    return interfaceName;
+  }
+
+  public void setInterfaceName(String interfaceName) {
+    this.interfaceName = interfaceName;
+  }
+
+  public String getLinkUP() {
+    return linkUP;
+  }
+
+  public void setLinkUP(String linkUP) {
+    this.linkUP = linkUP;
+  }
+
+  public String getRxByte() {
+    return rxByte;
+  }
+
+  public void setRxByte(String rxByte) {
+    this.rxByte = rxByte;
+  }
+
+  public String getTxByte() {
+    return txByte;
+  }
+
+  public void setTxByte(String txByte) {
+    this.txByte = txByte;
+  }
+
+  public String getRxError() {
+    return rxError;
+  }
+
+  public void setRxError(String rxError) {
+    this.rxError = rxError;
+  }
+
+  public String getTxError() {
+    return txError;
+  }
+
+  public void setTxError(String txError) {
+    this.txError = txError;
+  }
+
+  public String getCalledID() {
+    return calledID;
+  }
+
+  public void setCalledID(String calledID) {
+    this.calledID = calledID;
+  }
 
   public String getUserName() {
     return userName;

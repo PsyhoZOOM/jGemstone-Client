@@ -1151,7 +1151,6 @@ public class KorisnikUslugeController implements Initializable {
     }
 
     setData();
-
   }
 
   public void deleteUserService(ActionEvent actionEvent) {
@@ -1172,7 +1171,7 @@ public class KorisnikUslugeController implements Initializable {
     jObj = client.send_object(jObj);
 
     if (jObj.has("ERROR")) {
-      AlertUser.error("GRESKA", jObj.getString("Error"));
+      AlertUser.error("GRESKA", jObj.getString("ERROR"));
     } else {
       AlertUser.info("SERVIS", "Usluga izbrisana");
     }
@@ -1194,7 +1193,7 @@ public class KorisnikUslugeController implements Initializable {
     cmbUgovorOstalo.setItems(ugovoriCombo);
   }
 
-  public void addFixUslugu(ActionEvent actionEvent) {
+  public void addServiceFIX(ActionEvent actionEvent) {
     jObj = new JSONObject();
 
     cmbFixPaket.getValue().getId();

@@ -315,7 +315,7 @@
                 <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="cmbFixBrojUgovora"/>
                 <TextArea GridPane.columnIndex="1" GridPane.rowIndex="5" fx:id="tFixOpis"/>
                 <Button GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6"
-                  mnemonicParsing="false" onAction="#addFixUslugu" text="Dodaj uslugu"
+                  mnemonicParsing="false" onAction="#addServiceFIX" text="Dodaj uslugu"
                   fx:id="bFixDodajUslugu">
                   <graphic>
                     <FontIcon fill="white" iconLiteral="eli-plus-sign"/>

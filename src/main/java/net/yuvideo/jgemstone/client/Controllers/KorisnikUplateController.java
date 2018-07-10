@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.print.PrinterJob;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -37,8 +38,10 @@ import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 import net.glxn.qrgen.QRCode;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
@@ -203,6 +206,28 @@ public class KorisnikUplateController implements Initializable {
     cPDV.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, Double>("pdv"));
     cOsnovica.setCellValueFactory(new TreeItemPropertyValueFactory<Uplate, Double>("osnovica"));
 
+    cNazivServisa.setCellFactory(
+        new Callback<TreeTableColumn<Uplate, String>, TreeTableCell<Uplate, String>>() {
+          @Override
+          public TreeTableCell<Uplate, String> call(TreeTableColumn<Uplate, String> param) {
+            TreeTableCell<Uplate, String> cell = new TreeTableCell<Uplate, String>() {
+              @Override
+              protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                  setText("");
+                } else {
+                  setText(item);
+                  setAlignment(Pos.CENTER_LEFT);
+                  setTextAlignment(TextAlignment.LEFT);
+                }
+              }
+            };
+            return cell;
+          }
+        });
+
+
     cUplaceno.setCellFactory(
         tc ->
             new TreeTableCell<Uplate, Double>() {
@@ -217,7 +242,7 @@ public class KorisnikUplateController implements Initializable {
                     return;
                   }
                   double upl = uplate.getUplaceno();
-                  double dug = uplate.getZaUplatu();
+                  double dug = uplate.getDug();
                   setText(df.format(uplaceno));
                   if (upl == 0) {
                     currentRow.setStyle(
@@ -371,7 +396,6 @@ public class KorisnikUplateController implements Initializable {
                 lStatusUplatioOper.setText(uplate.getOperater());
                 lStatusZaduzenOd.setText(uplate.getZaduzenOd());
                 lStatusDatumIsteka.setText(get_datum_isteka_servicsa(uplate.getId_ServiceUser()));
-                lIdentifikacija.setText(uplate.getIdentification());
 
                 // disable uplate if cena i zaduzenje je isto ili je treeitem child
                 if (uplaceno == dug
@@ -534,72 +558,55 @@ public class KorisnikUplateController implements Initializable {
     TreeItem rootNode = new TreeItem("UPLATE");
     ArrayList<Uplate> zaduzenja = get_Zaduzenja();
     for (Uplate uplata : zaduzenja) {
-      if (uplata.getPaketType().equals("BOX")) {
-        if (uplata.isHaveFIX()) {
-          try {
-            Uplate uplataRoot = uplata.CopyUplate();
-            Uplate uplataSaobracaj =
-                getFixSaobracaj(uplata.getFiksnTel(), uplata.getZaMesec());
-
-            // ako postji saobracaj izracunati i dodeliti root tree drugacije ne prikazati saobracaj
-            if (uplataSaobracaj != null) {
-              uplataRoot.setDug(uplataSaobracaj.getDug() + uplata.getDug());
-              uplataRoot.setUplaceno(uplataSaobracaj.getUplaceno() + uplata.getUplaceno());
-            }
-
-            uplataRoot.setDug(uplataRoot.getDug());
-
-            // set TreeItems
-            TreeItem<Uplate> rootTree = new TreeItem<>(uplataRoot);
-            TreeItem<Uplate> paketTree = new TreeItem<>(uplata);
-
-            rootTree.getChildren().add(paketTree);
-            if (uplataSaobracaj != null) {
-              TreeItem<Uplate> saobracajTree = new TreeItem<>(uplataSaobracaj);
-              rootTree.getChildren().add(saobracajTree);
-            }
-
-            rootNode.getChildren().add(rootTree);
-          } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-          }
-          // ako uplata nije BOX
-        } else {
-          TreeItem<Uplate> rootTree = new TreeItem<>(uplata);
-          rootNode.getChildren().add(rootTree);
-        }
-      } else if (uplata.getPaketType().equals("FIX")) {
+      if (uplata.getPaketType().equals("FIX")) {
+        TreeItem<Uplate> rootFix;
+        Uplate fixSaobracaj = getFixSaobracaj(uplata.getId_ServiceUser(), uplata.getZaMesec());
+        Uplate fix = new Uplate();
         try {
-          Uplate uplataRoot = uplata.CopyUplate();
-          Uplate uplataSaobracaj = getFixSaobracaj(uplata.getFiksnTel(), uplata.getZaMesec());
-
-          // ako postoji saobracaj izracunati i dodati root tree inace ne prikazivate saobracaj
-          if (uplataSaobracaj != null) {
-            uplataRoot.setDug(uplataSaobracaj.getDug() + uplata.getDug());
-            uplataRoot.setUplaceno(uplataSaobracaj.getUplaceno() + uplata.getUplaceno());
-          }
-          uplataRoot.setDug(uplataRoot.getDug());
-
-          // set TreeItems
-          TreeItem<Uplate> rootTree = new TreeItem<>(uplataRoot);
-          TreeItem<Uplate> paketTree = new TreeItem<>(uplata);
-          rootTree.getChildren().add(paketTree);
-          if (uplataSaobracaj != null) {
-            TreeItem<Uplate> saobracajTree = new TreeItem<>(uplataSaobracaj);
-            rootTree.getChildren().add(saobracajTree);
-          }
-          rootNode.getChildren().add(rootTree);
+          fix = uplata.CopyUplate();
         } catch (CloneNotSupportedException e) {
           e.printStackTrace();
         }
+        if (fixSaobracaj != null) {
+          fix.setUplaceno(uplata.getUplaceno() + fixSaobracaj.getUplaceno());
+          fix.setDug(uplata.getDug() + fixSaobracaj.getDug());
+          fix.setOsnovica(uplata.getCena() + fixSaobracaj.getCena());
+          fix.setCena(uplata.getCena() + fixSaobracaj.getCena());
+          rootFix = new TreeItem<>(fix);
+          rootFix.getChildren().add(new TreeItem<Uplate>(uplata));
+          rootFix.getChildren().add(new TreeItem<Uplate>(fixSaobracaj));
+          rootNode.getChildren().add(rootFix);
 
-      } else {
-        TreeItem<Uplate> rootTree = new TreeItem<>(uplata);
-        rootNode.getChildren().add(rootTree);
+        } else {
+          rootNode.getChildren().add(new TreeItem<Uplate>(uplata));
+        }
+      } else if (uplata.getPaketType().equals("BOX")) {
+        TreeItem<Uplate> rootFix;
+        Uplate fixSaobracaj = getFixSaobracaj(uplata.getId_ServiceUser(), uplata.getZaMesec());
+        Uplate fix = new Uplate();
+        try {
+          fix = uplata.CopyUplate();
+        } catch (CloneNotSupportedException e) {
+          e.printStackTrace();
+        }
+        if (fixSaobracaj != null) {
+          fix.setUplaceno(uplata.getUplaceno() + fixSaobracaj.getUplaceno());
+          fix.setDug(uplata.getDug() + fixSaobracaj.getDug());
+          fix.setOsnovica(uplata.getOsnovica() + fixSaobracaj.getOsnovica());
+          fix.setCena(uplata.getCena() + fixSaobracaj.getCena());
+          rootFix = new TreeItem<>(fix);
+          rootFix.getChildren().add(new TreeItem<>(uplata));
+          rootFix.getChildren().add(new TreeItem<>(fixSaobracaj));
+          rootNode.getChildren().add(rootFix);
+        } else {
+          rootNode.getChildren().add(new TreeItem<Uplate>(uplata));
+        }
+
+      } else if (!uplata.getPaketType().contains("LINKED") || !uplata.getPaketType()
+          .contains("BOX")) {
+        rootNode.getChildren().add(new TreeItem<Uplate>(uplata));
       }
-
-
-
+      System.out.println(uplata.getPaketType());
     }
 
     cmbTypeUplate.getItems().removeAll();
@@ -656,8 +663,8 @@ public class KorisnikUplateController implements Initializable {
 
     ArrayList<Uplate> uplate = new ArrayList();
 
-    if (jObj.has("Error")) {
-      AlertUser.error("GRESKA", jObj.getString("Error"));
+    if (jObj.has("ERROR")) {
+      AlertUser.error("GRESKA", jObj.getString("ERROR"));
       return uplate;
     }
 
@@ -684,17 +691,11 @@ public class KorisnikUplateController implements Initializable {
       uplata.setDug(uplataObj.getDouble("dug"));
       uplata.setPdv(uplataObj.getDouble("pdv"));
       uplata.setPopust(uplataObj.getDouble("popust"));
-      dug = dug + uplataObj.getDouble("dug");
       uplata.setUplaceno(uplataObj.getDouble("uplaceno"));
       uplata.setOperater(uplataObj.getString("operater"));
       uplata.setZaMesec(uplataObj.getString("zaMesec"));
       uplata.setZaduzenOd(uplataObj.getString("zaduzenOd"));
       uplata.setSkipProduzenje(uplataObj.getBoolean("skipProduzenje"));
-      uplata.setIdentification(uplataObj.getString("identification"));
-      uplata.setHaveFIX(uplataObj.getBoolean("haveFIX"));
-      if (uplata.isHaveFIX()) {
-        uplata.setFiksnTel(uplataObj.getString("fiksnaTel"));
-      }
       uplata.setZaUplatu(uplataObj.getDouble("zaUplatu"));
       uplate.add(uplata);
     }
@@ -742,6 +743,19 @@ public class KorisnikUplateController implements Initializable {
     jObj.put("id", uplata.getId());
     jObj.put("id_ServiceUser", uplata.getId_ServiceUser());
     jObj.put("paketType", uplata.getPaketType());
+    if (uplata.getPaketType().equals("FIX")) {
+      jObj.put("haveFix", true);
+    } else if (uplata.getPaketType().equals("BOX")) {
+      for (TreeItem<Uplate> upl : tblZaduzenja.getSelectionModel().getSelectedItem()
+          .getChildren()) {
+        if (upl.getValue().getPaketType().contains("FIX")) {
+          jObj.put("haveFix", true);
+        }
+      }
+
+    } else {
+      jObj.put("haveFix", false);
+    }
     jObj.put("skipProduzenje", uplata.isSkipProduzenje());
     jObj.put("mestoUplate", cmbTypeUplate.getValue().toString());
 
@@ -763,8 +777,6 @@ public class KorisnikUplateController implements Initializable {
     jObj.put("paketType", uplata.getPaketType());
     jObj.put("userServiceID", uplata.getId_ServiceUser());
     jObj.put("zaMesec", uplata.getZaMesec());
-    jObj.put("identification", uplata.getIdentification());
-    jObj.put("haveFIX", uplata.isHaveFIX());
     jObj.put("nazivPaketa", uplata.getNazivPaket());
 
     jObj = client.send_object(jObj);
@@ -914,10 +926,10 @@ public class KorisnikUplateController implements Initializable {
     return jObj.getString("ident");
   }
 
-  public Uplate getFixSaobracaj(String account, String zaMesec) {
+  public Uplate getFixSaobracaj(int id_ServiceUser, String zaMesec) {
     JSONObject jsonObject = new JSONObject();
     jsonObject.put("action", "get_FIX_account_saobracaj");
-    jsonObject.put("account", account);
+    jsonObject.put("id_ServiceUser", id_ServiceUser);
     jsonObject.put("zaMesec", zaMesec);
     jsonObject = client.send_object(jsonObject);
     if (!jsonObject.has("id")) {
@@ -929,6 +941,7 @@ public class KorisnikUplateController implements Initializable {
       return null;
     } else {
       uplata = new Uplate();
+      System.out.println(jsonObject);
       uplata.setId(jsonObject.getInt("id"));
       uplata.setNazivPaket(jsonObject.getString("nazivPaketa"));
       uplata.setDatumZaduzenja(jsonObject.getString("datumZaduzenja"));
@@ -937,6 +950,8 @@ public class KorisnikUplateController implements Initializable {
       uplata.setPaketType(jsonObject.getString("paketType"));
       uplata.setCena(jsonObject.getDouble("cena"));
       uplata.setUplaceno(jsonObject.getDouble("uplaceno"));
+      uplata.setOsnovica(jsonObject.getDouble("osnovica"));
+      uplata.setKolicina(jsonObject.getInt("kolicina"));
       uplata.setDatumUplate(jsonObject.getString("datumUplate"));
       uplata.setDug(jsonObject.getDouble("dug"));
       uplata.setOperater(jsonObject.getString("operater"));

@@ -128,7 +128,7 @@
                       </padding>
                     </VBox>
                     <Separator orientation="VERTICAL" prefHeight="200.0" />
-                    <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                    <VBox HBox.hgrow="NEVER" spacing="5.0">
                       <children>
                         <ImageView fx:id="imgQR" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                         <Label fx:id="lUserJBroj" text="UserID" />

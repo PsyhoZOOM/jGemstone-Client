@@ -28,18 +28,8 @@ public class Uplate implements Serializable, Cloneable {
   String mestoUplate;
   String zaduzenOd;
   String napomena;
-  String identification;
-  boolean haveFIX;
   String vrstaUplate;
-  String fiksnTel;
 
-  public String getFiksnTel() {
-    return fiksnTel;
-  }
-
-  public void setFiksnTel(String fiksnTel) {
-    this.fiksnTel = fiksnTel;
-  }
 
   private boolean skipProduzenje;
 
@@ -59,6 +49,10 @@ public class Uplate implements Serializable, Cloneable {
     this.zaUplatu = zaUplatu;
   }
 
+  public double getZaUplatu() {
+    return zaUplatu;
+  }
+
   public String getVrstaUplate() {
     return vrstaUplate;
   }
@@ -67,26 +61,12 @@ public class Uplate implements Serializable, Cloneable {
     this.vrstaUplate = vrstaUplate;
   }
 
-  public boolean isHaveFIX() {
-    return haveFIX;
-  }
-
-  public void setHaveFIX(boolean haveFIX) {
-    this.haveFIX = haveFIX;
-  }
 
   public Uplate CopyUplate() throws CloneNotSupportedException {
 
     return (Uplate) this.clone();
   }
 
-  public String getIdentification() {
-    return identification;
-  }
-
-  public void setIdentification(String identification) {
-    this.identification = identification;
-  }
 
   public double getPdv() {
     return pdv;
@@ -217,14 +197,6 @@ public class Uplate implements Serializable, Cloneable {
     this.datumUplate = datumUplate;
   }
 
-  public Double getZaUplatu() {
-    return zaUplatu;
-  }
-
-  public void setZaUplatu(Double zaUplatu) {
-    this.zaUplatu = zaUplatu;
-  }
-
   public String getOperater() {
     return operater;
   }
@@ -266,6 +238,7 @@ public class Uplate implements Serializable, Cloneable {
   public void setOsnovica(double osnovica) {
     this.osnovica = osnovica;
   }
+
 }
 
 

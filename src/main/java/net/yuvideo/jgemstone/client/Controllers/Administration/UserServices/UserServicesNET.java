@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -17,6 +18,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -28,8 +30,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Search.UserOnlineSearch;
+import net.yuvideo.jgemstone.client.Controllers.Administration.TrafficReport.TrafficReportView;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
+import net.yuvideo.jgemstone.client.classes.BytesTo_KB_MB_GB_TB;
 import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.NewInterface;
 import net.yuvideo.jgemstone.client.classes.ServicesUser;
 import net.yuvideo.jgemstone.client.classes.UsersOnline;
 import net.yuvideo.jgemstone.client.classes.md5_digiest;
@@ -69,6 +74,9 @@ public class UserServicesNET implements Initializable {
   public JFXButton bPING;
   public JFXButton bMonitor;
   public JFXComboBox<UsersOnline> cmbUsers;
+  public Label lOnlineTime;
+  public Label lTxBytes;
+  public Label lRxBytes;
   private URL location;
   private ResourceBundle resources;
   private Client client;
@@ -138,6 +146,17 @@ public class UserServicesNET implements Initializable {
     lIP.setText(userData.getIp());
     lLinkUP.setText(userData.getUptime());
     lMAC.setText(userData.getMac());
+    lCalledID.setText(getCalledID(userData.getIp(), userData.getSessionID()));
+    String tx = BytesTo_KB_MB_GB_TB
+        .getFormatedString(Long.parseLong(userData.getTxByte()));
+    String rx = BytesTo_KB_MB_GB_TB
+        .getFormatedString(Long.parseLong(userData.getRxByte()));
+
+    lTxBytes.setText(String.format("%s (%s)", userData.getTxByte(), tx));
+    lRxBytes.setText(String.format("%s (%s)", userData.getRxByte(), rx));
+    lLinkUP.setText(userData.getLinkUP());
+    lOnlineTime.setText(userData.getUptime());
+    lInterface.setText(userData.getInterfaceName());
   }
 
 
@@ -203,8 +222,10 @@ public class UserServicesNET implements Initializable {
 
     for (String key : object.keySet()) {
       JSONObject userObj = new JSONObject();
+      JSONObject userStatus = new JSONObject();
       UsersOnline userOnline = new UsersOnline();
       userObj = object.getJSONObject(key);
+      userStatus = object.getJSONObject(key).getJSONObject("userStats");
       userOnline.setUserName(userObj.getString("userName"));
       userOnline.setService(userObj.getString("service"));
       userOnline.setMac(userObj.getString("callerID"));
@@ -214,6 +235,12 @@ public class UserServicesNET implements Initializable {
       userOnline.setNasIP(userObj.getString("NASIP"));
       userOnline.setNASName(userObj.getString("NASName"));
       userOnline.setIdentification(userObj.getString("identification"));
+      userOnline
+          .setCalledID(getCalledID(userObj.getString("address"), userObj.getString("sessionID")));
+      userOnline.setInterfaceName(userStatus.getString("name"));
+      userOnline.setLinkUP(userStatus.getString("linkUp"));
+      userOnline.setTxByte(userStatus.getString("txByte"));
+      userOnline.setRxByte(userStatus.getString("rxByte"));
       cmbUsers.getItems().add(userOnline);
     }
     if (cmbUsers.getItems().size() > 0) {
@@ -226,6 +253,19 @@ public class UserServicesNET implements Initializable {
 
 
 
+  }
+
+  private String getCalledID(String address, String sessionID) {
+    JSONObject object = new JSONObject();
+    object.put("action", "getCalledID");
+    object.put("IP", address);
+    object.put("sessionID", sessionID);
+    object = client.send_object(object);
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA", object.getString("ERROR"));
+      return null;
+    }
+    return object.getString("calledID");
   }
 
 
@@ -300,6 +340,16 @@ public class UserServicesNET implements Initializable {
   }
 
   public void showPotrosnja(ActionEvent actionEvent) {
+    NewInterface trafficReportInterface = new NewInterface(
+        "fxml/Administration/TrafficReport/TrafficReportView.fxml", "IZVEŠTAJ POTROŠNJE",
+        resources);
+
+    TrafficReportView trafficReportView = trafficReportInterface.getLoader().getController();
+    trafficReportView.setClient(this.client);
+    trafficReportView.username = cmbUsers.getSelectionModel().getSelectedItem().getUserName();
+    trafficReportView.initData();
+    trafficReportInterface.getStage().showAndWait();
+
   }
 
   public void showPing(ActionEvent actionEvent) {

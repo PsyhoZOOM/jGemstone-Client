@@ -411,10 +411,6 @@ public class InternetMainController implements Initializable {
     }
 
     root = new RecursiveTreeItem<>(users, RecursiveTreeObject::getChildren);
-    for (UsersOnline us : users) {
-      TreeItem<UsersOnline> treeItem = new TreeItem<>(us);
-      root.getChildren().add(treeItem);
-    }
     tblOnlineUSers.setColumnResizePolicy(TreeTableView.CONSTRAINED_RESIZE_POLICY);
     tblOnlineUSers.setTableMenuButtonVisible(true);
 

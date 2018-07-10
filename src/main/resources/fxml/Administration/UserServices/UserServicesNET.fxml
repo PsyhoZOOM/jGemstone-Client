@@ -25,7 +25,7 @@
       <children>
         <VBox spacing="20.0">
           <children>
-            <HBox spacing="5.0">
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
               <children>
                 <Label text="Naziv Paketa:"/>
                 <Label HBox.hgrow="ALWAYS" fx:id="lNazivPaketa"/>
@@ -34,7 +34,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
               </padding>
             </HBox>
-            <HBox spacing="5.0">
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
               <children>
                 <Label text="Vrsta:"/>
                 <Label HBox.hgrow="ALWAYS" fx:id="lVrstaPaketa"/>
@@ -43,7 +43,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
               </padding>
             </HBox>
-            <HBox spacing="5.0">
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
               <children>
                 <Label text="Datum isteka Servisa:"/>
                 <Label HBox.hgrow="ALWAYS" fx:id="lServiceEndDate"/>
@@ -54,7 +54,7 @@
             </HBox>
             <JFXTextField labelFloat="true" prefHeight="25.0" prefWidth="200.0"
               promptText="Username" fx:id="tUserName"/>
-            <HBox>
+            <HBox alignment="CENTER_LEFT">
               <children>
                 <JFXPasswordField labelFloat="true" prefWidth="200.0" promptText="password"
                   fx:id="tPass"/>
@@ -64,7 +64,6 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="20.0">
               <children>
-                <Label text="Datum isteka:"/>
                 <JFXDatePicker editable="false" prefHeight="25.0" prefWidth="199.0"
                   promptText="Datum isteka" fx:id="dtpEndDate"/>
               </children>
@@ -82,7 +81,7 @@
             <JFXTextArea VBox.vgrow="ALWAYS" labelFloat="true" promptText="Komentar"
               fx:id="tKomentar"/>
             <JFXCheckBox text="Reject" fx:id="chkReject"/>
-            <HBox alignment="CENTER_RIGHT">
+            <HBox alignment="CENTER_LEFT">
               <children>
                 <JFXButton buttonType="RAISED" contentDisplay="CENTER" onAction="#changeRadiusData"
                   text="Izmeni" fx:id="bIzmeni"/>
@@ -96,7 +95,7 @@
         <Separator orientation="VERTICAL" prefHeight="200.0"/>
         <VBox spacing="5.0">
           <children>
-            <HBox>
+            <HBox alignment="CENTER_LEFT">
               <children>
                 <JFXComboBox fx:id="cmbUsers"/>
                 <JFXButton buttonType="RAISED" onAction="#showStatus" text="Osveži" fx:id="bRefres">
@@ -112,50 +111,68 @@
                   <children>
                     <VBox spacing="20.0">
                       <children>
-                        <HBox>
+                        <HBox alignment="CENTER_LEFT">
                           <children>
                             <Label text="Online: "/>
                             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
                               preserveRatio="true" fx:id="imgOnline"/>
                           </children>
                         </HBox>
-                        <HBox>
+                        <HBox alignment="CENTER_LEFT">
                           <children>
-                            <Label text="NAS:"/>
+                            <Label text="NAS: "/>
                             <Label fx:id="lNAS"/>
                           </children>
                         </HBox>
-                        <HBox>
+                        <HBox alignment="CENTER_LEFT">
                           <children>
-                            <Label text="Interface:"/>
+                            <Label text="Interface: "/>
                             <Label fx:id="lInterface"/>
                           </children>
                         </HBox>
-                        <HBox>
+                        <HBox alignment="CENTER_LEFT">
                           <children>
-                            <Label text="IP:"/>
+                            <Label text="IP: "/>
                             <Label fx:id="lIP"/>
                           </children>
                         </HBox>
-                        <HBox>
+                        <HBox alignment="CENTER_LEFT">
                           <children>
-                            <Label text="MAC:"/>
+                            <Label text="MAC: "/>
                             <Label fx:id="lMAC"/>
                           </children>
                         </HBox>
-                        <HBox>
+                        <HBox alignment="CENTER_LEFT">
                           <children>
-                            <Label text="Called ID:"/>
+                            <Label text="Called ID: "/>
                             <Label fx:id="lCalledID"/>
                           </children>
                         </HBox>
-                        <HBox>
+                        <HBox alignment="CENTER_LEFT">
                           <children>
-                            <Label text="Link UP:"/>
+                            <Label text="Link UP: "/>
                             <Label fx:id="lLinkUP"/>
                           </children>
                         </HBox>
-                        <HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="225.0">
+                          <children>
+                            <Label text="Online Time: "/>
+                            <Label fx:id="lOnlineTime"/>
+                          </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="260.0">
+                          <children>
+                            <Label text="TX Bytes: "/>
+                            <Label fx:id="lTxBytes"/>
+                          </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="475.0">
+                          <children>
+                            <Label text="RX Bytes:"/>
+                            <Label fx:id="lRxBytes"/>
+                          </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT">
                           <children>
                             <HBox>
                               <children>
