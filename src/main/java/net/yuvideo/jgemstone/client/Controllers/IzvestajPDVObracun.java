@@ -41,6 +41,8 @@ public class IzvestajPDVObracun implements Initializable {
   public Label lOsnovica;
   public Label lPDV;
   public Label lUkupno;
+  public TableColumn<pdvObracun, Double> cCena;
+  public TableColumn<pdvObracun, Integer> cKolicina;
 
 
   private double ukupanIznos;
@@ -100,6 +102,8 @@ public class IzvestajPDVObracun implements Initializable {
     dtpDo.setValue(LocalDate.now().withDayOfMonth(1));
 
     cKorisnik.setCellValueFactory(new PropertyValueFactory<pdvObracun, String>("korisnik"));
+    cCena.setCellValueFactory(new PropertyValueFactory<pdvObracun, Double>("cena"));
+    cKolicina.setCellValueFactory(new PropertyValueFactory<pdvObracun, Integer>("kolicina"));
     cOsnovica.setCellValueFactory(new PropertyValueFactory<pdvObracun, Double>("osnovica"));
     cPDV.setCellValueFactory(new PropertyValueFactory<pdvObracun, Double>("pdv"));
     cPDVIznos.setCellValueFactory(new PropertyValueFactory<pdvObracun, Double>("pdvIznos"));
@@ -110,6 +114,23 @@ public class IzvestajPDVObracun implements Initializable {
     cPDVIznos.setStyle(alignRight);
     cPDV.setStyle(alignRight);
     cUkupno.setStyle(alignRight);
+    cCena.setCellFactory(
+        new Callback<TableColumn<pdvObracun, Double>, TableCell<pdvObracun, Double>>() {
+          @Override
+          public TableCell<pdvObracun, Double> call(TableColumn<pdvObracun, Double> param) {
+            return new TableCell<pdvObracun, Double>() {
+              @Override
+              protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                  setText("");
+                } else {
+                  setText(df.format(item));
+                }
+              }
+            };
+          }
+        });
     cOsnovica.setCellFactory(
         new Callback<TableColumn<pdvObracun, Double>, TableCell<pdvObracun, Double>>() {
           @Override
@@ -202,20 +223,30 @@ public class IzvestajPDVObracun implements Initializable {
       return;
     }
     ArrayList<pdvObracun> pdvObracunArrayList = new ArrayList<>();
-    for (int i = 0; i < jsonObject.length(); i++) {
+    int i;
+    if (jsonObject.length() == 0) {
+      AlertUser.info("INFORMACIJA", "NEMA PODATAKA");
+      tblPDV.getItems().clear();
+      tblPDV.getItems().removeAll();
+      return;
+    }
+    for (i = 0; i < jsonObject.length() - 1; i++) {
       JSONObject obracun = jsonObject.getJSONObject(String.valueOf(i));
       pdvObracun pdvObracun = new pdvObracun();
       pdvObracun.setId(obracun.getInt("id"));
       pdvObracun.setKorisnik(obracun.getString("imePrezime"));
-      pdvObracun.setOsnovica(obracun.getDouble("cena"));
+      pdvObracun.setOsnovica(obracun.getDouble("osnovica"));
+      pdvObracun.setKolicina(obracun.getInt("kolicina"));
+      pdvObracun.setCena(obracun.getDouble("cena"));
       pdvObracun.setPdv(obracun.getDouble("pdv"));
       pdvObracun.setPdvIznos(obracun.getDouble("pdvCena"));
       pdvObracun.setUkupno(obracun.getDouble("ukupno"));
-      ukupnaOsnovica += obracun.getDouble("cena");
-      ukupnoPDV += obracun.getDouble("pdvCena");
-      ukupanIznos += obracun.getDouble("ukupno");
       pdvObracunArrayList.add(pdvObracun);
     }
+    JSONObject finalObj = jsonObject.getJSONObject(String.valueOf(i));
+    ukupnaOsnovica = finalObj.getDouble("ukupnaOsnovica");
+    ukupnoPDV = finalObj.getDouble("ukupnoPDV");
+    ukupanIznos = finalObj.getDouble("ukupno");
 
     ObservableList data = FXCollections.observableArrayList(pdvObracunArrayList);
 

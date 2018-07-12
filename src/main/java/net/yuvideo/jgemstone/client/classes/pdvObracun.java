@@ -7,6 +7,8 @@ public class pdvObracun implements Serializable {
   int id;
   int userID;
   String korisnik;
+  double cena;
+  int kolicina;
   double osnovica;
   double pdv;
   double ukupno;
@@ -17,6 +19,22 @@ public class pdvObracun implements Serializable {
 
   double pdvIznos;
 
+
+  public double getCena() {
+    return cena;
+  }
+
+  public void setCena(double cena) {
+    this.cena = cena;
+  }
+
+  public int getKolicina() {
+    return kolicina;
+  }
+
+  public void setKolicina(int kolicina) {
+    this.kolicina = kolicina;
+  }
 
   public int getId() {
     return id;

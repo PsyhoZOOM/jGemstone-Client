@@ -933,8 +933,8 @@ public class KorisnikUslugeController implements Initializable {
 
     jObj = client.send_object(jObj);
 
-    if (jObj.has("Error")) {
-      AlertUser.error("GRESKA!", jObj.getString("Error"));
+    if (jObj.has("ERROR")) {
+      AlertUser.error("GRESKA!", jObj.getString("ERROR"));
       return;
     } else {
       AlertUser.info("INFO", jObj.getString("Message"));

@@ -765,12 +765,13 @@ public class KorisnikUplateController implements Initializable {
     BigDecimal uplatUplaceno = new BigDecimal(String.valueOf(uplata.getUplaceno()));
     BigDecimal dug = uplataDUG.subtract(uplatUplaceno);
     BigDecimal uplaceno = new BigDecimal(cmbZaUplatu.getEditor().getText());
+    System.out.println(uplaceno + " dug " + dug);
 
-    if (uplaceno.compareTo(dug) > dug.doubleValue()) {
+    if (uplaceno.doubleValue() > dug.doubleValue()) {
       AlertUser.error("SUMA NIJE JEDNAKA SA DUGOM", "Uplata ne može biti veca od zaduženja");
       return;
     }
-    if (uplaceno.compareTo(dug) == 0) {
+    if (uplaceno.doubleValue() == 0) {
       AlertUser.error("SUMA NE MOŽE BITI 0", "Uplata mora biti veca od 0");
       return;
     }

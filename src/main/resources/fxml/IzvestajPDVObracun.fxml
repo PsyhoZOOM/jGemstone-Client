@@ -101,6 +101,8 @@
             <TableView HBox.hgrow="ALWAYS" prefHeight="200.0" prefWidth="200.0" fx:id="tblPDV">
               <columns>
                 <TableColumn prefWidth="75.0" text="Korisnik" fx:id="cKorisnik"/>
+                <TableColumn prefWidth="75.0" text="Cena" fx:id="cCena"/>
+                <TableColumn prefWidth="75.0" text="Količina" fx:id="cKolicina"/>
                 <TableColumn prefWidth="75.0" text="Osnovica" fx:id="cOsnovica"/>
                 <TableColumn prefWidth="75.0" text="PDV %" fx:id="cPDV"/>
                 <TableColumn prefWidth="75.0" text="PDV Iznos" fx:id="cPDVIznos"/>
