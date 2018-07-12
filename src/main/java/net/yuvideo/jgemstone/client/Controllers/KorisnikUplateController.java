@@ -1,20 +1,20 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import java.io.DataOutput;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTreeTableView;
 import java.io.File;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ResourceBundle;
-import javafx.beans.property.IntegerProperty;
+import java.util.function.Predicate;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -67,6 +67,7 @@ public class KorisnikUplateController implements Initializable {
   public DatePicker dtpDatumZaNaplatu;
   public Button bZaduzi;
   public Button bUplatiServis;
+  public JFXDatePicker dtpZaMesec;
   private Client client;
   public Users user;
   public Label lStatusDatumIsteka;
@@ -95,7 +96,7 @@ public class KorisnikUplateController implements Initializable {
   DateTimeFormatter formatterBack = DateTimeFormatter.ofPattern("yyyy-MM-dd");
   DateTimeFormatter formatMonthYear = DateTimeFormatter.ofPattern("yyyy-MM");
   @FXML
-  private TreeTableView<Uplate> tblZaduzenja;
+  private JFXTreeTableView<Uplate> tblZaduzenja;
   @FXML
   private TreeTableColumn<Uplate, String> cDatumZaduzenja;
   @FXML
@@ -146,6 +147,30 @@ public class KorisnikUplateController implements Initializable {
 
     dtpDatumZaNaplatu.setValue(LocalDate.now());
     dtpDatumZaNaplatuCustom.setValue(LocalDate.now());
+
+    dtpZaMesec.getEditor().textProperty().addListener(new ChangeListener<String>() {
+      @Override
+      public void changed(ObservableValue<? extends String> observable, String oldValue,
+          String newValue) {
+        filter_data();
+      }
+    });
+
+    dtpZaMesec.setConverter(new StringConverter<LocalDate>() {
+      @Override
+      public String toString(LocalDate object) {
+        if (object == null) {
+          return null;
+        }
+        return object.format(formatMonthYear);
+      }
+
+      @Override
+      public LocalDate fromString(String string) {
+        LocalDate date = LocalDate.parse(string, formatMonthYear);
+        return date;
+      }
+    });
 
     dtpDatumZaNaplatu.setConverter(
         new StringConverter<LocalDate>() {
@@ -352,27 +377,18 @@ public class KorisnikUplateController implements Initializable {
                   return;
                 }
 
-                double uplaceno = 0;
-                double dug = 0;
-                double zaUplatutxt = 0;
+                BigDecimal uplaceno = new BigDecimal("0");
+                BigDecimal dug = new BigDecimal("0");
+                BigDecimal zaUplatutxt = new BigDecimal("0");
 
                 TreeItem<Uplate> selectedItem = tblZaduzenja.getSelectionModel().getSelectedItem();
-                if (selectedItem.getChildren().size() > 0) {
-                  for (TreeItem<Uplate> uplateTreeItem : selectedItem.getChildren()) {
-                    uplaceno += Double.valueOf(uplateTreeItem.getValue().getUplaceno());
-                  }
-                } else {
-                  uplaceno = Double.valueOf(selectedItem.getValue().getUplaceno());
-                }
+                uplaceno = new BigDecimal(String.valueOf(selectedItem.getValue().getUplaceno()));
+                dug = new BigDecimal(String.valueOf(selectedItem.getValue().getDug()));
 
-                dug = tblZaduzenja
-                                .getSelectionModel()
-                                .getSelectedItem()
-                                .getValue()
-                    .getDug();
 
                 // BUTTON DISABLE UPLATE
-                zaUplatutxt = dug - uplaceno;
+                zaUplatutxt = dug.subtract(uplaceno);
+                System.out.println(dug + " " + uplaceno + " " + zaUplatutxt);
                 cmbZaUplatu.getEditor().setText(String.valueOf(zaUplatutxt));
 
                 if (newValue.getValue().getDug() <= 0) {
@@ -572,6 +588,7 @@ public class KorisnikUplateController implements Initializable {
           fix.setDug(uplata.getDug() + fixSaobracaj.getDug());
           fix.setOsnovica(uplata.getCena() + fixSaobracaj.getCena());
           fix.setCena(uplata.getCena() + fixSaobracaj.getCena());
+          fix.setZaUplatu(fix.getDug() - fix.getUplaceno());
           rootFix = new TreeItem<>(fix);
           rootFix.getChildren().add(new TreeItem<Uplate>(uplata));
           rootFix.getChildren().add(new TreeItem<Uplate>(fixSaobracaj));
@@ -594,6 +611,7 @@ public class KorisnikUplateController implements Initializable {
           fix.setDug(uplata.getDug() + fixSaobracaj.getDug());
           fix.setOsnovica(uplata.getOsnovica() + fixSaobracaj.getOsnovica());
           fix.setCena(uplata.getCena() + fixSaobracaj.getCena());
+          fix.setZaUplatu(fix.getDug() - fix.getUplaceno());
           rootFix = new TreeItem<>(fix);
           rootFix.getChildren().add(new TreeItem<>(uplata));
           rootFix.getChildren().add(new TreeItem<>(fixSaobracaj));
@@ -606,7 +624,8 @@ public class KorisnikUplateController implements Initializable {
           .contains("BOX")) {
         rootNode.getChildren().add(new TreeItem<Uplate>(uplata));
       }
-      System.out.println(uplata.getPaketType());
+
+
     }
 
     cmbTypeUplate.getItems().removeAll();
@@ -657,6 +676,11 @@ public class KorisnikUplateController implements Initializable {
     jObj.put("action", "get_zaduzenja_user");
     jObj.put("userID", user.getId());
     jObj.put("sveUplate", true);
+    if (dtpZaMesec.getValue() != null) {
+      jObj.put("zaMesec", dtpZaMesec.getValue().format(formatMonthYear));
+    } else {
+      jObj.put("zaMesec", "");
+    }
     Double dug = 0.00;
 
     jObj = client.send_object(jObj);
@@ -737,52 +761,31 @@ public class KorisnikUplateController implements Initializable {
 
     Uplate uplata = tblZaduzenja.getSelectionModel().getSelectedItem().getValue();
 
-    jObj = new JSONObject();
-    jObj.put("action", "uplata_servisa");
-    jObj.put("userID", user.getId());
-    jObj.put("id", uplata.getId());
-    jObj.put("id_ServiceUser", uplata.getId_ServiceUser());
-    jObj.put("paketType", uplata.getPaketType());
-    if (uplata.getPaketType().equals("FIX")) {
-      jObj.put("haveFix", true);
-    } else if (uplata.getPaketType().equals("BOX")) {
-      for (TreeItem<Uplate> upl : tblZaduzenja.getSelectionModel().getSelectedItem()
-          .getChildren()) {
-        if (upl.getValue().getPaketType().contains("FIX")) {
-          jObj.put("haveFix", true);
-        }
-      }
+    BigDecimal uplataDUG = new BigDecimal(String.valueOf(uplata.getDug()));
+    BigDecimal uplatUplaceno = new BigDecimal(String.valueOf(uplata.getUplaceno()));
+    BigDecimal dug = uplataDUG.subtract(uplatUplaceno);
+    BigDecimal uplaceno = new BigDecimal(cmbZaUplatu.getEditor().getText());
 
-    } else {
-      jObj.put("haveFix", false);
-    }
-    jObj.put("skipProduzenje", uplata.isSkipProduzenje());
-    jObj.put("mestoUplate", cmbTypeUplate.getValue().toString());
-
-    Double numbUplacenoNov = null;
-    Double numbZauplatu = null;
-    Double numbUplaceno = null;
-    numbZauplatu = uplata.getDug();
-    numbUplaceno = uplata.getUplaceno();
-    numbUplacenoNov = Double.valueOf(cmbZaUplatu.getEditor().getText());
-
-    Double ukupnoUplaceno = numbUplaceno.doubleValue() + numbUplacenoNov.doubleValue();
-
-    if (ukupnoUplaceno > numbZauplatu) {
+    if (uplaceno.compareTo(dug) > dug.doubleValue()) {
       AlertUser.error("SUMA NIJE JEDNAKA SA DUGOM", "Uplata ne može biti veca od zaduženja");
       return;
     }
-    jObj.put("uplaceno", numbUplacenoNov);
-    jObj.put("dug", uplata.getDug());
-    jObj.put("paketType", uplata.getPaketType());
-    jObj.put("userServiceID", uplata.getId_ServiceUser());
-    jObj.put("zaMesec", uplata.getZaMesec());
-    jObj.put("nazivPaketa", uplata.getNazivPaket());
+    if (uplaceno.compareTo(dug) == 0) {
+      AlertUser.error("SUMA NE MOŽE BITI 0", "Uplata mora biti veca od 0");
+      return;
+    }
+
+    jObj = new JSONObject();
+    jObj.put("action", "uplata_servisa");
+    jObj.put("id", uplata.getId());
+    jObj.put("mestoUplate", cmbTypeUplate.getValue().toString());
+
+    jObj.put("uplaceno", uplaceno);
 
     jObj = client.send_object(jObj);
 
-    if (jObj.has("Error")) {
-      AlertUser.error("GRESKA", jObj.getString("Error"));
+    if (jObj.has("ERROR")) {
+      AlertUser.error("GRESKA", jObj.getString("ERROR"));
     } else {
       AlertUser.info("UPLACENO", "Uplata izvrsena");
     }
@@ -940,8 +943,8 @@ public class KorisnikUplateController implements Initializable {
       AlertUser.error("GRESKA", jsonObject.getString("ERROR"));
       return null;
     } else {
-      uplata = new Uplate();
       System.out.println(jsonObject);
+      uplata = new Uplate();
       uplata.setId(jsonObject.getInt("id"));
       uplata.setNazivPaket(jsonObject.getString("nazivPaketa"));
       uplata.setDatumZaduzenja(jsonObject.getString("datumZaduzenja"));

@@ -346,7 +346,7 @@ public class UserServicesNET implements Initializable {
 
     TrafficReportView trafficReportView = trafficReportInterface.getLoader().getController();
     trafficReportView.setClient(this.client);
-    trafficReportView.username = cmbUsers.getSelectionModel().getSelectedItem().getUserName();
+    trafficReportView.username = service.getUserName();
     trafficReportView.initData();
     trafficReportInterface.getStage().showAndWait();
 

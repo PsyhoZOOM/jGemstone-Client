@@ -531,7 +531,7 @@ public class KorisnikUslugeController implements Initializable {
       @Override
       public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
           Boolean newValue) {
-
+        tMACIPTVBox.setText(tMACIPTVBox.getText().replace(":", "").trim());
         if (!newValue) {
           if (tMACIPTVBox.getLength() != 12) {
             AlertUser
@@ -556,6 +556,8 @@ public class KorisnikUslugeController implements Initializable {
       @Override
       public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
           Boolean newValue) {
+
+        tStbMACIPTV.setText(tStbMACIPTV.getText().replace(":", "").trim());
 
         if (!newValue) {
           if (tStbMACIPTV.getLength() != 12) {

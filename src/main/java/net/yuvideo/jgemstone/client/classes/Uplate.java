@@ -1,11 +1,12 @@
 package net.yuvideo.jgemstone.client.classes;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.io.Serializable;
 
 /**
  * Created by zoom on 9/7/16.
  */
-public class Uplate implements Serializable, Cloneable {
+public class Uplate extends RecursiveTreeObject<Uplate> implements Serializable, Cloneable {
 
   int id;
   int id_ServiceUser;

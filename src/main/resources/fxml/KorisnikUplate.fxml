@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -22,6 +23,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
+<?import com.jfoenix.controls.JFXTreeTableView?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="800.0" prefWidth="1280.0"
   stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.172"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUplateController">
@@ -166,7 +168,8 @@
                 </Label>
               </children>
             </HBox>
-            <TreeTableView fx:id="tblZaduzenja" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+            <JFXTreeTableView VBox.vgrow="ALWAYS" tableMenuButtonVisible="true"
+              fx:id="tblZaduzenja">
               <columns>
                 <TreeTableColumn fx:id="cNazivServisa" prefWidth="75.0" text="Naziv Usluge" />
                 <TreeTableColumn fx:id="cDatumZaduzenja" prefWidth="75.0" text="Datum zaduženja" />
@@ -195,8 +198,18 @@
                   </items>
                 </ContextMenu>
               </contextMenu>
-            </TreeTableView>
-            <CheckBox fx:id="chkSveUplate" contentDisplay="TOP" mnemonicParsing="false" text="Prikaži sve uplate" underline="true" />
+            </JFXTreeTableView>
+            <HBox spacing="5.0">
+              <children>
+                <CheckBox contentDisplay="TOP" mnemonicParsing="false" text="Prikaži sve uplate"
+                  underline="true" fx:id="chkSveUplate"/>
+                <Separator orientation="VERTICAL" prefHeight="200.0"/>
+                <JFXDatePicker editable="true" promptText="dugovanja za mesec" fx:id="dtpZaMesec"/>
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+              </padding>
+            </HBox>
             <HBox alignment="CENTER_RIGHT" spacing="5.0" VBox.vgrow="NEVER">
               <children>
                 <Label text="Dug:" />
