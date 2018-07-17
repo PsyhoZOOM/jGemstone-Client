@@ -132,11 +132,9 @@ public class NewInterface {
     try {
       root = loader.load();
       stage = new Stage();
-      JFXDecorator decorator = new JFXDecorator(stage, root);
-      scene = new Scene(decorator);
+      scene = new Scene(root);
       scene.getStylesheets()
           .add(ClassLoader.getSystemResource("css/MainOrig.css").toExternalForm());
-      decorator.setFillWidth(true);
       if (application) {
         stage.initModality(Modality.APPLICATION_MODAL);
       } else {
@@ -147,9 +145,8 @@ public class NewInterface {
       } else {
         stage.initStyle(StageStyle.UNDECORATED);
       }
-      //JFX
-      stage.initStyle(StageStyle.UNDECORATED);
       stage.setResizable(true);
+      stage.setMaximized(true);
 
       stage.setScene(scene);
       stage.setTitle(title);

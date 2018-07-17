@@ -56,6 +56,7 @@ public class DigitalniTVPaketEditController implements Initializable {
     this.location = location;
     this.resources = resources;
 
+    tPaketID.setText("0");
     spnPDV.setValueFactory(dblSpnFactoryPDV);
     spnCena.setValueFactory(dblSngFactoryCena);
 

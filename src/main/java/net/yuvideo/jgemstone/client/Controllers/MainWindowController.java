@@ -25,6 +25,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Devices;
+import net.yuvideo.jgemstone.client.Controllers.Fiksna.FiksnaPozivi;
 import net.yuvideo.jgemstone.client.Controllers.Mape.MainMapController;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
@@ -363,5 +364,13 @@ public class MainWindowController implements Initializable {
 
   public void setClient(Client client) {
     this.client = client;
+  }
+
+  public void showFiksnaPozivi(ActionEvent actionEvent) {
+    NewInterface fiksnaPoziviInterface = new NewInterface("fxml/Fiksna/FiksnaPozivi.fxml",
+        "FIKSNA POZIVI", this.resource);
+    FiksnaPozivi fiksnaPoziviController = fiksnaPoziviInterface.getLoader().getController();
+    fiksnaPoziviController.setClient(this.client);
+    fiksnaPoziviInterface.getStage().showAndWait();
   }
 }

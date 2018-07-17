@@ -104,6 +104,8 @@
               fx:id="mPDVObracun"/>
             <MenuItem mnemonicParsing="false" onAction="#showStampaRacuna" text="Štampa Računa"
               fx:id="mStampaRacuna"/>
+            <MenuItem mnemonicParsing="false" onAction="#showFiksnaPozivi" text="Fiksna Pozivi"
+              fx:id="mFiksnaPozivi"/>
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Mreža" fx:id="mMreza">

@@ -36,7 +36,6 @@ public class LoginWinController implements Initializable {
   FXMLLoader fxmlLoader;
   Parent rootMainWindow;
   public Scene scene;
-  public JFXDecorator decorator;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -71,12 +70,10 @@ public class LoginWinController implements Initializable {
         mainCtrl.setClient(client);
         mainCtrl.setStage(stage);
         mainCtrl.LocalSettings = client.getLocal_settings();
-        decorator.setContent(rootMainWindow);
-        scene.setRoot(decorator);
-        decorator.setMaximized(true);
-        decorator.setFillWidth(true);
+        scene.setRoot(rootMainWindow);
         stage.setScene(scene);
-        stage.setTitle("YUVIDEO");
+        stage.setTitle("JGemstone");
+        stage.setMaximized(true);
 
       } catch (IOException e) {
         e.printStackTrace();

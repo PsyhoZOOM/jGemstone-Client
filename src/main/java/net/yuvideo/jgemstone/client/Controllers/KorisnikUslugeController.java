@@ -150,6 +150,9 @@ public class KorisnikUslugeController implements Initializable {
     this.location = location;
     this.resources = resources;
 
+    tKarticaDTV.setText("0");
+    tKarticaBox.setText("0");
+
     tblServices.getSelectionModel().selectedItemProperty()
         .addListener(new ChangeListener<TreeItem<ServicesUser>>() {
           @Override
