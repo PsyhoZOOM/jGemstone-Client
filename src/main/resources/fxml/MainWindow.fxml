@@ -142,6 +142,8 @@
               fx:id="pdfPreview"/>
             <MenuItem mnemonicParsing="false" onAction="#showProgressTest" text="Progress"
               fx:id="mProgressTest"/>
+            <MenuItem mnemonicParsing="false" onAction="#testSNMPWALK" text="SNMP TEST"
+              fx:id="snmpTEst"/>
           </items>
         </Menu>
       </menus>

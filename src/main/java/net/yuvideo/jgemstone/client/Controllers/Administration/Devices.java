@@ -69,7 +69,7 @@ public class Devices implements Initializable {
     cmbType.getItems().add(0, new String());
     cmbType.getItems().add(1, "Mikrotik");
     cmbType.getItems().add(2, "Ostalo");
-    cmbType.getSelectionModel().select(2);
+    cmbType.getSelectionModel().select(0);
 
     cmbAccessType.getItems().add(0, "");
     cmbAccessType.getItems().add(1, "API");
@@ -105,6 +105,8 @@ public class Devices implements Initializable {
             tURL.setText(newValue.getUrl());
             tOpis.setText(newValue.getOpis());
             tHostName.setText(newValue.getHostName());
+            tPass.setText(newValue.getPass());
+
             if (newValue.isNas()) {
               chkNas.setSelected(true);
             } else {
@@ -117,11 +119,17 @@ public class Devices implements Initializable {
 
                 break;
               }
+              case "Ostalo": {
+                cmbType.getSelectionModel().select(2);
+                cmbAccessType.getSelectionModel().select(getAccessType(newValue.getAccessType()));
+                break;
+              }
               default: {
                 cmbType.getSelectionModel().select(0);
               }
 
             }
+
           }
         });
 

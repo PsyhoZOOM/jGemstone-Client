@@ -27,6 +27,7 @@ import javafx.stage.WindowEvent;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Devices;
 import net.yuvideo.jgemstone.client.Controllers.Fiksna.FiksnaPozivi;
 import net.yuvideo.jgemstone.client.Controllers.Mape.MainMapController;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
 import net.yuvideo.jgemstone.client.classes.Settings;
@@ -372,5 +373,15 @@ public class MainWindowController implements Initializable {
     FiksnaPozivi fiksnaPoziviController = fiksnaPoziviInterface.getLoader().getController();
     fiksnaPoziviController.setClient(this.client);
     fiksnaPoziviInterface.getStage().showAndWait();
+  }
+
+  public void testSNMPWALK(ActionEvent actionEvent) {
+    JSONObject object = new JSONObject();
+    object.put("action", "testSNMP");
+    object = client.send_object(object);
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA", object.getString("ERROR"));
+    }
+
   }
 }
