@@ -246,7 +246,6 @@ public class ArtikliMainController implements Initializable {
     magacin.setId(0);
 
     magacinUsers.setNaziv("KORISNICI");
-    magacinUsers.setId(1);
 
     ObservableList magacinObs = FXCollections.observableArrayList(getMagacini());
 
@@ -300,10 +299,16 @@ public class ArtikliMainController implements Initializable {
     jsonObject.put("jMere", cmbJMere.getValue().toString());
     jsonObject.put("kolicina", Integer.valueOf(spnKolicina.getEditor().getText()));
     jsonObject.put("opis", tOpis.getText());
-    if (cmbMagacin.getValue() != null) {
+
+    if (cmbMagacin.selectionModelProperty().getValue().getSelectedItem() != null) {
       jsonObject.put("idMagacin", cmbMagacin.getValue().getId());
     } else {
       jsonObject.put("idMagacin", tblArtikli.getSelectionModel().getSelectedItem().getIdMagacin());
+    }
+
+    //samo korisnici
+    if (cmbMagacin.getValue().getNaziv().equals("KORISNICI")) {
+      jsonObject.put("onlyUsers", 1);
     }
 
     if (addArtikl || editArtikl) {

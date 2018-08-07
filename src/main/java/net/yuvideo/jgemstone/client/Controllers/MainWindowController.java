@@ -24,6 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import net.yuvideo.jgemstone.client.Controllers.Administration.Administration;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Devices;
 import net.yuvideo.jgemstone.client.Controllers.Fiksna.FiksnaPozivi;
 import net.yuvideo.jgemstone.client.Controllers.Mape.MainMapController;
@@ -57,7 +58,7 @@ public class MainWindowController implements Initializable {
   // CONTROLLERS
   private KorisniciController korctrl;
   private boolean disconnect = false;
-  private boolean internetIsShowing = false;
+  private boolean administrationView = false;
   private Stage stage;
   public Settings LocalSettings;
   private Client client;
@@ -190,24 +191,24 @@ public class MainWindowController implements Initializable {
   }
 
   public void showInternetMain(ActionEvent actionEvent) {
-    if (internetIsShowing) {
+    if (administrationView) {
 
       return;
     }
-    NewInterface internetMainInterface =
-        new NewInterface("fxml/Administration/InternetMain.fxml", "INTERNET", resource, true,
+    NewInterface administrationInterface =
+        new NewInterface("fxml/Administration/Administration.fxml", "ADMINISTRACIJA", resource,
+            true,
             false);
-    InternetMainController internetMainController =
-        internetMainInterface.getLoader().getController();
-    internetMainController.setClient(this.client);
-    internetMainController.setItems();
-    internetMainInterface.getStage().show();
-    this.internetIsShowing = true;
-    internetMainInterface.getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
+    Administration administrationController = administrationInterface.getLoader().getController();
+    this.administrationView = true;
+    administrationController.setClient(this.client);
+    administrationInterface.getStage().show();
+    administrationInterface.getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
       @Override
       public void handle(WindowEvent event) {
-        internetIsShowing = false;
-        internetMainInterface.getStage().close();
+        administrationView = false;
+        administrationInterface.getStage().close();
+        administrationController.stopUpdate();
       }
     });
   }
@@ -359,6 +360,7 @@ public class MainWindowController implements Initializable {
     devicesInterface.getStage().showAndWait();
   }
 
+
   public void setStage(Stage stage) {
     this.stage = stage;
   }
@@ -383,5 +385,13 @@ public class MainWindowController implements Initializable {
       AlertUser.error("GRESKA", object.getString("ERROR"));
     }
 
+  }
+
+  public void showOnlinePPPeEInterface(ActionEvent actionEvent) {
+    JSONObject object = new JSONObject();
+    object.put("action", "mtAPITest");
+    Client mtCl = new Client(client.getLocal_settings());
+    object = mtCl.send_object(object);
+    System.out.println(object.toString());
   }
 }

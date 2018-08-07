@@ -118,6 +118,7 @@ public class Artikli implements Serializable {
 
     JSONObject jsonObject = new JSONObject();
     jsonObject.put("action", "searchArtikal");
+    jsonObject.put("idMagacin", obj.getInt("idMagacin"));
     jsonObject = client.send_object(obj);
     this.setArtikle(jsonObject);
 

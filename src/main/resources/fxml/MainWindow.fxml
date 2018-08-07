@@ -144,6 +144,8 @@
               fx:id="mProgressTest"/>
             <MenuItem mnemonicParsing="false" onAction="#testSNMPWALK" text="SNMP TEST"
               fx:id="snmpTEst"/>
+            <MenuItem mnemonicParsing="false" onAction="#showOnlinePPPeEInterface"
+              text="SHOW ONLINE PPPoE INTERFACE"/>
           </items>
         </Menu>
       </menus>
