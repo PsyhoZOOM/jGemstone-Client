@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.UsersOnline;
 import org.json.JSONObject;
@@ -20,6 +21,7 @@ import org.json.JSONObject;
 public class UserOnlineSearch implements Initializable {
 
   public JFXTreeTableView treeTableUsers;
+  public AnchorPane anchorMain;
   private Client client;
   JFXTreeTableColumn<UsersOnline, String> cIdentification;
   JFXTreeTableColumn<UsersOnline, String> cIme;
@@ -97,6 +99,10 @@ public class UserOnlineSearch implements Initializable {
       onlineArrayList.add(usersOnline);
     }
     return onlineArrayList;
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }
 
