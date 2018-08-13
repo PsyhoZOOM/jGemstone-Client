@@ -132,6 +132,7 @@ public class NewInterface {
     try {
       root = loader.load();
       stage = new Stage();
+      stage.setTitle(title);
       scene = new Scene(root);
       scene.getStylesheets()
           .add(ClassLoader.getSystemResource("css/MainOrig.css").toExternalForm());
@@ -149,7 +150,6 @@ public class NewInterface {
       stage.setMaximized(true);
 
       stage.setScene(scene);
-      stage.setTitle(title);
 
     } catch (IOException e) {
       e.printStackTrace();

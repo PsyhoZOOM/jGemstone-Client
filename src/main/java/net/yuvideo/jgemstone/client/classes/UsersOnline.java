@@ -23,6 +23,7 @@ public class UsersOnline extends RecursiveTreeObject<UsersOnline> {
   String txByte;
   String rxError;
   String txError;
+  int userID;
 
 
 
@@ -31,6 +32,14 @@ public class UsersOnline extends RecursiveTreeObject<UsersOnline> {
   int broj;
   int id;
 
+
+  public int getUserID() {
+    return userID;
+  }
+
+  public void setUserID(int userID) {
+    this.userID = userID;
+  }
 
   public String getInterfaceName() {
     return interfaceName;

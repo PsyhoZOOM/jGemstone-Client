@@ -21,5 +21,11 @@
   -fx-background-color: #083045;
   }
 
+.jfx-tab-pane *.tab-header-background {
+  -fx-background-color: #083145;
+}
 
+.jfx-text-field {
+    -jfx-label-float: true;
+}
 

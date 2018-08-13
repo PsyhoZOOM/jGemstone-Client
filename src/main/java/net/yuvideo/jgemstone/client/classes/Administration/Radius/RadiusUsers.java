@@ -1,4 +1,4 @@
-package net.yuvideo.jgemstone.client.classes.Administration;
+package net.yuvideo.jgemstone.client.classes.Administration.Radius;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
