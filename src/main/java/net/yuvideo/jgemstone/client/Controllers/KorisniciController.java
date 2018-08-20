@@ -4,8 +4,6 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,7 +19,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import net.yuvideo.jgemstone.client.Controllers.Administration.UserServices.UserServicesViewController;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
@@ -354,19 +351,4 @@ public class KorisniciController implements Initializable {
     this.client = client;
   }
 
-  public void showServices(ActionEvent actionEvent) {
-    NewInterface userServicesInterface = new NewInterface(
-        "fxml/Administration/UserServices/UserServicesView.fxml",
-        String.format("KORISNIČKI SERVISI - %s - %s",
-            tUsers.getSelectionModel().getSelectedItem().getIme(),
-            tUsers.getSelectionModel().getSelectedItem().getJbroj()),
-        this.resources, true, true);
-    UserServicesViewController userServicesController = userServicesInterface.getLoader()
-        .getController();
-    userServicesController.setUserID(tUsers.getSelectionModel().getSelectedItem().getId());
-    userServicesController.setClient(this.client);
-    userServicesController.init();
-    userServicesInterface.getStage().show();
-
-  }
 }

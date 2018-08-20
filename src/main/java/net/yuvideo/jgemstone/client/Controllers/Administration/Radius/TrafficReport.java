@@ -42,10 +42,13 @@ public class TrafficReport extends RecursiveTreeObject<TrafficReport> {
   public TrafficReport() {
   }
 
-  public ArrayList<TrafficReport> getTrafficReportArrayList(String UserName) {
+  public ArrayList<TrafficReport> getTrafficReportArrayList(String UserName, String start,
+      String stop) {
     JSONObject object = new JSONObject();
     object.put("action", "getUserTrafficReport");
     object.put("username", UserName);
+    object.put("startTime", start);
+    object.put("stopTime", stop);
     object = client.send_object(object);
     if (object.has("ERROR")) {
       AlertUser.error("GRESKA", object.getString("ERROR"));

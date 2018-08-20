@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXTreeView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.skins.JFXButtonSkin;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -25,27 +26,40 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableCell;
+import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
+import javafx.scene.control.TreeTableView.TreeTableViewSelectionModel;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Search.UsersSearch;
 import net.yuvideo.jgemstone.client.Controllers.Administration.TrafficReport.TrafficReport;
+import net.yuvideo.jgemstone.client.Controllers.Administration.UserServices.UserServicesNET;
 import net.yuvideo.jgemstone.client.Controllers.Administration.WiFi.WifiFinder;
 import net.yuvideo.jgemstone.client.classes.Administration.Radius.RadiusOnlineLog;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.NewInterface;
+import net.yuvideo.jgemstone.client.classes.Services;
+import net.yuvideo.jgemstone.client.classes.ServicesUser;
 import net.yuvideo.jgemstone.client.classes.Users;
 import net.yuvideo.jgemstone.client.classes.UsersOnline;
 import org.json.JSONObject;
@@ -64,6 +78,12 @@ public class Administration implements Initializable {
   private boolean loop = true;
   private ResourceBundle resources;
   private URL location;
+
+  private boolean onlineUserVisible = false;
+  private boolean netWIFIFinderVisible = false;
+  private boolean onlineLOGVisible = false;
+  private boolean izvestajPotrosnjeVisible = false;
+  private boolean pretragaKorisnikaVisible = false;
 
 
   @Override
@@ -94,23 +114,34 @@ public class Administration implements Initializable {
     trMenu.setRoot(root);
 
     trMenu.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
       @Override
       public void handle(MouseEvent event) {
         if (event.getClickCount() == 2) {
           if (trMenu.getSelectionModel().getSelectedItem().equals(netOnlineUsers)) {
-            showOnlineUsers();
+            if (!onlineUserVisible)
+              showOnlineUsers();
+            onlineUserVisible = true;
           }
           if (trMenu.getSelectionModel().getSelectedItem().equals(netOnlineLog)) {
-            showOnlineLOG();
+            if (!onlineLOGVisible)
+              showOnlineLOG();
+            onlineLOGVisible = true;
           }
           if (trMenu.getSelectionModel().getSelectedItem().equals(netSearchUsers)) {
-            showSearchUsers();
+            if (!pretragaKorisnikaVisible)
+              showSearchUsers();
+            pretragaKorisnikaVisible = true;
           }
           if (trMenu.getSelectionModel().getSelectedItem().equals(netWifiFinder)) {
-            showNetWifiFinder();
+            if (!netWIFIFinderVisible)
+              showNetWifiFinder();
+            netWIFIFinderVisible = true;
           }
           if (trMenu.getSelectionModel().getSelectedItem().equals(netPotrosnja)) {
-            showIzvestajPotrosnje();
+            if (!izvestajPotrosnjeVisible)
+              showIzvestajPotrosnje();
+            izvestajPotrosnjeVisible = true;
           }
         }
       }
@@ -121,6 +152,7 @@ public class Administration implements Initializable {
 
   private void showIzvestajPotrosnje() {
     JFXTreeTableView<TrafficReport> tblTrafficReport = new JFXTreeTableView<>();
+
 
     JFXTreeTableColumn<TrafficReport, String> cUserName = new JFXTreeTableColumn<>(
         "KORISNIČKO IME");
@@ -166,10 +198,6 @@ public class Administration implements Initializable {
     tSearch.setPromptText("Pretraga");
     tSearch.setLabelFloat(true);
 
-    JFXTextField tColumns = new JFXTextField();
-    tColumns.setPromptText("MAX L.");
-    tColumns.setText("100");
-    tColumns.setLabelFloat(true);
 
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -232,7 +260,6 @@ public class Administration implements Initializable {
       public void handle(ActionEvent event) {
         JSONObject object = new JSONObject();
         object.put("action", "getTrafficReports");
-        object.put("count", Integer.valueOf(tColumns.getText()));
         object.put("startTime", dateStart.getValue().format(dtf));
         object.put("stopTime", dateStop.getValue().format(dtf));
         object = client.send_object(object);
@@ -290,7 +317,7 @@ public class Administration implements Initializable {
     });
 
     HBox hBox = new HBox();
-    hBox.getChildren().addAll(tSearch, tColumns, dateStart, dateStop, bSearch);
+    hBox.getChildren().addAll(tSearch, dateStart, dateStop, bSearch);
     hBox.setSpacing(5);
 
     VBox vBox = new VBox();
@@ -302,6 +329,13 @@ public class Administration implements Initializable {
     tabIzvestajPotrosnje.setContent(vBox);
 
     VBox.setVgrow(tblTrafficReport, Priority.ALWAYS);
+
+    tabIzvestajPotrosnje.setOnCloseRequest(new EventHandler<Event>() {
+      @Override
+      public void handle(Event event) {
+        izvestajPotrosnjeVisible = false;
+      }
+    });
 
     tabCenter.getTabs().add(tabIzvestajPotrosnje);
     tabCenter.getSelectionModel().select(tabIzvestajPotrosnje);
@@ -399,6 +433,13 @@ public class Administration implements Initializable {
     tabWifiFinder.setContent(vBox);
     VBox.setVgrow(tblWifiFinder, Priority.ALWAYS);
 
+    tabWifiFinder.setOnCloseRequest(new EventHandler<Event>() {
+      @Override
+      public void handle(Event event) {
+        netWIFIFinderVisible = false;
+      }
+    });
+
     tabCenter.getTabs().add(tabWifiFinder);
     tabCenter.getSelectionModel().select(tabWifiFinder);
 
@@ -406,6 +447,24 @@ public class Administration implements Initializable {
 
   private void showSearchUsers() {
     JFXTreeTableView<UsersSearch> tableUserSearch = new JFXTreeTableView<UsersSearch>();
+
+    //menu
+    MenuItem connectionInfo = new MenuItem("Konekcija");
+    connectionInfo.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        if (tableUserSearch.getSelectionModel().getSelectedIndex() == -1) {
+          return;
+        }
+        showConnectionInfoWindow(
+            tableUserSearch.getSelectionModel().getSelectedItem().getValue().getId(),
+            tableUserSearch.getSelectionModel().getSelectedItem().getValue().getUsername());
+      }
+    });
+    ContextMenu cmenu = new ContextMenu();
+    cmenu.getItems().add(connectionInfo);
+    tableUserSearch.setContextMenu(cmenu);
+
     JFXTreeTableColumn<UsersSearch, String> cUserID = new JFXTreeTableColumn("USER ID");
     cUserID.setCellValueFactory(new TreeItemPropertyValueFactory<UsersSearch, String>("jbroj"));
     JFXTreeTableColumn<UsersSearch, String> cIme = new JFXTreeTableColumn<>("IME");
@@ -497,22 +556,78 @@ public class Administration implements Initializable {
 
     Tab tabSearchUsers = new Tab("PRETRAGA KORISNIKA");
     tabSearchUsers.setContent(vBox);
+    tabSearchUsers.setOnCloseRequest(new EventHandler<Event>() {
+      @Override
+      public void handle(Event event) {
+        pretragaKorisnikaVisible = false;
+      }
+    });
     tabCenter.getTabs().add(tabSearchUsers);
     tabCenter.getSelectionModel().select(tabSearchUsers);
+  }
+
+  private void showConnectionInfoWindow(int userID, String username) {
+    NewInterface connectionInfoInterface = new NewInterface(
+        "fxml/Administration/UserServices/UserServicesNET.fxml", "Korisnik conneciton info",
+        resources);
+    UserServicesNET userServicesNETController = connectionInfoInterface.getLoader().getController();
+
+    userServicesNETController.setClient(client);
+
+    ServicesUser servicesUser = new ServicesUser();
+    ServicesUser srvUserData = null;
+    ArrayList<ServicesUser> userServiceArr = servicesUser.getUserServiceArr(userID, client);
+    for (ServicesUser srvUser : userServiceArr) {
+      if (srvUser.getUserName().equals(username)) {
+        srvUserData = srvUser;
+        break;
+      }
+    }
+    if (srvUserData == null) {
+      return;
+    }
+    userServicesNETController.setService(srvUserData);
+    userServicesNETController.initData();
+    connectionInfoInterface.getStage().showAndWait();
   }
 
   private void showOnlineLOG() {
 
     Tab tabRadiusOnline = new Tab("RADIUS ONLINE LOG");
     JFXTreeTableView<RadiusOnlineLog> tableRadiusOnlineLog = new JFXTreeTableView();
+
     JFXTreeTableColumn<RadiusOnlineLog, String> cUsername = new JFXTreeTableColumn<>("USERNAME");
     cUsername
         .setCellValueFactory(new TreeItemPropertyValueFactory<RadiusOnlineLog, String>("username"));
-    JFXTreeTableColumn<RadiusOnlineLog, String> cAuthDate = new JFXTreeTableColumn<>("AUTH DATE");
+    JFXTreeTableColumn<RadiusOnlineLog, String> cAuthDate = new JFXTreeTableColumn<>(
+        "DATUM LOGOVANJA");
     cAuthDate
         .setCellValueFactory(new TreeItemPropertyValueFactory<RadiusOnlineLog, String>("authdate"));
     JFXTreeTableColumn<RadiusOnlineLog, String> cReply = new JFXTreeTableColumn<>("STATUS");
     cReply.setCellValueFactory(new TreeItemPropertyValueFactory<RadiusOnlineLog, String>("reply"));
+    cReply.setCellFactory(
+        new Callback<TreeTableColumn<RadiusOnlineLog, String>, TreeTableCell<RadiusOnlineLog, String>>() {
+          @Override
+          public TreeTableCell<RadiusOnlineLog, String> call(
+              TreeTableColumn<RadiusOnlineLog, String> param) {
+            return new TreeTableCell<RadiusOnlineLog, String>() {
+              @Override
+              protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                  setText("");
+                } else {
+                  setText(item);
+                  if (item.equals("Korisnik ulogovan")) {
+                    setStyle("-fx-background-color: lightgreen");
+                  } else {
+                    setStyle("-fx-background-color: red");
+                  }
+                }
+              }
+            };
+          }
+        });
     JFXTreeTableColumn<RadiusOnlineLog, String> cMAC = new JFXTreeTableColumn<>("MAC");
     cMAC.setCellValueFactory(new TreeItemPropertyValueFactory<RadiusOnlineLog, String>("clientid"));
     JFXTreeTableColumn<RadiusOnlineLog, String> cNAS = new JFXTreeTableColumn<RadiusOnlineLog, String>(
@@ -594,6 +709,12 @@ public class Administration implements Initializable {
 
     tableRadiusOnlineLog.setColumnResizePolicy(TreeTableView.CONSTRAINED_RESIZE_POLICY);
     tabRadiusOnline.setContent(vBox);
+    tabRadiusOnline.setOnCloseRequest(new EventHandler<Event>() {
+      @Override
+      public void handle(Event event) {
+        onlineLOGVisible = false;
+      }
+    });
     tabCenter.getTabs().add(tabRadiusOnline);
     tabCenter.getSelectionModel().select(tabRadiusOnline);
 
@@ -654,7 +775,8 @@ public class Administration implements Initializable {
     JFXTreeTableColumn<UsersOnline, Integer> userID = new JFXTreeTableColumn<>("USER ID");
     userID.setCellValueFactory(new TreeItemPropertyValueFactory<UsersOnline, Integer>("userID"));
 
-    JFXTreeTableColumn<UsersOnline, String> interfaceName = new JFXTreeTableColumn<>("IME");
+    JFXTreeTableColumn<UsersOnline, String> interfaceName = new JFXTreeTableColumn<>(
+        "IME INTERFEJSA");
     interfaceName.setCellValueFactory(new TreeItemPropertyValueFactory<UsersOnline, String>("interfaceName"));
 
     JFXTreeTableColumn<UsersOnline, String> service = new JFXTreeTableColumn<>("SERVICE");
@@ -675,7 +797,8 @@ public class Administration implements Initializable {
     JFXTreeTableColumn<UsersOnline, String> nasNAME = new JFXTreeTableColumn<>("NAS");
     nasNAME.setCellValueFactory(new TreeItemPropertyValueFactory<UsersOnline, String>("NASName"));
 
-    tblOnlineUser.getColumns().addAll(userID, userName, upTime, MAC, nasNAME, nasIP);
+    tblOnlineUser.getColumns()
+        .addAll(userID, userName, upTime, interfaceName, MAC, service, nasNAME, nasIP);
 
 
     JSONObject object = new JSONObject();
@@ -737,7 +860,14 @@ public class Administration implements Initializable {
    onlineTab.setContent(vBox);
    VBox.setVgrow(tblOnlineUser, Priority.ALWAYS);
 
+    onlineTab.setOnCloseRequest(new EventHandler<Event>() {
+      @Override
+      public void handle(Event event) {
+        onlineUserVisible = false;
+      }
+    });
     tabCenter.getTabs().add(onlineTab);
+
     tabCenter.getSelectionModel().select(onlineTab);
 
   }

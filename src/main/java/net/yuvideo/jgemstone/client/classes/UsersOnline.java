@@ -23,6 +23,7 @@ public class UsersOnline extends RecursiveTreeObject<UsersOnline> {
   String txByte;
   String rxError;
   String txError;
+  String upTime;
   int userID;
 
 
@@ -32,6 +33,14 @@ public class UsersOnline extends RecursiveTreeObject<UsersOnline> {
   int broj;
   int id;
 
+
+  public String getUpTime() {
+    return upTime;
+  }
+
+  public void setUpTime(String upTime) {
+    this.upTime = upTime;
+  }
 
   public int getUserID() {
     return userID;

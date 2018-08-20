@@ -29,3 +29,9 @@
     -jfx-label-float: true;
 }
 
+.jfx-dialog-overlay-pane > StackPane {
+    -fx-background-color: TRANSPARENT;
+}
+.jfx-dialog {
+    -fx-background-color: #083145;
+}

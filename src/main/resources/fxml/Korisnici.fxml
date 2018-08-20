@@ -89,8 +89,6 @@
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#mUplate" text="Uplate"
                   fx:id="cmUplate"/>
-                <MenuItem mnemonicParsing="false" onAction="#showServices" text="Servisi"
-                  fx:id="cmServisi"/>
                 <MenuItem mnemonicParsing="false" onAction="#mIzmenKorisnika" text="Izmeni"
                   fx:id="cmIzmeni">
                 </MenuItem>

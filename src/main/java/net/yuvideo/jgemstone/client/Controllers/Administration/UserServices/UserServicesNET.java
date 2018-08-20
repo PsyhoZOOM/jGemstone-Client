@@ -1,29 +1,52 @@
 package net.yuvideo.jgemstone.client.Controllers.Administration.UserServices;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXButton.ButtonType;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialog.DialogTransition;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXTreeTableColumn;
+import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableView;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import net.yuvideo.jgemstone.client.Controllers.Administration.TrafficReport.TrafficReportView;
+import net.yuvideo.jgemstone.client.Controllers.Administration.Radius.TrafficReport;
+import net.yuvideo.jgemstone.client.Controllers.Administration.TrafficReport.MtBwMonitor;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.BytesTo_KB_MB_GB_TB;
 import net.yuvideo.jgemstone.client.classes.Client;
@@ -44,7 +67,6 @@ public class UserServicesNET implements Initializable {
   public JFXTextField tIpPool;
   public JFXTextField tFilterID;
   public JFXTextArea tKomentar;
-  public JFXButton changeComment;
   public Label lNazivPaketa;
   public Label lVrstaPaketa;
   public JFXCheckBox chkReject;
@@ -70,6 +92,13 @@ public class UserServicesNET implements Initializable {
   public Label lOnlineTime;
   public Label lTxBytes;
   public Label lRxBytes;
+  public AnchorPane mainPane;
+  public JFXTextField tPretraga;
+  public JFXDatePicker dtpStart;
+  public JFXDatePicker dtpStop;
+  public JFXButton bTrazi;
+  public JFXTreeTableView tblUserTrafficReport;
+  public StackPane stackPane;
   private URL location;
   private ResourceBundle resources;
   private Client client;
@@ -88,6 +117,59 @@ public class UserServicesNET implements Initializable {
     this.location = location;
     this.resources = resources;
     vBoxMain.setVisible(true);
+
+    dtpStop.setPromptText("Datum end");
+    dtpStart.setPromptText("Datum start");
+    dtpStart.setValue(LocalDate.now().minusMonths(1).withDayOfMonth(1));
+    dtpStop.setValue(LocalDate.now());
+
+    dtpStart.setConverter(new StringConverter<LocalDate>() {
+      @Override
+      public String toString(LocalDate object) {
+        String date;
+        if (object == null) {
+          date = LocalDate.now().minusMonths(1).withDayOfMonth(1).format(dtf);
+        } else {
+          date = object.format(dtf);
+        }
+        return date;
+      }
+
+      @Override
+      public LocalDate fromString(String string) {
+        LocalDate date;
+        if (string == null) {
+          date = LocalDate.parse(LocalDate.now().minusMonths(1).withDayOfMonth(1).format(dtf), dtf);
+        } else {
+          date = LocalDate.parse(string, dtf);
+        }
+        return date;
+      }
+    });
+
+    dtpStop.setConverter(new StringConverter<LocalDate>() {
+      @Override
+      public String toString(LocalDate object) {
+        String date;
+        if (object == null) {
+          date = LocalDate.now().format(dtf);
+        } else {
+          date = object.format(dtf);
+        }
+        return date;
+      }
+
+      @Override
+      public LocalDate fromString(String string) {
+        LocalDate date;
+        if (string == null) {
+          date = LocalDate.parse(LocalDate.now().format(dtf));
+        } else {
+          date = LocalDate.parse(string, dtf);
+        }
+        return date;
+      }
+    });
 
     dtpEndDate.setConverter(new StringConverter<LocalDate>() {
       @Override
@@ -130,6 +212,71 @@ public class UserServicesNET implements Initializable {
             setUserDataStatus(newValue);
           }
         });
+
+    //TABLE TRAFFIC REPORT
+    JFXTreeTableColumn<TrafficReport, String> cUserName = new JFXTreeTableColumn<>(
+        "Korisnicko ime");
+    JFXTreeTableColumn<TrafficReport, String> cIPAddress = new JFXTreeTableColumn<>("IP Adresa");
+    JFXTreeTableColumn<TrafficReport, String> cMACAdresa = new JFXTreeTableColumn<>("MAC Adresa");
+    JFXTreeTableColumn<TrafficReport, String> cNASIPAddress = new JFXTreeTableColumn<>(
+        "NAS IP Adresa");
+    JFXTreeTableColumn<TrafficReport, String> cService = new JFXTreeTableColumn<>("Service");
+    JFXTreeTableColumn<TrafficReport, Long> cDownload = new JFXTreeTableColumn<>("Download");
+    JFXTreeTableColumn<TrafficReport, Long> cUplaod = new JFXTreeTableColumn<>("Upload");
+    JFXTreeTableColumn<TrafficReport, Integer> cOnlineTime = new JFXTreeTableColumn<>(
+        "Online Vreme");
+    JFXTreeTableColumn<TrafficReport, String> cStartTime = new JFXTreeTableColumn<>("Start Vreme");
+    JFXTreeTableColumn<TrafficReport, String> cStopTime = new JFXTreeTableColumn<>("Stop Vreme");
+
+    cUserName
+        .setCellValueFactory(new TreeItemPropertyValueFactory<TrafficReport, String>("username"));
+    cIPAddress.setCellValueFactory(
+        new TreeItemPropertyValueFactory<TrafficReport, String>("framedipaddress"));
+    cMACAdresa.setCellValueFactory(
+        new TreeItemPropertyValueFactory<TrafficReport, String>("callingstationid"));
+    cNASIPAddress.setCellValueFactory(
+        new TreeItemPropertyValueFactory<TrafficReport, String>("nasipaddress"));
+    cService.setCellValueFactory(
+        new TreeItemPropertyValueFactory<TrafficReport, String>("calledstationid"));
+    cDownload.setCellValueFactory(
+        new TreeItemPropertyValueFactory<TrafficReport, Long>("acctinputoctets"));
+    cUplaod.setCellValueFactory(
+        new TreeItemPropertyValueFactory<TrafficReport, Long>("acctoutputoctets"));
+    cOnlineTime.setCellValueFactory(
+        new TreeItemPropertyValueFactory<TrafficReport, Integer>("acctsessiontime"));
+    cStartTime.setCellValueFactory(
+        new TreeItemPropertyValueFactory<TrafficReport, String>("acctstarttime"));
+    cStopTime.setCellValueFactory(
+        new TreeItemPropertyValueFactory<TrafficReport, String>("acctstoptime"));
+
+    tblUserTrafficReport.getColumns()
+        .addAll(cUserName, cIPAddress, cMACAdresa, cNASIPAddress, cService, cDownload, cUplaod,
+            cOnlineTime,
+            cStartTime, cStopTime);
+    tblUserTrafficReport.setColumnResizePolicy(TreeTableView.CONSTRAINED_RESIZE_POLICY);
+
+    tPretraga.textProperty().addListener(new ChangeListener<String>() {
+      @Override
+      public void changed(ObservableValue<? extends String> observable, String oldValue,
+          String newValue) {
+        tblUserTrafficReport.setPredicate(new Predicate<TreeItem<TrafficReport>>() {
+          @Override
+          public boolean test(TreeItem<TrafficReport> trafficReportTreeItem) {
+            tblUserTrafficReport.getSelectionModel().clearSelection();
+            TrafficReport value = trafficReportTreeItem.getValue();
+            boolean flag = value.getUsername().contains(newValue) || value.getFramedipaddress()
+                .contains(newValue) ||
+                value.getCallingstationid().contains(newValue) || value.getCalledstationid()
+                .contains(newValue) ||
+                value.getConnectinfo_start().contains(newValue) || value.getConnectinfo_stop()
+                .contains(newValue);
+            return flag;
+          }
+        });
+      }
+    });
+
+    snackBar = new JFXSnackbar(mainPane);
 
 
   }
@@ -203,7 +350,7 @@ public class UserServicesNET implements Initializable {
     }
     tKomentar.setText(service.getKomentar());
 
-    //DESNO
+    //USER STATUS ONLINE
     object = new JSONObject();
     object.put("action", "checkUsersOnline");
     object.put("username", service.getUserName());
@@ -213,35 +360,40 @@ public class UserServicesNET implements Initializable {
       return;
     }
 
-    for (String key : object.keySet()) {
-      JSONObject userObj = new JSONObject();
-      JSONObject userStatus = new JSONObject();
-      UsersOnline userOnline = new UsersOnline();
-      userObj = object.getJSONObject(key);
-      userStatus = object.getJSONObject(key).getJSONObject("userStats");
-      userOnline.setUserName(userObj.getString("userName"));
-      userOnline.setService(userObj.getString("service"));
-      userOnline.setMac(userObj.getString("callerID"));
-      userOnline.setIp(userObj.getString("address"));
-      userOnline.setUptime(userObj.getString("uptime"));
-      userOnline.setSessionID(userObj.getString("sessionID"));
-      userOnline.setNasIP(userObj.getString("NASIP"));
-      userOnline.setNASName(userObj.getString("NASName"));
-      userOnline.setIdentification(userObj.getString("identification"));
-      userOnline
-          .setCalledID(getCalledID(userObj.getString("address"), userObj.getString("sessionID")));
-      userOnline.setInterfaceName(userStatus.getString("name"));
-      userOnline.setLinkUP(userStatus.getString("linkUp"));
-      userOnline.setTxByte(userStatus.getString("txByte"));
-      userOnline.setRxByte(userStatus.getString("rxByte"));
-      cmbUsers.getItems().add(userOnline);
+    if (!object.getBoolean("userOnline")) {
+      imgOnline.setImage(imgOff);
+      return;
     }
+
+    cmbUsers.getItems().removeAll();
+    cmbUsers.getItems().clear();
+
+    if (object.has("userOnlineStatus")) {
+      for (String key : object.getJSONObject("userOnlineStatus").keySet()) {
+        JSONObject userStatus = object.getJSONObject("userOnlineStatus").getJSONObject(key);
+        UsersOnline userOnline = new UsersOnline();
+        userOnline.setInterfaceName(userStatus.getString("interfaceName"));
+        userOnline.setNasIP(userStatus.getString("nasIP"));
+        userOnline.setNASName(userStatus.getString("nasName"));
+        userOnline.setLinkUP(userStatus.getString("lastLinkUp"));
+        userOnline.setRxByte(userStatus.getString("rxBytes"));
+        userOnline.setTxByte(userStatus.getString("txBytes"));
+        userOnline.setIp(userStatus.getString("ipAddress"));
+        userOnline.setUserName(userStatus.getString("user"));
+        userOnline.setService(userStatus.getString("service"));
+        userOnline.setMac(userStatus.getString("MAC"));
+        userOnline.setUptime(userStatus.getString("upTime"));
+        userOnline.setSessionID(userStatus.getString("sessionID"));
+
+        cmbUsers.getItems().add(userOnline);
+      }
+    }
+
     if (cmbUsers.getItems().size() > 0) {
       imgOnline.setImage(imgOn);
       cmbUsers.getSelectionModel().select(0);
     } else {
       imgOnline.setImage(imgOff);
-      bRefres.setDisable(true);
     }
 
 
@@ -294,7 +446,7 @@ public class UserServicesNET implements Initializable {
       return;
     }
 
-    snackBar.show("Radius izmene snimljene", 3000);
+    snackBar.show("Radius izmene snimljene", 5000);
     initData();
 
   }
@@ -322,9 +474,7 @@ public class UserServicesNET implements Initializable {
   }
 
   public void showStatus(ActionEvent actionEvent) {
-    System.out.println(cmbUsers.getItems().size());
-
-    System.out.println(cmbUsers.getValue().getUserName());
+    initData();
 
 
   }
@@ -332,22 +482,77 @@ public class UserServicesNET implements Initializable {
   public void changeSpeed(ActionEvent actionEvent) {
   }
 
-  public void showPotrosnja(ActionEvent actionEvent) {
-    NewInterface trafficReportInterface = new NewInterface(
-        "fxml/Administration/TrafficReport/TrafficReportView.fxml", "IZVEŠTAJ POTROŠNJE",
-        resources);
-
-    TrafficReportView trafficReportView = trafficReportInterface.getLoader().getController();
-    trafficReportView.setClient(this.client);
-    trafficReportView.username = service.getUserName();
-    trafficReportView.initData();
-    trafficReportInterface.getStage().showAndWait();
-
-  }
 
   public void showPing(ActionEvent actionEvent) {
+    JFXDialogLayout contetn = new JFXDialogLayout();
+    contetn.setHeading(new Text(String.format("PING: %s", cmbUsers.getValue().getIp())));
+
+    Text pingRespone = new Text();
+
+    JFXButton bPing = new JFXButton("PING");
+    bPing.buttonTypeProperty().set(ButtonType.RAISED);
+
+    bPing.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        JSONObject object = new JSONObject();
+        object.put("action", "pingAddressMT");
+        object.put("nasIP", cmbUsers.getValue().getNasIP());
+        object.put("ipAddress", cmbUsers.getValue().getIp());
+        object = client.send_object(object);
+        pingRespone.setText(object.toString());
+
+      }
+    });
+    contetn.setBody(pingRespone);
+    JFXDialog dialog = new JFXDialog(stackPane, contetn, DialogTransition.LEFT, true);
+
+    JFXButton bCloseDialog = new JFXButton("ZATVORI");
+    bCloseDialog.buttonTypeProperty().set(ButtonType.RAISED);
+    bCloseDialog.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        dialog.close();
+      }
+    });
+
+    contetn.setActions(bCloseDialog, bPing);
+
+    dialog.show();
+
+
+
   }
 
   public void showBWMonitor(ActionEvent actionEvent) {
+    NewInterface bwMonit = new NewInterface("fxml/Administration/TrafficReport/MtBwMonitor.fxml",
+        "INTERFACE MONITOR", resources, true, true);
+    MtBwMonitor bwMonitController = bwMonit.getLoader().getController();
+    bwMonitController.setClient(client);
+    bwMonitController
+        .initData(cmbUsers.getValue().getNasIP(), cmbUsers.getValue().getInterfaceName());
+    bwMonit.getStage().showAndWait();
+
+  }
+
+
+  public void showUserTrafficReport(ActionEvent actionEvent) {
+
+    TrafficReport trafficReport = new TrafficReport();
+    trafficReport.setClient(client);
+    ArrayList<TrafficReport> trafficReportArrayList = trafficReport
+        .getTrafficReportArrayList(cmbUsers.getValue().getUserName(),
+            dtpStart.getValue().toString(), dtpStop.getValue().toString());
+
+    ObservableList<TrafficReport> trafficReportObservableList = FXCollections
+        .observableList(trafficReportArrayList);
+    TreeItem<TrafficReport> root = new RecursiveTreeItem<>(trafficReportObservableList,
+        RecursiveTreeObject::getChildren);
+
+    tblUserTrafficReport.setShowRoot(false);
+    tblUserTrafficReport.setRoot(root);
+
+    tblUserTrafficReport.getRoot().setExpanded(true);
+
   }
 }
