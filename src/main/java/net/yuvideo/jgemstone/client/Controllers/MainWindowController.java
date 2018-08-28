@@ -2,28 +2,47 @@ package net.yuvideo.jgemstone.client.Controllers;
 
 import static javafx.application.Platform.exit;
 
+import com.jfoenix.controls.JFXBadge;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javax.annotation.PostConstruct;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Administration;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Devices;
 import net.yuvideo.jgemstone.client.Controllers.Fiksna.FiksnaPozivi;
@@ -35,6 +54,7 @@ import net.yuvideo.jgemstone.client.classes.Settings;
 import net.yuvideo.jgemstone.client.classes.db_connection;
 import org.json.CookieList;
 import org.json.JSONObject;
+import sun.applet.Main;
 
 public class MainWindowController implements Initializable {
 
@@ -49,6 +69,10 @@ public class MainWindowController implements Initializable {
   public Button bUplateMain;
   public MenuItem mImportCSV;
   public MenuItem IPTVPaketi;
+  public Label lMessage;
+  public JFXButton bShowMessage;
+  public StackPane mainStackPane;
+  public JFXListView jfxLIstMessages;
 
   ResourceBundle resource;
   Thread threadCheckAlive;
@@ -74,8 +98,59 @@ public class MainWindowController implements Initializable {
     this.LocalSettings = db.getLocal_settings();
 
     lStatusConnection.setText("Konektovan");
-    exitApp();
 
+    exitApp();
+    init();
+
+
+  }
+
+  public void init() {
+    lMessage.setText("0");
+    lMessage.textProperty().addListener(new ChangeListener<String>() {
+      @Override
+      public void changed(ObservableValue<? extends String> observable, String oldValue,
+          String newValue) {
+        if (Integer.valueOf(newValue) > 0) {
+          bShowMessage.setDisable(false);
+        } else {
+          bShowMessage.setDisable(true);
+        }
+      }
+    });
+
+    bShowMessage.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        if (jfxLIstMessages.isVisible()) {
+          jfxLIstMessages.setVisible(false);
+        } else {
+          jfxLIstMessages.setVisible(true);
+        }
+
+      }
+    });
+
+    updateMessages();
+
+
+  }
+
+  private void updateMessages() {
+    Image img = new Image(ClassLoader.getSystemResourceAsStream("icons/YuVideoLogo.png"), 20.0,
+        20.0, true, true);
+    ImageView imgView = new ImageView(img);
+
+    Label label1 = new Label(String.format("%s - Poruka od: SYSTEM ", LocalDateTime.now()));
+    label1.setBackground(
+        new Background(new BackgroundFill(Color.RED, new CornerRadii(5), Insets.EMPTY)));
+    Label label2 = new Label(String.format("%s - Poruka od: BAKI ", LocalDateTime.now()));
+    Label label3 = new Label(String.format("%s - Poruka od MARKO ", LocalDateTime.now()));
+    label1.setGraphic(new ImageView(img));
+    label2.setGraphic(new ImageView(img));
+    label3.setGraphic(new ImageView(img));
+
+    jfxLIstMessages.getItems().addAll(label1, label2, label3);
 
   }
 
@@ -282,7 +357,6 @@ public class MainWindowController implements Initializable {
         new NewInterface("fxml/CSVPreview.fxml", "Pregled CSV-a", this.resource);
     CSVPreview csvPreviewController = showPregledCSVInterface.getLoader().getController();
     csvPreviewController.setClient(this.client);
-    csvPreviewController.setData();
     showPregledCSVInterface.getStage().showAndWait();
   }
 

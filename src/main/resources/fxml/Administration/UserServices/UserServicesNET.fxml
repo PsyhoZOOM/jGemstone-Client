@@ -67,7 +67,7 @@
                   promptText="Username" fx:id="tUserName"/>
                 <HBox alignment="CENTER_LEFT">
                   <children>
-                    <JFXPasswordField labelFloat="true" prefWidth="200.0" promptText="password"
+                    <JFXPasswordField HBox.hgrow="NEVER" labelFloat="true" promptText="password"
                       fx:id="tPass"/>
                     <JFXButton buttonType="RAISED" onAction="#izmeniPass" text="Izmeni"
                       fx:id="bIzmeniPass"/>

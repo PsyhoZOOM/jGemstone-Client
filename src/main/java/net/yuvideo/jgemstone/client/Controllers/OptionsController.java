@@ -177,11 +177,11 @@ public class OptionsController implements Initializable {
         tTelServis.setText(obj.getString("FIRMA_SERVIS_TELEFON"));
       if (obj.has("FIRMA_SERVIS_EMAIL"))
         tEmailServis.setText(obj.getString("FIRMA_SERVIS_EMAIL"));
-      if (obj.has("FIRMWA_WEBPAGE"))
+      if (obj.has("FIRMA_WEBPAGE"))
         tInternetStranica.setText(obj.getString("FIRMA_WEBPAGE"));
       if (obj.has("FIRMA_NACIN_PLACANJA_FAKTURA"))
         tNacinPlacanjaFaktura.setText(obj.getString("FIRMA_NACIN_PLACANJA_FAKTURA"));
-      if (obj.has("FIRMA_ROK_PLAVANJA_FAKTURA"))
+      if (obj.has("FIRMA_ROK_PLACANJA_FAKTURA"))
         tRokPlacanjaFaktura.setText(obj.getString("FIRMA_ROK_PLACANJA_FAKTURA"));
       if (obj.has("FIRMA_ROK_PLACANJA_RACUN"))
         tRokPlacanjaRacun.setText(obj.getString("FIRMA_ROK_PLACANJA_RACUN"));

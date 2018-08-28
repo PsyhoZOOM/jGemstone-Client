@@ -4,7 +4,8 @@ package net.yuvideo.jgemstone.client.classes;
 public class BytesTo_KB_MB_GB_TB {
 
   public static String getFormatedString(Long bytes) {
-    String[] fileSizeUnits = {"bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
+    String[] fileSizeUnits = {"bits", "Kbit", "Mbit", "Gbit", "Tbit", "Pbit", "Ebit", "Zbit",
+        "Ybit"};
 
     String sizeToReturn = "";
     int index;
@@ -14,7 +15,6 @@ public class BytesTo_KB_MB_GB_TB {
       }
       bytes = bytes / 1024;
     }
-    System.out.println("Systematic file size: " + bytes + " " + fileSizeUnits[index]);
     sizeToReturn = String.valueOf(bytes) + " " + fileSizeUnits[index];
     return sizeToReturn;
 

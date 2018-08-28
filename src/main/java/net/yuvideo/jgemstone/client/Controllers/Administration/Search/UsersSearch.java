@@ -10,7 +10,16 @@ public class UsersSearch extends RecursiveTreeObject<UsersSearch> {
   String endDate;
   String adresaUsluge;
   String ime;
+  String groupName;
 
+
+  public String getGroupName() {
+    return groupName;
+  }
+
+  public void setGroupName(String groupName) {
+    this.groupName = groupName;
+  }
 
   public int getId() {
     return id;

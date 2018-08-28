@@ -39,11 +39,10 @@ import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Radius.TrafficReport;
 import net.yuvideo.jgemstone.client.Controllers.Administration.TrafficReport.MtBwMonitor;
@@ -208,7 +207,9 @@ public class UserServicesNET implements Initializable {
           public void changed(ObservableValue<? extends UsersOnline> observable,
               UsersOnline oldValue,
               UsersOnline newValue) {
-            System.out.println(newValue.getUserName());
+            if (newValue == null) {
+              return;
+            }
             setUserDataStatus(newValue);
           }
         });
@@ -526,11 +527,17 @@ public class UserServicesNET implements Initializable {
 
   public void showBWMonitor(ActionEvent actionEvent) {
     NewInterface bwMonit = new NewInterface("fxml/Administration/TrafficReport/MtBwMonitor.fxml",
-        "INTERFACE MONITOR", resources, true, true);
+        "INTERFACE MONITOR", resources, true, false);
     MtBwMonitor bwMonitController = bwMonit.getLoader().getController();
     bwMonitController.setClient(client);
     bwMonitController
         .initData(cmbUsers.getValue().getNasIP(), cmbUsers.getValue().getInterfaceName());
+    bwMonit.getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
+      @Override
+      public void handle(WindowEvent event) {
+        bwMonitController.stopMonitoring();
+      }
+    });
     bwMonit.getStage().showAndWait();
 
   }

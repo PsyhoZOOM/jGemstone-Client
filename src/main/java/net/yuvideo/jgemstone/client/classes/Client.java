@@ -51,7 +51,7 @@ public class Client {
   public String status_login;
   boolean connected = false;
   private boolean newClient = true;
-  private static String C_VERSION = "0.114";
+  private static String C_VERSION = "0.115";
 
   public Client(Settings local_settings) {
     this.local_settings = local_settings;

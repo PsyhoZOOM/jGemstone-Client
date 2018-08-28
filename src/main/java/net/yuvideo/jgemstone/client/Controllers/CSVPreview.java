@@ -1,6 +1,10 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import com.jfoenix.controls.JFXDatePicker;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -11,6 +15,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.StringConverter;
 import net.yuvideo.jgemstone.client.classes.CSVData;
 import net.yuvideo.jgemstone.client.classes.Client;
 import org.json.JSONObject;
@@ -35,10 +40,14 @@ public class CSVPreview implements Initializable {
   public TableColumn cServiceUnit;
   public TableColumn cCustomerID;
   public TableColumn cFileName;
+  public JFXDatePicker dtpOd;
+  public JFXDatePicker dtpDo;
   private Client client;
   private URL location;
   private ResourceBundle resources;
   private JSONObject jObj;
+
+  private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -75,11 +84,42 @@ public class CSVPreview implements Initializable {
         }
       }
     });
+
+    dtpOd.setValue(LocalDate.now().minusMonths(3).withDayOfMonth(1));
+    dtpDo.setValue(LocalDate.now());
+
+    dtpOd.setConverter(new StringConverter<LocalDate>() {
+      @Override
+      public String toString(LocalDate object) {
+        return object.format(dateTimeFormatter);
+      }
+
+      @Override
+      public LocalDate fromString(String string) {
+        LocalDate date = LocalDate.parse(string, dateTimeFormatter);
+        return date;
+      }
+    });
+
+    dtpDo.setConverter(new StringConverter<LocalDate>() {
+      @Override
+      public String toString(LocalDate object) {
+        return object.format(dateTimeFormatter);
+      }
+
+      @Override
+      public LocalDate fromString(String string) {
+        LocalDate date = LocalDate.parse(string, dateTimeFormatter);
+        return date;
+      }
+    });
   }
 
-  public void setData() {
+  public void prikazi(ActionEvent actionEvent) {
     jObj = new JSONObject();
     jObj.put("action", "get_CSV_Data");
+    jObj.put("od", dtpOd.getValue().format(dateTimeFormatter));
+    jObj.put("do", dtpDo.getValue().format(dateTimeFormatter));
 
     jObj = client.send_object(jObj);
 
@@ -115,10 +155,9 @@ public class CSVPreview implements Initializable {
 
   }
 
-  public void refreshTable(ActionEvent actionEvent) {
-  }
 
   public void setClient(Client client) {
     this.client = client;
   }
+
 }
