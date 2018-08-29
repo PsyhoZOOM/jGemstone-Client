@@ -152,7 +152,7 @@ public class KorisnikPodaciController implements Initializable {
       public void changed(ObservableValue<? extends String> observable, String oldValue,
           String newValue) {
         if (newValue.matches("\\d*")) {
-          tTelMob.setText(newValue.replaceAll("[^\\d]", "").trim());
+          tTelFix.setText(newValue.replaceAll("[^\\d]", "").trim());
 
         }
       }

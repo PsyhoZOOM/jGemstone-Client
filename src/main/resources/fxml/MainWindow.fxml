@@ -273,11 +273,15 @@
         </BorderPane>
       </children>
     </AnchorPane>
-    <JFXListView StackPane.alignment="TOP_LEFT" maxWidth="250.0" minHeight="0.0" minWidth="0.0"
-      fx:id="jfxLIstMessages">
+    <VBox StackPane.alignment="TOP_LEFT" maxWidth="300.0" prefWidth="300.0" fx:id="vbSideView">
       <StackPane.margin>
-        <Insets bottom="50.0" left="10.0" top="100.0"/>
+        <Insets bottom="50.0" left="10.0" top="150.0"/>
       </StackPane.margin>
-    </JFXListView>
+      <children>
+        <JFXButton text="Zatvori" fx:id="bCloseMessageWin"/>
+        <JFXListView style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS" depth="2"
+          showTooltip="true" fx:id="jfxLIstMessages"/>
+      </children>
+    </VBox>
   </children>
 </StackPane>

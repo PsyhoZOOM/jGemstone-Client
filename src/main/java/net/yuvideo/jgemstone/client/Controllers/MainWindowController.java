@@ -2,7 +2,6 @@ package net.yuvideo.jgemstone.client.Controllers;
 
 import static javafx.application.Platform.exit;
 
-import com.jfoenix.controls.JFXBadge;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import java.io.File;
@@ -25,11 +24,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -38,11 +34,9 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javax.annotation.PostConstruct;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Administration;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Devices;
 import net.yuvideo.jgemstone.client.Controllers.Fiksna.FiksnaPozivi;
@@ -52,9 +46,7 @@ import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
 import net.yuvideo.jgemstone.client.classes.Settings;
 import net.yuvideo.jgemstone.client.classes.db_connection;
-import org.json.CookieList;
 import org.json.JSONObject;
-import sun.applet.Main;
 
 public class MainWindowController implements Initializable {
 
@@ -73,6 +65,8 @@ public class MainWindowController implements Initializable {
   public JFXButton bShowMessage;
   public StackPane mainStackPane;
   public JFXListView jfxLIstMessages;
+  public VBox vbSideView;
+  public JFXButton bCloseMessageWin;
 
   ResourceBundle resource;
   Thread threadCheckAlive;
@@ -100,13 +94,14 @@ public class MainWindowController implements Initializable {
     lStatusConnection.setText("Konektovan");
 
     exitApp();
-    init();
+    initMessageWindow();
 
 
   }
 
-  public void init() {
+  public void initMessageWindow() {
     lMessage.setText("0");
+    vbSideView.setVisible(false);
     lMessage.textProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -122,12 +117,23 @@ public class MainWindowController implements Initializable {
     bShowMessage.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        if (jfxLIstMessages.isVisible()) {
-          jfxLIstMessages.setVisible(false);
+        if (vbSideView.isVisible()) {
+          vbSideView.setVisible(false);
         } else {
-          jfxLIstMessages.setVisible(true);
+          vbSideView.setVisible(true);
         }
 
+      }
+    });
+
+    bCloseMessageWin.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        if (vbSideView.isVisible()) {
+          vbSideView.setVisible(false);
+        } else {
+          vbSideView.setVisible(true);
+        }
       }
     });
 
@@ -139,7 +145,6 @@ public class MainWindowController implements Initializable {
   private void updateMessages() {
     Image img = new Image(ClassLoader.getSystemResourceAsStream("icons/YuVideoLogo.png"), 20.0,
         20.0, true, true);
-    ImageView imgView = new ImageView(img);
 
     Label label1 = new Label(String.format("%s - Poruka od: SYSTEM ", LocalDateTime.now()));
     label1.setBackground(

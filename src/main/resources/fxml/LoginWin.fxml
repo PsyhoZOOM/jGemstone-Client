@@ -15,7 +15,7 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
   minHeight="400.0" minWidth="300.0" stylesheets="@../css/Main.css"
-  xmlns="http://javafx.com/javafx/8.0.172"
+  xmlns="http://javafx.com/javafx/8.0.121"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.LoginWinController">
   <children>
     <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
