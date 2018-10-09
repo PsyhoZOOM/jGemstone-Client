@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Insets?>
@@ -56,7 +57,7 @@
                         <TreeTableColumn prefWidth="75.0" text="PDV" fx:id="cPDV"/>
                         <TreeTableColumn prefWidth="75.0" text="Ukupno" fx:id="cZaUplatu"/>
                         <TreeTableColumn prefWidth="75.0" text="Obračun" fx:id="cServiceObracun"/>
-                        <TreeTableColumn prefWidth="75.0" text="Aktivan" fx:id="cServiceAktivan"/>
+                        <TreeTableColumn prefWidth="75.0" text="AKtiviran" fx:id="cServiceAktivan"/>
                       </columns>
                       <columnResizePolicy>
                         <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
@@ -183,7 +184,7 @@
                     <RowConstraints vgrow="NEVER"/>
                   </rowConstraints>
                   <children>
-                    <ComboBox GridPane.columnIndex="1" prefWidth="150.0" fx:id="cmbPaketDTV"/>
+                    <ComboBox GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" fx:id="cmbPaketDTV"/>
                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" text="0"
                       fx:id="tPopustDTV"/>
                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="2"
@@ -421,6 +422,8 @@
                       vgrow="SOMETIMES"/>
                     <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0"
                       vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0"
+                      vgrow="SOMETIMES"/>
                     <RowConstraints fillHeight="false" vgrow="NEVER"/>
                     <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0"
                       vgrow="SOMETIMES"/>
@@ -437,22 +440,23 @@
                       fx:id="tSerijskiBrojOstalo"/>
                     <Label GridPane.rowIndex="3" text="MAC:"/>
                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="tMacOstalo"/>
-                    <Label GridPane.rowIndex="6" GridPane.valignment="TOP" text="Komentar:"/>
-                    <TextArea GridPane.columnIndex="1" GridPane.rowIndex="6"
+                    <Label GridPane.rowIndex="7" GridPane.valignment="TOP" text="Komentar:"/>
+                    <TextArea GridPane.columnIndex="1" GridPane.rowIndex="7"
                       GridPane.valignment="TOP" fx:id="taKomentarOstalo"/>
                     <Button GridPane.columnIndex="1" GridPane.halignment="LEFT"
-                      GridPane.rowIndex="7" mnemonicParsing="false" onAction="#addServiceOstalo"
+                      GridPane.rowIndex="8" mnemonicParsing="false" onAction="#addServiceOstalo"
                       text="Dodaj uslugu" fx:id="bSnimiOstalo">
                       <graphic>
                         <FontIcon fill="white" iconLiteral="eli-plus-sign" />
                       </graphic>
                     </Button>
-                    <Label GridPane.rowIndex="5" text="Obračun:"/>
                     <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="5" mnemonicParsing="false"
-                      selected="true" text="CheckBox" fx:id="chkProduzenjeOstalo"/>
+                      selected="true" text="Obračun" fx:id="chkProduzenjeOstalo"/>
                     <Label GridPane.rowIndex="4" text="Ugovor:"/>
                     <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="4"
                       fx:id="cmbUgovorOstalo"/>
+                    <JFXCheckBox GridPane.columnIndex="1" GridPane.rowIndex="6"
+                      text="Trenutna usluga (samo za jedan mesec)" fx:id="chkTempZaduzenje"/>
                   </children>
                   <padding>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

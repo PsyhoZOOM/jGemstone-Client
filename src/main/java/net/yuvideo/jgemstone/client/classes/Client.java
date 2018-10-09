@@ -15,15 +15,19 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.TrustManagerFactory;
 import org.json.JSONObject;
+import org.omg.CORBA.IMP_LIMIT;
 
 /**
  * Created by zoom on 8/8/16.
@@ -35,6 +39,8 @@ public class Client {
   public LongProperty result = new SimpleLongProperty();
   public IntegerProperty ss = new SimpleIntegerProperty();
   public IntegerProperty rs = new SimpleIntegerProperty();
+
+  private static String C_VERSION = "0.200";
 
   //Socket socket;
   SSLSocket socket;
@@ -51,7 +57,7 @@ public class Client {
   public String status_login;
   boolean connected = false;
   private boolean newClient = true;
-  private static String C_VERSION = "0.116";
+  public boolean canSend = true;
 
   public Client(Settings local_settings) {
     this.local_settings = local_settings;
@@ -88,6 +94,11 @@ public class Client {
       }
 
       try {
+        while (canSend == false) {
+          System.out.println("WaiTING FOR PROcCES TO FINISH");
+          Thread.sleep(1000);
+        }
+        canSend = false;
         Bfw.write(rObj.toString());
 
         //send bytes
@@ -99,6 +110,7 @@ public class Client {
         long localPING = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()
             .toEpochMilli();
         rObj = getjObj();
+        canSend = true;
 
         //recieve bytes
         rs.setValue(rObj.toString().getBytes().length);
@@ -109,8 +121,17 @@ public class Client {
         result.setValue(remotePONG - localPING);
 
       } catch (IOException e) {
-        AlertUser.error("GRESKA", e.getMessage());
+
+        Platform.runLater(new Runnable() {
+          @Override
+          public void run() {
+            AlertUser.error("GRESKA ",
+                String.format("Poruka: %s \n Cause: %s", e.getMessage(), e.getCause()));
+
+          }
+        });
         e.printStackTrace();
+
       }
 
 
@@ -136,8 +157,11 @@ public class Client {
     } catch (IOException e1) {
       e1.printStackTrace();
     } catch (NullPointerException e2) {
+      AlertUser.info("DISKONEKTOVAN SA SERVERA", e2.getMessage());
+      System.exit(1);
       e2.printStackTrace();
     } catch (Exception e) {
+      AlertUser.info("DISKONEKTOVAN SA SERVERA", e.getMessage());
       e.printStackTrace();
     }
 

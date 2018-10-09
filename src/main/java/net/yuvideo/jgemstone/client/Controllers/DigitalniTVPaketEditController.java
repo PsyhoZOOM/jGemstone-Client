@@ -9,6 +9,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -17,7 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.digitalniTVPaket;
+import net.yuvideo.jgemstone.client.classes.DigitalniTVPaket;
 import net.yuvideo.jgemstone.client.classes.valueToPercent;
 import org.json.JSONObject;
 
@@ -31,8 +32,10 @@ public class DigitalniTVPaketEditController implements Initializable {
   public TextField tPaketID;
   public TextArea tOpis;
   public Button bSnimi;
+  public CheckBox chkDodatak;
+  public CheckBox chkDodatnaKartica;
   private Client client;
-  public digitalniTVPaket dtvPaket;
+  public DigitalniTVPaket dtvPaket;
   public Spinner spnCena;
   public Spinner spnPDV;
   public Label lCenaPaketa;
@@ -99,17 +102,18 @@ public class DigitalniTVPaketEditController implements Initializable {
     jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
     jObj.put("opis", tOpis.getText());
     jObj.put("idPaket", Integer.valueOf(tPaketID.getText()));
+    jObj.put("dodatak", chkDodatak.isSelected());
+    jObj.put("dodatnaKartica", chkDodatnaKartica.isSelected());
 
     jObj = client.send_object(jObj);
 
-    LOGGER.info(jObj.getString("Message"));
+    if (jObj.has("ERROR")) {
+      AlertUser.error("GRESKA!", jObj.getString("ERROR"));
+      return;
 
-    if (jObj.getString("Message").equals("DTV_PAKET_SAVED")) {
+    }
       AlertUser.info("DTV Paket", "DTV Paket je kreiran");
       close(null);
-    } else {
-      AlertUser.error("GRESKA!", jObj.getString("ERROR"));
-    }
 
 
   }
@@ -123,6 +127,8 @@ public class DigitalniTVPaketEditController implements Initializable {
     jObj.put("pdv", Double.valueOf(spnPDV.getEditor().getText()));
     jObj.put("opis", tOpis.getText());
     jObj.put("idPaket", Integer.valueOf(tPaketID.getText()));
+    jObj.put("dodatak", chkDodatak.isSelected());
+    jObj.put("dodatnaKartica", chkDodatnaKartica.isSelected());
 
     jObj = client.send_object(jObj);
 
@@ -134,6 +140,7 @@ public class DigitalniTVPaketEditController implements Initializable {
       close(null);
     }
 
+
   }
 
   public void show_data() {
@@ -143,6 +150,9 @@ public class DigitalniTVPaketEditController implements Initializable {
     spnPDV.getEditor().setText(String.valueOf(dtvPaket.getPdv()));
     tOpis.setText(dtvPaket.getOpis());
     tPaketID.setText(String.valueOf(dtvPaket.getPaketID()));
+    chkDodatak.setSelected(dtvPaket.isDodatak());
+    chkDodatnaKartica.setSelected(dtvPaket.isDodatnaKartica());
+
     setCenaPDV();
 
 

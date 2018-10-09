@@ -43,6 +43,8 @@
           <columns>
             <TableColumn prefWidth="75.0" text="Naziv" fx:id="cNaziv"/>
             <TableColumn prefWidth="75.0" text="ID PAKET" fx:id="cPaket"/>
+            <TableColumn prefWidth="75.0" text="Dodatak" fx:id="cDodatak"/>
+            <TableColumn prefWidth="75.0" text="Dodatna Kartica" fx:id="cDodatnaKartica"/>
             <TableColumn prefWidth="75.0" text="Cena" fx:id="cCena"/>
             <TableColumn prefWidth="75.0" text="PDV" fx:id="cPDV"/>
             <TableColumn prefWidth="75.0" text="Cena sa PDV" fx:id="cCenaPDV"/>

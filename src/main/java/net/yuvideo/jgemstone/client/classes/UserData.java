@@ -65,7 +65,6 @@ public class UserData {
 
 
     obj = client.send_object(obj);
-    System.out.println(obj);
 
     setId(obj.getInt("id"));
     setIme(obj.getString("fullName"));

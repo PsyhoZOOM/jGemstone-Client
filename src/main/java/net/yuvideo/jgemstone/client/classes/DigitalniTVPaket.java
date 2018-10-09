@@ -3,7 +3,7 @@ package net.yuvideo.jgemstone.client.classes;
 /**
  * Created by zoom on 2/2/17.
  */
-public class digitalniTVPaket {
+public class DigitalniTVPaket {
 
   int id;
   String naziv;
@@ -12,8 +12,36 @@ public class digitalniTVPaket {
   String opis;
   Double cena;
   Double pdv;
+  Double popust;
   boolean obracun;
+  boolean dodatak;
+  boolean dodatnaKartica;
   Double cenaPDV;
+
+
+  public boolean isDodatnaKartica() {
+    return dodatnaKartica;
+  }
+
+  public void setDodatnaKartica(boolean dodatnaKartica) {
+    this.dodatnaKartica = dodatnaKartica;
+  }
+
+  public Double getPopust() {
+    return popust;
+  }
+
+  public void setPopust(Double popust) {
+    this.popust = popust;
+  }
+
+  public boolean isDodatak() {
+    return dodatak;
+  }
+
+  public void setDodatak(boolean dodatak) {
+    this.dodatak = dodatak;
+  }
 
   public Double getCenaPDV() {
     return cenaPDV;

@@ -30,7 +30,7 @@ import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.FiksnaPaketi;
 import net.yuvideo.jgemstone.client.classes.IPTVPaketi;
 import net.yuvideo.jgemstone.client.classes.InternetPaketi;
-import net.yuvideo.jgemstone.client.classes.digitalniTVPaket;
+import net.yuvideo.jgemstone.client.classes.DigitalniTVPaket;
 import net.yuvideo.jgemstone.client.classes.valueToPercent;
 import org.json.JSONObject;
 
@@ -47,7 +47,7 @@ public class BoxPaketEditController implements Initializable {
   @FXML
   TextField tNazivPaketa;
   @FXML
-  ComboBox<digitalniTVPaket> cmbDTV;
+  ComboBox<DigitalniTVPaket> cmbDTV;
   @FXML
   ComboBox<InternetPaketi> cmbInternet;
   @FXML
@@ -80,15 +80,15 @@ public class BoxPaketEditController implements Initializable {
     this.url = url;
     this.rb = rb;
 
-    cmbDTV.setConverter(new StringConverter<digitalniTVPaket>() {
+    cmbDTV.setConverter(new StringConverter<DigitalniTVPaket>() {
       @Override
-      public String toString(digitalniTVPaket object) {
+      public String toString(DigitalniTVPaket object) {
         return object.getNaziv();
       }
 
       @Override
-      public digitalniTVPaket fromString(String string) {
-        digitalniTVPaket pak = new digitalniTVPaket();
+      public DigitalniTVPaket fromString(String string) {
+        DigitalniTVPaket pak = new DigitalniTVPaket();
         pak.setNaziv(string);
         return pak;
       }
@@ -184,7 +184,7 @@ public class BoxPaketEditController implements Initializable {
         }
       }
 
-      for (digitalniTVPaket dPaket : cmbDTV.getItems()) {
+      for (DigitalniTVPaket dPaket : cmbDTV.getItems()) {
         if (boxPaket.getDTV() == dPaket.getId()) {
           cmbDTV.getSelectionModel().select(dPaket);
           cmbDTV.setValue(dPaket);
@@ -211,18 +211,18 @@ public class BoxPaketEditController implements Initializable {
   }
 
 
-  private ArrayList<digitalniTVPaket> get_dtv_paketi() {
+  private ArrayList<DigitalniTVPaket> get_dtv_paketi() {
     jObj = new JSONObject();
     jObj.put("action", "getDigitalTVPaketi");
 
     jObj = client.send_object(jObj);
 
-    digitalniTVPaket digitalniTVPaket;
-    ArrayList<digitalniTVPaket> digitalniTVPaketArrayList = new ArrayList<>();
+    DigitalniTVPaket digitalniTVPaket;
+    ArrayList<DigitalniTVPaket> digitalniTVPaketArrayList = new ArrayList<>();
     JSONObject digitalniObj;
 
     for (int i = 0; i < jObj.length(); i++) {
-      digitalniTVPaket = new digitalniTVPaket();
+      digitalniTVPaket = new DigitalniTVPaket();
       digitalniObj = (JSONObject) jObj.get(String.valueOf(i));
       digitalniTVPaket.setId(digitalniObj.getInt("id"));
       digitalniTVPaket.setNaziv(digitalniObj.getString("naziv"));

@@ -2,112 +2,129 @@ package net.yuvideo.jgemstone.client.classes;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.io.Serializable;
+import java.security.PrivateKey;
+import java.util.ArrayList;
+import org.json.JSONObject;
 
 /**
  * Created by zoom on 9/7/16.
  */
-public class Uplate extends RecursiveTreeObject<Uplate> implements Serializable, Cloneable {
+public class Uplate extends RecursiveTreeObject<Uplate> {
 
-  int id;
-  int id_ServiceUser;
-  int id_service;
-  String nazivPaket;
-  String datumZaduzenja;
-  int userID;
-  double popust;
-  String paketType;
-  double cena;
-  int kolicina;
-  double uplaceno;
-  double zaUplatu;
-  String datumUplate;
-  String operater;
-  double dug;
-  String zaMesec;
-  double pdv;
-  double osnovica;
-  String mestoUplate;
-  String zaduzenOd;
-  String napomena;
-  String vrstaUplate;
+  private int id;
+  private String datum;
+  private double duguje;
+  private double potrazuje;
+  private String operater;
+  private String opis;
+  private int userID;
+  private Client client;
+  private ArrayList<Uplate> uplateArrayList;
+  private boolean error;
+  private String errorMSG;
+  private double ukupnoDuguje = 0;
+  private double ukupnoUplaceno = 0;
+  private double ukupanDug = 0;
 
+  public ArrayList<Uplate> getUplateUser(int userID) {
+    JSONObject object = new JSONObject();
+    object.put("action", "get_uplate_user");
+    object.put("userID", userID);
+    object = client.send_object(object);
+    if (object.has("ERROR")) {
+      setError(true);
+      setErrorMSG(object.getString("ERROR"));
+      return null;
+    }
 
-  private boolean skipProduzenje;
+    uplateArrayList = new ArrayList<>();
+    for (int i = 0; i < object.length(); i++) {
+      Uplate uplata = new Uplate();
+      JSONObject uplObj = object.getJSONObject(String.valueOf(i));
+      uplata.setId(uplObj.getInt("id"));
+      uplata.setUserID(uplObj.getInt("userID"));
+      uplata.setDatum(uplObj.getString("datum"));
+      uplata.setPotrazuje(uplObj.getDouble("potrazuje"));
+      uplata.setDuguje(uplObj.getDouble("duguje"));
+      uplata.setOperater(uplObj.getString("operater"));
+      uplata.setOpis(uplObj.getString("opis"));
 
-  public void setPopust(double popust) {
-    this.popust = popust;
-  }
+      ukupnoDuguje += uplata.getPotrazuje();
+      ukupnoUplaceno += uplata.getDuguje();
 
-  public void setCena(double cena) {
-    this.cena = cena;
-  }
+      uplateArrayList.add(uplata);
 
-  public void setUplaceno(double uplaceno) {
-    this.uplaceno = uplaceno;
-  }
+    }
 
-  public void setZaUplatu(double zaUplatu) {
-    this.zaUplatu = zaUplatu;
-  }
+    ukupanDug = ukupnoDuguje - ukupnoUplaceno;
 
-  public double getZaUplatu() {
-    return zaUplatu;
-  }
-
-  public String getVrstaUplate() {
-    return vrstaUplate;
-  }
-
-  public void setVrstaUplate(String vrstaUplate) {
-    this.vrstaUplate = vrstaUplate;
+    return uplateArrayList;
   }
 
 
-  public Uplate CopyUplate() throws CloneNotSupportedException {
-
-    return (Uplate) this.clone();
+  public double getUkupnoDuguje() {
+    return ukupnoDuguje;
   }
 
-
-  public double getPdv() {
-    return pdv;
+  public void setUkupnoDuguje(double ukupnoDuguje) {
+    this.ukupnoDuguje = ukupnoDuguje;
   }
 
-  public void setPdv(double pdv) {
-    this.pdv = pdv;
+  public double getUkupnoUplaceno() {
+    return ukupnoUplaceno;
   }
 
-
-  public String getNapomena() {
-    return napomena;
+  public void setUkupnoUplaceno(double ukupnoUplaceno) {
+    this.ukupnoUplaceno = ukupnoUplaceno;
   }
 
-  public void setNapomena(String napomena) {
-    this.napomena = napomena;
+  public void setDuguje(double duguje) {
+    this.duguje = duguje;
   }
 
-  public String getZaduzenOd() {
-    return zaduzenOd;
+  public void setPotrazuje(double potrazuje) {
+    this.potrazuje = potrazuje;
   }
 
-  public void setZaduzenOd(String zaduzenOd) {
-    this.zaduzenOd = zaduzenOd;
+  public double getUkupanDug() {
+    return ukupanDug;
   }
 
-  public String getZaMesec() {
-    return zaMesec;
+  public void setUkupanDug(double ukupanDug) {
+    this.ukupanDug = ukupanDug;
   }
 
-  public void setZaMesec(String zaMesec) {
-    this.zaMesec = zaMesec;
+  public boolean isError() {
+    return error;
   }
 
-  public double getDug() {
-    return dug;
+  public void setError(boolean error) {
+    this.error = error;
   }
 
-  public void setDug(double dug) {
-    this.dug = dug;
+  public String getErrorMSG() {
+    return errorMSG;
+  }
+
+  public void setErrorMSG(String errorMSG) {
+    this.errorMSG = errorMSG;
+  }
+
+  public Client getClient() {
+    return client;
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
+  }
+
+  public ArrayList<Uplate> getUplateArrayList() {
+    return uplateArrayList;
+  }
+
+  public void setUplateArrayList(
+      ArrayList<Uplate> uplateArrayList) {
+    this.uplateArrayList = uplateArrayList;
   }
 
   public int getId() {
@@ -118,36 +135,44 @@ public class Uplate extends RecursiveTreeObject<Uplate> implements Serializable,
     this.id = id;
   }
 
-  public int getId_ServiceUser() {
-    return id_ServiceUser;
+  public String getDatum() {
+    return datum;
   }
 
-  public void setId_ServiceUser(int id_ServiceUser) {
-    this.id_ServiceUser = id_ServiceUser;
+  public void setDatum(String datum) {
+    this.datum = datum;
   }
 
-  public int getId_service() {
-    return id_service;
+  public Double getDuguje() {
+    return duguje;
   }
 
-  public void setId_service(int id_service) {
-    this.id_service = id_service;
+  public void setDuguje(Double duguje) {
+    this.duguje = duguje;
   }
 
-  public String getNazivPaket() {
-    return nazivPaket;
+  public Double getPotrazuje() {
+    return potrazuje;
   }
 
-  public void setNazivPaket(String nazivPaket) {
-    this.nazivPaket = nazivPaket;
+  public void setPotrazuje(Double potrazuje) {
+    this.potrazuje = potrazuje;
   }
 
-  public String getDatumZaduzenja() {
-    return datumZaduzenja;
+  public String getOperater() {
+    return operater;
   }
 
-  public void setDatumZaduzenja(String datumAZaduzenja) {
-    this.datumZaduzenja = datumAZaduzenja;
+  public void setOperater(String operater) {
+    this.operater = operater;
+  }
+
+  public String getOpis() {
+    return opis;
+  }
+
+  public void setOpis(String opis) {
+    this.opis = opis;
   }
 
   public int getUserID() {
@@ -156,88 +181,6 @@ public class Uplate extends RecursiveTreeObject<Uplate> implements Serializable,
 
   public void setUserID(int userID) {
     this.userID = userID;
-  }
-
-  public Double getPopust() {
-    return popust;
-  }
-
-  public void setPopust(Double popust) {
-    this.popust = popust;
-  }
-
-  public String getPaketType() {
-    return paketType;
-  }
-
-  public void setPaketType(String paketType) {
-    this.paketType = paketType;
-  }
-
-  public Double getCena() {
-    return cena;
-  }
-
-  public void setCena(Double cena) {
-    this.cena = cena;
-  }
-
-  public Double getUplaceno() {
-    return uplaceno;
-  }
-
-  public void setUplaceno(Double uplaceno) {
-    this.uplaceno = uplaceno;
-  }
-
-  public String getDatumUplate() {
-    return datumUplate;
-  }
-
-  public void setDatumUplate(String datumUplate) {
-    this.datumUplate = datumUplate;
-  }
-
-  public String getOperater() {
-    return operater;
-  }
-
-  public void setOperater(String operater)
-
-  {
-    this.operater = operater;
-  }
-
-  public String getMestoUplate() {
-    return mestoUplate;
-  }
-
-  public void setMestoUplate(String mestoUplate) {
-    this.mestoUplate = mestoUplate;
-  }
-
-  public boolean isSkipProduzenje() {
-    return skipProduzenje;
-  }
-
-  public void setSkipProduzenje(boolean skipProduzenje) {
-    this.skipProduzenje = skipProduzenje;
-  }
-
-  public int getKolicina() {
-    return kolicina;
-  }
-
-  public void setKolicina(int kolicina) {
-    this.kolicina = kolicina;
-  }
-
-  public double getOsnovica() {
-    return osnovica;
-  }
-
-  public void setOsnovica(double osnovica) {
-    this.osnovica = osnovica;
   }
 
 }

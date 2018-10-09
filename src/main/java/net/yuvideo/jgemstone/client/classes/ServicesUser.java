@@ -3,49 +3,54 @@ package net.yuvideo.jgemstone.client.classes;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.io.Serializable;
 import java.util.ArrayList;
+import javafx.scene.control.TreeItem;
 import org.json.JSONObject;
 
 /**
  * Created by zoom on 2/9/17.
  */
-public class ServicesUser extends RecursiveTreeObject<ServicesUser> implements Serializable {
+public class ServicesUser extends RecursiveTreeObject<ServicesUser> implements Serializable,
+    Cloneable {
 
-  int id;
-  String naziv;
-  String datum;
-  String vrsta;
-  String brUgovora;
-  String operater;
-  Double cena;
-  Double pdv;
-  Double popust;
-  Double zaUplatu;
-  boolean aktivan;
-  boolean obracun;
-  String idUniqueName;
-  int produzenje;
-  int id_ServiceUser;
-  int id_Service;
-  String nazivPaketa;
-  Boolean box;
-  int userID;
-  String userName;
-  String idDTVCard;
-  String IPTV_MAC;
-  String FIKSNA_TEL;
-  String groupName;
-  String paketType;
-  Boolean linkedService;
-  int box_id;
-  Boolean newService;
-  int DTVPaketID;
-  String STB_MAC;
-  String IPTV_EXT_ID;
+  private int id;
+  private String naziv;
+  private String datum;
+  private String vrsta;
+  private String brUgovora;
+  private String operater;
+  private Double cena;
+  private Double pdv;
+  private Double popust;
+  private Double zaUplatu;
+  private boolean aktivan;
+  private boolean obracun;
+  private String idUniqueName;
+  private int produzenje;
+  private int id_ServiceUser;
+  private int id_Service;
+  private String nazivPaketa;
+  private Boolean box;
+  private int userID;
+  private String userName;
+  private String idDTVCard;
+  private String IPTV_MAC;
+  private String FIKSNA_TEL;
+  private int FIKSNA_TEL_PAKET_ID;
+  private String groupName;
+  private String paketType;
+  private Boolean linkedService;
+  private int box_id;
+  private Boolean newService;
+  private int DTVPaketID;
+  private String STB_MAC;
+  private String IPTV_EXT_ID;
+  private int dtv_main;
   private String nazivIPTV;
   private String endDate;
   private ArrayList<ServicesUser> boxServices;
   private String komentar;
   private String opis;
+  private String datumAktiviranja;
 
 
   public ArrayList<ServicesUser> getUserServiceArr(int userID, Client client) {
@@ -99,10 +104,14 @@ public class ServicesUser extends RecursiveTreeObject<ServicesUser> implements S
       userService.setPaketType(userServiceObj.getString("paketType"));
       userService.setLinkedService(userServiceObj.getBoolean("linkedService"));
       userService.setNewService(userServiceObj.getBoolean("newService"));
-      userService.setDTVPaketID(userServiceObj.getInt("DTVPaketID"));
       userService.setPopust(userServiceObj.getDouble("popust"));
       userService.setPdv(userServiceObj.getDouble("pdv"));
       userService.setKomentar(userServiceObj.getString("komentar"));
+
+      if (userServiceObj.has("dtv_main")) {
+        userService.setDtv_main(userServiceObj.getInt("dtv_main"));
+      }
+
       userService.setOpis(userServiceObj.getString("opis"));
       userService.setUserName(userServiceObj.getString("userName"));
       userServiceArr.add(userService);
@@ -110,6 +119,84 @@ public class ServicesUser extends RecursiveTreeObject<ServicesUser> implements S
 
     return userServiceArr;
   }
+
+  public TreeItem<ServicesUser> getUserServiceDTVAddonsROOT(int userID, ServicesUser service,
+      boolean isBox, Client client) {
+    JSONObject object = new JSONObject();
+    object.put("action", "get_user_DTV_addons");
+    object.put("userID", userID);
+    object.put("dtv_main", service.getId());
+    object.put("isBox", isBox);
+    object = client.send_object(object);
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA", object.getString("ERROR"));
+      return null;
+    }
+
+    double cena = 0;
+    double popust = 0;
+    double ukupno = 0;
+    double pdv = 0;
+
+    TreeItem<ServicesUser> rootDTVTree = new TreeItem<ServicesUser>(service);
+    for (int i = 0; i < object.length(); i++) {
+      ServicesUser servicesUser = new ServicesUser();
+      JSONObject objService = object.getJSONObject(String.valueOf(i));
+
+      cena += objService.getDouble("cena");
+      popust = objService.getDouble("popust");
+      pdv = objService.getDouble("pdv");
+
+      servicesUser.setId(objService.getInt("id"));
+      servicesUser.setId_Service(objService.getInt("id_service"));
+      servicesUser.setDatum(objService.getString("date_added"));
+      servicesUser.setNaziv(objService.getString("nazivPaketa"));
+      servicesUser.setNazivPaketa(objService.getString("nazivPaketa"));
+      servicesUser.setDtv_main(objService.getInt("dtv_main"));
+      servicesUser.setUserID(objService.getInt("userID"));
+      servicesUser.setOperater(objService.getString("operName"));
+      servicesUser.setPopust(objService.getDouble("popust"));
+      servicesUser.setCena(objService.getDouble("cena"));
+      servicesUser.setObracun(objService.getBoolean("obracun"));
+      servicesUser.setBrUgovora(objService.getString("brojUgovora"));
+      servicesUser.setAktivan(objService.getBoolean("aktivan"));
+      servicesUser.setDatumAktiviranja(objService.getString("date_activated"));
+      servicesUser.setProduzenje(objService.getInt("produzenje"));
+      servicesUser.setNewService(objService.getBoolean("newService"));
+      servicesUser.setIdDTVCard(objService.getString("idDTVCard"));
+      servicesUser.setIdUniqueName(objService.getString("idDTVCard"));
+      servicesUser.setGroupName(objService.getString("groupName"));
+      servicesUser.setFIKSNA_TEL(objService.getString("FIKSNA_TEL"));
+      servicesUser.setFIKSNA_TEL_PAKET_ID(objService.getInt("FIKSNA_TEL_PAKET_ID"));
+      servicesUser.setIPTV_MAC(objService.getString("IPTV_MAC"));
+      servicesUser.setLinkedService(objService.getBoolean("linkedService"));
+      servicesUser.setBox(objService.getBoolean("BOX_service"));
+      servicesUser.setPaketType(objService.getString("paketType"));
+      servicesUser.setEndDate(objService.getString("endDate"));
+      servicesUser.setPdv(objService.getDouble("pdv"));
+      servicesUser.setOpis(objService.getString("opis"));
+      servicesUser.setKomentar(objService.getString("komentar"));
+
+      //set Ukupno
+      double sCena = servicesUser.getCena();
+      double sPopust = servicesUser.getPopust();
+      double sPdv = servicesUser.getPdv();
+      double sUkupno = sCena - valueToPercent.getPDVOfValue(sCena, sPopust);
+      sUkupno = sUkupno + valueToPercent.getPDVOfValue(sUkupno, sPdv);
+      servicesUser.setZaUplatu(sUkupno);
+
+      rootDTVTree.getChildren().add(new TreeItem<ServicesUser>(servicesUser));
+
+    }
+    ukupno = cena - valueToPercent.getPDVOfValue(cena, popust);
+    ukupno = ukupno + valueToPercent.getPDVOfValue(ukupno, pdv);
+    rootDTVTree.getValue().setZaUplatu(ukupno);
+    rootDTVTree.getValue().setCena(cena);
+
+    return rootDTVTree;
+
+  }
+
 
   private ArrayList<ServicesUser> addBoxServices(int box_id, int userID, Client client) {
     ArrayList<ServicesUser> servicesBox = new ArrayList<>();
@@ -151,6 +238,7 @@ public class ServicesUser extends RecursiveTreeObject<ServicesUser> implements S
     return servicesBox;
 
   }
+
 
 
   public Double getZaUplatu() {
@@ -476,4 +564,36 @@ public class ServicesUser extends RecursiveTreeObject<ServicesUser> implements S
   public void setOpis(String opis) {
     this.opis = opis;
   }
+
+
+  public int getDtv_main() {
+    return dtv_main;
+  }
+
+  public void setDtv_main(int dtv_main) {
+    this.dtv_main = dtv_main;
+  }
+
+  public String getDatumAktiviranja() {
+    return datumAktiviranja;
+  }
+
+  public void setDatumAktiviranja(String datumAktiviranja) {
+    this.datumAktiviranja = datumAktiviranja;
+  }
+
+  public int getFIKSNA_TEL_PAKET_ID() {
+    return FIKSNA_TEL_PAKET_ID;
+  }
+
+  public void setFIKSNA_TEL_PAKET_ID(int FIKSNA_TEL_PAKET_ID) {
+    this.FIKSNA_TEL_PAKET_ID = FIKSNA_TEL_PAKET_ID;
+  }
+
+  public ServicesUser getClone() throws CloneNotSupportedException {
+    ServicesUser clonedObj = (ServicesUser) super.clone();
+    clonedObj = (ServicesUser) this.clone();
+    return clonedObj;
+  }
+
 }

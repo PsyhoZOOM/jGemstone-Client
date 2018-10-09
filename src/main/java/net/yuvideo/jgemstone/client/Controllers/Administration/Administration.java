@@ -45,6 +45,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import javax.swing.text.TableView;
+import net.yuvideo.jgemstone.client.Controllers.Administration.DTV.DTVKartice;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Search.UsersSearch;
 import net.yuvideo.jgemstone.client.Controllers.Administration.TrafficReport.TrafficReport;
 import net.yuvideo.jgemstone.client.Controllers.Administration.UserServices.UserServicesNET;
@@ -53,6 +55,7 @@ import net.yuvideo.jgemstone.client.classes.Administration.Radius.RadiusOnlineLo
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
+import net.yuvideo.jgemstone.client.classes.Services;
 import net.yuvideo.jgemstone.client.classes.ServicesUser;
 import net.yuvideo.jgemstone.client.classes.UsersOnline;
 import org.json.JSONObject;
@@ -78,7 +81,9 @@ public class Administration implements Initializable {
   private boolean onlineLOGVisible = false;
   private boolean izvestajPotrosnjeVisible = false;
   private boolean pretragaKorisnikaVisible = false;
+  private boolean dtvPretragaVisible = false;
 
+  private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -91,6 +96,7 @@ public class Administration implements Initializable {
 
   private void setTreeItems() {
     TreeItem root = new TreeItem("MENU");
+    //NET ADMINISTRATION
     TreeItem rootNET = new TreeItem("NET");
     TreeItem netSearchUsers = new TreeItem("Pretraga korisnika");
     TreeItem netOnlineUsers = new TreeItem("Online korisnici");
@@ -99,7 +105,12 @@ public class Administration implements Initializable {
     TreeItem netWifiFinder = new TreeItem("WIFI Finder");
     rootNET.getChildren()
         .addAll(netSearchUsers, netOnlineUsers, netOnlineLog, netPotrosnja, netWifiFinder);
+
+    //DTV ADMINISTRATION
     TreeItem rootDTV = new TreeItem("DTV");
+    TreeItem dtvPretraga = new TreeItem("Pretraga kartica");
+    rootDTV.getChildren().addAll(dtvPretraga);
+
     TreeItem rootIPTV = new TreeItem("IPTV");
     TreeItem rootFIX = new TreeItem("FIKSNA TELEFONIJA");
     root.getChildren().addAll(rootNET, rootDTV, rootIPTV, rootFIX);
@@ -112,6 +123,7 @@ public class Administration implements Initializable {
       @Override
       public void handle(MouseEvent event) {
         if (event.getClickCount() == 2) {
+          //NET
           if (trMenu.getSelectionModel().getSelectedItem().equals(netOnlineUsers)) {
             if (!onlineUserVisible) {
               showOnlineUsers();
@@ -142,10 +154,128 @@ public class Administration implements Initializable {
             }
             izvestajPotrosnjeVisible = true;
           }
+          //DTV
+          if (trMenu.getSelectionModel().getSelectedItem().equals(dtvPretraga)) {
+            if (!dtvPretragaVisible) {
+              showDtvPretraga();
+            }
+            dtvPretragaVisible = true;
+          }
+
         }
       }
     });
 
+
+  }
+
+  private void showDtvPretraga() {
+    JFXTreeTableView<DTVKartice> tblDTVkartice = new JFXTreeTableView();
+    tblDTVkartice.setColumnResizePolicy(TreeTableView.CONSTRAINED_RESIZE_POLICY);
+    JFXTreeTableColumn<DTVKartice, String> cUserID = new JFXTreeTableColumn<>("USER ID");
+    cUserID.setCellValueFactory(new TreeItemPropertyValueFactory<DTVKartice, String>("jbroj"));
+
+    JFXTreeTableColumn<DTVKartice, Integer> cIDKartica = new JFXTreeTableColumn<>("KARTICA ID");
+    cIDKartica
+        .setCellValueFactory(new TreeItemPropertyValueFactory<DTVKartice, Integer>("idKartica"));
+
+    JFXTreeTableColumn<DTVKartice, Integer> cPaketID = new JFXTreeTableColumn<>("PAKET ID");
+    cPaketID.setCellValueFactory(new TreeItemPropertyValueFactory<DTVKartice, Integer>("paketID"));
+
+    JFXTreeTableColumn<DTVKartice, String> cEndDate = new JFXTreeTableColumn<>("DATUM ISTEKA");
+    cEndDate.setCellValueFactory(new TreeItemPropertyValueFactory<DTVKartice, String>("endDate"));
+
+    JFXTreeTableColumn<DTVKartice, String> cAdresaUsluge = new JFXTreeTableColumn<DTVKartice, String>(
+        "ADRESA");
+    cAdresaUsluge
+        .setCellValueFactory(new TreeItemPropertyValueFactory<DTVKartice, String>("adresaUsluge"));
+    JFXTreeTableColumn<DTVKartice, String> cIme = new JFXTreeTableColumn<DTVKartice, String>("IME");
+    cIme.setCellValueFactory(new TreeItemPropertyValueFactory<DTVKartice, String>("ime"));
+
+    tblDTVkartice.getColumns().addAll(cUserID, cIme, cAdresaUsluge, cIDKartica, cPaketID, cEndDate);
+
+    JFXTextField tSearchDTVKartice = new JFXTextField();
+    tSearchDTVKartice.setLabelFloat(true);
+    tSearchDTVKartice.setPromptText("Pretraga");
+
+    JFXButton bRefresh = new JFXButton("Osvezi");
+
+    bRefresh.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        Thread threads = new Thread() {
+          @Override
+          public synchronized void start() {
+            super.start();
+            Platform.runLater(new Runnable() {
+              @Override
+              public void run() {
+
+                bRefresh.setDisable(true);
+                bRefresh.setText("Osvezavam...");
+              }
+            });
+            DTVKartice dtvKartice = new DTVKartice();
+            dtvKartice.setClient(client);
+            TreeItem<DTVKartice> root = new RecursiveTreeItem<>(
+                FXCollections.observableArrayList(dtvKartice.getDtvKarticeArrayList()),
+                RecursiveTreeObject::getChildren);
+            tblDTVkartice.setRoot(root);
+            tblDTVkartice.setShowRoot(false);
+            Platform.runLater(new Runnable() {
+              @Override
+              public void run() {
+                bRefresh.setDisable(false);
+                bRefresh.setText("Osvezi");
+              }
+            });
+          }
+        };
+        threads.start();
+
+      }
+    });
+
+    tSearchDTVKartice.textProperty().addListener(new ChangeListener<String>() {
+      @Override
+      public void changed(ObservableValue<? extends String> observable, String oldValue,
+          String newValue) {
+        String search = tSearchDTVKartice.getText();
+        tblDTVkartice.setPredicate(new Predicate<TreeItem<DTVKartice>>() {
+          @Override
+          public boolean test(TreeItem<DTVKartice> dtvKarticeTreeItem) {
+            return String.valueOf(dtvKarticeTreeItem.getValue().getIdKartica()).contains(search) ||
+                String.valueOf(dtvKarticeTreeItem.getValue().getUserID()).contains(search) ||
+                String.valueOf(dtvKarticeTreeItem.getValue().getPaketID()).contains(search) ||
+                dtvKarticeTreeItem.getValue().getEndDate().contains(search) ||
+                dtvKarticeTreeItem.getValue().getIme().contains(search) ||
+                dtvKarticeTreeItem.getValue().getAdresaUsluge().contains(search);
+          }
+        });
+      }
+    });
+
+    Tab tabDTVKartice = new Tab("DTV Kartice");
+    tabDTVKartice.setOnCloseRequest(new EventHandler<Event>() {
+      @Override
+      public void handle(Event event) {
+        dtvPretragaVisible = false;
+      }
+    });
+    VBox vBox = new VBox();
+    HBox hBox = new HBox();
+
+    vBox.setSpacing(5);
+    vBox.setPadding(new Insets(20, 5, 5, 5));
+
+    hBox.setSpacing(5);
+
+    hBox.getChildren().addAll(tSearchDTVKartice, bRefresh);
+    vBox.getChildren().addAll(hBox, tblDTVkartice);
+    tabDTVKartice.setContent(vBox);
+    VBox.setVgrow(tblDTVkartice, Priority.ALWAYS);
+    tabCenter.getTabs().add(tabDTVKartice);
+    tabCenter.getSelectionModel().select(tabDTVKartice);
 
   }
 
@@ -196,7 +326,6 @@ public class Administration implements Initializable {
     tSearch.setPromptText("Pretraga");
     tSearch.setLabelFloat(true);
 
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     JFXDatePicker dateStart = new JFXDatePicker();
     dateStart.setPromptText("Start vreme");
@@ -480,56 +609,10 @@ public class Administration implements Initializable {
     cMestoUsluge
         .setCellValueFactory(new TreeItemPropertyValueFactory<UsersSearch, String>("adresaUsluge"));
 
-    JFXTreeTableColumn<UsersSearch, String> cCheckOnline = new JFXTreeTableColumn<>(
+    JFXTreeTableColumn<UsersSearch, HBox> cCheckOnline = new JFXTreeTableColumn<>(
         "ONLINE STATUS");
     cCheckOnline
-        .setCellValueFactory(new TreeItemPropertyValueFactory<UsersSearch, String>("username"));
-    cCheckOnline.setCellFactory(
-        new Callback<TreeTableColumn<UsersSearch, String>, TreeTableCell<UsersSearch, String>>() {
-          @Override
-          public TreeTableCell<UsersSearch, String> call(
-              TreeTableColumn<UsersSearch, String> param) {
-            return new TreeTableCell<UsersSearch, String>() {
-
-              @Override
-              protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (item == null || empty) {
-                  setText("");
-                  setGraphic(null);
-                } else {
-                  JFXButton checkOnlineButton = new JFXButton("Status");
-                  checkOnlineButton.setButtonType(ButtonType.RAISED);
-                  ImageView imageView = new ImageView();
-                  Image imgOnlineOn = new Image(
-                      ClassLoader.getSystemResourceAsStream("icons/green-light.png"), 20.0, 20.0,
-                      true, true);
-                  Image imgOnlineOff = new Image(
-                      ClassLoader.getSystemResourceAsStream("icons/red-light.png"), 20.0, 20.0,
-                      true, true);
-                  HBox hBox = new HBox(checkOnlineButton, imageView);
-                  hBox.setAlignment(Pos.CENTER);
-                  setGraphic(hBox);
-                  checkOnlineButton.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                      JSONObject checkObjOnline = new JSONObject();
-                      checkObjOnline.put("action", "checkUsersOnline");
-                      checkObjOnline.put("username", item);
-                      checkObjOnline = client.send_object(checkObjOnline);
-                      if (checkObjOnline.getBoolean("userOnline")) {
-                        imageView.setImage(imgOnlineOn);
-                      } else {
-                        imageView.setImage(imgOnlineOff);
-                      }
-                    }
-                  });
-
-                }
-              }
-            };
-          }
-        });
+        .setCellValueFactory(new TreeItemPropertyValueFactory<UsersSearch, HBox>("statusBox"));
 
     tableUserSearch.getColumns()
         .addAll(cUserID, cIme, cUserName, cGroupName, cMestoUsluge, cEndDate, cCheckOnline);
@@ -565,7 +648,6 @@ public class Administration implements Initializable {
           JSONObject onlinObj = new JSONObject();
           UsersSearch usersSearch = new UsersSearch();
           onlinObj = object.getJSONObject(String.valueOf(i));
-          System.out.println(onlinObj);
           usersSearch.setJbroj(onlinObj.getString("jBroj"));
           usersSearch.setId(onlinObj.getInt("id"));
           usersSearch.setAdresaUsluge(String.format("%s %s", onlinObj.getString("jAdresaNaziv"),
@@ -574,6 +656,8 @@ public class Administration implements Initializable {
           usersSearch.setUsername(onlinObj.getString("username"));
           usersSearch.setGroupName(onlinObj.getString("groupName"));
           usersSearch.setIme(onlinObj.getString("ime"));
+          usersSearch.setStatusBox(getImageStatus(onlinObj.getString("username")));
+
           usersSearchArrayList.add(usersSearch);
         }
 
@@ -878,7 +962,13 @@ public class Administration implements Initializable {
       public void handle(ActionEvent event) {
 
         Thread thread = new Thread(() -> {
-          getOnlineUsers(tblOnlineUser, bRefreshOnline);
+          Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+
+              getOnlineUsers(tblOnlineUser, bRefreshOnline);
+            }
+          });
         });
         thread.start();
 
@@ -994,6 +1084,58 @@ public class Administration implements Initializable {
 
   public void stopUpdate() {
     this.loop = false;
+  }
+
+
+  private HBox getImageStatus(String userName) {
+    JFXButton checkOnlineButton = new JFXButton("Status");
+    checkOnlineButton.setButtonType(ButtonType.RAISED);
+    ImageView imageView = new ImageView();
+    Image imgOnlineOn = new Image(
+        ClassLoader.getSystemResourceAsStream("icons/green-light.png"), 20.0, 20.0,
+        true, true);
+    Image imgOnlineOff = new Image(
+        ClassLoader.getSystemResourceAsStream("icons/red-light.png"), 20.0, 20.0,
+        true, true);
+    HBox hBox = new HBox(checkOnlineButton, imageView);
+    hBox.setAlignment(Pos.CENTER);
+    checkOnlineButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+
+        Thread thread = new Thread() {
+          @Override
+          public void run() {
+            super.run();
+            checkOnlineButton.setDisable(true);
+            JSONObject checkObjOnline = new JSONObject();
+            checkObjOnline.put("action", "checkUsersOnline");
+            checkObjOnline.put("username", userName);
+            checkObjOnline = client.send_object(checkObjOnline);
+            if (checkObjOnline.getBoolean("userOnline")) {
+              Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                  imageView.setImage(imgOnlineOn);
+                  checkOnlineButton.setDisable(false);
+                }
+              });
+            } else {
+              Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                  imageView.setImage(imgOnlineOff);
+                  checkOnlineButton.setDisable(false);
+                }
+              });
+            }
+          }
+        };
+        thread.start();
+
+      }
+    });
+    return hBox;
   }
 
 }

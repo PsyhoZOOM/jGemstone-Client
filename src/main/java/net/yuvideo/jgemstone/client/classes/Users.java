@@ -102,7 +102,6 @@ public class Users implements Serializable {
     user.setjMesto(object.getString("jMesto"));
     user.setAdresaUsluge(object.getString("adresaUsluge"));
     user.setMestoUsluge(object.getString("mestoUsluge"));
-    user.setDug(object.getDouble("dug"));
     user.setFirma(object.getBoolean("firma"));
     user.setNazivFirme(object.getString("nazivFirme"));
     user.setKontaktOsoba(object.getString("kontaktOsoba"));

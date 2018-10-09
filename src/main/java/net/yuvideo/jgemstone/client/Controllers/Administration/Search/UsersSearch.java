@@ -1,6 +1,7 @@
 package net.yuvideo.jgemstone.client.Controllers.Administration.Search;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import javafx.scene.layout.HBox;
 
 public class UsersSearch extends RecursiveTreeObject<UsersSearch> {
 
@@ -11,7 +12,16 @@ public class UsersSearch extends RecursiveTreeObject<UsersSearch> {
   String adresaUsluge;
   String ime;
   String groupName;
+  HBox statusBox;
 
+
+  public HBox getStatusBox() {
+    return statusBox;
+  }
+
+  public void setStatusBox(HBox statusBox) {
+    this.statusBox = statusBox;
+  }
 
   public String getGroupName() {
     return groupName;

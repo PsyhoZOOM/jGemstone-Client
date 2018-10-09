@@ -38,7 +38,6 @@ public class KorisniciController implements Initializable {
   public TableColumn cPlace;
   public TableColumn cAdressUsluge;
   public TextField tUserSearch;
-  public Button bUplate;
   public MenuItem cmIzmeni;
   public MenuItem cmIzbrisi;
   public MenuItem cmServisi;
@@ -184,7 +183,6 @@ public class KorisniciController implements Initializable {
       user.setPostanski_broj(jUser.getString("postBr"));
       user.setJbroj(jUser.getString("jBroj"));
       user.setFirma(jUser.getBoolean("firma"));
-      user.setDug(jUser.getDouble("dug"));
       if (!jUser.getString("jBroj").isEmpty()) {
         user.setBr(jUser.getString("jBroj"));
       }
@@ -198,6 +196,7 @@ public class KorisniciController implements Initializable {
       user.setAdresaFirme(jUser.getString("adresaFirme"));
       user.setDatumKreiranja(jUser.getString("datumKreiranja"));
       user.setEmail(jUser.getString("email"));
+      user.setDug(jUser.getDouble("dug"));
 
       users.add(user);
     }
@@ -272,6 +271,7 @@ public class KorisniciController implements Initializable {
     editUserController.loadKorisnikServices();
     editUserController.loadKorisnikUgovori();
     editUserController.loadKorisnikOprema();
+    editUserController.loadKorisnikUplate();
 
     editKorisnikInterface.getStage().showAndWait();
     //   stage.setScene(editKorisnikInterface.getScene());
@@ -314,13 +314,6 @@ public class KorisniciController implements Initializable {
     }
     Users user = tUsers.getSelectionModel().getSelectedItem();
 
-    final NewInterface uplateKorisnik = new NewInterface("fxml/KorisnikUplate.fxml", "Uplate",
-        resources);
-    KorisnikUplateController uplateKorisnikController = uplateKorisnik.getLoader().getController();
-    uplateKorisnikController.setClient(this.client);
-    uplateKorisnikController.user = user;
-    uplateKorisnikController.filter_data();
-    uplateKorisnik.getStage().showAndWait();
 
   }
 

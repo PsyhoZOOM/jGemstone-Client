@@ -37,7 +37,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javax.imageio.IIOImage;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Administration;
+import net.yuvideo.jgemstone.client.Controllers.Administration.DTV.CASEditController;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Devices;
 import net.yuvideo.jgemstone.client.Controllers.Fiksna.FiksnaPozivi;
 import net.yuvideo.jgemstone.client.Controllers.Mape.MainMapController;
@@ -53,6 +55,8 @@ public class MainWindowController implements Initializable {
   public static boolean appExit = false;
   public MenuItem mExit;
   public ImageView iStatusServer;
+  public Image imgRed = new Image(ClassLoader.getSystemResourceAsStream("icons/red-light.png"));
+  public Image imgGreen = new Image(ClassLoader.getSystemResourceAsStream("icons/green-light.png"));
   public MenuItem mSetup;
   public AnchorPane anchorMainWindow;
   public Label lStatusConnection;
@@ -67,6 +71,7 @@ public class MainWindowController implements Initializable {
   public JFXListView jfxLIstMessages;
   public VBox vbSideView;
   public JFXButton bCloseMessageWin;
+  public JFXButton bUplate;
 
   ResourceBundle resource;
   Thread threadCheckAlive;
@@ -92,6 +97,7 @@ public class MainWindowController implements Initializable {
     this.LocalSettings = db.getLocal_settings();
 
     lStatusConnection.setText("Konektovan");
+
 
     exitApp();
     initMessageWindow();
@@ -181,7 +187,7 @@ public class MainWindowController implements Initializable {
 
   public void mOpenSetup(ActionEvent actionEvent) {
 
-    NewInterface optionsInterface = new NewInterface("fxml/Options.fxml", "PODESŠAVANJA", resource);
+    NewInterface optionsInterface = new NewInterface("fxml/Options.fxml", "PODEŠAVANJA", resource);
     OptionsController optionsController = optionsInterface.getLoader().getController();
     optionsController.saveFIRMA = true;
 
@@ -309,11 +315,6 @@ public class MainWindowController implements Initializable {
     FiksnaMesecniObracuni fiksnaMesecniObracuniController =
         mesecniObracunInterface.getLoader().getController();
     fiksnaMesecniObracuniController.setClient(this.client);
-    fiksnaMesecniObracuniController.check_if_obracun_postoji(
-        LocalDate.now()
-            .minusMonths(1)
-            .with(TemporalAdjusters.firstDayOfMonth())
-            .format(DateTimeFormatter.ofPattern("yyyy-MM")));
     mesecniObracunInterface.getStage().showAndWait();
   }
 
@@ -472,5 +473,24 @@ public class MainWindowController implements Initializable {
     Client mtCl = new Client(client.getLocal_settings());
     object = mtCl.send_object(object);
     System.out.println(object.toString());
+  }
+
+  public void showCSAEditor(ActionEvent actionEvent) {
+    NewInterface casEditInterface = new NewInterface("fxml/Dtv/CASEdit.fxml", "CAS EDITOR",
+        this.resource);
+    CASEditController casEditController = casEditInterface.getLoader().getController();
+    casEditController.setClient(this.client);
+    casEditController.init();
+    casEditInterface.getStage().showAndWait();
+
+  }
+
+  public void showMesecniObracun(ActionEvent actionEvent) {
+    NewInterface mesecniObracunInterface = new NewInterface("fxml/MesecniObracun.fxml",
+        "MESEČNI OBRAČUN", this.resource);
+    MesecniObracun mesecniObracunController = mesecniObracunInterface.getLoader().getController();
+    mesecniObracunController.setClient(this.client);
+    mesecniObracunInterface.getStage().showAndWait();
+
   }
 }

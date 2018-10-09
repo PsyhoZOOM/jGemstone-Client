@@ -11,6 +11,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -56,6 +57,7 @@
                 <Menu mnemonicParsing="false" text="Digitalna TV" fx:id="mPDTV">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#showDTVPaket" text="Paketi"/>
+                    <MenuItem mnemonicParsing="false" onAction="#showCSAEditor" text="CAS"/>
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Fiksna Telefonija" fx:id="mFixnaTelefonija">
@@ -113,6 +115,8 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Izveštaji i Obračuni" fx:id="mIzvestajiIObracun">
               <items>
+                <MenuItem mnemonicParsing="false" onAction="#showMesecniObracun"
+                  text="Mesečni obračun" fx:id="mMesecniObracun"/>
                 <MenuItem mnemonicParsing="false" onAction="#showPDVObracun" text="PDV Obračun"
                   fx:id="mPDVObracun"/>
                 <MenuItem mnemonicParsing="false" onAction="#showStampaRacuna" text="Štampa Računa"
@@ -186,7 +190,7 @@
                     </Button>
                     <Button maxHeight="50.0" minHeight="50.0" minWidth="100.0"
                       mnemonicParsing="false" onAction="#showInternetMain" prefHeight="50.0"
-                      styleClass="last" text="INTERNET" fx:id="bInternet">
+                      styleClass="last" text="ADMINISTRACIJA" fx:id="bInternet">
                       <graphic>
                         <FontIcon fill="white" iconLiteral="mdi-server-network" iconSize="25"/>
                       </graphic>
@@ -259,11 +263,15 @@
           <bottom>
             <ToolBar BorderPane.alignment="CENTER">
               <items>
-                <HBox>
+                <HBox alignment="CENTER_LEFT">
                   <children>
                     <Label text="%STATUS"/>
                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
-                      preserveRatio="true" fx:id="iStatusServer"/>
+                      preserveRatio="true" fx:id="iStatusServer">
+                      <image>
+                        <Image url="@../icons/YuVideoLogo.png"/>
+                      </image>
+                    </ImageView>
                     <Label text="%NOT_CONNECTED" fx:id="lStatusConnection"/>
                   </children>
                 </HBox>

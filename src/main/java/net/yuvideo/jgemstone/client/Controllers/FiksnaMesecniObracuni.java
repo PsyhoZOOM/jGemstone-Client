@@ -53,17 +53,6 @@ public class FiksnaMesecniObracuni implements Initializable {
       }
     });
 
-    dtpObracunZaMesec.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        check_if_obracun_postoji(dtpObracunZaMesec.getValue().format(dtf));
-      }
-    });
-
-    dtpObracunZaMesec
-        .setValue(LocalDate.now().minusMonths(1).with(TemporalAdjusters.firstDayOfMonth()));
-
-
   }
 
   public void obracunaj(ActionEvent actionEvent) {
@@ -80,26 +69,9 @@ public class FiksnaMesecniObracuni implements Initializable {
       AlertUser.info("OBRACUN", String.format("Obracun za mesec %s je zavrsen", zaMesec));
     }
 
-    bObracunaj.setDisable(true);
 
   }
 
-  public void check_if_obracun_postoji(String zaMesec) {
-    JSONObject jObj = new JSONObject();
-    jObj.put("action", "check_fix_obracun");
-    jObj.put("zaMesec", zaMesec);
-    jObj = client.send_object(jObj);
-
-    if (jObj.getBoolean("exist")) {
-      bObracunaj.setDisable(true);
-      lMessage.setText(
-          String.format("Obracun za mesec %s postoji.", dtpObracunZaMesec.getValue().format(dtf)));
-    } else {
-      bObracunaj.setDisable(false);
-      lMessage.setText(null);
-    }
-
-  }
 
   public void setClient(Client client) {
     this.client = client;

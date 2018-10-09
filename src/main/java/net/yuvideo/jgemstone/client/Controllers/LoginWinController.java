@@ -4,6 +4,9 @@ import com.jfoenix.controls.JFXDecorator;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.BytesTo_KB_MB_GB_TB;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.Settings;
 import net.yuvideo.jgemstone.client.classes.db_connection;
@@ -68,6 +72,29 @@ public class LoginWinController implements Initializable {
         rootMainWindow = fxmlLoader.load();
         MainWindowController mainCtrl = fxmlLoader.getController();
         mainCtrl.setClient(client);
+        client.result.addListener(new ChangeListener<Number>() {
+
+          @Override
+          public void changed(ObservableValue<? extends Number> observable, Number oldValue,
+              Number newValue) {
+            Platform.runLater(new Runnable() {
+              @Override
+              public void run() {
+                String ping = String.valueOf(client.result.getValue());
+                String rec = String.valueOf(client.rs.getValue());
+                String send = String.valueOf(client.ss.getValue());
+                mainCtrl.lStatusConnection
+                    .setText(String.format("Ping: %sms. | Rec: %sb / Send: %sb ", ping, rec, send));
+                if (client.canSend) {
+                  mainCtrl.iStatusServer.setImage(mainCtrl.imgGreen);
+                } else {
+                  mainCtrl.iStatusServer.setImage(mainCtrl.imgRed);
+                }
+              }
+            });
+
+          }
+        });
         mainCtrl.setStage(stage);
         mainCtrl.LocalSettings = client.getLocal_settings();
         scene.setRoot(rootMainWindow);

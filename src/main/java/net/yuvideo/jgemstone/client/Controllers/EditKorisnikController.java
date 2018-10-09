@@ -1,5 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import com.jfoenix.controls.JFXTabPane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,6 +29,8 @@ public class EditKorisnikController implements Initializable {
   public AnchorPane anchorKorisnikUgovori;
   public AnchorPane anchorKorisnikOprema;
   public Tab tabKorisnikUsluge;
+  public Tab tabUplate;
+  public JFXTabPane tabKorisnikEdit;
   private Client client;
   public Users userEdit;
   Logger LOGGER = Logger.getLogger("EDIT_USERS");
@@ -131,6 +134,28 @@ public class EditKorisnikController implements Initializable {
   }
 
 
+  public void loadKorisnikUplate() {
+    FXMLLoader fxmlLoader = null;
+    fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("fxml/KorisnikUplate.fxml"),
+        resource);
+
+    try {
+      tabUplate.setContent(fxmlLoader.load());
+      tabUplate.getContent().autosize();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    KorisnikUplateController korisnikUplateController = fxmlLoader.getController();
+    korisnikUplateController.setClient(client);
+    korisnikUplateController.setUserID(userID);
+    korisnikUplateController.initData();
+    if (!userEdit.getJbroj().isEmpty()) {
+      tabKorisnikEdit.getSelectionModel().select(tabUplate);
+    }
+
+  }
+
+
   public void refreshUgovori(Event event) {
 
     korisnikUslugeController.refreshUgovori();
@@ -139,6 +164,9 @@ public class EditKorisnikController implements Initializable {
 
   public void setClient(Client client) {
     this.client = client;
+  }
+
+  public void refreshUplate(Event event) {
   }
 }
 

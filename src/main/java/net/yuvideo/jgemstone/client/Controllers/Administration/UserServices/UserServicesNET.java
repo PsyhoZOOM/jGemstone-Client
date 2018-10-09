@@ -22,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -30,7 +31,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
@@ -38,9 +38,8 @@ import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
@@ -57,7 +56,6 @@ import org.json.JSONObject;
 
 public class UserServicesNET implements Initializable {
 
-  public VBox vBoxMain;
   public JFXTextField tUserName;
   public JFXPasswordField tPass;
   public JFXDatePicker dtpEndDate;
@@ -71,7 +69,6 @@ public class UserServicesNET implements Initializable {
   public JFXCheckBox chkReject;
   public Label lServiceEndDate;
   public JFXTextField tMaxConn;
-  public VBox vBoxStatus;
   public JFXButton bRefres;
   public JFXButton bIzmeniPass;
   public JFXButton bIzmeni;
@@ -84,20 +81,20 @@ public class UserServicesNET implements Initializable {
   public Label lLinkUP;
   public TextField tSpeed;
   public JFXButton bChangeSpeed;
-  public JFXButton bPotrosnja;
   public JFXButton bPING;
   public JFXButton bMonitor;
   public JFXComboBox<UsersOnline> cmbUsers;
   public Label lOnlineTime;
   public Label lTxBytes;
   public Label lRxBytes;
-  public AnchorPane mainPane;
   public JFXTextField tPretraga;
   public JFXDatePicker dtpStart;
   public JFXDatePicker dtpStop;
   public JFXButton bTrazi;
   public JFXTreeTableView tblUserTrafficReport;
   public StackPane stackPane;
+  public HBox hBoxMain;
+  public JFXButton bDisconnect;
   private URL location;
   private ResourceBundle resources;
   private Client client;
@@ -115,7 +112,6 @@ public class UserServicesNET implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     this.location = location;
     this.resources = resources;
-    vBoxMain.setVisible(true);
 
     dtpStop.setPromptText("Datum end");
     dtpStart.setPromptText("Datum start");
@@ -277,7 +273,7 @@ public class UserServicesNET implements Initializable {
       }
     });
 
-    snackBar = new JFXSnackbar(mainPane);
+    snackBar = new JFXSnackbar(hBoxMain);
 
 
   }
@@ -351,52 +347,113 @@ public class UserServicesNET implements Initializable {
     }
     tKomentar.setText(service.getKomentar());
 
-    //USER STATUS ONLINE
-    object = new JSONObject();
-    object.put("action", "checkUsersOnline");
-    object.put("username", service.getUserName());
-    object = client.send_object(object);
-    if (object.has("ERROR")) {
-      AlertUser.error("GRESKA", object.getString("ERROR"));
-      return;
-    }
+    getUserOnlineData();
 
-    if (!object.getBoolean("userOnline")) {
-      imgOnline.setImage(imgOff);
-      return;
-    }
 
-    cmbUsers.getItems().removeAll();
-    cmbUsers.getItems().clear();
+  }
 
-    if (object.has("userOnlineStatus")) {
-      for (String key : object.getJSONObject("userOnlineStatus").keySet()) {
-        JSONObject userStatus = object.getJSONObject("userOnlineStatus").getJSONObject(key);
-        UsersOnline userOnline = new UsersOnline();
-        userOnline.setInterfaceName(userStatus.getString("interfaceName"));
-        userOnline.setNasIP(userStatus.getString("nasIP"));
-        userOnline.setNASName(userStatus.getString("nasName"));
-        userOnline.setLinkUP(userStatus.getString("lastLinkUp"));
-        userOnline.setRxByte(userStatus.getString("rxBytes"));
-        userOnline.setTxByte(userStatus.getString("txBytes"));
-        userOnline.setIp(userStatus.getString("ipAddress"));
-        userOnline.setUserName(userStatus.getString("user"));
-        userOnline.setService(userStatus.getString("service"));
-        userOnline.setMac(userStatus.getString("MAC"));
-        userOnline.setUptime(userStatus.getString("upTime"));
-        userOnline.setSessionID(userStatus.getString("sessionID"));
 
-        cmbUsers.getItems().add(userOnline);
+  private void getUserOnlineData() {
+    Thread thread = new Thread() {
+      @Override
+      public void run() {
+        super.run();
+
+        JSONObject object;
+        //USER STATUS ONLINE
+        object = new
+
+            JSONObject();
+        object.put("action", "checkUsersOnline");
+        object.put("username", service.getUserName());
+        Platform.runLater(new
+
+                              Runnable() {
+                                @Override
+                                public void run() {
+                                  bRefres.setDisable(true);
+                                  cmbUsers.setDisable(true);
+                                  bRefres.setText("Učitavam..");
+
+                                }
+                              });
+
+        object = client.send_object(object);
+
+        JSONObject finalObject = object;
+        Platform.runLater(new
+
+                              Runnable() {
+                                @Override
+                                public void run() {
+                                  bRefres.setDisable(false);
+                                  cmbUsers.setDisable(false);
+                                  bRefres.setText("Osveži");
+
+                                  if (finalObject.has("ERROR"))
+
+                                  {
+                                    AlertUser.error("GRESKA", finalObject.getString("ERROR"));
+                                    return;
+                                  }
+
+                                  if (!finalObject.getBoolean("userOnline"))
+
+                                  {
+                                    imgOnline.setImage(imgOff);
+                                    return;
+                                  }
+
+                                  cmbUsers.getItems().
+
+                                      removeAll();
+                                  cmbUsers.getItems().
+
+                                      clear();
+
+                                  if (finalObject.has("userOnlineStatus"))
+
+                                  {
+                                    for (String key : finalObject.getJSONObject("userOnlineStatus")
+                                        .keySet()) {
+                                      JSONObject userStatus = finalObject
+                                          .getJSONObject("userOnlineStatus").getJSONObject(key);
+                                      UsersOnline userOnline = new UsersOnline();
+                                      userOnline
+                                          .setInterfaceName(userStatus.getString("interfaceName"));
+                                      userOnline.setNasIP(userStatus.getString("nasIP"));
+                                      userOnline.setNASName(userStatus.getString("nasName"));
+                                      userOnline.setLinkUP(userStatus.getString("lastLinkUp"));
+                                      userOnline.setRxByte(userStatus.getString("rxBytes"));
+                                      userOnline.setTxByte(userStatus.getString("txBytes"));
+                                      userOnline.setIp(userStatus.getString("ipAddress"));
+                                      userOnline.setUserName(userStatus.getString("user"));
+                                      userOnline.setService(userStatus.getString("service"));
+                                      userOnline.setMac(userStatus.getString("MAC"));
+                                      userOnline.setUptime(userStatus.getString("upTime"));
+                                      userOnline.setSessionID(userStatus.getString("sessionID"));
+
+                                      cmbUsers.getItems().add(userOnline);
+                                    }
+                                  }
+
+                                  if (cmbUsers.getItems().size() > 0)
+
+                                  {
+                                    imgOnline.setImage(imgOn);
+
+                                    cmbUsers.getSelectionModel().select(0);
+                                  } else
+
+                                  {
+                                    imgOnline.setImage(imgOff);
+                                  }
+                                }
+                              });
       }
-    }
+    };
 
-    if (cmbUsers.getItems().size() > 0) {
-      imgOnline.setImage(imgOn);
-      cmbUsers.getSelectionModel().select(0);
-    } else {
-      imgOnline.setImage(imgOff);
-    }
-
+    thread.start();
 
 
   }
@@ -424,7 +481,7 @@ public class UserServicesNET implements Initializable {
   }
 
   public Node getBoxMain() {
-    return this.vBoxMain;
+    return this.hBoxMain;
   }
 
   public void changeRadiusData(ActionEvent actionEvent) {
@@ -476,11 +533,27 @@ public class UserServicesNET implements Initializable {
 
   public void showStatus(ActionEvent actionEvent) {
     initData();
+    getUserOnlineData();
 
 
   }
 
   public void changeSpeed(ActionEvent actionEvent) {
+    if (cmbUsers.getValue() == null) {
+      AlertUser.warrning("NOTIFIKACIJA", "Korisnik nije online ili niste izabrali korisničko ime");
+    }
+    JSONObject object = new JSONObject();
+    object.put("action", "changeBwLimit");
+    object.put("username", cmbUsers.getValue().getUserName());
+    object.put("userIP", cmbUsers.getValue().getIp());
+    object.put("nasIP", cmbUsers.getValue().getNasIP());
+    object.put("bwLimit", tSpeed.getText());
+    object = client.send_object(object);
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA", object.getString("ERROR"));
+    } else {
+      AlertUser.info("PORUKA", object.getString("info"));
+    }
   }
 
 
@@ -526,6 +599,10 @@ public class UserServicesNET implements Initializable {
   }
 
   public void showBWMonitor(ActionEvent actionEvent) {
+    if (cmbUsers.getValue() == null) {
+      AlertUser.warrning("NOTIFIKACIJA", "Korisnik nije online ili niste izabrali korisničko ime!");
+      return;
+    }
     NewInterface bwMonit = new NewInterface("fxml/Administration/TrafficReport/MtBwMonitor.fxml",
         "INTERFACE MONITOR", resources, true, false);
     MtBwMonitor bwMonitController = bwMonit.getLoader().getController();
@@ -548,7 +625,7 @@ public class UserServicesNET implements Initializable {
     TrafficReport trafficReport = new TrafficReport();
     trafficReport.setClient(client);
     ArrayList<TrafficReport> trafficReportArrayList = trafficReport
-        .getTrafficReportArrayList(cmbUsers.getValue().getUserName(),
+        .getTrafficReportArrayList(service.getUserName(),
             dtpStart.getValue().toString(), dtpStop.getValue().toString());
 
     ObservableList<TrafficReport> trafficReportObservableList = FXCollections
@@ -561,5 +638,20 @@ public class UserServicesNET implements Initializable {
 
     tblUserTrafficReport.getRoot().setExpanded(true);
 
+  }
+
+  public void disconnectUser(ActionEvent actionEvent) {
+    JSONObject object = new JSONObject();
+    object.put("action", "disconnectUser");
+    object.put("username", cmbUsers.getValue().getUserName());
+    object.put("userIP", cmbUsers.getValue().getIp());
+    object.put("nasIP", cmbUsers.getValue().getNasIP());
+
+    object = client.send_object(object);
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA", object.getString("ERROR"));
+    } else {
+      AlertUser.info("PORUKA", object.getString("info"));
+    }
   }
 }

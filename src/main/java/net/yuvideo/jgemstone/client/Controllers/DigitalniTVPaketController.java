@@ -9,14 +9,15 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.DigitalniTVPaket;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
-import net.yuvideo.jgemstone.client.classes.digitalniTVPaket;
 import net.yuvideo.jgemstone.client.classes.valueToPercent;
 import org.json.JSONObject;
 
@@ -25,8 +26,10 @@ import org.json.JSONObject;
  */
 public class DigitalniTVPaketController implements Initializable {
 
+  public TableColumn cDodatak;
+  public TableColumn cDodatnaKartica;
   private Client client;
-  public TableView<digitalniTVPaket> tblDTV;
+  public TableView<DigitalniTVPaket> tblDTV;
   public TableColumn cNaziv;
   public TableColumn cPaket;
   public TableColumn cCena;
@@ -47,14 +50,49 @@ public class DigitalniTVPaketController implements Initializable {
     this.location = location;
     this.resources = resources;
 
-    cNaziv.setCellValueFactory(new PropertyValueFactory<digitalniTVPaket, String>("naziv"));
-    cCena.setCellValueFactory(new PropertyValueFactory<digitalniTVPaket, Double>("cena"));
-    cPaket.setCellValueFactory(new PropertyValueFactory<digitalniTVPaket, Integer>("paketID"));
-    cOpis.setCellValueFactory(new PropertyValueFactory<digitalniTVPaket, String>("opis"));
-    cPDV.setCellValueFactory(new PropertyValueFactory<digitalniTVPaket, Double>("pdv"));
-    cCenaPDV.setCellValueFactory(new PropertyValueFactory<digitalniTVPaket, Double>("cenaPDV"));
+    cNaziv.setCellValueFactory(new PropertyValueFactory<DigitalniTVPaket, String>("naziv"));
+    cCena.setCellValueFactory(new PropertyValueFactory<DigitalniTVPaket, Double>("cena"));
+    cPaket.setCellValueFactory(new PropertyValueFactory<DigitalniTVPaket, Integer>("paketID"));
+    cOpis.setCellValueFactory(new PropertyValueFactory<DigitalniTVPaket, String>("opis"));
+    cPDV.setCellValueFactory(new PropertyValueFactory<DigitalniTVPaket, Double>("pdv"));
+    cCenaPDV.setCellValueFactory(new PropertyValueFactory<DigitalniTVPaket, Double>("cenaPDV"));
+    cDodatak.setCellValueFactory(new PropertyValueFactory<DigitalniTVPaket, Boolean>("dodatak"));
+    cDodatnaKartica
+        .setCellValueFactory(new PropertyValueFactory<DigitalniTVPaket, Boolean>("dodatnaKartica"));
 
-    cCena.setCellFactory(tc -> new TableCell<digitalniTVPaket, Double>() {
+    cDodatak.setCellFactory(param -> new TableCell<DigitalniTVPaket, Boolean>() {
+      @Override
+      protected void updateItem(Boolean item, boolean empty) {
+        super.updateItem(item, empty);
+        if (empty) {
+          setText("");
+          setGraphic(null);
+        } else {
+          CheckBox cb = new CheckBox();
+          cb.setDisable(true);
+          cb.setSelected(item);
+          setGraphic(cb);
+        }
+      }
+    });
+
+    cDodatnaKartica.setCellFactory(param -> new TableCell<DigitalniTVPaket, Boolean>() {
+      @Override
+      protected void updateItem(Boolean item, boolean empty) {
+        super.updateItem(item, empty);
+        if (empty) {
+          setText("");
+          setGraphic(null);
+        } else {
+          CheckBox cb = new CheckBox();
+          cb.setDisable(true);
+          cb.setSelected(item);
+          setGraphic(cb);
+        }
+      }
+    });
+
+    cCena.setCellFactory(tc -> new TableCell<DigitalniTVPaket, Double>() {
       @Override
       protected void updateItem(Double dbl, boolean bool) {
         super.updateItem(dbl, bool);
@@ -66,7 +104,7 @@ public class DigitalniTVPaketController implements Initializable {
       }
     });
 
-    cPDV.setCellFactory(tc -> new TableCell<digitalniTVPaket, Double>() {
+    cPDV.setCellFactory(tc -> new TableCell<DigitalniTVPaket, Double>() {
       @Override
       protected void updateItem(Double item, boolean empty) {
         super.updateItem(item, empty);
@@ -78,7 +116,7 @@ public class DigitalniTVPaketController implements Initializable {
       }
     });
 
-    cCenaPDV.setCellFactory(tc -> new TableCell<digitalniTVPaket, Double>() {
+    cCenaPDV.setCellFactory(tc -> new TableCell<DigitalniTVPaket, Double>() {
       @Override
       protected void updateItem(Double item, boolean empty) {
         super.updateItem(item, empty);
@@ -99,18 +137,19 @@ public class DigitalniTVPaketController implements Initializable {
 
   }
 
-  private ArrayList<digitalniTVPaket> get_paket() {
+  private ArrayList<DigitalniTVPaket> get_paket() {
     jObj = new JSONObject();
     jObj.put("action", "getDigitalTVPaketi");
+    jObj.put("showAddons", true);
 
     jObj = client.send_object(jObj);
 
-    digitalniTVPaket dtvPak;
-    ArrayList<digitalniTVPaket> dtvPakArr = new ArrayList();
+    DigitalniTVPaket dtvPak;
+    ArrayList<DigitalniTVPaket> dtvPakArr = new ArrayList();
     JSONObject dtvPakObj;
 
     for (int i = 0; i < jObj.length(); i++) {
-      dtvPak = new digitalniTVPaket();
+      dtvPak = new DigitalniTVPaket();
       dtvPakObj = (JSONObject) jObj.get(String.valueOf(i));
       double cena;
       double pdv;
@@ -122,6 +161,8 @@ public class DigitalniTVPaketController implements Initializable {
 
       dtvPak.setId(dtvPakObj.getInt("id"));
       dtvPak.setNaziv(dtvPakObj.getString("naziv"));
+      dtvPak.setDodatak(dtvPakObj.getBoolean("dodatak"));
+      dtvPak.setDodatnaKartica(dtvPakObj.getBoolean("dodatnaKartica"));
       dtvPak.setCena(cena);
       dtvPak.setPaketID(dtvPakObj.getInt("idPaket"));
       dtvPak.setOpis(dtvPakObj.getString("opis"));
@@ -153,7 +194,7 @@ public class DigitalniTVPaketController implements Initializable {
     DigitalniTVPaketEditController editDtvController = editDtvInterface.getLoader().getController();
     editDtvController.setClient(this.client);
     editDtvController.edit = true;
-    editDtvController.dtvPaket = (digitalniTVPaket) tblDTV.getSelectionModel().getSelectedItem();
+    editDtvController.dtvPaket = (DigitalniTVPaket) tblDTV.getSelectionModel().getSelectedItem();
     editDtvController.show_data();
     editDtvInterface.getStage().showAndWait();
     showData();
