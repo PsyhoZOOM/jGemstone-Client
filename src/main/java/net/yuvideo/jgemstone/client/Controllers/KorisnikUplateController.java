@@ -1,12 +1,15 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -24,6 +27,7 @@ import javafx.scene.control.TreeTableView.TreeTableViewSelectionModel;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.Uplate;
@@ -46,6 +50,8 @@ public class KorisnikUplateController implements Initializable {
   public Label lUkupno;
   public JFXTextField tPretraga;
   public JFXButton bIzbrisiUplatu;
+  public JFXButton bTest;
+  public JFXDatePicker dtpDatum;
 
 
   private URL location;
@@ -77,7 +83,7 @@ public class KorisnikUplateController implements Initializable {
                 if (empty || item == null) {
                   setText("");
                 } else {
-                  setText(df.format(item));
+                  setText(df.format(item) + String.format(" (%f)", item));
                 }
               }
             };
@@ -95,7 +101,7 @@ public class KorisnikUplateController implements Initializable {
                 if (empty || item == null) {
                   setText("");
                 } else {
-                  setText(df.format(item));
+                  setText(df.format(item) + String.format(" (%f)", item));
                 }
               }
             };
@@ -133,6 +139,20 @@ public class KorisnikUplateController implements Initializable {
             }
           }
         });
+
+    dtpDatum.setValue(LocalDate.now());
+    dtpDatum.setConverter(new StringConverter<LocalDate>() {
+      @Override
+      public String toString(LocalDate object) {
+        return object.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+      }
+
+      @Override
+      public LocalDate fromString(String string) {
+        LocalDate date = LocalDate.parse(string, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return date;
+      }
+    });
   }
 
   public void initData() {
@@ -144,10 +164,13 @@ public class KorisnikUplateController implements Initializable {
     Uplate uplate = new Uplate();
     uplate.setClient(client);
     ArrayList<Uplate> uplateUser = uplate.getUplateUser(userID);
-    lDuguje.setText(df.format(uplate.getUkupnoUplaceno()));
-    lPotrazuje.setText(df.format(uplate.getUkupnoDuguje()));
+    lDuguje.setText(df.format(uplate.getUkupnoUplaceno()) + String
+        .format(" din. (%f)", uplate.getUkupnoUplaceno()));
+    lPotrazuje.setText(df.format(uplate.getUkupnoDuguje()) + String
+        .format(" din. (%f)", uplate.getUkupnoDuguje()));
     lUkupno
-        .setText(df.format(uplate.getUkupanDug()) + String.format(" (%f)", uplate.getUkupanDug()));
+        .setText(
+            df.format(uplate.getUkupanDug()) + String.format(" din. (%f)", uplate.getUkupanDug()));
     ObservableList observableUplate = FXCollections.observableList(uplateUser);
 
     TreeItem<Uplate> treeUplate = new RecursiveTreeItem<Uplate>(observableUplate,
@@ -163,6 +186,7 @@ public class KorisnikUplateController implements Initializable {
       uplata = Double.valueOf(tCena.getText());
     } catch (NumberFormatException e) {
       AlertUser.error("GREKSA", "Uplata mora biti  u formatu \"1201.01 \"! ");
+      return;
     }
     String opis = tOpis.getText();
     JSONObject object = new JSONObject();
@@ -170,6 +194,7 @@ public class KorisnikUplateController implements Initializable {
     object.put("uplaceno", uplata);
     object.put("opis", tOpis.getText());
     object.put("userID", userID);
+    object.put("datumUplate", dtpDatum.getValue().toString());
     object = client.send_object(object);
     if (object.has("ERROR")) {
       AlertUser.error("GRESKA", object.getString("ERROR"));
@@ -224,5 +249,15 @@ public class KorisnikUplateController implements Initializable {
   }
 
   public void stampajUplate(ActionEvent actionEvent) {
+  }
+
+  public void testProduzenje(ActionEvent actionEvent) {
+    JSONObject object = new JSONObject();
+    object.put("action", "testProduziKorisnik");
+    object.put("userID", userID);
+    object = client.send_object(object);
+    if (object.has("endDate")) {
+      bTest.setText(object.getString("endDate"));
+    }
   }
 }

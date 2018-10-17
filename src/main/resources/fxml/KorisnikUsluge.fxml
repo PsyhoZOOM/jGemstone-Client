@@ -112,7 +112,6 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
                     <RowConstraints vgrow="NEVER"/>
                     <RowConstraints vgrow="NEVER"/>
                   </rowConstraints>
@@ -125,8 +124,7 @@
                     <Label GridPane.rowIndex="5" text="Fiksna tel.:"/>
                     <Label GridPane.rowIndex="6" text="Popust:"/>
                     <Label GridPane.rowIndex="7" text="Ugovor:"/>
-                    <Label GridPane.rowIndex="8" text="Prekoračenje (meseci):"/>
-                    <Label GridPane.rowIndex="10" text="Opis:"/>
+                    <Label GridPane.rowIndex="9" text="Opis:"/>
                     <ComboBox GridPane.columnIndex="1" fx:id="cmbPaketBOX"/>
                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="1"
                       promptText="10 brojeva" fx:id="tKarticaBox"/>
@@ -140,19 +138,17 @@
                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" text="0.00"
                       fx:id="tPopustBox"/>
                     <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="7" fx:id="cmbUgovorBox"/>
-                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" text="2"
-                      fx:id="tProduzenjeBox"/>
-                    <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="9" mnemonicParsing="false"
+                    <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="8" mnemonicParsing="false"
                       selected="true" fx:id="chkRacunBOX"/>
-                    <TextArea GridPane.columnIndex="1" GridPane.rowIndex="10" fx:id="tOpisBox"/>
+                    <TextArea GridPane.columnIndex="1" GridPane.rowIndex="9" fx:id="tOpisBox"/>
                     <Button GridPane.columnIndex="1" GridPane.halignment="RIGHT"
-                      GridPane.rowIndex="11" mnemonicParsing="false" onAction="#addServiceBox"
+                      GridPane.rowIndex="10" mnemonicParsing="false" onAction="#addServiceBox"
                       text="Dodaj uslugu" fx:id="bSnimiBox">
                       <graphic>
                         <FontIcon fill="white" iconLiteral="eli-plus-sign"/>
                       </graphic>
                     </Button>
-                    <Label GridPane.rowIndex="9" text="Obračun:"/>
+                    <Label GridPane.rowIndex="8" text="Obračun:"/>
                   </children>
                   <padding>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -179,7 +175,6 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
                     <RowConstraints vgrow="NEVER"/>
                     <RowConstraints vgrow="NEVER"/>
                   </rowConstraints>
@@ -189,14 +184,12 @@
                       fx:id="tPopustDTV"/>
                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="2"
                       promptText="10 brojeva" fx:id="tKarticaDTV"/>
-                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" text="2"
-                      fx:id="tDTVPrekoracenje"/>
-                    <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="4" mnemonicParsing="false"
+                    <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="3" mnemonicParsing="false"
                       selected="true" fx:id="chkRacunDTV"/>
-                    <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="5" fx:id="cmbUgovorDTV"/>
-                    <TextArea GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="tOpisDTV"/>
+                    <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="cmbUgovorDTV"/>
+                    <TextArea GridPane.columnIndex="1" GridPane.rowIndex="5" fx:id="tOpisDTV"/>
                     <Button GridPane.columnIndex="1" GridPane.halignment="RIGHT"
-                      GridPane.rowIndex="7" mnemonicParsing="false" onAction="#addServiceDTV"
+                      GridPane.rowIndex="6" mnemonicParsing="false" onAction="#addServiceDTV"
                       text="Dodaj uslugu" fx:id="bAddServiceDTV">
                       <graphic>
                         <FontIcon fill="white" iconLiteral="eli-plus-sign" />
@@ -205,10 +198,9 @@
                     <Label text="Naziv paketa:"/>
                     <Label GridPane.rowIndex="1" text="Popust %:"/>
                     <Label GridPane.rowIndex="2" text="Kartica broj"/>
-                    <Label GridPane.rowIndex="4" text="Štampa i obračun računa:"/>
-                    <Label GridPane.rowIndex="6" text="Opis:"/>
-                    <Label GridPane.rowIndex="5" text="Broj Ugovora"/>
-                    <Label GridPane.rowIndex="3" text="Prekoračenje (meseci):"/>
+                    <Label GridPane.rowIndex="3" text="Štampa i obračun računa:"/>
+                    <Label GridPane.rowIndex="5" text="Opis:"/>
+                    <Label GridPane.rowIndex="4" text="Broj Ugovora"/>
                   </children>
                   <padding>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -238,7 +230,6 @@
                     <RowConstraints vgrow="NEVER"/>
                     <RowConstraints vgrow="NEVER"/>
                     <RowConstraints vgrow="NEVER"/>
-                    <RowConstraints vgrow="NEVER"/>
                   </rowConstraints>
                   <children>
                     <ComboBox GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"
@@ -251,15 +242,13 @@
                       fx:id="tLoznikaInternet"/>
                     <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="4"
                       fx:id="tLozinkaCInternet"/>
-                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" text="2"
-                      fx:id="tInternetPrekoracenje"/>
-                    <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="6" mnemonicParsing="false"
+                    <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="5" mnemonicParsing="false"
                       selected="true" fx:id="chkRacunInternet"/>
-                    <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="7"
+                    <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="6"
                       fx:id="cmbUgovorInternet"/>
-                    <TextArea GridPane.columnIndex="1" GridPane.rowIndex="8" fx:id="tOpisInternet"/>
+                    <TextArea GridPane.columnIndex="1" GridPane.rowIndex="7" fx:id="tOpisInternet"/>
                     <Button GridPane.columnIndex="1" GridPane.halignment="LEFT"
-                      GridPane.rowIndex="9" mnemonicParsing="false" onAction="#addServiceInternet"
+                      GridPane.rowIndex="8" mnemonicParsing="false" onAction="#addServiceInternet"
                       text="Dodaj uslugu" fx:id="bAddServiceInternet">
                       <graphic>
                         <FontIcon fill="white" iconLiteral="eli-plus-sign" />
@@ -269,11 +258,10 @@
                     <Label GridPane.rowIndex="2" text="Korisničko ime:"/>
                     <Label GridPane.rowIndex="3" text="Lozinka:"/>
                     <Label GridPane.rowIndex="4" text="Potvrda lozinke:"/>
-                    <Label GridPane.rowIndex="6" text="Obračun i štampa računa:"/>
-                    <Label GridPane.rowIndex="8" text="Opis:"/>
+                    <Label GridPane.rowIndex="5" text="Obračun i štampa računa:"/>
+                    <Label GridPane.rowIndex="7" text="Opis:"/>
                     <Label GridPane.rowIndex="1" text="Popust %:"/>
-                    <Label GridPane.rowIndex="7" text="Broj ugovora:"/>
-                    <Label GridPane.rowIndex="5" text="Prekoračenje (meseci):"/>
+                    <Label GridPane.rowIndex="6" text="Broj ugovora:"/>
                   </children>
                   <padding>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -352,7 +340,6 @@
                     <RowConstraints vgrow="NEVER"/>
                     <RowConstraints vgrow="NEVER"/>
                     <RowConstraints vgrow="NEVER"/>
-                    <RowConstraints vgrow="NEVER"/>
                   </rowConstraints>
                   <children>
                     <Label text="Naziv paketa:"/>
@@ -370,12 +357,10 @@
                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="5"
                       promptText="12 hex karaktera" fx:id="tStbMACIPTV"/>
                     <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="cmbUgovorIPTV"/>
-                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" text="2"
-                      fx:id="tIPTVPrekoracenje"/>
-                    <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="8" mnemonicParsing="false"
+                    <CheckBox GridPane.columnIndex="1" GridPane.rowIndex="7" mnemonicParsing="false"
                       selected="true" text="Obračun i štampa računa" fx:id="cmbObracunIPTV"/>
                     <Button GridPane.columnIndex="1" GridPane.halignment="RIGHT"
-                      GridPane.rowIndex="10" mnemonicParsing="false" onAction="#addServiceIPTV"
+                      GridPane.rowIndex="9" mnemonicParsing="false" onAction="#addServiceIPTV"
                       text="Dodaj uslugu" fx:id="bSnimiIPTVUsluguIPTV">
                       <graphic>
                         <FontIcon fill="white" iconLiteral="eli-plus-sign" />
@@ -384,10 +369,9 @@
                     <Label GridPane.rowIndex="1" text="Popust %:"/>
                     <Label GridPane.rowIndex="6" text="Broj ugovora:"/>
                     <Label GridPane.rowIndex="5" text="STB MAC:"/>
-                    <Label GridPane.rowIndex="7" text="Prekoračenje (meseci):"/>
                     <Label GridPane.rowIndex="4" text="Potvrda passworda:"/>
-                    <TextArea GridPane.columnIndex="1" GridPane.rowIndex="9" fx:id="tOpisIPTV"/>
-                    <Label GridPane.rowIndex="9" text="Opis:"/>
+                    <TextArea GridPane.columnIndex="1" GridPane.rowIndex="8" fx:id="tOpisIPTV"/>
+                    <Label GridPane.rowIndex="8" text="Opis:"/>
                   </children>
                   <padding>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

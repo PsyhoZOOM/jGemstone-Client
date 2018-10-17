@@ -17,6 +17,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
@@ -44,6 +47,7 @@ public class KorisnikPodaciController implements Initializable {
   public TextField tTelFix;
   public Label lUserID;
   public TextArea taKomentar;
+  public Spinner<Integer> spnPrekoracenje;
   private Client client;
   public int userEditID;
   public Button bSnimi;
@@ -79,6 +83,11 @@ public class KorisnikPodaciController implements Initializable {
     this.resource = resources;
 
     //INIT
+
+    SpinnerValueFactory<Integer> spnValueFac = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,
+        1000, 2);
+    spnPrekoracenje.setValueFactory(spnValueFac);
+
     tdDatumRodjenja.setConverter(new StringConverter<LocalDate>() {
       @Override
       public String toString(LocalDate object) {
@@ -407,6 +416,7 @@ public class KorisnikPodaciController implements Initializable {
     jObj.put("adresaFirme", tAdresaFirme.getText());
     jObj.put("mestoFirme", tMestoFirme.getText());
     jObj.put("email", tEmail.getText());
+    jObj.put("prekoracenjeMeseci", spnPrekoracenje.getValue());
 
     jObj = client.send_object(jObj);
 

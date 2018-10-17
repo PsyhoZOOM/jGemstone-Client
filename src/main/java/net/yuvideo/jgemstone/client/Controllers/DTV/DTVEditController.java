@@ -31,7 +31,6 @@ import org.json.JSONObject;
 public class DTVEditController implements Initializable {
 
   public JFXTextField tBrKartice;
-  public JFXTextField tPrekoracenje;
   public JFXTextField tpopust;
   public CheckBox cmbObracun;
   public JFXTextField tBrojUgovora;
@@ -224,7 +223,6 @@ public class DTVEditController implements Initializable {
     setMainDTVCard();
     setAktivneDodatke(mainCard);
     tBrKartice.setText(String.valueOf(mainCard.getIdKartica()));
-    tPrekoracenje.setText(String.valueOf(service.getProduzenje()));
     tpopust.setText(String.valueOf(service.getPopust()));
     cmbObracun.setSelected(service.getObracun());
     tBrojUgovora.setText(service.getBrUgovora());

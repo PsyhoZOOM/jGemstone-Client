@@ -103,7 +103,6 @@ public class KorisnikUslugeController implements Initializable {
   public TextField tMACIPTVBox;
   public TextField tFiksnaTelBox;
   public TextField tPopustBox;
-  public TextField tProduzenjeBox;
   public TextArea tOpisBox;
   public ComboBox<ugovori_types> cmbUgovorBox;
   public PasswordField tPasswordBox;
@@ -131,9 +130,6 @@ public class KorisnikUslugeController implements Initializable {
   public TextField tStbMACIPTV;
   public Button bIzmeniServis;
   public Users userEdit;
-  public TextField tDTVPrekoracenje;
-  public TextField tInternetPrekoracenje;
-  public TextField tIPTVPrekoracenje;
   public PasswordField tPasswordIPTVCheck;
   public TextArea tOpisIPTV;
   Calendar firstDateInMonth = Calendar.getInstance();
@@ -612,7 +608,6 @@ public class KorisnikUslugeController implements Initializable {
     tPopustDTV.setText("0.00");
     tPopustIPTV.setText("0.00");
     tPopustInternet.setText("0.00");
-    tProduzenjeBox.setText("2");
     tFixPopust.setText("0.00");
     tPopustOstalo.setText("0.00");
 
@@ -709,7 +704,6 @@ public class KorisnikUslugeController implements Initializable {
       service.setUserID(serviceObj.getInt("userID"));
       service.setId_Service(serviceObj.getInt("id_service"));
       service.setBox_id(serviceObj.getInt("box_ID"));
-      service.setProduzenje(serviceObj.getInt("produzenje"));
       service.setAktivan(serviceObj.getBoolean("aktivan"));
       service.setObracun(serviceObj.getBoolean("obracun"));
       service.setCena(serviceObj.getDouble("cena"));
@@ -801,7 +795,6 @@ public class KorisnikUslugeController implements Initializable {
       service.setDatum(serviceObj.getString("date_added"));
       service.setAktivan(serviceObj.getBoolean("aktivan"));
       service.setObracun(serviceObj.getBoolean("obracun"));
-      service.setProduzenje(serviceObj.getInt("produzenje"));
       service.setId_Service(serviceObj.getInt("id_service"));
       service.setNewService(serviceObj.getBoolean("newService"));
       service.setLinkedService(serviceObj.getBoolean("linkedService"));
@@ -972,7 +965,6 @@ public class KorisnikUslugeController implements Initializable {
     jObj.put("brojUgovora", cmbUgovorInternet.getValue().getBr());
     jObj.put("userName", tUserNameInternet.getText());
     jObj.put("passWord", tLoznikaInternet.getText());
-    jObj.put("produzenje", Integer.valueOf(tInternetPrekoracenje.getText()));
     jObj.put("groupName", cmbPaketInternet.getValue().getNaziv());
     jObj.put("pdv", cmbPaketInternet.getValue().getPdv());
     jObj.put("komentar", tOpisInternet.getText().trim());
@@ -1043,7 +1035,6 @@ public class KorisnikUslugeController implements Initializable {
     jObj.put("idUniqueName", tKarticaDTV.getText());
     jObj.put("DTVKarticaID", Integer.valueOf(tKarticaDTV.getText()));
     jObj.put("packetID", cmbPaketDTV.getValue().getPaketID());
-    jObj.put("produzenje", Integer.valueOf(tDTVPrekoracenje.getText()));
     jObj.put("komentar", tOpisDTV.getText());
     jObj.put("pdv", cmbPaketDTV.getValue().getPdv());
     firstDateInMonth.set(Calendar.DAY_OF_MONTH, 1);
@@ -1105,9 +1096,7 @@ public class KorisnikUslugeController implements Initializable {
     jObj.put("cena", Double.valueOf(cmbPaketBOX.getValue().getCena()));
     jObj.put("idPaket", cmbPaketBOX.getValue().getId());
     jObj.put("brojUgovora", cmbUgovorBox.getValue().getBr());
-    jObj.put("produzenje", Integer.valueOf(tProduzenjeBox.getText()));
     firstDateInMonth.set(Calendar.DAY_OF_MONTH, 1);
-    firstDateInMonth.add(Calendar.MONTH, Integer.valueOf(tProduzenjeBox.getText()));
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     jObj.put("endDate", sdf.format(firstDateInMonth.getTime()));
     jObj.put("obracun", chkRacunBOX.isSelected());
@@ -1162,7 +1151,6 @@ public class KorisnikUslugeController implements Initializable {
       tMACIPTVBox.clear();
       tFiksnaTelBox.clear();
       tPopustBox.clear();
-      tProduzenjeBox.clear();
       tOpisBox.clear();
       setData();
     }
@@ -1182,6 +1170,7 @@ public class KorisnikUslugeController implements Initializable {
     jObj = new JSONObject();
     jObj.put("action", "activate_new_service");
     jObj.put("service_id", servicesUser.getId());
+    jObj.put("userID", servicesUser.getUserID());
 
     jObj = client.send_object(jObj);
     if (jObj.has("ERROR")) {
@@ -1348,7 +1337,6 @@ public class KorisnikUslugeController implements Initializable {
     jObj.put("cena", cmbIPTVPaket.getValue().getCena());
     jObj.put("popust", tPopustIPTV.getText());
     jObj.put("pdv", cmbIPTVPaket.getValue().getPdv());
-    jObj.put("produzenje", Integer.valueOf(tIPTVPrekoracenje.getText()));
     jObj.put("brojUgovora", cmbUgovorIPTV.getValue().getBr());
     jObj.put("STB_MAC", tStbMACIPTV.getText().trim());
     jObj.put("komentar", tOpisIPTV.getText().trim());
