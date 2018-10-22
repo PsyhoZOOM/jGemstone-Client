@@ -280,6 +280,7 @@ public class KorisnikPodaciController implements Initializable {
     userData.setjAdresaBroj(jObj.getString("jAdresaBroj"));
     userData.setJbroj(jObj.getString("jBroj"));
     userData.setEmail(jObj.getString("email"));
+    userData.setPrekoracenje(jObj.getInt("prekoracenje"));
 
     //FIRMA
     userData.setFirma(jObj.getBoolean("firma"));
@@ -355,6 +356,8 @@ public class KorisnikPodaciController implements Initializable {
 
     tEmail.setText(user.getEmail());
 
+    spnPrekoracenje.getValueFactory().setValue(user.getPrekoracenje());
+
     //FIRMA
     chkFirma.setSelected(user.isFirma());
     tNazivFirme.setText(user.getNazivFirme());
@@ -425,6 +428,7 @@ public class KorisnikPodaciController implements Initializable {
     } else {
       AlertUser.info("Informacija", "Korisnik izmene snimljene!");
     }
+    setData();
 
 
   }

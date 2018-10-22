@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
+import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
@@ -152,6 +155,17 @@ public class EditKorisnikController implements Initializable {
     if (!userEdit.getJbroj().isEmpty()) {
       tabKorisnikEdit.getSelectionModel().select(tabUplate);
     }
+    tabKorisnikEdit.getSelectionModel().selectedItemProperty().addListener(
+        new ChangeListener<Tab>() {
+          @Override
+          public void changed(ObservableValue<? extends Tab> observable, Tab oldValue,
+              Tab newValue) {
+
+            if (newValue == tabUplate) {
+              korisnikUplateController.initData();
+            }
+          }
+        });
 
   }
 

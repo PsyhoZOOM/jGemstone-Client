@@ -47,6 +47,7 @@ public class Users implements Serializable {
   String mestoFirme;
   String email;
   String datumKreiranja;
+  int prekoracenje;
 
   ArrayList<Users> usersArrayList;
 
@@ -420,5 +421,13 @@ public class Users implements Serializable {
 
   public void setDatumKreiranja(String datumKreiranja) {
     this.datumKreiranja = datumKreiranja;
+  }
+
+  public int getPrekoracenje() {
+    return prekoracenje;
+  }
+
+  public void setPrekoracenje(int prekoracenje) {
+    this.prekoracenje = prekoracenje;
   }
 }

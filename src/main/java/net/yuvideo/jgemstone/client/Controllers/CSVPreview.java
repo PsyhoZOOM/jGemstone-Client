@@ -11,13 +11,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.CSVData;
 import net.yuvideo.jgemstone.client.classes.Client;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -25,7 +28,7 @@ import org.json.JSONObject;
  */
 public class CSVPreview implements Initializable {
 
-  public TableView tblCSV;
+  public TableView<CSVData> tblCSV;
   public TableColumn cBrojTel;
   public TableColumn cPozivOd;
   public TableColumn cPozivKa;
@@ -55,6 +58,7 @@ public class CSVPreview implements Initializable {
     this.resources = resources;
 
     //init table
+    tblCSV.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     cBrojTel.setCellValueFactory(new PropertyValueFactory<CSVData, String>("account"));
     cPozivOd.setCellValueFactory(new PropertyValueFactory<CSVData, String>("from"));
     cPozivKa.setCellValueFactory(new PropertyValueFactory<CSVData, String>("to"));
@@ -160,4 +164,26 @@ public class CSVPreview implements Initializable {
     this.client = client;
   }
 
+  public void deleteSelected(ActionEvent actionEvent) {
+    ObservableList<CSVData> selectedItems = tblCSV.getSelectionModel().getSelectedItems();
+    if (selectedItems.size() <= 0) {
+      return;
+    }
+
+    JSONObject object = new JSONObject();
+    JSONArray array = new JSONArray();
+
+    for (CSVData data : selectedItems) {
+      array.put(data.getId());
+
+    }
+    object.put("action", "deleteCSV_ID");
+    object.put("intArrays", array);
+    object = client.send_object(object);
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA", object.getString("ERROR"));
+      return;
+    }
+    prikazi(null);
+  }
 }
