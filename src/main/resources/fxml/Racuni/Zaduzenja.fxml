@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.172"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.ZaduzenjaController">
+  <children>
+    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+      AnchorPane.topAnchor="0.0" layoutX="148.0" layoutY="84.0">
+      <children>
+        <HBox VBox.vgrow="ALWAYS">
+          <children>
+            <JFXListView HBox.hgrow="SOMETIMES" fx:id="listMesec"/>
+            <JFXTreeTableView HBox.hgrow="ALWAYS" fx:id="tblZaduzenja"/>
+          </children>
+        </HBox>
+      </children>
+    </VBox>
+  </children>
+</AnchorPane>

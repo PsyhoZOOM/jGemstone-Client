@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
-import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
@@ -34,6 +33,7 @@ public class EditKorisnikController implements Initializable {
   public Tab tabKorisnikUsluge;
   public Tab tabUplate;
   public JFXTabPane tabKorisnikEdit;
+  public Tab tabZaduzenja;
   private Client client;
   public Users userEdit;
   Logger LOGGER = Logger.getLogger("EDIT_USERS");
@@ -167,6 +167,34 @@ public class EditKorisnikController implements Initializable {
           }
         });
 
+  }
+
+  public void loadKorisnikZaduzenja() {
+    FXMLLoader fxmlLoader = null;
+    fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("fxml/Racuni/Zaduzenja.fxml"),
+        resource);
+    try {
+      tabZaduzenja.setContent(fxmlLoader.load());
+      tabZaduzenja.getContent().autosize();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    ZaduzenjaController zaduzenja = fxmlLoader.getController();
+    zaduzenja.setClient(this.client);
+    zaduzenja.setUserID(userID);
+    zaduzenja.initData();
+
+    tabKorisnikEdit.getSelectionModel().selectedItemProperty().addListener(
+        new ChangeListener<Tab>() {
+          @Override
+          public void changed(ObservableValue<? extends Tab> observable, Tab oldValue,
+              Tab newValue) {
+            if (newValue == tabUplate) {
+              zaduzenja.initData();
+            }
+          }
+        });
   }
 
 

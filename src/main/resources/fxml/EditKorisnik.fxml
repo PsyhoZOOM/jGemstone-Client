@@ -71,5 +71,13 @@
         <FontIcon iconColor="WHITE" iconLiteral="mdi-currency-eur" iconSize="25"/>
       </graphic>
     </Tab>
+    <Tab text="Zaduženja" fx:id="tabZaduzenja">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+      </content>
+      <graphic>
+        <FontIcon iconColor="WHITE" iconLiteral="mdi-format-list-bulleted"/>
+      </graphic>
+    </Tab>
   </tabs>
 </JFXTabPane>

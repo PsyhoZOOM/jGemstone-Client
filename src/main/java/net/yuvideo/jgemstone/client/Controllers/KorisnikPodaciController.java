@@ -386,40 +386,47 @@ public class KorisnikPodaciController implements Initializable {
     }
     String userJBRoj = String.format("%05d", userEditID);
 
-    jObj.put("userID", userEditID);
-    jObj.put("fullName", tFullName.getText().trim());
-    jObj.put("datumRodjenja", tdDatumRodjenja.getValue().format(dateBirthFormat).toString().trim());
-    jObj.put("adresa", tAdresa.getText().trim());
-    jObj.put("mesto", tMesto.getText().trim());
-    jObj.put("postBr", tPostBr.getText().trim());
-    jObj.put("telFiksni", tTelFix.getText().trim());
-    jObj.put("telMobilni", tTelMob.getText().trim());
-    jObj.put("brLk", tBrLk.getText().trim());
-    jObj.put("JMBG", tJMBG.getText().trim());
-    jObj.put("adresaRacuna", tAdresaRacuna.getText().trim());
-    jObj.put("mestoRacuna", tMestoRacuna.getText().trim());
-    jObj.put("jAdresaBroj", tAdresaUslugeBroj.getText().trim());
-    jObj.put("jAdresa", String.valueOf(cmbAdresaUsluge.getValue().getBrojAdrese()));
-    jObj.put("jMesto", String.valueOf(cmbMestoUsluge.getValue().getBrojMesta()));
-    jObj.put("komentar", taKomentar.getText().trim());
-    jObj.put("jBroj",
-        cmbMestoUsluge.getValue().getBrojMesta() + cmbAdresaUsluge.getValue().getBrojAdrese()
-            + userJBRoj);
+    try {
 
-    //FIRMA
-    jObj.put("firma", chkFirma.isSelected());
-    jObj.put("nazivFirme", tNazivFirme.getText());
-    jObj.put("kontaktOsoba", tKontaktOsoba.getText());
-    jObj.put("kontaktOsobaTel", tKontaktOsobaTel.getText());
-    jObj.put("kodBanke", tKodBanke.getText());
-    jObj.put("tekuciRacun", tTekuciRacun.getText());
-    jObj.put("PIB", tPIB.getText());
-    jObj.put("maticniBroj", tMaticniBroj.getText());
-    jObj.put("fax", tFAX.getText());
-    jObj.put("adresaFirme", tAdresaFirme.getText());
-    jObj.put("mestoFirme", tMestoFirme.getText());
-    jObj.put("email", tEmail.getText());
-    jObj.put("prekoracenjeMeseci", spnPrekoracenje.getValue());
+      jObj.put("userID", userEditID);
+      jObj.put("fullName", tFullName.getText().trim());
+      jObj.put("datumRodjenja", tdDatumRodjenja.getValue().format(dateBirthFormat));
+      jObj.put("adresa", tAdresa.getText().trim());
+      jObj.put("mesto", tMesto.getText().trim());
+      jObj.put("postBr", tPostBr.getText().trim());
+      jObj.put("telFiksni", tTelFix.getText().trim());
+      jObj.put("telMobilni", tTelMob.getText().trim());
+      jObj.put("brLk", tBrLk.getText().trim());
+      jObj.put("JMBG", tJMBG.getText().trim());
+      jObj.put("adresaRacuna", tAdresaRacuna.getText().trim());
+      jObj.put("mestoRacuna", tMestoRacuna.getText().trim());
+      jObj.put("jAdresaBroj", tAdresaUslugeBroj.getText().trim());
+      jObj.put("jAdresa", String.valueOf(cmbAdresaUsluge.getValue().getBrojAdrese()));
+      jObj.put("jMesto", String.valueOf(cmbMestoUsluge.getValue().getBrojMesta()));
+      jObj.put("komentar", taKomentar.getText().trim());
+      jObj.put("jBroj",
+          cmbMestoUsluge.getValue().getBrojMesta() + cmbAdresaUsluge.getValue().getBrojAdrese()
+              + userJBRoj);
+
+      //FIRMA
+      jObj.put("firma", chkFirma.isSelected());
+      jObj.put("nazivFirme", tNazivFirme.getText());
+      jObj.put("kontaktOsoba", tKontaktOsoba.getText());
+      jObj.put("kontaktOsobaTel", tKontaktOsobaTel.getText());
+      jObj.put("kodBanke", tKodBanke.getText());
+      jObj.put("tekuciRacun", tTekuciRacun.getText());
+      jObj.put("PIB", tPIB.getText());
+      jObj.put("maticniBroj", tMaticniBroj.getText());
+      jObj.put("fax", tFAX.getText());
+      jObj.put("adresaFirme", tAdresaFirme.getText());
+      jObj.put("mestoFirme", tMestoFirme.getText());
+      jObj.put("email", tEmail.getText());
+      jObj.put("prekoracenjeMeseci", spnPrekoracenje.getValue());
+    } catch (NullPointerException e) {
+      AlertUser.error("GRESKA", "Neka polja ne mogu biti prazna");
+      e.printStackTrace();
+      return;
+    }
 
     jObj = client.send_object(jObj);
 
