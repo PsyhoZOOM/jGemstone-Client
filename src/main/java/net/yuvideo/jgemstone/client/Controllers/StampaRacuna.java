@@ -1,6 +1,7 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,11 +19,13 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Window;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
@@ -51,6 +54,7 @@ public class StampaRacuna implements Initializable {
   public DatePicker dtpZaMesec;
   public CheckBox chkFaktura;
   SimpleDateFormat df = new SimpleDateFormat("MM-yyyy");
+  DecimalFormat decimalFormat = new DecimalFormat("###,###,##0.00");
   private ResourceBundle resources;
   private URL location;
   private Client client;
@@ -63,6 +67,23 @@ public class StampaRacuna implements Initializable {
     cID.setCellValueFactory(new PropertyValueFactory<>("jbroj"));
     cIME.setCellValueFactory(new PropertyValueFactory<>("ime"));
     cZaUplatu.setCellValueFactory(new PropertyValueFactory<>("dug"));
+
+    cZaUplatu.setCellFactory(new Callback<TableColumn<Users, Double>, TableCell<Users, Double>>() {
+      @Override
+      public TableCell<Users, Double> call(TableColumn<Users, Double> param) {
+        return new TableCell<Users, Double>() {
+          @Override
+          protected void updateItem(Double item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty || item == null) {
+              setText("");
+            } else {
+              setText(decimalFormat.format(item));
+            }
+          }
+        };
+      }
+    });
 
     cmbMesto.setConverter(
         new StringConverter<Mesta>() {

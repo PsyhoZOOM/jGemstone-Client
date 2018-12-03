@@ -140,6 +140,8 @@
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#showOperaterList" text="Izmene"
                   fx:id="operaterList"/>
+                <MenuItem mnemonicParsing="false" onAction="#showGroupOpers" text="Grupe"
+                  fx:id="mGrupeOpers"/>
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Opcije">

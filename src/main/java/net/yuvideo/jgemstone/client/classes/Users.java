@@ -116,6 +116,7 @@ public class Users implements Serializable {
     user.setMestoFirme(object.getString("mestoFirme"));
     user.setEmail(object.getString("email"));
     user.setDatumKreiranja(object.getString("datumKreiranja"));
+    user.setDug(object.getDouble("dug"));
 
     return user;
   }

@@ -41,6 +41,7 @@ import javax.imageio.IIOImage;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Administration;
 import net.yuvideo.jgemstone.client.Controllers.Administration.DTV.CASEditController;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Devices;
+import net.yuvideo.jgemstone.client.Controllers.Administration.Groups.GroupEdit;
 import net.yuvideo.jgemstone.client.Controllers.Fiksna.FiksnaPozivi;
 import net.yuvideo.jgemstone.client.Controllers.Mape.MainMapController;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
@@ -72,6 +73,7 @@ public class MainWindowController implements Initializable {
   public VBox vbSideView;
   public JFXButton bCloseMessageWin;
   public JFXButton bUplate;
+  public MenuItem mGrupeOpers;
 
   ResourceBundle resource;
   Thread threadCheckAlive;
@@ -492,5 +494,14 @@ public class MainWindowController implements Initializable {
     mesecniObracunController.setClient(this.client);
     mesecniObracunInterface.getStage().showAndWait();
 
+  }
+
+  public void showGroupOpers(ActionEvent actionEvent) {
+    NewInterface groupOpersInterface = new NewInterface("fxml/Administration/Groups/groupEdit.fxml",
+        "IZMENA GRUPA", this.resource);
+    GroupEdit groupEdit = groupOpersInterface.getLoader().getController();
+    groupEdit.setClient(this.client);
+    groupEdit.setData();
+    groupOpersInterface.getStage().showAndWait();
   }
 }

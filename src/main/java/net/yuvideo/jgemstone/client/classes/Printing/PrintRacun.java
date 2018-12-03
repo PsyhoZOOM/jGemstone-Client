@@ -388,7 +388,15 @@ public class PrintRacun {
     // File fImg =
     // net.glxn.qrgen.javase.QRCode.from(racun.getSifraKorisnika()).withCharset("CP1250").file();
 
-    File fImg = QRCode.from(racun.getSifraKorisnika()).withCharset("CP1250").file();
+    //   File fImg = QRCode.from(racun.getSifraKorisnika()).withCharset("CP1250").file();
+    File fImg = QRCode.from(String
+        .format("Ime: %s \nPoziv na broj: %s\\%s \nRok za plaćanje: %s\nUkupno za uplatu: %s ",
+            racun.getIme(),
+            racun.getSifraKorisnika(),
+            LocalDate.parse(racun.getZaPeriod() + "-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                .format(DateTimeFormatter.ofPattern("MM"))
+            , LocalDate.now().plusDays(30).format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
+            df.format(racun.getUkupanDug()))).withCharset("UTF-8").withSize(50, 50).file();
 
     Image img = new Image(fImg.toURI().toString());
 

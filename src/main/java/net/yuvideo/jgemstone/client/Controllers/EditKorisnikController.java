@@ -8,9 +8,11 @@ import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.UserData;
@@ -184,17 +186,15 @@ public class EditKorisnikController implements Initializable {
     zaduzenja.setClient(this.client);
     zaduzenja.setUserID(userID);
     zaduzenja.initData();
+    tabKorisnikEdit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        if (tabKorisnikEdit.getSelectionModel().selectedItemProperty().getValue() == tabZaduzenja) {
+          zaduzenja.initData();
+        }
+      }
+    });
 
-    tabKorisnikEdit.getSelectionModel().selectedItemProperty().addListener(
-        new ChangeListener<Tab>() {
-          @Override
-          public void changed(ObservableValue<? extends Tab> observable, Tab oldValue,
-              Tab newValue) {
-            if (newValue == tabUplate) {
-              zaduzenja.initData();
-            }
-          }
-        });
   }
 
 

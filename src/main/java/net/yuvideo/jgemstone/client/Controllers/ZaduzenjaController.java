@@ -5,13 +5,10 @@ import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import com.sun.xml.internal.ws.api.model.MEP;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -19,7 +16,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
@@ -40,7 +36,7 @@ public class ZaduzenjaController implements Initializable {
   private Client client;
   private int userID;
 
-  private DecimalFormat df = new DecimalFormat("#.00");
+  private DecimalFormat df = new DecimalFormat("###,##0.00");
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -60,7 +56,7 @@ public class ZaduzenjaController implements Initializable {
                 } else {
                   alignmentProperty().set(Pos.CENTER_RIGHT);
                   setText(
-                      String.format("%s, %s din.", item.getZaMesec(), df.format(item.getDug())));
+                      String.format("%s: %s din.", item.getZaMesec(), df.format(item.getDug())));
                 }
               }
             };

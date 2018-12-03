@@ -1,6 +1,7 @@
 package net.yuvideo.jgemstone.client.classes;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by zoom on 9/1/16.
@@ -62,6 +63,7 @@ public class Groups implements Serializable {
   public void setPrepaid(int prepaid) {
     Prepaid = prepaid;
   }
+
 
   public String toString() {
     return this.getGroupName();
