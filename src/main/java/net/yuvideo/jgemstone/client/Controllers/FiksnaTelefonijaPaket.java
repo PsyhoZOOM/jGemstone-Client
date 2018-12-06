@@ -192,3 +192,4 @@ public class FiksnaTelefonijaPaket implements Initializable {
     this.client = client;
   }
 }
+

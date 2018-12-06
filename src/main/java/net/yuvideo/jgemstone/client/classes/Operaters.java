@@ -135,7 +135,5 @@ public class Operaters implements Serializable {
       opers.setTypeNo(jsonObject2.getInt("typeNo"));
       operaters.add(opers);
     }
-
-
   }
 }

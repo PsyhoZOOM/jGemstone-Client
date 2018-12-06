@@ -14,86 +14,79 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.172"
-  fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUplateController"
-  fx:id="mainPane">
+<AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUplateController">
    <children>
-      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-        AnchorPane.topAnchor="0.0" spacing="5.0">
+      <VBox spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Separator prefWidth="200.0"/>
-            <HBox VBox.vgrow="NEVER" alignment="CENTER_RIGHT" spacing="20.0">
+            <Separator prefWidth="200.0" />
+            <HBox alignment="CENTER_RIGHT" spacing="20.0" VBox.vgrow="NEVER">
                <children>
-                  <JFXDatePicker editable="false" promptText="Datum uplate" fx:id="dtpDatum"/>
-                  <JFXTextField labelFloat="true" promptText="Uplaćeno" text="0.00" fx:id="tCena"/>
-                  <JFXTextField labelFloat="true" minWidth="300.0" promptText="Opis" fx:id="tOpis"/>
-                  <JFXButton buttonType="RAISED" onAction="#uplati" text="Uplati" fx:id="bUplati"/>
-                  <Pane HBox.hgrow="ALWAYS"/>
-                  <JFXTextField labelFloat="true" promptText="Pretraga" fx:id="tPretraga"/>
+                  <JFXDatePicker fx:id="dtpDatum" editable="false" promptText="Datum uplate" />
+                  <JFXTextField fx:id="tCena" labelFloat="true" promptText="Uplaćeno" text="0.00" HBox.hgrow="ALWAYS" />
+                  <JFXTextField fx:id="tOpis" labelFloat="true" promptText="Opis" />
+                  <JFXButton fx:id="bUplati" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#uplati" prefHeight="27.0" prefWidth="56.0" text="Uplati" />
+                  <Pane HBox.hgrow="ALWAYS" />
+                  <JFXTextField fx:id="tPretraga" labelFloat="true" promptText="Pretraga" />
                </children>
                <VBox.margin>
-                  <Insets/>
+                  <Insets />
                </VBox.margin>
                <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="20.0"/>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="20.0" />
                </padding>
             </HBox>
-            <Separator prefWidth="200.0"/>
-            <JFXTreeTableView VBox.vgrow="ALWAYS" fx:id="tUplate">
+            <Separator prefWidth="200.0" />
+            <JFXTreeTableView fx:id="tUplate" VBox.vgrow="ALWAYS">
                <columns>
-                  <TreeTableColumn prefWidth="75.0" text="OPERATER" fx:id="cOper"/>
-                  <TreeTableColumn prefWidth="75.0" text="DATUM" fx:id="cDatum"/>
-                  <TreeTableColumn prefWidth="75.0" text="DUGUJE" fx:id="cDuguje"/>
-                  <TreeTableColumn prefWidth="75.0" text="POTRAŽUJE" fx:id="cPotrazuje"/>
-                  <TreeTableColumn prefWidth="75.0" text="OPIS" fx:id="cOpis"/>
+                  <TreeTableColumn fx:id="cOper" prefWidth="75.0" text="OPERATER" />
+                  <TreeTableColumn fx:id="cDatum" prefWidth="75.0" text="DATUM" />
+                  <TreeTableColumn fx:id="cDuguje" prefWidth="75.0" text="DUGUJE" />
+                  <TreeTableColumn fx:id="cPotrazuje" prefWidth="75.0" text="POTRAŽUJE" />
+                  <TreeTableColumn fx:id="cOpis" prefWidth="75.0" text="OPIS" />
                </columns>
                <columnResizePolicy>
-                  <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                  <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </JFXTreeTableView>
-            <HBox VBox.vgrow="NEVER" alignment="CENTER_RIGHT" spacing="5.0">
+            <HBox alignment="CENTER_RIGHT" spacing="5.0" VBox.vgrow="NEVER">
                <children>
-                  <Label text="Duguje:"/>
-                  <Label text="0.00" fx:id="lDuguje"/>
+                  <Label text="Duguje:" />
+                  <Label fx:id="lDuguje" text="0.00" />
                   <Label text="Potražuje:">
                      <padding>
-                        <Insets left="20.0"/>
+                        <Insets left="20.0" />
                      </padding>
                   </Label>
-                  <Label text="0.00" fx:id="lPotrazuje"/>
+                  <Label fx:id="lPotrazuje" text="0.00" />
                </children>
                <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </HBox>
-            <HBox VBox.vgrow="NEVER" alignment="CENTER_RIGHT" spacing="5.0">
+            <HBox alignment="CENTER_RIGHT" spacing="5.0" VBox.vgrow="NEVER">
                <children>
-                  <Label text="Ukupan dug:"/>
-                  <Label text="0.00" fx:id="lUkupno"/>
+                  <Label text="Ukupan dug:" />
+                  <Label fx:id="lUkupno" text="0.00" />
                </children>
                <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </HBox>
-            <HBox VBox.vgrow="NEVER" alignment="CENTER_RIGHT" spacing="5.0">
+            <HBox alignment="CENTER_RIGHT" spacing="5.0" VBox.vgrow="NEVER">
                <children>
-                  <JFXButton buttonType="RAISED" disable="true" onAction="#izbrisiUplatu"
-                    text="Obriši uplatu" fx:id="bIzbrisiUplatu"/>
-                  <Pane HBox.hgrow="ALWAYS"/>
-                  <JFXButton mnemonicParsing="false" onAction="#testProduzenje"
-                    text="Test eproduzenje" fx:id="bTest"/>
-                  <JFXButton buttonType="RAISED" disable="true" onAction="#showZaduzenja"
-                    text="Prikaži zaduženja" fx:id="bShowZaduzenja"/>
-                  <JFXButton disable="true" onAction="#stampajUplate" text="Štampa"
-                    fx:id="bStampa"/>
+                  <JFXButton fx:id="bIzbrisiUplatu" buttonType="RAISED" disable="true" onAction="#izbrisiUplatu" text="Obriši uplatu" />
+                  <Pane HBox.hgrow="ALWAYS" />
+                  <JFXButton fx:id="bTest" mnemonicParsing="false" onAction="#testProduzenje" text="Test eproduzenje" />
+                  <JFXButton fx:id="bShowZaduzenja" buttonType="RAISED" disable="true" onAction="#showZaduzenja" text="Prikaži zaduženja" />
+                  <JFXButton fx:id="bStampa" disable="true" onAction="#stampajUplate" text="Štampa" />
                </children>
                <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </HBox>
          </children>
          <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
    </children>
