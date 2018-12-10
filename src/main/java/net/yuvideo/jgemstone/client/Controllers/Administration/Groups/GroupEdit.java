@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers.Administration.Groups;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXClippedPane;
 import com.jfoenix.controls.JFXListView;
 import java.net.URL;
 import java.util.ArrayList;
@@ -14,11 +13,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MultipleSelectionModel;
 import javafx.util.Callback;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.GroupOpers;
+import net.yuvideo.jgemstone.client.classes.NewInterface;
 import net.yuvideo.jgemstone.client.classes.Operaters;
 import org.json.JSONObject;
 
@@ -32,7 +31,6 @@ public class GroupEdit implements Initializable {
   private ResourceBundle resources;
   private Client client;
 
-  private Operaters operaters = new Operaters();
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -42,13 +40,13 @@ public class GroupEdit implements Initializable {
     lsGrupe.setCellFactory(new Callback<ListView<GroupOpers>, ListCell<GroupOpers>>() {
       @Override
       public ListCell<GroupOpers> call(ListView<GroupOpers> param) {
-        return new ListCell<GroupOpers>(){
+        return new ListCell<GroupOpers>() {
           @Override
           protected void updateItem(GroupOpers item, boolean empty) {
             super.updateItem(item, empty);
-            if(empty || item == null){
+            if (empty || item == null) {
               setText(null);
-            }else{
+            } else {
               setText(item.getGroupName());
             }
           }
@@ -61,10 +59,11 @@ public class GroupEdit implements Initializable {
           @Override
           public void changed(ObservableValue<? extends GroupOpers> observable, GroupOpers oldValue,
               GroupOpers newValue) {
-            setOperaterGroupList(newValue.getGroupName());
+            if (newValue != null) {
+              setOperatersGroup(newValue.getId());
+            }
           }
         });
-
 
     lsOperateri.setCellFactory(new Callback<ListView<Operaters>, ListCell<Operaters>>() {
       @Override
@@ -87,13 +86,13 @@ public class GroupEdit implements Initializable {
     lsOperateriGrupe.setCellFactory(new Callback<ListView<Operaters>, ListCell<Operaters>>() {
       @Override
       public ListCell<Operaters> call(ListView<Operaters> param) {
-        return new ListCell<Operaters>(){
+        return new ListCell<Operaters>() {
           @Override
           protected void updateItem(Operaters item, boolean empty) {
             super.updateItem(item, empty);
-            if(empty || item == null){
+            if (empty || item == null) {
               setText(null);
-            }else{
+            } else {
               setText(item.getUsername());
             }
           }
@@ -103,81 +102,79 @@ public class GroupEdit implements Initializable {
 
   }
 
-  private void setOperaterGroupList(String groupName) {
-    JSONObject object = new JSONObject();
-    object.put("action", "getGroupOperaters");
-    object.put("groupName", groupName );
-    object = client.send_object(object);
-
-    ArrayList<Operaters> operatersArrayList = new ArrayList<>();
-
-
-    for (int i =0; i < object.length(); i++){
-      Operaters opers = new Operaters();
-      JSONObject oper = object.getJSONObject(String.valueOf(i));
-      opers.setId(oper.getInt("id"));
-      opers.setUsername(oper.getString("username"));
-      operatersArrayList.add(opers);
-    }
-
-    ObservableList op = FXCollections.observableArrayList(operatersArrayList);
-    lsOperateriGrupe.setItems(op);
-
-
-
-  }
-
-  private void removeAvOper(Operaters opers) {
-    ObservableList<Operaters> items = lsOperateri.getItems();
-        for (Operaters ps : lsOperateri.getItems()) {
-          if(ps.getId() == opers.getId()) {
-            items.remove(ps);
-          }
-        }
-        lsOperateri.setItems(items);
-  }
-
 
   public void setData() {
     JSONObject object = new JSONObject();
-    object.put("action", "getGroupOpers");
+    object.put("action", "getGroups");
     object = client.send_object(object);
-    operaters.initData(this.client);
     setGroupe(object);
-    setAvailableOpers(operaters.getOperaters());
-
+    setAvailableOpers();
 
   }
 
   private void setGroupe(JSONObject object) {
     ArrayList<GroupOpers> groupOpersArrayList = new ArrayList();
-    for (int i =0; i < object.length(); i++){
-      JSONObject group =  object.getJSONObject(String.valueOf(i));
+    for (int i = 0; i < object.length(); i++) {
+      JSONObject group = object.getJSONObject(String.valueOf(i));
       GroupOpers groupOpers = new GroupOpers();
       groupOpers.setId(group.getInt("id"));
       groupOpers.setGroupName(group.getString("groupName"));
-      for (int z=0; z<group.getJSONObject("operaters").length(); z++){
-        JSONObject op = group.getJSONObject("operaters");
-        for(int y=0; y<op.length();y++) {
-          Operaters operaters = new Operaters();
-          JSONObject op1 = op.getJSONObject(String.valueOf(y));
-          operaters.setId(op1.getInt("operID"));
-          operaters.setUsername(op1.getString("operName"));
-          groupOpers.getOperatersArrayList().add(operaters);
-        }
-      }
       groupOpersArrayList.add(groupOpers);
     }
 
     ObservableList grupeObLs = FXCollections.observableArrayList(groupOpersArrayList);
     lsGrupe.setItems(grupeObLs);
+  }
+
+  public void setOperatersGroup(int groupID) {
+    lsOperateriGrupe.getItems().removeAll();
+    lsOperateriGrupe.getItems().clear();
+    JSONObject object = new JSONObject();
+    object.put("action", "getGroupOperaters");
+    object.put("groupID", groupID);
+    object = client.send_object(object);
+    if (object.length() == 0) {
+      return;
+    }
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA", object.getString("ERROR"));
+      return;
+    }
+
+    ArrayList<Operaters> groupOperaters = new ArrayList<>();
+
+    for (int i = 0; i < object.length(); i++) {
+      JSONObject operO = object.getJSONObject(String.valueOf(i));
+      Operaters oper = new Operaters();
+      oper.setId(operO.getInt("id"));
+      oper.setUsername(operO.getString("username"));
+      groupOperaters.add(oper);
+    }
+
+    ObservableList listOperaters = FXCollections.observableArrayList(groupOperaters);
+    lsOperateriGrupe.setItems(listOperaters);
 
 
   }
 
-  public void setAvailableOpers(ArrayList<Operaters> oper) {
-    ObservableList opers = FXCollections.observableArrayList(oper);
-    lsOperateri.setItems(opers);
+  public void setAvailableOpers() {
+    JSONObject object = new JSONObject();
+    object.put("action", "getAvOpers");
+    object = client.send_object(object);
+    System.out.println(object.toString());
+    ArrayList<Operaters> operaters = new ArrayList<>();
+    for (int i = 0; i < object.length(); i++) {
+      JSONObject oper = object.getJSONObject(String.valueOf(i));
+      Operaters operO = new Operaters();
+      operO.setId(oper.getInt("id"));
+      operO.setUsername(oper.getString("username"));
+      operaters.add(operO);
+    }
+
+    ObservableList observableListOpers = FXCollections.observableArrayList(operaters);
+    lsOperateri.setItems(observableListOpers);
+
+
   }
 
   public void deleteGroup(ActionEvent actionEvent) {
@@ -187,6 +184,13 @@ public class GroupEdit implements Initializable {
   }
 
   public void bNovaGrupa(ActionEvent actionEvent) {
+    NewInterface newGroupInterface = new NewInterface("fxml/Administration/Groups/groupNew.fxml",
+        "Nova grupa", this.resources);
+    GroupNew groupNew = newGroupInterface.getLoader().getController();
+    groupNew.setClient(this.client);
+    newGroupInterface.getStage().showAndWait();
+    setData();
+
   }
 
   public Client getClient() {
@@ -198,32 +202,44 @@ public class GroupEdit implements Initializable {
   }
 
   public void addOperToGroup(ActionEvent actionEvent) {
-    if(lsOperateri.getSelectionModel().getSelectedIndex() == -1)
+    if (lsOperateri.getSelectionModel().getSelectedIndex() == -1)
       return;
-    if(lsGrupe.getSelectionModel().getSelectedIndex() == -1)
+    if (lsGrupe.getSelectionModel().getSelectedIndex() == -1)
       return;
 
     Operaters selectedOper = lsOperateri.getSelectionModel().getSelectedItem();
     GroupOpers selectedGroip = lsGrupe.getSelectionModel().getSelectedItem();
 
-
     JSONObject object = new JSONObject();
     object.put("action", "addOperToGroup");
     object.put("groupID", selectedGroip.getId());
-    object.put("groupName", selectedGroip.getGroupName());
     object.put("operID", selectedOper.getId());
 
     object = client.send_object(object);
-    if(object.has("ERROR"))
+    if (object.has("ERROR"))
       AlertUser.error("GRESKA", object.getString("ERROR"));
 
     setData();
 
-
+    lsGrupe.getSelectionModel().select(selectedGroip);
 
 
   }
 
   public void removeOperFromGroup(ActionEvent actionEvent) {
+    if (lsOperateriGrupe.getSelectionModel().getSelectedIndex() == -1) {
+      return;
+    }
+    JSONObject object = new JSONObject();
+    int operID = lsOperateriGrupe.getSelectionModel().getSelectedItem().getId();
+    object.put("action", "removeOperFromGroup");
+    object.put("operID", operID);
+    object = client.send_object(object);
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA", object.getString("ERROR"));
+    }
+    lsOperateriGrupe.getItems().removeAll(lsOperateriGrupe.getSelectionModel().getSelectedItem());
+
+    setData();
   }
 }
