@@ -252,7 +252,7 @@ public class KorisnikPodaciController implements Initializable {
     return adreseArr;
   }
 
-  private Users getUserData(int userID) {
+  public Users getUserData(int userID) {
     jObj = new JSONObject();
     jObj.put("action", "get_user_data");
     jObj.put("userId", userID);

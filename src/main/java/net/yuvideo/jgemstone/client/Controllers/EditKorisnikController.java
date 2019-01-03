@@ -74,6 +74,7 @@ public class EditKorisnikController implements Initializable {
     KorisnikPodaciController.setClient(this.client);
     KorisnikPodaciController.userEditID = userID;
     KorisnikPodaciController.setData();
+    this.userEdit =  KorisnikPodaciController.getUserData(userID);
 
 
   }

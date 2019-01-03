@@ -185,6 +185,7 @@ public class NovKorisnikController implements Initializable {
       user_saved = false;
 
       AlertUser.error("Greska", "Korisnik nije napravljne \n" + jObj.getString("ERROR_MESSAGE"));
+      return;
     } else if (jObj.get("Message").equals("user_saved")) {
 
       AlertUser.info("Informacija", "Korisnik je snimljen");

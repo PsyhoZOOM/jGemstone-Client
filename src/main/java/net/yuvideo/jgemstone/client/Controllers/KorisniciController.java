@@ -265,7 +265,7 @@ public class KorisniciController implements Initializable {
     EditKorisnikController editUserController = editKorisnikInterface.getLoader().getController();
 
     editUserController.setClient(this.client);
-    editUserController.userEdit = tUsers.getSelectionModel().getSelectedItem();
+ //   editUserController.userEdit = tUsers.getSelectionModel().getSelectedItem();
     editUserController.userID = UserID;
     editUserController.loadKorisnikData();
     editUserController.loadKorisnikServices();

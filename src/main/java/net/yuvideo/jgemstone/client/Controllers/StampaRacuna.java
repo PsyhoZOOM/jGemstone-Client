@@ -1,5 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import java.awt.PrintJob;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -10,9 +11,11 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.print.JobSettings;
+import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -198,15 +201,20 @@ public class StampaRacuna implements Initializable {
     ObservableList<Users> selectedItems = tblKorisnici.getSelectionModel().getSelectedItems();
     Window wind = bStampa.getScene().getWindow();
 
-    PrinterJob printerJob = PrinterJob.createPrinterJob();
-    JobSettings printerSettngs = null;
-    if(printerJob == null){
+    PrinterJob printerJob = null;
+    ObservableSet<Printer> printer = Printer.getAllPrinters();
+    for (Printer pf: printer){
+      System.out.println("PRINTR: "+pf.getName());
+      printerJob = PrinterJob.createPrinterJob(pf);
+    }
+
+
+    if(printerJob !=null && !printerJob.showPrintDialog(wind)){
       AlertUser.warrning("UPOZORENJE", "Nije pronadjen stampac");
       return;
-    }else {
-      boolean b = printerJob.showPrintDialog(wind);
-      printerSettngs = printerJob.getJobSettings();
     }
+
+    JobSettings printerSettngs = printerJob.getJobSettings();
 
 
     for (int i = 0; i < selectedItems.size(); i++) {
