@@ -771,6 +771,8 @@ public class PrintFaktura {
     rowFin.getChildren().add(napomenaFin);
 
 
+    anchorPane.getStylesheets().removeAll();
+
 
     anchorPane.setMinSize(MAX_WIDTH, MAX_HEIGHT);
     anchorPane.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
@@ -795,6 +797,7 @@ public class PrintFaktura {
         pageLayout.getPrintableHeight());
     Stage stage = new Stage();
     stage.setScene(scene);
+    anchorPane.setStyle("-fx-background-color: white;");
 
     if(showPreview) {
       stage.showAndWait();

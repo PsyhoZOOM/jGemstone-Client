@@ -10,6 +10,7 @@ import javafx.print.JobSettings;
 import javafx.print.PageLayout;
 import javafx.print.PageOrientation;
 import javafx.print.Paper;
+import javafx.print.PrintColor;
 import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Scene;
@@ -42,7 +43,7 @@ public class PrintRacun {
   public JSONObject firmaData;
 
   public void setPrinterData(JobSettings js, Printer printer) {
-    this.printerJob = PrinterJob.createPrinterJob();
+    this.printerJob = PrinterJob.createPrinterJob(printer);
     this.printer = printer;
     this.pageLayout = js.getPageLayout();
     Paper paper = pageLayout.getPaper();
@@ -52,6 +53,7 @@ public class PrintRacun {
     this.paper = paper;
 
     printerJob.setPrinter(this.printer);
+    printerJob.getJobSettings().setPrintColor(PrintColor.MONOCHROME);
   }
 
   public void printRacun() {
@@ -524,6 +526,8 @@ public class PrintRacun {
     Text kontaktT = new Text(kontakt);
     kontaktT.setFont(fontMini);
 
+    anchorPane.getStylesheets().removeAll();
+
     anchorPane.setMinSize(MAX_WIDTH, MAX_HEIGHT);
     anchorPane.setPrefSize(MAX_WIDTH, MAX_HEIGHT);
     anchorPane.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
@@ -608,6 +612,9 @@ public class PrintRacun {
     Scene scene =
         new Scene(anchorPane, pageLayout.getPrintableWidth(), pageLayout.getPrintableHeight());
     Stage stage = new Stage();
+
+    anchorPane.setStyle("-fx-background-color: white;");
+
     stage.setScene(scene);
     if (showPreview) {
       stage.showAndWait();
