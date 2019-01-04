@@ -1,11 +1,9 @@
 package net.yuvideo.jgemstone.client;
 
-import com.jfoenix.controls.JFXDecorator;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -16,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import net.yuvideo.jgemstone.client.Controllers.LoginWinController;
-import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.EncodingControl;
 
 public class ClientMain extends Application {
