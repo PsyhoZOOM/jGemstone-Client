@@ -6,9 +6,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.print.Paper;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.web.HTMLEditor;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
@@ -21,6 +23,7 @@ import org.json.JSONObject;
  */
 public class KorisnikUgovorEditController implements Initializable {
 
+  public WebView webV;
   public HTMLEditor htmlUgovor;
   public Button bSnimi;
   public Label lBrUgovora;
@@ -44,6 +47,9 @@ public class KorisnikUgovorEditController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     this.location = location;
     this.resources = resources;
+    //   htmlUgovor.setPadding(new Insets(0.75, 0.75, 0.75, 0.75));
+    htmlUgovor.setStyle("-fx-text-wrap: true;");
+
   }
 
 
@@ -53,6 +59,8 @@ public class KorisnikUgovorEditController implements Initializable {
     if (replaceCode) {
       replace_codes();
     }
+
+    webV.getEngine().loadContent(htmlUgovor.getHtmlText());
     user.updateData();
     lBrUgovora.setText(String.valueOf(ugovor.getBr()));
     lNazivUgovora.setText(ugovor.getNaziv());
@@ -60,6 +68,7 @@ public class KorisnikUgovorEditController implements Initializable {
     lDo.setText(ugovor.getKrajUgovora());
     lOpis.setText(ugovor.getKomentar());
     lTrajanje.setText(String.valueOf(ugovor.getTrajanje()));
+
   }
 
   private void replace_codes() {
@@ -177,5 +186,10 @@ public class KorisnikUgovorEditController implements Initializable {
 
   public void setClient(Client client) {
     this.client = client;
+  }
+
+  public void setPreviewWebV(ActionEvent actionEvent) {
+    webV.setMaxSize(Paper.A4.getWidth() - 78, Paper.A4.getHeight() - 78);
+    webV.getEngine().loadContent(htmlUgovor.getHtmlText());
   }
 }

@@ -48,6 +48,7 @@ dependencies {
     compile group: 'org.kordamp.ikonli', name: 'ikonli-materialdesign-pack', version: '2.1.1'
     compile group: 'com.lynden', name: 'GMapsFX', version: '2.12.0'
 
+
     configurations.compile.extendsFrom(configurations.extraLibs)
 
 

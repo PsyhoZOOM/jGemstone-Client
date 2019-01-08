@@ -3,15 +3,24 @@ package net.yuvideo.jgemstone.client.Controllers;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.print.PageLayout;
+import javafx.print.PageOrientation;
+import javafx.print.Paper;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.web.HTMLEditor;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.ugovori_types;
 import org.json.JSONObject;
@@ -22,6 +31,7 @@ import org.json.JSONObject;
  */
 public class UgovoriEditController implements Initializable {
 
+  public WebView webV;
   private Client client;
   public ResourceBundle resource;
   public HTMLEditor htmlUgovor;
@@ -32,6 +42,7 @@ public class UgovoriEditController implements Initializable {
   ugovori_types Ugovor;
   JSONObject jObj;
   private Stage stage;
+  private PageLayout pl = null;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -132,5 +143,38 @@ public class UgovoriEditController implements Initializable {
 
   public void setClient(Client client) {
     this.client = client;
+  }
+
+  public void setUgovorPreviewText(ActionEvent actionEvent) {
+    Double margin = 55.0;
+    Double mDif = -10.0;
+    pl = Printer.defaultPrinterProperty().get()
+        .createPageLayout(Paper.A4, PageOrientation.PORTRAIT, margin, margin, margin, margin);
+    Double w = pl.getPaper().getWidth();
+    Double h = pl.getPaper().getHeight();
+    webV.setMinSize(w - mDif, h - mDif);
+    webV.setPrefSize(w - mDif, h - mDif);
+    webV.setMaxSize(w - mDif, h - mDif);
+    webV.getEngine().loadContent(htmlUgovor.getHtmlText());
+    htmlUgovor.setPadding(new Insets(5, 5, 5, 5));
+  }
+
+  public void printUgovor(ActionEvent actionEvent) {
+    ObservableSet<Printer> allPrinters = Printer.getAllPrinters();
+    Printer printer = null;
+    for (Printer p : allPrinters) {
+      System.out.println(p.getName());
+      printer = p;
+    }
+    PrinterJob pj = PrinterJob.createPrinterJob(printer);
+    if (pj == null || !pj.showPrintDialog(bClose.getScene().getWindow())) {
+      AlertUser.error("GRESKA", "NEMA STAMPACA");
+      return;
+    }
+    pj.getJobSettings().setPageLayout(pl);
+    pj.getJobSettings().pageLayoutProperty().setValue(pl);
+    webV.getEngine().print(pj);
+    pj.endJob();
+    pj.getPrinter().getPrinterAttributes().toString();
   }
 }
