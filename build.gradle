@@ -82,7 +82,7 @@ jfx {
 
     // minimal requirement for jfxNative-task
     vendor = 'PsyhoZOOM'
-   jfxMainAppJarName = 'jGemstone-Client.jar'
+    jfxMainAppJarName = 'jGemstone-Client.jar'
     bundler = 'linux.app'
     bundleArguments  = ['jnlp.outfile' : 'jGemstone-Client']
 

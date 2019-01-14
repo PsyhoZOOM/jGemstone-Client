@@ -20,14 +20,13 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.TrustManagerFactory;
 import org.json.JSONObject;
-import org.omg.CORBA.IMP_LIMIT;
 
 /**
  * Created by zoom on 8/8/16.
@@ -39,6 +38,7 @@ public class Client {
   public LongProperty result = new SimpleLongProperty();
   public IntegerProperty ss = new SimpleIntegerProperty();
   public IntegerProperty rs = new SimpleIntegerProperty();
+  public StringProperty strMess = new SimpleStringProperty();
 
   private static String C_VERSION = "0.200";
 
@@ -131,6 +131,7 @@ public class Client {
           }
         });
         e.printStackTrace();
+        reconnect(rObj);
 
       }
 
@@ -139,6 +140,28 @@ public class Client {
       e.printStackTrace();
     }
     return rObj;
+  }
+
+  private void reconnect(JSONObject object) {
+    System.out.println("SOCKET: " + socket.isClosed());
+    setConnected(false);
+    while (!isConnected()) {
+      Client client = new Client(local_settings, true);
+      main_run();
+      login_to_server();
+      this.socket = client.socket;
+      send_object(object);
+
+      try {
+        wait(1000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+    if (!socket.isClosed()) {
+      strMess.setValue("KONEKTOVAN");
+    }
+
   }
 
   public JSONObject getjObj() {
@@ -157,12 +180,14 @@ public class Client {
     } catch (IOException e1) {
       e1.printStackTrace();
     } catch (NullPointerException e2) {
-      AlertUser.info("DISKONEKTOVAN SA SERVERA", e2.getMessage());
-      System.exit(1);
       e2.printStackTrace();
+      AlertUser.info("DISKONEKTOVAN SA SERVERA", e2.getMessage());
+      strMess.setValue("POKUSAJ REKONEKTOVANJA");
+      //System.exit(1);
     } catch (Exception e) {
-      AlertUser.info("DISKONEKTOVAN SA SERVERA", e.getMessage());
       e.printStackTrace();
+      AlertUser.info("DISKONEKTOVAN SA SERVERA", e.getMessage());
+      strMess.setValue("POKUSAJ REKONEKTOVANJA");
     }
 
     if (newClient)
