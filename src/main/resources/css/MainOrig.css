@@ -18,6 +18,10 @@
     -fx-font-family: "Roboto";
 }
 
+.html-editor {
+  -fx-font-family: "Roboto";
+ }
+
 .jfx-decorator {
   -fx-decorator-color: #083045;
   -fx-background-color: #083045;
