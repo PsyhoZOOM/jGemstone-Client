@@ -57,7 +57,6 @@ public class ClientMain extends Application {
 
     primaryStage.setTitle("JGemstone");
 
-    setUserAgentStylesheet(STYLESHEET_MODENA);
 
     primaryStage.setOnCloseRequest(
         new EventHandler<WindowEvent>() {

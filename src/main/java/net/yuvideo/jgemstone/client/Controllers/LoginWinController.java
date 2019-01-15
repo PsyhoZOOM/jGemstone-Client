@@ -19,8 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.Settings;
-import net.yuvideo.jgemstone.client.classes.db_connection;
 
 /**
  * Created by zoom on 1/3/17.
@@ -49,18 +47,10 @@ public class LoginWinController implements Initializable {
 
 
   public void clientLogin(ActionEvent actionEvent) {
-    db_connection db = new db_connection();
-    db.get_settings();
-    Settings LocalSettings = db.getLocal_settings();
-    LocalSettings.setLocalUser(tUserName.getText());
-    LocalSettings.setLocalPassword(tPass.getText());
-    db.setLocal_settings(LocalSettings);
-    db.set_settings();
-    db.get_settings();
 
-    System.out.println(db.getLocal_settings().getLocalPassword());
-
-    Client client = new Client(db.getLocal_settings(), false);
+    Client client = new Client();
+    client.setPass(tPass.getText());
+    client.setUserName(tUserName.getText());
     client.main_run();
     client.login_to_server();
     lMessage.setText(client.status_login);
@@ -96,7 +86,7 @@ public class LoginWinController implements Initializable {
                 String send = String.valueOf(client.ss.getValue());
                 mainCtrl.lStatusConnection
                     .setText(String.format("Ping: %sms. | Rec: %sb / Send: %sb ", ping, rec, send));
-                if (client.canSend) {
+                if (client.isConnected()) {
                   mainCtrl.iStatusServer.setImage(mainCtrl.imgGreen);
                 } else {
                   mainCtrl.iStatusServer.setImage(mainCtrl.imgRed);

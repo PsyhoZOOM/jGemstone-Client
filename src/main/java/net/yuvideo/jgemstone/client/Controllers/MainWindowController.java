@@ -7,10 +7,7 @@ import com.jfoenix.controls.JFXListView;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -37,7 +34,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javax.imageio.IIOImage;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Administration;
 import net.yuvideo.jgemstone.client.Controllers.Administration.DTV.CASEditController;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Devices;
@@ -472,7 +468,7 @@ public class MainWindowController implements Initializable {
   public void showOnlinePPPeEInterface(ActionEvent actionEvent) {
     JSONObject object = new JSONObject();
     object.put("action", "mtAPITest");
-    Client mtCl = new Client(client.getLocal_settings());
+    Client mtCl = new Client();
     object = mtCl.send_object(object);
     System.out.println(object.toString());
   }

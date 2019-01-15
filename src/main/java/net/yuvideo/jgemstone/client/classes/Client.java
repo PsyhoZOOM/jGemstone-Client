@@ -40,7 +40,7 @@ public class Client {
   public IntegerProperty rs = new SimpleIntegerProperty();
   public StringProperty strMess = new SimpleStringProperty();
 
-  private static String C_VERSION = "0.200";
+  private static String C_VERSION = "0.201";
 
   //Socket socket;
   SSLSocket socket;
@@ -56,35 +56,28 @@ public class Client {
   private Settings local_settings;
   public String status_login;
   boolean connected = false;
-  private boolean newClient = true;
-  public boolean canSend = true;
+  db_connection db = new db_connection();
 
-  public Client(Settings local_settings) {
-    this.local_settings = local_settings;
-    this.password = local_settings.getLocalPassword();
-    this.userName = local_settings.getLocalUser();
-  }
 
-  public Client(Settings local_settings, boolean newClient) {
-    this.newClient = newClient;
-    this.local_settings = local_settings;
-    this.password = local_settings.getLocalPassword();
-    this.userName = local_settings.getLocalUser();
+  public Client() {
+
+    db.get_settings();
+    this.local_settings = db.getLocal_settings();
+
   }
 
   public JSONObject send_object(JSONObject rObj) {
     rObj.put("userNameLogin", this.userName);
     rObj.put("userPassLogin", this.password);
     rObj.put("C_VERSION", this.C_VERSION);
-    if (newClient) {
-      main_run();
-    } else {
-      rObj.put("keepAlive", true);
-    }
+    rObj.put("keepAlive", true);
 
     try {
 
       try {
+        if (socket.isClosed()) {
+          reconnect();
+        }
         if (Osw == null || Bfw == null) {
           Osw = new OutputStreamWriter(socket.getOutputStream(), "UTF-8");
           Bfw = new BufferedWriter(Osw);
@@ -94,11 +87,6 @@ public class Client {
       }
 
       try {
-        while (canSend == false) {
-          System.out.println("WaiTING FOR PROcCES TO FINISH");
-          Thread.sleep(1000);
-        }
-        canSend = false;
         Bfw.write(rObj.toString());
 
         //send bytes
@@ -110,7 +98,6 @@ public class Client {
         long localPING = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()
             .toEpochMilli();
         rObj = getjObj();
-        canSend = true;
 
         //recieve bytes
         rs.setValue(rObj.toString().getBytes().length);
@@ -131,7 +118,7 @@ public class Client {
           }
         });
         e.printStackTrace();
-        reconnect(rObj);
+        reconnect();
 
       }
 
@@ -142,15 +129,23 @@ public class Client {
     return rObj;
   }
 
-  private void reconnect(JSONObject object) {
+  private void reconnect() {
+    Isr = null;
+    Osw = null;
+    Bfw = null;
+    Bfr = null;
     System.out.println("SOCKET: " + socket.isClosed());
     setConnected(false);
+
     while (!isConnected()) {
-      Client client = new Client(local_settings, true);
+      Platform.runLater(new Runnable() {
+        @Override
+        public void run() {
+          strMess.setValue("RECONNECTING");
+        }
+      });
       main_run();
       login_to_server();
-      this.socket = client.socket;
-      send_object(object);
 
       try {
         wait(1000);
@@ -159,7 +154,12 @@ public class Client {
       }
     }
     if (!socket.isClosed()) {
-      strMess.setValue("KONEKTOVAN");
+      Platform.runLater(new Runnable() {
+        @Override
+        public void run() {
+          strMess.setValue("KONEKTOVAN");
+        }
+      });
     }
 
   }
@@ -178,11 +178,19 @@ public class Client {
       jObj = new JSONObject(Bfr.readLine());
       rs.setValue(jObj.toString().getBytes().length);
     } catch (IOException e1) {
+      AlertUser.error("GRESKA E1", e1.getMessage());
       e1.printStackTrace();
     } catch (NullPointerException e2) {
+      AlertUser.error("DISKONEKTOVAN SA SERVERA", e2.getMessage());
       e2.printStackTrace();
-      AlertUser.info("DISKONEKTOVAN SA SERVERA", e2.getMessage());
-      strMess.setValue("POKUSAJ REKONEKTOVANJA");
+      Platform.runLater(new Runnable() {
+        @Override
+        public void run() {
+          strMess.setValue("POKUSAJ REKONEKTOVANJA");
+
+        }
+      });
+      reconnect();
       //System.exit(1);
     } catch (Exception e) {
       e.printStackTrace();
@@ -190,8 +198,6 @@ public class Client {
       strMess.setValue("POKUSAJ REKONEKTOVANJA");
     }
 
-    if (newClient)
-      close();
 
     return jObj;
   }
@@ -303,5 +309,13 @@ public class Client {
 
   public void setLocal_settings(Settings local_settings) {
     this.local_settings = local_settings;
+  }
+
+  public void setPass(String pass) {
+    this.password = pass;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
   }
 }
