@@ -1,5 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import com.jfoenix.controls.JFXDatePicker;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,12 +15,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
@@ -37,7 +36,7 @@ import org.json.JSONObject;
 public class KorisnikPodaciController implements Initializable {
 
   public TextField tFullName;
-  public DatePicker tdDatumRodjenja;
+  public JFXDatePicker tdDatumRodjenja;
   public TextField tBrLk;
   public TextField tJMBG;
   public TextField tAdresa;

@@ -1,5 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import com.jfoenix.controls.JFXDatePicker;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +14,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -38,7 +38,7 @@ public class NovKorisnikController implements Initializable {
 
   public Button bClose;
   public TextField tFullName;
-  public DatePicker tDatumRodjenja;
+  public JFXDatePicker tDatumRodjenja;
   public TextField tPostBr;
   public TextField tBrLk;
   public TextField tJMBG;

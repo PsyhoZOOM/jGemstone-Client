@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.print.Paper;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.text.Font;
 import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -49,6 +50,8 @@ public class KorisnikUgovorEditController implements Initializable {
     this.resources = resources;
     //   htmlUgovor.setPadding(new Insets(0.75, 0.75, 0.75, 0.75));
     htmlUgovor.setStyle("-fx-text-wrap: true;");
+    Font.loadFont(ClassLoader.getSystemResource("font/roboto/Roboto-Regular.ttf").toExternalForm(),
+        8);
 
   }
 

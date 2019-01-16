@@ -31,6 +31,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -99,6 +100,9 @@ public class MainWindowController implements Initializable {
 
     exitApp();
     initMessageWindow();
+
+    Font.loadFont(ClassLoader.getSystemResource("font/roboto/Roboto-Regular.ttf").toExternalForm(),
+        10);
 
 
   }

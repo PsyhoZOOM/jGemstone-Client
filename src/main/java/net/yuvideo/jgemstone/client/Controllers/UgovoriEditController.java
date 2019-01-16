@@ -16,6 +16,7 @@ import javafx.print.PrinterJob;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
 import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
@@ -63,6 +64,9 @@ public class UgovoriEditController implements Initializable {
 
       }
     });
+
+    Font.loadFont(ClassLoader.getSystemResource("font/roboto/Roboto-Regular.ttf").toExternalForm(),
+        8);
 
 
   }
@@ -155,8 +159,8 @@ public class UgovoriEditController implements Initializable {
     webV.setMinSize(w - mDif, h - mDif);
     webV.setPrefSize(w - mDif, h - mDif);
     webV.setMaxSize(w - mDif, h - mDif);
-    webV.getEngine().loadContent(htmlUgovor.getHtmlText());
     htmlUgovor.setPadding(new Insets(5, 5, 5, 5));
+    webV.getEngine().loadContent(htmlUgovor.getHtmlText());
   }
 
   public void printUgovor(ActionEvent actionEvent) {

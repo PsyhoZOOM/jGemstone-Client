@@ -141,7 +141,8 @@
             <HBox spacing="10.0">
               <children>
                 <HTMLEditor fx:id="htmlUgovor"
-                  htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;"/>
+                  htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;"
+                  stylesheets="@../css/MainOrig.css"/>
                 <VBox>
                   <children>
                     <JFXButton fx:id="bLoad" buttonType="RAISED" onAction="#setUgovorPreviewText"

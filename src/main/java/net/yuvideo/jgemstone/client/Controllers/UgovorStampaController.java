@@ -10,6 +10,7 @@ import javafx.print.PageOrientation;
 import javafx.print.Paper;
 import javafx.print.Printer;
 import javafx.print.PrinterJob;
+import javafx.scene.text.Font;
 import javafx.scene.web.WebView;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
@@ -35,6 +36,8 @@ public class UgovorStampaController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     this.location = location;
     this.resources = resources;
+    Font.loadFont(ClassLoader.getSystemResource("font/roboto/Roboto-Regular.ttf").toExternalForm(),
+        8);
   }
 
 

@@ -216,8 +216,10 @@ public class Client {
 
 
   public void main_run() {
-    userName = local_settings.getLocalUser();
-    password = local_settings.getLocalPassword();
+    userName = this.userName;
+    password = this.password;
+    local_settings.setLocalPassword(password);
+    local_settings.setLocalUser(userName);
 
     RemoteHost = local_settings.getREMOTE_HOST();
     portNumber = local_settings.getREMOTE_PORT();
@@ -240,6 +242,7 @@ public class Client {
           SecureRandom.getInstance("SHA1PRNG"));
       socket = (SSLSocket) ssl.getSocketFactory()
           .createSocket(InetAddress.getByName(RemoteHost), portNumber);
+      socket.setKeepAlive(true);
       socket.startHandshake();
 
 //OLD NON CRYPT
@@ -312,7 +315,8 @@ public class Client {
   }
 
   public void setPass(String pass) {
-    this.password = pass;
+    md5_digiest md5 = new md5_digiest(pass);
+    this.password = md5.get_hash();
   }
 
   public void setUserName(String userName) {

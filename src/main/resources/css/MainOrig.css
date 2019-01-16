@@ -18,9 +18,7 @@
     -fx-font-family: "Roboto";
 }
 
-.html-editor {
-  -fx-font-family: "Roboto";
- }
+
 
 .jfx-decorator {
   -fx-decorator-color: #083045;
@@ -1279,3 +1277,15 @@
     -fx-border-color: black;
     -fx-table-cell-border-color:black;
     }
+
+.html-editor {
+  -fx-font-family: "Roboto";
+ }
+
+ .web-view {
+  -fx-font-family: "Roboto";
+ }
+
+ html {
+  -fx-font-family: "Roboto";
+ }
