@@ -1,6 +1,5 @@
 package net.yuvideo.jgemstone.client.classes;
 
-import com.jfoenix.controls.JFXDecorator;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import net.yuvideo.jgemstone.client.ClientMain;
 
 /**
  * Created by zoom on 8/29/16.
@@ -135,7 +135,7 @@ public class NewInterface {
       stage.setTitle(title);
       scene = new Scene(root);
       scene.getStylesheets()
-          .add(ClassLoader.getSystemResource("css/MainOrig.css").toExternalForm());
+          .add(ClientMain.cssTheme);
       if (application) {
         stage.initModality(Modality.APPLICATION_MODAL);
       } else {

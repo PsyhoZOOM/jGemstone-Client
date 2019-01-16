@@ -4,6 +4,7 @@ import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import net.yuvideo.jgemstone.client.ClientMain;
 
 
 /**
@@ -21,7 +22,7 @@ public class AlertUser {
     alert.setContentText(content);
     alert.setHeaderText("INFORMACIJA");
     alert.getDialogPane().getStylesheets()
-        .add(ClassLoader.getSystemResource("css/Main.css").toExternalForm());
+        .add(ClientMain.cssTheme);
     alert.showAndWait();
   }
 
@@ -31,7 +32,7 @@ public class AlertUser {
     alert.setContentText(content);
     alert.setHeaderText("GREŠKA");
     alert.getDialogPane().getStylesheets()
-        .add(ClassLoader.getSystemResource("css/Main.css").toExternalForm());
+        .add(ClientMain.cssTheme);
     alert.showAndWait();
   }
 
@@ -41,7 +42,7 @@ public class AlertUser {
     alert.setContentText(conent);
     alert.setHeaderText("UPOZORENJE");
     alert.getDialogPane().getStylesheets()
-        .add(ClassLoader.getSystemResource("css/Main.css").toExternalForm());
+        .add(ClientMain.cssTheme);
     alert.showAndWait();
 
   }
@@ -52,7 +53,7 @@ public class AlertUser {
     alert.setContentText(content);
     alert.setHeaderText("CHOOSE YOUR DESTINY");
     alert.getDialogPane().getStylesheets()
-        .add(ClassLoader.getSystemResource("css/Main.css").toExternalForm());
+        .add(ClientMain.cssTheme);
 
     Optional<ButtonType> result = alert.showAndWait();
 

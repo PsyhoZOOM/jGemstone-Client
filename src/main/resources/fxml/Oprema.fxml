@@ -11,7 +11,7 @@
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308"
   maxWidth="1.7976931348623157E308"
-  minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/Main.css"
+  minHeight="-Infinity" minWidth="-Infinity"
   xmlns="http://javafx.com/javafx/8.0.162"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.OpremaController">
   <children>

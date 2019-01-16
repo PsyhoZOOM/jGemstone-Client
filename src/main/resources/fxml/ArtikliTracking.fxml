@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
   minHeight="-Infinity"
-  minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/Main.css"
+  minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0"
   xmlns="http://javafx.com/javafx/8.0.121"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.ArtikliTrackingController">
   <children>

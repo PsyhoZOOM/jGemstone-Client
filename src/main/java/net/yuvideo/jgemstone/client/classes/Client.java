@@ -40,7 +40,7 @@ public class Client {
   public IntegerProperty rs = new SimpleIntegerProperty();
   public StringProperty strMess = new SimpleStringProperty();
 
-  private static String C_VERSION = "0.201";
+  private static String C_VERSION = "0.202";
 
   //Socket socket;
   SSLSocket socket;
@@ -109,14 +109,9 @@ public class Client {
 
       } catch (IOException e) {
 
-        Platform.runLater(new Runnable() {
-          @Override
-          public void run() {
             AlertUser.error("GRESKA ",
                 String.format("Poruka: %s \n Cause: %s", e.getMessage(), e.getCause()));
 
-          }
-        });
         e.printStackTrace();
         reconnect();
 
@@ -148,7 +143,7 @@ public class Client {
       login_to_server();
 
       try {
-        wait(1000);
+        Thread.sleep(1000);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }

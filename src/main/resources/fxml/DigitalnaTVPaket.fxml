@@ -8,9 +8,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308"
-  maxWidth="1.7976931348623157E308" stylesheets="@../css/Main.css"
+  maxWidth="1.7976931348623157E308"
   xmlns="http://javafx.com/javafx/8.0.172"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.DigitalniTVPaketController">
   <children>

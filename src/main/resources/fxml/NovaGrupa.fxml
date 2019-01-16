@@ -12,10 +12,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
   minHeight="-Infinity"
-  minWidth="-Infinity" prefHeight="370.0" prefWidth="380.0" stylesheets="@../css/Main.css"
+  minWidth="-Infinity" prefHeight="370.0" prefWidth="380.0"
   xmlns="http://javafx.com/javafx/8.0.162"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.NovaGrupaController">
   <children>

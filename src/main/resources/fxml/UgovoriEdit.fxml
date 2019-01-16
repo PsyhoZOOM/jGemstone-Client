@@ -21,7 +21,7 @@
   xmlns:fx="http://javafx.com/fxml/1"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.UgovoriEditController">
   <children>
-    <VBox layoutY="13.0" spacing="5.0" stylesheets="@../css/Main.css" AnchorPane.bottomAnchor="0.0"
+    <VBox layoutY="13.0" spacing="5.0" AnchorPane.bottomAnchor="0.0"
       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
         <ToolBar>
@@ -142,7 +142,7 @@
               <children>
                 <HTMLEditor fx:id="htmlUgovor"
                   htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;"
-                  stylesheets="@../css/MainOrig.css"/>
+                />
                 <VBox>
                   <children>
                     <JFXButton fx:id="bLoad" buttonType="RAISED" onAction="#setUgovorPreviewText"

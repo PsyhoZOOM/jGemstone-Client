@@ -19,6 +19,8 @@ import net.yuvideo.jgemstone.client.classes.EncodingControl;
 public class ClientMain extends Application {
 
   public static ResourceBundle bundle;
+  public static String cssTheme = ClassLoader.getSystemResource("css/MainOrig.css")
+      .toExternalForm();
   LoginWinController loginCtrl;
   Parent rootMainWindow;
   FXMLLoader fxmlLoader;
@@ -85,7 +87,7 @@ public class ClientMain extends Application {
       //    stage.show();
       scene = new Scene(rootMainWindow);
       scene.getStylesheets()
-          .add(ClassLoader.getSystemResource("css/MainOrig.css").toExternalForm());
+          .add(cssTheme);
       stage.setScene(scene);
       loginCtrl.scene = scene;
       loginCtrl.stage = stage;

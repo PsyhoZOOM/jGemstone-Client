@@ -12,7 +12,7 @@
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308"
   maxWidth="1.7976931348623157E308"
-  stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
+  xmlns="http://javafx.com/javafx/8.0.162"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.BoxPaketEditController">
   <children>
     <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -32,7 +32,7 @@
         <Label text="IPTV"/>
         <ComboBox prefWidth="150.0" fx:id="cmbIPTV"/>
         <Label text="Fiksna Telefonija"/>
-        <ComboBox prefWidth="150.0" stylesheets="@../css/Main.css" fx:id="cmbFiks"/>
+        <ComboBox prefWidth="150.0" fx:id="cmbFiks"/>
         <Label text="Cena"/>
         <Spinner editable="true" fx:id="spnCena"/>
         <Label text="PDV"/>

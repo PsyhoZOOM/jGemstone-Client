@@ -13,7 +13,7 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
   minHeight="-Infinity"
   minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0"
-  stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8.0.162"
+  xmlns="http://javafx.com/javafx/8.0.162"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.OstaleUslugeEditController">
   <children>
     <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
