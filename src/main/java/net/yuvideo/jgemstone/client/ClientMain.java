@@ -53,7 +53,7 @@ public class ClientMain extends Application {
     /// SET ICON
     primaryStage
         .getIcons()
-        .add(new Image(ClassLoader.getSystemResourceAsStream("images/YuVideoLogo.png")));
+        .add(new Image(ClassLoader.getSystemResourceAsStream("images/logo.png")));
 
     this.stage = primaryStage;
 
