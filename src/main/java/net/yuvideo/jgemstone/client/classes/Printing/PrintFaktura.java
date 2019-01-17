@@ -17,7 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -791,6 +790,7 @@ public class PrintFaktura {
     AnchorPane.setLeftAnchor(adresaPosiljke, 340.0);
     AnchorPane.setTopAnchor(table, 240.00);
     AnchorPane.setTopAnchor(rowSpecPoreze, 620.0);
+    AnchorPane.setLeftAnchor(rowSpecPoreze, 10.0);
     AnchorPane.setTopAnchor(rowFin, 680.0);
 
     Scene scene = new Scene(anchorPane, pageLayout.getPrintableWidth(),

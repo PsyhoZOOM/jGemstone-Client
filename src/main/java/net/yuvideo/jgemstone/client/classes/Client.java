@@ -113,6 +113,7 @@ public class Client {
                 String.format("Poruka: %s \n Cause: %s", e.getMessage(), e.getCause()));
 
         e.printStackTrace();
+        System.out.println(rObj.toString());
         reconnect();
 
       }

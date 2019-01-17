@@ -163,8 +163,10 @@ public class DTVEditController implements Initializable {
           public void changed(ObservableValue<? extends DTVKartice> observable, DTVKartice oldValue,
               DTVKartice newValue) {
             setData();
+            tBrKartice.setText(String.valueOf(newValue.getIdKartica()));
           }
         });
+
 
   }
 
@@ -460,6 +462,24 @@ public class DTVEditController implements Initializable {
   }
 
   public void izmeniBrojKartice(ActionEvent actionEvent) {
+    if (lsDodateneKartice.getSelectionModel().getSelectedIndex() == -1) {
+      return;
+    }
+    DTVKartice selectedItem = lsDodateneKartice.getSelectionModel().getSelectedItem();
+    System.out.println(selectedItem.getId());
+    System.out.println(selectedItem.getIdServisa());
+    JSONObject object = new JSONObject();
+    object.put("action", "changeServiceDTVCard");
+    object.put("id", selectedItem.getId());
+    object.put("DTVCardCurrent", String.valueOf(selectedItem.getIdKartica()));
+    object.put("DTVCardNew", tBrKartice.getText());
+    object.put("serviceID", selectedItem.getIdServisa());
+    object = client.send_object(object);
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA", object.getString("ERROR"));
+    }
+    initData();
+
   }
 
   public void snimiIzmeneServisa(ActionEvent actionEvent) {

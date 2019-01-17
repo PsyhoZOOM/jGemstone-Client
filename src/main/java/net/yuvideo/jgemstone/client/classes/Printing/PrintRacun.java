@@ -24,9 +24,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import net.glxn.qrgen.QRCode;
+import net.yuvideo.jgemstone.client.classes.MonthFromNumber;
 import net.yuvideo.jgemstone.client.classes.Racun;
 import org.json.JSONObject;
 
@@ -87,6 +89,8 @@ public class PrintRacun {
         Font.loadFont(getClass().getResource("/font/roboto/Roboto-Bold.ttf").toExternalForm(), 12);
     Font fontRacunDole =
         Font.loadFont(getClass().getResource("/font/roboto/Roboto-Bold.ttf").toExternalForm(), 8);
+    Font fontRacunDoleNormal = Font
+        .loadFont(getClass().getResource("/font/roboto/Roboto-Regular.ttf").toExternalForm(), 8);
 
     VBox table = new VBox();
     HBox row;
@@ -369,7 +373,7 @@ public class PrintRacun {
     Label rokZaPlacanje =
         new Label(
             String.format(
-                "Rok za plaćanje: \n %s",
+                "Rok za plaćanje: %s",
                 LocalDate.now().plusDays(30).format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
     rokZaPlacanje.setFont(font);
     cell = new HBox(rokZaPlacanje);
@@ -379,18 +383,13 @@ public class PrintRacun {
 
     row = new HBox();
     Label adresaKorisnika =
-        new Label(String.format("Adresa korisnika: \n %s ", racun.getAdresaRacuna()));
+        new Label(String.format("Adresa korisnika: \n%s ", racun.getAdresaRacuna()));
     adresaKorisnika.setFont(font);
     cell = new HBox(adresaKorisnika);
     row.getChildren().add(cell);
 
     racunPodaci.getChildren().add(row);
 
-    // QRCODE
-    // File fImg =
-    // net.glxn.qrgen.javase.QRCode.from(racun.getSifraKorisnika()).withCharset("CP1250").file();
-
-    //   File fImg = QRCode.from(racun.getSifraKorisnika()).withCharset("CP1250").file();
     File fImg = QRCode.from(String
         .format("Ime: %s \nPoziv na broj: %s\\%s \nRok za plaćanje: %s\nUkupno za uplatu: %s ",
             racun.getIme(),
@@ -458,16 +457,9 @@ public class PrintRacun {
                 .toUpperCase());
     adresaRacunaKorisnika.setFont(fontADRESA);
 
-    // RACUN_BOTTOM_DATA
-    String ime = racun.getIme();
+    String adresaNaRacunu = String
+        .format("%s\n%s", racun.getAdresaRacuna(), racun.getMestoRacuna());
 
-    String svrhaUplate = "189";
-
-    String adresaNaRacunu = String.format("%s %s", racun.getAdresaRacuna(), racun.getMestoRacuna());
-
-    String zaPerioRacun =
-        String.format(
-            "%s-%s.%s", stDate, lstDate, zaPrDate.format(DateTimeFormatter.ofPattern("yy")));
 
     String rokZaPlacanjeRacun =
         LocalDate.now().plusDays(30).format(DateTimeFormatter.ofPattern("dd.MM.yy"));
@@ -481,25 +473,9 @@ public class PrintRacun {
 
     String ukupnoZaUplatuRacun = df.format(racun.getUkupanDug());
 
-    Text imeR = new Text(ime.toUpperCase());
-    imeR.setFont(fontRacunDole);
-    Text imeR2 = new Text(ime.toUpperCase());
-    imeR2.setFont(fontRacunDole);
 
-    Text svrhaUplateR = new Text(svrhaUplate);
-    svrhaUplateR.setFont(fontBold);
-    Text svrhaUplateR2 = new Text(svrhaUplate);
-    svrhaUplateR2.setFont(fontBold);
 
-    Text adresaNaRacunuR = new Text(adresaNaRacunu.toUpperCase());
-    adresaNaRacunuR.setFont(fontRacunDole);
-    Text adresaNaRacunuR2 = new Text(adresaNaRacunu.toUpperCase());
-    adresaNaRacunuR2.setFont(fontRacunDole);
 
-    Text zaPeriodR = new Text(zaPerioRacun);
-    zaPeriodR.setFont(fontRacunDole);
-    Text zaPeriodR2 = new Text(zaPerioRacun);
-    zaPeriodR2.setFont(fontRacunDole);
 
     Text rokZaPLacanjeRacunR = new Text(rokZaPlacanjeRacun);
     rokZaPLacanjeRacunR.setFont(fontRacunDole);
@@ -514,82 +490,81 @@ public class PrintRacun {
     Text ukupnoZaUplatuR2 = new Text(ukupnoZaUplatuRacun);
     ukupnoZaUplatuR2.setFont(fontBold);
 
-    // KONTAKT
-    String kontakt =
-        String.format(
-            "KONTAKT:\n"
-                + "Info centar i prijava smetnji:\n"
-                + "012/430-000\n"
-                + "012/430-111\n"
-                + "mail: yuvideo@yuvideo.net\n"
-                + "https://www.yuvideo.net");
-    Text kontaktT = new Text(kontakt);
-    kontaktT.setFont(fontMini);
+    TextFlow userDataL = new TextFlow();
+    Text userAdresaL = new Text(String
+        .format("%s\n%s\n%s\n", racun.getIme().toUpperCase(), racun.getAdresaRacuna().toUpperCase(),
+            racun.getMestoRacuna().toUpperCase()));
+    userAdresaL.setFont(fontRacunDole);
+    Text svrhaUplate = new Text("\nSvrha uplate: ");
+    svrhaUplate.setFont(fontRacunDoleNormal);
+    Text svrgaUpateUsl = new Text("Usluge\n");
+    svrgaUpateUsl.setFont(fontRacunDole);
+
+    String monthOfNumber = MonthFromNumber
+        .getMonthOfNumber(String.valueOf(zaPrDate.getMonthValue()));
+
+    Text zaPeriod = new Text("Za period: ");
+    zaPeriod.setFont(fontRacunDoleNormal);
+    Text zaPeriodDa = new Text(String.format("%s %s\n", monthOfNumber, zaPrDate.getYear()));
+    zaPeriodDa.setFont(fontRacunDole);
+    Text rokPlacanja = new Text(String.format("\n\n%s", rokZaPlacanje.getText()));
+    rokPlacanja.setFont(fontRacunDole);
+
+    userDataL.getChildren()
+        .addAll(userAdresaL, svrhaUplate, svrgaUpateUsl, zaPeriod, zaPeriodDa, rokPlacanja);
+
+    TextFlow userDataR = new TextFlow();
+    Text userAdresaR = new Text(String
+        .format("%s\n%s\n%s\n", racun.getIme().toUpperCase(), racun.getAdresaRacuna().toUpperCase(),
+            racun.getMestoRacuna().toUpperCase()));
+    userAdresaR.setFont(fontRacunDole);
+    Text zaPeriodR = new Text("Za period: ");
+    zaPeriodR.setFont(fontRacunDoleNormal);
+    Text zaPeriodDaR = new Text(String.format("%s %s\n", monthOfNumber, zaPrDate.getYear()));
+    zaPeriodDaR.setFont(fontRacunDole);
+
+    userDataR.getChildren().addAll(userAdresaR, zaPeriodR, zaPeriodDaR);
+
+
+
+
+
 
     anchorPane.getStylesheets().removeAll();
 
     anchorPane.setMinSize(MAX_WIDTH, MAX_HEIGHT);
     anchorPane.setPrefSize(MAX_WIDTH, MAX_HEIGHT);
     anchorPane.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
-    anchorPane.getChildren().add(kontaktT);
     anchorPane.getChildren().add(canvas);
     anchorPane.getChildren().add(canvas2);
     anchorPane.getChildren().add(racunPodaci);
     anchorPane.getChildren().add(adresaRacunaKorisnika);
     anchorPane.getChildren().add(table);
-    anchorPane.getChildren().add(imeR);
-    anchorPane.getChildren().add(imeR2);
-    anchorPane.getChildren().add(svrhaUplateR);
-    anchorPane.getChildren().add(svrhaUplateR2);
-    anchorPane.getChildren().add(adresaNaRacunuR);
-    anchorPane.getChildren().add(adresaNaRacunuR2);
-    anchorPane.getChildren().add(zaPeriodR);
-    anchorPane.getChildren().add(zaPeriodR2);
-    anchorPane.getChildren().add(rokZaPLacanjeRacunR);
+    anchorPane.getChildren().add(userDataL);
+    anchorPane.getChildren().add(userDataR);
     anchorPane.getChildren().add(pozivNabrojR);
     anchorPane.getChildren().add(pozivNaBrojR2);
     anchorPane.getChildren().add(ukupnoZaUplatuR);
     anchorPane.getChildren().add(ukupnoZaUplatuR2);
 
     // ImeLeft
-    AnchorPane.setTopAnchor(imeR, 603.0);
-    AnchorPane.setLeftAnchor(imeR, 53.0);
+    AnchorPane.setTopAnchor(userDataL, 700.0);
+    AnchorPane.setLeftAnchor(userDataL, 20.0);
     // ImeRight
-    AnchorPane.setTopAnchor(imeR2, 603.0);
-    AnchorPane.setLeftAnchor(imeR2, 375.0);
-    // adresaLeft
-    AnchorPane.setTopAnchor(adresaNaRacunuR, 613.0);
-    AnchorPane.setLeftAnchor(adresaNaRacunuR, 49.0);
-    // adresaRight
-    AnchorPane.setTopAnchor(adresaNaRacunuR2, 613.0);
-    AnchorPane.setLeftAnchor(adresaNaRacunuR2, 370.0);
-    // svrhaUplateLeft
-    AnchorPane.setTopAnchor(svrhaUplateR, 623.0);
-    AnchorPane.setLeftAnchor(svrhaUplateR, 70.0);
-    // svrhaUplateRight
-    AnchorPane.setTopAnchor(svrhaUplateR2, 623.0);
-    AnchorPane.setLeftAnchor(svrhaUplateR2, 393.0);
-    // zaPeriodLeft
-    AnchorPane.setTopAnchor(zaPeriodR, 625.0);
-    AnchorPane.setLeftAnchor(zaPeriodR, 157.0);
-    // zaPeriodRight
-    AnchorPane.setTopAnchor(zaPeriodR2, 625.0);
-    AnchorPane.setLeftAnchor(zaPeriodR2, 494.0);
-    // rokPlacanjaLeft
-    AnchorPane.setTopAnchor(rokZaPLacanjeRacunR, 625.0);
-    AnchorPane.setLeftAnchor(rokZaPLacanjeRacunR, 269.0);
+    AnchorPane.setTopAnchor(userDataR, 700.0);
+    AnchorPane.setLeftAnchor(userDataR, 357.0);
     // iznosLeft
-    AnchorPane.setTopAnchor(ukupnoZaUplatuR, 648.0);
-    AnchorPane.setLeftAnchor(ukupnoZaUplatuR, 223.0);
+    AnchorPane.setTopAnchor(ukupnoZaUplatuR, 603.0);
+    AnchorPane.setLeftAnchor(ukupnoZaUplatuR, 150.0);
     // iznosRight
-    AnchorPane.setTopAnchor(ukupnoZaUplatuR2, 648.0);
-    AnchorPane.setLeftAnchor(ukupnoZaUplatuR2, 473.0);
-    // pozivNaBrojLeft
-    AnchorPane.setTopAnchor(pozivNabrojR, 713.0);
-    AnchorPane.setLeftAnchor(pozivNabrojR, 208.0);
-    // pozivNaBrojRight
-    AnchorPane.setTopAnchor(pozivNaBrojR2, 713.0);
-    AnchorPane.setLeftAnchor(pozivNaBrojR2, 443.0);
+    AnchorPane.setTopAnchor(ukupnoZaUplatuR2, 603.0);
+    AnchorPane.setLeftAnchor(ukupnoZaUplatuR2, 460.0);
+
+    AnchorPane.setTopAnchor(pozivNabrojR, 653.0);
+    AnchorPane.setLeftAnchor(pozivNabrojR, 120.0);
+
+    AnchorPane.setTopAnchor(pozivNaBrojR2, 653.0);
+    AnchorPane.setLeftAnchor(pozivNaBrojR2, 430.0);
 
     AnchorPane.setTopAnchor(table, 260.0);
     AnchorPane.setLeftAnchor(table, 10.0);
@@ -600,14 +575,11 @@ public class PrintRacun {
     AnchorPane.setTopAnchor(adresaRacunaKorisnika, 120.0);
     AnchorPane.setLeftAnchor(adresaRacunaKorisnika, 340.0);
 
-    AnchorPane.setTopAnchor(canvas, 549.0);
-    AnchorPane.setLeftAnchor(canvas, 258.0);
+    AnchorPane.setTopAnchor(canvas, 720.0);
+    AnchorPane.setLeftAnchor(canvas, 240.0);
 
-    AnchorPane.setTopAnchor(canvas2, 549.0);
-    AnchorPane.setLeftAnchor(canvas2, 512.0);
-
-    AnchorPane.setTopAnchor(kontaktT, 90.0);
-    AnchorPane.setLeftAnchor(kontaktT, 200.0);
+    AnchorPane.setTopAnchor(canvas2, 720.0);
+    AnchorPane.setLeftAnchor(canvas2, 530.0);
 
     Scene scene =
         new Scene(anchorPane, pageLayout.getPrintableWidth(), pageLayout.getPrintableHeight());
@@ -627,6 +599,4 @@ public class PrintRacun {
     }
   }
 
-  private void createPage() {
-  }
 }
