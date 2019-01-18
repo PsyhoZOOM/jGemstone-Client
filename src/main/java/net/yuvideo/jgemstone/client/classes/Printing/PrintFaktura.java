@@ -6,11 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.print.JobSettings;
 import javafx.print.PageLayout;
-import javafx.print.PageOrientation;
-import javafx.print.Paper;
-import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -29,32 +25,21 @@ public class PrintFaktura {
 
   public ArrayList<Racun> userRacun;
   public boolean showPreview = false;
-  private PageLayout pageLayout;
   private DecimalFormat df = new DecimalFormat("###,###,###,###,##0.00");
-  private PrinterJob printerJob;
-  private Printer printer;
-  private Paper paper;
-  private PageOrientation pageOrientation;
   public JSONObject firmaData;
+  private PrinterJob printerJob;
 
-  public void setPrinterData(JobSettings js, Printer printer) {
-    this.printerJob = PrinterJob.createPrinterJob();
-    this.printer = printer;
-    this.pageLayout = js.getPageLayout();
-    this.paper = this.pageLayout.getPaper();
-    this.pageOrientation = this.pageLayout.getPageOrientation();
-    this.pageLayout =
-        this.printer.createPageLayout(
-            this.paper, this.pageOrientation, Printer.MarginType.HARDWARE_MINIMUM);
-    this.printerJob.setPrinter(printer);
-  }
 
-  public void printFaktura() {
+  public void printFaktura(PrinterJob pj) {
+    this.printerJob = pj;
+    PageLayout pl = pj.getJobSettings().getPageLayout();
+    Double w = pl.getPrintableWidth();
+    Double h = pl.getPrintableHeight();
 
-    final double WIDTH = pageLayout.getPrintableWidth();
-    final double HEIGHT = pageLayout.getPrintableHeight();
-    final double MAX_WIDTH = paper.getWidth();
-    final double MAX_HEIGHT = paper.getHeight();
+    final double WIDTH = pl.getPrintableWidth();
+
+    final double MAX_WIDTH = w;
+    final double MAX_HEIGHT = h;
 
     final double _C_NAZIV = 120;
     final double _C_JMERE = 30;
@@ -774,8 +759,8 @@ public class PrintFaktura {
 
 
     anchorPane.setMinSize(MAX_WIDTH, MAX_HEIGHT);
-    anchorPane.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
     anchorPane.setPrefSize(MAX_WIDTH, MAX_HEIGHT);
+    anchorPane.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
     anchorPane.getChildren().add(tableTopRacun);
 
     anchorPane.getChildren().add(tRacunPodaci);
@@ -793,8 +778,8 @@ public class PrintFaktura {
     AnchorPane.setLeftAnchor(rowSpecPoreze, 10.0);
     AnchorPane.setTopAnchor(rowFin, 680.0);
 
-    Scene scene = new Scene(anchorPane, pageLayout.getPrintableWidth(),
-        pageLayout.getPrintableHeight());
+    Scene scene = new Scene(anchorPane, pl.getPrintableWidth(),
+        pl.getPrintableHeight());
     Stage stage = new Stage();
     stage.setScene(scene);
     anchorPane.setStyle("-fx-background-color: white;");
@@ -803,7 +788,7 @@ public class PrintFaktura {
       stage.showAndWait();
     }else {
 
-      boolean succ = printerJob.printPage(pageLayout, anchorPane);
+      boolean succ = printerJob.printPage(pl, anchorPane);
       if (succ) {
         printerJob.endJob();
       }

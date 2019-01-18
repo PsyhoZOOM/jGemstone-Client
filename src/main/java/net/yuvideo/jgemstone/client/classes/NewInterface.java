@@ -134,8 +134,7 @@ public class NewInterface {
       stage = new Stage();
       stage.setTitle(title);
       scene = new Scene(root);
-      scene.getStylesheets()
-          .add(ClientMain.cssTheme);
+      scene.getStylesheets().add(ClientMain.cssTheme);
       if (application) {
         stage.initModality(Modality.APPLICATION_MODAL);
       } else {
@@ -150,6 +149,7 @@ public class NewInterface {
       stage.setMaximized(true);
 
       stage.setScene(scene);
+
 
     } catch (IOException e) {
       e.printStackTrace();

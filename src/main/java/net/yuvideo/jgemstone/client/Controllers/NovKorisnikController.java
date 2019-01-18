@@ -94,7 +94,7 @@ public class NovKorisnikController implements Initializable {
     bReadCardReader.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        Image img1 = new Image(ClassLoader.getSystemResource("images/YuVideoLogo.png").toString());
+        Image img1 = new Image(ClassLoader.getSystemResource("images/logo.png").toString());
         imgUserPhoto.setImage(img1);
         if (cmbCardReader.getValue() == null) {
           AlertUser.error("GRESKA", "NIJE PRONADJEN ČITAČ KARTICA");

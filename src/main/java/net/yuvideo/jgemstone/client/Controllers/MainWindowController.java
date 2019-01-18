@@ -151,7 +151,7 @@ public class MainWindowController implements Initializable {
   }
 
   private void updateMessages() {
-    Image img = new Image(ClassLoader.getSystemResourceAsStream("icons/YuVideoLogo.png"), 20.0,
+    Image img = new Image(ClassLoader.getSystemResourceAsStream("images/logo.png"), 20.0,
         20.0, true, true);
 
     Label label1 = new Label(String.format("%s - Poruka od: SYSTEM ", LocalDateTime.now()));

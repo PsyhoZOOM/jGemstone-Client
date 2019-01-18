@@ -270,7 +270,7 @@
                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
                       preserveRatio="true" fx:id="iStatusServer">
                       <image>
-                        <Image url="@../icons/YuVideoLogo.png"/>
+                        <Image url="@../images/logo.png"/>
                       </image>
                     </ImageView>
                     <Label text="%NOT_CONNECTED" fx:id="lStatusConnection"/>

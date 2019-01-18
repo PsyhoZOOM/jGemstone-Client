@@ -1,21 +1,21 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import java.awt.PrintJob;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.print.JobSettings;
+import javafx.print.PageLayout;
+import javafx.print.PageOrientation;
+import javafx.print.Paper;
 import javafx.print.Printer;
+import javafx.print.Printer.MarginType;
 import javafx.print.PrinterJob;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -37,7 +37,6 @@ import net.yuvideo.jgemstone.client.classes.Mesta;
 import net.yuvideo.jgemstone.client.classes.Printing.PrintFaktura;
 import net.yuvideo.jgemstone.client.classes.Printing.PrintRacun;
 import net.yuvideo.jgemstone.client.classes.Racun;
-import net.yuvideo.jgemstone.client.classes.Settings;
 import net.yuvideo.jgemstone.client.classes.Users;
 import org.json.JSONObject;
 
@@ -201,21 +200,23 @@ public class StampaRacuna implements Initializable {
     ObservableList<Users> selectedItems = tblKorisnici.getSelectionModel().getSelectedItems();
     Window wind = bStampa.getScene().getWindow();
 
-    PrinterJob printerJob = null;
-    ObservableSet<Printer> printer = Printer.getAllPrinters();
-    for (Printer pf: printer){
-      System.out.println("PRINTR: "+pf.getName());
-      printerJob = PrinterJob.createPrinterJob(pf);
-    }
+    Printer.getDefaultPrinter();
+    Printer.getAllPrinters();
+    PrinterJob printerJob = PrinterJob.createPrinterJob();
+    PageLayout pageLayout = printerJob.getPrinter()
+        .createPageLayout(Paper.A4, PageOrientation.PORTRAIT, MarginType.HARDWARE_MINIMUM);
+    printerJob.getJobSettings().setPageLayout(pageLayout);
 
-
-    if(printerJob !=null && !printerJob.showPrintDialog(wind)){
-      AlertUser.warrning("UPOZORENJE", "Nije pronadjen stampac");
+    if (printerJob == null) {
+      AlertUser.error("GRESKA", "PRINTING SERVIS NIJE DOSUPAN");
       return;
     }
 
-    JobSettings printerSettngs = printerJob.getJobSettings();
-
+    boolean b = printerJob.showPrintDialog(wind);
+    if (!b) {
+      AlertUser.error("GRESKA", "PRISUP STAMPACU JE NEMOGUC");
+      return;
+    }
 
     for (int i = 0; i < selectedItems.size(); i++) {
       Racun racun = new Racun();
@@ -228,27 +229,25 @@ public class StampaRacuna implements Initializable {
         printFaktura = new PrintFaktura();
         printFaktura.showPreview=onlyPreview;
         printFaktura.firmaData = firmaSettings.getJsonObject();
-        printFaktura.setPrinterData(printerSettngs, printerJob.getPrinter());
         racun.initRacun(
             user.getId(),
             dtpZaMesec.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM")),
             this.client);
         printFaktura.userRacun = racun.getRacunArrayList();
-        printFaktura.printFaktura();
+        printFaktura.printFaktura(printerJob);
 
       } else {
         printRacun = new PrintRacun();
         printRacun.showPreview=onlyPreview;
         printRacun.firmaData = firmaSettings.getJsonObject();
         //ako je samo preview nema potrebe za stampacem
-        printRacun.setPrinterData(printerSettngs, printerJob.getPrinter());
 
         racun.initRacun(
             user.getId(),
             dtpZaMesec.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM")),
             this.client);
         printRacun.userRacun = racun.getRacunArrayList();
-        printRacun.printRacun();
+        printRacun.printRacun(printerJob);
       }
     }
   }

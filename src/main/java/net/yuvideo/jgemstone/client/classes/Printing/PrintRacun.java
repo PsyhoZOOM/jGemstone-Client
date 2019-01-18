@@ -6,12 +6,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javafx.geometry.Pos;
-import javafx.print.JobSettings;
 import javafx.print.PageLayout;
-import javafx.print.PageOrientation;
-import javafx.print.Paper;
-import javafx.print.PrintColor;
-import javafx.print.Printer;
+import javafx.print.PrinterAttributes;
 import javafx.print.PrinterJob;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -37,33 +33,19 @@ public class PrintRacun {
   public ArrayList<Racun> userRacun;
   public Window window;
   public boolean showPreview = false;
-  PageLayout pageLayout;
   DecimalFormat df = new DecimalFormat("###,###,###,###,##0.00");
-  private PrinterJob printerJob;
-  private Printer printer;
-  private Paper paper;
   public JSONObject firmaData;
+  private PrinterJob printerJob;
 
-  public void setPrinterData(JobSettings js, Printer printer) {
-    this.printerJob = PrinterJob.createPrinterJob(printer);
-    this.printer = printer;
-    this.pageLayout = js.getPageLayout();
-    Paper paper = pageLayout.getPaper();
-    PageOrientation pageOrientation = pageLayout.getPageOrientation();
-    this.pageLayout =
-        this.printer.createPageLayout(paper, pageOrientation, Printer.MarginType.HARDWARE_MINIMUM);
-    this.paper = paper;
 
-    printerJob.setPrinter(this.printer);
-    printerJob.getJobSettings().setPrintColor(PrintColor.MONOCHROME);
-  }
+  public void printRacun(PrinterJob pj) {
+    this.printerJob = pj;
+    PageLayout pl = pj.getJobSettings().getPageLayout();
+    Double w = pl.getPrintableWidth();
+    Double h = pl.getPrintableHeight();
 
-  public void printRacun() {
-
-    final double WIDTH = pageLayout.getPrintableWidth();
-    final double HEIGHT = pageLayout.getPrintableHeight();
-    final double MAX_WIDTH = paper.getWidth();
-    final double MAX_HEIGHT = paper.getHeight();
+    final double MAX_WIDTH = w; // printerJob.getJobSettings().getPageLayout().getPaper().getWidth();
+    final double MAX_HEIGHT = h; //printerJob.getJobSettings().getPageLayout().getPaper().getHeight();
 
     final double NAZIV = 180;
     final double KOLICINA = 40;
@@ -582,7 +564,8 @@ public class PrintRacun {
     AnchorPane.setLeftAnchor(canvas2, 530.0);
 
     Scene scene =
-        new Scene(anchorPane, pageLayout.getPrintableWidth(), pageLayout.getPrintableHeight());
+        new Scene(anchorPane, printerJob.getJobSettings().getPageLayout().getPrintableWidth(),
+            printerJob.getJobSettings().getPageLayout().getPrintableHeight());
     Stage stage = new Stage();
 
     anchorPane.setStyle("-fx-background-color: white;");
@@ -592,7 +575,16 @@ public class PrintRacun {
       stage.showAndWait();
     }else {
 
-      boolean succ = printerJob.printPage(pageLayout, anchorPane);
+      System.out.println(printerJob.getJobSettings().getPageLayout().toString());
+      System.out.println(printerJob.getPrinter().getDefaultPageLayout().toString());
+      PrinterAttributes pap = printerJob.getPrinter().getPrinterAttributes();
+      System.out.println(pap.getDefaultPaper().getName());
+      System.out.println(pap.getDefaultPaperSource().getName());
+      System.out.println(pap.getDefaultPrintColor());
+
+      System.out.println(printerJob.getJobSettings().getPrintResolution().toString());
+
+      boolean succ = printerJob.printPage(anchorPane);
       if (succ) {
         printerJob.endJob();
       }

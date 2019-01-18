@@ -4,10 +4,7 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-import javafx.beans.property.IntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -43,7 +40,6 @@ public class OptionsController implements Initializable {
   public JFXTextField tPEPDV;
   public Settings LocalSettings;
   public boolean saveFIRMA = false;
-  public boolean saveStralkerMinistraApiPass = false;
   public JFXTextField tNacinPlacanjaFaktura;
   public JFXTextField tRokPlacanjaFaktura;
   public JFXTextField tRokPlacanjaRacun;
@@ -81,6 +77,7 @@ public class OptionsController implements Initializable {
     }
       tHostnameIp.setText(LocalSettings.getREMOTE_HOST());
       tPort.setText(String.valueOf(LocalSettings.getREMOTE_PORT()));
+
   }
 
   public void enableTabs() {
