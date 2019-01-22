@@ -322,10 +322,15 @@ public class MainWindowController implements Initializable {
 
   public void mOpenStalkerAPITest(ActionEvent actionEvent) {
     JSONObject jsonObject = new JSONObject();
-    jsonObject.put("action", "test_REST_API");
-    jsonObject.put("API_ACTION", "changeMMAC");
-    jsonObject.put("account", "baki");
-    jsonObject.put("mac", "11:22:33:44:55:66");
+    //  jsonObject.put("action", "test_REST_API");
+    //  jsonObject.put("API_ACTION", "changeMMAC");
+    //   jsonObject.put("account", "baki");
+    //   jsonObject.put("mac", "11:22:33:44:55:66");
+    jsonObject.put("action", "changeMAC_IPTV");
+    client.send_object(jsonObject);
+    if (jsonObject.has("ERROR")) {
+      AlertUser.error("GRESKA", jsonObject.getString("ERROR"));
+    }
   }
 
   public void showIPTVPaketi(ActionEvent actionEvent) {

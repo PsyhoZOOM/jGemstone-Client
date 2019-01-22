@@ -49,6 +49,7 @@ public class NovKorisnikController implements Initializable {
   public ImageView imgUserPhoto;
   public Users user;
   public boolean user_saved;
+  private boolean editUser = false;
   public TextField tMesto;
   public TextField tAdresa;
   public int freeID;
@@ -155,14 +156,11 @@ public class NovKorisnikController implements Initializable {
   }
 
   public void bSaveUser(ActionEvent actionEvent) {
-    if (tFullName.getText().trim().isEmpty()) {
-      AlertUser.warrning("GRESKA", "Korisnik nije snimljen!!!");
-      return;
-    }
 
     String formatedUserJbroj = String.format("%05d", freeID);
     jObj = new JSONObject();
     jObj.put("action", "new_user");
+    jObj.put("editUser", editUser);
 
     jObj.put("freeID", freeID);
 
@@ -180,21 +178,25 @@ public class NovKorisnikController implements Initializable {
 
     jObj = client.send_object(jObj);
 
-    if (jObj.get("Message").equals("ERROR")) {
+    if (jObj.has("ERROR")) {
 
       user_saved = false;
 
-      AlertUser.error("Greska", "Korisnik nije napravljne \n" + jObj.getString("ERROR_MESSAGE"));
+      AlertUser.error("Greska", "Korisnik nije napravljne \n" + jObj.getString("ERROR"));
       return;
     } else if (jObj.get("Message").equals("user_saved")) {
+      if (editUser == true) {
 
-      AlertUser.info("Informacija", "Korisnik je snimljen");
+        AlertUser.info("Informacija", "Korisnik je snimljen");
 
-      user_saved = true;
-      user = new Users();
-      user.setId(jObj.getInt("userID"));
-      Stage stage = (Stage) bClose.getScene().getWindow();
-      stage.close();
+        user_saved = true;
+        user = new Users();
+        user.setId(jObj.getInt("userID"));
+        Stage stage = (Stage) bClose.getScene().getWindow();
+        stage.close();
+      } else {
+        editUser = true;
+      }
     }
 
 
@@ -214,6 +216,8 @@ public class NovKorisnikController implements Initializable {
     objMesta.put("action", "getMesta");
     objAdrese.put("action", "getAllAdrese");
     ////TODO autokomplete mesta and adrese
+    bSaveUser(null);
+    editUser = true;
 
   }
 }
