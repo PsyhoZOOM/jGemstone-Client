@@ -40,7 +40,7 @@ public class Client {
   public IntegerProperty rs = new SimpleIntegerProperty();
   public StringProperty strMess = new SimpleStringProperty();
 
-  private static String C_VERSION = "0.206";
+  private static String C_VERSION = "0.207";
 
   //Socket socket;
   SSLSocket socket;
@@ -133,7 +133,7 @@ public class Client {
     System.out.println("SOCKET: " + socket.isClosed());
     setConnected(false);
 
-    while (!isConnected()) {
+    for (int i = 0; i < 10; i++) {
       Platform.runLater(new Runnable() {
         @Override
         public void run() {
