@@ -127,12 +127,15 @@ public class KorisnikZaduzenjeController implements Initializable {
     if (checkInputIsError()) {
       return;
     }
+
+    Double cena = Double.valueOf(tCena.getText().trim());
+
     int rate = spnBrojRata.getValue();
     Double pdv = Double.parseDouble(tPdv.getText().trim());
     JSONObject object = new JSONObject();
     object.put("action", "zaduziKorisnikaCustom");
     object.put("naziv", tNaziv.getText().trim());
-    object.put("cena", Double.valueOf(tCena.getText().trim()));
+    object.put("cena", cena - valueToPercent.getPDVOfSum(cena, pdv));
     object.put("pdv", pdv);
     object.put("brojRata", rate);
     object.put("zaMesec", dtpZaMesec.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM")));

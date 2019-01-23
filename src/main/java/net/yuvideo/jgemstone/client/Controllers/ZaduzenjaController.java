@@ -212,7 +212,6 @@ public class ZaduzenjaController implements Initializable {
     korisnikZaduzenjeController.setClient(this.client);
     korisnikZaduzenjeController.setUserID(getUserID());
     newInterface.getStage().showAndWait();
-    showDataZaMesec();
     initData();
   }
 }
