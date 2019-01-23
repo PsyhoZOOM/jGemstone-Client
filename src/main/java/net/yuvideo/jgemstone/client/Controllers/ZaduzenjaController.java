@@ -11,9 +11,11 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
@@ -25,12 +27,14 @@ import javafx.util.Callback;
 import net.yuvideo.jgemstone.client.Controllers.Zaduzenja.MesecnaZaduzenja;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.NewInterface;
 import org.json.JSONObject;
 
 public class ZaduzenjaController implements Initializable {
 
   public JFXListView<MesecnaZaduzenja> listMesec;
   public JFXTreeTableView tblZaduzenja;
+  public Button bNovoZaduzenje;
   private URL location;
   private ResourceBundle resources;
   private Client client;
@@ -198,5 +202,17 @@ public class ZaduzenjaController implements Initializable {
 
   public void setUserID(int userID) {
     this.userID = userID;
+  }
+
+  public void showNovoZaduzenje(ActionEvent actionEvent) {
+    NewInterface newInterface = new NewInterface("fxml/KorisnikZaduzenje.fxml",
+        "NOBO ZADUZENJE KORISNIKA", resources, true);
+    KorisnikZaduzenjeController korisnikZaduzenjeController = newInterface.getLoader()
+        .getController();
+    korisnikZaduzenjeController.setClient(this.client);
+    korisnikZaduzenjeController.setUserID(getUserID());
+    newInterface.getStage().showAndWait();
+    showDataZaMesec();
+    initData();
   }
 }
