@@ -1,5 +1,7 @@
 package net.yuvideo.jgemstone.client.classes.Printing;
 
+import com.sun.javafx.print.PrintHelper;
+import com.sun.javafx.print.Units;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -7,7 +9,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javafx.geometry.Pos;
 import javafx.print.PageLayout;
-import javafx.print.PrinterAttributes;
+import javafx.print.PageOrientation;
+import javafx.print.Paper;
 import javafx.print.PrinterJob;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -21,6 +24,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import net.glxn.qrgen.QRCode;
@@ -38,14 +42,19 @@ public class PrintRacun {
   private PrinterJob printerJob;
 
 
-  public void printRacun(PrinterJob pj) {
+  public void printRacun(PrinterJob pj, AnchorPane anchorPane) {
     this.printerJob = pj;
     PageLayout pl = pj.getJobSettings().getPageLayout();
-    Double w = pl.getPrintableWidth();
-    Double h = pl.getPrintableHeight();
+    Paper paper = PrintHelper.createPaper("A4_MARGIN", 210, 297, Units.MM);
+    //   pj.getPrinter().createPageLayout(paper, PageOrientation.PORTRAIT, 0.25, 0.25, 0.25, 0.25);
+    pj.getJobSettings().setPageLayout(
+        pj.getPrinter().createPageLayout(paper, PageOrientation.PORTRAIT, 0.25, 0.25, 0.25, 0.25));
+    Double w = pl.getPrintableWidth() * 2;
+    Double h = pl.getPrintableHeight() * 2;
+    System.out.println("aa");
 
     final double MAX_WIDTH = w; // printerJob.getJobSettings().getPageLayout().getPaper().getWidth();
-    final double MAX_HEIGHT = h; //printerJob.getJobSettings().getPageLayout().getPaper().getHeight();
+    final double MAX_HEIGHT = h;
 
     final double NAZIV = 180;
     final double KOLICINA = 40;
@@ -56,7 +65,8 @@ public class PrintRacun {
     final double PDV = 60;
     final double UKUPNO = 70;
 
-    AnchorPane anchorPane = new AnchorPane();
+    //   AnchorPane anchorPane = new AnchorPane();
+
 
     Font font =
         Font.loadFont(
@@ -514,9 +524,6 @@ public class PrintRacun {
 
     anchorPane.getStylesheets().removeAll();
 
-    anchorPane.setMinSize(MAX_WIDTH, MAX_HEIGHT);
-    anchorPane.setPrefSize(MAX_WIDTH, MAX_HEIGHT);
-    anchorPane.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
     anchorPane.getChildren().add(canvas);
     anchorPane.getChildren().add(canvas2);
     anchorPane.getChildren().add(racunPodaci);
@@ -563,31 +570,40 @@ public class PrintRacun {
     AnchorPane.setTopAnchor(canvas2, 720.0);
     AnchorPane.setLeftAnchor(canvas2, 530.0);
 
-    Scene scene =
-        new Scene(anchorPane, printerJob.getJobSettings().getPageLayout().getPrintableWidth(),
-            printerJob.getJobSettings().getPageLayout().getPrintableHeight());
-    Stage stage = new Stage();
+    double scaleX = pl.getPrintableWidth();
+    double scaleY = pl.getPrintableHeight();
+    Scale scale = new Scale(scaleX, scaleY);
+
+    //   anchorPane.getTransforms().add(scale);
+    double ww = w - pl.getLeftMargin() - pl.getRightMargin();
+    double hh = h - pl.getTopMargin() - pl.getBottomMargin();
+
+    anchorPane.setMinSize(w - pl.getLeftMargin() - pl.getRightMargin(),
+        h - pl.getTopMargin() - pl.getBottomMargin());
+    anchorPane.setPrefSize(w - pl.getLeftMargin() - pl.getRightMargin(),
+        h - pl.getTopMargin() - pl.getBottomMargin());
+    anchorPane.setMaxSize(w - pl.getLeftMargin() - pl.getRightMargin(),
+        h - pl.getTopMargin() - pl.getBottomMargin());
+    table.setMinSize(ww, hh);
+    table.setPrefSize(ww, hh);
+    table.setMaxSize(ww, hh);
 
     anchorPane.setStyle("-fx-background-color: white;");
-
-    stage.setScene(scene);
     if (showPreview) {
+      Stage stage = new Stage();
+      Scene scene = new Scene(anchorPane, ww, hh);
+      stage.setScene(scene);
       stage.showAndWait();
     }else {
 
       System.out.println(printerJob.getJobSettings().getPageLayout().toString());
-      System.out.println(printerJob.getPrinter().getDefaultPageLayout().toString());
-      PrinterAttributes pap = printerJob.getPrinter().getPrinterAttributes();
-      System.out.println(pap.getDefaultPaper().getName());
-      System.out.println(pap.getDefaultPaperSource().getName());
-      System.out.println(pap.getDefaultPrintColor());
-
       System.out.println(printerJob.getJobSettings().getPrintResolution().toString());
-
-      boolean succ = printerJob.printPage(anchorPane);
+      boolean succ = printerJob.printPage(pl, anchorPane);
       if (succ) {
         printerJob.endJob();
       }
+
+
     }
   }
 

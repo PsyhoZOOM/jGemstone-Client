@@ -11,11 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.print.PageLayout;
-import javafx.print.PageOrientation;
-import javafx.print.Paper;
 import javafx.print.Printer;
-import javafx.print.Printer.MarginType;
 import javafx.print.PrinterJob;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -27,6 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Window;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
@@ -199,13 +196,11 @@ public class StampaRacuna implements Initializable {
     }
     ObservableList<Users> selectedItems = tblKorisnici.getSelectionModel().getSelectedItems();
     Window wind = bStampa.getScene().getWindow();
+    AnchorPane anchorPane = new AnchorPane();
 
     Printer.getDefaultPrinter();
     Printer.getAllPrinters();
     PrinterJob printerJob = PrinterJob.createPrinterJob();
-    PageLayout pageLayout = printerJob.getPrinter()
-        .createPageLayout(Paper.A4, PageOrientation.PORTRAIT, MarginType.HARDWARE_MINIMUM);
-    printerJob.getJobSettings().setPageLayout(pageLayout);
 
     if (printerJob == null) {
       AlertUser.error("GRESKA", "PRINTING SERVIS NIJE DOSUPAN");
@@ -217,6 +212,7 @@ public class StampaRacuna implements Initializable {
       AlertUser.error("GRESKA", "PRISUP STAMPACU JE NEMOGUC");
       return;
     }
+    printerJob.showPageSetupDialog(wind);
 
     for (int i = 0; i < selectedItems.size(); i++) {
       Racun racun = new Racun();
@@ -247,7 +243,7 @@ public class StampaRacuna implements Initializable {
             dtpZaMesec.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM")),
             this.client);
         printRacun.userRacun = racun.getRacunArrayList();
-        printRacun.printRacun(printerJob);
+        printRacun.printRacun(printerJob, anchorPane);
       }
     }
   }

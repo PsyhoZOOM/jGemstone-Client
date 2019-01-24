@@ -25,56 +25,56 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.172"
-  fx:controller="net.yuvideo.jgemstone.client.Controllers.MainWindowController"
-  fx:id="mainStackPane">
+<StackPane fx:id="mainStackPane" xmlns="http://javafx.com/javafx/8.0.171"
+  xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.MainWindowController">
   <children>
-    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-      prefHeight="800.0" prefWidth="1280.0" fx:id="anchorMainWindow">
+    <AnchorPane fx:id="anchorMainWindow" maxHeight="1.7976931348623157E308"
+      maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1280.0">
       <children>
         <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
           AnchorPane.topAnchor="0.0">
           <menus>
             <Menu mnemonicParsing="false" text="Program">
               <items>
-                <MenuItem mnemonicParsing="false" text="Izlaz" fx:id="mExit"/>
+                <MenuItem fx:id="mExit" mnemonicParsing="false" text="Izlaz"/>
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Paketi" fx:id="mPaketi">
+            <Menu fx:id="mPaketi" mnemonicParsing="false" text="Paketi">
               <items>
-                <Menu mnemonicParsing="false" text="Box Paketi" fx:id="mBOX">
+                <Menu fx:id="mBOX" mnemonicParsing="false" text="Box Paketi">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#showBoxPaket" text="Pregled/Izmene"
-                      fx:id="miBOXPaket"/>
+                    <MenuItem fx:id="miBOXPaket" mnemonicParsing="false" onAction="#showBoxPaket"
+                      text="Pregled/Izmene"/>
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Internet" fx:id="mPInternet">
+                <Menu fx:id="mPInternet" mnemonicParsing="false" text="Internet">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#showInternetPaket" text="Paketi"/>
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Digitalna TV" fx:id="mPDTV">
+                <Menu fx:id="mPDTV" mnemonicParsing="false" text="Digitalna TV">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#showDTVPaket" text="Paketi"/>
                     <MenuItem mnemonicParsing="false" onAction="#showCSAEditor" text="CAS"/>
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Fiksna Telefonija" fx:id="mFixnaTelefonija">
+                <Menu fx:id="mFixnaTelefonija" mnemonicParsing="false" text="Fiksna Telefonija">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#showFisknaTelefonijaPaket"
-                      text="Paketi" fx:id="Paketi"/>
+                    <MenuItem fx:id="Paketi" mnemonicParsing="false"
+                      onAction="#showFisknaTelefonijaPaket" text="Paketi"/>
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="IPTV" fx:id="mIPTV">
+                <Menu fx:id="mIPTV" mnemonicParsing="false" text="IPTV">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#showIPTVPaketi" text="IPTV Paketi"
-                      fx:id="IPTVPaketi"/>
+                    <MenuItem fx:id="IPTVPaketi" mnemonicParsing="false" onAction="#showIPTVPaketi"
+                      text="IPTV Paketi"/>
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Ostale usluge" fx:id="mOstaleusluge">
+                <Menu fx:id="mOstaleusluge" mnemonicParsing="false" text="Ostale usluge">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#showOstaleUsluge"
-                      text="Ostale usluge" fx:id="OstaleUsluge"/>
+                    <MenuItem fx:id="OstaleUsluge" mnemonicParsing="false"
+                      onAction="#showOstaleUsluge" text="Ostale usluge"/>
                   </items>
                 </Menu>
               </items>
@@ -83,10 +83,10 @@
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#showKorisnici"
                   text="Pretraga korisnika"/>
-                <MenuItem mnemonicParsing="false" onAction="#showMesta" text="Mesta i Ulice"
-                  fx:id="mesta"/>
-                <MenuItem mnemonicParsing="false" onAction="#showOprema" text="Oprema"
-                  fx:id="oprema"/>
+                <MenuItem fx:id="mesta" mnemonicParsing="false" onAction="#showMesta"
+                  text="Mesta i Ulice"/>
+                <MenuItem fx:id="oprema" mnemonicParsing="false" onAction="#showOprema"
+                  text="Oprema"/>
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Ugovori">
@@ -96,74 +96,76 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Fiksna Telefonija">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#importCSV" text="Import CSV Fajl"
-                  fx:id="mImportCSV"/>
-                <MenuItem mnemonicParsing="false" onAction="#showPregledCSV" text="Pregled CSV-a"
-                  fx:id="mPregledCSV"/>
-                <MenuItem mnemonicParsing="false" onAction="#showObracun" text="Obračun"
-                  fx:id="Obracun"/>
+                <MenuItem fx:id="mImportCSV" mnemonicParsing="false" onAction="#importCSV"
+                  text="Import CSV Fajl"/>
+                <MenuItem fx:id="mPregledCSV" mnemonicParsing="false" onAction="#showPregledCSV"
+                  text="Pregled CSV-a"/>
+                <MenuItem fx:id="Obracun" mnemonicParsing="false" onAction="#showObracun"
+                  text="Obračun"/>
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Magacini" fx:id="mMagacin">
+            <Menu fx:id="mMagacin" mnemonicParsing="false" text="Magacini">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#MagacinShow" text="Magacini"
-                  fx:id="mMagacinIzmene"/>
-                <MenuItem mnemonicParsing="false" onAction="#showArtikli" text="Artikli"
-                  fx:id="mArtikliShow"/>
+                <MenuItem fx:id="mMagacinIzmene" mnemonicParsing="false" onAction="#MagacinShow"
+                  text="Magacini"/>
+                <MenuItem fx:id="mArtikliShow" mnemonicParsing="false" onAction="#showArtikli"
+                  text="Artikli"/>
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Izveštaji i Obračuni" fx:id="mIzvestajiIObracun">
+            <Menu fx:id="mIzvestajiIObracun" mnemonicParsing="false" text="Izveštaji i Obračuni">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#showMesecniObracun"
-                  text="Mesečni obračun" fx:id="mMesecniObracun"/>
-                <MenuItem mnemonicParsing="false" onAction="#showPDVObracun" text="PDV Obračun"
-                  fx:id="mPDVObracun"/>
-                <MenuItem mnemonicParsing="false" onAction="#showStampaRacuna" text="Štampa Računa"
-                  fx:id="mStampaRacuna"/>
-                <MenuItem mnemonicParsing="false" onAction="#showFiksnaPozivi" text="Fiksna Pozivi"
-                  fx:id="mFiksnaPozivi"/>
+                <MenuItem fx:id="mMesecniObracun" mnemonicParsing="false"
+                  onAction="#showMesecniObracun" text="Mesečni obračun"/>
+                <MenuItem fx:id="mPDVObracun" mnemonicParsing="false" onAction="#showPDVObracun"
+                  text="PDV Obračun"/>
+                <MenuItem fx:id="mStampaRacuna" mnemonicParsing="false" onAction="#showStampaRacuna"
+                  text="Štampa Računa"/>
+                <MenuItem fx:id="mFiksnaPozivi" mnemonicParsing="false" onAction="#showFiksnaPozivi"
+                  text="Fiksna Pozivi"/>
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Mreža" fx:id="mMreza">
+            <Menu fx:id="mMreza" mnemonicParsing="false" text="Mreža">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#showUredjaji" text="Uređaji"
-                  fx:id="mUredjaji"/>
+                <MenuItem fx:id="mUredjaji" mnemonicParsing="false" onAction="#showUredjaji"
+                  text="Uređaji"/>
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Mape">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#showMape" text="Mape" fx:id="mMape"/>
+                <MenuItem fx:id="mMape" mnemonicParsing="false" onAction="#showMape" text="Mape"/>
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Operateri">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#showOperaterList" text="Izmene"
-                  fx:id="operaterList"/>
-                <MenuItem mnemonicParsing="false" onAction="#showGroupOpers" text="Grupe"
-                  fx:id="mGrupeOpers"/>
+                <MenuItem fx:id="operaterList" mnemonicParsing="false" onAction="#showOperaterList"
+                  text="Izmene"/>
+                <MenuItem fx:id="mGrupeOpers" mnemonicParsing="false" onAction="#showGroupOpers"
+                  text="Grupe"/>
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Opcije">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#mOpenSetup" text="Podešavanja"
-                  fx:id="mSetup"/>
+                <MenuItem fx:id="mSetup" mnemonicParsing="false" onAction="#mOpenSetup"
+                  text="Podešavanja"/>
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Help" fx:id="help">
+            <Menu fx:id="help" mnemonicParsing="false" text="Help">
               <items>
                 <MenuItem mnemonicParsing="false" text="About"/>
-                <MenuItem mnemonicParsing="false" onAction="#mOpenStalkerAPITest" text="StalkerApi"
-                  fx:id="StalkerAPITest"/>
-                <MenuItem mnemonicParsing="false" onAction="#mOpenQrScanner" text="QR Scanner"
-                  fx:id="barCodeReader"/>
-                <MenuItem mnemonicParsing="false" onAction="#mOpenPDFPreview" text="PDF Preview"
-                  fx:id="pdfPreview"/>
-                <MenuItem mnemonicParsing="false" onAction="#showProgressTest" text="Progress"
-                  fx:id="mProgressTest"/>
-                <MenuItem mnemonicParsing="false" onAction="#testSNMPWALK" text="SNMP TEST"
-                  fx:id="snmpTEst"/>
+                <MenuItem fx:id="StalkerAPITest" mnemonicParsing="false"
+                  onAction="#mOpenStalkerAPITest" text="StalkerApi"/>
+                <MenuItem fx:id="barCodeReader" mnemonicParsing="false" onAction="#mOpenQrScanner"
+                  text="QR Scanner"/>
+                <MenuItem fx:id="pdfPreview" mnemonicParsing="false" onAction="#mOpenPDFPreview"
+                  text="PDF Preview"/>
+                <MenuItem fx:id="mProgressTest" mnemonicParsing="false" onAction="#showProgressTest"
+                  text="Progress"/>
+                <MenuItem fx:id="snmpTEst" mnemonicParsing="false" onAction="#testSNMPWALK"
+                  text="SNMP TEST"/>
                 <MenuItem mnemonicParsing="false" onAction="#showOnlinePPPeEInterface"
                   text="SHOW ONLINE PPPoE INTERFACE"/>
+                <MenuItem fx:id="mPrintDocTest" mnemonicParsing="false" onAction="#printDocTest"
+                  text="PrintDocTest"/>
               </items>
             </Menu>
           </menus>
@@ -171,34 +173,32 @@
             <DropShadow/>
           </effect>
         </MenuBar>
-        <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0"
-          fx:id="MainBorderPane">
+        <BorderPane fx:id="MainBorderPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
           <top>
             <VBox BorderPane.alignment="CENTER_LEFT">
               <children>
                 <Separator prefWidth="200.0"/>
                 <HBox alignment="CENTER_LEFT" spacing="5.0" styleClass="segmented-button-bar">
                   <children>
-                    <Button minHeight="50.0" minWidth="100.0" mnemonicParsing="false"
-                      onAction="#showKorisnici" prefHeight="50.0" styleClass="first"
-                      text="KORISNICI" textAlignment="CENTER" wrapText="true"
-                      fx:id="bShowKorisniciSearch">
+                    <Button fx:id="bShowKorisniciSearch" minHeight="50.0" minWidth="100.0"
+                      mnemonicParsing="false" onAction="#showKorisnici" prefHeight="50.0"
+                      styleClass="first" text="KORISNICI" textAlignment="CENTER" wrapText="true">
                       <graphic>
 
                         <FontIcon fill="white" iconLiteral="mdi-account-multiple" iconSize="25"/>
                       </graphic>
                     </Button>
-                    <Button maxHeight="50.0" minHeight="50.0" minWidth="100.0"
+                    <Button fx:id="bInternet" maxHeight="50.0" minHeight="50.0" minWidth="100.0"
                       mnemonicParsing="false" onAction="#showInternetMain" prefHeight="50.0"
-                      styleClass="last" text="ADMINISTRACIJA" fx:id="bInternet">
+                      styleClass="last" text="ADMINISTRACIJA">
                       <graphic>
                         <FontIcon fill="white" iconLiteral="mdi-server-network" iconSize="25"/>
                       </graphic>
                     </Button>
-                    <Button maxHeight="50.0" minHeight="50.0" minWidth="100.0"
+                    <Button fx:id="bArtikli" maxHeight="50.0" minHeight="50.0" minWidth="100.0"
                       mnemonicParsing="false" onAction="#showArtikli" prefHeight="50.0"
-                      text="Artikli" fx:id="bArtikli">
+                      text="Artikli">
                       <graphic>
                         <FontIcon fill="white" iconLiteral="mdi-store" iconSize="25"/>
                       </graphic>
@@ -210,10 +210,10 @@
                         <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <children>
-                            <JFXButton StackPane.alignment="CENTER" buttonType="RAISED"
-                              text="Poruke" fx:id="bShowMessage"/>
-                            <Circle StackPane.alignment="TOP_RIGHT" radius="10.0"
-                              strokeLineJoin="BEVEL" strokeType="INSIDE" strokeWidth="0.5">
+                            <JFXButton fx:id="bShowMessage" buttonType="RAISED" text="Poruke"
+                              StackPane.alignment="CENTER"/>
+                            <Circle radius="10.0" strokeLineJoin="BEVEL" strokeType="INSIDE"
+                              strokeWidth="0.5" StackPane.alignment="TOP_RIGHT">
                               <stroke>
                                 <LinearGradient endX="1.0" endY="1.0">
                                   <stops>
@@ -235,9 +235,9 @@
                                 </RadialGradient>
                               </fill>
                             </Circle>
-                            <Label StackPane.alignment="TOP_RIGHT" alignment="CENTER"
-                              contentDisplay="CENTER" minWidth="20.0" text="0" wrapText="true"
-                              fx:id="lMessage">
+                            <Label fx:id="lMessage" alignment="CENTER" contentDisplay="CENTER"
+                              minWidth="20.0" text="0" wrapText="true"
+                              StackPane.alignment="TOP_RIGHT">
                               <StackPane.margin>
                                 <Insets/>
                               </StackPane.margin>
@@ -267,13 +267,13 @@
                 <HBox alignment="CENTER_LEFT">
                   <children>
                     <Label text="%STATUS"/>
-                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
-                      preserveRatio="true" fx:id="iStatusServer">
+                    <ImageView fx:id="iStatusServer" fitHeight="20.0" fitWidth="20.0"
+                      pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@../images/logo.png"/>
                       </image>
                     </ImageView>
-                    <Label text="%NOT_CONNECTED" fx:id="lStatusConnection"/>
+                    <Label fx:id="lStatusConnection" text="%NOT_CONNECTED"/>
                   </children>
                 </HBox>
               </items>
@@ -282,14 +282,14 @@
         </BorderPane>
       </children>
     </AnchorPane>
-    <VBox StackPane.alignment="TOP_LEFT" maxWidth="300.0" prefWidth="300.0" fx:id="vbSideView">
+    <VBox fx:id="vbSideView" maxWidth="300.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
       <StackPane.margin>
         <Insets bottom="50.0" left="10.0" top="150.0"/>
       </StackPane.margin>
       <children>
-        <JFXButton text="Zatvori" fx:id="bCloseMessageWin"/>
-        <JFXListView style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS" depth="2"
-          showTooltip="true" fx:id="jfxLIstMessages"/>
+        <JFXButton fx:id="bCloseMessageWin" text="Zatvori"/>
+        <JFXListView fx:id="jfxLIstMessages" depth="2" showTooltip="true"
+          style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS"/>
       </children>
     </VBox>
   </children>

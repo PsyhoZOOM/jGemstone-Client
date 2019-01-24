@@ -4,6 +4,8 @@ import static javafx.application.Platform.exit;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -35,6 +37,9 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javax.print.PrintService;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Administration;
 import net.yuvideo.jgemstone.client.Controllers.Administration.DTV.CASEditController;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Devices;
@@ -44,6 +49,7 @@ import net.yuvideo.jgemstone.client.Controllers.Mape.MainMapController;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.NewInterface;
+import net.yuvideo.jgemstone.client.classes.Printing.PrintablePrint;
 import net.yuvideo.jgemstone.client.classes.Settings;
 import net.yuvideo.jgemstone.client.classes.db_connection;
 import org.json.JSONObject;
@@ -71,6 +77,7 @@ public class MainWindowController implements Initializable {
   public JFXButton bCloseMessageWin;
   public JFXButton bUplate;
   public MenuItem mGrupeOpers;
+  public MenuItem mPrintDocTest;
 
   ResourceBundle resource;
   Thread threadCheckAlive;
@@ -508,5 +515,28 @@ public class MainWindowController implements Initializable {
     groupEdit.setClient(this.client);
     groupEdit.setData();
     groupOpersInterface.getStage().showAndWait();
+  }
+
+  public void printDocTest(ActionEvent actionEvent) {
+    PrintRequestAttributeSet attributeSet = new HashPrintRequestAttributeSet();
+    //   attributeSet.add(new PrinterResolution(300, 300, PrinterResolution.DPI));
+    //   attributeSet.add(new MediaPrintableArea(10, 10, 210, 297, MediaPrintableArea.INCH));
+    PrinterJob pj = PrinterJob.getPrinterJob();
+    PrintService[] services = PrinterJob.lookupPrintServices();
+    if (services.length > 0) {
+      try {
+        System.out.println("Sel pr:" + services[1]);
+        //       pj.setPrintService(services[1]);
+
+        pj.setPrintable(new PrintablePrint());
+        pj.pageDialog(attributeSet);
+        if (pj.printDialog(attributeSet)) {
+          pj.print(attributeSet);
+        }
+      } catch (PrinterException e) {
+        e.printStackTrace();
+      }
+
+    }
   }
 }
