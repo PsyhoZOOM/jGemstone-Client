@@ -468,10 +468,6 @@ public class PrintRacun {
     Text ukupnoZaUplatuR2 = new Text(ukupnoZaUplatuRacun);
     ukupnoZaUplatuR2.setFont(fontBold);
 
-    Text UPLATILACL = new Text("UPLATILAC:");
-    Text UPLATILACR = new Text("UPLATILAC:");
-    UPLATILACL.setFont(fontBoldL);
-    UPLATILACR.setFont(fontBoldL);
     TextFlow userDataL = new TextFlow();
     Text userAdresaL = new Text(String
         .format("\n%s\n%s\n%s\n", racun.getIme().toUpperCase(),
@@ -494,7 +490,7 @@ public class PrintRacun {
     rokPlacanja.setFont(fontRacunDole);
 
     userDataL.getChildren()
-        .addAll(UPLATILACL, userAdresaL, svrhaUplate, svrgaUpateUsl, zaPeriod, zaPeriodDa,
+        .addAll(userAdresaL, svrhaUplate, svrgaUpateUsl, zaPeriod, zaPeriodDa,
             rokPlacanja);
 
     TextFlow userDataR = new TextFlow();
@@ -508,7 +504,7 @@ public class PrintRacun {
     Text zaPeriodDaR = new Text(String.format("%s %s\n", monthOfNumber, zaPrDate.getYear()));
     zaPeriodDaR.setFont(fontRacunDole);
 
-    userDataR.getChildren().addAll(UPLATILACR, userAdresaR, zaPeriodR, zaPeriodDaR);
+    userDataR.getChildren().addAll(userAdresaR, zaPeriodR, zaPeriodDaR);
 
     anchorPane.getStylesheets().removeAll();
 
