@@ -41,8 +41,10 @@ public class PrintRacun {
 
   public void printRacun(AnchorPane anchorPane) {
     printerJob = PrinterJob.createPrinterJob();
+
     printerJob.getJobSettings().setPageLayout(printerJob.getPrinter()
-        .createPageLayout(Paper.A4, PageOrientation.PORTRAIT, 0.25, 0.25, 0.25, 0.25));
+        .createPageLayout(Paper.A4, PageOrientation.PORTRAIT, 20, 20, 20, 20));
+
 
     printerJob.showPrintDialog(null);
 
@@ -60,8 +62,10 @@ public class PrintRacun {
     Font font =
         Font.loadFont(
             getClass().getResource("/font/roboto/Roboto-Regular.ttf").toExternalForm(), 8);
-    Font fontBold =
-        Font.loadFont(getClass().getResource("/font/roboto/Roboto-Bold.ttf").toExternalForm(), 8);
+    Font fontBold = Font
+        .loadFont(getClass().getResource("/font/roboto/Roboto-Bold.ttf").toExternalForm(), 8);
+    Font fontBoldL = Font
+        .loadFont(getClass().getResource("/font/roboto/Roboto-Regular.ttf").toExternalForm(), 10);
     Font fontADRESA =
         Font.loadFont(getClass().getResource("/font/roboto/Roboto-Bold.ttf").toExternalForm(), 12);
     Font fontRacunDole =
@@ -462,9 +466,14 @@ public class PrintRacun {
     Text ukupnoZaUplatuR2 = new Text(ukupnoZaUplatuRacun);
     ukupnoZaUplatuR2.setFont(fontBold);
 
+    Text UPLATILACL = new Text("UPLATILAC:");
+    Text UPLATILACR = new Text("UPLATILAC:");
+    UPLATILACL.setFont(fontBoldL);
+    UPLATILACR.setFont(fontBoldL);
     TextFlow userDataL = new TextFlow();
     Text userAdresaL = new Text(String
-        .format("%s\n%s\n%s\n", racun.getIme().toUpperCase(), racun.getAdresaRacuna().toUpperCase(),
+        .format("\n%s\n%s\n%s\n", racun.getIme().toUpperCase(),
+            racun.getAdresaRacuna().toUpperCase(),
             racun.getMestoRacuna().toUpperCase()));
     userAdresaL.setFont(fontRacunDole);
     Text svrhaUplate = new Text("\nSvrha uplate: ");
@@ -483,11 +492,13 @@ public class PrintRacun {
     rokPlacanja.setFont(fontRacunDole);
 
     userDataL.getChildren()
-        .addAll(userAdresaL, svrhaUplate, svrgaUpateUsl, zaPeriod, zaPeriodDa, rokPlacanja);
+        .addAll(UPLATILACL, userAdresaL, svrhaUplate, svrgaUpateUsl, zaPeriod, zaPeriodDa,
+            rokPlacanja);
 
     TextFlow userDataR = new TextFlow();
     Text userAdresaR = new Text(String
-        .format("%s\n%s\n%s\n", racun.getIme().toUpperCase(), racun.getAdresaRacuna().toUpperCase(),
+        .format("\n%s\n%s\n%s\n", racun.getIme().toUpperCase(),
+            racun.getAdresaRacuna().toUpperCase(),
             racun.getMestoRacuna().toUpperCase()));
     userAdresaR.setFont(fontRacunDole);
     Text zaPeriodR = new Text("Za period: ");
@@ -495,11 +506,11 @@ public class PrintRacun {
     Text zaPeriodDaR = new Text(String.format("%s %s\n", monthOfNumber, zaPrDate.getYear()));
     zaPeriodDaR.setFont(fontRacunDole);
 
-    userDataR.getChildren().addAll(userAdresaR, zaPeriodR, zaPeriodDaR);
+    userDataR.getChildren().addAll(UPLATILACR, userAdresaR, zaPeriodR, zaPeriodDaR);
 
     anchorPane.getStylesheets().removeAll();
 
-    Text aa = new Text("PRVO GORE LEVBO");
+    Text aa = new Text("PRVO GORE LEVO");
     anchorPane.getChildren().add(aa);
     AnchorPane.setTopAnchor(aa, 0.0);
     AnchorPane.setLeftAnchor(aa, 0.0);
@@ -554,9 +565,9 @@ public class PrintRacun {
     double w = pageLayout.getPrintableWidth();
     double h = pageLayout.getPrintableHeight();
 
-    anchorPane.setMinSize(w, h);
     anchorPane.setPrefSize(w, h);
-    anchorPane.setMaxSize(w, h);
+    anchorPane.setTranslateY(0);
+    anchorPane.setTranslateX(0);
 
 
 
