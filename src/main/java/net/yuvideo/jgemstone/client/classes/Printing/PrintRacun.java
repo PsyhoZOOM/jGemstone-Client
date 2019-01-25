@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javafx.geometry.Pos;
+import javafx.print.PageOrientation;
+import javafx.print.Paper;
 import javafx.print.PrinterJob;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -38,6 +40,9 @@ public class PrintRacun {
 
   public void printRacun(AnchorPane anchorPane) {
     printerJob = PrinterJob.createPrinterJob();
+    printerJob.getJobSettings().setPageLayout(printerJob.getPrinter()
+        .createPageLayout(Paper.A4, PageOrientation.PORTRAIT, 0.25, 0.25, 0.25, 0.25));
+
     printerJob.showPrintDialog(null);
 
     final double NAZIV = 160;
