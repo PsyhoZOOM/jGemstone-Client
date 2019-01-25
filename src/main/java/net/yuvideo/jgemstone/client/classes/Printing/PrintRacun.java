@@ -532,10 +532,10 @@ public class PrintRacun {
     anchorPane.getChildren().add(ukupnoZaUplatuR2);
 
     // ImeLeft
-    AnchorPane.setTopAnchor(userDataL, 700.0);
+    AnchorPane.setTopAnchor(userDataL, 680.0);
     AnchorPane.setLeftAnchor(userDataL, 10.0);
     // ImeRight
-    AnchorPane.setTopAnchor(userDataR, 700.0);
+    AnchorPane.setTopAnchor(userDataR, 680.0);
     AnchorPane.setLeftAnchor(userDataR, 340.0);
     // iznosLeft
     AnchorPane.setTopAnchor(ukupnoZaUplatuR, 600.0);
@@ -544,10 +544,10 @@ public class PrintRacun {
     AnchorPane.setTopAnchor(ukupnoZaUplatuR2, 600.0);
     AnchorPane.setLeftAnchor(ukupnoZaUplatuR2, 460.0);
 
-    AnchorPane.setTopAnchor(pozivNabrojR, 650.0);
+    AnchorPane.setTopAnchor(pozivNabrojR, 647.0);
     AnchorPane.setLeftAnchor(pozivNabrojR, 120.0);
 
-    AnchorPane.setTopAnchor(pozivNaBrojR2, 650.0);
+    AnchorPane.setTopAnchor(pozivNaBrojR2, 647.0);
     AnchorPane.setLeftAnchor(pozivNaBrojR2, 430.0);
 
     AnchorPane.setTopAnchor(table, 260.0);
