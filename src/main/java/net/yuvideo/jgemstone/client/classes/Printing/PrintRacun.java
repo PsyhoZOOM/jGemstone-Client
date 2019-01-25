@@ -48,20 +48,22 @@ public class PrintRacun {
 
     printerJob.showPrintDialog(null);
 
-    final double NAZIV = 160;
+    final double NAZIV = 180;
     final double KOLICINA = 30;
-    final double CENA = 50;
-    final double STOPA_POPUST = 50;
-    final double STOPA_PDV = 35;
-    final double OSNOVICA = 50;
-    final double PDV = 50;
-    final double UKUPNO = 50;
+    final double CENA = 60;
+    final double STOPA_POPUST = 30;
+    final double STOPA_PDV = 50;
+    final double OSNOVICA = 60;
+    final double PDV = 60;
+    final double UKUPNO = 60;
 
     //   AnchorPane anchorPane = new AnchorPane();
 
     Font font =
         Font.loadFont(
             getClass().getResource("/font/roboto/Roboto-Regular.ttf").toExternalForm(), 8);
+    Font fontBolds = Font
+        .loadFont(getClass().getResource("/font/roboto/Roboto-Bold.ttf").toExternalForm(), 5);
     Font fontBold = Font
         .loadFont(getClass().getResource("/font/roboto/Roboto-Bold.ttf").toExternalForm(), 8);
     Font fontBoldL = Font
@@ -110,7 +112,7 @@ public class PrintRacun {
 
     // POPUST COLUMN
     Label popust = new Label("POPUST");
-    popust.setFont(fontBold);
+    popust.setFont(fontBolds);
     cell = new HBox(popust);
 
     cell.setMinWidth(STOPA_POPUST);
@@ -120,8 +122,8 @@ public class PrintRacun {
     row.getChildren().add(cell);
 
     // STOPA_PDV COLUMN
-    Label stopaPDV = new Label("STOPA \n PDV");
-    stopaPDV.setFont(fontBold);
+    Label stopaPDV = new Label("STOPA\nPDV");
+    stopaPDV.setFont(fontBolds);
     cell = new HBox(stopaPDV);
     cell.setMinWidth(STOPA_PDV);
     cell.setMaxWidth(STOPA_PDV);
@@ -510,11 +512,13 @@ public class PrintRacun {
 
     anchorPane.getStylesheets().removeAll();
 
+
+    /*
     Text aa = new Text("PRVO GORE LEVO");
     anchorPane.getChildren().add(aa);
     AnchorPane.setTopAnchor(aa, 0.0);
     AnchorPane.setLeftAnchor(aa, 0.0);
-
+*/
     anchorPane.getChildren().add(canvas);
     anchorPane.getChildren().add(canvas2);
     anchorPane.getChildren().add(racunPodaci);
@@ -529,21 +533,21 @@ public class PrintRacun {
 
     // ImeLeft
     AnchorPane.setTopAnchor(userDataL, 700.0);
-    AnchorPane.setLeftAnchor(userDataL, 20.0);
+    AnchorPane.setLeftAnchor(userDataL, 10.0);
     // ImeRight
     AnchorPane.setTopAnchor(userDataR, 700.0);
-    AnchorPane.setLeftAnchor(userDataR, 357.0);
+    AnchorPane.setLeftAnchor(userDataR, 340.0);
     // iznosLeft
-    AnchorPane.setTopAnchor(ukupnoZaUplatuR, 603.0);
+    AnchorPane.setTopAnchor(ukupnoZaUplatuR, 600.0);
     AnchorPane.setLeftAnchor(ukupnoZaUplatuR, 150.0);
     // iznosRight
-    AnchorPane.setTopAnchor(ukupnoZaUplatuR2, 603.0);
+    AnchorPane.setTopAnchor(ukupnoZaUplatuR2, 600.0);
     AnchorPane.setLeftAnchor(ukupnoZaUplatuR2, 460.0);
 
-    AnchorPane.setTopAnchor(pozivNabrojR, 653.0);
+    AnchorPane.setTopAnchor(pozivNabrojR, 650.0);
     AnchorPane.setLeftAnchor(pozivNabrojR, 120.0);
 
-    AnchorPane.setTopAnchor(pozivNaBrojR2, 653.0);
+    AnchorPane.setTopAnchor(pozivNaBrojR2, 650.0);
     AnchorPane.setLeftAnchor(pozivNaBrojR2, 430.0);
 
     AnchorPane.setTopAnchor(table, 260.0);
@@ -552,14 +556,14 @@ public class PrintRacun {
     AnchorPane.setTopAnchor(racunPodaci, 60.0);
     AnchorPane.setLeftAnchor(racunPodaci, 10.0);
 
-    AnchorPane.setTopAnchor(adresaRacunaKorisnika, 120.0);
+    AnchorPane.setTopAnchor(adresaRacunaKorisnika, 110.0);
     AnchorPane.setLeftAnchor(adresaRacunaKorisnika, 340.0);
 
     AnchorPane.setTopAnchor(canvas, 720.0);
-    AnchorPane.setLeftAnchor(canvas, 240.0);
+    AnchorPane.setLeftAnchor(canvas, 220.0);
 
     AnchorPane.setTopAnchor(canvas2, 720.0);
-    AnchorPane.setLeftAnchor(canvas2, 530.0);
+    AnchorPane.setLeftAnchor(canvas2, 500.0);
 
     PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
     double w = pageLayout.getPrintableWidth();
