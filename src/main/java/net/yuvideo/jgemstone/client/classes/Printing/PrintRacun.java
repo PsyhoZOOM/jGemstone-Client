@@ -6,9 +6,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javafx.geometry.Pos;
-import javafx.print.PageLayout;
 import javafx.print.PageOrientation;
 import javafx.print.Paper;
+import javafx.print.Printer.MarginType;
 import javafx.print.PrinterJob;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -22,7 +22,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import net.glxn.qrgen.QRCode;
@@ -43,7 +42,7 @@ public class PrintRacun {
   public void printRacun(AnchorPane anchorPane) {
     printerJob = PrinterJob.createPrinterJob();
     printerJob.getJobSettings().setPageLayout(printerJob.getPrinter()
-        .createPageLayout(Paper.A4, PageOrientation.PORTRAIT, 0.25, 0.25, 0.25, 0.25));
+        .createPageLayout(Paper.A4, PageOrientation.PORTRAIT, MarginType.HARDWARE_MINIMUM));
 
     printerJob.showPrintDialog(null);
 
@@ -551,10 +550,6 @@ public class PrintRacun {
     AnchorPane.setTopAnchor(canvas2, 720.0);
     AnchorPane.setLeftAnchor(canvas2, 530.0);
 
-    PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
-    double scaleX = pageLayout.getPrintableWidth() / anchorPane.getBoundsInParent().getWidth();
-    double scleY = pageLayout.getPrintableHeight() / anchorPane.getBoundsInParent().getHeight();
-    anchorPane.getTransforms().add(new Scale(scaleX, scleY));
 
 
     anchorPane.setStyle("-fx-background-color: white;");
