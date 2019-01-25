@@ -1,16 +1,11 @@
 package net.yuvideo.jgemstone.client.classes.Printing;
 
-import com.sun.javafx.print.PrintHelper;
-import com.sun.javafx.print.Units;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javafx.geometry.Pos;
-import javafx.print.PageLayout;
-import javafx.print.PageOrientation;
-import javafx.print.Paper;
 import javafx.print.PrinterJob;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -24,7 +19,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import net.glxn.qrgen.QRCode;
@@ -42,41 +36,26 @@ public class PrintRacun {
   private PrinterJob printerJob;
 
 
-  public void printRacun(PrinterJob pj, AnchorPane anchorPane) {
-    this.printerJob = pj;
-    PageLayout pl = pj.getJobSettings().getPageLayout();
-    Paper paper = PrintHelper.createPaper("A4_MARGIN", 210, 297, Units.MM);
-    //   pj.getPrinter().createPageLayout(paper, PageOrientation.PORTRAIT, 0.25, 0.25, 0.25, 0.25);
-    pj.getJobSettings().setPageLayout(
-        pj.getPrinter().createPageLayout(paper, PageOrientation.PORTRAIT, 0.25, 0.25, 0.25, 0.25));
-    Double w = pl.getPrintableWidth() * 2;
-    Double h = pl.getPrintableHeight() * 2;
-    System.out.println("aa");
+  public void printRacun(AnchorPane anchorPane) {
+    printerJob = PrinterJob.createPrinterJob();
+    printerJob.showPrintDialog(null);
 
-    final double MAX_WIDTH = w; // printerJob.getJobSettings().getPageLayout().getPaper().getWidth();
-    final double MAX_HEIGHT = h;
-
-    final double NAZIV = 180;
-    final double KOLICINA = 40;
-    final double CENA = 60;
-    final double STOPA_POPUST = 45;
-    final double STOPA_PDV = 45;
-    final double OSNOVICA = 60;
-    final double PDV = 60;
-    final double UKUPNO = 70;
+    final double NAZIV = 160;
+    final double KOLICINA = 30;
+    final double CENA = 50;
+    final double STOPA_POPUST = 50;
+    final double STOPA_PDV = 35;
+    final double OSNOVICA = 50;
+    final double PDV = 50;
+    final double UKUPNO = 50;
 
     //   AnchorPane anchorPane = new AnchorPane();
 
-
     Font font =
         Font.loadFont(
-            getClass().getResource("/font/roboto/Roboto-Regular.ttf").toExternalForm(), 10);
-    Font fontSmall =
-        Font.loadFont(getClass().getResource("/font/roboto/Roboto-Light.ttf").toExternalForm(), 8);
-    Font fontMini =
-        Font.loadFont(getClass().getResource("/font/roboto/Roboto-Thin.ttf").toExternalForm(), 6);
+            getClass().getResource("/font/roboto/Roboto-Regular.ttf").toExternalForm(), 8);
     Font fontBold =
-        Font.loadFont(getClass().getResource("/font/roboto/Roboto-Bold.ttf").toExternalForm(), 10);
+        Font.loadFont(getClass().getResource("/font/roboto/Roboto-Bold.ttf").toExternalForm(), 8);
     Font fontADRESA =
         Font.loadFont(getClass().getResource("/font/roboto/Roboto-Bold.ttf").toExternalForm(), 12);
     Font fontRacunDole =
@@ -452,7 +431,6 @@ public class PrintRacun {
     String adresaNaRacunu = String
         .format("%s\n%s", racun.getAdresaRacuna(), racun.getMestoRacuna());
 
-
     String rokZaPlacanjeRacun =
         LocalDate.now().plusDays(30).format(DateTimeFormatter.ofPattern("dd.MM.yy"));
 
@@ -464,10 +442,6 @@ public class PrintRacun {
                 .format(DateTimeFormatter.ofPattern("MM")));
 
     String ukupnoZaUplatuRacun = df.format(racun.getUkupanDug());
-
-
-
-
 
     Text rokZaPLacanjeRacunR = new Text(rokZaPlacanjeRacun);
     rokZaPLacanjeRacunR.setFont(fontRacunDole);
@@ -517,12 +491,12 @@ public class PrintRacun {
 
     userDataR.getChildren().addAll(userAdresaR, zaPeriodR, zaPeriodDaR);
 
-
-
-
-
-
     anchorPane.getStylesheets().removeAll();
+
+    Text aa = new Text("PRVO GORE LEVBO");
+    anchorPane.getChildren().add(aa);
+    AnchorPane.setTopAnchor(aa, 0.0);
+    AnchorPane.setLeftAnchor(aa, 0.0);
 
     anchorPane.getChildren().add(canvas);
     anchorPane.getChildren().add(canvas2);
@@ -570,41 +544,27 @@ public class PrintRacun {
     AnchorPane.setTopAnchor(canvas2, 720.0);
     AnchorPane.setLeftAnchor(canvas2, 530.0);
 
-    double scaleX = pl.getPrintableWidth();
-    double scaleY = pl.getPrintableHeight();
-    Scale scale = new Scale(scaleX, scaleY);
-
-    //   anchorPane.getTransforms().add(scale);
-    double ww = w - pl.getLeftMargin() - pl.getRightMargin();
-    double hh = h - pl.getTopMargin() - pl.getBottomMargin();
-
-    anchorPane.setMinSize(w - pl.getLeftMargin() - pl.getRightMargin(),
-        h - pl.getTopMargin() - pl.getBottomMargin());
-    anchorPane.setPrefSize(w - pl.getLeftMargin() - pl.getRightMargin(),
-        h - pl.getTopMargin() - pl.getBottomMargin());
-    anchorPane.setMaxSize(w - pl.getLeftMargin() - pl.getRightMargin(),
-        h - pl.getTopMargin() - pl.getBottomMargin());
-    table.setMinSize(ww, hh);
-    table.setPrefSize(ww, hh);
-    table.setMaxSize(ww, hh);
 
     anchorPane.setStyle("-fx-background-color: white;");
     if (showPreview) {
       Stage stage = new Stage();
-      Scene scene = new Scene(anchorPane, ww, hh);
+      Scene scene = new Scene(anchorPane);
       stage.setScene(scene);
       stage.showAndWait();
-    }else {
+    } else {
 
       System.out.println(printerJob.getJobSettings().getPageLayout().toString());
       System.out.println(printerJob.getJobSettings().getPrintResolution().toString());
-      boolean succ = printerJob.printPage(pl, anchorPane);
+      boolean succ = printerJob.printPage(anchorPane);
       if (succ) {
         printerJob.endJob();
       }
 
 
     }
+
   }
+
+
 
 }

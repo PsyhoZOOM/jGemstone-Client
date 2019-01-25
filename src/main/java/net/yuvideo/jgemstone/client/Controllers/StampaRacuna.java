@@ -11,8 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.print.Printer;
-import javafx.print.PrinterJob;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -198,21 +196,6 @@ public class StampaRacuna implements Initializable {
     Window wind = bStampa.getScene().getWindow();
     AnchorPane anchorPane = new AnchorPane();
 
-    Printer.getDefaultPrinter();
-    Printer.getAllPrinters();
-    PrinterJob printerJob = PrinterJob.createPrinterJob();
-
-    if (printerJob == null) {
-      AlertUser.error("GRESKA", "PRINTING SERVIS NIJE DOSUPAN");
-      return;
-    }
-
-    boolean b = printerJob.showPrintDialog(wind);
-    if (!b) {
-      AlertUser.error("GRESKA", "PRISUP STAMPACU JE NEMOGUC");
-      return;
-    }
-    printerJob.showPageSetupDialog(wind);
 
     for (int i = 0; i < selectedItems.size(); i++) {
       Racun racun = new Racun();
@@ -230,7 +213,7 @@ public class StampaRacuna implements Initializable {
             dtpZaMesec.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM")),
             this.client);
         printFaktura.userRacun = racun.getRacunArrayList();
-        printFaktura.printFaktura(printerJob);
+        //printFaktura.printFaktura(printerJob);
 
       } else {
         printRacun = new PrintRacun();
@@ -243,7 +226,7 @@ public class StampaRacuna implements Initializable {
             dtpZaMesec.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM")),
             this.client);
         printRacun.userRacun = racun.getRacunArrayList();
-        printRacun.printRacun(printerJob, anchorPane);
+        printRacun.printRacun(anchorPane);
       }
     }
   }
