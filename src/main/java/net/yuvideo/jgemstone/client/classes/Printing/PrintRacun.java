@@ -6,9 +6,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javafx.geometry.Pos;
+import javafx.print.PageLayout;
 import javafx.print.PageOrientation;
 import javafx.print.Paper;
-import javafx.print.Printer.MarginType;
 import javafx.print.PrinterJob;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -42,7 +42,7 @@ public class PrintRacun {
   public void printRacun(AnchorPane anchorPane) {
     printerJob = PrinterJob.createPrinterJob();
     printerJob.getJobSettings().setPageLayout(printerJob.getPrinter()
-        .createPageLayout(Paper.A4, PageOrientation.PORTRAIT, MarginType.HARDWARE_MINIMUM));
+        .createPageLayout(Paper.A4, PageOrientation.PORTRAIT, 0.25, 0.25, 0.25, 0.25));
 
     printerJob.showPrintDialog(null);
 
@@ -549,6 +549,17 @@ public class PrintRacun {
 
     AnchorPane.setTopAnchor(canvas2, 720.0);
     AnchorPane.setLeftAnchor(canvas2, 530.0);
+
+    PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
+    double w = pageLayout.getPrintableWidth();
+    double h = pageLayout.getPrintableHeight();
+
+    anchorPane.setMinSize(w, h);
+    anchorPane.setPrefSize(w, h);
+    anchorPane.setMaxSize(w, h);
+
+
+
 
 
 
