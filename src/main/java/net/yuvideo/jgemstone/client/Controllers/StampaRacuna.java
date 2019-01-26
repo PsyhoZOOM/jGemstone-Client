@@ -21,7 +21,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Window;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
@@ -194,7 +193,6 @@ public class StampaRacuna implements Initializable {
     }
     ObservableList<Users> selectedItems = tblKorisnici.getSelectionModel().getSelectedItems();
     Window wind = bStampa.getScene().getWindow();
-    AnchorPane anchorPane = new AnchorPane();
 
 
     for (int i = 0; i < selectedItems.size(); i++) {
@@ -213,7 +211,7 @@ public class StampaRacuna implements Initializable {
             dtpZaMesec.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM")),
             this.client);
         printFaktura.userRacun = racun.getRacunArrayList();
-        //printFaktura.printFaktura(printerJob);
+        printFaktura.printFaktura();
 
       } else {
         printRacun = new PrintRacun();
@@ -226,7 +224,7 @@ public class StampaRacuna implements Initializable {
             dtpZaMesec.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM")),
             this.client);
         printRacun.userRacun = racun.getRacunArrayList();
-        printRacun.printRacun(anchorPane);
+        printRacun.printRacun();
       }
     }
   }

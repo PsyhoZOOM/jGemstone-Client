@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.print.PageLayout;
+import javafx.print.PageOrientation;
+import javafx.print.Paper;
 import javafx.print.PrinterJob;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -30,22 +32,18 @@ public class PrintFaktura {
   private PrinterJob printerJob;
 
 
-  public void printFaktura(PrinterJob pj) {
-    this.printerJob = pj;
-    PageLayout pl = pj.getJobSettings().getPageLayout();
-    Double w = pl.getPrintableWidth();
-    Double h = pl.getPrintableHeight();
+  public void printFaktura() {
+    printerJob = PrinterJob.createPrinterJob();
 
-    final double WIDTH = pl.getPrintableWidth();
+    printerJob.getJobSettings().setPageLayout(printerJob.getPrinter()
+        .createPageLayout(Paper.A4, PageOrientation.PORTRAIT, 20, 20, 20, 20));
+    printerJob.showPrintDialog(null);
 
-    final double MAX_WIDTH = w;
-    final double MAX_HEIGHT = h;
-
-    final double _C_NAZIV = 120;
+    final double _C_NAZIV = 100;
     final double _C_JMERE = 30;
-    final double _C_KOLICINA = 50;
+    final double _C_KOLICINA = 45;
     final double _C_CENA = 60;
-    final double _C_STOPA = 30;
+    final double _C_STOPA = 20;
     final double _C_OSNOVICA = 60;
     final double _C_PDV = 60;
     final double _C_UKUPNO = 75;
@@ -215,11 +213,6 @@ public class PrintFaktura {
     cell.setStyle(cssStyleProperty.getBorder(1, 1,1,1));
     row.getChildren().add(cell);
 
-    //header
-    Label izdRacuna = new Label("Izdavalac računa:");
-    Label lFirma = new Label("YU VIDEO SERVIS");
-    Label lFirmaAdresa = new Label("Proleterska 131/6, Majdanpek");
-    Label lPIB = new Label("PIB: 100625052");
 
     //table
     table.getChildren().add(row);
@@ -556,7 +549,6 @@ public class PrintFaktura {
 
     VBox rowSpecPoreze = new VBox();
     HBox cellPor = new HBox();
-    rowSpecPoreze.minWidth(WIDTH);
     rowSpecPoreze.setFillWidth(true);
     Text specPorezaTitle = new Text("Specifikacija poreza:");
     specPorezaTitle.setFont(fontBold);
@@ -569,7 +561,6 @@ public class PrintFaktura {
     HBox rowOsnovicaZaPDV;
     for (int l = 0; l < arrPorRacun.size(); l++) {
       rowOsnovicaZaPDV = new HBox();
-      rowOsnovicaZaPDV.setMinWidth(WIDTH);
 
       Text osnovZaPDVLabel = new Text("Osnovica za PDV:");
       Text osnovZaPDVCENA = new Text(df.format(arrPorRacun.get(l).getOsnovica()));
@@ -735,8 +726,6 @@ public class PrintFaktura {
     napomenaFin.setFont(fontBold);
 
     VBox rowFin = new VBox();
-    rowFin.setMinWidth(WIDTH - 100);
-    rowFin.setMaxWidth(WIDTH - 100);
     rowFin.setFillWidth(true);
     rowFin.setSpacing(10);
     rowFin.setPadding(new Insets(5, 20, 20, 5));
@@ -758,9 +747,6 @@ public class PrintFaktura {
     anchorPane.getStylesheets().removeAll();
 
 
-    anchorPane.setMinSize(MAX_WIDTH, MAX_HEIGHT);
-    anchorPane.setPrefSize(MAX_WIDTH, MAX_HEIGHT);
-    anchorPane.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
     anchorPane.getChildren().add(tableTopRacun);
 
     anchorPane.getChildren().add(tRacunPodaci);
@@ -769,26 +755,34 @@ public class PrintFaktura {
     anchorPane.getChildren().add(rowSpecPoreze);
     anchorPane.getChildren().add(rowFin);
 
-    AnchorPane.setTopAnchor(tableTopRacun, 20.0);
+    AnchorPane.setTopAnchor(tableTopRacun, 10.0);
     AnchorPane.setTopAnchor(tRacunPodaci, 120.0);
     AnchorPane.setTopAnchor(adresaPosiljke, 120.0);
-    AnchorPane.setLeftAnchor(adresaPosiljke, 340.0);
+    AnchorPane.setLeftAnchor(adresaPosiljke, 320.0);
     AnchorPane.setTopAnchor(table, 240.00);
+    AnchorPane.setLeftAnchor(table, 10.0);
     AnchorPane.setTopAnchor(rowSpecPoreze, 620.0);
     AnchorPane.setLeftAnchor(rowSpecPoreze, 10.0);
     AnchorPane.setTopAnchor(rowFin, 680.0);
 
-    Scene scene = new Scene(anchorPane, pl.getPrintableWidth(),
-        pl.getPrintableHeight());
-    Stage stage = new Stage();
-    stage.setScene(scene);
-    anchorPane.setStyle("-fx-background-color: white;");
 
-    if(showPreview) {
+    anchorPane.setStyle("-fx-background-color: white;");
+    PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
+    double w = pageLayout.getPrintableWidth();
+    double h = pageLayout.getPrintableHeight();
+
+    anchorPane.setPrefSize(w, h);
+    anchorPane.setTranslateY(0);
+    anchorPane.setTranslateX(0);
+
+    if (showPreview) {
+      Scene scene = new Scene(anchorPane);
+      Stage stage = new Stage();
+      stage.setScene(scene);
       stage.showAndWait();
     }else {
 
-      boolean succ = printerJob.printPage(pl, anchorPane);
+      boolean succ = printerJob.printPage(anchorPane);
       if (succ) {
         printerJob.endJob();
       }

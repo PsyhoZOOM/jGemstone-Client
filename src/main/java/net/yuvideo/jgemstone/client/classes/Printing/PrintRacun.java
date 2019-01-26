@@ -39,7 +39,7 @@ public class PrintRacun {
   private PrinterJob printerJob;
 
 
-  public void printRacun(AnchorPane anchorPane) {
+  public void printRacun() {
     printerJob = PrinterJob.createPrinterJob();
 
     printerJob.getJobSettings().setPageLayout(printerJob.getPrinter()
@@ -57,7 +57,7 @@ public class PrintRacun {
     final double PDV = 60;
     final double UKUPNO = 60;
 
-    //   AnchorPane anchorPane = new AnchorPane();
+    AnchorPane anchorPane = new AnchorPane();
 
     Font font =
         Font.loadFont(
