@@ -552,8 +552,8 @@ public class PrintRacun {
     AnchorPane.setTopAnchor(racunPodaci, 60.0);
     AnchorPane.setLeftAnchor(racunPodaci, 10.0);
 
-    AnchorPane.setTopAnchor(adresaRacunaKorisnika, 110.0);
-    AnchorPane.setLeftAnchor(adresaRacunaKorisnika, 340.0);
+    AnchorPane.setTopAnchor(adresaRacunaKorisnika, 130.0);
+    AnchorPane.setLeftAnchor(adresaRacunaKorisnika, 320.0);
 
     AnchorPane.setTopAnchor(canvas, 720.0);
     AnchorPane.setLeftAnchor(canvas, 220.0);

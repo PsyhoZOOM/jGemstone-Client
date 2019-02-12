@@ -15,8 +15,10 @@
     <VBox layoutX="148.0" layoutY="84.0" spacing="10.0" AnchorPane.bottomAnchor="0.0"
       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-        <HBox alignment="CENTER_RIGHT" VBox.vgrow="NEVER">
+        <HBox alignment="CENTER_RIGHT" spacing="6.0" VBox.vgrow="NEVER">
           <children>
+            <Button fx:id="bIzmenaZaduzenja" mnemonicParsing="false" onAction="#showIzmenaZaduzenja"
+              text="Izmena"/>
             <Button fx:id="bNovoZaduzenje" mnemonicParsing="false" onAction="#showNovoZaduzenje"
               text="Novo zaduženje"/>
           </children>

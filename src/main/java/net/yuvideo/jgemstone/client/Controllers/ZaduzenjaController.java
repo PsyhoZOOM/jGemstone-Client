@@ -33,7 +33,7 @@ import org.json.JSONObject;
 public class ZaduzenjaController implements Initializable {
 
   public JFXListView<MesecnaZaduzenja> listMesec;
-  public JFXTreeTableView tblZaduzenja;
+  public JFXTreeTableView<MesecnaZaduzenja> tblZaduzenja;
   public Button bNovoZaduzenje;
   private URL location;
   private ResourceBundle resources;
@@ -206,12 +206,29 @@ public class ZaduzenjaController implements Initializable {
 
   public void showNovoZaduzenje(ActionEvent actionEvent) {
     NewInterface newInterface = new NewInterface("fxml/KorisnikZaduzenje.fxml",
-        "NOBO ZADUZENJE KORISNIKA", resources, true);
+        "NOVO ZADUŽENJE KORISNIKA", resources, true);
     KorisnikZaduzenjeController korisnikZaduzenjeController = newInterface.getLoader()
         .getController();
     korisnikZaduzenjeController.setClient(this.client);
     korisnikZaduzenjeController.setUserID(getUserID());
     newInterface.getStage().showAndWait();
     initData();
+  }
+
+  public void showIzmenaZaduzenja(ActionEvent actionEvent) {
+    if (tblZaduzenja.getSelectionModel().getSelectedIndex() == -1) {
+      AlertUser.info("INFO", "IZABERITE ZADUŽENJE ZA IZMENE");
+      return;
+    }
+    NewInterface newInterface = new NewInterface("fxml/KorisnikZaduzenjeIzmene.fxml",
+        "IZMENAS ZADUŽENJA", resources, true);
+    KorisnikZaduzenjeIzmene korisnikZaduzenjeIzmeneController = newInterface.getLoader()
+        .getController();
+    korisnikZaduzenjeIzmeneController.setClient(this.client);
+    MesecnaZaduzenja mesecnoZaduzenje = tblZaduzenja.getSelectionModel().getSelectedItem()
+        .getValue();
+    korisnikZaduzenjeIzmeneController.setMesecnoZaduzenje(mesecnoZaduzenje);
+    newInterface.getStage().showAndWait();
+    showDataZaMesec();
   }
 }
