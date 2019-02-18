@@ -36,7 +36,7 @@ public class KorisnikUgovoriController implements Initializable {
   public DatePicker dtpTrajanjeDo;
   public TextArea tOPis;
   public Button bDodaj;
-  public TableView tblUgovori;
+  public TableView<ugovori_types> tblUgovori;
   public TableColumn cBr;
   public TableColumn cNaziv;
   public TableColumn cTrajanje;
@@ -270,5 +270,27 @@ public class KorisnikUgovoriController implements Initializable {
 
   public void setClient(Client client) {
     this.client = client;
+  }
+
+  public void izbrisiUgovor(ActionEvent actionEvent) {
+    if (tblUgovori.getSelectionModel().getFocusedIndex() == -1) {
+      AlertUser.info("NIJE IZABRAN UGOVOR ZA BRISANJE", "Izaberite ugovor za brisanje");
+      return;
+    }
+    ugovori_types selectedItem = tblUgovori.getSelectionModel().getSelectedItem();
+    JSONObject object = new JSONObject();
+    object.put("action", "deleteUserUgovor");
+    object.put("id", selectedItem.getId());
+    object.put("brojUgovora", selectedItem.getBr());
+    object.put("userID", selectedItem.getUserID());
+    System.out.println(object.toString());
+    object = client.send_object(object);
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA", object.getString("ERROR"));
+    } else {
+      AlertUser.info("INFO", "Ugovor je izbrisan");
+      set_data();
+    }
+
   }
 }
