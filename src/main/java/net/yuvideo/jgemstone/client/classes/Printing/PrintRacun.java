@@ -27,6 +27,7 @@ import javafx.stage.Window;
 import net.glxn.qrgen.QRCode;
 import net.yuvideo.jgemstone.client.classes.MonthFromNumber;
 import net.yuvideo.jgemstone.client.classes.Racun;
+import net.yuvideo.jgemstone.client.classes.valueToPercent;
 import org.json.JSONObject;
 
 public class PrintRacun {
@@ -34,6 +35,7 @@ public class PrintRacun {
   public ArrayList<Racun> userRacun;
   public Window window;
   public boolean showPreview = false;
+  public boolean printPDV;
   DecimalFormat df = new DecimalFormat("###,###,###,###,##0.00");
   public JSONObject firmaData;
   private PrinterJob printerJob;
@@ -48,7 +50,7 @@ public class PrintRacun {
 
     printerJob.showPrintDialog(null);
 
-    final double NAZIV = 180;
+    double NAZIV = 180;
     final double KOLICINA = 30;
     final double CENA = 60;
     final double STOPA_POPUST = 30;
@@ -56,6 +58,10 @@ public class PrintRacun {
     final double OSNOVICA = 60;
     final double PDV = 60;
     final double UKUPNO = 60;
+
+    if (!printPDV) {
+      NAZIV = 180 + STOPA_PDV + PDV;
+    }
 
     AnchorPane anchorPane = new AnchorPane();
 
@@ -129,7 +135,8 @@ public class PrintRacun {
     cell.setMaxWidth(STOPA_PDV);
     cell.setAlignment(Pos.CENTER);
     cell.setStyle("-fx-border-style: solid; -fx-border-color: black; -fx-border-width: 1 1 1 0;");
-    row.getChildren().add(cell);
+    if (printPDV)
+      row.getChildren().add(cell);
 
     // OSNOVICA COLUMN
     Label osnovica = new Label("OSNOVICA");
@@ -149,7 +156,8 @@ public class PrintRacun {
     cell.setMaxWidth(PDV);
     cell.setAlignment(Pos.CENTER);
     cell.setStyle("-fx-border-style: solid; -fx-border-color: black; -fx-border-width: 1 1 1 0;");
-    row.getChildren().add(cell);
+    if (printPDV)
+      row.getChildren().add(cell);
 
     // UKUPNO COLUMN
     Label ukupnoL = new Label("UKUPNO");
@@ -190,7 +198,12 @@ public class PrintRacun {
           "-fx-border-style: solid; -fx-border-color: black; -fx-border-width: 0 0.2 0.2 0;");
       row.getChildren().add(cell);
 
-      cena = new Label(df.format(racun.getCena()));
+      if (printPDV) {
+        cena = new Label(df.format(racun.getCena()));
+      } else {
+        cena = new Label(df.format(
+            racun.getCena() + valueToPercent.getPDVOfValue(racun.getCena(), racun.getStopaPDV())));
+      }
       cena.setFont(font);
       cell = new HBox(cena);
       cell.setAlignment(Pos.CENTER_RIGHT);
@@ -218,9 +231,10 @@ public class PrintRacun {
       cell.setMaxWidth(STOPA_PDV);
       cell.setStyle(
           "-fx-border-style: solid; -fx-border-color: black; -fx-border-width: 0 0.2 0.2 0;");
-      row.getChildren().add(cell);
+      if (printPDV)
+        row.getChildren().add(cell);
 
-      osnovica = new Label(df.format(racun.getOsnovica()));
+      osnovica = new Label(df.format(racun.getOsnovica() + racun.getPdv()));
       osnovica.setFont(font);
       cell = new HBox(osnovica);
       cell.setAlignment(Pos.CENTER_RIGHT);
@@ -238,7 +252,8 @@ public class PrintRacun {
       cell.setMaxWidth(PDV);
       cell.setStyle(
           "-fx-border-style: solid; -fx-border-color: black; -fx-border-width: 0 0.2 0.2 0;");
-      row.getChildren().add(cell);
+      if (printPDV)
+        row.getChildren().add(cell);
 
       Label lukupno = new Label(df.format(racun.getUkupno()));
       lukupno.setFont(font);
@@ -259,7 +274,11 @@ public class PrintRacun {
     Label zaduzenje = new Label("Zaduženje za obračunski period: ");
     zaduzenje.setFont(font);
     cell = new HBox(zaduzenje);
-    cell.setMinWidth(NAZIV + KOLICINA + CENA + STOPA_POPUST + STOPA_PDV);
+    if (printPDV) {
+      cell.setMinWidth(NAZIV + KOLICINA + CENA + STOPA_POPUST + STOPA_PDV);
+    } else {
+      cell.setMinWidth(NAZIV + KOLICINA + CENA + STOPA_POPUST);
+    }
     cell.setAlignment(Pos.CENTER_RIGHT);
     row.getChildren().add(cell);
 
@@ -281,7 +300,8 @@ public class PrintRacun {
     cell.setMaxWidth(PDV);
     cell.setAlignment(Pos.CENTER_RIGHT);
     cell.setStyle("-fx-border-style: solid; -fx-border-color: black; -fx-border-width: 1 1 1 0;");
-    row.getChildren().add(cell);
+    if (printPDV)
+      row.getChildren().add(cell);
 
     /// UKUPNO
     Label ukupnoUkupno = new Label(df.format(racun.getUkupnoUkupno()));
@@ -403,7 +423,12 @@ public class PrintRacun {
     ukupnoZaUplatu.setFont(font);
     cell = new HBox(ukupnoZaUplatu);
     cell.setAlignment(Pos.CENTER_RIGHT);
-    cell.setMinWidth(NAZIV + KOLICINA + CENA + STOPA_POPUST + STOPA_PDV + OSNOVICA + PDV + UKUPNO);
+    if (printPDV) {
+      cell.setMinWidth(
+          NAZIV + KOLICINA + CENA + STOPA_POPUST + STOPA_PDV + OSNOVICA + PDV + UKUPNO);
+    } else {
+      cell.setMinWidth(NAZIV + CENA + CENA + OSNOVICA + UKUPNO);
+    }
     row.getChildren().add(cell);
 
     finalRacun.getChildren().add(row);
@@ -414,7 +439,12 @@ public class PrintRacun {
     prethodniDug.setFont(font);
     cell = new HBox(prethodniDug);
     cell.setAlignment(Pos.CENTER_RIGHT);
-    cell.setMinWidth(NAZIV + KOLICINA + CENA + STOPA_POPUST + STOPA_PDV + OSNOVICA + PDV + UKUPNO);
+    if (printPDV) {
+      cell.setMinWidth(
+          NAZIV + KOLICINA + CENA + STOPA_POPUST + STOPA_PDV + OSNOVICA + PDV + UKUPNO);
+    } else {
+      cell.setMinWidth(NAZIV + CENA + CENA + OSNOVICA + UKUPNO);
+    }
     row.getChildren().add(cell);
 
     finalRacun.getChildren().add(row);
@@ -425,7 +455,12 @@ public class PrintRacun {
     UKUPNO_ZA_UPLATU.setFont(font);
     cell = new HBox(UKUPNO_ZA_UPLATU);
     cell.setAlignment(Pos.CENTER_RIGHT);
-    cell.setMinWidth(NAZIV + KOLICINA + CENA + STOPA_POPUST + STOPA_PDV + OSNOVICA + PDV + UKUPNO);
+    if (printPDV) {
+      cell.setMinWidth(
+          NAZIV + KOLICINA + CENA + STOPA_POPUST + STOPA_PDV + OSNOVICA + PDV + UKUPNO);
+    } else {
+      cell.setMinWidth(NAZIV + CENA + CENA + OSNOVICA + UKUPNO);
+    }
     row.getChildren().add(cell);
 
     finalRacun.getChildren().add(row);

@@ -21,6 +21,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import net.yuvideo.jgemstone.client.classes.Racun;
 import net.yuvideo.jgemstone.client.classes.css.cssStyleProperty;
+import net.yuvideo.jgemstone.client.classes.valueToPercent;
 import org.json.JSONObject;
 
 public class PrintFaktura {
@@ -30,16 +31,19 @@ public class PrintFaktura {
   private DecimalFormat df = new DecimalFormat("###,###,###,###,##0.00");
   public JSONObject firmaData;
   private PrinterJob printerJob;
+  public boolean printPDV;
 
 
   public void printFaktura() {
+
     printerJob = PrinterJob.createPrinterJob();
 
     printerJob.getJobSettings().setPageLayout(printerJob.getPrinter()
         .createPageLayout(Paper.A4, PageOrientation.PORTRAIT, 20, 20, 20, 20));
     printerJob.showPrintDialog(null);
 
-    final double _C_NAZIV = 100;
+    double _C_NAZIV = 100;
+
     final double _C_JMERE = 30;
     final double _C_KOLICINA = 45;
     final double _C_CENA = 60;
@@ -47,6 +51,10 @@ public class PrintFaktura {
     final double _C_OSNOVICA = 60;
     final double _C_PDV = 60;
     final double _C_UKUPNO = 75;
+    if (!printPDV) {
+      _C_NAZIV = _C_NAZIV + _C_CENA + _C_STOPA + _C_PDV;
+      _C_NAZIV += 50;
+    }
 
     Font font =
         Font.loadFont(
@@ -124,7 +132,8 @@ public class PrintFaktura {
     cell.setMinWidth(_C_CENA);
     cell.setMaxWidth(_C_CENA);
     cell.setStyle(cssStyleProperty.getBorder(1, 1,1,1));
-    row.getChildren().add(cell);
+    if (printPDV)
+      row.getChildren().add(cell);
 
     // VREDNOST BEZ PDV
     Label vrednostBezPDV = new Label("VREDNOST BEZ PDV");
@@ -138,7 +147,8 @@ public class PrintFaktura {
     cell.setAlignment(Pos.CENTER);
     cell.setFillHeight(true);
     cell.setStyle(cssStyleProperty.getBorder(1, 1,1,1));
-    row.getChildren().add(cell);
+    if (printPDV)
+      row.getChildren().add(cell);
 
     // RABAT
     Label rabat = new Label("RABAT");
@@ -154,7 +164,8 @@ public class PrintFaktura {
     cell.setMaxSize(_C_STOPA, 40);
     cell.setFillHeight(true);
     cell.setAlignment(Pos.CENTER);
-    row.getChildren().add(cell);
+    if (printPDV)
+      row.getChildren().add(cell);
 
     // OSNOVICA BEZ PDV
     Label osnovicaBezPDV = new Label("OSNOVICA BEZ PDV");
@@ -167,7 +178,8 @@ public class PrintFaktura {
     cell.setMaxWidth(_C_OSNOVICA);
     cell.setAlignment(Pos.CENTER);
     cell.setStyle(cssStyleProperty.getBorder(1, 1,1,1));
-    row.getChildren().add(cell);
+    if (printPDV)
+      row.getChildren().add(cell);
 
     //STOPA PDV
     Label stopaPDV = new Label("STOPA PDV");
@@ -184,7 +196,8 @@ public class PrintFaktura {
     cell.setAlignment(Pos.CENTER);
     cell.setStyle(cssStyleProperty.getBorder(1, 1,1,1));
     cell.setFillHeight(true);
-    row.getChildren().add(cell);
+    if (printPDV)
+      row.getChildren().add(cell);
 
     //IZNOS PDV
     Label pdv = new Label("IZNOS PDV");
@@ -197,10 +210,32 @@ public class PrintFaktura {
     cell.setMinWidth(_C_PDV);
     cell.setStyle(cssStyleProperty.getBorder(1, 1,1,1));
     cell.setAlignment(Pos.CENTER);
-    row.getChildren().add(cell);
+    if (printPDV)
+      row.getChildren().add(cell);
+
+    if (!printPDV) {
+      Label cena = new Label("CENA");
+      cena.setWrapText(true);
+      cena.setFont(font);
+      cell.setAlignment(Pos.CENTER);
+      cena.setTextAlignment(TextAlignment.CENTER);
+      cell = new HBox(cena);
+      cell.setMinWidth(_C_CENA);
+      cell.setMaxHeight(_C_CENA);
+      cell.setStyle(cssStyleProperty.getBorder(1, 1, 1, 1));
+      cell.setAlignment(Pos.CENTER);
+      row.getChildren().add(cell);
+
+    }
 
     //VREDNOST SA PDV
-    Label vrednostSaPDV = new Label("VREDNOST SA PDV");
+    Label vrednostSaPDV = new Label();
+    if (printPDV) {
+      vrednostSaPDV.setText("VREDNOST SA PDV");
+    } else {
+      vrednostSaPDV.setText("VREDNOST");
+    }
+
     vrednostSaPDV.setFont(font);
     vrednostSaPDV.setWrapText(true);
     vrednostSaPDV.setAlignment(Pos.CENTER);
@@ -258,7 +293,8 @@ public class PrintFaktura {
       cell.setMinWidth(_C_CENA);
       cell.setMaxWidth(_C_CENA);
       cell.setStyle(cssStyleProperty.getBorder(0, 0.5, 0.5, 0));
-      row.getChildren().add(cell);
+      if (printPDV)
+        row.getChildren().add(cell);
 
       Label l_vrednostBezPDV = new Label(df.format(racun.getVrednostBezPDV()));
       l_vrednostBezPDV.setFont(font);
@@ -267,7 +303,8 @@ public class PrintFaktura {
       cell.setMinWidth(_C_CENA);
       cell.setMaxWidth(_C_CENA);
       cell.setStyle(cssStyleProperty.getBorder(0 , 0.5 , 0.5 ,0));
-      row.getChildren().add(cell);
+      if (printPDV)
+        row.getChildren().add(cell);
 
       Label popust = new Label(df.format(racun.getPopust()) + "%");
       popust.setFont(fontSmall);
@@ -279,7 +316,8 @@ public class PrintFaktura {
       cell.setMinWidth(_C_STOPA);
       cell.setMaxWidth(_C_STOPA);
       cell.setStyle(cssStyleProperty.getBorder(0, 0.5, 0.5, 0));
-      row.getChildren().add(cell);
+      if (printPDV)
+        row.getChildren().add(cell);
 
       Label osnovica = new Label(df.format(racun.getOsnovica()));
       osnovica.setFont(font);
@@ -290,7 +328,8 @@ public class PrintFaktura {
       cell.setMinWidth(_C_OSNOVICA);
       cell.setMaxWidth(_C_OSNOVICA);
       cell.setStyle(cssStyleProperty.getBorder(0 ,0.5 , 0.5, 0));
-      row.getChildren().add(cell);
+      if (printPDV)
+        row.getChildren().add(cell);
 
 
       Label _lStopaPDV = new Label(df.format(racun.getStopaPDV())+ "%");
@@ -302,7 +341,8 @@ public class PrintFaktura {
       cell.setMinWidth(_C_STOPA);
       cell.setMaxWidth(_C_STOPA);
       cell.setStyle(cssStyleProperty.getBorder(0, 0.5, 0.5, 0));
-      row.getChildren().add(cell);
+      if (printPDV)
+        row.getChildren().add(cell);
 
 
       Label _l_pdv = new Label(df.format(racun.getPdv()));
@@ -315,7 +355,23 @@ public class PrintFaktura {
       cell.setMinWidth(_C_PDV);
       cell.setMaxWidth(_C_PDV);
       cell.setStyle(cssStyleProperty.getBorder(0, 0.5 , 0.5 , 0));
-      row.getChildren().add(cell);
+      if (printPDV)
+        row.getChildren().add(cell);
+
+      if (!printPDV) {
+        Label _l_cena = new Label(df.format(
+            racun.getCena() + valueToPercent.getPDVOfValue(racun.getCena(), racun.getStopaPDV())));
+        _l_cena.setFont(font);
+        _l_cena.setMinWidth(_C_CENA);
+        _l_cena.setMaxWidth(_C_CENA);
+        _l_cena.setAlignment(Pos.CENTER_RIGHT);
+        cell = new HBox(_l_cena);
+        cell.setAlignment(Pos.CENTER_RIGHT);
+        cell.setMinWidth(_C_CENA);
+        cell.setMaxWidth(_C_CENA);
+        cell.setStyle(cssStyleProperty.getBorder(0, 0.5, 0.5, 0));
+        row.getChildren().add(cell);
+      }
 
       Label _l_ukupno = new Label(df.format(racun.getUkupno()));
       _l_ukupno.setFont(font);
@@ -335,7 +391,11 @@ public class PrintFaktura {
     Label ukupno = new Label("Ukupno:");
     ukupno.setFont(font);
     cell = new HBox(ukupno);
-    cell.setMinWidth(_C_NAZIV + _C_JMERE + _C_KOLICINA + _C_CENA + _C_CENA) ;
+    if (printPDV) {
+      cell.setMinWidth(_C_NAZIV + _C_JMERE + _C_KOLICINA + _C_CENA + _C_CENA);
+    } else {
+      cell.setMinWidth(_C_NAZIV + _C_JMERE + _C_KOLICINA + _C_CENA);
+    }
     cell.setAlignment(Pos.CENTER_RIGHT);
     cell.setStyle(cssStyleProperty.getBorder(1, 0, 0,0 ));
     row.getChildren().add(cell);
@@ -348,7 +408,8 @@ public class PrintFaktura {
     cell.setMaxWidth(_C_OSNOVICA+_C_STOPA);
     cell.setAlignment(Pos.CENTER_RIGHT);
     cell.setStyle(cssStyleProperty.getBorder(1, 0 , 1, 1));
-    row.getChildren().add(cell);
+    if (printPDV)
+      row.getChildren().add(cell);
 
     //UKUPNO PDV
     Label l_ukupnoPDV = new Label(df.format(racun.getPdvUkupno()));
@@ -358,7 +419,8 @@ public class PrintFaktura {
     cell.setMinWidth(_C_PDV + _C_STOPA);
     cell.setMaxWidth(_C_PDV + _C_STOPA);
     cell.setStyle(cssStyleProperty.getBorder(1,0,1,1));
-    row.getChildren().add(cell);
+    if (printPDV)
+      row.getChildren().add(cell);
 
     //UKUPNO
     Label l_ukupno = new Label(df.format(racun.getUkupnoUkupno()));
@@ -424,6 +486,7 @@ public class PrintFaktura {
 
     Text tTelefon = new Text("Telefon: ");
     tTelefon.setFont(font);
+    cenaBezPDV.setAlignment(Pos.CENTER);
     Text tTelefonFirme = new Text(firmaData.getString("FIRMA_TELEFON"));
     tTelefonFirme.setFont(fontBold);
     Text tFax = new Text("\tFAX: ");
@@ -438,8 +501,13 @@ public class PrintFaktura {
     row3.getChildren().addAll(tTelefon, tTelefonFirme, tFax, tFaxFirma, tEmail, tEmailFirma);
     tableTopRacun.getChildren().add(row3);
 
-    Text tIzdavalacRacunaNapomena = new Text(
-        "* izdavalac računa se nalazi u registru PDV obveznika");
+    Text tIzdavalacRacunaNapomena = new Text();
+    if (printPDV) {
+      tIzdavalacRacunaNapomena.setText("* izdavalac računa se nalazi u registru PDV obveznika");
+    } else {
+      tIzdavalacRacunaNapomena.setText("* izdavalac računa se ne nalazi u registru PDV obveznika");
+    }
+
     tIzdavalacRacunaNapomena.setFont(fontSmall);
     tableTopRacun.getChildren().add(tIzdavalacRacunaNapomena);
 
@@ -752,7 +820,9 @@ public class PrintFaktura {
     anchorPane.getChildren().add(tRacunPodaci);
     anchorPane.getChildren().add(adresaPosiljke);
     anchorPane.getChildren().add(table);
-    anchorPane.getChildren().add(rowSpecPoreze);
+
+    if (printPDV)
+      anchorPane.getChildren().add(rowSpecPoreze);
     anchorPane.getChildren().add(rowFin);
 
     AnchorPane.setTopAnchor(tableTopRacun, 10.0);

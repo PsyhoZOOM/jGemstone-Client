@@ -206,6 +206,11 @@ public class StampaRacuna implements Initializable {
         printFaktura = new PrintFaktura();
         printFaktura.showPreview=onlyPreview;
         printFaktura.firmaData = firmaSettings.getJsonObject();
+        if (firmaSettings.getFIRMA_FAKTURA_PEPDV().equals("da")) {
+          printFaktura.printPDV = true;
+        } else {
+          printFaktura.printPDV = false;
+        }
         racun.initRacun(
             user.getId(),
             dtpZaMesec.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM")),
@@ -217,6 +222,11 @@ public class StampaRacuna implements Initializable {
         printRacun = new PrintRacun();
         printRacun.showPreview=onlyPreview;
         printRacun.firmaData = firmaSettings.getJsonObject();
+        if (firmaSettings.getFIRMA_FAKTURA_PEPDV().equals("da")) {
+          printRacun.printPDV = true;
+        } else {
+          printRacun.printPDV = false;
+        }
         //ako je samo preview nema potrebe za stampacem
 
         racun.initRacun(

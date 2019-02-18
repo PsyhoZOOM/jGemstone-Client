@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -40,7 +41,7 @@ public class Client {
   public IntegerProperty rs = new SimpleIntegerProperty();
   public StringProperty strMess = new SimpleStringProperty();
 
-  private static String C_VERSION = "0.210";
+  private static String C_VERSION = "0.211";
 
   //Socket socket;
   SSLSocket socket;
@@ -79,7 +80,7 @@ public class Client {
           reconnect();
         }
         if (Osw == null || Bfw == null) {
-          Osw = new OutputStreamWriter(socket.getOutputStream(), "UTF-8");
+          Osw = new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8);
           Bfw = new BufferedWriter(Osw);
         }
       } catch (IOException e) {
@@ -163,7 +164,7 @@ public class Client {
   public JSONObject getjObj() {
     try {
       if (Isr == null || Bfr == null) {
-        Isr = new InputStreamReader(socket.getInputStream(), "UTF-8");
+        Isr = new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8);
         Bfr = new BufferedReader(Isr);
       }
     } catch (IOException e) {
