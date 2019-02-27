@@ -114,14 +114,16 @@
             </Menu>
             <Menu fx:id="mIzvestajiIObracun" mnemonicParsing="false" text="Izveštaji i Obračuni">
               <items>
-                <MenuItem fx:id="mMesecniObracun" mnemonicParsing="false"
-                  onAction="#showMesecniObracun" text="Mesečni obračun"/>
+                <MenuItem fx:id="mIzvestaj" mnemonicParsing="false" onAction="#showIzvestaj"
+                  text="Izveštaj"/>
                 <MenuItem fx:id="mPDVObracun" mnemonicParsing="false" onAction="#showPDVObracun"
                   text="PDV Obračun"/>
                 <MenuItem fx:id="mStampaRacuna" mnemonicParsing="false" onAction="#showStampaRacuna"
                   text="Štampa Računa"/>
                 <MenuItem fx:id="mFiksnaPozivi" mnemonicParsing="false" onAction="#showFiksnaPozivi"
                   text="Fiksna Pozivi"/>
+                <MenuItem fx:id="mMesecniObracun" mnemonicParsing="false"
+                  onAction="#showMesecniObracun" text="Mesečni obračun"/>
               </items>
             </Menu>
             <Menu fx:id="mMreza" mnemonicParsing="false" text="Mreža">

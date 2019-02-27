@@ -45,6 +45,7 @@ import net.yuvideo.jgemstone.client.Controllers.Administration.DTV.CASEditContro
 import net.yuvideo.jgemstone.client.Controllers.Administration.Devices;
 import net.yuvideo.jgemstone.client.Controllers.Administration.Groups.GroupEdit;
 import net.yuvideo.jgemstone.client.Controllers.Fiksna.FiksnaPozivi;
+import net.yuvideo.jgemstone.client.Controllers.Izvestaji.Izvestaji;
 import net.yuvideo.jgemstone.client.Controllers.Mape.MainMapController;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
@@ -538,5 +539,13 @@ public class MainWindowController implements Initializable {
       }
 
     }
+  }
+
+  public void showIzvestaj(ActionEvent actionEvent) {
+    NewInterface izvestajInterface = new NewInterface("fxml/Izvestaji/Izvestaj.fxml", "IZVEŠTAJ",
+        this.resource);
+    Izvestaji izvestajControlller = izvestajInterface.getLoader().getController();
+    izvestajControlller.setClient(this.client);
+    izvestajInterface.getStage().showAndWait();
   }
 }
