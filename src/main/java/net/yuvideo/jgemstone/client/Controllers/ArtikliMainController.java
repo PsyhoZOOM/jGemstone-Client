@@ -2,7 +2,6 @@ package net.yuvideo.jgemstone.client.Controllers;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -11,7 +10,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -406,10 +404,12 @@ public class ArtikliMainController implements Initializable {
     if (tblArtikli.getSelectionModel().getSelectedIndex() == -1) {
       return;
     }
-    if (cmbMagacin.getValue().getId() <= 0) {
+ /*   if (cmbMagacin.getValue().getId() <= 0) {
+      System.out.println("nooo");
       return;
     }
 
+*/
     Artikli artikli = tblArtikli.getSelectionModel().getSelectedItem();
 
     NewInterface artikliZaduzivanje = new NewInterface("fxml/ArtikliZaduzivanje.fxml",

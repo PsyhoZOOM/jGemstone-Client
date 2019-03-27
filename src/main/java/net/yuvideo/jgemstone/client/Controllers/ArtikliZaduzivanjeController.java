@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -50,6 +51,8 @@ public class ArtikliZaduzivanjeController implements Initializable {
   public TableColumn cUserAdresa;
   public TableColumn cUserMesto;
   public TableView<Users> tblUsers;
+  public Button bRazduzi;
+  public Tab tabKorisnik;
   private Client client;
   public Artikli artikal;
   public Label lProizvodjac;
@@ -79,7 +82,9 @@ public class ArtikliZaduzivanjeController implements Initializable {
             if (artikal.getIdMagacin() == newValue.getId()) {
               bZaduziMagacin.setDisable(true);
             } else {
-              bZaduziMagacin.setDisable(false);
+              if (!bZaduziMagacin.isDisabled()) {
+                bZaduziMagacin.setDisable(false);
+              }
             }
           }
         });
@@ -89,6 +94,12 @@ public class ArtikliZaduzivanjeController implements Initializable {
   public void setData() {
     if (artikal.getKolicina() <= 1) {
       tKolicina.setDisable(true);
+    }
+
+    if (artikal.isUser()) {
+      bZaduziMagacin.setDisable(true);
+      tabKorisnik.setDisable(true);
+
     }
     lNaziv.setText(artikal.getNaziv());
     lPSerijski.setText(artikal.getProizvodjac());
@@ -109,6 +120,9 @@ public class ArtikliZaduzivanjeController implements Initializable {
   private String getNazivMagacina(int idMagacin) {
     Magacin magacin = new Magacin();
     magacin = magacin.getMagacin(idMagacin, client);
+    if (magacin == null) {
+      return "KORISNIK";
+    }
     return magacin.getNaziv();
   }
 
@@ -189,5 +203,36 @@ public class ArtikliZaduzivanjeController implements Initializable {
 
   public void setClient(Client client) {
     this.client = client;
+  }
+
+  public void razduziKorisnika(ActionEvent actionEvent) {
+    if (tblMagacin.getSelectionModel().getSelectedIndex() == -1) {
+      AlertUser.warrning("GRESKA", "Izaberite magacin za razduživanje");
+      return;
+    }
+
+    Magacin mag = tblMagacin.getSelectionModel().getSelectedItem();
+
+    JSONObject object = new JSONObject();
+    object.put("action", "razduziUserArtikal");
+    object.put("artikalID", artikal.getId());
+    object.put("magacinID", mag.getId());
+    object.put("userID", artikal.getIdMagacin());
+    object.put("kolicina", Integer.valueOf(tKolicina.getText()));
+    object.put("isUser", false);
+    object.put("uniqueID", artikal.getUniqueID());
+    object.put("komentar", tOpis.getText());
+
+    object = client.send_object(object);
+
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA", object.getString("ERROR"));
+
+    } else {
+      AlertUser.info("INFO", String.format("Korisnik je razduzen sa %s ", artikal.getNaziv()));
+      Stage stage = (Stage) bRazduzi.getScene().getWindow();
+      stage.close();
+    }
+
   }
 }

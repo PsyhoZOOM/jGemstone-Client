@@ -14,6 +14,7 @@ public class Magacin implements Serializable {
   String opis;
   boolean glavniMagacin;
 
+
   ArrayList<Magacin> magaciniArr = new ArrayList<>();
 
   public int getId() {

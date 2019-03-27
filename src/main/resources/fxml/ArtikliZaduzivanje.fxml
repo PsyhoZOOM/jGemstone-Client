@@ -18,21 +18,18 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
-  minHeight="-Infinity"
-  minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" spacing="5.0"
-
-  xmlns="http://javafx.com/javafx/8.0.162"
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+  prefHeight="800.0" prefWidth="1280.0" spacing="5.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+  xmlns:fx="http://javafx.com/fxml/1"
   fx:controller="net.yuvideo.jgemstone.client.Controllers.ArtikliZaduzivanjeController">
   <children>
-    <TitledPane VBox.vgrow="NEVER" animated="false" text="ARTIKL INFO">
+    <TitledPane animated="false" text="ARTIKL INFO" VBox.vgrow="NEVER">
       <content>
         <AnchorPane>
           <children>
-            <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-              hgap="5.0"
-              layoutY="-45.0" prefWidth="1268.0" vgap="5.0">
+            <GridPane hgap="5.0" layoutY="-45.0" prefWidth="1268.0" vgap="5.0"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
               <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
@@ -50,41 +47,40 @@
                 <RowConstraints vgrow="SOMETIMES"/>
               </rowConstraints>
               <children>
-                <Label GridPane.rowIndex="1" text="Naziv:"/>
-                <Label GridPane.rowIndex="2" text="Model:"/>
-                <Label GridPane.rowIndex="3" text="Serijski:"/>
-                <Label GridPane.columnIndex="3" text="Dobavljač:"/>
-                <Label GridPane.rowIndex="4" text="PSerijski:"/>
-                <Label GridPane.rowIndex="5" text="MAC:"/>
-                <Label GridPane.columnIndex="3" GridPane.rowIndex="1" text="Br. Dokumenta:"/>
-                <Label GridPane.columnIndex="3" GridPane.rowIndex="2" text="Nabavna cena:"/>
-                <Label GridPane.columnIndex="3" GridPane.rowIndex="3" text="Količina na stanju:"/>
-                <Label GridPane.columnIndex="3" GridPane.rowIndex="5" text="Opis:"/>
-                <Label GridPane.columnIndex="3" GridPane.rowIndex="4" text="Magacin:"/>
-                <Separator GridPane.columnIndex="2" GridPane.rowSpan="2147483647"
-                  orientation="VERTICAL"
-                  prefHeight="200.0"/>
-                <Label GridPane.columnIndex="4" GridPane.halignment="LEFT" GridPane.rowIndex="5"
-                  GridPane.rowSpan="2147483647"
-                  GridPane.valignment="TOP" text="Label" fx:id="lOpis"/>
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="1" text="Label" fx:id="lNaziv"/>
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="2" text="Label" fx:id="lModel"/>
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="3" text="Label"
-                  fx:id="lSerijski"/>
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="4" text="Label"
-                  fx:id="lPSerijski"/>
-                <Label GridPane.columnIndex="1" GridPane.rowIndex="5" text="Label" fx:id="lMac"/>
-                <Label GridPane.columnIndex="4" text="Label" fx:id="lDobavljac"/>
-                <Label GridPane.columnIndex="4" GridPane.rowIndex="1" text="Label"
-                  fx:id="lBrDoikumenta"/>
-                <Label GridPane.columnIndex="4" GridPane.rowIndex="2" text="Label"
-                  fx:id="lNabavnaCena"/>
-                <Label GridPane.columnIndex="4" GridPane.rowIndex="3" text="Label"
-                  fx:id="lKolicina"/>
-                <Label GridPane.columnIndex="4" GridPane.rowIndex="4" text="Label"
-                  fx:id="lMagacin"/>
+                <Label text="Naziv:" GridPane.rowIndex="1"/>
+                <Label text="Model:" GridPane.rowIndex="2"/>
+                <Label text="Serijski:" GridPane.rowIndex="3"/>
+                <Label text="Dobavljač:" GridPane.columnIndex="3"/>
+                <Label text="PSerijski:" GridPane.rowIndex="4"/>
+                <Label text="MAC:" GridPane.rowIndex="5"/>
+                <Label text="Br. Dokumenta:" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                <Label text="Nabavna cena:" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+                <Label text="Količina na stanju:" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+                <Label text="Opis:" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
+                <Label text="Magacin:" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
+                <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="2"
+                  GridPane.rowSpan="2147483647"/>
+                <Label fx:id="lOpis" text="Label" GridPane.columnIndex="4"
+                  GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.rowSpan="2147483647"
+                  GridPane.valignment="TOP"/>
+                <Label fx:id="lNaziv" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Label fx:id="lModel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label fx:id="lSerijski" text="Label" GridPane.columnIndex="1"
+                  GridPane.rowIndex="3"/>
+                <Label fx:id="lPSerijski" text="Label" GridPane.columnIndex="1"
+                  GridPane.rowIndex="4"/>
+                <Label fx:id="lMac" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                <Label fx:id="lDobavljac" text="Label" GridPane.columnIndex="4"/>
+                <Label fx:id="lBrDoikumenta" text="Label" GridPane.columnIndex="4"
+                  GridPane.rowIndex="1"/>
+                <Label fx:id="lNabavnaCena" text="Label" GridPane.columnIndex="4"
+                  GridPane.rowIndex="2"/>
+                <Label fx:id="lKolicina" text="Label" GridPane.columnIndex="4"
+                  GridPane.rowIndex="3"/>
+                <Label fx:id="lMagacin" text="Label" GridPane.columnIndex="4"
+                  GridPane.rowIndex="4"/>
                 <Label text="Proizvodjač:"/>
-                <Label GridPane.columnIndex="1" text="Label" fx:id="lProizvodjac"/>
+                <Label fx:id="lProizvodjac" text="Label" GridPane.columnIndex="1"/>
               </children>
               <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -95,7 +91,7 @@
       </content>
     </TitledPane>
     <Separator prefWidth="200.0"/>
-    <HBox VBox.vgrow="NEVER" alignment="CENTER">
+    <HBox alignment="CENTER" VBox.vgrow="NEVER">
       <children>
         <Label text="ZADUŽIVANJE" underline="true"/>
       </children>
@@ -105,22 +101,21 @@
         <Label text="Količina:"/>
         <TextField fx:id="tKolicina"/>
         <Label text="Opis:"/>
-        <TextArea prefHeight="62.0" fx:id="tOpis"/>
+        <TextArea fx:id="tOpis" prefHeight="62.0"/>
       </children>
       <padding>
         <Insets top="5.0"/>
       </padding>
     </HBox>
-    <TabPane VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE">
+    <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
       <tabs>
         <Tab text="Magacin">
           <content>
             <AnchorPane>
               <children>
-                <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-                  hgap="5.0" layoutY="111.0"
-                  vgap="5.0">
+                <GridPane hgap="5.0" layoutY="111.0" vgap="5.0" AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                  AnchorPane.topAnchor="0.0">
                   <columnConstraints>
                     <ColumnConstraints halignment="LEFT" hgrow="ALWAYS"/>
                   </columnConstraints>
@@ -128,27 +123,27 @@
                     <RowConstraints vgrow="NEVER"/>
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS"/>
                     <RowConstraints vgrow="NEVER"/>
+                    <RowConstraints vgrow="NEVER"/>
                   </rowConstraints>
                   <children>
-                    <TableView GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS"
-                      GridPane.rowIndex="1"
-                      GridPane.vgrow="ALWAYS" prefHeight="200.0"
-                      prefWidth="200.0" fx:id="tblMagacin">
+                    <TableView fx:id="tblMagacin" prefHeight="200.0" prefWidth="200.0"
+                      GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"
+                      GridPane.vgrow="ALWAYS">
                       <columns>
-                        <TableColumn prefWidth="75.0" text="Naziv" fx:id="cMagNaziv"/>
-                        <TableColumn prefWidth="75.0" text="Opis" fx:id="cMagOpis"/>
+                        <TableColumn fx:id="cMagNaziv" prefWidth="75.0" text="Naziv"/>
+                        <TableColumn fx:id="cMagOpis" prefWidth="75.0" text="Opis"/>
                       </columns>
                       <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                       </columnResizePolicy>
                     </TableView>
-                    <HBox GridPane.columnIndex="0" spacing="5.0">
+                    <HBox spacing="5.0" GridPane.columnIndex="0">
                       <children>
                         <TextField fx:id="tMagaccinSearch"/>
-                        <Button mnemonicParsing="false" onAction="#bTraziMagacin"
-                          text="Traži" fx:id="bTraziMagacin">
+                        <Button fx:id="bTraziMagacin" mnemonicParsing="false"
+                          onAction="#bTraziMagacin" text="Traži">
                           <graphic>
-                            <FontIcon iconLiteral="eli-search"  fill="white" />
+                            <FontIcon fill="white" iconLiteral="eli-search"/>
                           </graphic>
                         </Button>
                       </children>
@@ -156,12 +151,21 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                       </padding>
                     </HBox>
-                    <Button GridPane.rowIndex="2" mnemonicParsing="false" onAction="#zaduziMagacin"
-                      text="Zaduži" fx:id="bZaduziMagacin">
-                      <graphic>
-                        <FontIcon iconLiteral="mdi-cash" fill="white" />
-                      </graphic>
-                    </Button>
+                    <HBox alignment="BOTTOM_LEFT" spacing="10.0" GridPane.rowIndex="3">
+                      <children>
+                        <Button fx:id="bZaduziMagacin" mnemonicParsing="false"
+                          onAction="#zaduziMagacin" text="Zaduži">
+                          <graphic>
+                            <FontIcon fill="white" iconLiteral="mdi-cash"/>
+                          </graphic>
+                        </Button>
+                        <Button fx:id="bRazduzi" mnemonicParsing="false"
+                          onAction="#razduziKorisnika" text="Razduži"/>
+                      </children>
+                      <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                      </padding>
+                    </HBox>
                   </children>
                   <padding>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -171,14 +175,13 @@
             </AnchorPane>
           </content>
         </Tab>
-        <Tab text="Korisnik">
+        <Tab fx:id="tabKorisnik" text="Korisnik">
           <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-                  hgap="5.0" layoutX="141.0"
-                  layoutY="60.0" vgap="5.0">
+                <GridPane hgap="5.0" layoutX="141.0" layoutY="60.0" vgap="5.0"
+                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <columnConstraints>
                     <ColumnConstraints halignment="LEFT" hgrow="ALWAYS"/>
                   </columnConstraints>
@@ -188,25 +191,24 @@
                     <RowConstraints vgrow="NEVER"/>
                   </rowConstraints>
                   <children>
-                    <TableView GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS"
-                      GridPane.rowIndex="1"
-                      GridPane.vgrow="ALWAYS" prefHeight="200.0"
-                      prefWidth="200.0" fx:id="tblUsers">
+                    <TableView fx:id="tblUsers" prefHeight="200.0" prefWidth="200.0"
+                      GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"
+                      GridPane.vgrow="ALWAYS">
                       <columns>
-                        <TableColumn prefWidth="75.0" text="ID" fx:id="cUserID"/>
-                        <TableColumn prefWidth="75.0" text="IME I PREZIME" fx:id="cUserIme"/>
-                        <TableColumn prefWidth="75.0" text="Adresa" fx:id="cUserAdresa"/>
-                        <TableColumn prefWidth="75.0" text="Mesto" fx:id="cUserMesto"/>
+                        <TableColumn fx:id="cUserID" prefWidth="75.0" text="ID"/>
+                        <TableColumn fx:id="cUserIme" prefWidth="75.0" text="IME I PREZIME"/>
+                        <TableColumn fx:id="cUserAdresa" prefWidth="75.0" text="Adresa"/>
+                        <TableColumn fx:id="cUserMesto" prefWidth="75.0" text="Mesto"/>
                       </columns>
                       <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                       </columnResizePolicy>
                     </TableView>
-                    <HBox GridPane.columnSpan="2147483647" spacing="5.0">
+                    <HBox spacing="5.0" GridPane.columnSpan="2147483647">
                       <children>
                         <TextField fx:id="tKorisnikSearch"/>
-                        <Button mnemonicParsing="false" onAction="#bTraziUser"
-                          text="Traži" fx:id="bTraziUser">
+                        <Button fx:id="bTraziUser" mnemonicParsing="false" onAction="#bTraziUser"
+                          text="Traži">
                           <graphic>
                             <FontIcon fill="white" iconLiteral="eli-search" />
                           </graphic>
@@ -216,9 +218,8 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                       </padding>
                     </HBox>
-                    <Button GridPane.rowIndex="2" mnemonicParsing="false"
-                      onAction="#zaduziKorisnika"
-                      text="Zaduži">
+                    <Button mnemonicParsing="false" onAction="#zaduziKorisnika" text="Zaduži"
+                      GridPane.rowIndex="2">
                       <graphic>
                         <FontIcon fill="white" iconLiteral="mdi-cash"/>
                       </graphic>
