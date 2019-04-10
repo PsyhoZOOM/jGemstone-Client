@@ -134,21 +134,19 @@ public class Client {
     System.out.println("SOCKET: " + socket.isClosed());
     setConnected(false);
 
-    for (int i = 0; i < 10; i++) {
-      Platform.runLater(new Runnable() {
-        @Override
-        public void run() {
-          strMess.setValue("RECONNECTING");
-        }
-      });
-      main_run();
-      login_to_server();
-
-      try {
-        Thread.sleep(1000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        strMess.setValue("RECONNECTING");
       }
+    });
+    main_run();
+    login_to_server();
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
     if (!socket.isClosed()) {
       Platform.runLater(new Runnable() {
@@ -158,8 +156,8 @@ public class Client {
         }
       });
     }
-
   }
+
 
   public JSONObject getjObj() {
     try {
@@ -248,6 +246,15 @@ public class Client {
     } catch (IOException e) {
       e.printStackTrace();
       AlertUser.error("GRESKA", e.getMessage());
+      boolean greska = AlertUser.yesNo("GRESKA",
+          "Povezivanje sa serverom nije moguće. Proverite internet konekciji ili pozovite administratora.\nPOKUŠAJ PONOVO?");
+      if (!greska) {
+        Platform.exit();
+        System.exit(0);
+      } else {
+        reconnect();
+      }
+
       try {
         if (!socket.isClosed()) {
           socket.close();
