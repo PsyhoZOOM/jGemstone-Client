@@ -99,4 +99,26 @@ public class KorisnikZaduzenjeIzmene implements Initializable {
     }
 
   }
+
+  public void izbrisiZaduzenjeKorisnik(ActionEvent actionEvent) {
+    boolean brisanje_zaduzenja = AlertUser
+        .yesNo("BRISANJE ZADUZENJA", "Da li ste sigurni da želite da izbrišete zaduženje");
+    if (!brisanje_zaduzenja) {
+      return;
+    }
+
+    JSONObject object = new JSONObject();
+    object.put("action", "IzbrisiZaduzenjeKorisnik");
+    object.put("id", mesecnoZaduzenje.getId());
+    object = client.send_object(object);
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA", object.getString("ERROR"));
+    } else {
+      AlertUser.info("ZADUŽENJE IZBRISANO", String.format("Zaduzenje je izbrisano"));
+      Stage stage = (Stage) bIzmeni.getScene().getWindow();
+      stage.close();
+    }
+
+
+  }
 }

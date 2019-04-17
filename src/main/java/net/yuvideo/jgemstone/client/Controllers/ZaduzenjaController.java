@@ -109,6 +109,9 @@ public class ZaduzenjaController implements Initializable {
   }
 
   private void showDataZaMesec() {
+    if (listMesec.getSelectionModel().getSelectedIndex() == -1) {
+      return;
+    }
     JSONObject object = new JSONObject();
     object.put("action", "getUserMesecnaZaduzenjaZaMesec");
     object.put("userID", userID);
@@ -230,5 +233,33 @@ public class ZaduzenjaController implements Initializable {
     korisnikZaduzenjeIzmeneController.setMesecnoZaduzenje(mesecnoZaduzenje);
     newInterface.getStage().showAndWait();
     showDataZaMesec();
+  }
+
+  public void izbrisiZaduzenje(ActionEvent actionEvent) {
+    if (listMesec.getSelectionModel().getSelectedIndex() == -1) {
+      AlertUser.warrning("NIJE IZABRANO ZADUŽENJE", "Izaberite zaduženje za brisanje!");
+      return;
+    }
+
+    boolean brisanje_zaduženja = AlertUser.yesNo("BRISANJE ZADUŽENJA", String
+        .format("Da li ste sigurno da želite da izbrišete zaduženje za ceo mesec %s",
+            listMesec.getSelectionModel().getSelectedItem().getZaMesec()));
+    if (!brisanje_zaduženja) {
+      return;
+    }
+
+    JSONObject object = new JSONObject();
+    object.put("action", "IzbrisiZaduzenjeZaMesecKorisnik");
+    object.put("zaMesec", listMesec.getSelectionModel().getSelectedItem().getZaMesec());
+    object.put("userID", userID);
+    object = client.send_object(object);
+    if (object.has("ERROR")) {
+      AlertUser.error("GRESKA", object.getString("ERROR"));
+    } else {
+      AlertUser.info("ZADUZENJE JE IZBRISANO", String.format("Zaduzenje za mesec %s je izbrisano!",
+          listMesec.getSelectionModel().getSelectedItem().getZaMesec()));
+      listMesec.getItems().remove(listMesec.getSelectionModel().getSelectedItem());
+    }
+    tblZaduzenja.getRoot().getChildren().removeAll();
   }
 }

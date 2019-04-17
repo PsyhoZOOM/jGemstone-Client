@@ -41,7 +41,8 @@ public class Client {
   public IntegerProperty rs = new SimpleIntegerProperty();
   public StringProperty strMess = new SimpleStringProperty();
 
-  private static String C_VERSION = "0.214";
+  private static String C_VERSION = "0.215";
+
 
   //Socket socket;
   SSLSocket socket;
