@@ -548,4 +548,8 @@ public class MainWindowController implements Initializable {
     izvestajControlller.setClient(this.client);
     izvestajInterface.getStage().showAndWait();
   }
+
+  public void showStampaPodataka(ActionEvent actionEvent) {
+
+  }
 }

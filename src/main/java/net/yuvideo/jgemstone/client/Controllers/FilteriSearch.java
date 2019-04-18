@@ -28,6 +28,10 @@ public class FilteriSearch implements Initializable {
   public CheckBox chkEmail;
   public TextField tEMail;
   public Button bOK;
+  public CheckBox chkKTV;
+  public CheckBox chkNET;
+  public CheckBox chkIPTV;
+  public CheckBox chkFIKSNA;
   private URL location;
   private ResourceBundle resources;
   String query;

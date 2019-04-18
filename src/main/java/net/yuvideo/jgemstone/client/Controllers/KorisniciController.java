@@ -13,7 +13,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -154,6 +161,10 @@ public class KorisniciController implements Initializable {
     jObj.put("username", search_user);
     if (chkNaprednaPretraga.isSelected()) {
       jObj.put("advancedSearch", this.advancedSearch);
+      jObj.put("chkNET", filteriSearchController.chkNET.isSelected());
+      jObj.put("chkKTV", filteriSearchController.chkKTV.isSelected());
+      jObj.put("chkIPTV", filteriSearchController.chkIPTV.isSelected());
+      jObj.put("chkFIX", filteriSearchController.chkFIKSNA.isSelected());
     }
 
 
@@ -345,4 +356,14 @@ public class KorisniciController implements Initializable {
     this.client = client;
   }
 
+  public void stampaPodataka(ActionEvent actionEvent) {
+    NewInterface stamplaPodaciInterface = new NewInterface("fxml/KorisnikStampaPodaci.fxml",
+        "ŠTAMPA PODATAKA", resources);
+    KorisnikStampaPodaci korisnikStampaPodaciController = stamplaPodaciInterface.getLoader()
+        .getController();
+    ObservableList<Users> users = tUsers.getItems();
+    korisnikStampaPodaciController.setUsers(users);
+
+    stamplaPodaciInterface.getStage().showAndWait();
+  }
 }

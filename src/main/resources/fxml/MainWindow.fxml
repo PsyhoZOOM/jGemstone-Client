@@ -87,6 +87,8 @@
                   text="Mesta i Ulice"/>
                 <MenuItem fx:id="oprema" mnemonicParsing="false" onAction="#showOprema"
                   text="Oprema"/>
+                <MenuItem fx:id="stampaPodataka" mnemonicParsing="false"
+                  onAction="#showStampaPodataka" text="Štampa podataka"/>
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Ugovori">

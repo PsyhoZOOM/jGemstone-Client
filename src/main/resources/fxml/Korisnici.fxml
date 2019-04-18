@@ -32,6 +32,11 @@
                 <FontIcon fill="white" iconLiteral="eli-edit" />
               </graphic>
             </Button>
+            <Button onAction="#stampaPodataka" text="Štampa" fx:id="bStampaPodataka">
+              <graphic>
+                <FontIcon fill="white" iconLiteral="eli-print"/>
+              </graphic>
+            </Button>
             <Pane HBox.hgrow="ALWAYS"/>
             <CheckBox mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT"
               fx:id="chkNaprednaPretraga">
