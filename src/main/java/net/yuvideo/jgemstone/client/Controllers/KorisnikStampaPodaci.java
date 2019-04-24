@@ -9,6 +9,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,7 +35,7 @@ public class KorisnikStampaPodaci implements Initializable, Printable {
 
   private ObservableList<Users> users;
   private PrinterJob pj;
-  private int[] pageBreaks;
+  private int[] pageBreaks = null;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -70,32 +71,27 @@ public class KorisnikStampaPodaci implements Initializable, Printable {
   }
 
 
-  String[] textLines;
 
-  private void initTextLines() {
-    if (textLines == null) {
-      int numLines = 200;
-      textLines = new String[numLines];
-      for (int i = 0; i < numLines; i++) {
-        textLines[i] = "This is line number " + i;
-      }
-    }
-  }
 
   @Override
   public int print(Graphics graphics, PageFormat pageFormat, int pageIndex)
       throws PrinterException {
+    pageBreaks = null;
     Graphics2D g = (Graphics2D) graphics;
     g.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
 
     ObservableList<Users> selUsers = tblUsers.getSelectionModel().getSelectedItems();
 
-    Font fontBold = null;
     Font font = null;
+    Font fontBold = null;
     FontMetrics metrics;
     try {
       font = Font.createFont(Font.TRUETYPE_FONT,
-          ClassLoader.getSystemResourceAsStream("font/roboto/Roboto-Regular.ttf")).deriveFont(10f);
+          new File(ClassLoader.getSystemResource("font/roboto/Roboto-Regular.ttf").getFile()))
+          .deriveFont(10f);
+      fontBold = Font.createFont(Font.TRUETYPE_FONT,
+          new File(ClassLoader.getSystemResource("font/roboto/Roboto-Black.ttf").getFile()))
+          .deriveFont(10f);
 
     } catch (FontFormatException e) {
       e.printStackTrace();
@@ -107,29 +103,36 @@ public class KorisnikStampaPodaci implements Initializable, Printable {
 
     metrics = g.getFontMetrics();
     int lineHeight = metrics.getHeight();
+    String[] ime = null;
+    String[] id = null;
+    String[] userID = null;
+    String[] mesto = null;
 
     if (pageBreaks == null) {
       //initTextLines();
-      textLines = new String[selUsers.size() + 1];
-      textLines[0] = String.format("%-7s%-15s%-30s%30s", "ID", "USERID", "IME", "MESTO");
+      ime = new String[selUsers.size() + 1];
+      id = new String[selUsers.size() + 1];
+      userID = new String[selUsers.size() + 1];
+      mesto = new String[selUsers.size() + 1];
+
+      id[0] = "ID";
+      userID[0] = "USERID";
+      ime[0] = "IME";
+      mesto[0] = "MESTO";
       for (int i = 0; i < selUsers.size(); i++) {
         Users user = selUsers.get(i);
-        String name = user.getIme();
-        for (int l = name.length(); l < 30; l++) {
-          name += " ";
-        }
-        textLines[i + 1] = String
-            .format("%-7s%-15s%-30s%30s", String.valueOf(user.getId()), user.getJbroj(), name,
-                user.getMestoUsluge());
-
+        id[i + 1] = String.valueOf(user.getId());
+        userID[i + 1] = user.getJbroj();
+        ime[i + 1] = user.getIme();
+        mesto[i + 1] = user.getMestoUsluge();
       }
       int linesPerPage = (int) (pageFormat.getImageableHeight() / lineHeight);
-      int numBreaks = (textLines.length - 1) / linesPerPage;
+      int numBreaks = (ime.length - 1) / linesPerPage;
       pageBreaks = new int[numBreaks];
       for (int b = 0; b < numBreaks; b++) {
         pageBreaks[b] = (b + 1) * linesPerPage;
       }
-    }
+      }
 
     if (pageIndex > pageBreaks.length) {
       return NO_SUCH_PAGE;
@@ -146,16 +149,24 @@ public class KorisnikStampaPodaci implements Initializable, Printable {
     int y = 0;
     int start = (pageIndex == 0) ? 0 : pageBreaks[pageIndex - 1];
     int end = (pageIndex == pageBreaks.length)
-        ? textLines.length : pageBreaks[pageIndex];
+        ? ime.length : pageBreaks[pageIndex];
     for (int line = start; line < end; line++) {
       y += lineHeight;
-      g.drawString(textLines[line], 0, y);
-      System.out.println(textLines[line]);
+      if (line == 0) {
+        g.setFont(fontBold);
+      } else {
+        g.setFont(font);
+      }
+
+      g.drawString(id[line], 0, y);
+      g.drawString(userID[line], 40, y);
+      g.drawString(ime[line], 120, y);
+      g.drawString(mesto[line], 300, y);
     }
 
     /* tell the caller that this page is part of the printed document */
+
     return PAGE_EXISTS;
-
-
   }
+
 }
