@@ -148,9 +148,15 @@ public class KorisniciController implements Initializable {
       }
     }
     tUsers.getItems().clear();
-    ObservableList data = FXCollections.observableArrayList(get_user_table_list(username));
-    if (data.size() > 0)
-      tUsers.setItems(data);
+
+    //ako filter nije definisan ne znamo prema cemu da pravimo pretragu
+    if (filteriSearchController != null) {
+      ObservableList data = FXCollections.observableArrayList(get_user_table_list(username));
+      if (data.size() > 0)
+        tUsers.setItems(data);
+    }else{
+      AlertUser.info("Prazna polja u filterima", "Nije izbran ni jedan filter. \nIzaberite filter za pretragu i pokušajte ponovo.");
+    }
   }
 
 

@@ -1,0 +1,33 @@
+/*******************************************************************************
+ *                                                                             *
+ * PsyhoZOOM's sea theme.                                            *
+ *                                                                             *
+ ******************************************************************************/
+@font-face {
+     font-family: "Roboto Regular";
+     src: url("/font/roboto/Roboto-Regular.ttf");
+   }
+@font-face {
+  font-family: "Roboto Bold";
+   src: url("/font/roboto/Roboto-Bold.ttf");
+}
+
+.root {
+    -fx-base: #083045;
+    -fx-background: -fx-base;
+    -fx-font-family: "Roboto Regular";
+}
+
+
+.button:hover {
+      -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+
+}
+
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Roboto Bold";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}

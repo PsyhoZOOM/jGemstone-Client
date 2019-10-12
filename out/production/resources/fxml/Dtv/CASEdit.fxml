@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+  xmlns="http://javafx.com/javafx/8.0.172"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.Administration.DTV.CASEditController">
+  <children>
+    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+      AnchorPane.topAnchor="0.0" layoutX="259.0" layoutY="65.0" prefHeight="400.0"
+      prefWidth="600.0">
+      <children>
+        <JFXTreeTableView VBox.vgrow="ALWAYS" fx:id="tblCASView"/>
+        <HBox VBox.vgrow="NEVER" alignment="CENTER_RIGHT" spacing="5.0">
+          <children>
+            <JFXButton buttonType="RAISED" onAction="#deleteCAS" text="Obriši" fx:id="bDelete"/>
+            <JFXButton buttonType="RAISED" onAction="#novCas" text="Nov" fx:id="bNov"/>
+          </children>
+          <VBox.margin>
+            <Insets/>
+          </VBox.margin>
+          <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+          </padding>
+        </HBox>
+      </children>
+    </VBox>
+  </children>
+</AnchorPane>

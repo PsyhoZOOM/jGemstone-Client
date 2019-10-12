@@ -65,6 +65,7 @@ public class MainMapController implements Initializable, MapComponentInitialized
     this.location = location;
     gMapView.setDisableDoubleClick(true);
     gMapView.addMapInializedListener(this);
+    gMapView.setKey("AIzaSyCJkNK8HIFNxbc8Ynwq_eI2uXHTmginiV4");
 
     lView.setCellFactory(new Callback<ListView<Marker>, ListCell<Marker>>() {
       @Override
@@ -171,6 +172,32 @@ public class MainMapController implements Initializable, MapComponentInitialized
       }
     });
 
+
+    reloadData(null);
+    autoReload();
+
+  }
+
+  private void autoReload() {
+    Thread thread = new Thread(new Runnable() {
+      @Override
+      public void run() {
+        while (true) {
+          Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+              reloadData(null);
+            }
+          });
+          try {
+            Thread.sleep(10000);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    });
+    thread.start();
   }
 
 
@@ -264,21 +291,7 @@ public class MainMapController implements Initializable, MapComponentInitialized
       this.run = false;
     }
 
-    @Override
-    public void run() {
-      while (run) {
-        Platform.runLater(new Runnable() {
-          @Override
-          public void run() {
-            reloadData(null);
-          }
-        });
-        try {
-          Thread.sleep(10000);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-      }
     }
-  }
+
+
 }

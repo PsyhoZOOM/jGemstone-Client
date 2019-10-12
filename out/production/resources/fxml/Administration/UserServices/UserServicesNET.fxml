@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXScrollPane?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<HBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" spacing="5.0"
+  xmlns="http://javafx.com/javafx/8.0.121"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.Administration.UserServices.UserServicesNET"
+  fx:id="hBoxMain">
+  <children>
+    <VBox HBox.hgrow="NEVER" spacing="20.0">
+      <children>
+        <HBox VBox.vgrow="NEVER" alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <Label text="Naziv Paketa:"/>
+            <Label HBox.hgrow="ALWAYS" fx:id="lNazivPaketa"/>
+          </children>
+        </HBox>
+        <HBox VBox.vgrow="NEVER" alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <Label text="Vrsta:"/>
+            <Label fx:id="lVrstaPaketa"/>
+          </children>
+        </HBox>
+        <HBox VBox.vgrow="NEVER" alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <Label text="Datum isteka Servisa:"/>
+            <Label fx:id="lServiceEndDate"/>
+          </children>
+        </HBox>
+        <HBox VBox.vgrow="NEVER" spacing="5.0">
+          <children>
+            <JFXTextField labelFloat="true" prefHeight="25.0" prefWidth="200.0"
+              promptText="Username" fx:id="tUserName"/>
+          </children>
+        </HBox>
+        <HBox VBox.vgrow="NEVER" alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <JFXPasswordField HBox.hgrow="NEVER" labelFloat="true" maxHeight="-Infinity"
+              maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0"
+              prefWidth="150.0" promptText="password" fx:id="tPass"/>
+            <JFXButton buttonType="RAISED" minWidth="50.0" onAction="#izmeniPass" text="Izmeni"
+              fx:id="bIzmeniPass"/>
+          </children>
+        </HBox>
+        <HBox VBox.vgrow="NEVER" alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <JFXDatePicker editable="false" prefHeight="25.0" prefWidth="199.0"
+              promptText="Datum isteka" fx:id="dtpEndDate"/>
+          </children>
+        </HBox>
+        <HBox VBox.vgrow="NEVER" spacing="5.0">
+          <children>
+            <JFXTextField labelFloat="true" promptText="Maksimalno konekcija" fx:id="tMaxConn"/>
+          </children>
+        </HBox>
+        <HBox VBox.vgrow="NEVER" spacing="5.0">
+          <children>
+            <JFXTextField labelFloat="true" prefWidth="200.0" promptText="up(1M)/down(5m)"
+              fx:id="tUpDown"/>
+          </children>
+        </HBox>
+        <HBox VBox.vgrow="NEVER" spacing="5.0">
+          <children>
+            <JFXTextField labelFloat="true" prefWidth="200.0" promptText="IP Addresa" fx:id="tIP"/>
+          </children>
+        </HBox>
+        <HBox VBox.vgrow="NEVER" spacing="5.0">
+          <children>
+            <JFXTextField labelFloat="true" prefWidth="200.0" promptText="IP POOL" fx:id="tIpPool"/>
+          </children>
+        </HBox>
+        <HBox VBox.vgrow="NEVER" spacing="5.0">
+          <children>
+            <JFXTextField labelFloat="true" prefWidth="200.0" promptText="Filter-ID"
+              fx:id="tFilterID"/>
+          </children>
+        </HBox>
+        <HBox VBox.vgrow="ALWAYS" spacing="5.0">
+          <children>
+            <JFXTextArea HBox.hgrow="NEVER" labelFloat="true" prefColumnCount="18" prefRowCount="5"
+              promptText="Komentar" fx:id="tKomentar"/>
+          </children>
+        </HBox>
+        <HBox VBox.vgrow="NEVER" spacing="5.0">
+          <children>
+            <JFXCheckBox text="Reject" fx:id="chkReject"/>
+          </children>
+        </HBox>
+        <HBox VBox.vgrow="NEVER" alignment="CENTER_LEFT">
+          <children>
+            <JFXButton buttonType="RAISED" contentDisplay="CENTER" onAction="#changeRadiusData"
+              text="Izmeni" fx:id="bIzmeni"/>
+          </children>
+        </HBox>
+      </children>
+      <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+      </padding>
+    </VBox>
+    <Separator orientation="VERTICAL" prefHeight="200.0"/>
+    <VBox HBox.hgrow="ALWAYS">
+      <children>
+        <HBox VBox.vgrow="NEVER" alignment="CENTER_LEFT">
+          <children>
+            <JFXTextField labelFloat="true" promptText="Pretraga" fx:id="tPretraga">
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="20.0"/>
+              </padding>
+            </JFXTextField>
+            <JFXDatePicker fx:id="dtpStart"/>
+            <JFXDatePicker fx:id="dtpStop"/>
+            <JFXButton onAction="#showUserTrafficReport" text="Traži" fx:id="bTrazi"/>
+          </children>
+        </HBox>
+        <StackPane VBox.vgrow="ALWAYS" fx:id="stackPane">
+          <children>
+            <JFXScrollPane>
+              <children>
+                <JFXTreeTableView fx:id="tblUserTrafficReport">
+                  <columnResizePolicy>
+                    <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                  </columnResizePolicy>
+                </JFXTreeTableView>
+              </children>
+            </JFXScrollPane>
+          </children>
+        </StackPane>
+      </children>
+    </VBox>
+    <Separator orientation="VERTICAL" prefHeight="200.0"/>
+    <VBox spacing="20.0">
+      <children>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <JFXComboBox prefWidth="150.0" fx:id="cmbUsers"/>
+            <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" onAction="#showStatus"
+              text="Osveži" fx:id="bRefres">
+              <graphic>
+                <FontIcon fill="WHITE" iconLiteral="eli-refresh"/>
+              </graphic>
+            </JFXButton>
+          </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <Label text="Online: "/>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"
+              fx:id="imgOnline"/>
+          </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <Label text="NAS: "/>
+            <Label fx:id="lNAS"/>
+          </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <Label text="Interface: "/>
+            <Label fx:id="lInterface"/>
+          </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <Label text="IP: "/>
+            <Label fx:id="lIP"/>
+          </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <Label text="MAC: "/>
+            <Label fx:id="lMAC"/>
+          </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <Label text="Called ID: "/>
+            <Label fx:id="lCalledID"/>
+          </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <Label text="Link UP: "/>
+            <Label fx:id="lLinkUP"/>
+          </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <Label text="Online Time: "/>
+            <Label fx:id="lOnlineTime"/>
+          </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <Label text="TX Bytes: "/>
+            <Label fx:id="lTxBytes"/>
+          </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <Label text="RX Bytes:"/>
+            <Label fx:id="lRxBytes"/>
+          </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="5.0">
+          <children>
+            <HBox>
+              <children>
+                <TextField prefHeight="25.0" prefWidth="140.0" promptText="UP(1M)/DOWN(5M)"
+                  fx:id="tSpeed"/>
+                <JFXButton buttonType="RAISED" onAction="#changeSpeed" text="Brzina"
+                  fx:id="bChangeSpeed"/>
+              </children>
+            </HBox>
+          </children>
+        </HBox>
+        <JFXButton buttonType="RAISED" onAction="#showPing" text="PING" fx:id="bPING"/>
+        <JFXButton buttonType="RAISED" onAction="#showBWMonitor" text="BW Monitor"
+          fx:id="bMonitor"/>
+        <JFXButton mnemonicParsing="false" onAction="#disconnectUser" text="Disconnect"
+          fx:id="bDisconnect"/>
+      </children>
+      <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+      </padding>
+    </VBox>
+  </children>
+</HBox>

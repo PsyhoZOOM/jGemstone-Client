@@ -146,7 +146,6 @@ public class NewInterface {
         stage.initStyle(StageStyle.UNDECORATED);
       }
       stage.setResizable(true);
-      stage.setMaximized(true);
 
       stage.setScene(scene);
 

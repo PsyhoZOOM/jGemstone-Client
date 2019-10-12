@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" spacing="5.0" xmlns="http://javafx.com/javafx/8.0.172"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.Administration.UserServices.UserServicesIPTV"
+  fx:id="boxMain">
+  <children>
+    <HBox>
+      <children>
+        <VBox spacing="20.0">
+          <children>
+            <JFXTextField labelFloat="true" promptText="Ime" fx:id="tIme"/>
+            <JFXTextField labelFloat="true" promptText="UserName" fx:id="tUserName"/>
+            <HBox alignment="CENTER_RIGHT">
+              <children>
+                <JFXPasswordField labelFloat="true" promptText="Lozinka" fx:id="tPass"/>
+                <JFXButton buttonType="RAISED" onAction="#changePass" text="Izmeni"
+                  fx:id="bChangePass"/>
+              </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT">
+              <children>
+                <JFXDatePicker editable="false" fx:id="dtpEndDate"/>
+                <JFXButton onAction="#changeEndDate" text="Izmeni" fx:id="bIzmeniEndDate"/>
+              </children>
+            </HBox>
+            <JFXTextField labelFloat="true" promptText="MAC" fx:id="tMac"/>
+            <JFXTextArea labelFloat="true" promptText="Komentar" fx:id="tComment"/>
+            <HBox alignment="CENTER_RIGHT">
+              <children>
+                <JFXCheckBox text="Aktivan" fx:id="chkAktivan"/>
+              </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT">
+              <children>
+                <JFXButton onAction="#saveAll" text="Snimi" fx:id="bSnimi"/>
+              </children>
+            </HBox>
+          </children>
+          <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="20.0"/>
+          </padding>
+        </VBox>
+        <Separator orientation="VERTICAL" prefHeight="200.0"/>
+        <VBox alignment="TOP_CENTER" spacing="5.0">
+          <children>
+            <HBox>
+              <children>
+                <Label text="Online: "/>
+                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"
+                  fx:id="imgOnline"/>
+              </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0">
+              <children>
+                <Label text="Acccoun ID: "/>
+                <Label fx:id="lAccId"/>
+              </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="30.0">
+              <children>
+                <Label text="IP: "/>
+                <Label fx:id="lIP"/>
+              </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="45.0">
+              <children>
+                <Label text="Verzija "/>
+                <Label fx:id="lVersion"/>
+              </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="60.0">
+              <children>
+                <Label text="STB S/N: "/>
+                <Label fx:id="lSTBSN"/>
+              </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="75.0">
+              <children>
+                <Label text="Poslednji put ulogovan: "/>
+                <Label fx:id="lLastLogin"/>
+              </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="90.0">
+              <children>
+                <Label text="STB Vrsta: "/>
+                <Label fx:id="lSTBType"/>
+              </children>
+            </HBox>
+          </children>
+          <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+          </padding>
+        </VBox>
+      </children>
+    </HBox>
+  </children>
+  <padding>
+    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+  </padding>
+</VBox>

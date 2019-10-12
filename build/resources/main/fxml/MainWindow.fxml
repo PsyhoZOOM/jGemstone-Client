@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<StackPane fx:id="mainStackPane" xmlns="http://javafx.com/javafx/8.0.171"
+  xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.MainWindowController">
+  <children>
+    <AnchorPane fx:id="anchorMainWindow" maxHeight="1.7976931348623157E308"
+      maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1280.0">
+      <children>
+        <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
+          <menus>
+            <Menu mnemonicParsing="false" text="Program">
+              <items>
+                <MenuItem fx:id="mExit" mnemonicParsing="false" text="Izlaz"/>
+              </items>
+            </Menu>
+            <Menu fx:id="mPaketi" mnemonicParsing="false" text="Paketi">
+              <items>
+                <Menu fx:id="mBOX" mnemonicParsing="false" text="Box Paketi">
+                  <items>
+                    <MenuItem fx:id="miBOXPaket" mnemonicParsing="false" onAction="#showBoxPaket"
+                      text="Pregled/Izmene"/>
+                  </items>
+                </Menu>
+                <Menu fx:id="mPInternet" mnemonicParsing="false" text="Internet">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#showInternetPaket" text="Paketi"/>
+                  </items>
+                </Menu>
+                <Menu fx:id="mPDTV" mnemonicParsing="false" text="Digitalna TV">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#showDTVPaket" text="Paketi"/>
+                    <MenuItem mnemonicParsing="false" onAction="#showCSAEditor" text="CAS"/>
+                  </items>
+                </Menu>
+                <Menu fx:id="mFixnaTelefonija" mnemonicParsing="false" text="Fiksna Telefonija">
+                  <items>
+                    <MenuItem fx:id="Paketi" mnemonicParsing="false"
+                      onAction="#showFisknaTelefonijaPaket" text="Paketi"/>
+                  </items>
+                </Menu>
+                <Menu fx:id="mIPTV" mnemonicParsing="false" text="IPTV">
+                  <items>
+                    <MenuItem fx:id="IPTVPaketi" mnemonicParsing="false" onAction="#showIPTVPaketi"
+                      text="IPTV Paketi"/>
+                  </items>
+                </Menu>
+                <Menu fx:id="mOstaleusluge" mnemonicParsing="false" text="Ostale usluge">
+                  <items>
+                    <MenuItem fx:id="OstaleUsluge" mnemonicParsing="false"
+                      onAction="#showOstaleUsluge" text="Ostale usluge"/>
+                  </items>
+                </Menu>
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Korisnici">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#showKorisnici"
+                  text="Pretraga korisnika"/>
+                <MenuItem fx:id="mesta" mnemonicParsing="false" onAction="#showMesta"
+                  text="Mesta i Ulice"/>
+                <MenuItem fx:id="oprema" mnemonicParsing="false" onAction="#showOprema"
+                  text="Oprema"/>
+                <MenuItem fx:id="stampaPodataka" mnemonicParsing="false"
+                  onAction="#showStampaPodataka" text="Štampa podataka"/>
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Ugovori">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#showUgovori" text="Ugovori/Template"/>
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Fiksna Telefonija">
+              <items>
+                <MenuItem fx:id="mImportCSV" mnemonicParsing="false" onAction="#importCSV"
+                  text="Import CSV Fajl"/>
+                <MenuItem fx:id="mPregledCSV" mnemonicParsing="false" onAction="#showPregledCSV"
+                  text="Pregled CSV-a"/>
+                <MenuItem fx:id="Obracun" mnemonicParsing="false" onAction="#showObracun"
+                  text="Obračun"/>
+              </items>
+            </Menu>
+            <Menu fx:id="mMagacin" mnemonicParsing="false" text="Magacini">
+              <items>
+                <MenuItem fx:id="mMagacinIzmene" mnemonicParsing="false" onAction="#MagacinShow"
+                  text="Magacini"/>
+                <MenuItem fx:id="mArtikliShow" mnemonicParsing="false" onAction="#showArtikli"
+                  text="Artikli"/>
+              </items>
+            </Menu>
+            <Menu fx:id="mIzvestajiIObracun" mnemonicParsing="false" text="Izveštaji i Obračuni">
+              <items>
+                <MenuItem fx:id="mIzvestaj" mnemonicParsing="false" onAction="#showIzvestaj"
+                  text="Izveštaj"/>
+                <MenuItem fx:id="mPDVObracun" mnemonicParsing="false" onAction="#showPDVObracun"
+                  text="PDV Obračun"/>
+                <MenuItem fx:id="mStampaRacuna" mnemonicParsing="false" onAction="#showStampaRacuna"
+                  text="Štampa Računa"/>
+                <MenuItem fx:id="mFiksnaPozivi" mnemonicParsing="false" onAction="#showFiksnaPozivi"
+                  text="Fiksna Pozivi"/>
+                <MenuItem fx:id="mMesecniObracun" mnemonicParsing="false"
+                  onAction="#showMesecniObracun" text="Mesečni obračun"/>
+              </items>
+            </Menu>
+            <Menu fx:id="mMreza" mnemonicParsing="false" text="Mreža">
+              <items>
+                <MenuItem fx:id="mUredjaji" mnemonicParsing="false" onAction="#showUredjaji"
+                  text="Uređaji"/>
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Mape">
+              <items>
+                <MenuItem fx:id="mMape" mnemonicParsing="false" onAction="#showMape" text="Mape"/>
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Operateri">
+              <items>
+                <MenuItem fx:id="operaterList" mnemonicParsing="false" onAction="#showOperaterList"
+                  text="Izmene"/>
+                <MenuItem fx:id="mGrupeOpers" mnemonicParsing="false" onAction="#showGroupOpers"
+                  text="Grupe"/>
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Opcije">
+              <items>
+                <MenuItem fx:id="mSetup" mnemonicParsing="false" onAction="#mOpenSetup"
+                  text="Podešavanja"/>
+              </items>
+            </Menu>
+            <Menu fx:id="help" mnemonicParsing="false" text="Help">
+              <items>
+                <MenuItem mnemonicParsing="false" text="About"/>
+                <MenuItem fx:id="StalkerAPITest" mnemonicParsing="false"
+                  onAction="#mOpenStalkerAPITest" text="StalkerApi"/>
+                <MenuItem fx:id="barCodeReader" mnemonicParsing="false" onAction="#mOpenQrScanner"
+                  text="QR Scanner"/>
+                <MenuItem fx:id="pdfPreview" mnemonicParsing="false" onAction="#mOpenPDFPreview"
+                  text="PDF Preview"/>
+                <MenuItem fx:id="mProgressTest" mnemonicParsing="false" onAction="#showProgressTest"
+                  text="Progress"/>
+                <MenuItem fx:id="snmpTEst" mnemonicParsing="false" onAction="#testSNMPWALK"
+                  text="SNMP TEST"/>
+                <MenuItem mnemonicParsing="false" onAction="#showOnlinePPPeEInterface"
+                  text="SHOW ONLINE PPPoE INTERFACE"/>
+                <MenuItem fx:id="mPrintDocTest" mnemonicParsing="false" onAction="#printDocTest"
+                  text="PrintDocTest"/>
+              </items>
+            </Menu>
+          </menus>
+          <effect>
+            <DropShadow/>
+          </effect>
+        </MenuBar>
+        <BorderPane fx:id="MainBorderPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+          <top>
+            <VBox BorderPane.alignment="CENTER_LEFT">
+              <children>
+                <Separator prefWidth="200.0"/>
+                <HBox alignment="CENTER_LEFT" spacing="5.0" styleClass="segmented-button-bar">
+                  <children>
+                    <Button fx:id="bShowKorisniciSearch" minHeight="50.0" minWidth="100.0"
+                      mnemonicParsing="false" onAction="#showKorisnici" prefHeight="50.0"
+                      styleClass="first" text="KORISNICI" textAlignment="CENTER" wrapText="true">
+                      <graphic>
+
+                        <FontIcon fill="white" iconLiteral="mdi-account-multiple" iconSize="25"/>
+                      </graphic>
+                    </Button>
+                    <Button fx:id="bInternet" maxHeight="50.0" minHeight="50.0" minWidth="100.0"
+                      mnemonicParsing="false" onAction="#showInternetMain" prefHeight="50.0"
+                      styleClass="last" text="ADMINISTRACIJA">
+                      <graphic>
+                        <FontIcon fill="white" iconLiteral="mdi-server-network" iconSize="25"/>
+                      </graphic>
+                    </Button>
+                    <Button fx:id="bArtikli" maxHeight="50.0" minHeight="50.0" minWidth="100.0"
+                      mnemonicParsing="false" onAction="#showArtikli" prefHeight="50.0"
+                      text="Artikli">
+                      <graphic>
+                        <FontIcon fill="white" iconLiteral="mdi-store" iconSize="25"/>
+                      </graphic>
+                    </Button>
+                    <Separator orientation="VERTICAL"/>
+                    <Pane HBox.hgrow="ALWAYS"/>
+                    <AnchorPane HBox.hgrow="NEVER">
+                      <children>
+                        <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <JFXButton fx:id="bShowMessage" buttonType="RAISED" text="Poruke"
+                              StackPane.alignment="CENTER"/>
+                            <Circle radius="10.0" strokeLineJoin="BEVEL" strokeType="INSIDE"
+                              strokeWidth="0.5" StackPane.alignment="TOP_RIGHT">
+                              <stroke>
+                                <LinearGradient endX="1.0" endY="1.0">
+                                  <stops>
+                                    <Stop color="BLACK"/>
+                                    <Stop color="WHITE" offset="1.0"/>
+                                  </stops>
+                                </LinearGradient>
+                              </stroke>
+                              <fill>
+                                <RadialGradient centerX="0.50561797752809" centerY="0.5"
+                                  cycleMethod="REFLECT" radius="0.5">
+                                  <stops>
+                                    <Stop color="WHITE"/>
+                                    <Stop color="WHITE" offset="0.00749063670411985"/>
+                                    <Stop color="#c4928d1f" offset="0.00749063670411985"/>
+                                    <Stop color="#13b2da" offset="0.6842961449703023"/>
+                                    <Stop color="BLACK" offset="1.0"/>
+                                  </stops>
+                                </RadialGradient>
+                              </fill>
+                            </Circle>
+                            <Label fx:id="lMessage" alignment="CENTER" contentDisplay="CENTER"
+                              minWidth="20.0" text="0" wrapText="true"
+                              StackPane.alignment="TOP_RIGHT">
+                              <StackPane.margin>
+                                <Insets/>
+                              </StackPane.margin>
+                              <padding>
+                                <Insets top="5.0"/>
+                              </padding>
+                              <font>
+                                <Font size="8.0"/>
+                              </font>
+                            </Label>
+                          </children>
+                        </StackPane>
+                      </children>
+                    </AnchorPane>
+                  </children>
+                  <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  </padding>
+                </HBox>
+                <Separator prefWidth="200.0"/>
+              </children>
+            </VBox>
+          </top>
+          <bottom>
+            <ToolBar BorderPane.alignment="CENTER">
+              <items>
+                <HBox alignment="CENTER_LEFT">
+                  <children>
+                    <Label text="%STATUS"/>
+                    <ImageView fx:id="iStatusServer" fitHeight="20.0" fitWidth="20.0"
+                      pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@../images/logo.png"/>
+                      </image>
+                    </ImageView>
+                    <Label fx:id="lStatusConnection" text="%NOT_CONNECTED"/>
+                  </children>
+                </HBox>
+              </items>
+            </ToolBar>
+          </bottom>
+        </BorderPane>
+      </children>
+    </AnchorPane>
+    <VBox fx:id="vbSideView" maxWidth="300.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
+      <StackPane.margin>
+        <Insets bottom="50.0" left="10.0" top="150.0"/>
+      </StackPane.margin>
+      <children>
+        <JFXButton fx:id="bCloseMessageWin" text="Zatvori"/>
+        <JFXListView fx:id="jfxLIstMessages" depth="2" showTooltip="true"
+          style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS"/>
+      </children>
+    </VBox>
+  </children>
+</StackPane>

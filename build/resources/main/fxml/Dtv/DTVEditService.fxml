@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.172"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.DTV.DTVEditController">
+  <children>
+    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+      AnchorPane.topAnchor="0.0" alignment="CENTER_RIGHT" spacing="5.0" fx:id="vboxMain">
+      <children>
+        <HBox alignment="CENTER" spacing="5.0">
+          <children>
+            <VBox HBox.hgrow="NEVER" spacing="5.0">
+              <children>
+                <HBox VBox.vgrow="NEVER" alignment="CENTER_RIGHT" spacing="5.0">
+                  <children>
+                    <JFXTextField HBox.hgrow="ALWAYS" labelFloat="true" promptText="Broj kartice"
+                      fx:id="tBrKartice">
+                      <padding>
+                        <Insets top="20.0"/>
+                      </padding>
+                    </JFXTextField>
+                    <JFXButton onAction="#izmeniBrojKartice" text="Izmeni"
+                      fx:id="bIzmeniBrojKartice"/>
+                  </children>
+                  <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  </padding>
+                </HBox>
+                <HBox VBox.vgrow="NEVER" alignment="CENTER_RIGHT" spacing="5.0">
+                  <children>
+                    <JFXTextField HBox.hgrow="ALWAYS" labelFloat="true" promptText="Paket ID"
+                      fx:id="tPaketID">
+                      <padding>
+                        <Insets top="20.0"/>
+                      </padding>
+                    </JFXTextField>
+                    <JFXButton onAction="#izmeniPaketID" text="Izmeni" fx:id="bIzmeniPaketID"/>
+                  </children>
+                  <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  </padding>
+                </HBox>
+                <Separator prefWidth="200.0"/>
+                <VBox spacing="5.0">
+                  <children>
+                    <JFXTextField labelFloat="true" promptText="Popust %" fx:id="tpopust">
+                      <padding>
+                        <Insets top="20.0"/>
+                      </padding>
+                    </JFXTextField>
+                    <CheckBox VBox.vgrow="NEVER" mnemonicParsing="false" text="Mesečni obračun"
+                      fx:id="cmbObracun">
+                      <VBox.margin>
+                        <Insets top="20.0"/>
+                      </VBox.margin>
+                    </CheckBox>
+                    <JFXTextField labelFloat="true" promptText="Broj ugovora" fx:id="tBrojUgovora">
+                      <padding>
+                        <Insets top="20.0"/>
+                      </padding>
+                    </JFXTextField>
+                    <JFXTextArea VBox.vgrow="ALWAYS" labelFloat="true" prefColumnCount="20"
+                      prefRowCount="5" promptText="Opis" fx:id="taOpis">
+                      <padding>
+                        <Insets top="20.0"/>
+                      </padding>
+                    </JFXTextArea>
+                    <JFXButton onAction="#snimiIzmeneServisa" text="Snimi"
+                      fx:id="bSnimiIzmeneServisa"/>
+                  </children>
+                  <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  </padding>
+                </VBox>
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+              </padding>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0"/>
+            <VBox HBox.hgrow="NEVER" alignment="CENTER" spacing="5.0">
+              <children>
+                <Label text="KARTICE"/>
+                <HBox VBox.vgrow="NEVER" alignment="CENTER" spacing="5.0">
+                  <children>
+                    <VBox spacing="5.0">
+                      <children>
+                        <JFXComboBox labelFloat="true" promptText="Dodatna Kartica"
+                          fx:id="cmbDodatnaKartica">
+                          <padding>
+                            <Insets top="20.0"/>
+                          </padding>
+                        </JFXComboBox>
+                        <JFXTextField labelFloat="true" promptText="Broj kartice"
+                          fx:id="tDodatnaKarticBroj">
+                          <padding>
+                            <Insets top="20.0"/>
+                          </padding>
+                        </JFXTextField>
+                      </children>
+                      <padding>
+                        <Insets top="5.0"/>
+                      </padding>
+                    </VBox>
+                    <JFXButton onAction="#addDodatnaKartica" text="Dodaj"
+                      fx:id="bAddDodatnaKartica"/>
+                  </children>
+                </HBox>
+                <JFXListView VBox.vgrow="ALWAYS" fx:id="lsDodateneKartice">
+                  <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  </padding>
+                </JFXListView>
+                <JFXButton onAction="#removeAddonCard" text="Izbriši" fx:id="bRemoveAddonCard"/>
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+              </padding>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0"/>
+            <VBox HBox.hgrow="NEVER" alignment="CENTER" spacing="5.0">
+              <children>
+                <HBox VBox.vgrow="ALWAYS" alignment="CENTER" spacing="5.0">
+                  <children>
+                    <VBox alignment="TOP_CENTER" spacing="5.0">
+                      <children>
+                        <Label text="Aktivni dodatni kanali"/>
+                        <JFXListView VBox.vgrow="ALWAYS" fx:id="lsAktivni"/>
+                      </children>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="5.0">
+                      <children>
+                        <JFXButton onAction="#addDodatak" text="&lt;&lt; Dodaj"
+                          fx:id="bAddDodatak"/>
+                        <JFXButton onAction="#removeDodatak" text="Izbriši &gt;&gt;"
+                          fx:id="bRemoveDodatak"/>
+                      </children>
+                      <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                      </padding>
+                    </VBox>
+                    <VBox alignment="TOP_CENTER" spacing="5.0">
+                      <children>
+                        <Label text="Dostupni dodatni kanali"/>
+                        <JFXListView VBox.vgrow="ALWAYS" showTooltip="true" fx:id="lsDostupni"/>
+                      </children>
+                    </VBox>
+                  </children>
+                  <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  </padding>
+                </HBox>
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+              </padding>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0"/>
+            <VBox HBox.hgrow="NEVER" alignment="CENTER">
+              <children>
+                <HBox spacing="5.0">
+                  <children>
+                    <Label text="Ukupna cena:"/>
+                    <Label text="0.00" fx:id="lUkupno"/>
+                    <Label text="din."/>
+                  </children>
+                  <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  </padding>
+                </HBox>
+              </children>
+            </VBox>
+          </children>
+          <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+          </padding>
+        </HBox>
+      </children>
+      <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+      </padding>
+    </VBox>
+  </children>
+</AnchorPane>
