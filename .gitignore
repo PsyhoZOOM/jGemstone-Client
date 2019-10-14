@@ -3,3 +3,7 @@
 /.idea/
 .gradle/
 .idea/
+build
+gradle
+out
+out.ps
