@@ -1,6 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import com.jfoenix.controls.JFXTabPane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,6 +11,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import net.yuvideo.jgemstone.client.classes.Client;
@@ -34,7 +34,7 @@ public class EditKorisnikController implements Initializable {
   public AnchorPane anchorKorisnikOprema;
   public Tab tabKorisnikUsluge;
   public Tab tabUplate;
-  public JFXTabPane tabKorisnikEdit;
+  public TabPane tabKorisnikEdit;
   public Tab tabZaduzenja;
   private Client client;
   public Users userEdit;

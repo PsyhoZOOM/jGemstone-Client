@@ -1,8 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.net.URL;
@@ -19,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.input.KeyEvent;
@@ -32,8 +30,8 @@ import org.json.JSONObject;
 
 public class ZaduzenjaController implements Initializable {
 
-  public JFXListView<MesecnaZaduzenja> listMesec;
-  public JFXTreeTableView<MesecnaZaduzenja> tblZaduzenja;
+  public ListView<MesecnaZaduzenja> listMesec;
+  public TreeTableView<MesecnaZaduzenja> tblZaduzenja;
   public Button bNovoZaduzenje;
   private URL location;
   private ResourceBundle resources;
@@ -81,14 +79,14 @@ public class ZaduzenjaController implements Initializable {
     });
 
     //TABLE
-    JFXTreeTableColumn<MesecnaZaduzenja, String> cDatum = new JFXTreeTableColumn<>("DATUM");
-    JFXTreeTableColumn<MesecnaZaduzenja, Double> cCena = new JFXTreeTableColumn<>("CENA");
-    JFXTreeTableColumn<MesecnaZaduzenja, Integer> cKolicina = new JFXTreeTableColumn<>("KOLIČINA");
-    JFXTreeTableColumn<MesecnaZaduzenja, Double> cPDV = new JFXTreeTableColumn<>("PDV");
-    JFXTreeTableColumn<MesecnaZaduzenja, Double> cPopust = new JFXTreeTableColumn<>("POPUST");
-    JFXTreeTableColumn<MesecnaZaduzenja, String> cNaziv = new JFXTreeTableColumn<>("NAZIV");
-    JFXTreeTableColumn<MesecnaZaduzenja, String> cZaduzenOd = new JFXTreeTableColumn<>("OPERATER");
-    JFXTreeTableColumn<MesecnaZaduzenja, Double> cDug = new JFXTreeTableColumn<>("DUG");
+    TreeTableColumn<MesecnaZaduzenja, String> cDatum = new TreeTableColumn<>("DATUM");
+    TreeTableColumn<MesecnaZaduzenja, Double> cCena = new TreeTableColumn<>("CENA");
+    TreeTableColumn<MesecnaZaduzenja, Integer> cKolicina = new TreeTableColumn<>("KOLIČINA");
+    TreeTableColumn<MesecnaZaduzenja, Double> cPDV = new TreeTableColumn<>("PDV");
+    TreeTableColumn<MesecnaZaduzenja, Double> cPopust = new TreeTableColumn<>("POPUST");
+    TreeTableColumn<MesecnaZaduzenja, String> cNaziv = new TreeTableColumn<>("NAZIV");
+    TreeTableColumn<MesecnaZaduzenja, String> cZaduzenOd = new TreeTableColumn<>("OPERATER");
+    TreeTableColumn<MesecnaZaduzenja, Double> cDug = new TreeTableColumn<>("DUG");
 
     cDatum.setCellValueFactory(new TreeItemPropertyValueFactory<MesecnaZaduzenja, String>("datum"));
     cCena.setCellValueFactory(new TreeItemPropertyValueFactory<MesecnaZaduzenja, Double>("cena"));

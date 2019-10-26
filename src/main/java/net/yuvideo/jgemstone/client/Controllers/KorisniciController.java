@@ -142,15 +142,13 @@ public class KorisniciController implements Initializable {
   }
 
   private void show_table(String username) {
-    if (!chkNaprednaPretraga.isSelected()) {
       if (username.trim().length() < 4) {
         return;
       }
-    }
     tUsers.getItems().clear();
 
     //ako filter nije definisan ne znamo prema cemu da pravimo pretragu
-    if (filteriSearchController != null) {
+    if ((filteriSearchController != null) || (!chkNaprednaPretraga.isSelected())) {
       ObservableList data = FXCollections.observableArrayList(get_user_table_list(username));
       if (data.size() > 0)
         tUsers.setItems(data);

@@ -1,7 +1,6 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
 import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXTreeTableView;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -26,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
@@ -35,6 +35,7 @@ import net.yuvideo.jgemstone.client.Controllers.DTV.DTVEditController;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.BoxPaket;
 import net.yuvideo.jgemstone.client.classes.Client;
+import net.yuvideo.jgemstone.client.classes.DigitalniTVPaket;
 import net.yuvideo.jgemstone.client.classes.FiksnaPaketi;
 import net.yuvideo.jgemstone.client.classes.IPTVPaketi;
 import net.yuvideo.jgemstone.client.classes.InternetPaketi;
@@ -42,7 +43,6 @@ import net.yuvideo.jgemstone.client.classes.NewInterface;
 import net.yuvideo.jgemstone.client.classes.OstaleUsluge;
 import net.yuvideo.jgemstone.client.classes.ServicesUser;
 import net.yuvideo.jgemstone.client.classes.Users;
-import net.yuvideo.jgemstone.client.classes.DigitalniTVPaket;
 import net.yuvideo.jgemstone.client.classes.ugovori_types;
 import net.yuvideo.jgemstone.client.classes.valueToPercent;
 import org.json.JSONObject;
@@ -54,7 +54,7 @@ public class KorisnikUslugeController implements Initializable {
 
 
   //list services
-  public JFXTreeTableView<ServicesUser> tblServices;
+  public TreeTableView<ServicesUser> tblServices;
   public TreeTableColumn cServicesNaziv;
   public TreeTableColumn cServicesDatum;
   public TreeTableColumn cDatumIsteka;
@@ -1418,4 +1418,6 @@ public class KorisnikUslugeController implements Initializable {
   public void setClient(Client client) {
     this.client = client;
   }
+
+
 }

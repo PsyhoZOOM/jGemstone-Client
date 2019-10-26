@@ -3,7 +3,6 @@ package net.yuvideo.jgemstone.client.Controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.net.URL;
@@ -12,7 +11,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,7 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView.TreeTableViewSelectionModel;
+import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
@@ -35,7 +33,7 @@ import org.json.JSONObject;
 
 public class KorisnikUplateController implements Initializable {
 
-  public JFXTreeTableView<Uplate> tUplate;
+  public TreeTableView<Uplate> tUplate;
   public TreeTableColumn<Uplate, String> cOper;
   public TreeTableColumn<Uplate, String> cDatum;
   public TreeTableColumn<Uplate, Double> cDuguje;
@@ -108,6 +106,8 @@ public class KorisnikUplateController implements Initializable {
           }
         });
 
+    //TODO set filter on table uplate
+    tPretraga.setDisable(true);
     tPretraga.textProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -115,6 +115,7 @@ public class KorisnikUplateController implements Initializable {
         if (newValue.isEmpty()) {
           return;
         }
+        /*
         tUplate.setPredicate(new Predicate<TreeItem<Uplate>>() {
           @Override
           public boolean test(TreeItem<Uplate> uplateTreeItem) {
@@ -124,6 +125,7 @@ public class KorisnikUplateController implements Initializable {
                 uplateTreeItem.getValue().getOpis().contains(newValue);
           }
         });
+        */
       }
     });
 

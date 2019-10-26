@@ -7,3 +7,8 @@ build
 gradle
 out
 out.ps
+.gitignore
+.JGemstone.db
+gradlew
+gradlew.bat
+local.properties
