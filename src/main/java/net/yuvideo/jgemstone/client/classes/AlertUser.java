@@ -21,6 +21,9 @@ public class AlertUser {
     alert.setTitle(title);
     alert.setContentText(content);
     alert.setHeaderText("INFORMACIJA");
+    alert.setHeaderText("INFORMACIJA");
+    alert.getDialogPane().getStylesheets();
+    alert.setResizable(true);
     alert.getDialogPane().getStylesheets()
         .add(ClientMain.cssTheme);
     alert.showAndWait();
@@ -31,6 +34,9 @@ public class AlertUser {
     alert.setTitle(title);
     alert.setContentText(content);
     alert.setHeaderText("GREŠKA");
+    alert.setHeaderText("INFORMACIJA");
+    alert.setResizable(true);
+    alert.getDialogPane().getStylesheets();
     alert.getDialogPane().getStylesheets()
         .add(ClientMain.cssTheme);
     alert.showAndWait();
@@ -40,7 +46,10 @@ public class AlertUser {
     alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle(title);
     alert.setContentText(conent);
+    alert.setResizable(true);
     alert.setHeaderText("UPOZORENJE");
+    alert.setHeaderText("INFORMACIJA");
+    alert.getDialogPane().getStylesheets();
     alert.getDialogPane().getStylesheets()
         .add(ClientMain.cssTheme);
     alert.showAndWait();
@@ -51,7 +60,10 @@ public class AlertUser {
     alert = new Alert(Alert.AlertType.WARNING, content, NE, DA);
     alert.setHeaderText(title);
     alert.setContentText(content);
+    alert.setResizable(true);
     alert.setHeaderText("CHOOSE YOUR DESTINY");
+    alert.setHeaderText("INFORMACIJA");
+    alert.getDialogPane().getStylesheets();
     alert.getDialogPane().getStylesheets()
         .add(ClientMain.cssTheme);
 

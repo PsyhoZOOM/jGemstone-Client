@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -86,6 +87,7 @@ public class KorisniciController implements Initializable {
     this.location = location;
     tUsers.getItems().removeAll();
     tUsers.getItems().clear();
+    tUsers.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
 
     tUserSearch.setOnKeyReleased(new EventHandler<KeyEvent>() {
@@ -142,9 +144,6 @@ public class KorisniciController implements Initializable {
   }
 
   private void show_table(String username) {
-      if (username.trim().length() < 4) {
-        return;
-      }
     tUsers.getItems().clear();
 
     //ako filter nije definisan ne znamo prema cemu da pravimo pretragu
@@ -238,27 +237,33 @@ public class KorisniciController implements Initializable {
     } else {
 
       boolean potvrda_brisanja = AlertUser
-          .yesNo("POTVRDA BRISANJA", "Da li ste sigurni da želite da izbrišete koriznika? \n"
+          .yesNo("POTVRDA BRISANJA",
+              "Da li ste sigurni da želite da izbrišete izabrane koriznike? \n"
               + " i svi podaci, servisi, uplate, oprema, fakture.. ko je pripadaju korisniku? ");
       if (!potvrda_brisanja) {
         return;
       }
     }
 
-    Users user = tUsers.getSelectionModel().getSelectedItem();
+    ObservableList<Users> selectedItems = tUsers.getSelectionModel().getSelectedItems();
+    for (Users user : selectedItems) {
+      //   Users user = tUsers.getSelectionModel().getSelectedItem();
 
-    jObj = new JSONObject();
-    jObj.put("action", "delete_user");
-    jObj.put("userId", user.getId());
+      jObj = new JSONObject();
+      jObj.put("action", "delete_user");
+      jObj.put("userId", user.getId());
 
-    jObj = client.send_object(jObj);
-    show_table("");
-    if (jObj.has("ERROR")) {
-      AlertUser.error("GRESKA", jObj.getString("ERROR"));
-    } else {
-      AlertUser.info("KORISNIK OBRISAN", String.format("Korisnik %s je obrisan!", user.getIme()));
-      tUsers.getItems().remove(user);
+      jObj = client.send_object(jObj);
+      if (jObj.has("ERROR")) {
+        AlertUser.error("GRESKA", jObj.getString("ERROR"));
+      } else {
+      }
     }
+
+    for (Users user : selectedItems) {
+      tUsers.getItems().removeAll(selectedItems);
+    }
+
 
   }
 

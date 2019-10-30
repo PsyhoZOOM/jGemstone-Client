@@ -168,7 +168,7 @@ public class KorisnikUslugeController implements Initializable {
                     srvusr.getPaketType().equals("FIX") ||
                     srvusr.getPaketType().equals("IPTV") ||
                     srvusr.getPaketType().equals("OSTALE_USLUGE")
-                ) {
+            ) {
               bIzmeniServis.setDisable(false);
               bDeleteService.setDisable(false);
             } else {
@@ -176,7 +176,7 @@ public class KorisnikUslugeController implements Initializable {
               bDeleteService.setDisable(true);
             }
 
-            if (srvusr.getAktivan() || srvusr.getPaketType().contains("LINKED") || srvusr
+            if (srvusr.isAktivan() || srvusr.getPaketType().contains("LINKED") || srvusr
                 .getPaketType().contains("DTV_ADDON")) {
               bActivateService.setDisable(true);
             } else {
@@ -785,7 +785,6 @@ public class KorisnikUslugeController implements Initializable {
       double zaUplatu = cena - valueToPercent.getPDVOfSum(cena, popust);
       zaUplatu = zaUplatu + valueToPercent.getPDVOfValue(zaUplatu, pdv);
 
-
       service.setCena(cena);
       service.setPopust(popust);
       service.setPdv(pdv);
@@ -1166,7 +1165,6 @@ public class KorisnikUslugeController implements Initializable {
 
     ServicesUser servicesUser = tblServices.getSelectionModel().getSelectedItem().getValue();
 
-
     jObj = new JSONObject();
     jObj.put("action", "activate_new_service");
     jObj.put("service_id", servicesUser.getId());
@@ -1193,7 +1191,11 @@ public class KorisnikUslugeController implements Initializable {
         "Da li ste sigurni da želite da izbrišite uslugu " + srvUser.getValue().getNaziv())) {
       return;
     }
+
+    boolean zaduzi = AlertUser
+        .yesNo("ZADUZIVANJE", String.format("Zaduzi uslugu %s?", srvUser.getValue().getNaziv()));
     jObj.put("serviceID", srvUser.getValue().getId());
+    jObj.put("zaduzi", zaduzi);
 
     jObj = client.send_object(jObj);
 
@@ -1410,7 +1412,6 @@ public class KorisnikUslugeController implements Initializable {
       boxEditController.initData();
       boxEditInterface.getStage().showAndWait();
     }
-
 
     this.setData();
   }

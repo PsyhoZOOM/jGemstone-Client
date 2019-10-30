@@ -53,7 +53,7 @@
                         <TreeTableColumn fx:id="cPDV" prefWidth="75.0" text="PDV"/>
                         <TreeTableColumn fx:id="cZaUplatu" prefWidth="75.0" text="Ukupno"/>
                         <TreeTableColumn fx:id="cServiceObracun" prefWidth="75.0" text="Obračun"/>
-                        <TreeTableColumn fx:id="cServiceAktivan" prefWidth="75.0" text="AKtiviran"/>
+                        <TreeTableColumn fx:id="cServiceAktivan" prefWidth="75.0" text="Aktiviran"/>
                       </columns>
                       <columnResizePolicy>
                         <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>

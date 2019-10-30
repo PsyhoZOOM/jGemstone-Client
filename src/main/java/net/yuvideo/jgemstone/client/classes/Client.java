@@ -41,7 +41,7 @@ public class Client {
   public IntegerProperty rs = new SimpleIntegerProperty();
   public StringProperty strMess = new SimpleStringProperty();
 
-  private static String C_VERSION = "0.216";
+  private static String C_VERSION = "0.217";
 
 
   //Socket socket;
