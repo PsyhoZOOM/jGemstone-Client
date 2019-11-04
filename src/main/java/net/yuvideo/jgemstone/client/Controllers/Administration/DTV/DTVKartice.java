@@ -2,7 +2,6 @@ package net.yuvideo.jgemstone.client.Controllers.Administration.DTV;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.util.ArrayList;
-import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.UserData;
 import org.json.JSONObject;
@@ -53,6 +52,9 @@ public class DTVKartice extends RecursiveTreeObject<DTVKartice> {
   }
 
   public void setData(JSONObject data) {
+    if (!data.has("id")) {
+      return;
+    }
     this.setEndDate(data.getString("endDate"));
     this.setId(data.getInt("id"));
     this.setFreezeDate(data.getString("freezeDate"));

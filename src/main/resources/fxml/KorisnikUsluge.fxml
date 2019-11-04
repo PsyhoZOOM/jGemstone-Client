@@ -165,7 +165,7 @@
           <content>
             <AnchorPane>
               <children>
-                <Label alignment="CENTER_RIGHT" layoutX="75.0" layoutY="188.0"
+                <Label alignment="CENTER_RIGHT" layoutX="89.0" layoutY="188.0"
                   text="Štampa i obračun računa:"/>
                 <ComboBox fx:id="cmbPaketDTV" layoutX="251.0" layoutY="63.0"/>
                 <Label layoutX="154.0" layoutY="68.0" text="Naziv paketa:"/>
@@ -180,13 +180,12 @@
                   mnemonicParsing="false" prefHeight="18.0" prefWidth="170.0" selected="true"/>
                 <Label layoutX="209.0" layoutY="215.0" text="Opis:"/>
                 <TextArea fx:id="tOpisDTV" layoutX="251.0" layoutY="215.0"/>
-                <Button fx:id="bAddServiceDTV" layoutX="679.0" layoutY="408.0"
+                <Button fx:id="bAddServiceDTV" layoutX="626.0" layoutY="408.0"
                   mnemonicParsing="false" onAction="#addServiceDTV" text="Dodaj uslugu">
                   <graphic>
                     <FontIcon fill="white" iconLiteral="eli-plus-sign"/>
                   </graphic>
                 </Button>
-                <Button layoutX="605.0" layoutY="411.0" mnemonicParsing="false" text="Button"/>
               </children>
             </AnchorPane>
           </content>
