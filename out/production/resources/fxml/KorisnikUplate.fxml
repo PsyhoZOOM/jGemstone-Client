@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-
 <AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUplateController">
    <children>
       <VBox spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -23,7 +22,8 @@
                   <JFXDatePicker fx:id="dtpDatum" editable="false" promptText="Datum uplate" />
                   <JFXTextField fx:id="tCena" labelFloat="true" promptText="Uplaćeno" text="0.00" HBox.hgrow="ALWAYS" />
                   <JFXTextField fx:id="tOpis" labelFloat="true" promptText="Opis" />
-                 <JFXButton fx:id="bUplati" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#uplati" text="Uplati" />
+                  <JFXButton fx:id="bUplati" buttonType="RAISED" minHeight="-Infinity"
+                    minWidth="-Infinity" onAction="#uplati" text="Uplati"/>
                   <Pane HBox.hgrow="ALWAYS" />
                   <JFXTextField fx:id="tPretraga" labelFloat="true" promptText="Pretraga" />
                </children>
@@ -36,13 +36,13 @@
             </HBox>
             <Separator prefWidth="200.0" />
             <TreeTableView fx:id="tUplate" VBox.vgrow="ALWAYS">
-              <columns>
+               <columns>
                   <TreeTableColumn fx:id="cOper" prefWidth="75.0" text="OPERATER" />
                   <TreeTableColumn fx:id="cDatum" prefWidth="75.0" text="DATUM" />
                   <TreeTableColumn fx:id="cDuguje" prefWidth="75.0" text="DUGUJE" />
                   <TreeTableColumn fx:id="cPotrazuje" prefWidth="75.0" text="POTRAŽUJE" />
                   <TreeTableColumn fx:id="cOpis" prefWidth="75.0" text="OPIS" />
-              </columns>
+               </columns>
                <columnResizePolicy>
                   <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>

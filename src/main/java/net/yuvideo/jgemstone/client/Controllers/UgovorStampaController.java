@@ -1,15 +1,9 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.print.PageLayout;
-import javafx.print.PageOrientation;
-import javafx.print.Paper;
-import javafx.print.Printer;
-import javafx.print.PrinterJob;
+import javafx.print.*;
 import javafx.scene.text.Font;
 import javafx.scene.web.WebView;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
@@ -17,6 +11,9 @@ import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.Users;
 import net.yuvideo.jgemstone.client.classes.ugovori_types;
 import org.json.JSONObject;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Created by zoom on 4/4/17.
@@ -72,7 +69,7 @@ public class UgovorStampaController implements Initializable {
     PrinterJob printerJob = PrinterJob.createPrinterJob(pri);
     boolean b = printerJob.showPrintDialog(browser.getScene().getWindow());
     PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
-    pageLayout = pri.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, 75, 75, 75, 75);
+    pageLayout = pri.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, 75, 75, 75, 0);
     printerJob.getJobSettings().setPageLayout(pageLayout);
 
     if (printerJob == null && !printerJob.showPrintDialog(browser.getScene().getWindow())) {

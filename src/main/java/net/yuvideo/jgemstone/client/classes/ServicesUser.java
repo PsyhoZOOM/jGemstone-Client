@@ -1,30 +1,31 @@
 package net.yuvideo.jgemstone.client.classes;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import java.io.Serializable;
-import java.util.ArrayList;
 import javafx.scene.control.TreeItem;
 import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by zoom on 2/9/17.
  */
 public class ServicesUser extends RecursiveTreeObject<ServicesUser> implements Serializable,
-    Cloneable {
+        Cloneable {
 
-  private int id;
-  private String naziv;
-  private String datum;
-  private String vrsta;
-  private String brUgovora;
-  private String operater;
-  private Double cena;
-  private Double pdv;
-  private Double popust;
-  private Double zaUplatu;
-  private boolean aktivan;
-  private boolean obracun;
-  private String idUniqueName;
+    private int id;
+    private String naziv;
+    private String datum;
+    private String vrsta;
+    private String brUgovora;
+    private String operater;
+    private Double cena;
+    private Double pdv;
+    private Double popust;
+    private Double zaUplatu;
+    private boolean aktivan;
+    private boolean obracun;
+    private String idUniqueName;
   private int produzenje;
   private int id_ServiceUser;
   private int id_Service;
@@ -178,22 +179,22 @@ public class ServicesUser extends RecursiveTreeObject<ServicesUser> implements S
       servicesUser.setKomentar(objService.getString("komentar"));
 
       //set Ukupno
-      double sCena = servicesUser.getCena();
-      double sPopust = servicesUser.getPopust();
-      double sPdv = servicesUser.getPdv();
-      double sUkupno = sCena - valueToPercent.getPDVOfValue(sCena, sPopust);
-      sUkupno = sUkupno + valueToPercent.getPDVOfValue(sUkupno, sPdv);
-      servicesUser.setZaUplatu(sUkupno);
+        double sCena = servicesUser.getCena();
+        double sPopust = servicesUser.getPopust();
+        double sPdv = servicesUser.getPdv();
+        double sUkupno = sCena - valueToPercent.getPDVOfValue(sCena, sPopust);
+        sUkupno = sUkupno + valueToPercent.getPDVOfValue(sUkupno, sPdv);
+        servicesUser.setZaUplatu(sUkupno);
 
-      rootDTVTree.getChildren().add(new TreeItem<ServicesUser>(servicesUser));
+        rootDTVTree.getChildren().add(new TreeItem<ServicesUser>(servicesUser));
 
     }
-    ukupno = cena - valueToPercent.getPDVOfValue(cena, popust);
-    ukupno = ukupno + valueToPercent.getPDVOfValue(ukupno, pdv);
-    rootDTVTree.getValue().setZaUplatu(ukupno);
-    rootDTVTree.getValue().setCena(cena);
+      ukupno = cena - valueToPercent.getPDVOfValue(cena, popust);
+      ukupno = ukupno + valueToPercent.getPDVOfValue(ukupno, service.getPdv());
+      rootDTVTree.getValue().setZaUplatu(ukupno);
+      rootDTVTree.getValue().setCena(cena);
 
-    return rootDTVTree;
+      return rootDTVTree;
 
   }
 

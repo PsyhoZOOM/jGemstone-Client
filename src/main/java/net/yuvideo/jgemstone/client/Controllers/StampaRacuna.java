@@ -1,5 +1,23 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
+import javafx.print.PageOrientation;
+import javafx.print.Paper;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Window;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
+import net.yuvideo.jgemstone.client.classes.*;
+import net.yuvideo.jgemstone.client.classes.Printing.PrintFaktura;
+import net.yuvideo.jgemstone.client.classes.Printing.PrintRacun;
+import org.json.JSONObject;
+
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -7,32 +25,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Window;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
-import net.yuvideo.jgemstone.client.classes.AlertUser;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.FirmaSettings;
-import net.yuvideo.jgemstone.client.classes.Mesta;
-import net.yuvideo.jgemstone.client.classes.Printing.PrintFaktura;
-import net.yuvideo.jgemstone.client.classes.Printing.PrintRacun;
-import net.yuvideo.jgemstone.client.classes.Racun;
-import net.yuvideo.jgemstone.client.classes.Users;
-import org.json.JSONObject;
 
 public class StampaRacuna implements Initializable {
 
@@ -54,6 +46,7 @@ public class StampaRacuna implements Initializable {
   private ResourceBundle resources;
   private URL location;
   private Client client;
+  private boolean jobDone = false;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -194,6 +187,24 @@ public class StampaRacuna implements Initializable {
     ObservableList<Users> selectedItems = tblKorisnici.getSelectionModel().getSelectedItems();
     Window wind = bStampa.getScene().getWindow();
 
+    Printer printer = Printer.getDefaultPrinter();
+    if (printer == null)
+      for (Printer pr : Printer.getAllPrinters()) {
+        if (pr != null)
+          printer = pr;
+        break;
+      }
+    System.out.println(printer.getName());
+    PrinterJob printerJob = PrinterJob.createPrinterJob(printer);
+    boolean job = printerJob.showPrintDialog(this.bIdShow.getScene().getWindow());
+    if (!job)
+      return;
+
+    System.out.println(printerJob.getPrinter().getName());
+
+    printerJob.getJobSettings().setPageLayout(printerJob.getPrinter()
+            .createPageLayout(Paper.A4, PageOrientation.PORTRAIT, 20, 20, 20, 20));
+
 
     for (int i = 0; i < selectedItems.size(); i++) {
       Racun racun = new Racun();
@@ -216,7 +227,7 @@ public class StampaRacuna implements Initializable {
             dtpZaMesec.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM")),
             this.client);
         printFaktura.userRacun = racun.getRacunArrayList();
-        printFaktura.printFaktura();
+        jobDone = printFaktura.printFaktura(firmaSettings, printerJob);
 
       } else {
         printRacun = new PrintRacun();
@@ -230,13 +241,15 @@ public class StampaRacuna implements Initializable {
         //ako je samo preview nema potrebe za stampacem
 
         racun.initRacun(
-            user.getId(),
-            dtpZaMesec.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM")),
-            this.client);
+                user.getId(),
+                dtpZaMesec.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM")),
+                this.client);
         printRacun.userRacun = racun.getRacunArrayList();
-        printRacun.printRacun();
+        jobDone = printRacun.printRacun(firmaSettings, printerJob);
       }
     }
+    if (jobDone)
+      printerJob.endJob();
   }
 
   public void showPregled(ActionEvent actionEvent) {

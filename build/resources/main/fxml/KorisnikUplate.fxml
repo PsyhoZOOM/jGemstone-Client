@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -13,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+
 <AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.KorisnikUplateController">
    <children>
       <VBox spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -23,8 +23,7 @@
                   <JFXDatePicker fx:id="dtpDatum" editable="false" promptText="Datum uplate" />
                   <JFXTextField fx:id="tCena" labelFloat="true" promptText="Uplaćeno" text="0.00" HBox.hgrow="ALWAYS" />
                   <JFXTextField fx:id="tOpis" labelFloat="true" promptText="Opis" />
-                 <JFXButton fx:id="bUplati" buttonType="RAISED" minHeight="-Infinity"
-                   minWidth="-Infinity" onAction="#uplati" text="Uplati"/>
+                  <JFXButton fx:id="bUplati" buttonType="RAISED" minHeight="-Infinity" minWidth="-Infinity" onAction="#uplati" text="Uplati" />
                   <Pane HBox.hgrow="ALWAYS" />
                   <JFXTextField fx:id="tPretraga" labelFloat="true" promptText="Pretraga" />
                </children>
@@ -36,7 +35,7 @@
                </padding>
             </HBox>
             <Separator prefWidth="200.0" />
-            <JFXTreeTableView fx:id="tUplate" VBox.vgrow="ALWAYS">
+            <TreeTableView fx:id="tUplate" VBox.vgrow="ALWAYS" >
                <columns>
                   <TreeTableColumn fx:id="cOper" prefWidth="75.0" text="OPERATER" />
                   <TreeTableColumn fx:id="cDatum" prefWidth="75.0" text="DATUM" />
@@ -47,7 +46,7 @@
                <columnResizePolicy>
                   <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
-            </JFXTreeTableView>
+            </TreeTableView>
             <HBox alignment="CENTER_RIGHT" spacing="5.0" VBox.vgrow="NEVER">
                <children>
                   <Label text="Duguje:" />
@@ -78,7 +77,7 @@
                   <Pane HBox.hgrow="ALWAYS" />
                   <JFXButton fx:id="bTest" mnemonicParsing="false" onAction="#testProduzenje" text="Test eproduzenje" />
                   <JFXButton fx:id="bShowZaduzenja" buttonType="RAISED" disable="true" onAction="#showZaduzenja" text="Prikaži zaduženja" />
-                  <JFXButton fx:id="bStampa" disable="true" onAction="#stampajUplate" text="Štampa" />
+                  <JFXButton fx:id="bStampa" onAction="#stampajUplate" text="Štampa" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

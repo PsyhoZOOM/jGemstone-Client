@@ -5,76 +5,84 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.EditKorisnikController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.EditKorisnikController">
   <children>
-      <TabPane fx:id="tabKorisnikEdit" tabClosingPolicy="UNAVAILABLE" tabMinHeight="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <tabs>
+    <TabPane fx:id="tabKorisnikEdit" tabClosingPolicy="UNAVAILABLE" tabMinHeight="40.0"
+      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+      AnchorPane.topAnchor="0.0">
+      <tabs>
         <Tab fx:id="tabKorisnickiPodaci" closable="false" text="Korisnički podaci">
           <content>
             <AnchorPane fx:id="anchroKorsinikPodaci">
               <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
               </padding>
             </AnchorPane>
           </content>
           <graphic>
-            <FontIcon fill="white" iconLiteral="eli-user" iconSize="20" />
+            <FontIcon fill="white" iconLiteral="eli-user" iconSize="20"/>
           </graphic>
         </Tab>
-        <Tab fx:id="tabKorisnikUgovori" closable="false" onSelectionChanged="#refreshUgovori" text="Ugovori">
+        <Tab fx:id="tabKorisnikUgovori" closable="false" onSelectionChanged="#refreshUgovori"
+          text="Ugovori">
           <content>
-            <AnchorPane fx:id="anchorKorisnikUgovori" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <AnchorPane fx:id="anchorKorisnikUgovori" maxHeight="1.7976931348623157E308"
+              maxWidth="1.7976931348623157E308">
               <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
               </padding>
             </AnchorPane>
           </content>
           <graphic>
-            <FontIcon fill="white" iconLiteral="eli-list" iconSize="20" />
+            <FontIcon fill="white" iconLiteral="eli-list" iconSize="20"/>
           </graphic>
         </Tab>
-        <Tab fx:id="tabKorisnikUsluge" closable="false" onSelectionChanged="#refreshUgovori" text="Servisi">
+        <Tab fx:id="tabKorisnikUsluge" closable="false" onSelectionChanged="#refreshUgovori"
+          text="Servisi">
           <content>
-            <AnchorPane fx:id="anchorKorisnikUsluge" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <AnchorPane fx:id="anchorKorisnikUsluge" maxHeight="1.7976931348623157E308"
+              maxWidth="1.7976931348623157E308">
               <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
               </padding>
             </AnchorPane>
           </content>
           <graphic>
-            <FontIcon fill="white" iconLiteral="eli-list" iconSize="20" />
+            <FontIcon fill="white" iconLiteral="eli-list" iconSize="20"/>
           </graphic>
         </Tab>
         <Tab fx:id="tabOprema" closable="false" text="Oprema">
           <content>
-            <AnchorPane fx:id="anchorKorisnikOprema" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <AnchorPane fx:id="anchorKorisnikOprema" maxHeight="1.7976931348623157E308"
+              maxWidth="1.7976931348623157E308">
               <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
               </padding>
             </AnchorPane>
           </content>
           <graphic>
-            <FontIcon fill="white" iconLiteral="mdi-settings" iconSize="20" />
+            <FontIcon fill="white" iconLiteral="mdi-settings" iconSize="20"/>
           </graphic>
         </Tab>
         <Tab fx:id="tabUplate" onSelectionChanged="#refreshUplate" text="Uplate">
           <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
           </content>
           <graphic>
-            <FontIcon iconColor="WHITE" iconLiteral="mdi-currency-eur" iconSize="20" />
+            <FontIcon iconColor="WHITE" iconLiteral="mdi-currency-eur" iconSize="20"/>
           </graphic>
         </Tab>
         <Tab fx:id="tabZaduzenja" text="Zaduženja">
           <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
           </content>
           <graphic>
-            <FontIcon iconColor="WHITE" iconLiteral="mdi-format-list-bulleted" />
+            <FontIcon iconColor="WHITE" iconLiteral="mdi-format-list-bulleted"/>
           </graphic>
         </Tab>
-        </tabs>
-      </TabPane>
+      </tabs>
+    </TabPane>
   </children>
 </AnchorPane>

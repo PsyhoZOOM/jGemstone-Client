@@ -1,10 +1,9 @@
 package net.yuvideo.jgemstone.client.classes;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import java.io.Serializable;
-import java.security.PrivateKey;
-import java.util.ArrayList;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by zoom on 9/7/16.

@@ -1,14 +1,8 @@
 package net.yuvideo.jgemstone.client.classes.Printing;
 
-import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.print.PageLayout;
-import javafx.print.PageOrientation;
-import javafx.print.Paper;
 import javafx.print.PrinterJob;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -19,45 +13,48 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import net.yuvideo.jgemstone.client.classes.FirmaSettings;
 import net.yuvideo.jgemstone.client.classes.Racun;
 import net.yuvideo.jgemstone.client.classes.css.cssStyleProperty;
 import net.yuvideo.jgemstone.client.classes.valueToPercent;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 public class PrintFaktura {
 
-  public ArrayList<Racun> userRacun;
-  public boolean showPreview = false;
-  private DecimalFormat df = new DecimalFormat("###,###,###,###,##0.00");
-  public JSONObject firmaData;
-  private PrinterJob printerJob;
-  public boolean printPDV;
+    public ArrayList<Racun> userRacun;
+    public boolean showPreview = false;
+    private DecimalFormat df = new DecimalFormat("###,###,###,###,##0.00");
+    public JSONObject firmaData;
+    private PrinterJob printerJob;
+    public boolean printPDV;
 
 
-  public void printFaktura() {
+    public boolean printFaktura(FirmaSettings firmaSettings, PrinterJob pj) {
 
-    printerJob = PrinterJob.createPrinterJob();
+        this.printerJob = pj;
 
-    printerJob.getJobSettings().setPageLayout(printerJob.getPrinter()
-        .createPageLayout(Paper.A4, PageOrientation.PORTRAIT, 20, 20, 20, 20));
-    printerJob.showPrintDialog(null);
 
-    double _C_NAZIV = 100;
+        double _C_NAZIV = 100;
 
-    final double _C_JMERE = 30;
-    final double _C_KOLICINA = 45;
-    final double _C_CENA = 60;
-    final double _C_STOPA = 20;
-    final double _C_OSNOVICA = 60;
-    final double _C_PDV = 60;
-    final double _C_UKUPNO = 75;
-    if (!printPDV) {
-      _C_NAZIV = _C_NAZIV + _C_CENA + _C_STOPA + _C_PDV;
-      _C_NAZIV += 50;
-    }
+        final double _C_JMERE = 30;
+        final double _C_KOLICINA = 45;
+        final double _C_CENA = 60;
+        final double _C_STOPA = 20;
+        final double _C_OSNOVICA = 60;
+        final double _C_PDV = 60;
+        final double _C_UKUPNO = 75;
+        if (!printPDV) {
+            _C_NAZIV = _C_NAZIV + _C_CENA + _C_STOPA + _C_PDV;
+            _C_NAZIV += 50;
+        }
 
-    Font font =
-        Font.loadFont(
+        Font font =
+                Font.loadFont(
             getClass().getResource("/font/roboto/Roboto-Regular.ttf").toExternalForm(), 9);
     Font fontSmall =
         Font.loadFont(getClass().getResource("/font/roboto/Roboto-Light.ttf").toExternalForm(), 7);
@@ -827,37 +824,38 @@ public class PrintFaktura {
 
     AnchorPane.setTopAnchor(tableTopRacun, 10.0);
     AnchorPane.setTopAnchor(tRacunPodaci, 120.0);
-    AnchorPane.setTopAnchor(adresaPosiljke, 120.0);
-    AnchorPane.setLeftAnchor(adresaPosiljke, 320.0);
-    AnchorPane.setTopAnchor(table, 240.00);
-    AnchorPane.setLeftAnchor(table, 10.0);
-    AnchorPane.setTopAnchor(rowSpecPoreze, 620.0);
-    AnchorPane.setLeftAnchor(rowSpecPoreze, 10.0);
-    AnchorPane.setTopAnchor(rowFin, 680.0);
+        AnchorPane.setTopAnchor(adresaPosiljke, 120.0);
+        AnchorPane.setLeftAnchor(adresaPosiljke, 320.0);
+        AnchorPane.setTopAnchor(table, 240.00);
+        AnchorPane.setLeftAnchor(table, 10.0);
+        AnchorPane.setTopAnchor(rowSpecPoreze, 620.0);
+        AnchorPane.setLeftAnchor(rowSpecPoreze, 10.0);
+        AnchorPane.setTopAnchor(rowFin, 680.0);
 
 
-    anchorPane.setStyle("-fx-background-color: white;");
-    PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
-    double w = pageLayout.getPrintableWidth();
-    double h = pageLayout.getPrintableHeight();
+        anchorPane.setStyle("-fx-background-color: white;");
+        PageLayout pageLayout = this.printerJob.getJobSettings().getPageLayout();
+        double w = pageLayout.getPrintableWidth();
+        double h = pageLayout.getPrintableHeight();
 
-    anchorPane.setPrefSize(w, h);
-    anchorPane.setTranslateY(0);
-    anchorPane.setTranslateX(0);
+        anchorPane.setPrefSize(w, h);
+        anchorPane.setTranslateY(0);
+        anchorPane.setTranslateX(0);
 
-    if (showPreview) {
-      Scene scene = new Scene(anchorPane);
-      Stage stage = new Stage();
-      stage.setScene(scene);
+        if (showPreview) {
+            Scene scene = new Scene(anchorPane);
+            Stage stage = new Stage();
+            stage.setScene(scene);
       stage.showAndWait();
     }else {
 
-      boolean succ = printerJob.printPage(anchorPane);
+            boolean succ = this.printerJob.printPage(anchorPane);
       if (succ) {
-        printerJob.endJob();
+          return true;
       }
     }
 
 
+        return false;
   }
 }

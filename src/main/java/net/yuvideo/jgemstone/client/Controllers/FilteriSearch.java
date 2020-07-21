@@ -1,7 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -11,6 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class FilteriSearch implements Initializable {
 
@@ -57,26 +58,26 @@ public class FilteriSearch implements Initializable {
   }
 
   private void stringBuilder() {
-    query = String.format("SELECT * FROM users WHERE ime LIKE '%s%%'", tIme.getText());
+    query = String.format("SELECT * FROM users WHERE ime LIKE '%%%s%%'", tIme.getText());
     if (chkNazivFirme.isSelected()) {
-      query = String.format("%s AND nazivFirme LIKE '%s%%'", query, tNazivFirme.getText());
+      query = String.format("%s AND nazivFirme LIKE '%%%s%%' AND firma=1", query, tNazivFirme.getText());
     }
     if (chkMesto.isSelected()) {
       query = String
-          .format("%s AND mesto LIKE '%s%%' OR mestoRacuna LIKE '%s%%'", query, tMesto.getText(),
-              tMesto.getText());
+              .format("%s AND mesto LIKE '%%%s%%' OR mestoRacuna LIKE '%%%s%%'", query, tMesto.getText(),
+                      tMesto.getText());
     }
     if (chkAdresa.isSelected()) {
       query = String
-          .format("%s AND adresa LIKE '%s%%' OR adresaRacuna LIKE '%s%%'", query, tAdresa.getText(),
-              tAdresa.getText());
+              .format("%s AND adresa LIKE '%%%s%%' OR adresaRacuna LIKE '%%%s%%'", query, tAdresa.getText(),
+                      tAdresa.getText());
     }
     if (chkTel.isSelected()) {
-      query = String.format("%s AND telMobilni LIKE '%s%%' OR telFiksni LIKE '%s%%'", query,
-          tTelefon.getText(), tTelefon.getText());
+      query = String.format("%s AND telMobilni LIKE '%%%s%%' OR telFiksni LIKE '%%%s%%'", query,
+              tTelefon.getText(), tTelefon.getText());
     }
     if (chkEmail.isSelected()) {
-      query = String.format("%s AND email LIKE '%s%%'", query, tMesto.getText());
+      query = String.format("%s AND email LIKE '%%%s%%'", query, tMesto.getText());
     }
 
   }

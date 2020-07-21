@@ -63,7 +63,7 @@ set CMD_LINE_ARGS=%*
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\jGemstone-Client.jar;%APP_HOME%\lib\javacsv-2.0.jar;%APP_HOME%\lib\json-20180130.jar;%APP_HOME%\lib\qrgen-1.4.jar;%APP_HOME%\lib\sqlite-jdbc-3.25.2.jar;%APP_HOME%\lib\jfoenix-8.0.7.jar;%APP_HOME%\lib\ikonli-javafx-2.1.1.jar;%APP_HOME%\lib\ikonli-elusive-pack-2.1.1.jar;%APP_HOME%\lib\ikonli-materialdesign-pack-2.1.1.jar;%APP_HOME%\lib\GMapsFX-2.12.0.jar;%APP_HOME%\lib\javase-3.0.0.jar;%APP_HOME%\lib\ikonli-core-2.1.1.jar;%APP_HOME%\lib\logback-classic-1.2.1.jar;%APP_HOME%\lib\slf4j-api-1.7.23.jar;%APP_HOME%\lib\core-3.0.0.jar;%APP_HOME%\lib\logback-core-1.2.1.jar
+set CLASSPATH=%APP_HOME%\lib\jGemstone-Client.jar;%APP_HOME%\lib\javacsv-2.0.jar;%APP_HOME%\lib\json-20180130.jar;%APP_HOME%\lib\qrgen-1.4.jar;%APP_HOME%\lib\sqlite-jdbc-3.25.2.jar;%APP_HOME%\lib\jfoenix-8.0.7.jar;%APP_HOME%\lib\ikonli-javafx-2.1.1.jar;%APP_HOME%\lib\ikonli-elusive-pack-2.1.1.jar;%APP_HOME%\lib\ikonli-materialdesign-pack-2.1.1.jar;%APP_HOME%\lib\GMapsFX-2.12.0.jar;%APP_HOME%\lib\JavaAPIforKml-2.2.0.jar;%APP_HOME%\lib\javase-3.0.0.jar;%APP_HOME%\lib\ikonli-core-2.1.1.jar;%APP_HOME%\lib\logback-classic-1.2.1.jar;%APP_HOME%\lib\slf4j-api-1.7.23.jar;%APP_HOME%\lib\jaxb-xjc-2.2.jar;%APP_HOME%\lib\jaxb-impl-2.2.jar;%APP_HOME%\lib\xmlunit-1.2.jar;%APP_HOME%\lib\core-3.0.0.jar;%APP_HOME%\lib\logback-core-1.2.1.jar;%APP_HOME%\lib\jaxb-api-2.2.jar;%APP_HOME%\lib\stax-api-1.0-2.jar;%APP_HOME%\lib\activation-1.1.jar
 
 @rem Execute jGemstone-Client
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %J_GEMSTONE_CLIENT_OPTS%  -classpath "%CLASSPATH%" net.yuvideo.jgemstone.client.ClientMain %CMD_LINE_ARGS%

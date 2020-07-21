@@ -1,18 +1,11 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import java.io.File;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.print.PageLayout;
-import javafx.print.PageOrientation;
-import javafx.print.Paper;
-import javafx.print.Printer;
-import javafx.print.PrinterJob;
+import javafx.print.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -25,6 +18,10 @@ import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.ugovori_types;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
 /**
@@ -153,12 +150,18 @@ public class UgovoriEditController implements Initializable {
     Double margin = 55.0;
     Double mDif = -10.0;
     pl = Printer.defaultPrinterProperty().get()
-        .createPageLayout(Paper.A4, PageOrientation.PORTRAIT, margin, margin, margin, margin);
+            .createPageLayout(Paper.A4, PageOrientation.PORTRAIT, margin, margin, margin, margin);
     Double w = pl.getPaper().getWidth();
     Double h = pl.getPaper().getHeight();
     webV.setMinSize(w - mDif, h - mDif);
     webV.setPrefSize(w - mDif, h - mDif);
     webV.setMaxSize(w - mDif, h - mDif);
+    webV.setMinHeight(pl.getPrintableHeight());
+    webV.setMinWidth(pl.getPrintableWidth());
+    webV.setPrefWidth(pl.getPrintableWidth());
+    webV.setPrefHeight(pl.getPrintableHeight());
+    webV.setMaxWidth(pl.getPrintableWidth());
+    webV.setMaxHeight(pl.getPrintableHeight());
     htmlUgovor.setPadding(new Insets(5, 5, 5, 5));
     webV.getEngine().loadContent(htmlUgovor.getHtmlText());
   }
@@ -176,7 +179,8 @@ public class UgovoriEditController implements Initializable {
       return;
     }
     pj.getJobSettings().setPageLayout(pl);
-    pj.getJobSettings().pageLayoutProperty().setValue(pl);
+    //   pj.getJobSettings().pageLayoutProperty().setValue(pl);
+    pj.getJobSettings().setPageLayout(pl);
     webV.getEngine().print(pj);
     pj.endJob();
     pj.getPrinter().getPrinterAttributes().toString();

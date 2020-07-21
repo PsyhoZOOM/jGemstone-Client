@@ -5,23 +5,13 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import java.net.URL;
-import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableCell;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
@@ -29,7 +19,15 @@ import javafx.util.StringConverter;
 import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.Uplate;
+import net.yuvideo.jgemstone.client.classes.UserData;
 import org.json.JSONObject;
+
+import java.net.URL;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 public class KorisnikUplateController implements Initializable {
 
@@ -50,6 +48,7 @@ public class KorisnikUplateController implements Initializable {
   public JFXButton bIzbrisiUplatu;
   public JFXButton bTest;
   public JFXDatePicker dtpDatum;
+  public JFXButton bStampa;
 
 
   private URL location;
@@ -58,6 +57,7 @@ public class KorisnikUplateController implements Initializable {
   private Client client;
 
   private DecimalFormat df = new DecimalFormat("###,###,###,###,###,##0.00");
+  private ArrayList<Uplate> uplateUser;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -165,11 +165,11 @@ public class KorisnikUplateController implements Initializable {
   private void setTableData() {
     Uplate uplate = new Uplate();
     uplate.setClient(client);
-    ArrayList<Uplate> uplateUser = uplate.getUplateUser(userID);
+    uplateUser = uplate.getUplateUser(userID);
     lDuguje.setText(df.format(uplate.getUkupnoUplaceno()) + String
-        .format(" din. (%f)", uplate.getUkupnoUplaceno()));
+            .format(" din. (%f)", uplate.getUkupnoUplaceno()));
     lPotrazuje.setText(df.format(uplate.getUkupnoDuguje()) + String
-        .format(" din. (%f)", uplate.getUkupnoDuguje()));
+            .format(" din. (%f)", uplate.getUkupnoDuguje()));
     lUkupno
         .setText(
             df.format(uplate.getUkupanDug()) + String.format(" din. (%f)", uplate.getUkupanDug()));
@@ -179,6 +179,7 @@ public class KorisnikUplateController implements Initializable {
         RecursiveTreeObject::getChildren);
     tUplate.setShowRoot(false);
     tUplate.setRoot(treeUplate);
+    tUplate.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
   }
 
@@ -251,6 +252,16 @@ public class KorisnikUplateController implements Initializable {
   }
 
   public void stampajUplate(ActionEvent actionEvent) {
+    if (this.uplateUser.size() < 1) {
+      AlertUser.info("NEMA UPLATE", "Korisnik nema zaduzenja/uplate");
+      return;
+    }
+
+    UserData userData = new UserData(client, userID);
+    ObservableList<TreeItem<Uplate>> objects = tUplate.getSelectionModel().getSelectedItems();
+    KorisnikUplateStampa korisnikUplateStampa = new KorisnikUplateStampa(objects, bStampa.getScene().getWindow(), userData);
+
+
   }
 
   public void testProduzenje(ActionEvent actionEvent) {

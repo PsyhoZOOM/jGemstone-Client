@@ -1,14 +1,7 @@
 package net.yuvideo.jgemstone.client.classes.Printing;
 
-import java.io.File;
-import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import javafx.geometry.Pos;
 import javafx.print.PageLayout;
-import javafx.print.PageOrientation;
-import javafx.print.Paper;
 import javafx.print.PrinterJob;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -25,10 +18,17 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import net.glxn.qrgen.QRCode;
+import net.yuvideo.jgemstone.client.classes.FirmaSettings;
 import net.yuvideo.jgemstone.client.classes.MonthFromNumber;
 import net.yuvideo.jgemstone.client.classes.Racun;
 import net.yuvideo.jgemstone.client.classes.valueToPercent;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class PrintRacun {
 
@@ -41,14 +41,9 @@ public class PrintRacun {
   private PrinterJob printerJob;
 
 
-  public void printRacun() {
-    printerJob = PrinterJob.createPrinterJob();
+  public boolean printRacun(FirmaSettings firmaSettings, PrinterJob pJob) {
+    this.printerJob = pJob;
 
-    printerJob.getJobSettings().setPageLayout(printerJob.getPrinter()
-        .createPageLayout(Paper.A4, PageOrientation.PORTRAIT, 20, 20, 20, 20));
-
-
-    printerJob.showPrintDialog(null);
 
     double NAZIV = 180;
     final double KOLICINA = 30;
@@ -373,11 +368,12 @@ public class PrintRacun {
     racunPodaci.getChildren().add(row);
 
     row = new HBox();
+
     Label rokZaPlacanje =
-        new Label(
-            String.format(
-                "Rok za plaćanje: %s",
-                LocalDate.now().plusDays(30).format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+            new Label(
+                    String.format(
+                            "Rok za plaćanje: %s",
+                            LocalDate.now().plusDays(Long.parseLong(firmaSettings.getFIRMA_ROK_PLACANJA_RACUN())).format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
     rokZaPlacanje.setFont(font);
     cell = new HBox(rokZaPlacanje);
     row.getChildren().add(cell);
@@ -621,12 +617,13 @@ public class PrintRacun {
       System.out.println(printerJob.getJobSettings().getPrintResolution().toString());
       boolean succ = printerJob.printPage(anchorPane);
       if (succ) {
-        printerJob.endJob();
+        return true;
       }
 
 
     }
 
+    return false;
   }
 
 

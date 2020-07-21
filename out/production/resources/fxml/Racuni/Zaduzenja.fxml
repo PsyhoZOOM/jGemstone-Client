@@ -10,17 +10,21 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.yuvideo.jgemstone.client.Controllers.ZaduzenjaController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="net.yuvideo.jgemstone.client.Controllers.ZaduzenjaController">
   <children>
-    <VBox layoutX="148.0" layoutY="84.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <VBox layoutX="148.0" layoutY="84.0" spacing="10.0" AnchorPane.bottomAnchor="0.0"
+      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
         <HBox alignment="CENTER_RIGHT" spacing="6.0" VBox.vgrow="NEVER">
           <children>
-            <Button fx:id="bIzbrisiZaduzenje" mnemonicParsing="false" onAction="#izbrisiZaduzenje" text="Izbriši zaduženje" />
-            <Pane HBox.hgrow="ALWAYS" />
-            <Button fx:id="bIzmenaZaduzenja" mnemonicParsing="false" onAction="#showIzmenaZaduzenja" text="Izmena" />
-            <Button fx:id="bNovoZaduzenje" mnemonicParsing="false" onAction="#showNovoZaduzenje" text="Novo zaduženje" />
+            <Button fx:id="bIzbrisiZaduzenje" mnemonicParsing="false" onAction="#izbrisiZaduzenje"
+              text="Izbriši zaduženje"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button fx:id="bIzmenaZaduzenja" mnemonicParsing="false" onAction="#showIzmenaZaduzenja"
+              text="Izmena"/>
+            <Button fx:id="bNovoZaduzenje" mnemonicParsing="false" onAction="#showNovoZaduzenje"
+              text="Novo zaduženje"/>
           </children>
         </HBox>
         <HBox VBox.vgrow="ALWAYS">
@@ -29,37 +33,37 @@
               <children>
                 <Label text="ZADUŽENJA ZA MESEC">
                   <font>
-                    <Font name="System Bold" size="13.0" />
+                    <Font name="System Bold" size="13.0"/>
                   </font>
                 </Label>
-                        <ListView fx:id="listMesec" VBox.vgrow="ALWAYS" />
+                <ListView fx:id="listMesec" VBox.vgrow="ALWAYS"/>
               </children>
               <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
               </padding>
             </VBox>
             <VBox alignment="TOP_CENTER" spacing="5.0" HBox.hgrow="ALWAYS">
               <children>
                 <Label text="ZADUŽENJA PO USLUGAMA">
                   <font>
-                    <Font name="System Bold" size="13.0" />
+                    <Font name="System Bold" size="13.0"/>
                   </font>
                 </Label>
-                        <TreeTableView fx:id="tblZaduzenja" VBox.vgrow="ALWAYS">
-                           <columnResizePolicy>
-                              <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TreeTableView>
+                <TreeTableView fx:id="tblZaduzenja" VBox.vgrow="ALWAYS">
+                  <columnResizePolicy>
+                    <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                  </columnResizePolicy>
+                </TreeTableView>
               </children>
               <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
               </padding>
             </VBox>
           </children>
         </HBox>
       </children>
       <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
       </padding>
     </VBox>
   </children>

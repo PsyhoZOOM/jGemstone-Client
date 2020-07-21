@@ -1,12 +1,5 @@
 package net.yuvideo.jgemstone.client.Controllers;
 
-import com.jfoenix.controls.JFXCheckBox;
-import java.net.URL;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,38 +7,22 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableCell;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import net.yuvideo.jgemstone.client.Controllers.BOX.BOXEditController;
 import net.yuvideo.jgemstone.client.Controllers.DTV.DTVEditController;
-import net.yuvideo.jgemstone.client.classes.AlertUser;
-import net.yuvideo.jgemstone.client.classes.BoxPaket;
-import net.yuvideo.jgemstone.client.classes.Client;
-import net.yuvideo.jgemstone.client.classes.DigitalniTVPaket;
-import net.yuvideo.jgemstone.client.classes.FiksnaPaketi;
-import net.yuvideo.jgemstone.client.classes.IPTVPaketi;
-import net.yuvideo.jgemstone.client.classes.InternetPaketi;
-import net.yuvideo.jgemstone.client.classes.NewInterface;
-import net.yuvideo.jgemstone.client.classes.OstaleUsluge;
-import net.yuvideo.jgemstone.client.classes.ServicesUser;
-import net.yuvideo.jgemstone.client.classes.Users;
-import net.yuvideo.jgemstone.client.classes.ugovori_types;
-import net.yuvideo.jgemstone.client.classes.valueToPercent;
+import net.yuvideo.jgemstone.client.classes.*;
 import org.json.JSONObject;
+
+import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.ResourceBundle;
 
 /**
  * Created by zoom on 2/2/17.
@@ -116,7 +93,8 @@ public class KorisnikUslugeController implements Initializable {
   public ComboBox<ugovori_types> cmbFixBrojUgovora;
   public TextArea tFixOpis;
   public Button bFixDodajUslugu;
-  public JFXCheckBox chkTempZaduzenje;
+  public CheckBox chkTempZaduzenje;
+  public CheckBox chk_punaCena;
   //IPTV PAKETI
   private Client client;
   public int userID;

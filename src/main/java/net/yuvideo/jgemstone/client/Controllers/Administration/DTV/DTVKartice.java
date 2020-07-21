@@ -1,10 +1,12 @@
 package net.yuvideo.jgemstone.client.Controllers.Administration.DTV;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import java.util.ArrayList;
+import net.yuvideo.jgemstone.client.classes.AlertUser;
 import net.yuvideo.jgemstone.client.classes.Client;
 import net.yuvideo.jgemstone.client.classes.UserData;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class DTVKartice extends RecursiveTreeObject<DTVKartice> {
 
@@ -53,6 +55,7 @@ public class DTVKartice extends RecursiveTreeObject<DTVKartice> {
 
   public void setData(JSONObject data) {
     if (!data.has("id")) {
+      AlertUser.error("GRESKA", "Korisnik nema DTV karticu");
       return;
     }
     this.setEndDate(data.getString("endDate"));
